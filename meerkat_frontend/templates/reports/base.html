@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'includes/header.html' %}
+<body class="application">
+  {% include 'includes/navbar.html' %}
+  <div class="container-fluid">
+    {% block body %}{% endblock %}
+    <!-- FOOTER -->
+    <hr>
+    <footer class="row">
+      <div class="col-sm-4">
+        {% block footer %}{% endblock %}
+      </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <p class="text-right"><img class="who-logo-text-footer" src="{{ base_url }}assets/img/logo/who-logo-text.svg" alt="WHO logo with text"></p>
+      </div>
+    </footer>
+  </div>
+  {% include 'includes/js.html' %}
+  </body>
+</html>

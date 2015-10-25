@@ -1,0 +1,13 @@
+@page {
+  size: A4;
+  margin: 0;
+  padding: 1in;
+  background: #ffffff;
+}
+
+/* setup the footer */
+@page {
+  @bottom {
+    content: flow(footer);
+  }
+}

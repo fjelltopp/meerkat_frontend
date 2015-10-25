@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Jordan Public Health Surveillance</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+</head>
+<body class="application">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><span class="flag-icon flag-icon-jo"></span> <span class="hidden-xs">Jordan &middot; </span>Public Health Surveillance</a>
+      </div>
+      <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav ">
+          <li><a href="#">Home</a></li>
+        </ul>
+      </div>-->
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="container-fluid">
+    <div class="center-block">
+      <h2><img class="who-logo-header"
+           src="assets/img/logo/who-logo-no-text.svg" alt="WHO logo"> Public Health Profile <small>Week 24 &middot; 17 June 2015</small></h2>
+    </div>
+    <div class="row">
+      <!-- KEY FINDINGS -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Key findings</div>
+          <div class="chart-stage">
+            ￼ <p>Information reported in this public health profile represents cumulative cases reported from 234 outpatient clinics in Jordan up until end of Epidemiological Week 24 (17 June 2015).</p>
+            <p>The system began reporting in a phased manner from 6 April 2015.</p>
+            <ul>
+              <li><strong>2,343 cases</strong> reported from 234 reporting sites across the country</li>
+              <li><strong>45.0% female</strong> and <strong>34.1% under five years</strong> of age</li>
+              <li><strong>75.8% morbidity due to communicable disease</strong>, including acute diarrhoea, chicken pox, bloody diarrhoea and meningitis</li>
+              <li><strong>23.1% morbidity due to non-communicable disease</strong>, including diabetes mellitus, hypertension and chronic obstructive pulmonary disease</li>
+            </ul>
+            <h4>Alerts</h4>
+            <ul>
+              <li>36 alerts of suspected <strong>bloody diarrhoea</strong></li>
+              <li>17 alerts of suspected <strong>measles</strong></li>
+              <li>9 alerts of suspected <strong>mumps</strong></li>
+              <li>7 alerts of suspected <strong>brucellosis</strong></li>
+              <li>5 alerts of suspected <strong>leishmaniasis</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- OVERVIEW MAP -->
+      <div class="col-sm-6" id="mapbox-panel">
+        <div class="chart-wrapper">
+          <div class="chart-title">Overview</div>
+          <div class="chart-stage">
+              <div id="map"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- PUBLIC HEALTH INDICATORS -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Public Health Indicators
+          </div>
+          <div class="chart-stage">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>%</th>
+                  <th>#</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>1</td>
+                <td>Cases reported</td>
+                <td></td>
+                <td>2,343</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Smoking prevalence (current)</td>
+                <td>30.6%</td>
+                <td>33</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Prescribing practice recorded</td>
+                <td>10.8%</td>
+                <td>241</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Reproductive Health screening</td>
+                <td>0.0%</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Blood Pressure screening</td>
+                <td>9.8%</td>
+                <td>219</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- REPORTING SITES -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Reporting Sites</div>
+          <div class="chart-stage">
+            <div id="chart-reporting-sites"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- DEMOGRAPHICS -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Demographics</div>
+          <div class="chart-stage">
+            <div id="chart-demographics"></div>
+          </div>
+        </div>
+      </div>
+      <!-- PRESENTING COMPLAINT-->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Presenting Complaint</div>
+          <div class="chart-stage">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>% morbidity</th>
+                  <th># of cases</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>1</td>
+                <td>Non-Communicable Disease</td>
+                <td>76.0%</td>
+                <td>9,743</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Communicable Disease</td>
+                <td>11.2%</td>
+                <td>1,440</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Child Health</td>
+                <td>5.9%</td>
+                <td>761</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Injury</td>
+                <td>1.5%</td>
+                <td>192</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Mental Health</td>
+                <td>2.7%</td>
+                <td>348</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Reproductive Health</td>
+                <td>2.6%</td>
+                <td>337</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>Other</td>
+                <td>6.6%</td>
+                <td>1,094</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- MORBIDITY COMMUNICABLE DISEASE -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Morbidity: Communicable Disease</div>
+          <div class="chart-stage">
+            <div id="chart-mor-communicable-disease"></div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>% morbidity</th>
+                  <th># of cases</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>1</td>
+                <td>Acute diarrhoea</td>
+                <td>68.5%</td>
+                <td>1157</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Chicken Pox</td>
+                <td>22.0%</td>
+                <td>371</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Animal bite</td>
+                <td>5.4%</td>
+                <td>92</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Bloody Diarrhoea</td>
+                <td>2.6%</td>
+                <td>44</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Meningitis</td>
+                <td>2.6%</td>
+                <td>44</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- MORBIDITY NON-COMMUNICABLE DISEASE -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Morbidity: Non-Communicable Disease</div>
+          <div class="chart-stage">
+            <div id="chart-mor-non-communicable-disease"></div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>% morbidity</th>
+                  <th># of cases</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>1</td>
+                <td>Hypertension</td>
+                <td>35.6%</td>
+                <td>149</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Diabetes Mellitus</td>
+                <td>35.2%</td>
+                <td>147</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Obesity</td>
+                <td>13.4%</td>
+                <td>56</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Other</td>
+                <td>12.2%</td>
+                <td>51</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>COPD</td>
+                <td>3.6%</td>
+                <td>15</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- MENTAL HEALTH CONDITIONS -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Mental Health Conditions</div>
+          <div class="chart-stage">
+            <div id="chart-mental-health"></div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>% morbidity</th>
+                  <th># of cases</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>1</td>
+                <td>Mood affective disorders</td>
+                <td>69.6%</td>
+                <td>16</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Neurotic, stress-related and somatoform disorders</td>
+                <td>17.4%</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Schizophrenia, schizotypal and delusion</td>
+                <td>4.3%</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Organic, including symptomatic, mental health disorders</td>
+                <td>4.3%</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td></td>
+                <td>0.0%</td>
+                <td>0</td>
+              </tr>
+            </table>
+            <div class="row">
+              <div class="col-sm-6">
+                <h5 class="text-center">by gender</h5>
+                <div class="chart-stage">
+                  <div id="chart-mental-health-gender"></div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <h5 class="text-center">by age</h5>
+                <div class="chart-stage">
+                  <div id="chart-mental-health-age"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- IMCI CHILD HEALTH CONDITIONS-->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Child Health Conditions</div>
+          <div class="chart-stage">
+            <div id="chart-child-health"></div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>% morbidity</th>
+                  <th># of cases</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>1</td>
+                <td>Other diseases of the digestive system</td>
+                <td>55.0%</td>
+                <td>22</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Other diseases of intestines</td>
+                <td>35.0%</td>
+                <td>14</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Diabetes mellitus</td>
+                <td>7.5%</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Viral infections characterized by skin</td>
+                <td>2.5%</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td></td>
+                <td>0.0%</td>
+                <td>0</td>
+              </tr>
+            </table>
+            <div class="row">
+              <div class="col-sm-6">
+                <h5 class="text-center">by gender</h5>
+                <div class="chart-stage">
+                  <div id="chart-child-health-gender" class="ct-chart ct-square"></div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <h5 class="text-center">by age</h5>
+                <div class="chart-stage">
+                  <div id="chart-child-health-age" class="ct-chart ct-square"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- PUBLIC HEALTH SERVICES -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Public Health Services
+          </div>
+          <div class="chart-stage">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>%</th>
+                  <th># screened</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>1</td>
+                <td>Ever smoked</td>
+                <td>30.6%</td>
+                <td>33</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Current smoker</td>
+                <td>30.6%</td>
+                <td>33</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Smoking advice provided (to current smokers)</td>
+                <td>0.0%</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>HIV referral made</td>
+                <td>0.0%</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>TB referral made</td>
+                <td>0.0%</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- LABORATORY SERVICES -->
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Laboratory Services</div>
+          <div class="chart-stage">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>%</th>
+                  <th># of cases</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>1</td>
+                <td>Blood pressure</td>
+                <td>9.8%</td>
+                <td>219</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Spirometry</td>
+                <td>2.8%</td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Body Mass Index</td>
+                <td>74.9%</td>
+                <td>233</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Renal Function Tests</td>
+                <td>0.0%</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>HbA1c</td>
+                <td>13.7%</td>
+                <td>74</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">More Information</div>
+          <div class="chart-stage">
+            <p>￼A program of primary care and public health surveillance is being implemented in 234 outpatient clinics in Jordan (every MoH hospital, prison, mental health facility and 80% of primary and comprehensive centres), in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
+            <p>The clinician uses the system within the consultation, which introduces clinical- decision support for child health and mental health, as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">Contact Information</div>
+          <div class="chart-stage">
+            <address>
+              <strong>World Health Organization</strong><br>
+              811547<br>
+              Amman 11181<br>
+              Jordan<br>
+              <abbr title="Website">W:</abbr> <a href="https://jordan.emro.info">https://jordan.emro.info</a>
+            </address>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FOOTER -->
+    <hr>
+    <footer class="row">
+      <div class="col-sm-4">
+        <p class="small text-muted"></p>
+      </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <p class="text-right"><img class="who-logo-text-footer" src="assets/img/logo/who-logo-text.svg" alt="WHO logo with text"></p>
+      </div>
+    </footer>
+  </div>
+  <!-- JS -->
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/bootstrap.js"></script>
+  <script src="assets/js/mapbox.js"></script>
+  <script src="assets/js/Leaflet.fullscreen.js"></script>
+  <script src="assets/js/leaflet.markercluster.js"></script>
+  <script src="assets/js/highcharts.js"></script>
+  <script src="assets/js/highcharts-more.js"></script>
+  <script src="assets/js/app.js"></script>
+  </body>
+</html>
