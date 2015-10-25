@@ -29,13 +29,6 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         assert '200 OK' in rv.status
         assert b'WHO' in rv.data
 
-    # Test request data
-    test_request_data = {}
-    enc_request_data = urllib.parse.urlencode(test_request_data)
-
-    def test_api_json(self):
-        """Check a standard API request returns valid JSON"""
-        pass
 
 if __name__ == '__main__':
     unittest.main()
