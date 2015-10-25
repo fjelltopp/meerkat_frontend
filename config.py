@@ -8,13 +8,12 @@ Configuration and settings
 class Config(object):
     DEBUG = False
     TESTING = False
-    reports = {
-        'site_title': 'WHO Public Health Profile',
-        'site_title_short': 'WHO Public Health Profile',
-        'webmaster_email': 'webmaster@emro.info',
-        'api_base_url': 'http://localhost/api'
-    }
-    report_list = {
+    # Global stuff
+    WEBMASTER_EMAIL = 'webmaster@emro.info'
+    # Reports specfic stuff
+    API_ROOT = 'http://localhost/api'
+    REPORT_TITLE = 'WHO Public Health Profile'
+    REPORT_LIST = {
         'jordan': {
             'default_location': 3,
             'keys': {

@@ -3,7 +3,7 @@ reports.py
 
 A Flask Blueprint module for reports.
 """
-from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file
+from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app
 from datetime import datetime, date, timedelta
 try:
     import simplejson as json
@@ -11,23 +11,21 @@ except ImportError:
     import json
 import dateutil.parser
 import requests
-from requests.auth import HTTPBasicAuth
 
 reports = Blueprint('reports', __name__)
-
 
 
 # NORMAL ROUTES
 @reports.route('/')
 def index():
-    redirect(url_for('/reports/jordan/public_health'))
+    redirect(url_for('/jordan/public_health/'))
 
 
 @reports.route('/test/')
 def test():
     """Serves a test report page using a static JSON file."""
     try:
-        with open('report.json') as report:
+        with open('test_report.json') as report:
             report_json = json.load(report)
     except IOError:
         abort(500, "IOError with test report JSON file.")
@@ -50,10 +48,10 @@ def ref():
     return render_template('reports/report_reference.html')
 
 
-@reports.route('/email/<project:re:[A-Za-z0-9-_]+>/<report:re:[A-Za-z0-9-_]+>/', methods=['POST'])
+@reports.route('/email/<project>/<report>/', methods=['POST'])
 def send_email_report(project, report):
     """Sends an email via Mailchimp with the latest report"""
-    projects = app.config['report_list']
+    projects = current_app.config['REPORT_LIST']
     # Hacky hard-coded value to add some semblance of access control...
     if 'apikey' not in request.json or request.json['apikey'] \
        != 'simbasucksass':
@@ -174,13 +172,14 @@ def send_email_report(project, report):
         abort(501)
 
 
-@reports.route('/<project:re:[A-Za-z0-9-_]+>/<report:re:[A-Za-z0-9-_]+>/', name='report')
-@reports.route('/<project:re:[A-Za-z0-9-_]+>/<report:re:[A-Za-z0-9-_]+>/<location:re:[A-Za-z0-9-_]+>/')
-@reports.route('/<project:re:[A-Za-z0-9-_]+>/<report:re:[A-Za-z0-9-_]+>/<location:re:[A-Za-z0-9-_]+>/<year:int>/')
-@reports.route('/<project:re:[A-Za-z0-9-_]+>/<report:re:[A-Za-z0-9-_]+>/<location:re:[A-Za-z0-9-_]+>/<year:int>/<week:int>/', name='report_permalink')
+@reports.route('/<project>/<report>/')
+@reports.route('/<project>/<report>/<location>/')
+@reports.route('/<project>/<report>/<location>/<int:year>/')
+@reports.route('/<project>/<report>/<location>/<int:year>/<int:week>/')
 def report(project, report=None, location=None, year=None, week=None):
     """Serves dynamic report for a location and date"""
     # Check that the requested project and report are valid
+    projects = current_app.config['REPORT_LIST']
     if project in projects and report in projects[project]['reports']:
         if not location:
             location = projects[project]['default_location']
@@ -220,14 +219,14 @@ def report(project, report=None, location=None, year=None, week=None):
         )
 
 
-@reports.route('/error/<error:int>/')
+@reports.route('/error/<int:error>/')
 def error_test(error):
     """Serves requested error page for testing"""
-    abort(error, "This is some test content for an HTTP error page.")
+    abort(error)
 
 
 # STATIC ROUTES
-@reports.route('/assets/<filepath:path>/')
+@reports.route('/assets/<path:filepath>/')
 def serve_static(filepath):
     """Serves static assets (js, css, img etc)"""
     return send_file(filepath)
@@ -241,7 +240,7 @@ def error404(error):
     return render_template('reports/error.html', error=error), 404
 
 
-@reports.errorhandler(500)
+# @reports.errorhandler(500)
 @reports.errorhandler(501)
 @reports.errorhandler(418)
 def error500(error):
@@ -277,18 +276,9 @@ def list_reports(region,
 
 def api(url, project):
     """Returns JSON data from API request"""
-    api_request = ''.join([api_base_url, url])
+    api_request = ''.join([current_app.config['API_ROOT'], url])
     try:
-        if projects[project]['basic_auth']['use_basic_auth']:
-            r = requests.get(
-                api_request,
-                auth=HTTPBasicAuth(
-                    projects[project]['basic_auth']['username'],
-                    projects[project]['basic_auth']['password']
-                )
-            )
-        else:
-            r = requests.get(api_request)
+        r = requests.get(api_request)
     except requests.exceptions.RequestException:
         abort(500)
     try:
