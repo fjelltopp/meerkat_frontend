@@ -30,12 +30,12 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         assert b'WHO' in rv.data
 
     def test_reports(self):
-        """Check the index page loads"""
+        """Check the Reports page loads"""
         rv = self.app.get('/reports')
         assert '200 OK' in rv.status
 
     def test_technical(self):
-        """Check the index page loads"""
+        """Check the Technical page loads"""
         rv = self.app.get('/technical')
         assert '200 OK' in rv.status
 
