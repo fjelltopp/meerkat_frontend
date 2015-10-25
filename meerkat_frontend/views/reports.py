@@ -4,39 +4,17 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file
-from datetime import datetime
-from datetime import date
-from datetime import timedelta
+from datetime import datetime, date, timedelta
 try:
     import simplejson as json
 except ImportError:
     import json
-import os
 import dateutil.parser
 import requests
 from requests.auth import HTTPBasicAuth
 
 reports = Blueprint('reports', __name__)
 
-PATH = os.path.dirname(__file__)
-
-foo = {}
-# SETTINGS
-foo['site_title'] = 'WHO Public Health Profile'
-foo['site_title_short'] = 'WHO Public Health Profile'
-foo['base_url'] = '/reports/'
-foo['webmaster_email'] = 'webmaster@emro.info'
-static_assets_path = PATH+'/assets'
-api_base_url = 'http://localhost/api'
-
-# Load reports.json with config of available reportstry:
-try:
-    with open(''.join([PATH, '/reports.json'])) as report_config:
-        projects = json.load(report_config)
-except IOError:
-    abort(500, "IOError with JSON reports config.")
-except json.JSONDecodeError as e:
-    abort(500, "Error parsing reports JSON config file: {0}".format(e.msg))
 
 
 # NORMAL ROUTES
@@ -49,7 +27,7 @@ def index():
 def test():
     """Serves a test report page using a static JSON file."""
     try:
-        with open(PATH+'/report.json') as report:
+        with open('report.json') as report:
             report_json = json.load(report)
     except IOError:
         abort(500, "IOError with test report JSON file.")
@@ -72,9 +50,10 @@ def ref():
     return render_template('reports/report_reference.html')
 
 
-@reports.post('/email/<project:re:[A-Za-z0-9-_]+>/<report:re:[A-Za-z0-9-_]+>/')
+@reports.route('/email/<project:re:[A-Za-z0-9-_]+>/<report:re:[A-Za-z0-9-_]+>/', methods=['POST'])
 def send_email_report(project, report):
     """Sends an email via Mailchimp with the latest report"""
+    projects = app.config['report_list']
     # Hacky hard-coded value to add some semblance of access control...
     if 'apikey' not in request.json or request.json['apikey'] \
        != 'simbasucksass':
@@ -271,25 +250,22 @@ def error500(error):
 
 
 # FILTERS
+@reports.app_template_filter('datetime')
 def format_datetime(value, format='%H:%M %d-%m-%Y'):
     """Returns formatted timestamp"""
     return value.strftime(format)
 
-foo.filters['datetime'] = format_datetime
 
-
+@reports.app_template_filter('datetime_from_json')
 def datetime_from_json(value):
     """Returns Python datetime object from JSON timestamp in ISO8601 format"""
     return dateutil.parser.parse(value)
 
-foo.filters['datetime_from_json'] = datetime_from_json
 
-
+@reports.app_template_filter('commas')
 def format_thousands(value):
     """Adds thousands separator to values"""
     return "{:,}".format(int(value))
-
-foo.filters['commas'] = format_thousands
 
 
 # FUNCTIONS

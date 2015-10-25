@@ -14,6 +14,8 @@ from .views.reports import reports
 
 # Create the Flask app
 app = Flask(__name__)
+app.config.from_object('config.Development')
+app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS', silent=True)
 
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')
