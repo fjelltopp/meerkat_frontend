@@ -1,0 +1,5 @@
+include *.txt
+recursive-include meerkat_frontend/reports *
+recursive-include meerkat_frontend/templates *
+recursive-include meerkat_frontend/static *
+recursive-include meerkat_frontend/test *
