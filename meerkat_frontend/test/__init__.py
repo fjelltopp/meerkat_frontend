@@ -29,6 +29,16 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         assert '200 OK' in rv.status
         assert b'WHO' in rv.data
 
+    def test_reports(self):
+        """Check the index page loads"""
+        rv = self.app.get('/reports')
+        assert '200 OK' in rv.status
+
+    def test_technical(self):
+        """Check the index page loads"""
+        rv = self.app.get('/technical')
+        assert '200 OK' in rv.status
+
 
 if __name__ == '__main__':
     unittest.main()

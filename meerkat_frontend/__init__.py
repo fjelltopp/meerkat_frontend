@@ -7,16 +7,18 @@ Root Flask app for the Meerkat frontend.
 This module runs as the root Flask app and mounts component Flask apps for
 different services such as the API and Reports.
 """
-from flask import Flask, jsonify, abort, render_template, url_for, request
-from jinja2 import TemplateNotFound
+from flask import Flask
+from .views.homepage import homepage
+from .views.technical import technical
+from .views.reports import reports
 
-# Create default app
+# Create the Flask app
 app = Flask(__name__)
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Register the Blueprint modules
+app.register_blueprint(homepage, url_prefix='/')
+app.register_blueprint(technical, url_prefix='/technical')
+app.register_blueprint(reports, url_prefix='/reports')
 
 # Main
 if __name__ == "__main__":
