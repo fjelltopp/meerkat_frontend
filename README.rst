@@ -2,6 +2,9 @@
 Meerkat Frontend
 ===========
 
+.. image:: https://travis-ci.org/who-emro/meerkat_frontend.svg
+    :target: https://travis-ci.org/who-emro/meerkat_frontend
+
 ::
 
               ,'''''-._
