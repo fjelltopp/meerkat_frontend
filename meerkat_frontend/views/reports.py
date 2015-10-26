@@ -18,7 +18,7 @@ reports = Blueprint('reports', __name__)
 # NORMAL ROUTES
 @reports.route('/')
 def index():
-    redirect(url_for('/jordan/public_health/'))
+    redirect(url_for('test'))
 
 
 @reports.route('/test/')
@@ -26,26 +26,19 @@ def test():
     """Serves a test report page using a static JSON file."""
     try:
         with open('test_report.json') as report:
-            report_json = json.load(report)
+            data = json.load(report)
     except IOError:
         abort(500, "IOError with test report JSON file.")
     except json.JSONDecodeError as e:
         abort(500, "Error parsing test report JSON file: {0}".format(e.msg))
-    report_week = [
-        {
-            'epi_week_num': 42,
-            'epi_week_date': '20150203T2001+0000'
+    # Extra parsing for natural language bullet points in email templates
+    patient_status = {item['title'].lower().replace(" ", ""): {'percent': item['percent'], 'quantity': item['quantity']} for item in data['data']['patient_status']}
+    extras = {
+        'patient_status': patient_status
         }
-    ]
-    return render_template('reports/report_test.html',
-                           report=report_json,
-                           report_week=report_week)
-
-
-@reports.route('/ref/')
-def ref():
-    """Serves a reference report using hard-coded data"""
-    return render_template('reports/report_reference.html')
+    return render_template('reports/report_jordan_public_health_profile.html',
+                           report=data,
+                           extras=extras)
 
 
 @reports.route('/email/<project>/<report>/', methods=['POST'])
