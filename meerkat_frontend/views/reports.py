@@ -19,7 +19,13 @@ reports = Blueprint('reports', __name__)
 # NORMAL ROUTES
 @reports.route('/')
 def index():
-    redirect(url_for('test'))
+    # Hacky hard-coded redirect.
+    # TODO: Replace in config with something elegant
+    return redirect(url_for(
+        '.report',
+        project='jordan',
+        report='public_health')
+        )
 
 
 @reports.route('/test/')
@@ -73,7 +79,6 @@ def send_email_report(project, report):
                                year=epi_year,
                                week=epi_week)
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
-        print(report_url)
         # RENDER!
         # Extra parsing for natural language bullet points in email templates
         patient_status = {
