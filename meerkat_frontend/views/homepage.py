@@ -10,4 +10,4 @@ homepage = Blueprint('homepage', __name__)
 
 @homepage.route('/')
 def index():
-    return 'WHO hello world!'
+    return 'WHO hello world! Test'
