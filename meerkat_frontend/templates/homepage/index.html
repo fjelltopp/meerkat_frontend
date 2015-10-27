@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<ul class="nav navbar-nav">
+  <li><a href="#overview" class="scroll-link" data-id="overview">Overview</a></li>
+  <li><a href="#keyIndicators" class="scroll-link" data-id="keyIndicators">Indicators</a></li>
+  <li><a href="#principles" class="scroll-link" data-id="principles">Principles</a></li>
+  <li><a href="#acknowledgements" class="scroll-link" data-id="acknowledgements">Acknowledgements</a></li>
+</ul>
+{% endblock %}
+
+{% block body %}
+<!-- CONTENT -->
+	 <div id="mobile-home" class="container screen full" > 
+         <H1> Jordan Public<br> Health Surveillance </H1>
+         <div id="logos" >
+            <img src="{{url_for('static', filename='img/homepage/who.png')}}" id="whoMobLogo" ></img>
+            <img src="{{url_for('static', filename='img/homepage/JOH.png')}}" id="johMobLogo" ></img>
+          </div>
+    </div>
+    <div class="container" id="no-map">
+       <p class="lead" > The interactive map, showing summary data collected by the surveillance system, is not available for your window size. <br> <b> Please consider switching to a tablet or desktop device with a larger screen. </b> </p>
+    </div>
+
+    <div class="screen full" id="map-home">
+      <div class="container overlay" id="top-overlay">
+        <div id="key">
+			 <img id="keyImage" src="{{url_for('static', filename='img/homepage/marker-icon-2x.png')}}"></img>
+          <div id="keyText"> Surveillance Sites 
+             <div id="keyBody"> Click on a region/cluster to explore </div>
+          </div>
+        </div>  
+      </div> 
+      <div id="map" class="screen"></div> 
+      <div class="container overlay" id="bottom-overlay">
+		  <div id="map-overlay" class="slideDown"> 
+          <H1> Jordan Public<br> Health Surveillance </H1> 
+          <div id="logos" >
+            <img src="{{url_for('static', filename='img/homepage/who.png')}}" id="whoMapLogo" ></img>
+            <img src="{{url_for('static', filename='img/homepage/JOH.png')}}" id="johMapLogo" ></img>
+          </div>
+        </div>
+        <div id="details" >
+          <div id="detailsTitle" > Information Panel </div>
+          <div id="regionalDetails">
+            <span class="label" id="regionName" > Governorate: </span> <span class="value" id="regionName" > </span></br>
+          </div>
+          <div id="selectionDetails">
+          </div>
+        </div>
+        <div id="techSiteBtn">
+			  <a type="button" class="btn btn-lg btn-default"  href="https://jordan.emro.info/technical" target="_blank" >
+		       Enter the <br> 
+		       <H2>Technical Site</H2> 
+		     </a>  
+        </div> 
+      </div>
+    </div><!-- /.container -->
+	
+    <div class="container" id="overview">
+      <div class="breaker"> </div>
+      <div class="starter-template">
+        <div class="page-header">
+          <h2>Overview</h2>
+        </div>
+
+
+<p class="lead">A national program of public health surveillance is being implemented in 269 sites across Jordan.</p>
+
+<p class="lead">The project introduces case-based, integrated disease surveillance that is coded according to the International Classification of Disease (ICD-10).</p>
+
+<p class="lead">The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and and real-time reporting of information. </p>
+
+<p class="lead">Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting, that is accessed at all levels of the Ministry of Health.</p>
+
+<p class="lead">You can sign up to receive weekly epidemiological reports and updates <a target="_blank" href="http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa">here</a>.</p>
+
+
+      </div>
+<div class="breaker"> </div>
+    </div>
+
+<!--<div class="container" id="about">
+      <div class="breaker"> </div>
+      <div class="starter-template">
+        <div class="page-header">
+          <h1>About</h1>
+        </div>
+        <p class="lead">The Ukrainian health system was already weak in the East of the country before the current crisis and is now collapsing in areas of conflict and population displacement.</p>
+
+<p class="lead">Around 1.4 million people are considered to be highly vulnerable and in need of humanitarian assistance in Eastern Jordan. There is insufficient provision of emergency medical services, including trained first-aid personnel and ambulances as well as intensive care and surgical services including specialised trauma, orthopaedics and burns units.</p>
+
+<p class="lead">Primary health care services are also disrupted, with an increasing lack of medical supplies and human resources. The average vaccination coverage in the country remains under 50%, and around 80% of health care workers have fled the fighting areas or died. As the crisis continues, morbidity is likely to increase from untreated and poorly managed non-communicable diseases including diabetes and hypertension, as well as mental health and gender-based violence. Referral services for chronic diseases including TB and HIV will be disrupted and patients may be lost from care.</p>
+
+<p class="lead">As population displacement increases, vulnerable population groups including women and children, elderly and disabled, and minority groups including the Roma will be affected disproportionately.</p>
+
+
+<p class="lead">The ongoing crisis has had a direct effect on the health of the population, resulting in trauma Adequate emergency medical services, including well equipped ambulances, trained first-aid personnel and health workforce, intensive care, surgeries, burn units, as well as medications and consumables, are insufficient and their immediate availability is a top priority. </p>
+      </div>
+
+    </div><!-- /.container -->
+
+	 <div class="container" id="keyIndicators">
+      <div class="breaker"> </div>
+      <div class="starter-template">
+        <div class="page-header">
+          <h2>Indicators</h2>
+        </div>
+<p class="lead">The following indicators monitor the status and functioning of the health system in Jordan and are automatically updated from health facilities:     </p>
+        <div id="kiViewer">
+        <div id="leftButton" class="chevron"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> </div>
+        <div id="window">
+        <div id="keyIndicatorsList">
+          <div id="consultationsPanel" class="panel keyIndicator">
+            <div  class="kiNumber" > <div id="number_of_consultations" class="kiValue">#</div> </div> <div class="kiLabel">   consultations in total</div>
+          </div>
+          <div id="casesPanel" class="panel keyIndicator">
+		      <div  class="kiNumber" > <div id="number_of_cases" class="kiValue">#</div> </div> <div class="kiLabel"> cases reported </div>
+          </div>
+          <div id="alertsPanel" class="panel keyIndicator ">
+		      <div  class="kiNumber" > <div id="number_of_alerts" class="kiValue">#</div> </div> <div class="kiLabel"> alerts generated </div>
+          </div>
+			 <div id="facilitiesPanel" class="panel keyIndicator ">
+		      <div  class="kiNumber" > <div id="number_of_facilities" class="kiValue">#</div> </div> <div class="kiLabel"> facilities </div>
+          </div>
+
+        </div>
+        </div>
+        <div id="rightButton" class="chevron"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"> </div>
+		  	</div>
+		 
+
+      </div>
+
+    </div><!-- /.container -->
+
+<!--<div class="container" id="reports">
+      <div class="breaker"> </div>
+      <div class="starter-template">
+        <div class="page-header">
+          <h2>Reports</h2>
+        </div>
+        <p class="lead">The system generates regular reports which summarise the data collected.  The reports generated for the last 4 weeks can be veiwed below.</p>
+      </div>
+      <ul class="list-group col-sm-8 col-xs-12 col-md-6" id="reportsList">
+      </ul>
+
+    </div><!-- /.container --> 
+
+<div class="container" id="principles">
+      <div class="breaker"> </div>
+      <div class="starter-template">
+        <div class="page-header">
+          <h2>Principles</h2>
+        </div>
+<p class="lead">The project has the following principles of implementation (click to expand):</p>
+
+<ul class="list-group">
+  <li class="list-group-item">
+    <h4 class="clickable">1. Routine surveillance</h4>
+    <div class="prinCont" >
+The project supports routine surveillance to ensure the national health system is strengthened and the capacity of the Ministry of Health is developed for long-term ownership and response.
+    </div>
+  </li>
+  <li class="list-group-item">
+    <h4 class="clickable">2. Integrated, case based disease surveillance</h4>
+    <div class="prinCont" >
+The project builds on existing national and international surveillance standards, guidelines and case definitions. Diseases, conditions and events are coded according to the International Classification of Disease (ICD-10). 
+    </div>
+  </li>
+  <li class="list-group-item ">
+    <h4 class="clickable">3. Clinical-decision support</h4> 
+    <div class="prinCont" >
+The system includes evidence-based clinical algorithms for integrated management of childhood illness (IMCI) for child health to support and improve the provision of clinical care.
+
+Signs and symptoms, risk factors, diagnostic screening criteria and laboratory advisories are provided for other communicable and non-communicable diseases. 
+  <li class="list-group-item">
+    <h4 class="clickable">4. Best practice prescribing</h4>
+    <div class="prinCont" >
+The system includes the WHO essential medicines list that the clinician can use to prescribe against using best practice guidelines. Information is also collected as to whether the medicine is available for prescribing.
+    </div>
+  </li>
+    <li class="list-group-item"><h4 class="clickable">5. Public health screening and advice</h4>
+    <div class="prinCont" >
+Patients are screened and advice is provided for vaccination status, nutrition, mosquito net ownership and use, maternal care and contraception.
+    </div>
+  </li>
+  <li class="list-group-item"><h4 class="clickable">6. Alerts and notifications</h4>
+    <div class="prinCont" >
+Automated real-time notifications and alerts are generated for 20 notifiable communicable diseases, by SMS and email, within one hour of reporting to inform outbreak investigation and response at the appropriate level of decision-making. A line list of alerts is automatically generated via the online framework which links subsequent alert investigation and outcomes.
+    </div>
+  </li>
+
+  <li class="list-group-item"><h4 class="clickable">7. Real-time analysis and reporting </h4>
+    <div class="prinCont" >
+The system shares structured, anonymised data via an online framework for geospatial data visualisation, generation of alerts, and automated generation of reports.  
+    </div>
+  </li>
+</ul>
+
+      </div>    
+    </div><!-- /.container -->
+
+	 <div class="container " id="acknowledgements">
+      <div class="breaker"> </div>
+      <div class="starter-template">
+        <h2>
+          We gratefully acknowledge the support of <br> our partners in the development of this project.
+        </h2>
+          <div id="acknowledgementImg" >
+            <div class="col-xs-12 col-sm-4" >
+              <img src="{{ url_for('static', filename='img/homepage/who.png') }}" id="whoLogo" ></img> 
+            </div>
+            <div class="col-xs-12 col-sm-4" >
+              <img src="{{ url_for('static', filename='img/homepage/JOH.png') }}" id="johLogo" ></img> 
+            </div>
+				<div class="col-xs-12 col-sm-4" >
+              <img src="{{ url_for('static', filename='img/homepage/kuwait.gif') }}" id="kuwLogo" ></img> 
+            </div>
+          </div>
+ <p class="lead">You can sign up to receive regular e-mail updates <a href="http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa">here</a>.</p>
+
+      </div>
+    </div><!-- /.container -->
+{% endblock %}
+
+{% block footer %}
+    <div class="container full" id="footer">
+      <div class="container lead" id="footerContainer">
+         <p> If you would like to find out more about the project, please contact us:  </p>
+			<div id="address" class="footerBox col-xs-12 col-sm-6 address">
+			World Health Organization<br>
+			811547 <br>
+			Amman 11181<br>
+			Jordan
+			</div>
+			<div id="otherContactInfo" class="footerBox col-xs-12 col-sm-6" > <br>
+         emwrojor@who.int
+			</div>
+      <div>
+    </div>
+{% endblock %}
+
+{% block pageJS %}
+
+<script type="text/javascript">
+
+//SET THE SCREEN SIZE-----------------------------------------
+//Make sure that objects with class screen don't over fill the screen due to the NavBar
+$('.screen').height( $(window).height()-$('.navbar').height() );
+
+//CREATE SLIDABLE LIST ITEMS FOR PRINCIPLES---------------------------------------------
+$('#principles li h4').on( 'click', function(event){
+	$(this).parent().children(".prinCont").slideToggle();
+});
+
+//If there is no console, don't bother logging anything.
+if (typeof console === "undefined") {
+  console = {
+    log: function() { }
+  };
+}
+
+</script>
+
+{% endblock %}
+
+
+

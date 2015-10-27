@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'includes/header.html' %}
+<body class="{{application}}">
+
+<!-- NAVBAR -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><span class="who-logo-white-no-text"></span> <span class="hidden-xs">WHO &middot; </span>Public Health Surveillance</a>
+
+      </div>
+      <div class="collapse navbar-collapse" >
+        {% block menu %}{% endblock %}
+      </div>
+    </div>
+  </nav>
+
+    {% block body %}{% endblock %}
+    <!-- FOOTER -->
+    <footer class="row">
+        {% block footer %}{% endblock %}
+    </footer>
+  {% include 'includes/js.html' %}
+  {% block pageJS %}{% endblock %}
+  </body>
+</html>

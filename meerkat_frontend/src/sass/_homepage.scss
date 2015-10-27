@@ -1,0 +1,506 @@
+body.homepage{
+	padding: 50px 0px 0px;
+}
+
+ul.navbar-nav{
+	float: right;
+}
+
+.full{
+	max-width: 100%;
+	padding: 0;
+}
+
+.navbar{
+	margin-bottom: 0;
+}
+
+.nav li #titleButton{
+  padding: 15px 15px;
+}
+
+html, body{
+	height: 100%;
+	position: relative;
+}
+
+.breaker{
+	background: transparent;
+	height: 50px;
+}
+
+#key{
+	position: absolute;
+	left: 225px;
+	top: 20px;
+}
+
+#keyText{
+	background-color: rgba( 104, 139, 158, 0.8);
+	width: 200px;
+	border-radius: 15px;
+	position: absolute;
+	top: 10px;
+	right: 0px;
+	color: white;
+	padding: 10px 20px 10px 20px;
+	z-index: 1;
+	text-align: right;
+	font-size: 1.3em;
+	display: none;
+
+}
+
+#keyBody{
+	font-size: 0.6em;
+}
+
+
+#keyImage{
+	position: absolute;
+	z-index: 2;
+	right: 170px;
+	display:none;
+}
+
+@media screen and (min-width: 768px){
+
+	#keyText{
+		display: initial;
+	}
+	#keyImage{
+		display: initial;
+	}
+  
+}
+
+.overlay{
+	height: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	position:relative;
+}
+
+#home{
+	position:relative;
+}
+
+#map{
+	cursor: default;
+}
+
+.clickable{
+	cursor: pointer;
+}
+
+.prinCont{
+	display: none;
+}
+
+#map-overlay{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background: white;
+	padding: 30px; 
+	height: auto;
+	overflow: hidden;
+	text-align: center;
+	width: 490px;
+	z-index: 2;
+}
+
+#logos img{
+	overflow: hidden;
+	float: left; 
+	max-height: 150px;
+	margin: 30px;
+	width: initial;
+}
+
+#logos{
+	display: inline-block;
+}
+
+#map-overlay h1{
+	position: static;
+	float: left;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+@media screen and (min-width: 490px){
+	#map-overlay{
+		left: 15px;
+		width: 460px;
+	   border-radius: 40px 40px 0 0;
+	}
+	#key{
+		right: 20px;
+		left: auto;
+	}
+}
+
+.Number, .kiLabel{
+	display: inline;
+	position: relative;
+	width: 100%;
+}
+
+.kiLabel{
+	font-size: 1.5em;
+}
+
+.kiNumber{
+	font-size: 4em;
+	display: inline-block;
+	width:100%;
+}
+
+.kiValue{
+	float:left;
+}
+
+.keyIndicator{
+	padding: 25px;
+	width: 200px;  
+	height: 200px; 
+	margin: 0 5px;
+	background:#688B9E;
+	color: white; 
+	border-radius: 20px;
+	float: left;
+}
+
+#keyIndicatorsList{
+	width: 1300px;
+	display: inline-block;
+	position: absolute;
+	left: 0px;
+
+}
+
+.chevron{
+	font-size: 35px;
+	float: left;
+	width:35px;
+}
+
+.chevron span{
+	line-height: 200px;
+	cursor: pointer;
+}
+
+#window{
+	position: relative;
+	height: 200px;
+	width: 630px;
+	overflow: hidden;
+	margin: 0 auto;
+	float: left;
+}
+
+#kiViewer{
+	width: 700px;
+	margin: 50px auto;
+}
+
+@media (max-width: 700px) {
+    
+   #kiTitle{
+		width: 200px;
+		height: 40px;
+		margin: 0 5px 10px 5px;
+   }
+   
+	#kiTitle h3{
+		width: 200px;
+      margin: 0px 5px;
+		font-size: 18px;
+      font-weight: 700;
+	}
+
+	#window{
+		width: 210px;
+	}
+
+   #kiViewer{
+		width: 280px;
+   }
+
+   #titleList{
+	   left: -5px;   
+	}  
+}
+
+#acknowledgements{
+	text-align: center;
+}
+
+
+@media screen and (max-width: 768px){
+	#acknowledgements br{
+		display:none;
+	}
+}
+
+#acknowledgements img{
+	max-height: 200px; /* was 350px*/
+	max-width: 100%;
+   margin: 15px 0;
+}
+
+
+#supportersImg img{
+	max-height: 150px;
+}
+
+#acknowledgementImg, #supportersImg{
+	display: inline-block;
+	margin: 20px 0px;
+}
+
+
+@media screen and (max-width: 500px){
+	#acknowledgements H2{
+		font-size: 20px;
+	}
+}
+
+footer{
+	background-color: #688B9E;
+   color: #FFF !important;
+   border-top: 1px solid #537080;
+}
+
+#footerContainer{
+	padding: 20px;
+	text-align: center;
+}
+
+.footerBox{
+
+	padding: 0 20px;
+	margin-top: 20px;
+}
+
+#address{
+	text-align:right;
+	border-right: solid 1px white;
+}
+
+@media screen and (max-width: 768px){
+	#address{
+		border-right: none;
+		text-align: left;
+	}
+}
+
+#otherContactInfo{
+	text-align: left;
+}
+
+#reportsList{
+	margin: 75px auto;
+	font-size: 1.3em;
+	text-align: center;
+	float: none;
+}
+
+#techSiteBtn{
+    padding: 15px 0px;
+    position: absolute;
+    right: 20px;
+    bottom: 65px;
+	 z-index: 3;
+    display: block;
+    float: initial;
+	 text-align: center;
+}
+
+
+@media screen and (max-width: 700px){
+	#techSiteBtn{
+    padding: 50px 0px 0px;
+    position: static;
+	}
+
+   #overview{
+		margin-top: 100px;
+	}
+}
+
+#techSiteBtn a {
+    background-color: #688B9E;
+    color: #FFF;
+    border-radius: 20px;
+    width: 250px;
+	 display: inline-block;
+}
+
+#techSiteBtn H2{
+	margin: 5px 0;
+}
+#techSiteBtn a:hover{
+	background-color: #4e829e;
+	color: white;
+}
+
+.marker-cluster-small, .marker-cluster-medium, .marker-cluster-large{
+	background-color: #5ea6d6
+	
+}
+
+.marker-cluster-small div, .marker-cluster-medium div, .marker-cluster-large div{
+	background-color: #2b83cb;
+	color: white;
+} 
+
+.colouredPane{
+	background-color:#e1e4c7;
+}
+
+#navBarImg{
+
+	max-height: 40px;
+	vertical-align: bottom;
+	float: left;
+	margin-right: 15px;
+	margin-top: 7px;
+	margin-left: 10px;
+
+}
+
+#no-map{
+	background-color: rgb(255, 200, 200);
+	display: none;
+   padding-top: 15px;
+   text-align: center;
+}
+
+#titleButton b{
+	margin-right: 5px;
+}
+
+#mobileTitleButton{
+	display: none;
+   font-size: 15px;
+}
+
+#mobile-home{
+	padding-top: 40px;
+	display: none;
+   text-align: center;
+}
+
+#mobile-home img{
+   max-width: 100px;
+   margin: 15px;
+}
+
+#mobile-home H1{
+	font-size: 25px;
+}
+
+#mobile-home{
+   display: none;
+}
+ 
+#mobile-logos{
+	width: 260px;
+}
+
+@media screen and (max-width: 500px){
+	#map-home{
+		display:none
+	}
+   
+   #mobile-home{
+      display: block;
+   }
+
+   #map-menu-button{
+      display: block;
+   }
+
+   #mobileTitleButton{
+		display: inline-block;
+      padding: 10px 5px;
+	}
+   #titleButton{
+		display: none;
+	}
+
+   #navBarImg{
+		margin: 12px 10px;
+      max-width: 40px;
+   }
+
+   .navbar-toggle{
+		margin-top: 15px;
+	}	
+
+	#no-map{
+		display: block;
+	}
+
+}
+
+
+
+
+
+.featherlight{
+	z-index: 1035;
+}
+
+#details{
+	background-color: rgba( 104, 139, 158, 0.8);
+	border-radius: 15px;
+	position: absolute;
+	bottom: 50px;
+	left: 15px;
+	color: white;
+	padding: 10px 20px 10px 20px;
+	z-index: 1;
+	font-size: 1.3em;
+	min-width: 250px;
+
+}
+
+#detailsTitle{
+	font-weight: bold;
+	border-bottom: solid white 1px;
+	padding-bottom: 5px;
+
+}
+
+#details .label{
+	padding: 0;
+	line-height: 75%;
+}
+
+#details .value{
+	font-size: 75%;
+	line-height: 75%;
+}
+
+path.leaflet-clickable{
+   cursor: default;
+}
+
+
+#lat.label, #lng.label{
+	width: 20%;
+	text-align: left;
+	float: left;
+	margin-top: 10px;
+}
+
+#lat.value, #lng.value{
+	width:30%;
+	float: left;
+	margin-top: 10px;
+}

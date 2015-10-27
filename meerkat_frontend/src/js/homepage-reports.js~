@@ -1,0 +1,52 @@
+//CHECK THE REPORTS EXIST---------------------------------------------
+
+//This method checks whether the file at a given url exists.  
+//It is used to determine which reports are available to view.
+function UrlExists(url)
+{
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status==200;
+}
+
+//Calculate which week we are in.
+function get_epi_week(){
+    date=new Date();
+    ms=date.getTime()
+    date_early= new Date(2014,0,1);
+    date_early=date_early.getTime();
+    days=Math.floor((ms-date_early)/(3600*24*1000));
+    return Math.floor(days/7)+1
+
+}
+
+$(document).ready(function(){ 
+var currentWeek = get_epi_week();
+
+//Flag to check that at least one report exists.  
+var reportsExist = false;
+var noWeeks = 4;
+//For each of the last 10 weeks, check if a report exists.
+for ( var i=0; i<noWeeks; i++) {
+   var url= "/reports/[MOH Jordan] Public Health Indicator Report Week "
+            +(currentWeek-i)
+            +".pdf";
+	// If the file exists, then add a suitable link to the reports list in the site.
+	if( UrlExists(url) ){
+		$("#reportsList").append( "<li class='list-group-item'><a target='_blank' href='"+
+										  url +"'> System report for Week " + (currentWeek-i) + "</a></li>" );
+		reportsExist =true;
+   //If the file doesn't link, inform the user and stop searching for files.
+   //This assumes that the reports are continuous - i.e. there won't be gaps in the reporting.
+	}else{
+		$("#reportsList").append( "<li class='list-group-item alert-danger'>No report exists for week "+(currentWeek-i)+"</li>" );
+	}
+} 
+
+//If no reports exist, throw a suitable error message.
+if( !reportsExist ){
+  $("#reportsList").empty();
+  $("#reportsList").append("<li class='list-group-item alert-danger' >No reports generated in the past "+ noWeeks+" weeks.</li>");
+}
+
