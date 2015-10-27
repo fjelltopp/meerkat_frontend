@@ -1,9 +1,15 @@
 language: python
 python:
 - '3.5'
+before_script:
+  - npm install -g gulp
 install:
 - pip install .
 - pip install -r .travis-requirements.txt
+- npm install
+before_script:
+- bower install
+- gulp
 script: nosetests
 notifications:
   slack:
