@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 meerkat_frontend.py
 
@@ -22,6 +21,14 @@ app.register_blueprint(homepage, url_prefix='/')
 app.register_blueprint(technical, url_prefix='/technical')
 app.register_blueprint(reports, url_prefix='/reports')
 
-# Main
-if __name__ == "__main__":
-    app.run(host="localhost", port="8080", debug=True, reloader=True)
+# Logging to syslog
+if not app.debug:
+    import logging
+    from logging.handlers import SysLogHandler
+    syslog = SysLogHandler(address=app.config['SYSLOG_PATH'])
+    syslog.setLevel(logging.WARNING)
+    syslog.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s '
+        '[in %(pathname)s:%(lineno)d]'
+    ))
+    app.logger.addHandler(syslog)
