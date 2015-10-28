@@ -43,7 +43,7 @@ html, body{
 	top: 10px;
 	right: 0px;
 	color: white;
-	padding: 10px 20px 10px 20px;
+	padding: 10px;
 	z-index: 1;
 	text-align: right;
 	font-size: 1.3em;
@@ -269,7 +269,7 @@ html, body{
 	}
 }
 
-#footer{
+footer{
 	background-color: #688B9E;
    color: #FFF !important;
    border-top: 1px solid #537080;

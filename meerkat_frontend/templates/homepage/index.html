@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'homepage/base.html' %}
 
 {% block menu %}
 <ul class="nav navbar-nav">
@@ -27,7 +27,7 @@
         <div id="key">
 			 <img id="keyImage" src="{{url_for('static', filename='img/homepage/marker-icon-2x.png')}}"></img>
           <div id="keyText"> Surveillance Sites 
-             <div id="keyBody"> Click on a region/cluster to explore </div>
+             <div id="keyBody"> Click on a region to explore </div>
           </div>
         </div>  
       </div> 
@@ -242,27 +242,7 @@ The system shares structured, anonymised data via an online framework for geospa
 {% endblock %}
 
 {% block pageJS %}
-
-<script type="text/javascript">
-
-//SET THE SCREEN SIZE-----------------------------------------
-//Make sure that objects with class screen don't over fill the screen due to the NavBar
-$('.screen').height( $(window).height()-$('.navbar').height() );
-
-//CREATE SLIDABLE LIST ITEMS FOR PRINCIPLES---------------------------------------------
-$('#principles li h4').on( 'click', function(event){
-	$(this).parent().children(".prinCont").slideToggle();
-});
-
-//If there is no console, don't bother logging anything.
-if (typeof console === "undefined") {
-  console = {
-    log: function() { }
-  };
-}
-
-</script>
-
+{% include 'homepage/pageJS.html' %}
 {% endblock %}
 
 

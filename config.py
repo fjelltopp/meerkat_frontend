@@ -43,12 +43,12 @@ class Production(Config):
     DEBUG = False
     TESTING = False
 
-
 class Development(Config):
     DEBUG = True
     TESTING = True
-
+    API_ROOT = '/api'
 
 class Testing(Config):
     DEBUG = False
     TESTING = True
+    API_ROOT = '/api'

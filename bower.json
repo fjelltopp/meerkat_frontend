@@ -21,7 +21,8 @@
     "fontawesome": "~4.3.0",
     "leaflet.markercluster": "~0.4.0",
     "highcharts": "~4.1.7",
-    "Leaflet.fullscreen": "Leaflet/Leaflet.fullscreen#~0.0.4"
+    "Leaflet.fullscreen": "Leaflet/Leaflet.fullscreen#~0.0.4",
+    "leaflet-omnivore": "~0.3.2"
   },
   "overrides": {
     "Leaflet.fullscreen": {
