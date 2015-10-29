@@ -43,9 +43,9 @@ gulp.task('jshint', function() {
 gulp.task('vendorJS', function() {
   return gulp.src(mainBowerFiles())
     .pipe(filter('*.js'))
-    //.pipe(sourcemaps.init())
+    .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
-    //.pipe(sourcemaps.write())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/js'));
 });
 
