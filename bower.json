@@ -25,7 +25,7 @@
   },
   "overrides": {
     "Leaflet.fullscreen": {
-      "main": "meerkat_frontend/src/Leaflet.fullscreen.js"
+      "main": "src/Leaflet.fullscreen.js"
     }
   }
 }
