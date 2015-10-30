@@ -13,7 +13,9 @@ setup(
         'itsdangerous>=0.24',
         'Jinja2>=2.8',
         'MarkupSafe>=0.23',
-        'Werkzeug>=0.10.4'
+        'python-dateutil>=2.4.2',
+        'requests>=2.8.1',
+        'Werkzeug>=0.10.4',
     ],
     test_suite='meerkat_frontend.test'
 )

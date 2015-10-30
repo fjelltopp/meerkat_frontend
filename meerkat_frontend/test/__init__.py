@@ -32,7 +32,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_reports(self):
         """Check the Reports page loads"""
         rv = self.app.get('/reports/')
-        assert '200 OK' in rv.status
+        assert '200 OK' or '302 FOUND' in rv.status
 
     def test_technical(self):
         """Check the Technical page loads"""

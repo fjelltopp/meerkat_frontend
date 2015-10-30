@@ -1,0 +1,143 @@
+// Custom
+
+// WHO LOGO
+
+// for displaying as background to <span class="logo who-logo-no-text"> element
+.logo {
+  background-size: 100% auto; // Previously "cover"
+  background-position: 50%;
+  background-repeat: no-repeat;
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  line-height: 1.9em;
+  margin-top: -6px;
+}
+
+.logo:before {
+  content: "\00a0";
+}
+
+.who-logo-no-text {
+  @extend .logo;
+  background-image:url(../img/logo/who-logo-no-text.svg);
+}
+
+.who-logo-white-no-text {
+  @extend .logo;
+  background-image:url(../img/logo/who-logo-white-no-text.svg);
+}
+
+.who-logo-text {
+  @extend .logo;
+  background-image:url(../img/logo/who-logo-text.svg);
+}
+
+// For use with <img class="">
+.who-logo-navbar {
+  max-width: 2em;
+  margin-top: -7px;
+}
+
+.who-logo-header {
+  max-width: 1.5em;
+}
+
+.who-logo-text-footer {
+  max-height: 2.4em;
+}
+
+.report-week {
+  @extend small;
+  @extend .dropdown;
+  a {
+    color: $gray-light;
+  }
+}
+
+
+// CHARTS
+.ct-bar {
+  stroke-width: 25px;
+}
+
+.ct-label {
+  font-size: 0.8em;
+}
+
+// Tooltips
+.chartist-tooltip {
+  position:absolute;
+  display:inline-block;
+  min-width:5em;
+  padding:.5em;
+  background:#F4C63D;
+  color:#453D3F;
+  font-weight:700;
+  text-align:center;
+  pointer-events:none;
+  z-index:1
+}
+
+.chartist-tooltip:after {
+  content:"";
+  position:absolute;
+  top:100%;
+  left:50%;
+  width:0;
+  height:0;
+  margin-left:-15px;
+  border:15px solid transparent;
+  border-top-color:#F4C63D
+}
+
+
+// MAPBOX
+#mapbox-panel .chart-stage {
+  height: 350px;
+}
+#map {
+  bottom: 0;
+  height: 100%;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  width: 100%;
+}
+
+// Leaflet fullscreen
+
+.leaflet-control-fullscreen a {
+  background:#fff url(../img/fullscreen.png) no-repeat 0 0;
+  background-size:26px 52px;
+  }
+  .leaflet-fullscreen-on .leaflet-control-fullscreen a {
+    background-position:0 -26px;
+    }
+
+/* Do not combine these two rules; IE will break. */
+.leaflet-container:-webkit-full-screen {
+  width:100%!important;
+  height:100%!important;
+  }
+.leaflet-container.leaflet-fullscreen-on {
+  width:100%!important;
+  height:100%!important;
+  }
+
+.leaflet-pseudo-fullscreen {
+  position:fixed!important;
+  width:100%!important;
+  height:100%!important;
+  top:0!important;
+  left:0!important;
+  z-index:99999;
+  }
+
+@media
+  (-webkit-min-device-pixel-ratio:2),
+  (min-resolution:192dpi) {
+    .leaflet-control-fullscreen a {
+      background-image:url(../img/fullscreen@2x.png);
+    }
+  }
