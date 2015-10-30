@@ -285,11 +285,11 @@ def api(url, project):
 
 def epi_week_to_date(epi_week, year=datetime.today().year):
     """Converts an epi_week (int) to a datetime object"""
-    year_epoch = date(year, 1, 1)
+    year_epoch = datetime(year, 1, 1)
     return year_epoch + timedelta(weeks=epi_week)
 
 
 def date_to_epi_week(day=datetime.today()):
     """Converts a datetime object to an epi_week (int)"""
     year_epoch = datetime(day.year, 1, 1)
-    return (day-year_epoch).days/7+1
+    return int((day-year_epoch).days/7+1)
