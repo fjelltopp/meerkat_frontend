@@ -26,10 +26,10 @@
   },
   "overrides": {
     "Leaflet.fullscreen": {
-      "main": "meerkat_frontend/src/Leaflet.fullscreen.js"
+      "main": "dist/Leaflet.fullscreen.js"
     },
     "leaflet-omnivore":{
-      "main":["./bower_components/leaflet-omnivore/leaflet-omnivore.js"]
+      "main":"leaflet-omnivore.js"
     }
   }
 }

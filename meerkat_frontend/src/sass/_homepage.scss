@@ -1,4 +1,4 @@
-body.homepage{
+body{
 	padding: 50px 0px 0px;
 }
 
@@ -503,4 +503,14 @@ path.leaflet-clickable{
 	width:30%;
 	float: left;
 	margin-top: 10px;
+}
+
+.row-centered{
+  text-align:center;
+}
+
+.row-centered .col-centered{
+  display: inline-block;
+  margin-right: -4px;
+  float: none;
 }

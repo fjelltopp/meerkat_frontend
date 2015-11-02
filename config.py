@@ -4,13 +4,15 @@ config.py
 Configuration and settings
 """
 
-
 class Config(object):
     DEBUG = False
     TESTING = False
     # Global stuff
     ROOT_URL = 'https://jordan.emro.info'
     WEBMASTER_EMAIL = 'webmaster@emro.info'
+    # Homepage stuff
+    HOMEPAGE_CONFIG = 'homepage_config.json'
+
     # Reports specfic stuff
     API_ROOT = 'https://jordan.emro.info/api'
     REPORT_TITLE = 'WHO Public Health Profile'
@@ -39,7 +41,7 @@ class Config(object):
             'basic_auth':{
                 'username': '',
                 'password': ''
-    }
+            }
         }
     }
     SYSLOG_PATH = '/dev/log'# On Linux: '/dev/log'; on OS X: '/var/run/syslog'

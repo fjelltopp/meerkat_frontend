@@ -110,13 +110,9 @@ console.log("ready");
     var map = L.mapbox.map('map', 'mrjb.k60d95kl', { zoomControl:false });
 
     function resetMapView (map){
-      //Determine the map position based on the screen size
-      if( $(window).width() < 490 ){
-           map.setView([30.850011, 35.470810], 8);
-      }else{
-           map.setView([30.850011, 35.470810], 8);
-      }
-      //Ensure the map overlay is visible
+		//Set the map position.
+      map.setView([{{content.map.center.lat}}, {{content.map.center.lng}}], {{content.map.zoom}});
+      //Ensure the map overlay is visible.
       $('#map-overlay').slideDown();  
       $('#techSiteBtn').slideDown();
       // Disable drag and zoom handlers.
@@ -142,8 +138,7 @@ console.log("ready");
             var m = L.marker( [ z.lat, z.lng]);
             m.name = z.name;
             m.cases = z.cases;
-            m.consulatations = z.consultations;
-            console.log(m);
+            m.consultations = z.consultations;
             markers.addLayer( m );
          }
       });
@@ -219,7 +214,7 @@ console.log("ready");
     });
 
     //Attach the custom layer features to the kml data and display on map.
-    var regionalLayer = omnivore.kml("{{url_for( 'static', filename='regional.kml')}}", null, customLayer );
+    var regionalLayer = omnivore.kml("{{url_for( 'static', filename='files/'+content.map.reg_data_file)}}", null, customLayer );
 
     function enterMap(a){
          //Hide the overlay.
@@ -245,8 +240,8 @@ console.log("ready");
          $("#regionName.value").text(a.layer.gov);
          govSiteClash = true;
       }
-
-      var info =  "<span id='name' $( document ).ready()class='label' > Facility Name: </span> <span id='name' class='value' > " +
+		
+      var info =  "<span id='name' class='label' > Facility Name: </span> <span id='name' class='value' > " +
                   a.layer.name + "</span></br>" +
                   "<span id='cons' class='label' > # Consultations: </span> <span id='cons' class='value' > " +
                   a.layer.consultations + "</span></br>" +
@@ -258,8 +253,9 @@ console.log("ready");
                   Math.round(a.layer.getLatLng().lng*10000)/10000+ "</span></br>";
       
       $("#selectionDetails").html(info);  
+		console.log(a.layer);
     });
-
+	
     //Allow the user to click on the key in order to zoom out.
     $('#keyText').on('click', function(event){
          resetMapView(map);
