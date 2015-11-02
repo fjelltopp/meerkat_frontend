@@ -136,7 +136,6 @@ console.log("ready");
 
     var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
 
-
     $.getJSON( "{{config['API_ROOT']}}/map", function( data ){
       $.each( data.map, function( x, z ){ 
           if( z.lat !== "" && z.lng !== "" ){
@@ -220,7 +219,7 @@ console.log("ready");
     });
 
     //Attach the custom layer features to the kml data and display on map.
-    var regionalLayer = omnivore.kml('regional.kml', null, customLayer );
+    var regionalLayer = omnivore.kml("{{url_for( 'static', filename='regional.kml')}}", null, customLayer );
 
     function enterMap(a){
          //Hide the overlay.

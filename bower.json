@@ -27,6 +27,9 @@
   "overrides": {
     "Leaflet.fullscreen": {
       "main": "meerkat_frontend/src/Leaflet.fullscreen.js"
+    },
+    "leaflet-omnivore":{
+      "main":["./bower_components/leaflet-omnivore/leaflet-omnivore.js"]
     }
   }
 }

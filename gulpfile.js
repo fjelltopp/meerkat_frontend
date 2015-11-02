@@ -144,6 +144,12 @@ gulp.task('img', function() {
     .pipe(gulp.dest('meerkat_frontend/static/img/'));
 });
 
+//COPY OTHER FILES
+gulp.task( 'files', function(){
+  return gulp.src(['meerkat_frontend/src/files/*'])
+    .pipe(gulp.dest('meerkat_frontend/static/files'));
+});
+
 // WATCH TASKS
 gulp.task('watch', function() {
   var watchFiles = [
@@ -165,11 +171,11 @@ gulp.task('clean', function() {
     'meerkat_frontend/static/css/**/*',
     'meerkat_frontend/static/js/**/*',
     'meerkat_frontend/static/fonts/**/*',
-    'meerkat_frontend/static/img/**/*.{gif,jpg,png,svg}'
+    'meerkat_frontend/static/img/**/*.{gif,jpg,png,svg}',
   ]);
 });
 
 // DEFAULT TASK
 gulp.task('default', ['clean'], function() {
-  gulp.start('sass', 'js', 'fonts', 'img');
+  gulp.start('sass', 'js', 'fonts', 'img', 'files');
 });
