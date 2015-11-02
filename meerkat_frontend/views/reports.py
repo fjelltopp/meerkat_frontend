@@ -11,6 +11,7 @@ except ImportError:
     import json
 import dateutil.parser
 import requests
+from requests.auth import HTTPBasicAuth
 
 reports = Blueprint('reports', __name__)
 
@@ -18,7 +19,13 @@ reports = Blueprint('reports', __name__)
 # NORMAL ROUTES
 @reports.route('/')
 def index():
-    redirect(url_for('test'))
+    # Hacky hard-coded redirect.
+    # TODO: Replace in config with something elegant
+    return redirect(url_for(
+        '.report',
+        project='jordan',
+        report='public_health')
+        )
 
 
 @reports.route('/test/')
@@ -65,18 +72,14 @@ def send_email_report(project, report):
         epi_date = format_datetime(
             datetime_from_json(data['data']['epi_week_date']),
             format='%-d %B %Y')
-        report_url = url_for('report_permalink',
-                             project=project,
-                             report=report,
-                             location=location,
-                             year=epi_year,
-                             week=epi_week)
-        report_url = ''.join([
-            'https://',
-            request.get_header('host'),
-            report_url])
-        # Render!
-
+        relative_url = url_for('.report',
+                               project=project,
+                               report=report,
+                               location=location,
+                               year=epi_year,
+                               week=epi_week)
+        report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
+        # RENDER!
         # Extra parsing for natural language bullet points in email templates
         patient_status = {
             item['title'].lower().replace(" ", ""):
@@ -86,19 +89,14 @@ def send_email_report(project, report):
         extras = {
             'patient_status': patient_status
             }
-
-        html_template = env.get_template(
-            projects[project]['reports'][report]['template_email_html']
-        )
-        plain_template = env.get_template(
-            projects[project]['reports'][report]['template_email_plain']
-        )
-        html_email_body = html_template.render(
+        html_email_body = render_template(
+            projects[project]['reports'][report]['template_email_html'],
             email=data,
             extras=extras,
             report_url=report_url
         )
-        plain_email_body = plain_template.render(
+        plain_email_body = render_template(
+            projects[project]['reports'][report]['template_email_plain'],
             email=data,
             extras=extras,
             report_url=report_url
@@ -160,7 +158,7 @@ def send_email_report(project, report):
                 abort(500)
         else:
             abort(500)
-        return 200
+        return 'OK'
     else:
         abort(501)
 
@@ -199,17 +197,15 @@ def report(project, report=None, location=None, year=None, week=None):
         extras = {
             'patient_status': patient_status
             }
-        # Load the correct template for the report
-        template = env.get_template(
-            projects[project]['reports'][report]['template']
+        # Render correct template for the report
+        return render_template(
+            projects[project]['reports'][report]['template'],
+            report=data,
+            extras=extras
         )
-        return template.render(report=data, extras=extras)
+
     else:
-        abort(
-            501,
-            "Sorry, the {} reports for {} at are not fully implemented yet."
-            .format(report, project)
-        )
+        abort(501)
 
 
 @reports.route('/error/<int:error>/')
@@ -271,7 +267,13 @@ def api(url, project):
     """Returns JSON data from API request"""
     api_request = ''.join([current_app.config['API_ROOT'], url])
     try:
-        r = requests.get(api_request)
+        r = requests.get(
+            api_request,
+            auth=HTTPBasicAuth(
+                current_app.config['REPORT_LIST'][project]['basic_auth']['username'],
+                current_app.config['REPORT_LIST'][project]['basic_auth']['password']
+            ))
+
     except requests.exceptions.RequestException:
         abort(500)
     try:
