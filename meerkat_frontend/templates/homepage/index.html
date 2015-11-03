@@ -33,7 +33,7 @@
       <div id="map" class="screen"></div> 
       <div class="container overlay" id="bottom-overlay">
 		  <div id="map-overlay" class="slideDown"> 
-          <H1> Jordan Public<br> Health Surveillance </H1> 
+          <H1> {{content.titles.full|safe}} </H1> 
           <div id="logos" >
             <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" id="whoMapLogo" ></img>
             <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" id="johMapLogo" ></img>
@@ -42,7 +42,7 @@
         <div id="details" >
           <div id="detailsTitle" > Information Panel </div>
           <div id="regionalDetails">
-            <span class="label" id="regionName" > Governorate: </span> <span class="value" id="regionName" > </span></br>
+            <span class="label" id="regionName" > {{content.map.reg_title|safe}} </span> <span class="value" id="regionName" > </span></br>
           </div>
           <div id="selectionDetails">
           </div>

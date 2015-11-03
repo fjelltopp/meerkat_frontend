@@ -11,7 +11,7 @@ class Config(object):
     ROOT_URL = 'https://jordan.emro.info'
     WEBMASTER_EMAIL = 'webmaster@emro.info'
     # Homepage stuff
-    HOMEPAGE_CONFIG = 'homepage_config.json'
+    HOMEPAGE_CONFIG = 'homepage_null.json'
 
     # Reports specfic stuff
     API_ROOT = 'https://jordan.emro.info/api'

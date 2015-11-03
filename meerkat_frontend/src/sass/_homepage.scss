@@ -114,8 +114,8 @@ html, body{
 	overflow: hidden;
 	float: left; 
 	max-height: 150px;
-	margin: 30px;
-	width: initial;
+	margin: 5%;
+	max-width: 40%;
 }
 
 #logos{
@@ -247,9 +247,10 @@ html, body{
 }
 
 #acknowledgements img{
-	max-height: 200px; /* was 350px*/
+	max-height: 200px; 
 	max-width: 100%;
    margin: 15px 0;
+
 }
 
 
@@ -260,6 +261,7 @@ html, body{
 #acknowledgementImg, #supportersImg{
 	display: inline-block;
 	margin: 20px 0px;
+	width: 80%;
 }
 
 

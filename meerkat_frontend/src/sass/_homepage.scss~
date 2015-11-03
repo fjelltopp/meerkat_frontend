@@ -114,8 +114,8 @@ html, body{
 	overflow: hidden;
 	float: left; 
 	max-height: 150px;
-	margin: 30px;
-	width: initial;
+	margin: 5%;
+	max-width: 40%;
 }
 
 #logos{
