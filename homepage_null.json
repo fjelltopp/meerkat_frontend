@@ -2,13 +2,17 @@
   "titles":{
     "full":"Null Island <br> Public Health Surveillance",
     "nav":"<b>Null Island </b> &middot; WHO Public Health Surveillance",
-    "mob_nav":"Null Island Health Surveillance"
+    "mob_nav":"Health Surveillance"
   },
   "logos":{
     "who":"who.png",
     "country_partner":"ni.png",
-    "flag":"jo.svg",
+    "flag":"niFlag.png",
     "partners":[]
+  },
+  "links":{
+    "subscribe":"http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa",
+    "technical":"https://null.emro.info/technical"
   },
   "map":{
     "center":{
@@ -63,7 +67,7 @@
     }
   ], 
   "footer":{
-    "address":"World Health Organization<br>Merrkat Road<br>Null Capital<br>Null Island",
+    "address":"World Health Organization<br>Meerkat Road<br>Null Capital<br>Null Island",
     "email":"nullIsland@who.int"
   }
 }

@@ -7,8 +7,8 @@ console.log("ready");
 	$('.screen').height( $(window).height()-$('.navbar').height() );
 
 //CREATE SLIDABLE LIST ITEMS FOR PRINCIPLES---------------------------------------------
-	$('#principles li h4').on( 'click', function(event){
-		$(this).parent().children(".prinCont").slideToggle();
+	$('.slides li .clickable').on( 'click', function(event){
+		$(this).parent().children(".slideCont").slideToggle();
 	});
 
 	//If there is no console, don't bother logging anything.
@@ -65,15 +65,15 @@ console.log("ready");
 	  $('html,body').animate({scrollTop:targetOffset}, speed);
 	}
 
-//SHOW THE KEY_INDICATORS ----------------------------------------------
+   //SHOW THE KEY_INDICATORS ----------------------------------------------
 	$.getJSON( "{{config['API_ROOT']}}/key_indicators", function( data ){
 	  $.each( data, function( x, y ){ 
 		 $.each( y, function( w, z){
 		   $.each( z, function( key, val ){ 
 		     $("#"+key).text(Math.round(val));
 		   });
-		 });
-	  });
+		 });	 
+     });
 	});
 
 	//Enable the left and righ buttons for the key indicator viewer.
@@ -113,8 +113,8 @@ console.log("ready");
 		//Set the map position.
       map.setView([{{content.map.center.lat}}, {{content.map.center.lng}}], {{content.map.zoom}});
       //Ensure the map overlay is visible.
-      $('#map-overlay').slideDown();  
-      $('#techSiteBtn').slideDown();
+      $('#map-home .title-overlay').slideDown();  
+      $('#map-home .techSiteBtn').slideDown();
       // Disable drag and zoom handlers.
       map.dragging.disable();
       map.touchZoom.disable();
@@ -122,8 +122,8 @@ console.log("ready");
       map.scrollWheelZoom.disable();
       // Disable tap handler, if present.
       if (map.tap) map.tap.disable();
-      $('#keyBody').text("Click on a region to explore");
-      $('#keyBody').removeClass('clickable');
+      $('.key .keyBody').text("Click on a region to explore");
+      $('.key .keyBody').removeClass('clickable');
       //if( undefined != regionalLayer ) map.removeLayer(regionalLayer);
          
     }
@@ -218,16 +218,16 @@ console.log("ready");
 
     function enterMap(a){
          //Hide the overlay.
-         $('#map-overlay').slideUp();
-         $('#techSiteBtn').slideUp();
+         $('#map-home .title-overlay').slideUp();
+         $('#map-home .techSiteBtn').slideUp();
          //Enable map viewing functions.
          map.dragging.enable();
          map.touchZoom.enable();
          map.scrollWheelZoom.enable();
          if (map.tap) map.tap.enable();
          // Show the key overlay/
-         $('#keyBody').text("Click here to finish.");
-         $('#keyBody').addClass('clickable');
+         $('.key .keyBody').text("Click here to finish.");
+         $('.key .keyBody').addClass('clickable');
     }
 
     regionalLayer.addTo(map);
@@ -252,12 +252,12 @@ console.log("ready");
                   "<span id='lng' class='label' > Lng: </span> <span id='lng' class='value' >"  +
                   Math.round(a.layer.getLatLng().lng*10000)/10000+ "</span></br>";
       
-      $("#selectionDetails").html(info);  
+      $("#map-home .details .selection").html(info);  
 		console.log(a.layer);
     });
 	
     //Allow the user to click on the key in order to zoom out.
-    $('#keyText').on('click', function(event){
+    $('.key .keyText').on('click', function(event){
          resetMapView(map);
     });
 

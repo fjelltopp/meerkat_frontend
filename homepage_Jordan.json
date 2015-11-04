@@ -1,8 +1,8 @@
 {
   "titles":{
-    "full":"Jordan WHO Public Health Surveillance",
-    "nav":"Jordan WHO Public Health Surveillance",
-    "mob_nav":"Jordan Health Surveillance"
+    "full":"Jordan <br> Public Health Surveillance",
+    "nav":"<b>Jordan </b> &middot; WHO Public Health Surveillance",
+    "mob_nav":"Health Surveillance"
   },
   "logos":{
     "who":"who.png",

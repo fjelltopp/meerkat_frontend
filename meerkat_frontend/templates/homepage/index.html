@@ -10,46 +10,46 @@
 
 {% block body %}
 <!-- CONTENT -->
-	 <div id="mobile-home" class="container screen full" > 
-         <H1> {{content.titles.full}} </H1>
+	 <div id="mobile-home" class="container screen visible-xs hidden-lg" > 
+         <H1> {{content.titles.full|safe}} </H1>
          <div id="logos" >
             <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" id="whoMobLogo" ></img>
             <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" id="johMobLogo" ></img>
           </div>
     </div>
-    <div class="container" id="no-map">
-       <p class="lead" > The interactive map, showing summary data collected by the surveillance system, is not available for your window size. <br> <b> Please consider switching to a tablet or desktop device with a larger screen. </b> </p>
-    </div>
 
-    <div class="screen full" id="map-home">
+    <div class="screen hidden-xs" id="map-home">
+
       <div class="container overlay" id="top-overlay">
-        <div id="key">
-			 <img id="keyImage" src="{{url_for('static', filename='img/homepage/marker-icon-2x.png')}}"></img>
-          <div id="keyText"> Surveillance Sites 
-             <div id="keyBody"> Click on a region to explore </div>
+        <div class="key">
+			 <img src="{{url_for('static', filename='img/homepage/marker-icon-2x.png')}}"></img>
+          <div class="keyText"> Surveillance Sites 
+             <div class="keyBody"> Click on a region to explore </div>
           </div>
         </div>  
       </div> 
+
       <div id="map" class="screen"></div> 
+
       <div class="container overlay" id="bottom-overlay">
-		  <div id="map-overlay" class="slideDown"> 
+		  <div class="title-overlay" class="slideDown"> 
           <H1> {{content.titles.full|safe}} </H1> 
-          <div id="logos" >
-            <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" id="whoMapLogo" ></img>
-            <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" id="johMapLogo" ></img>
+          <div class="logos" >
+            <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" ></img>
+            <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" ></img>
           </div>
         </div>
-        <div id="details" >
-          <div id="detailsTitle" > Information Panel </div>
-          <div id="regionalDetails">
+        <div class="details" >
+          <div class="title" > Information Panel </div>
+          <div class="regionalDetails">
             <span class="label" id="regionName" > {{content.map.reg_title|safe}} </span> <span class="value" id="regionName" > </span></br>
           </div>
-          <div id="selectionDetails">
+          <div class="selection">
           </div>
         </div>
-        <div id="techSiteBtn">
+        <div class="techSiteBtn">
 			  <a type="button" class="btn btn-lg btn-default"  href="https://jordan.emro.info/technical" target="_blank" >
-		       Enter the <br> 
+		       Login to the <br> 
 		       <H2>Technical Site</H2> 
 		     </a>  
         </div> 
@@ -69,11 +69,11 @@
       </div>
 
       {% if section.type == "slides" %}
-      <ul class="list-group">
+      <ul class="slides list-group">
         {% for slide in section.slides %}
         <li class="list-group-item"> 
           <h4 class="clickable">{{slide.title}}</h4>
-          <div class="prinCont" >{{slide.content}}</div>
+          <div class="slideCont" >{{slide.content}}</div>
         </li>
         {% endfor %}
       </ul>
@@ -83,7 +83,7 @@
           <div id="leftButton" class="chevron">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
           </div>
-          <div id="window">
+          <div class="window">
             <div id="keyIndicatorsList">
               <div id="consultationsPanel" class="panel keyIndicator">
                 <div  class="kiNumber" > <div id="number_of_consultations" class="kiValue">#</div> </div> 
@@ -94,6 +94,8 @@
                 <div class="kiLabel"> cases reported </div>
               </div>
               <div id="alertsPanel" class="panel keyIndicator ">
+
+
 		          <div  class="kiNumber" > <div id="number_of_alerts" class="kiValue">#</div> </div> 
                 <div class="kiLabel"> alerts generated </div>
               </div>
@@ -114,7 +116,7 @@
       <h2>
         {{section.content|safe}}
       </h2>
-        <div id="acknowledgementImg" class="row row-centered">
+        <div class="row row-centered image-container">
           <div class="col-xs-12 col-sm-4 col-centered">
             <img src="{{ url_for('static', filename='img/homepage/' + content.logos.who) }}" id="whoLogo" ></img> 
           </div>
@@ -148,16 +150,14 @@
 {% endblock %}
 
 {% block footer %}
-    <div class="container full" id="footer">
-      <div class="container lead" id="footerContainer">
+    <div class="container lead" id="footer">
          <p> If you would like to find out more about the project, please contact us:  </p>
-			<div id="address" class="footerBox col-xs-12 col-sm-6 address">
+			<div class="footerBox col-xs-12 col-sm-6 address">
 			{{content.footer.address|safe}}
 			</div>
-			<div id="otherContactInfo" class="footerBox col-xs-12 col-sm-6" > <br>
+			<div class="footerBox col-xs-12 col-sm-6 other-contact-info" > <br>
          {{content.footer.email|safe}}
 			</div>
-      <div>
     </div>
 {% endblock %}
 
