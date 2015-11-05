@@ -68,16 +68,13 @@ class MeerkatFrontendTestCase(unittest.TestCase):
 
     #HOMEPAGE testing
     def test_index(self):
-        """Ensure the config file is correctly used"""
+        """Ensure the config file is loading correctly"""
         rv = self.app.get('/')
-        self.assertIn('Null Island', rv.data)
-
+        self.assertIn(b'Null Island', rv.data)
 
     def test_index(self):
         """Ensure the API data is successfully picked up and displayed."""
-        rv = self.app.get('/')
-        self.assertNotIn('class="kiValue">#</div>', rv.data)
-    
+        #TODO Write function that waits for javascript to load api data, and then checks it has loaded.
 
 if __name__ == '__main__':
     unittest.main()
