@@ -10,3 +10,4 @@ homepage = Blueprint('homepage', __name__)
 @homepage.route('/')
 def index():
     return render_template('homepage/index.html', content=current_app.config['HOMEPAGE_CONFIG'])
+

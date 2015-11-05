@@ -4,14 +4,14 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app
-from datetime import datetime, date, timedelta
+from datetime import datetime, date
 try:
     import simplejson as json
 except ImportError:
     import json
 import dateutil.parser
 import requests
-from requests.auth import HTTPBasicAuth
+from .. import common as c
 
 reports = Blueprint('reports', __name__)
 
@@ -58,13 +58,13 @@ def send_email_report(project, report):
         abort(401)
     if project in projects and report in projects[project]['reports']:
         location = projects[project]['default_location']
-        end = epi_week_to_date(date_to_epi_week() - 1)
+        end = c.epi_week_to_date(c.date_to_epi_week() - 1)
         api_request = '/reports/{report}/{loc}/{end}'.format(
             report=projects[project]['reports'][report]['api_name'],
             loc=location,
             end=end.strftime('%Y-%m-%d')
             )
-        data = api(api_request, project)
+        data = c.api(api_request, project)
         epi_week = data['data']['epi_week_num']
         epi_year = format_datetime(
             datetime_from_json(data['data']['epi_week_date']),
@@ -176,22 +176,24 @@ def report(project, report=None, location=None, year=None, week=None):
             location = projects[project]['default_location']
         if week or year:
             if week:
-                end_date = epi_week_to_date(week, year)
+                end_date = c.epi_week_to_date(week, year)
             else:
-                end_date = epi_week_to_date(1, year)
+                end_date = c.epi_week_to_date(1, year)
             api_request = '/reports/{report}/{loc}/{end}'.format(
                 report=projects[project]['reports'][report]['api_name'],
                 loc=location,
                 end=end_date.strftime('%Y-%m-%d')
-                )
+            )
         else:
             # Return most recent epiweek
             api_request = '/reports/{report}/{loc}/{end}'.format(
                 report=projects[project]['reports'][report]['api_name'],
                 loc=location,
-                end=epi_week_to_date(date_to_epi_week() - 1).strftime('%Y-%m-%d')
-                )
-        data = api(api_request, project)
+                end=c.epi_week_to_date(
+                    c.date_to_epi_week() - 1
+                ).strftime('%Y-%m-%d')
+            )
+        data = c.api(api_request, project)
         # Extra parsing for natural language bullet points in email templates
         patient_status = {item['title'].lower().replace(" ", ""): {'percent': item['percent'], 'quantity': item['quantity']} for item in data['data']['patient_status']}
         extras = {
@@ -261,35 +263,3 @@ def list_reports(region,
                  start=date(1970, 1, 1),
                  end=datetime.today()):
     """Returns a list of reports"""
-
-
-def api(url, project):
-    """Returns JSON data from API request"""
-    api_request = ''.join([current_app.config['API_ROOT'], url])
-    try:
-        r = requests.get(
-            api_request,
-            auth=HTTPBasicAuth(
-                current_app.config['REPORT_LIST'][project]['basic_auth']['username'],
-                current_app.config['REPORT_LIST'][project]['basic_auth']['password']
-            ))
-
-    except requests.exceptions.RequestException:
-        abort(500)
-    try:
-        output = r.json()
-    except Exception:
-        abort(500)
-    return output
-
-
-def epi_week_to_date(epi_week, year=datetime.today().year):
-    """Converts an epi_week (int) to a datetime object"""
-    year_epoch = date(year, 1, 1)
-    return year_epoch + timedelta(weeks=epi_week)
-
-
-def date_to_epi_week(day=datetime.today()):
-    """Converts a datetime object to an epi_week (int)"""
-    year_epoch = datetime(day.year, 1, 1)
-    return (day-year_epoch).days/7+1

@@ -26,7 +26,7 @@
   },
   "overrides": {
     "Leaflet.fullscreen": {
-      "main": "dist/Leaflet.fullscreen.js"
+      "main": "src/Leaflet.fullscreen.js"
     },
     "leaflet-omnivore":{
       "main":"leaflet-omnivore.js"

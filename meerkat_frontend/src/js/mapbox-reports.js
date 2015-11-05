@@ -18,7 +18,7 @@ $(function() {
       }
     });
 
-  $.getJSON('/api/geojson_clinics/3', function(data) {
+  $.getJSON('https://jordan.emro.info/api/geojson_clinics/2', function(data) {
     var geoJsonLayer = L.geoJson(data, {
       onEachFeature: function(feature, layer) {
         layer.bindPopup(feature.properties.name);
