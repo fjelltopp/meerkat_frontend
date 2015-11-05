@@ -20,12 +20,12 @@ def api(url, project):
                 current_app.config['REPORT_LIST'][project]['basic_auth']['password']
             ))
 
-    except requests.exceptions.RequestException:
-        abort(500)
+    except requests.exceptions.RequestException as e:
+        abort(500, e)
     try:
         output = r.json()
-    except Exception:
-        abort(500)
+    except Exception as e:
+        abort(500, r )
     return output
 
 

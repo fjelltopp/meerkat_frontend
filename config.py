@@ -10,8 +10,10 @@ class Config(object):
     # Global stuff
     ROOT_URL = 'https://jordan.emro.info'
     WEBMASTER_EMAIL = 'webmaster@emro.info'
+
     # Homepage stuff
     HOMEPAGE_CONFIG = 'homepage_null.json'
+    HOMEPAGE_API_ROOT = '/api'
 
     # Reports specfic stuff
     API_ROOT = 'https://jordan.emro.info/api'
@@ -51,12 +53,12 @@ class Production(Config):
     DEBUG = False
     TESTING = False
 
+
 class Development(Config):
     DEBUG = True
     TESTING = True
-    API_ROOT = '/api'
 
 class Testing(Config):
     DEBUG = False
     TESTING = True
-    API_ROOT = '/api'
+

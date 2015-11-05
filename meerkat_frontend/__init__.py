@@ -25,11 +25,11 @@ app.register_blueprint(homepage, url_prefix='/')
 app.register_blueprint(technical, url_prefix='/technical')
 app.register_blueprint(reports, url_prefix='/reports')
 
-# An API to serve static data files, only when Testing the system.  
+# An API to serve static data files, only when testing the system.  
 def api(filename):
     return send_file('apiData/'+filename+'.json')
 if app.config['TESTING']:
-    app.add_url_rule(app.config['API_ROOT']+'/<filename>', 'api', api)
+    app.add_url_rule(app.config['HOMEPAGE_API_ROOT']+'/<filename>', 'api', api)
 
 # Logging to syslog
 if not app.debug:

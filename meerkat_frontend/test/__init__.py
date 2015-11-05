@@ -66,6 +66,18 @@ class MeerkatFrontendTestCase(unittest.TestCase):
             43
         )
 
+    #HOMEPAGE testing
+    def test_index(self):
+        """Ensure the config file is correctly used"""
+        rv = self.app.get('/')
+        self.assertIn('Null Island', rv.data)
+
+
+    def test_index(self):
+        """Ensure the API data is successfully picked up and displayed."""
+        rv = self.app.get('/')
+        self.assertNotIn('class="kiValue">#</div>', rv.data)
+    
 
 if __name__ == '__main__':
     unittest.main()
