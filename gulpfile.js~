@@ -43,9 +43,9 @@ gulp.task('jshint', function() {
 gulp.task('vendorJS', function() {
   return gulp.src(mainBowerFiles())
     .pipe(filter('*.js'))
-    .pipe(sourcemaps.init())
+    //.pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
-    .pipe(sourcemaps.write())
+    //.pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/js'));
 });
 
@@ -172,6 +172,7 @@ gulp.task('clean', function() {
     'meerkat_frontend/static/js/**/*',
     'meerkat_frontend/static/fonts/**/*',
     'meerkat_frontend/static/img/**/*.{gif,jpg,png,svg}',
+    'meerkat_frontend/static/files/*'
   ]);
 });
 

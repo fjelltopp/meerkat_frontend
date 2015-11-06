@@ -1,0 +1,265 @@
+<script type="text/javascript">
+$( document ).ready( function() {
+console.log("ready");
+});
+//SET THE SCREEN SIZE-----------------------------------------
+	//Make sure that objects with class screen don't over fill the screen due to the NavBar
+	$('.screen').height( $(window).height()-$('.navbar').height() );
+
+//CREATE SLIDABLE LIST ITEMS FOR PRINCIPLES---------------------------------------------
+	$('.slides li .clickable').on( 'click', function(event){
+		$(this).parent().children(".slideCont").slideToggle();
+	});
+
+	//If there is no console, don't bother logging anything.
+	if (typeof console === "undefined") {
+	  console = {
+		 log: function() { }
+	  };
+	}
+
+
+//SCROLLING BUTTONS-------------------------------------------
+  //Handle the scrolling buttons
+  // navigation click actions
+  $('.scroll-link').on('click', function(event){
+	 event.preventDefault();
+	 var sectionID = $(this).attr("data-id");
+	 scrollToID('#' + sectionID, 750);
+	 resetMapView(map);
+  });
+
+  // scroll to top action
+  $('.scroll-top').on('click', function(event) {
+	 event.preventDefault();
+	 $('html, body').animate({scrollTop:0}, 'slow');
+	 $('.navbar-nav li.active').removeClass('active');
+	 resetMapView(map);
+  });
+
+  //Manage the link highlighting
+  $('.navbar-nav li').on('click', function(event){
+	 $('.navbar-nav li.active').removeClass('active');
+	 $(this).addClass('active');
+  });  
+
+  // Auto close mobile nav menu after selection
+  $('.nav a').on('click', function(){
+	 if ($(document).width() <= 991){
+	   $(".navbar-toggle").click();
+	 }
+  });
+
+  // Auto closs mobile nav menu after selection
+  $('a.navbar-brand').on('click', function(){
+	 if ($(document).width() <= 991 && !$(".navbar-toggle").hasClass("collapsed")){
+	   $(".navbar-toggle").click();
+	 }
+  });
+
+	// scroll function
+	function scrollToID(id, speed){
+	  var offSet = 0;
+	  var targetOffset = $(id).offset().top - offSet;
+	  var mainNav = $('#main-nav');
+	  $('html,body').animate({scrollTop:targetOffset}, speed);
+	}
+
+   //SHOW THE KEY_INDICATORS ----------------------------------------------
+	$.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/key_indicators", function( data ){
+	  $.each( data, function( x, y ){ 
+		 $.each( y, function( w, z){
+		   $.each( z, function( key, val ){ 
+		     $("#"+key).text(Math.round(val));
+		   });
+		 });	 
+     });
+	});
+
+	//Enable the left and righ buttons for the key indicator viewer.
+	$('#leftButton').click( function(){
+	  pos = parseInt($('#keyIndicatorsList').css("left"));
+	  //If a button is pressed before animation is complete, the viewing window can endup straddling a panel.
+	  //We don't want this, so remove the "straddle" distance from the panel-list's position.
+	  pos = pos - (pos % 210);
+	  
+	  if( window.matchMedia( "(max-width: 700px)" ).matches ) bounce=630;
+	  else bounce = 210;
+
+	  if( pos > -210 ){
+		 $('#keyIndicatorsList').animate( {"left": "-" + bounce +"px" }, "slow");
+	  }else{
+		 $('#keyIndicatorsList').animate( {"left": (pos+210)+"px"}, "slow");
+	  }
+	});
+
+	$('#rightButton').click( function(){
+	  pos = parseInt($('#keyIndicatorsList').css("left"));
+	  pos = pos - (pos % 210);
+	  if( window.matchMedia( "(max-width: 700px)" ).matches ) bounce=630;
+	  else bounce = 210;
+	  if( pos  <= -bounce ){
+		 $('#keyIndicatorsList').animate( {"left": "0px"}, "slow");
+	  }else{
+		 $('#keyIndicatorsList').animate( {"left": (pos-210)+"px"}, "slow");
+	  }
+	});
+
+//SHOW THE MAP ----------------------------------------------
+    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+    var map = L.mapbox.map('map', 'mrjb.k60d95kl', { zoomControl:false });
+
+    function resetMapView (map){
+		//Set the map position.
+      map.setView([{{content.map.center.lat}}, {{content.map.center.lng}}], {{content.map.zoom}});
+      //Ensure the map overlay is visible.
+      $('#map-home .title-overlay').slideDown();  
+      $('#map-home .techSiteBtn').slideDown();
+      // Disable drag and zoom handlers.
+      map.dragging.disable();
+      map.touchZoom.disable();
+      map.doubleClickZoom.disable();
+      map.scrollWheelZoom.disable();
+      // Disable tap handler, if present.
+      if (map.tap) map.tap.disable();
+      $('.key .keyBody').text("Click on a region to explore");
+      $('.key .keyBody').removeClass('clickable');
+      //if( undefined != regionalLayer ) map.removeLayer(regionalLayer);
+         
+    }
+
+    resetMapView(map);
+
+    var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
+
+    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map", function( data ){
+      $.each( data.map, function( x, z ){ 
+          if( z.lat !== "" && z.lng !== "" ){
+            var m = L.marker( [ z.lat, z.lng]);
+            m.name = z.name;
+            m.cases = z.cases;
+            m.consultations = z.consultations;
+            markers.addLayer( m );
+         }
+      });
+    });
+
+    map.addLayer( markers );
+
+//REGIONAL POLYGON DATA --------------------------
+
+    //Don't de-highlight region upon "mouseout" event as region de-highlights when hovering over a surveilance site.
+    //Instead store the region in this variable on mouseover and de-highlight it upon mouseover a different region.
+    var highlightedRegion;
+
+    //Specify the basic style of the polygons.
+    function style (feature){
+      return {
+         fillColor: '#688B9E',
+         color: '#537080',
+         weight: 4,
+         opacity: 0,
+         fillOpacity: 0
+      };
+    }
+
+    //Quick fix to handle situations where surveillance site is reported as being in different regions by data and kml data. 
+    var govSiteClash = false;
+
+    //De-highlight the previously highlighted region, and then highlight the new region. 
+    function highlightFeature (e){
+
+      if (undefined === highlightedRegion ){
+         highlightedRegion = e.target;
+      }else{
+         regionalLayer.resetStyle( highlightedRegion ); 
+         if( highlightedRegion.toGeoJSON().properties.name != e.target.toGeoJSON().properties.name ){
+           highlightedRegion = e.target;
+           $("#selectionDetails").html("");
+           govSiteClash = false;
+         }
+      }
+      highlightedRegion.setStyle({
+         fillOpacity: 0.1,
+         opacity: 1
+      });
+
+      if (!L.Browser.ie && !L.Browser.opera) {
+         highlightedRegion.bringToFront();
+      }
+      
+      if( govSiteClash === false ){
+         $("#regionName.value").text(highlightedRegion.toGeoJSON().properties.name);
+      }
+
+    }
+
+    function clickFeature(e){
+        enterMap(e);
+        map.fitBounds(e.target.getBounds());
+    }
+
+    //Attached the highlight feture to the mouseover event. 
+    function onEachFeature(feature, layer) {
+      layer.on({
+         mouseover: highlightFeature,
+         click: clickFeature
+      });
+    }
+
+    //Create a custom layer to hold the style and the event listeners. 
+    var customLayer = L.geoJson(null, {
+      style: style,
+      onEachFeature: onEachFeature,
+    });
+
+    //Attach the custom layer features to the kml data and display on map.
+    var regionalLayer = omnivore.kml("{{url_for( 'static', filename='files/'+content.map.reg_data_file)}}", null, customLayer );
+
+    function enterMap(a){
+         //Hide the overlay.
+         $('#map-home .title-overlay').slideUp();
+         $('#map-home .techSiteBtn').slideUp();
+         //Enable map viewing functions.
+         map.dragging.enable();
+         map.touchZoom.enable();
+         map.scrollWheelZoom.enable();
+         if (map.tap) map.tap.enable();
+         // Show the key overlay/
+         $('.key .keyBody').text("Click here to finish.");
+         $('.key .keyBody').addClass('clickable');
+    }
+
+    regionalLayer.addTo(map);
+    //Upon clicking upon a cluster allow the user to explore the map.
+    markers.on('clusterclick', enterMap); 
+
+    markers.on('click', function (a) {
+
+      if( $("#regionName.value").text() != a.layer.gov ){ 
+         $("#regionName.value").text(a.layer.gov);
+         govSiteClash = true;
+      }
+		
+      var info =  "<span id='name' class='label' > Facility Name: </span> <span id='name' class='value' > " +
+                  a.layer.name + "</span></br>" +
+                  "<span id='cons' class='label' > # Consultations: </span> <span id='cons' class='value' > " +
+                  a.layer.consultations + "</span></br>" +
+                  "<span id='cases' class='label' > # Cases: </span> <span id='cases' class='value' > " +
+                  a.layer.cases + "</span></br>" +
+                  "<span id='lat' class='label' > Lat: </span> <span id='lat' class='value' >" +
+                  Math.round(a.layer.getLatLng().lat*10000)/10000 + "</span>" +
+                  "<span id='lng' class='label' > Lng: </span> <span id='lng' class='value' >"  +
+                  Math.round(a.layer.getLatLng().lng*10000)/10000+ "</span></br>";
+      
+      $("#map-home .details .selection").html(info);  
+		console.log(a.layer);
+    });
+	
+    //Allow the user to click on the key in order to zoom out.
+    $('.key .keyText').on('click', function(event){
+         resetMapView(map);
+    });
+
+
+</script>

@@ -9,10 +9,6 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#"><span class="who-logo-white-no-text"></span> <span class="hidden-xs">WHO &middot; </span>Public Health Surveillance</a>
-
-    </div>
-    <div class="collapse navbar-collapse" >
-      {% block menu %}{% endblock %}
     </div>
   </div>
 </nav>

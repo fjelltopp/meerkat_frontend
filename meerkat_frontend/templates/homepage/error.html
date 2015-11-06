@@ -1,0 +1,24 @@
+{% extends 'reports/base.html' %}
+
+{% block menu %}
+
+{% endblock menu %}
+
+{% block body %}
+<!-- CONTENT -->
+
+  <div class="page-header">
+    <h2>Error {{error.status}}</h2>
+    <p class="lead">{{ error.body }}</p>
+    <p>Sorry about that. If this error persists, please <a href="mailto:{{ webmaster_email|e }}?subject=[Reports Website] Error {{ error.status|e }}&amp;body=Hi,%0D%0A%0D%0AI've had the following error:%0D%0A%0D%0AError: {{ error.status|e }}%0D%0ABody: {{ error.body|e }}%0D%0ATraceback:%0D%0A{{ error.traceback|e }}%0D%0A%0D%0A">let us know</a>.</p>
+    <p><a href="{{ base_url }}">Head back home</a> to try finding it again.</p>
+    {% if error.traceback %}
+    <h4>Debug Traceback</h4>
+    <pre><code>{{ error.traceback }}<code></pre>
+    {% endif %}
+  </div>
+{% endblock body %}
+
+{% block footer %}
+
+{% endblock footer %}

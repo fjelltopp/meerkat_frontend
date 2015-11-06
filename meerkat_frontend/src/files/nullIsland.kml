@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Jordan Level 1</name>
+	<LookAt>
+		<longitude>37.3481514117632</longitude>
+		<latitude>31.32033811090458</latitude>
+		<altitude>0</altitude>
+		<heading>3.554679008117613</heading>
+		<tilt>0</tilt>
+		<range>593319.1415021488</range>
+		<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+	</LookAt>
+	<Style id="1310232">
+		<LineStyle>
+			<color>ff000000</color>
+			<width>0.5</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>8027ca9a</color>
+		</PolyStyle>
+	</Style>
+	<Style id="1321233">
+		<LineStyle>
+			<color>ff000000</color>
+			<width>0.5</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>8027ca9a</color>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="133363">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#1321233</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#1310232</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark>
+		<name>Null Island</name>
+		<description>The single region of Null island</description>
+		<styleUrl>#133363</styleUrl>
+		<MultiGeometry>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							0.2,0.2,0 0.2,-0.2,0 -0.2,-0.2,0 -0.2,0.2,0
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</MultiGeometry>
+	</Placemark>
+</Document>
+</kml>

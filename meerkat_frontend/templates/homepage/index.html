@@ -1,0 +1,169 @@
+{% extends 'homepage/base.html' %}
+
+{% block menu %}
+<ul class="nav navbar-nav">
+{% for menu_item in content.sections %}
+  <li><a href="#{{menu_item.title|lower|trim|replace(' ','_')}}" class="scroll-link" data-id="{{menu_item.title|lower|trim|replace(' ','_')}}">{{menu_item.title}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% block body %}
+<!-- CONTENT -->
+	 <div id="mobile-home" class="container screen visible-xs hidden-lg" > 
+         <H1> {{content.titles.full|safe}} </H1>
+         <div id="logos" >
+            <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" id="whoMobLogo" ></img>
+            <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" id="johMobLogo" ></img>
+          </div>
+    </div>
+
+    <div class="screen hidden-xs" id="map-home">
+
+      <div class="container overlay" id="top-overlay">
+        <div class="key">
+			 <img src="{{url_for('static', filename='img/homepage/marker-icon-2x.png')}}"></img>
+          <div class="keyText"> Surveillance Sites 
+             <div class="keyBody"> Click on a region to explore </div>
+          </div>
+        </div>  
+      </div> 
+
+      <div id="map" class="screen"></div> 
+
+      <div class="container overlay" id="bottom-overlay">
+		  <div class="title-overlay" class="slideDown"> 
+          <H1> {{content.titles.full|safe}} </H1> 
+          <div class="logos" >
+            <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" ></img>
+            <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" ></img>
+          </div>
+        </div>
+        <div class="details" >
+          <div class="title" > Information Panel </div>
+          <div class="regionalDetails">
+            <span class="label" id="regionName" > {{content.map.reg_title|safe}} </span> <span class="value" id="regionName" > </span></br>
+          </div>
+          <div class="selection">
+          </div>
+        </div>
+        <div class="techSiteBtn">
+			  <a type="button" class="btn btn-lg btn-default"  href="https://jordan.emro.info/technical" target="_blank" >
+		       Login to the <br> 
+		       <H2>Technical Site</H2> 
+		     </a>  
+        </div> 
+      </div>
+    </div><!-- /.container -->
+
+    <!-- START DISPLAYING SECTIONS AS SPECIFIED In THE CONFIG FILE -->
+    {% for section in content.sections %}
+    <div class="container" id="{{section.title|striptags|lower|trim|replace(' ','_')}}">
+      <div class="breaker"> </div>
+      {% if section.type != "acknowledgements" %}
+      <div class="page-header">
+        <h2>{{section.title|safe}}</h2>
+      </div>
+      <div class="lead">
+        {{section.content|safe}}
+      </div>
+
+      {% if section.type == "slides" %}
+      <ul class="slides list-group">
+        {% for slide in section.slides %}
+        <li class="list-group-item"> 
+          <h4 class="clickable">{{slide.title}}</h4>
+          <div class="slideCont" >{{slide.content}}</div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% elif section.type == "indicators" %}
+
+        <div id="kiViewer">
+          <div id="leftButton" class="chevron">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
+          </div>
+          <div class="window">
+            <div id="keyIndicatorsList">
+              <div id="consultationsPanel" class="panel keyIndicator">
+                <div  class="kiNumber" > <div id="number_of_consultations" class="kiValue">#</div> </div> 
+                <div class="kiLabel">   consultations in total</div>
+              </div>
+              <div id="casesPanel" class="panel keyIndicator">
+		          <div  class="kiNumber" > <div id="number_of_cases" class="kiValue">#</div> </div> 
+                <div class="kiLabel"> cases reported </div>
+              </div>
+              <div id="alertsPanel" class="panel keyIndicator ">
+
+
+		          <div  class="kiNumber" > <div id="number_of_alerts" class="kiValue">#</div> </div> 
+                <div class="kiLabel"> alerts generated </div>
+              </div>
+			     <div id="facilitiesPanel" class="panel keyIndicator ">
+		          <div  class="kiNumber" > <div id="number_of_facilities" class="kiValue">#</div> </div> 
+                <div class="kiLabel"> facilities </div>
+              </div>
+            </div>
+          </div>
+          <div id="rightButton" class="chevron">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"> 
+          </div>
+		  </div>
+
+      {% endif %}
+
+      {% else %} <!--If we are showing the acknowledgements section -->
+      <h2>
+        {{section.content|safe}}
+      </h2>
+        <div class="row row-centered image-container">
+          <div class="col-xs-12 col-sm-4 col-centered">
+            <img src="{{ url_for('static', filename='img/homepage/' + content.logos.who) }}" id="whoLogo" ></img> 
+          </div>
+          <div class="col-xs-12 col-sm-4 col-centered">
+            <img src="{{ url_for('static', filename='img/homepage/' + content.logos.country_partner) }}" id="countryLogo" ></img> 
+          </div>
+          {% for logo in content.logos.partners %}
+		    <div class="col-xs-12 col-sm-4 col-centered">
+            <img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
+          </div>
+          {% endfor %} 
+        </div>
+      {% endif %}
+      <div class="breaker"> </div>
+    </div>
+    {% endfor %}
+
+<!--<div class="container" id="reports">
+      <div class="breaker"> </div>
+      <div class="starter-template">
+        <div class="page-header">
+          <h2>Reports</h2>
+        </div>
+        <p class="lead">The system generates regular reports which summarise the data collected.  The reports generated for the last 4 weeks can be veiwed below.</p>
+      </div>
+      <ul class="list-group col-sm-8 col-xs-12 col-md-6" id="reportsList">
+      </ul>
+
+    </div><!-- /.container --> 
+
+{% endblock %}
+
+{% block footer %}
+    <div class="container lead" id="footer">
+         <p> If you would like to find out more about the project, please contact us:  </p>
+			<div class="footerBox col-xs-12 col-sm-6 address">
+			{{content.footer.address|safe}}
+			</div>
+			<div class="footerBox col-xs-12 col-sm-6 other-contact-info" > <br>
+         {{content.footer.email|safe}}
+			</div>
+    </div>
+{% endblock %}
+
+{% block pageJS %}
+{% include 'homepage/pageJS.html' %}
+{% endblock %}
+
+
+

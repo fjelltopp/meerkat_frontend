@@ -1,0 +1,4 @@
+// Settings
+$flag-icon-css-path: '../img/flags'; // Flag icon base path
+$fa-font-path: '../fonts'; // Fontawesome font file base path
+$icon-font-path: '../fonts'; // Bootstrap glyphucons file base path
