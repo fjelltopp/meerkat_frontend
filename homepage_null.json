@@ -23,6 +23,10 @@
     "reg_data_file":"nullIsland.kml",
     "reg_title":"Region"
   },
+  "footer":{
+    "address":"World Health Organization<br>Meerkat Road<br>Null Capital<br>Null Island",
+    "email":"nullIsland@who.int"
+  },
   "sections":[
     {
       "title":"Overview",
@@ -65,9 +69,5 @@
       "type":"acknowledgements",
       "content":"We gratefully acknowledge the support of <br> our partners in the development of this project."
     }
-  ], 
-  "footer":{
-    "address":"World Health Organization<br>Meerkat Road<br>Null Capital<br>Null Island",
-    "email":"nullIsland@who.int"
-  }
+  ]
 }
