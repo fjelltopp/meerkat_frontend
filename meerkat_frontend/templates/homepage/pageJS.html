@@ -4,7 +4,9 @@ console.log("ready");
 });
 //SET THE SCREEN SIZE-----------------------------------------
 	//Make sure that objects with class screen don't over fill the screen due to the NavBar
-	$('.screen').height( $(window).height()-$('.navbar').height() );
+	$('.screen').css( "height", $(window).height()-$('.navbar').height() );
+
+//
 
 //CREATE SLIDABLE LIST ITEMS FOR PRINCIPLES---------------------------------------------
 	$('.slides li .clickable').on( 'click', function(event){
@@ -107,9 +109,10 @@ console.log("ready");
 
 //SHOW THE MAP ----------------------------------------------
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map('map', 'mrjb.k60d95kl', { zoomControl:false });
+    var map = L.mapbox.map('map', 'mrjb.lc6n9ai1', { zoomControl:false });
+    var viewingMap = false;
 
-    function resetMapView (map){
+    function resetMapView (){
 		//Set the map position.
       map.setView([{{content.map.center.lat}}, {{content.map.center.lng}}], {{content.map.zoom}});
       //Ensure the map overlay is visible.
@@ -122,9 +125,9 @@ console.log("ready");
       map.scrollWheelZoom.disable();
       // Disable tap handler, if present.
       if (map.tap) map.tap.disable();
-      $('.key .keyBody').text("Click on a region to explore");
-      $('.key .keyBody').removeClass('clickable');
+      $('.key .keyBody').text("Click here to explore");
       //if( undefined != regionalLayer ) map.removeLayer(regionalLayer);
+		viewingMap = false;
          
     }
 
@@ -175,7 +178,7 @@ console.log("ready");
          regionalLayer.resetStyle( highlightedRegion ); 
          if( highlightedRegion.toGeoJSON().properties.name != e.target.toGeoJSON().properties.name ){
            highlightedRegion = e.target;
-           $("#selectionDetails").html("");
+           $(".details .selection").html("");
            govSiteClash = false;
          }
       }
@@ -216,7 +219,7 @@ console.log("ready");
     //Attach the custom layer features to the kml data and display on map.
     var regionalLayer = omnivore.kml("{{url_for( 'static', filename='files/'+content.map.reg_data_file)}}", null, customLayer );
 
-    function enterMap(a){
+    function enterMap(){
          //Hide the overlay.
          $('#map-home .title-overlay').slideUp();
          $('#map-home .techSiteBtn').slideUp();
@@ -227,7 +230,7 @@ console.log("ready");
          if (map.tap) map.tap.enable();
          // Show the key overlay/
          $('.key .keyBody').text("Click here to finish.");
-         $('.key .keyBody').addClass('clickable');
+			viewingMap=true;
     }
 
     regionalLayer.addTo(map);
@@ -254,11 +257,13 @@ console.log("ready");
       
       $("#map-home .details .selection").html(info);  
 		console.log(a.layer);
+
     });
 	
-    //Allow the user to click on the key in order to zoom out.
+    //Allow the user to click on the key in order to enter and exit the map.
     $('.key .keyText').on('click', function(event){
-         resetMapView(map);
+         if(viewingMap) resetMapView();
+			else enterMap();
     });
 
 
