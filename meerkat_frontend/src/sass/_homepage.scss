@@ -240,6 +240,24 @@ body.homepage{
 		display: none;
 	}		
 }
+.reports-button{
+
+	margin: 50px 0px 0px;
+	text-align: center;	
+	
+	a,
+	a:hover,
+	a:focus,
+	a:active{
+		background-color: $blue;
+		color: #FFF;
+		border-radius: 20px;
+		border: 2px solid rgba(0,0,0,0);
+		width: 250px;
+		display: inline-block;
+		font-weight: bold;
+	}
+}
 
 #acknowledgements{
 
