@@ -12,7 +12,7 @@ class Config(object):
     WEBMASTER_EMAIL = 'webmaster@emro.info'
 
     # Homepage stuff
-    HOMEPAGE_CONFIG = 'homepage_null.json'
+    HOMEPAGE_CONFIG = 'homepage_jordan.json'
     HOMEPAGE_API_ROOT = '/api'
 
     # Reports specfic stuff
