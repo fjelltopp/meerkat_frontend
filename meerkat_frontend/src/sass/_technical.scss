@@ -1,0 +1,48 @@
+body.technical{
+	padding: 50px 0px 0px;
+	color: $textGrey;
+
+	.breaker{
+		height: 30px;
+	}
+}
+
+.technical-tabs{
+
+	list-style: none;
+	text-align: center;
+	width: 100%;
+	padding: 0px;
+	margin-bottom: none;
+
+	li {
+
+		display: inline-block;
+		margin: 10px 10px;
+		background: $blue;
+		padding: 10px 20px;
+		border-radius: 15px;		
+
+		a{
+			color: #FFF;
+		}
+		a:hover,
+		a:focus,
+		a:active{
+			color: #FFF;
+			text-decoration: none;
+		}
+	}
+	
+	li.active{
+		background: $highlight;
+	}
+}
+
+footer{
+	min-height: 10vh;
+}
+
+.tab-page{
+	min-height: 75vh;
+}

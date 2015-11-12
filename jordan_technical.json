@@ -1,0 +1,38 @@
+{
+  "application":"technical",
+  "titles":{
+    "full":"Jordan <br> Public Health Surveillance",
+    "nav":"<b>Jordan </b> &middot; WHO Public Health Surveillance",
+    "mob_nav":"Health Surveillance"
+  },
+  "logos":{
+    "who":"who.png",
+    "country_partner":"JOH.png",
+    "flag":"jo.svg",
+    "partners":[
+      "kuwait.gif"
+    ]
+  },
+  "tabs":[{
+    "name":"Demographics",
+    "template":"demographics.html" 
+  },{
+    "name":"Presenting Complaint",
+    "template":"complaint.html" 
+  },{
+    "name":"Communicable Disease",
+    "template":"disease.html"
+  },{
+    "name":"Alerts",
+    "template":"alerts.html"
+  },{
+    "name":"Health Services",
+    "template":"services.html"
+  },{
+    "name":"Completeness",
+    "template":"completeness.html"
+  },{
+    "name":"Map",
+    "template":"map.html"
+  }]
+}

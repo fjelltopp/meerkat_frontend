@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<ul class="nav navbar-nav">
+  <li class="active"><a href="#" >Dashboard</a></li>
+<li><a href="/reports/" >Reports</a></li>
+  <li><a href="#" >Explore Data</a></li>
+  <li><a href="#" >Download Data</a></li>
+  <li><a href="/" >Log out</a></li>
+</ul>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="breaker"></div>
+  <div class="row">
+    <ul class="technical-tabs">
+      {% for tab in content.tabs %}
+      <li>
+	     <a href="#" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}_tab" page="{{tab.template}}" onclick="loadTab(this); return false;">{{tab.name}}</a>
+	   </li>
+      {% endfor %}
+	 </ul>
+    <div class="breaker"></div>
+  </div>
+</div>
+
+<div class="container tab-page" id="page-content">
+
+
+
+</div>
+{% endblock body %}
+
+{% block footer %}
+
+
+
+{% endblock footer %}
+
+{% block pageJS %}
+
+<script>
+
+loadTabContent( "#"+$(".technical-tabs li a[page='{{tab}}']").attr("id") );
+
+</script>
+
+{% endblock pageJS %}

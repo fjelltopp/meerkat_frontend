@@ -1,45 +1,40 @@
 {
+  "application":"homepage",
   "titles":{
-    "full":"Null Island <br> Public Health Surveillance",
-    "nav":"<b>Null Island </b> &middot; WHO Public Health Surveillance",
+    "full":"Jordan <br> Public Health Surveillance",
+    "nav":"<b>Jordan </b> &middot; WHO Public Health Surveillance",
     "mob_nav":"Health Surveillance"
   },
   "logos":{
     "who":"who.png",
-    "country_partner":"ni.png",
-    "flag":"niFlag.png",
-    "partners":[]
-  },
-  "links":{
-    "subscribe":"http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa",
-    "technical":"https://null.emro.info/technical"
+    "country_partner":"JOH.png",
+    "flag":"jo.svg",
+    "partners":[
+      "kuwait.gif"
+    ]
   },
   "map":{
     "center":{
-      "lng":"0",
-      "lat":"0"
+      "lng":"35.470810",
+      "lat":"30.850011"
     },
-    "zoom":"7",
-    "reg_data_file":"nullIsland.kml",
-    "reg_title":"Region"
-  },
-  "footer":{
-    "address":"World Health Organization<br>Meerkat Road<br>Null Capital<br>Null Island",
-    "email":"nullIsland@who.int"
+    "zoom":"8",
+    "reg_data_file":"jordan.kml",
+    "reg_title":"Governorate"
   },
   "sections":[
     {
       "title":"Overview",
       "type":"html",
-      "content":"<p>A national program of public health surveillance is being implemented in various sites across Null Island.</p><p>The project introduces case-based, integrated disease surveillance that is coded according to the International Classification of Disease (ICD-10).</p><p>The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and and real-time reporting of information. </p><p>Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting, that is accessed at all levels of the Ministry of Health.</p><p>You can sign up to receive weekly epidemiological reports and updates <a target='_blank' href='http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa'>here</a>.</p>"
+      "content":"<p>A national program of public health surveillance is being implemented in 269 sites across Jordan.</p><p>The project introduces case-based, integrated disease surveillance that is coded according to the International Classification of Disease (ICD-10).</p><p>The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and and real-time reporting of information. </p><p>Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting, that is accessed at all levels of the Ministry of Health.</p><p>You can sign up to receive weekly epidemiological reports and updates <a target='_blank' href='http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa'>here</a>.</p>"
     },{
       "title":"Indicators",
       "type":"indicators",
-      "content":"<p>The following indicators monitor the status and functioning of the health system in Null Island and are automatically updated from health facilities:</p>"
+      "content":"<p>The following indicators monitor the status and functioning of the health system in Jordan and are automatically updated from health facilities:</p>"
     },{
       "title":"Reports",
       "type":"html",
-      "content":"<p>Weekly epidemiological public reports are published online and distributed via e-mail. You can sign up to receive weekly reports and updates <a target='_blank' href='http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa'>here</a>. Access the most recent report for Null Island here:</p><p class='reports-button'><a type='button' class='btn btn-lg btn-default ' href='reports/' target='_blank'>Latest Public<br>Health Profile</a></p></p>"
+      "content":"<p>Weekly epidemiological public reports are published online and distributed via e-mail. You can sign up to receive weekly reports and updates <a target='_blank' href='http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa'>here</a>. Access the most recent reports for Jordan here:</p><p class='reports-button'><a type='button' class='btn btn-lg btn-default ' href='reports/' target='_blank'>Latest Public<br>Health Profile</a></p></p>"
     },{
       "title":"Principles",
       "type":"slides",
@@ -73,5 +68,9 @@
       "type":"acknowledgements",
       "content":"We gratefully acknowledge the support of <br> our partners in the development of this project."
     }
-  ]
+  ], 
+  "footer":{
+    "address":"World Health Organization<br>811547<br>Amman 11181<br>Jordan",
+    "email":"emwrojor@who.int"
+  }
 }

@@ -146,7 +146,8 @@ gulp.task('img', function() {
 
 //COPY OTHER FILES
 gulp.task( 'files', function(){
-  return gulp.src(['meerkat_frontend/src/files/*'])
+  return gulp.src(['meerkat_frontend/src/files/*',
+                   'meerkat_frontend/src/files/**/*'])
     .pipe(gulp.dest('meerkat_frontend/static/files'));
 });
 
