@@ -6,6 +6,11 @@ body.technical{
 	.breaker{
 		height: 30px;
 	}
+
+	.row{
+		margin-left: 0px;
+		margin-right: 0px;
+	}
 }
 
 .technical-tabs{
@@ -56,20 +61,33 @@ footer{
 	padding: 10px;
 }
 
+.top-bar{
+	padding:5px;
+}
 
 .location-box{
-
+	
 	display: inline-block;
-	margin: 0px 0px 20px 5px;
+	margin: 0px 0px 5px;
 	
 	div {
 		display: inline;
 	}
 }
 
+.location-selector{
+
+	margin:5px;
+
+}
+
+
 .chart{
-	margin: 0px -10px 10px;
 	min-height: 300px;
+}
+
+.chart-col{
+	padding: 5px;
 }
 
 /* SIDE BAR FOR FILTERS */
