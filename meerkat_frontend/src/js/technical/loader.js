@@ -1,4 +1,4 @@
-//Loads the pahe content for a given a tab and handles the active tab styling.
+//Loads the page content for a given a tab and handles the active tab styling.
 function loadTabContent( tabElement ){
 
 	//Load the page content
@@ -22,8 +22,10 @@ function loadTab( tabElement ){
 
 }
 
-//Respond to the user pressing forward or back.
+//Respond to the user pressing forward or back by loading the correct tab content.
 window.onpopstate = function(event) {
 	//Get which tab was being viewed in the page state.
 	loadTabContent( $(event.state.tabID) ); 	
 };
+
+

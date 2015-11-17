@@ -11,20 +11,19 @@
 {% endblock %}
 
 {% block body %}
-
-<div class="container">
-  <div class="breaker"></div>
-  <div class="row">
-    <ul class="technical-tabs">
-      {% for tab in content.tabs %}
-      <li>
-	     <a href="#" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}_tab" page="{{tab.template}}" onclick="loadTab(this); return false;">{{tab.name}}</a>
-	   </li>
-      {% endfor %}
-	 </ul>
+  <div class="container">
+    <div class="row">
     <div class="breaker"></div>
+      <ul class="technical-tabs">
+        {% for tab in content.tabs %}
+        <li>
+	       <a href="#" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}_tab" page="{{tab.template}}" onclick="loadTab(this); return false;">{{tab.name}}</a>
+	     </li>
+        {% endfor %}
+	   </ul>
+      <div class="breaker"></div>
+    </div>
   </div>
-</div>
 
 <div class="container tab-page" id="page-content">
 
