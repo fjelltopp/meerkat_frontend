@@ -56,9 +56,10 @@ footer{
 
 .box{
 	background: #FFF;
-	border-radius: 10px;
+	border-radius: 5px;
 	border: solid 1px #E2E2E2;
 	padding: 10px;
+	overflow: hidden;
 }
 
 .top-bar{
@@ -68,7 +69,8 @@ footer{
 .location-box{
 	
 	display: inline-block;
-	margin: 0px 0px 5px;
+	margin: 0px 0px 10px;
+	float: left;
 	
 	div {
 		display: inline;
@@ -76,18 +78,71 @@ footer{
 }
 
 .location-selector{
-
 	margin:5px;
-
 }
-
 
 .chart{
 	min-height: 300px;
+	padding: 0px;
 }
 
-.chart-col{
+.chart__heading{
+	border-bottom: 1px solid #D7D7D7;
+	color: #666;
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.1;
+	font-size: 18px;
+	padding: 7px 10px 4px;
+}
+
+.chart__content{
+	display: block;
+	padding: 5px 10px;
+}
+
+.less-padding-col{
 	padding: 5px;
+}
+
+#epi-week-title{
+	text-align: center;
+}
+
+.tab-title{ 
+	display: inline-block;
+	font-size: 24px;
+	line-height: 42px;
+}
+
+.footer__label{
+	text-align: left;
+}
+
+.footer__title{
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.footer__logos{
+	
+	text-align: right;
+
+	img{
+		max-height: 100px;
+		max-width: 100px;
+		margin-left: 20px;
+	}
+
+	@media screen and (max-width: 767px){
+
+		text-align: center;
+
+		img{
+			display: inline-block;
+			margin: 0px 10px;
+		}
+	}
 }
 
 /* SIDE BAR FOR FILTERS */
@@ -136,76 +191,28 @@ footer{
     margin-right: -250px;
 }
 
-/* Sidebar Styles */
-5
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 250px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+#wrapper {
+	padding-left: 250px;
 }
 
-.sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
+#wrapper.toggled {
+	padding-left: 0;
 }
 
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #999999;
+#sidebar-wrapper {
+	width: 250px;
 }
 
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #fff;
-    background: rgba(255,255,255,0.2);
+#wrapper.toggled #sidebar-wrapper {
+	width: 0;
 }
 
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    text-decoration: none;
+#page-content-wrapper {
+	position: relative;
 }
 
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
+#wrapper.toggled #page-content-wrapper {
+	position: relative;
 }
 
-.sidebar-nav > .sidebar-brand a {
-    color: #999999;
-}
 
-.sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
-    background: none;
-}
-
-@media(min-width:768px) {
-    #wrapper {
-        padding-left: 250px;
-    }
-
-    #wrapper.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar-wrapper {
-        width: 250px;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        width: 0;
-    }
-
-    #page-content-wrapper {
-        position: relative;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: relative;
-    }
-}

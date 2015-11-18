@@ -1,1 +1,70 @@
-<H2> Comunicable Disease Page </H2>
+<div class="top-bar row">
+
+	<div class="location-box box">
+		<a href="#menu-toggle" id="menu-toggle">
+		<div class="location-box__label">
+			<div>Location:</div>
+			<div id="location-title">Jordan</div>
+		</div>
+		<span class="glyphicon glyphicon-chevron-right"></span>
+		<span class="glyphicon glyphicon-chevron-left hidden"></span>
+		</a>
+	</div>
+	<div class="tab-title hidden-xs col-sm-5 col-md-6">
+		Communicable Diseases
+	</div>
+	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+		Week 46 · 16 November 2015
+	</div>
+
+</div>
+
+<div class="demographics toggled" id="wrapper">
+
+	<div id="sidebar-wrapper" >
+		<div class="box location-selector">
+			Location <br>
+         Selection <br>
+			Tree <br>
+         System <br>
+         Here <br>
+         Blah <br>
+         Blah <br>
+		</div>
+	</div>
+
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col"><div class="chart box">
+				<div class="chart__heading">
+					Table
+				</div>
+				<div class="chart__content">
+					Content
+				</div>
+			</div></div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 less-padding-col"><div class="chart box">
+				<div class="chart__heading">
+					Graph
+				</div>
+				<div class="chart__content">
+					Content
+				</div>
+			</div></div>
+		</div>
+
+	</div>
+</div>
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+$("#menu-toggle").click(function(e) {
+	e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+	$(".location-box .glyphicon").toggleClass( "hidden" );
+});
+</script>

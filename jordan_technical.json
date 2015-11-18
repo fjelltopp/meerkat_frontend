@@ -5,14 +5,7 @@
     "nav":"<b>Jordan </b> &middot; WHO Public Health Surveillance",
     "mob_nav":"Health Surveillance"
   },
-  "logos":{
-    "who":"who.png",
-    "country_partner":"JOH.png",
-    "flag":"jo.svg",
-    "partners":[
-      "kuwait.gif"
-    ]
-  },
+  
   "tabs":[{
     "name":"Demographics",
     "template":"demographics.html" 
@@ -34,5 +27,21 @@
   },{
     "name":"Map",
     "template":"map.html"
-  }]
+  }],
+  "footer":{
+    "logos":{
+      "who":"who-logo-white-no-text.svg",
+      "country_partner":"JOH.png",
+      "flag":"jo.svg",
+      "partners":[
+        "kuwait.gif"
+      ]
+    },
+    "partners":[
+      "The World Health Organisation",
+      "The Ministry of Health, Jordan",
+      "The Government of Kuwait"
+    ],
+    "email":"emwrojor@who.int"
+  }
 }
