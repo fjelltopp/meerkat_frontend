@@ -66,6 +66,16 @@ footer{
 	padding:5px;
 }
 
+button.header,
+button.header:hover{
+	border: solid 1px #CCC; 
+	text-align: left;
+	font-weight: bold;
+	color: $textGrey;
+}
+
+
+
 .location-box{
 	
 	display: inline-block;

@@ -4,7 +4,6 @@ technical.py
 A Flask Blueprint module for the technical site.
 """
 from flask import Blueprint, render_template, current_app, request, Response
-from functools import wraps
 
 technical = Blueprint('technical', __name__)
 
@@ -30,5 +29,5 @@ def requires_auth():
 
 @technical.route('/')
 @technical.route('/<tab>')
-def index(tab="demographics.html"):
+def index(tab="demographics"):
     return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], tab=tab)

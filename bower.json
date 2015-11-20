@@ -28,8 +28,8 @@
     "Leaflet.fullscreen": {
       "main": "src/Leaflet.fullscreen.js"
     },
-    "leaflet-omnivore":{
-      "main":"leaflet-omnivore.js"
+    "leaflet-omnivore": {
+      "main": "leaflet-omnivore.js"
     }
   }
 }

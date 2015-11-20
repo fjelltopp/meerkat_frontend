@@ -22,14 +22,8 @@
 <div class="demographics toggled" id="wrapper">
 
 	<div id="sidebar-wrapper" >
-		<div class="box location-selector">
-			Location <br>
-         Selection <br>
-			Tree <br>
-         System <br>
-         Here <br>
-         Blah <br>
-         Blah <br>
+		<div id="location-selector" class="location-selector">
+			Locations not loaded
 		</div>
 	</div>
 
@@ -76,4 +70,5 @@ $("#menu-toggle").click(function(e) {
 	$(".location-box .glyphicon").toggleClass( "hidden" );
 });
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+loadLocation(1);
 </script>

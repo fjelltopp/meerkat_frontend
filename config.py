@@ -17,6 +17,7 @@ class Config(object):
 
     #Technical Site Stuff
     TECHNICAL_CONFIG = 'jordan_technical.json'
+    TECHNICAL_API_ROOT = '/api'
 
     # Reports specfic stuff
     API_ROOT = 'https://jordan.emro.info/api'

@@ -25,7 +25,7 @@
     "name":"Completeness",
     "template":"completeness.html"
   },{
-    "name":"Map",
+    "name":"Map View",
     "template":"map.html"
   }],
   "footer":{
