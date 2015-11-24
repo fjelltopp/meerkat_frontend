@@ -1,19 +1,26 @@
 <div class="top-bar row">
-
-
+	<div class="location-box box">
+		<a href="" onclick="loadTab('alerts'); return false;">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+			<div>Alerts</div>
+		</a>
+	</div>
+	<div class="tab-title hidden-xs col-sm-5 col-md-6">
+		Alert #<span id="alertID"></span>
+	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 		Date not loaded.
 	</div>
 
 </div>
 
-<div class="map">
+<div class="disease">
 
 	<div id="page-content-wrapper">
 		<div class="row">
 			<div class="col-xs-12 less-padding-col"><div class="chart box">
 				<div class="chart__heading">
-					Map
+					Title
 				</div>
 				<div class="chart__content">
 					Content
@@ -24,6 +31,7 @@
 	</div>
 </div>
 <div class="breaker"></div>
+
 <script>
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 </script>

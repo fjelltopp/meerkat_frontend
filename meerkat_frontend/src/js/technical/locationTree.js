@@ -1,25 +1,20 @@
-var locationsTree = new TreeModel({childrenPropertyName:"nodes"});
-var locations;
-
-//This method loads the JSON location tree from which it creates a TreeModel.
-function loadLocationData( initialNodeID ){
-	$.getJSON( api_root+"/location_tree", function( data ){
-		locations = locationsTree.parse(data);
-		loadLocation( initialNodeID );
-	});
-}
+//The javascript in this file depends on data loaded in the file dataLoader.js
 
 //This method is called when wishing to filter by location.
 function loadLocation( nodeID ){
 
-	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===nodeID; });
+	//Record the page history.
+	currentState = { type: history.state.type, dataID: history.state.dataID, locID: nodeID };
+	var url = nodeID == 1 ? currentState.dataID : currentState.dataID + '/loc_' + nodeID;
+	history.pushState( currentState, $( '#'+currentState.tabID ).text(), '/technical/' + url );
 
-	drawLocationSelector( node );
-	$("#location-title").text(node.model.text);
+	loadLocationContent( nodeID );
 }
 
 //This method draws the location selector for any given node in the location tree.
-function drawLocationSelector( node ){
+function loadLocationContent( nodeID ){
+
+	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===nodeID; });
 
 	//Get the parents
 	var nodePath = node.getPath();
@@ -50,8 +45,9 @@ function drawLocationSelector( node ){
 		html += "</div>";
 	}
 
-	//Draw the location selector.
+	//Draw the location selector and update the location title.
 	$("#location-selector").html(html);
+	$("#location-title").text( node.model.text );
 
 }
 

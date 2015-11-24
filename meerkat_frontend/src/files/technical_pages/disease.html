@@ -1,17 +1,12 @@
 <div class="top-bar row">
-
 	<div class="location-box box">
-		<a href="#menu-toggle" id="menu-toggle">
-		<div class="location-box__label">
-			<div>Location:</div>
-			<div id="location-title">Jordan</div>
-		</div>
-		<span class="glyphicon glyphicon-chevron-right"></span>
-		<span class="glyphicon glyphicon-chevron-left hidden"></span>
+		<a href="" onclick="loadTab('communicable_diseases'); return false;">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+			<div>Communicable Diseases</div>
 		</a>
 	</div>
 	<div class="tab-title hidden-xs col-sm-5 col-md-6">
-		Communicable Diseases
+		Disease #<span id="diseaseID"></span>
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 		Date not loaded.
@@ -19,30 +14,13 @@
 
 </div>
 
-<div class="demographics toggled" id="wrapper">
-
-	<div id="sidebar-wrapper" >
-		<div id="location-selector" class="location-selector">
-			Locations not loaded
-		</div>
-	</div>
+<div class="disease">
 
 	<div id="page-content-wrapper">
 		<div class="row">
 			<div class="col-xs-12 less-padding-col"><div class="chart box">
 				<div class="chart__heading">
-					Table
-				</div>
-				<div class="chart__content">
-					Content
-				</div>
-			</div></div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-12 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Graph
+					Title
 				</div>
 				<div class="chart__content">
 					Content
@@ -54,13 +32,6 @@
 </div>
 <div class="breaker"></div>
 
-<!-- Menu Toggle Script -->
 <script>
-$("#menu-toggle").click(function(e) {
-	e.preventDefault();
-	$("#wrapper").toggleClass("toggled");
-	$(".location-box .glyphicon").toggleClass( "hidden" );
-});
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
-loadLocation(1);
 </script>

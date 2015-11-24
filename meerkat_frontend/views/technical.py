@@ -29,5 +29,17 @@ def requires_auth():
 
 @technical.route('/')
 @technical.route('/<tab>')
-def index(tab="demographics"):
-    return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], tab=tab)
+@technical.route('/<tab>/loc_<int:locID>')
+def index(tab="demographics", locID=1):
+    pageState = "{ type: 'tab', dataID: '" + tab + "', locID: " + str(locID) + " }"
+    return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], page=pageState)
+
+@technical.route('/alerts/alert_<int:alertID>')
+def alert( alertID=1 ):
+	pageState = "{ type: 'alert', dataID: '" + str(alertID) + "' }"
+	return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], page=pageState)
+
+@technical.route('/communicable_diseases/disease_<int:diseaseID>')
+def disease( diseaseID=1 ):
+	pageState = "{ type: 'disease', dataID: '" + str(diseaseID) + "' }"
+	return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], page=pageState)

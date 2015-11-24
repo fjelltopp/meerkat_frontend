@@ -1,5 +1,6 @@
 {
   "application":"technical",
+
   "titles":{
     "full":"Jordan <br> Public Health Surveillance",
     "nav":"<b>Jordan </b> &middot; WHO Public Health Surveillance",
@@ -13,8 +14,8 @@
     "name":"Presenting Complaint",
     "template":"complaint.html" 
   },{
-    "name":"Communicable Disease",
-    "template":"disease.html"
+    "name":"Communicable Diseases",
+    "template":"diseases.html"
   },{
     "name":"Alerts",
     "template":"alerts.html"
@@ -28,6 +29,7 @@
     "name":"Map View",
     "template":"map.html"
   }],
+
   "footer":{
     "logos":{
       "who":"who-logo-white-no-text.svg",
@@ -37,11 +39,13 @@
         "kuwait.gif"
       ]
     },
+
     "partners":[
       "The World Health Organisation",
       "The Ministry of Health, Jordan",
       "The Government of Kuwait"
     ],
+
     "email":"emwrojor@who.int"
   }
 }

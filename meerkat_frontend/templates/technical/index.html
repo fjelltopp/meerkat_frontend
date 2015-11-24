@@ -17,7 +17,7 @@
       <ul class="technical-tabs">
         {% for tab in content.tabs %}
         <li>
-	       <a href="#" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}" page="{{tab.template}}" onclick="loadTab(this); return false;">{{tab.name}}</a>
+	       <a href="" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}" page="{{tab.template}}" onclick="loadTab('{{tab.name|striptags|lower|trim|replace(' ','_')}}'); return false;">{{tab.name}}</a>
 	     </li>
         {% endfor %}
 	   </ul>
@@ -57,10 +57,7 @@
 
 	var api_root="{{config['TECHNICAL_API_ROOT']}}";
 
-	loadTabContent( $("#{{tab}}") );
-
-	loadLocationData( 1 );
-	
+	loadTabData( {{page | safe}} )
 
 </script>
 
