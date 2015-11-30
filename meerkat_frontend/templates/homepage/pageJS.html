@@ -6,7 +6,7 @@ console.log("ready");
 	//Make sure that objects with class screen don't over fill the screen due to the NavBar
 	$('.screen').css( "height", $(window).height()-$('.navbar').height() );
 
-//
+
 
 //CREATE SLIDABLE LIST ITEMS FOR PRINCIPLES---------------------------------------------
 	$('.slides li .clickable').on( 'click', function(event){
@@ -78,6 +78,9 @@ console.log("ready");
      });
 	});
 
+
+
+
 	//Enable the left and righ buttons for the key indicator viewer.
 	$('#leftButton').click( function(){
 	  pos = parseInt($('#keyIndicatorsList').css("left"));
@@ -135,7 +138,8 @@ console.log("ready");
 
     var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
 
-    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map", function( data ){
+    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/1", function( data ){
+		
       $.each( data.map, function( x, z ){ 
           if( z.lat !== "" && z.lng !== "" ){
             var m = L.marker( [ z.lat, z.lng]);

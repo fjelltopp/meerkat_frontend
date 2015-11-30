@@ -11,6 +11,10 @@ body.technical{
 		margin-left: 0px;
 		margin-right: 0px;
 	}
+
+	.table{
+		margin: 20px 0 10px;
+	}
 }
 
 .technical-tabs{
@@ -101,14 +105,31 @@ button.header:hover{
 	color: #666;
 	font-family: inherit;
 	font-weight: 500;
-	line-height: 1.1;
+	line-height: 1.1em;
 	font-size: 18px;
 	padding: 7px 10px 4px;
+	display: table;
+	width: 100%;
 }
 
 .chart__content{
 	display: block;
-	padding: 5px 10px;
+	padding: 20px 10px;
+}
+
+.chart__type-selector{
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 14px;
+}
+
+.table-percent{
+	font-size: 12px;
+	display: inline;
+}
+
+.block{
+	display: block;
 }
 
 .less-padding-col{
@@ -224,5 +245,4 @@ button.header:hover{
 #wrapper.toggled #page-content-wrapper {
 	position: relative;
 }
-
 

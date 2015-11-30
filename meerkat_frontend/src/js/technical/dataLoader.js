@@ -6,7 +6,7 @@ function loadTabData( initialPageState ){
 
 	//TODO: Get initial page data.
 
-	$.getJSON( api_root+"/location_tree", function( data ){
+	$.getJSON( api_root+"/locationtree", function( data ){
 		locations = locationsTree.parse(data);
 		loadPage( initialPageState, true );
 	});

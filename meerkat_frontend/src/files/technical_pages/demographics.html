@@ -32,17 +32,29 @@
 			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
 				<div class="chart__heading">
 					Gender
+					<div class="chart__type-selector pull-right">
+						<a href="" onclick="showChartType('bar','gender-charts');return false;" class="bar"> Bar </a> /
+						<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie"> Pie </a>
+					</div>
 				</div>
-				<div class="chart__content">
-					Content
+				<div id="gender-charts" class="chart__content">
+					<div id="gender-bar-chart" class="bar chart"></div>
+					<div id="gender-pie-charts" class="pie chart hidden" ></div>
+					<div id="gender-table" class="table" ></div>
 				</div>
 			</div></div>
 			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
 				<div class="chart__heading">
 					Nationality
+					<div class="chart__type-selector pull-right">
+						<a href="" onclick="showChartType('bar','nationality-charts');return false;" class="bar"> Bar </a> /
+						<a href="" onclick="showChartType('pie','nationality-charts');return false;" class="pie"> Pie </a>
+					</div>
 				</div>
-				<div class="chart__content">
-					Content
+				<div id="nationality-charts" class="chart__content">
+					<div id="nationality-bar-chart" class="bar chart"></div>
+					<div id="nationality-pie-charts" class="pie chart hidden" ></div>
+					<div id="nationality-table" class="table" ></div>
 				</div>
 			</div></div>
 		</div>
@@ -51,17 +63,29 @@
 			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
 				<div class="chart__heading">
 					Age
+					<div class="chart__type-selector pull-right">
+						<a href="" onclick="showChartType('bar','age-charts');return false;" class="bar"> Bar </a> /
+						<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"> Pie </a>
+					</div>
 				</div>
-				<div class="chart__content">
-					Content
+				<div id="age-charts" class="chart__content">
+					<div id="age-bar-chart" class="bar chart"></div>
+					<div id="age-pie-charts" class="pie chart hidden" ></div>
+					<div id="age-table" class="table" ></div>
 				</div>
 			</div></div>
 			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
 				<div class="chart__heading">
 					Status
+					<div class="chart__type-selector pull-right">
+						<a href="" onclick="showChartType('bar','status-charts');return false;" class="bar"> Bar </a> /
+						<a href="" onclick="showChartType('pie','status-charts');return false;" class="pie"> Pie </a>
+					</div>
 				</div>
-				<div class="chart__content">
-					Content
+				<div id="status-charts" class="chart__content">
+					<div id="status-bar-chart" class="bar chart"></div>
+					<div id="status-pie-charts" class="pie chart hidden" ></div>
+					<div id="status-table" class="table" ></div>
 				</div>
 			</div></div>
 		</div>
@@ -76,6 +100,38 @@ $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
+	$(".table-percent").toggleClass( "block");
+	var transitionEvent = whichTransitionEvent();
+	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+		$(window).resize();
+	});
 });
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+function categorySummation( category, locID, week ){
+
+	$.getJSON( api_root+"/aggregate_category/"+ category + "/" + locID, function( data ){
+		$.getJSON( api_root+"/variables/" + category, function( variables ){
+
+			var title = category.charAt(0).toUpperCase() + category.slice(1);
+			var dataObject = makeDataObject(data, variables, week, title );
+
+			drawBarChart( category+'-bar-chart', dataObject, true);
+			drawPieCharts( category+'-pie-charts', dataObject, true );
+			drawTable( category+'-table', dataObject, true );
+		});
+	});
+}
+
+function drawCharts( locID ){
+
+	var week = (get_epi_week()-1).toString();
+
+	categorySummation( 'gender', locID, week );
+	categorySummation( 'nationality', locID, week );
+	categorySummation( 'status', locID, week );
+	categorySummation( 'age', locID, week );
+}
+
+
 </script>

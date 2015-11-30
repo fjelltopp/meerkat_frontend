@@ -45,6 +45,10 @@ function loadLocationContent( nodeID ){
 		html += "</div>";
 	}
 
+	//Call the tab's draw charts function.
+	//EVERY TAB SHOULD HAVE A DRAW CHARTS FUNCTION.
+	drawCharts( nodeID );
+
 	//Draw the location selector and update the location title.
 	$("#location-selector").html(html);
 	$("#location-title").text( node.model.text );
