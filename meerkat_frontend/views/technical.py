@@ -39,7 +39,8 @@ def alert( alertID=1 ):
 	pageState = "{ type: 'alert', dataID: '" + str(alertID) + "' }"
 	return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], page=pageState)
 
-@technical.route('/communicable_diseases/disease_<int:diseaseID>')
-def disease( diseaseID=1 ):
-	pageState = "{ type: 'disease', dataID: '" + str(diseaseID) + "' }"
+@technical.route('/diseases/disease_<int:diseaseID>/')
+@technical.route('/diseases/disease_<int:diseaseID>/loc_<int:locID>')
+def disease( diseaseID=1, locID=1 ):
+	pageState = "{ type: 'disease', dataID: '" + str(diseaseID) + "', locID: " + str(locID) + " }"
 	return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], page=pageState)

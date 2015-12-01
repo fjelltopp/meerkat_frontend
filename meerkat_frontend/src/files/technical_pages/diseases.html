@@ -29,28 +29,18 @@
 
 	<div id="page-content-wrapper">
 		<div class="row">
-			<div class="col-xs-12 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Table
+			<div class="col-xs-12 less-padding-col">
+				<div class="chart box">
+					<div class="chart__heading">
+						Communicable Diseases
+					</div>
+					<div id="disease-bar-chart" class="chart__content">
+					</div>
+					<div id="disease-table" class="chart__content">
+					</div>
 				</div>
-				<div class="chart__content">
-					Content
-				</div>
-			</div></div>
+			</div>
 		</div>
-
-		<div class="row">
-			<div class="col-xs-12 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Graph
-				</div>
-				<div class="chart__content">
-					Content<br>
-					<a href="" onclick="loadDisease(45);return false;">See page for disease number 45 </div>
-				</div>
-			</div></div>
-		</div>
-
 	</div>
 </div>
 <div class="breaker"></div>
@@ -63,4 +53,27 @@ $("#menu-toggle").click(function(e) {
 	$(".location-box .glyphicon").toggleClass( "hidden" );
 });
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+//Every tab needs a draw charts function that is called when loading a new location.
+function drawCharts( locID ){
+
+	//Keep week abstracted out of the chart drawing process.
+	//In case we want the use to eb able to select the weeks to view.
+	var week = (get_epi_week()-1).toString();
+
+	$.getJSON( api_root+"/aggregate_category/moh/" + locID, function( data ){
+		$.getJSON( api_root+"/variables/moh", function( variables ){
+
+			var title = "";
+			var dataObject = stripEmptyRecords( makeDataObject(data, variables, week, title ) );
+
+			console.log(dataObject );
+
+			drawTable( 'disease-table', dataObject, true, false, 'loadDisease' );
+			drawBarChart( 'disease-bar-chart', dataObject, true );
+
+		});
+	});
+
+}
 </script>

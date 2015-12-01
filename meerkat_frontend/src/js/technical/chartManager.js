@@ -148,18 +148,18 @@ function drawPieCharts( containerID, data, percent ){
 		}]
 	});
 
-	//Get rid of the highcharts logo.
+	//Get rid of the highcharts.com logo.
 	$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
 
 }
 
 /* Creates epi tables with data from: current week, last two weeks and the year.
  * Takes the same data object as the chart drawing functions.
- * If links is positive we add links to disease overview.
+ * If linkFunction is defined we add the given function "onclick" to each table row.
  * If percent is positive we add percentages. 
  * If no_total is positive we do not add total
  */
-function drawTable( containerID, data, percent, no_total, links ){
+function drawTable( containerID, data, percent, no_total, linkFunction ){
 
 	//We want to work with a clone of the data, not the data itself.
 	data = $.extend(true, {}, data);
@@ -184,9 +184,11 @@ function drawTable( containerID, data, percent, no_total, links ){
 	//For each data category, assemble a html string listing data for the three weeks and the year.
 	for (var i =0; i< data.labels.length;i++){
 
-		if(links){
-			//TODO: Add links
-			table+='<tr><td>'+data.labels[i]+'</td>';
+		if(typeof linkFunction != 'undefined'){
+
+			table +=	"<tr><td>"+
+						"<a href='' onclick='" + linkFunction + "("+ data.ids[i] +
+						");return false;' >" + data.labels[i]+'</a></td>';
 		}else{
 			table+='<tr><td>'+data.labels[i]+'</td>';
 		}
@@ -242,6 +244,7 @@ function makeDataObject( aggregation, variables, week, title ){
 	//Create an array of everything we have to collate over each data bin.
 	//E.g. For gender labels we create a list made up of 'Male' and 'Female'.
 	var labelData = [];
+	var idData = [];
 	var yearData = [];
 	var weekData = [];
 	var week1Data = [];
@@ -252,6 +255,7 @@ function makeDataObject( aggregation, variables, week, title ){
 		var label = bins[i];
 
 		labelData.push( variables[label].name );
+		idData.push( label );
 		yearData.push( if_exists(aggregation[label], 'year') );
 		weekData.push( if_exists(aggregation[label].weeks, week ) );
 		week1Data.push( if_exists(aggregation[label].weeks, (week-1).toString() ) );
@@ -261,6 +265,7 @@ function makeDataObject( aggregation, variables, week, title ){
 	var dataObject = { 	
 		title: title,
 		labels: labelData, 
+		ids: idData, 
 		year: yearData , 
 		week: weekData,	
 		week1: week1Data,	
@@ -269,6 +274,54 @@ function makeDataObject( aggregation, variables, week, title ){
 
 	return dataObject;
 
+}
+
+/* This function strips empty records from a data object.  This is useful if the category
+ * you are visualising has many 'bins' (for instance communicable diseases, or ICD-10 ).
+ * If you stirp the empty records before drawing the table and graphs, the size of the drawings
+ * can be significantly smaller and easier to comprhend.
+ */
+function stripEmptyRecords( dataObject ){
+
+	var dataFields = Object.keys( dataObject );
+	var stripped = [];
+	var newData = {};
+
+	//Find the indicies of records to be retained. 
+	//I.E. NOT THE ONES TO BE STRIPPED, but the ones AFTER stripping.
+	for( var i in dataObject.year ){
+		if( dataObject.year[i] !== 0 ){
+			stripped.push( i );
+		}	
+	}
+
+	//Clone the data object structure.
+	for( var k in dataFields ){
+
+		var field = dataFields[k];
+
+		if( dataObject[field].constructor === Array ){
+			newData[field] = [];
+		}else{
+			newData[field] = dataObject[field];
+		}
+	}
+
+	//For each index to be retained, push the data object's record to the new data object.
+	for( var j in stripped ){
+
+		var index = stripped[j];
+		for( var l in dataFields){
+
+			var label = dataFields[l];
+			if( dataObject[label].constructor === Array ){
+				var value = dataObject[ label ][ index ]; 
+				newData[ label ].push( value );
+			}
+		}
+	}
+
+	return newData;
 }
 
 

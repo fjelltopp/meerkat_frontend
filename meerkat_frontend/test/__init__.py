@@ -41,6 +41,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         header= {"Authorization": "Basic {cred}".format(cred=cred)}
         rv2 = self.app.get('/technical/', headers=header)
         self.assertEqual(rv2.status_code, 200)
+
     # Utility FUNCTIONS
     def test_epi_week_to_date(self):
         """Ensure epi_week_to_date is sane"""

@@ -39,7 +39,7 @@ function loadTab( tabID, locID ){
 	loadTabContent( tabID, locID );
 }
 
-function loadDiseaseContent( diseaseID ){
+function loadDiseaseContent( diseaseID, locID ){
 
 	//TODO: load disease data
 
@@ -48,26 +48,27 @@ function loadDiseaseContent( diseaseID ){
 	$( '#page-content' ).load( '/static/files/technical_pages/disease.html',
 										function(){ 
 											$('#diseaseID').html(diseaseID);
+											loadLocationContent(locID); 
 										}); 
 										
 }
 
-function loadDisease( diseaseID ){
+function loadDisease( diseaseID, locID ){
 
-	//Keep the locID for location persistance across pages.
-	//If no locId set, just set back to the root node.
-	var locID = 1;
-	if( history.state !== null && typeof history.state.locID != 'undefined' ){
-		locID = history.state.locID;
+	//locID (the id of the location) is an optional argument.  
+	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
+	if( typeof locID == 'undefined' ){
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		else locID = history.state.locID;
 	}
 
 	//Record the page history.
 	currentState = { type: 'disease', dataID: diseaseID, locID: locID };
-	var url = 'communicable_diseases/disease_' + currentState.dataID;
+	var url = 'diseases/disease_' + currentState.dataID + '/loc_' + locID;
 	history.pushState( currentState, 'Disease #' + diseaseID, '/technical/' + url );
 
 	//Load the page's content.
-	loadDiseaseContent( diseaseID );
+	loadDiseaseContent( diseaseID, locID );
 }
 
 function loadAlertContent( alertID ){
@@ -104,7 +105,7 @@ function loadAlert( alertID ){
  *
  * Page state objects include:
  * - 'type' ('tab', 'alert' or 'disease')
- * - 'dataID' (identifying data dependant on type, eg. tab-dom-element ID, disease ID or alert ID)
+ * - 'dataID' (identifying data dependant on type, eg. tab-element ID, disease ID or alert ID)
  * - 'locID' (location ID, not used for all types)
  * 
  * If logHistory == true, a page state will be pushed into the broswer history before loading content.
@@ -125,8 +126,8 @@ function loadPage( pageState, logHistory ){
  			break;
 
 		case 'disease' : 
-			if( logHistory ) loadDisease( pageState.dataID ); 
-			else loadDiseaseContent( pageState.dataID ); 
+			if( logHistory ) loadDisease( pageState.dataID, pageState.locID ); 
+			else loadDiseaseContent( pageState.dataID, pageState.locID ); 
 			break;
 
 	}
