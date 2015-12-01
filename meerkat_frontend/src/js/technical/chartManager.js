@@ -34,38 +34,42 @@ function drawBarChart( containerID, data, percent ){
 	}
 
 	$('#'+containerID).highcharts({
-			chart: {
-				type: 'column',
-				width: plotWidth
+		chart: {
+			type: 'column',
+			width: plotWidth
+		},
+		title: '',
+		tooltip: {
+			valueSuffix: tooltipSuffix
+		},
+		xAxis: {
+			categories: data.labels,
+			title: {
+				text: null
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: units,
+				align: 'high'
 			},
-			title: '',
-			tooltip: {
-				valueSuffix: tooltipSuffix
-			},
-			xAxis: {
-				categories: data.labels,
-				title: {
-					text: null
-				}
-			},
-			yAxis: {
-				min: 0,
-				title: {
-					text: units,
-					align: 'high'
-				},
-				labels: {
-					overflow: 'justify'
-				}
-			},			
-			series: [{
-				name: 'Year',
-				data:  data.year
-			},{
-				name: 'Last Week',
-				data:  data.week
-			}],
-		});
+			labels: {
+				overflow: 'justify'
+			}
+		},			
+		series: [{
+			name: 'Year',
+			data:  data.year
+		},{
+			name: 'Last Week',
+			data:  data.week
+		}],
+	});
+
+	//Get rid of the highcharts logo.
+	$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
+
 }
 
 /* This method draws two pie charts in the container with the given containerID using the
@@ -143,6 +147,9 @@ function drawPieCharts( containerID, data, percent ){
 			data: restructured.year
 		}]
 	});
+
+	//Get rid of the highcharts logo.
+	$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
 
 }
 
@@ -223,6 +230,7 @@ function drawTable( containerID, data, percent, no_total, links ){
 
 	//Draw it!
 	$('#'+containerID).html(table);
+	
 }
 
 /* This function takes the response from a category aggregation and turns it into a data object
