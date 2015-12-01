@@ -29,31 +29,37 @@
 
 	<div id="page-content-wrapper">
 		<div class="row">
-			<div class="col-xs-12 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Table 1
+			<div class="col-xs-12 less-padding-col">
+				<div class="chart box">
+					<div class="chart__heading">
+						Childhood Vaccinations
+					</div>
+					<div class="chart__content">
+						<div id="epi-table" class="table">
+						</div>
+
+					</div>
 				</div>
-				<div class="chart__content">
-					Content
-				</div>
-			</div></div>
+			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
 				<div class="chart__heading">
-					Table 2
+					Health Utilisation
 				</div>
 				<div class="chart__content">
-					Content
+					<div id="use-table" class="table">
+					</div>
 				</div>
 			</div></div>
 			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
 				<div class="chart__heading">
-					Table 3
+					Visit Type
 				</div>
 				<div class="chart__content">
-					Content
+					<div id="visit-table" class="table">
+					</div>
 				</div>
 			</div></div>
 		</div>
@@ -68,6 +74,41 @@ $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
+
+	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+	var transitionEvent = whichTransitionEvent();
+	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+		$(window).resize();
+	});
 });
+
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+//There was a pattern when drawing the charts for this page.
+//So this function is a refactorisation of that pattern.
+function categoryTable( category, locID, week, no_total ){
+
+	$.getJSON( api_root+"/aggregate_category/"+ category + "/" + locID, function( data ){
+		$.getJSON( api_root+"/variables/" + category, function( variables ){
+
+			var dataObject = makeDataObject(data, variables, week, "" );
+
+			drawTable( category+'-table', dataObject, true, no_total, 'loadDisease' );
+		});
+	});
+}
+
+//Every tab needs a draw charts function that is called when loading a new location.
+function drawCharts( locID ){
+
+	//Keep week abstracted out of the chart drawing process.
+	//In case we want the use to eb able to select the weeks to view.
+	var week = (get_epi_week()-1).toString();
+
+	categoryTable( 'epi', locID, week, true );
+	categoryTable( 'use', locID, week, false );
+	categoryTable( 'visit', locID, week, true );
+}
+
+
 </script>
