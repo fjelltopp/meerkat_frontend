@@ -1,4 +1,14 @@
-//The javascript in this file depends on data loaded in the file dataLoader.js
+var locationsTree = new TreeModel({childrenPropertyName:"nodes"});
+var locations;
+
+//This is the first method called when loading the technical site. 
+//It loads the location tree data and renders the initial tab page (e.g. Demographics)
+function loadLocationTree( initialPageState ){
+	$.getJSON( api_root+"/locationtree", function( data ){
+		locations = locationsTree.parse(data);
+		loadPage( initialPageState, true );
+	});
+}
 
 //This method is called when wishing to filter by location.
 function loadLocation( nodeID ){

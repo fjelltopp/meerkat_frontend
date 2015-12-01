@@ -111,6 +111,8 @@ $("#menu-toggle").click(function(e) {
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 
+//There was a pattern when drawing the charts for this page.
+//So this function is a refactorisation of that pattern.
 function categorySummation( category, locID, week ){
 
 	$.getJSON( api_root+"/aggregate_category/"+ category + "/" + locID, function( data ){
@@ -126,8 +128,11 @@ function categorySummation( category, locID, week ){
 	});
 }
 
+//Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
 
+	//Keep week abstracted out of the chart drawing process.
+	//In case we want the use to eb able to select the weeks to view.
 	var week = (get_epi_week()-1).toString();
 
 	categorySummation( 'gender', locID, week );

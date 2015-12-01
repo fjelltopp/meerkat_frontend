@@ -1,6 +1,11 @@
 /**
  * Pie title plugin
- * Last revision: 2012-12-21
+ * Author: Torstein Hønsi
+ * Original: http://jsfiddle.net/highcharts/tnSRA/
+ * Last revision: 2015-08-31
+ *
+ * It allows us to add individual titles to highcharts that include multiple pie charts.
+ * Practically it's used for adding "Year" and "Week" titles to the pie charts.
  */
 (function (Highcharts) {
     Highcharts.wrap(Highcharts.seriesTypes.pie.prototype, 'render', function (proceed) {
