@@ -10,14 +10,13 @@ class Config(object):
     # Global stuff
     ROOT_URL = 'https://jordan.emro.info'
     WEBMASTER_EMAIL = 'webmaster@emro.info'
-
+    SITE_TITLE = 'WHO Meerkat'
     # Homepage stuff
     HOMEPAGE_CONFIG = 'homepage_jordan.json'
     HOMEPAGE_API_ROOT = '/api'
 
     # Reports specfic stuff
     API_ROOT = 'https://jordan.emro.info/api'
-    REPORT_TITLE = 'WHO Public Health Profile'
     REPORT_LIST = {
         'jordan': {
             'default_location': 2,
@@ -37,7 +36,14 @@ class Config(object):
                     'mailchimp_list_id': '',
                     'mailchimp_dir_id': '7989',
                     'email_from_name': 'MOH Jordan',
-                    'email_from_address': 'notifications@moh.gov.jo'
+                    'email_from_address': 'notifications@moh.gov.jo',
+                    'test_json_payload': 'meerkat_frontend/apiData/reports_public_health_jordan.json'
+                },
+                'communicable_diseases': {
+                    'title': 'Communicable Diseases Report',
+                    'template': 'reports/report_jordan_communicable_diseases.html',
+                    'api_name': 'jor_cd',
+                    'test_json_payload': 'meerkat_frontend/apiData/reports_communicable_diseases_jordan.json'
                 }
             },
             'basic_auth':{

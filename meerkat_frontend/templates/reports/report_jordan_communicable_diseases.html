@@ -1,0 +1,92 @@
+{% extends 'reports/base.html' %}
+{% block title %}{{report.data.project_region|e}} &middot; Communicable Diseases Report &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+  <h2><span class="flag-icon flag-icon-jo"></span> <span class="hidden-xs">Jordan &middot; </span>Communicable Diseases Report
+    <span class="report-week">
+        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+    </span>
+  </h2>
+</div>
+<div class="row">
+  <!-- HIGHLIGHTS -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">Highlights</div>
+      <div class="chart-stage">
+        ￼ <p>Information reported in this public health profile represents cumulative cases reported from {{ report.data.clinic_num }} outpatient clinics in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% for row in report.data.communicable_diseases|dictsort|batch(2) %}
+<div class="row">
+  {% for cd in row %}
+  <!-- {{ cd[0]|e }} -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ cd[0]|e }}</div>
+      <div class="chart-stage">
+        <div id="chart-{{ cd[0]|slugify }}"></div>
+        {% set cases = cd[1].suspected|last|e %}
+        {% if cases == '0' %}
+        <p>No new cases of {{ cd[0]|e }} were reported this week.<p>
+        {% else %}
+        <p>{{ cd[1].suspected|last|e }} new cases of {{ cd[0]|e }} were reported this week.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+</div>
+<!-- MORE INFO AND CONTACT -->
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">More Information</div>
+      <div class="chart-stage">
+        <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
+        <p>The clinician uses the system within the consultation, which introduces clinical-decision support for child health and mental health, as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Contact Information</div>
+      <div class="chart-stage">
+        <address>
+          <strong>Ministry of Health</strong><br>
+          Prince Hamza Bin Al Hussein Street 67<br>
+          Amman 11181<br>
+          Jordan<br>
+          <abbr title="Website">W:</abbr> <a href="https://iers.moh.gov.jo">https://iers.moh.gov.jo</a>
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="map" style="display: hidden;"></div>
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+<script>
+$(function() {
+  {% for k, v in report.data.communicable_diseases|dictsort %}
+  // {{ k }}
+  $('#chart-{{ k|slugify }}').highcharts(
+    communicableDiseasesBarChart(
+      {{ v.weeks }},
+      [{{ v.confirmed }}, {{ v.suspected }}],
+      { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
+    )
+  );
+  {% endfor %}
+});
+</script>
+{% endblock extra_js %}
+{% block footer %}
+<p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
+{% endblock footer %}

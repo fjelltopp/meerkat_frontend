@@ -91,6 +91,58 @@ function genderBarChart(categories, series, labels) {
   return chart;
 }
 
+function communicableDiseasesBarChart(categories, series, labels) {
+  var chart = {
+    chart: {
+      animation: false
+    },
+    title: {
+      text: null
+    },
+    legend: {
+      enabled: true,
+      style: {
+        fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+      }
+    },
+    plotOptions: {
+      spline: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+    xAxis: {
+      categories: categories,
+      labels: {
+        step: 2
+      },
+      title: {
+        text: labels.xAxis.text,
+        align: 'middle'
+      }
+    },
+    yAxis: {
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      },
+      allowDecimals: false,
+      min: 0
+    },
+    series: [{
+      type: 'column',
+      name: 'Confirmed',
+      data: series[0]
+    },{
+      type: 'spline',
+      name: 'Suspected',
+      data: series[1],
+    }]
+  };
+  return chart;
+}
+
 // Global chart settings
 $(function() {
       Highcharts.setOptions({
