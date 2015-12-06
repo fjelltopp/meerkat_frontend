@@ -313,6 +313,8 @@
     </div>
   </div>
 </div>
+{% endblock body %}
+{% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
 // Reporting Sites
@@ -347,8 +349,50 @@ var mentalHealthConditionsGender = [{% for item in report.data.mental_health_gen
 // Child health
 var childHealthConditions = [{% for item in report.data.child_health %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 var childHealthConditionsGender = [{% for item in report.data.child_health_gender %}{name: "{{ item.title|e }}", y: {{ item.percent }}}{% if not loop.last %},{% endif %}{% endfor %}];
+// Plots charts for report
+$(function() {
+  $('#chart-reporting-sites').highcharts(
+    sitesBarChart(
+      reportingSites.categories,
+      reportingSites.series,
+      reportingSites.labels
+    ));
+  $('#chart-demographics').highcharts(
+    genderBarChart(
+      demographicsAges.categories,
+      demographicsAges.series,
+      demographicsAges.labels
+    ));
+  $('#chart-nationality').highcharts(
+    pieChart(nationality)
+  );
+  $('#chart-status').highcharts(
+    pieChart(patientStatus)
+  );
+  $('#chart-mor-communicable-disease').highcharts(
+    pieChart(communicableDiseases)
+  );
+  $('#chart-mor-non-communicable-disease').highcharts(
+    pieChart(nonCommunicableDiseases)
+  );
+  $('#chart-mental-health').highcharts(
+    pieChart(mentalHealthConditions)
+  );
+  $('#chart-child-health').highcharts(
+    pieChart(childHealthConditions)
+  );
+  $('#chart-mental-health-gender').highcharts(
+    pieChart(mentalHealthConditionsGender)
+  );
+  $('#chart-mental-health-age').highcharts(
+    pieChart(mentalHealthConditionsAge)
+  );
+  $('#chart-child-health-gender').highcharts(
+    pieChart(childHealthConditionsGender)
+  );
+});
 </script>
-{% endblock body %}
+{% endblock %}
 {% block footer %}
 <p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
 {% endblock footer %}

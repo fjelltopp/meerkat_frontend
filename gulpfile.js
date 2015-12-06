@@ -54,7 +54,6 @@ gulp.task('appJS', ['jshint'], function() {
       'meerkat_frontend/src/js/reports-navbar.js',
       'meerkat_frontend/src/js/mapbox-reports.js',
       'meerkat_frontend/src/js/charts/charts.js',
-      'meerkat_frontend/src/js/charts/charts-report.js',
       'meerkat_frontend/src/js/**/*.js'
     ])
     //.pipe(sourcemaps.init())
