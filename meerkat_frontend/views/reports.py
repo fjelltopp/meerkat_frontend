@@ -118,7 +118,7 @@ def send_email_report(project, report):
             report_url=report_url
         )
         subject = (
-            'WHO Jordan | Public Health Profile Epi Week {} ({})'
+            'MOH Jordan | Public Health Profile Epi Week {} ({})'
             .format(epi_week, epi_date)
         )
 
