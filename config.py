@@ -38,6 +38,10 @@ class Config(object):
                     'mailchimp_dir_id': '7989',
                     'email_from_name': 'WHO Jordan',
                     'email_from_address': 'notifications@emro.info'
+                },
+                'communicable_diseases': {
+                    'title': 'Communicable Diseases Report',
+                    'template': 'reports/report_jordan_communicable_diseases.html'
                 }
             },
             'basic_auth':{
@@ -61,4 +65,3 @@ class Development(Config):
 class Testing(Config):
     DEBUG = False
     TESTING = True
-
