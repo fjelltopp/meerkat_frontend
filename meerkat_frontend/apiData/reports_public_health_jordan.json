@@ -1,0 +1,327 @@
+{
+  "meta": {
+    "project_id": 1,
+    "uuid": "d1184ce8-ca50-4662-a9bc-7197c2d61d20",
+    "schema_version": 0.1,
+    "generation_timestamp": "2015-10-25T23:01:26.690179"
+  },
+  "data": {
+    "project_epoch": "2015-05-20T00:00:00",
+    "total_cases": 7698.0,
+    "global_clinic_num": 267,
+    "clinic_num": 267,
+    "presenting_complaints": [{
+      "quantity": 103.0,
+      "percent": 1.4468324202837477,
+      "title": "Mental Health"
+    }, {
+      "quantity": 2469.0,
+      "percent": 34.68183733670459,
+      "title": "Child Health"
+    }, {
+      "quantity": 3241.0,
+      "percent": 45.52605703048181,
+      "title": "Communicable disease"
+    }, {
+      "quantity": 1.0,
+      "percent": 0.014046916701783959,
+      "title": "Reproductive Health"
+    }, {
+      "quantity": 1066.0,
+      "percent": 14.974013204101698,
+      "title": "Non-communicable disease"
+    }, {
+      "quantity": 239.0,
+      "percent": 3.357213091726366,
+      "title": "Injury"
+    }],
+    "alerts_total": 460.0,
+    "public_health_indicators": [{
+      "quantity": 7698.0,
+      "percent": null,
+      "title": "Cases Reported"
+    }, {
+      "quantity": 8.0,
+      "percent": 0.10392309690828788,
+      "title": "Mental Health (mhGAP) algorithm followed"
+    }, {
+      "quantity": 0,
+      "percent": 0.0,
+      "title": "Child Health (IMCI) algorithm followed"
+    }, {
+      "quantity": 2.0,
+      "percent": 0.02598077422707197,
+      "title": "Reproductive Health screening"
+    }, {
+      "quantity": 6.0,
+      "percent": 0.0779423226812159,
+      "title": "Laboratory results recorded"
+    }, {
+      "quantity": 28.0,
+      "percent": 0.36373083917900756,
+      "title": "Prescribing practice recorded"
+    }, {
+      "quantity": 272.0,
+      "percent": 24.840182648401825,
+      "title": "Smoking prevalence (current)"
+    }],
+    "morbidity_non_communicable": [{
+      "quantity": 494.0,
+      "percent": 38.117283950617285,
+      "title": "Hypertensive diseases"
+    }, {
+      "quantity": 426.0,
+      "percent": 32.870370370370374,
+      "title": "Diabetes mellitus"
+    }, {
+      "quantity": 152.0,
+      "percent": 11.728395061728394,
+      "title": "Other diseases of intestines"
+    }, {
+      "quantity": 90.0,
+      "percent": 6.944444444444445,
+      "title": "Obesity and other hyperalimentation"
+    }, {
+      "quantity": 61.0,
+      "percent": 4.70679012345679,
+      "title": "Chronic lower respiratory diseases"
+    }],
+    "percent_morbidity_mental_health": 1.3380098726942062,
+    "alerts": [{
+      "quantity": 80,
+      "subject": "Rabies"
+    }, {
+      "quantity": 79,
+      "subject": "Bloody diarrhoea"
+    }, {
+      "quantity": 58,
+      "subject": "German measles (Rubella)"
+    }, {
+      "quantity": 47,
+      "subject": "Hepatitis B"
+    }, {
+      "quantity": 40,
+      "subject": "Hepatitis A"
+    }],
+    "project_region": "Jordan",
+    "epi_week_num": 43,
+    "morbidity_communicable": [{
+      "quantity": 4089.0,
+      "percent": 74.61678832116789,
+      "title": "Intestinal infectious diseases"
+    }, {
+      "quantity": 892.0,
+      "percent": 16.277372262773724,
+      "title": "Viral infections characterized by skin and mucous membrane lesions"
+    }, {
+      "quantity": 211.0,
+      "percent": 3.8503649635036497,
+      "title": "Viral infections of the central nervous system"
+    }, {
+      "quantity": 117.0,
+      "percent": 2.1350364963503647,
+      "title": "Viral hepatitis"
+    }, {
+      "quantity": 39.0,
+      "percent": 0.7116788321167883,
+      "title": "Pediculosis,acariasis and other infestations"
+    }],
+    "patient_status": [{
+      "quantity": 7412.0,
+      "percent": 96.25974025974025,
+      "title": "Jordanian"
+    }, {
+      "quantity": 165.0,
+      "percent": 2.142857142857143,
+      "title": "Refugee"
+    }, {
+      "quantity": 123.0,
+      "percent": 1.5974025974025974,
+      "title": "Other"
+    }],
+    "percent_cases_lt_5yo": 34.658352818914004,
+    "demographics": [{
+      "age": "<5",
+      "male": {
+        "percent": 53.849721706864564,
+        "quantity": 1161.0
+      },
+      "female": {
+        "percent": 46.150278293135436,
+        "quantity": 995.0
+      }
+    }, {
+      "age": "5-9",
+      "male": {
+        "percent": 56.82819383259912,
+        "quantity": 774.0
+      },
+      "female": {
+        "percent": 43.17180616740088,
+        "quantity": 588.0
+      }
+    }, {
+      "age": "10-14",
+      "male": {
+        "percent": 58.87323943661972,
+        "quantity": 418.0
+      },
+      "female": {
+        "percent": 41.12676056338028,
+        "quantity": 292.0
+      }
+    }, {
+      "age": "15-19",
+      "male": {
+        "percent": 58.51393188854489,
+        "quantity": 189.0
+      },
+      "female": {
+        "percent": 41.48606811145511,
+        "quantity": 134.0
+      }
+    }, {
+      "age": "20-59",
+      "male": {
+        "percent": 49.094202898550726,
+        "quantity": 1084.0
+      },
+      "female": {
+        "percent": 50.90579710144928,
+        "quantity": 1124.0
+      }
+    }, {
+      "age": ">60",
+      "male": {
+        "percent": 50.585480093676814,
+        "quantity": 216.0
+      },
+      "female": {
+        "percent": 49.414519906323186,
+        "quantity": 211.0
+      }
+    }],
+    "percent_cases_male": 53.572356456222394,
+    "epi_week_date": "2015-10-24T23:01:26.689921",
+    "nationality": [{
+      "quantity": 7429.0,
+      "percent": 96.48051948051948,
+      "title": "Jordan"
+    }, {
+      "quantity": 135.0,
+      "percent": 1.753246753246753,
+      "title": "Syria"
+    }, {
+      "quantity": 69.0,
+      "percent": 0.8961038961038961,
+      "title": "Other Nationality"
+    }, {
+      "quantity": 35.0,
+      "percent": 0.45454545454545453,
+      "title": "Palestine"
+    }, {
+      "quantity": 18.0,
+      "percent": 0.23376623376623376,
+      "title": "Egypt"
+    }, {
+      "quantity": 14.0,
+      "percent": 0.18181818181818182,
+      "title": "Iraq"
+    }],
+    "total_consultations": 82013.0,
+    "mental_health": [{
+      "quantity": 59.0,
+      "percent": 56.19047619047619,
+      "title": "Mood [affective] disorders"
+    }, {
+      "quantity": 22.0,
+      "percent": 20.952380952380953,
+      "title": "Schizophrenia, schizotypal and delusional disorders"
+    }, {
+      "quantity": 11.0,
+      "percent": 10.476190476190476,
+      "title": "Neurotic,stress-related and somatoform disorders"
+    }, {
+      "quantity": 4.0,
+      "percent": 3.8095238095238098,
+      "title": "Mental retardation"
+    }, {
+      "quantity": 3.0,
+      "percent": 2.857142857142857,
+      "title": "Mental and behavioural disorders due to psychoactive substance use"
+    }],
+    "child_health": [{
+      "quantity": 1044,
+      "percent": 79.45205479452055,
+      "title": "Intestinal infectious diseases"
+    }, {
+      "quantity": 121,
+      "percent": 9.208523592085236,
+      "title": "Viral infections characterized by skin and mucous membrane lesions"
+    }, {
+      "quantity": 66,
+      "percent": 5.0228310502283104,
+      "title": "Viral infections of the central nervous system"
+    }, {
+      "quantity": 29,
+      "percent": 2.207001522070015,
+      "title": "Other diseases of intestines"
+    }, {
+      "quantity": 11,
+      "percent": 0.837138508371385,
+      "title": "Injuries to unspecified part of trunk, limb or body region"
+    }],
+    "percent_cases_female": 46.427643543777606,
+    "percent_morbidity_communicable": 42.10184463497012,
+    "percent_morbidity_non_communicable": 13.84775266302936,
+    "reporting_sites": [{
+      "quantity": 432.0,
+      "percent": 5.611847233047545,
+      "title": "Ajloun"
+    }, {
+      "quantity": 734.0,
+      "percent": 9.534944141335412,
+      "title": "Amman"
+    }, {
+      "quantity": 139.0,
+      "percent": 1.8056638087815016,
+      "title": "Aqaba"
+    }, {
+      "quantity": 1852.0,
+      "percent": 24.05819693426864,
+      "title": "Balqa"
+    }, {
+      "quantity": 2228.0,
+      "percent": 28.94258248895817,
+      "title": "Irbid"
+    }, {
+      "quantity": 410.0,
+      "percent": 5.326058716549753,
+      "title": "Jarash"
+    }, {
+      "quantity": 141.0,
+      "percent": 1.8316445830085737,
+      "title": "Karak"
+    }, {
+      "quantity": 139.0,
+      "percent": 1.8056638087815016,
+      "title": "Ma'an"
+    }, {
+      "quantity": 168.0,
+      "percent": 2.1823850350740455,
+      "title": "Madaba"
+    }, {
+      "quantity": 691.0,
+      "percent": 8.976357495453364,
+      "title": "Mafraq"
+    }, {
+      "quantity": 517.0,
+      "percent": 6.7160301376981035,
+      "title": "Tafeileh"
+    }, {
+      "quantity": 259.0,
+      "percent": 3.36451026240582,
+      "title": "Zarqa"
+    }]
+  }
+}

@@ -1,0 +1,74 @@
+{% extends 'reports/base.html' %}
+{% block title %}{{ site_title_short|e }} &middot; {{report.data.project_region|e}} &middot; Communicable Diseases Report &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+  <h2><span class="flag-icon flag-icon-jo"></span> <span class="hidden-xs">Jordan &middot; </span>Communicable Diseases Report
+    <span class="report-week">
+        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+    </span>
+  </h2>
+</div>
+<div class="row">
+  <!-- HIGHLIGHTS -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">Highlights</div>
+      <div class="chart-stage">
+        ￼ <p>Information reported in this public health profile represents cumulative cases reported from {{ report.data.clinic_num }} outpatient clinics in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% for cd in report.data.communicable_diseases %}
+<!-- {{ cd }} -->
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ cd }}</div>
+      <div class="chart-stage">
+        <p></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-stage"></div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<!-- MORE INFO AND CONTACT -->
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">More Information</div>
+      <div class="chart-stage">
+        <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
+        <p>The clinician uses the system within the consultation, which introduces clinical-decision support for child health and mental health, as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Contact Information</div>
+      <div class="chart-stage">
+        <address>
+          <strong>Ministry of Health</strong><br>
+          Prince Hamza Bin Al Hussein Street 67<br>
+          Amman 11181<br>
+          Jordan<br>
+          <abbr title="Website">W:</abbr> <a href="https://iers.moh.gov.jo">https://iers.moh.gov.jo</a>
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+<script>
+</script>
+{% endblock body %}
+{% block footer %}
+<p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
+{% endblock footer %}

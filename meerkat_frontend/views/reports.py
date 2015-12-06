@@ -28,24 +28,40 @@ def index():
         )
 
 
-@reports.route('/test/')
-def test():
+@reports.route('/test/<project>/<report>/')
+def test(project, report):
     """Serves a test report page using a static JSON file."""
-    try:
-        with open('test_report.json') as report:
-            data = json.load(report)
-    except IOError:
-        abort(500, "IOError with test report JSON file.")
-    except json.JSONDecodeError as e:
-        abort(500, "Error parsing test report JSON file: {0}".format(e.msg))
-    # Extra parsing for natural language bullet points in email templates
-    patient_status = {item['title'].lower().replace(" ", ""): {'percent': item['percent'], 'quantity': item['quantity']} for item in data['data']['patient_status']}
-    extras = {
-        'patient_status': patient_status
-        }
-    return render_template('reports/report_jordan_public_health_profile.html',
-                           report=data,
-                           extras=extras)
+    projects = current_app.config['REPORT_LIST']
+    if project in projects and report in projects[project]['reports']:
+        try:
+            with open(projects[project]['reports'][report]['test_json_payload']) as json_blob:
+                data = json.load(json_blob)
+        except IOError:
+            abort(500)
+        except json.JSONDecodeError:
+            abort(500)
+
+        if project == 'jordan' and report == 'public_health':
+            # Extra parsing for natural language bullet points
+            extras = {
+                'patient_status': {
+                    item['title'].lower().replace(" ", ""):
+                        {
+                            'percent': item['percent'],
+                            'quantity': item['quantity']
+                        } for item in data['data']['patient_status']}
+                }
+        else:
+            extras = None
+        return render_template(
+            projects[project]['reports'][report]['template'],
+            report=data,
+            extras=extras
+        )
+    else:
+        abort(501)
+
+
 
 
 @reports.route('/email/<project>/<report>/', methods=['POST'])
