@@ -114,9 +114,6 @@ function communicableDiseasesBarChart(categories, series, labels) {
     },
     xAxis: {
       categories: categories,
-      labels: {
-        step: 2
-      },
       title: {
         text: labels.xAxis.text,
         align: 'middle'

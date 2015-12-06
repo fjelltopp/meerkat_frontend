@@ -15,7 +15,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">Highlights</div>
       <div class="chart-stage">
-        ￼ <p>Information reported in this public health profile represents cumulative cases reported from {{ report.data.clinic_num }} outpatient clinics in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+        ￼ <p>This Communicable Disease Report represents cumulative cases reported from {{ report.data.clinic_num }} outpatient clinics in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
       </div>
     </div>
   </div>
@@ -29,12 +29,9 @@
       <div class="chart-title">{{ cd[0]|e }}</div>
       <div class="chart-stage">
         <div id="chart-{{ cd[0]|slugify }}"></div>
-        {% set cases = cd[1].suspected|last|e %}
-        {% if cases == '0' %}
-        <p>No new cases of {{ cd[0]|e }} were reported this week.<p>
-        {% else %}
-        <p>{{ cd[1].suspected|last|e }} new cases of {{ cd[0]|e }} were reported this week.</p>
-        {% endif %}
+        {% set susp_cases = cd[1].suspected|last|e %}
+        {% set conf_cases = cd[1].confirmed|last|e %}
+        <p>There were {% if conf_cases == '0' %}no{% else %}{{ conf_cases }}{% endif %} new confirmed cases and {% if susp_cases == '0' %}no{% else %}{{ susp_cases }}{% endif %} new suspected cases of {{ cd[0]|e }} this week.</p>
       </div>
     </div>
   </div>
@@ -48,7 +45,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">More Information</div>
       <div class="chart-stage">
-        <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
+        <p>A program of public health surveillance is being implemented in 291 outpatient clinics in Jordan, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
         <p>The clinician uses the system within the consultation, which introduces clinical-decision support for child health and mental health, as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
       </div>
     </div>
