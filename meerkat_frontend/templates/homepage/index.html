@@ -10,12 +10,12 @@
 
 {% block body %}
 <!-- CONTENT -->
-	 <div id="mobile-home" class="container screen visible-xs hidden-lg" > 
-         <H1> {{content.titles.full|safe}} </H1>
-         <div id="logos" >
-            <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" id="whoMobLogo" ></img>
-            <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" id="johMobLogo" ></img>
-          </div>
+	 <div id="mobile-home" class="visible-xs hidden-lg" > 
+		      <H1> {{content.titles.full|safe}} </H1>
+		      <div class="logos" >
+		         <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" id="whoMobLogo" ></img>
+		         <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" id="johMobLogo" ></img>
+		       </div>
     </div>
 
     <div class="screen hidden-xs" id="map-home">
@@ -24,7 +24,7 @@
         <div class="key">
 			 <img src="{{url_for('static', filename='img/homepage/marker-icon-2x.png')}}"></img>
           <div class="keyText"> Surveillance Sites 
-             <div class="keyBody"> Click on a region to explore </div>
+             <div class="keyBody clickable"> Click here to explore </div>
           </div>
         </div>  
       </div> 

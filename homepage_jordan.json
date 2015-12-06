@@ -31,6 +31,10 @@
       "type":"indicators",
       "content":"<p>The following indicators monitor the status and functioning of the health system in Jordan and are automatically updated from health facilities:</p>"
     },{
+      "title":"Reports",
+      "type":"html",
+      "content":"<p>Weekly epidemiological public reports are published online and distributed via e-mail. You can sign up to receive weekly reports and updates <a target='_blank' href='http://who.us6.list-manage.com/subscribe?u=db2beeeb47818eb521747f4cf&id=d2a4eae0aa'>here</a>. Access the most recent reports for Jordan here:</p><p class='reports-button'><a type='button' class='btn btn-lg btn-default ' href='reports/' target='_blank'>Latest Public<br>Health Profile</a></p></p>"
+    },{
       "title":"Principles",
       "type":"slides",
       "content":"<p>The project has the following principles of implementation (click to expand):</p>",

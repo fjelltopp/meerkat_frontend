@@ -6,7 +6,7 @@ Root Flask app for the Meerkat frontend.
 This module runs as the root Flask app and mounts component Flask apps for
 different services such as the API and Reports.
 """
-import json
+import json, os
 from flask import Flask, send_file
 from .views.homepage import homepage
 from .views.technical import technical
@@ -18,7 +18,8 @@ app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS', silent=True)
 
 #Load settings saved in config files. 
-app.config['HOMEPAGE_CONFIG'] = json.loads( open(app.config['HOMEPAGE_CONFIG'] ).read())
+path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
+app.config['HOMEPAGE_CONFIG'] = json.loads( open(path).read())
 
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')
