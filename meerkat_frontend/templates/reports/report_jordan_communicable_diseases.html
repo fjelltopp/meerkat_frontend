@@ -86,7 +86,7 @@ $(function() {
   {% endfor %}
 });
 </script>
-{% endblock body %}
+{% endblock extra_js %}
 {% block footer %}
 <p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
 {% endblock footer %}
