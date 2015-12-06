@@ -7,6 +7,7 @@ This module runs as the root Flask app and mounts component Flask apps for
 different services such as the API and Reports.
 """
 import json, os
+from slugify import slugify
 from flask import Flask, send_file
 from .views.homepage import homepage
 from .views.technical import technical
@@ -17,7 +18,7 @@ app = Flask(__name__)
 app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS', silent=True)
 
-#Load settings saved in config files. 
+#Load settings saved in config files.
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
 app.config['HOMEPAGE_CONFIG'] = json.loads( open(path).read())
 
@@ -26,7 +27,13 @@ app.register_blueprint(homepage, url_prefix='/')
 app.register_blueprint(technical, url_prefix='/technical')
 app.register_blueprint(reports, url_prefix='/reports')
 
-# An API to serve static data files, only when testing the system.  
+
+@app.template_filter('slugify')
+def slug(s):
+    """Creates a slugify filter for Jinja templates"""
+    return slugify(s)
+
+# An API to serve static data files, only when testing the system.
 def api(filename):
     return send_file('apiData/'+filename+'.json')
 if app.config['TESTING']:

@@ -1,5 +1,5 @@
 {% extends 'reports/base.html' %}
-{% block title %}{{ site_title_short|e }} &middot; {{report.data.project_region|e}} &middot; Communicable Diseases Report &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; Communicable Diseases Report &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
@@ -20,25 +20,28 @@
     </div>
   </div>
 </div>
-{% for cd in report.data.communicable_diseases %}
-<!-- {{ cd }} -->
+{% for row in report.data.communicable_diseases|dictsort|batch(2) %}
 <div class="row">
+  {% for cd in row %}
+  <!-- {{ cd[0]|e }} -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ cd }}</div>
+      <div class="chart-title">{{ cd[0]|e }}</div>
       <div class="chart-stage">
-        <p></p>
+        <div id="chart-{{ cd[0]|slugify }}"></div>
+        {% set cases = cd[1].suspected|last|e %}
+        {% if cases == '0' %}
+        <p>No new cases of {{ cd[0]|e }} were reported this week.<p>
+        {% else %}
+        <p>{{ cd[1].suspected|last|e }} new cases of {{ cd[0]|e }} were reported this week.</p>
+        {% endif %}
       </div>
     </div>
   </div>
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-stage"></div>
-    </div>
-  </div>
+  {% endfor %}
 </div>
 {% endfor %}
-
+</div>
 <!-- MORE INFO AND CONTACT -->
 <div class="row">
   <div class="col-sm-6">
@@ -65,8 +68,23 @@
     </div>
   </div>
 </div>
+<div id="map" style="display: hidden;"></div>
+{% endblock body %}
+{% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
+$(function() {
+  {% for k, v in report.data.communicable_diseases|dictsort %}
+  // {{ k }}
+  $('#chart-{{ k|slugify }}').highcharts(
+    communicableDiseasesBarChart(
+      {{ v.weeks }},
+      [{{ v.confirmed }}, {{ v.suspected }}],
+      { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
+    )
+  );
+  {% endfor %}
+});
 </script>
 {% endblock body %}
 {% block footer %}

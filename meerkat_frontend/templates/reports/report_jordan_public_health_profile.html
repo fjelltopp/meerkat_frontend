@@ -1,5 +1,5 @@
 {% extends 'reports/base.html' %}
-{% block title %}{{ site_title_short|e }} &middot; {{report.data.project_region|e}} &middot; Public Health Profile &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; Public Health Profile &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
@@ -392,7 +392,7 @@ $(function() {
   );
 });
 </script>
-{% endblock %}
+{% endblock body %}
 {% block footer %}
 <p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
 {% endblock footer %}

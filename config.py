@@ -10,14 +10,13 @@ class Config(object):
     # Global stuff
     ROOT_URL = 'https://jordan.emro.info'
     WEBMASTER_EMAIL = 'webmaster@emro.info'
-
+    SITE_TITLE = 'WHO Meerkat'
     # Homepage stuff
     HOMEPAGE_CONFIG = 'homepage_jordan.json'
     HOMEPAGE_API_ROOT = '/api'
 
     # Reports specfic stuff
     API_ROOT = 'https://jordan.emro.info/api'
-    REPORT_TITLE = 'WHO Public Health Profile'
     REPORT_LIST = {
         'jordan': {
             'default_location': 2,
