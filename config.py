@@ -36,8 +36,8 @@ class Config(object):
                     'api_name': 'jor_public_health',
                     'mailchimp_list_id': '',
                     'mailchimp_dir_id': '7989',
-                    'email_from_name': 'WHO Jordan',
-                    'email_from_address': 'notifications@emro.info'
+                    'email_from_name': 'MOH Jordan',
+                    'email_from_address': 'notifications@moh.gov.jo'
                 }
             },
             'basic_auth':{
@@ -61,4 +61,3 @@ class Development(Config):
 class Testing(Config):
     DEBUG = False
     TESTING = True
-
