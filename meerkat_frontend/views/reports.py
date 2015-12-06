@@ -62,8 +62,6 @@ def test(project, report):
         abort(501)
 
 
-
-
 @reports.route('/email/<project>/<report>/', methods=['POST'])
 def send_email_report(project, report):
     """Sends an email via Mailchimp with the latest report"""
@@ -210,11 +208,18 @@ def report(project, report=None, location=None, year=None, week=None):
                 ).strftime('%Y-%m-%d')
             )
         data = c.api(api_request, project)
-        # Extra parsing for natural language bullet points in email templates
-        patient_status = {item['title'].lower().replace(" ", ""): {'percent': item['percent'], 'quantity': item['quantity']} for item in data['data']['patient_status']}
-        extras = {
-            'patient_status': patient_status
-            }
+        if project == 'jordan' and report == 'public_health':
+            # Extra parsing for natural language bullet points
+            extras = {
+                'patient_status': {
+                    item['title'].lower().replace(" ", ""):
+                        {
+                            'percent': item['percent'],
+                            'quantity': item['quantity']
+                        } for item in data['data']['patient_status']}
+                }
+        else:
+            extras = None
         # Render correct template for the report
         return render_template(
             projects[project]['reports'][report]['template'],
