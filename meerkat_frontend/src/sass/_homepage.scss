@@ -4,16 +4,16 @@ body.homepage{
 }
 // NAVBAR FORMATING
 .navbar{
-	
+
 	background-color: $blue;
 	margin-bottom: 0;
-   border: none;	
+   border: none;
 
-	
-	.navbar-nav{ 
 
-		a, 
-		a:focus, 
+	.navbar-nav{
+
+		a,
+		a:focus,
 		a:hover{
 			background-color:$blue;
 			color: white;
@@ -49,17 +49,17 @@ body.homepage{
 
 	cursor: default;
 
-	.marker-cluster-small, 
-	.marker-cluster-medium, 
+	.marker-cluster-small,
+	.marker-cluster-medium,
 	.marker-cluster-large{
 
 		background-color: #EA9E72;
-			
+
 		div {
 			background-color: $highlight;
 			color: white;
 			font-weight: bold;
-		}		
+		}
 	}
 
 }
@@ -79,15 +79,15 @@ body.homepage{
 		position: absolute;
 		left: 0;
 		bottom: 0;
-		padding: 30px; 
+		padding: 30px;
 		height: auto;
 		overflow: hidden;
 		text-align: center;
 		width: 490px;
 		z-index: 2;
-	   background: #FFF;	
+	   background: #FFF;
 		border-radius: 20px 20px 0px 0px;
-	
+
 	 	h1{
 			position: static;
 			float: left;
@@ -150,7 +150,7 @@ body.homepage{
 			z-index: 2;
 			right: 150px;
 		}
-	
+
 		.keyBody{
 			font-size: 0.6em;
 		}
@@ -187,7 +187,7 @@ body.homepage{
 			line-height: 75%;
 		}
 
-		#lat.label, 
+		#lat.label,
 		#lng.label{
 			width: 20%;
 			text-align: left;
@@ -195,7 +195,7 @@ body.homepage{
 			margin-top: 10px;
 		}
 
-		#lat.value, 
+		#lat.value,
 		#lng.value{
 			width:30%;
 			float: left;
@@ -218,7 +218,7 @@ body.homepage{
 }
 
 #mobile-home{
-	
+
 	padding: 20px 0px;
 
 	img{
@@ -238,13 +238,13 @@ body.homepage{
 .slides{
 	.slideCont{
 		display: none;
-	}		
+	}
 }
 .reports-button{
 
 	margin: 50px 0px 0px;
-	text-align: center;	
-	
+	text-align: center;
+
 	a,
 	a:hover,
 	a:focus,
@@ -264,7 +264,7 @@ body.homepage{
 	text-align: center;
 
 	img{
-		max-height: 200px; 
+		max-height: 200px;
 		max-width: 100%;
 		margin: 15px 0;
 	}
@@ -323,11 +323,11 @@ body.homepage{
 
 	.keyIndicator{
 		padding: 25px;
-		width: 200px;  
-		height: 200px; 
+		width: 200px;
+		height: 200px;
 		margin: 0 5px;
 		background: $blue;
-		color: white; 
+		color: white;
 		border-radius: 20px;
 		float: left;
 	}
@@ -353,7 +353,7 @@ body.homepage{
 	}
 
 	@media (min-width: 700px) {
-		
+
 		width: 700px;
 
 		.window{
@@ -371,7 +371,7 @@ body.homepage{
 }
 
 
-footer{
+.homepage-footer{
 
 	background-color: $darkGrey;
 	color: $lightGrey;
@@ -379,7 +379,7 @@ footer{
 
 	.container{
 		padding:20px;
-		text-align: center;		
+		text-align: center;
 		margin-top: 20px;
 	}
 
@@ -412,7 +412,7 @@ footer{
 		display: inline-block;
 		margin-right: -4px;
 		float: none;
-	}		
+	}
 }
 
 //Creates vertical space
@@ -429,4 +429,3 @@ footer{
 a:hover{
 	color: $highlight;
 }
-
