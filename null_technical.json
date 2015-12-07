@@ -43,7 +43,8 @@
 		"The Ministry of Health, Null Island"
     ],
 
-    "email":"emwrojor@who.int"
+    "email":"emwrojor@who.int",
+    "central_review":false
   }
 }
 

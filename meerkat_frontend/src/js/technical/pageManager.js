@@ -14,7 +14,7 @@ function loadTabContent( tabID, locID ){
 										function(){ loadLocationContent(locID); });
 										
 
-	//Update the active tab
+	//Update the active tab styling
 	$('.technical-tabs li.active').removeClass('active');
 	$( '#'+tabID ).parent().addClass('active');
 
@@ -32,24 +32,21 @@ function loadTab( tabID, locID ){
 
 	//Record the page history.
 	currentState = { type: 'tab', dataID: tabID, locID: locID};
-	var url = currentState.locID == 1 ? currentState.dataID : currentState.dataID + '/loc_' + currentState.locID;
+	var url = currentState.locID == 1 ? 
+	          currentState.dataID : currentState.dataID + '/loc_' + currentState.locID;
 	history.pushState( currentState, $( '#'+tabID ).text(), '/technical/' + url );
 
-	//Load the content.
 	loadTabContent( tabID, locID );
 }
 
 function loadDiseaseContent( diseaseID, locID ){
 
-	//TODO: load disease data
-
-	//Load the page content
 	//Disease-specific changes depend on the page content being loaded.
 	$( '#page-content' ).load( '/static/files/technical_pages/disease.html',
-										function(){ 
-											$('#diseaseID').html(diseaseID);
-											loadLocationContent(locID); 
-										}); 
+	                           function(){ 
+	                           	$('#diseaseID').html(diseaseID);
+	                           	loadLocationContent(locID); 
+	                           }); 
 										
 }
 
@@ -67,20 +64,18 @@ function loadDisease( diseaseID, locID ){
 	var url = 'diseases/disease_' + currentState.dataID + '/loc_' + locID;
 	history.pushState( currentState, 'Disease #' + diseaseID, '/technical/' + url );
 
-	//Load the page's content.
 	loadDiseaseContent( diseaseID, locID );
 }
 
 function loadAlertContent( alertID ){
-	//TODO: load alert data
-
 	//Load the page content
 	//Alert-specific changes depend on the page content being loaded.
 	$( '#page-content' ).load( '/static/files/technical_pages/alert.html',
-										function(){ 
-											$('#alertID').html(alertID);
-										}); 
-
+	                           function(){ 
+	                           	//This function is defined in the alert.html page file.
+	                           	//It colelcts data for the alertID and draws the alert page.
+	                           	drawAlertContent( alertID );
+	                           }); 
 }
 
 function loadAlert( alertID ){
@@ -97,7 +92,6 @@ function loadAlert( alertID ){
 	var url = 'alerts/alert_' + currentState.dataID;
 	history.pushState( currentState, 'Alert #' + alertID, '/technical/' + url );
 
-	//Load the page's content.
 	loadAlertContent( alertID );
 }
 
@@ -112,7 +106,6 @@ function loadAlert( alertID ){
  */
 function loadPage( pageState, logHistory ){
 
-	//Based on the page state 'type' decide what type of page to load.
 	switch( pageState.type ){
 
 		case 'tab' :

@@ -34,7 +34,8 @@
 					Selection Table
 				</div>
 				<div class="chart__content">
-					Content
+					<div id="alert-agg-table" class="table">
+					</div>
 				</div>
 			</div></div>
 		</div>
@@ -45,8 +46,8 @@
 					Info Table
 				</div>
 				<div class="chart__content">
-					Content<br>
-					<a href="" onclick="loadAlert(11);return false;">See page for alert number 11 </div>
+					<div id="alert-table" class="table" >
+					</div>
 				</div>
 			</div></div>
 		</div>
@@ -61,6 +62,49 @@ $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
+
+	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+	var transitionEvent = whichTransitionEvent();
+	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+		$(window).resize();
+	});
 });
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+//This function is called every time a new location is loaded.
+//Any location-dependant content should be redrawn through this function.
+function drawCharts( locID ){
+	
+	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
+	loadAlertTables(undefined, locID);
+
+}
+
+function loadAlertTables( reason, locID ){
+	
+	//locID (the id of the location) is an optional argument.  
+	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
+	if( typeof locID == 'undefined' ){
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		else locID = history.state.locID;
+	}
+
+	$.getJSON( api_root+"/variables/moh", function( variables ){
+			
+		$.getJSON( api_root+"/aggregate_alerts?location="+locID, function( aggData ){
+			drawAlertAggTable('alert-agg-table', aggData, variables);
+		});
+
+		//Assemble the correct url, so that reason can be an optional argument.
+		var url = api_root+"/alerts?location=" + locID;
+		if( typeof reason !== 'undefined' ){
+			url += "&reason=" + reason;
+		}
+
+		$.getJSON( url, function( data ) {
+			drawAlertsTable( "alert-table", data.alerts, variables );
+		});
+	});
+}
+
 </script>

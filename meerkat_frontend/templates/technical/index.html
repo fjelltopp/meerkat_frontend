@@ -55,7 +55,8 @@
 
 <script type="text/javascript" >
 
-	var api_root="{{config['TECHNICAL_API_ROOT']}}";
+	var api_root = "{{config['TECHNICAL_API_ROOT']}}";
+	var config = "{{config['TECHNICAL_CONFIG'] | safe}}";
 
 	loadLocationTree( {{page | safe}} );
 

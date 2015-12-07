@@ -34,9 +34,9 @@ def index(tab="demographics", locID=1):
     pageState = "{ type: 'tab', dataID: '" + tab + "', locID: " + str(locID) + " }"
     return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], page=pageState)
 
-@technical.route('/alerts/alert_<int:alertID>')
+@technical.route('/alerts/alert_<alertID>')
 def alert( alertID=1 ):
-	pageState = "{ type: 'alert', dataID: '" + str(alertID) + "' }"
+	pageState = "{ type: 'alert', dataID: '" + alertID + "' }"
 	return render_template('technical/index.html', content=current_app.config['TECHNICAL_CONFIG'], page=pageState)
 
 @technical.route('/diseases/disease_<int:diseaseID>/')

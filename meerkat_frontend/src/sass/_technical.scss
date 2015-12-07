@@ -146,6 +146,27 @@ button.header:hover{
 	line-height: 42px;
 }
 
+td.fit{
+	width: 1%;
+	white-space: nowrap;
+	padding: 5px 20px 5px 10px;
+}
+
+tr.spaceUnder td,
+tr.spaceUnder td.fit,
+{
+	padding-bottom: 20px;
+}
+
+#checklist{
+	margin-top: 20px;
+}
+
+#checklist table tr{
+	border-top: $lightGrey solid 1px;
+	border-bottom: $lightGrey solid 1px;
+}
+
 .footer__label{
 	text-align: left;
 }
