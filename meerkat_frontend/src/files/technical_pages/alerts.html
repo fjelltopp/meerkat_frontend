@@ -102,7 +102,16 @@ function loadAlertTables( reason, locID ){
 		}
 
 		$.getJSON( url, function( data ) {
-			drawAlertsTable( "alert-table", data.alerts, variables );
+			
+			//Sort the alerts by date.
+			var alerts = data.alerts;
+			console.log(alerts);
+			alerts.sort( function(a, b){
+				return new Date(b.alerts.date).valueOf()-new Date(a.alerts.date).valueOf();
+			});
+			console.log( alerts );
+
+			drawAlertsTable( "alert-table", alerts, variables );
 		});
 	});
 }
