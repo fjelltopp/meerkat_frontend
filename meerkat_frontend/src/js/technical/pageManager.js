@@ -11,7 +11,9 @@ function loadTabContent( tabID, locID ){
 	//Load the page content
 	//Only load the location content after the page content has been loaded, because one depends on the other.
 	$( '#page-content' ).load( '/static/files/technical_pages/' + $( '#'+tabID ).attr('page'),
-										function(){ loadLocationContent(locID); });
+										function(){ 
+	                           	loadLocationContent(locID); 
+	                           });
 										
 
 	//Update the active tab styling
@@ -45,7 +47,7 @@ function loadDiseaseContent( diseaseID, locID ){
 	$( '#page-content' ).load( '/static/files/technical_pages/disease.html',
 	                           function(){ 
 	                           	$('#diseaseID').html(diseaseID);
-	                           	loadLocationContent(locID); 
+	                           	loadLocationContent(locID);
 	                           }); 
 										
 }
@@ -73,8 +75,9 @@ function loadAlertContent( alertID ){
 	$( '#page-content' ).load( '/static/files/technical_pages/alert.html',
 	                           function(){ 
 	                           	//This function is defined in the alert.html page file.
-	                           	//It colelcts data for the alertID and draws the alert page.
+	                           	//It collects data for the alertID and draws the alert page.
 	                           	drawAlertContent( alertID );
+	                           	glossary(); 
 	                           }); 
 }
 
@@ -123,6 +126,31 @@ function loadPage( pageState, logHistory ){
 			else loadDiseaseContent( pageState.dataID, pageState.locID ); 
 			break;
 
+	}
+}
+
+/* This function inserts words from the config file glossary object. 
+ * It inserts into <span> elements with class "glossary" and attribute "word".
+ * Practically it is used to allow country specific words for concepts such as
+ * "Region" (known as "Governorate" in Jordan). It is called upon loading a location
+ * and upon loading an alert investigation report (as these are the only pages that
+ * don't depend upon investigation.
+ * 
+ * You can capitalise the word by adding the class "capitalised" to the <span>.
+ */
+function glossary(){
+
+	var elements = $('.glossary');
+
+	for( var i in elements ){
+
+		var e = elements[i];
+		var word = $(e).attr('word');
+		var replacement = config.glossary[word];
+
+		if( $(e).hasClass('capitalised') ) replacement = capitalise(replacement);
+
+		$(e).html(replacement);
 	}
 }
 

@@ -14,8 +14,8 @@ function drawTable( containerID, data, percent, no_total, linkFunction ){
 
 	//Table headers.
 	table = '<table class="table table-hover table-condensed"><tr>' +
-	        '<th>' + data.title + '</th><th>Week ' + (get_epi_week()-1) + '</th>' +
-	        '<th>Week ' + (get_epi_week()-2) + '</th><th>Week ' + (get_epi_week()-3) + '</th>' + 
+	        '<th>' + data.title + '</th><th>Week ' + (get_epi_week()) + '</th>' +
+	        '<th>Week ' + (get_epi_week()-1) + '</th><th>Week ' + (get_epi_week()-2) + '</th>' + 
 	        '<th>This Year</th></tr>';
 
 	//Calculate the percentages, if we're to show percentages.
@@ -80,6 +80,9 @@ function drawTable( containerID, data, percent, no_total, linkFunction ){
 	return table;
 }
 
+/* Draws the table of alerts used on the Alerts tab. Lists each alert according to date
+ * and provides links to the individual Alert Investigation reports. 
+ */
 function drawAlertsTable(containerID, alerts, variables){
 
 	$.getJSON( api_root+"/locations", function( locations ){
@@ -87,8 +90,10 @@ function drawAlertsTable(containerID, alerts, variables){
 		//Create the table headers, using the central review flag from the cofiguration file.
 		//Central review is a third level of alert review requested by the Jordan MOH.
 		var table = '<table class="table table-hover table-condensed">' +
-			         '<tr><th>Alert ID</th><th>Alert</th><th>Region</th><th>Clinic</th>' + 
-			         '<th>Date Reported</th><th>Date Investigated</th><th>Status</th></tr>';
+		            '<tr><th>Alert ID</th><th>Alert</th>' +
+		            '<th><span class="glossary capitalised" word="region">Region</span></th>' + 
+		            '<th>Clinic</th><th>Date Reported</th><th>Date Investigated</th><th>Status</th>' +
+		            '</tr>';
 
 		//For each alert in the given array of alerts create the html for a row of the table.
 		for( var i in alerts ){
@@ -117,6 +122,10 @@ function drawAlertsTable(containerID, alerts, variables){
 	});
 }
 
+/* Draws the table of alert aggregation used on the Alerts tab. Lists the number of
+ * alerts for each cause (e.g. Viral Meningitis) and provides links that filter the 
+ * alerts table (as specified by dratAlertsTable() ) by cause.
+ */
 function drawAlertAggTable( containerID, aggData, variables ){
 
 	var table = '<table class="table table-hover table-condensed">' +
@@ -127,24 +136,23 @@ function drawAlertAggTable( containerID, aggData, variables ){
 	var reasons = Object.keys( aggData );
 	reasons.splice( Object.keys( aggData ).indexOf('total'), 1 );
 
-	var sum = [];
 	var statusList = ['Pending', 'Ongoing', 'Confirmed', 'Disregarded'];
+	var sum = [];
 	for( var l in statusList ) sum[l] = 0;
 
 	//Run summation and html creation for each row of the table.
 	for( var i in reasons ){
 
 		var reason = reasons[i];
-		var statuses = Object.keys( aggData[reason] );
 		var total = 0;		
 										
-		table += '<tr><td><a href="" onclick="loadAlertTables(' + 
-		            reason + ');return false;">' +
-						variables[reason].name + '</a></td>';
+		table += '<tr><td><a href="" onclick="loadAlertTables(' + reason + ');return false;">' + 
+		         variables[reason].name + '</a></td>';
 
 		for( var j in statusList ){
 
 			var value = if_exists( aggData[reason], statusList[j] );
+
 			sum[j] += value;
 			total += value;
 			table += '<td>' + value + '</td>';
@@ -162,4 +170,62 @@ function drawAlertAggTable( containerID, aggData, variables ){
 
 }
 
+function drawCompletenessAggTable( containerID, regionData, locations){
 
+	var table = '<table class="table table-hover table-condensed">' +
+		         '<tr><th>' + capitalise(config.glossary.region) + '</th>' + 
+		         '<th>Daily register for last 24 hours</th>' +
+		         '<th>Daily register for last week</th>' +
+		         '<th>Daily register for last year</th></tr>';
+
+	var regions = Object.keys(regionData);
+
+	for( var i in regions ){
+		var region = regions[i];
+		if( region != 1 ){
+			table += '<tr><td><a href="" onclick="drawCompletenessTables(' + region + 
+						'); return false;">' + locations[region].name + '</a></td>' +
+				      '<td>' + Math.round(regionData[region].last_day) + '%</td>' +
+				      '<td>' + Math.round(regionData[region].last_week) + '%</td>' + 
+				      '<td>' + Math.round(regionData[region].last_year) + '%</td></tr>'; 
+		}
+	}
+	table += '<tr class="info" ><td><a href="" onclick="drawCompletenessTables(1);' + 
+						'return false;">' + locations[1].name + '</a></td>' +
+				      '<td>' + Math.round(regionData[1].last_day) + '%</td>' +
+				      '<td>' + Math.round(regionData[1].last_week) + '%</td>' + 
+				      '<td>' + Math.round(regionData[1].last_year) + '%</td></tr>';  
+	
+	table += '</table>';
+
+	$( '#'+containerID ).html(table);
+
+}
+
+function drawCompletenessTable( containerID, data, locations){
+
+	var table = '<table class="table table-hover table-condensed">' +
+		         '<tr><th> Clinic </th>' + 
+		         '<th>Daily register for last 24 hours</th>' +
+		         '<th>Daily register for last week</th>' +
+		         '<th>Daily register for last year</th></tr>';
+
+	var clinics = Object.keys(data);
+
+	for( var i in clinics ){
+		var clinic = clinics[i];
+		console.log(clinic);
+		console.log(data[clinic]);
+
+		table += '<tr><td>' + locations[clinic].name + '</td>' +
+			      '<td>' + Math.round(data[clinic].day) + '</td>' +
+			      '<td>' + Math.round(data[clinic].week) + '</td>' + 
+			      '<td>' + Math.round(data[clinic].year) + '</td></tr>'; 
+		
+	}
+	
+	table += '</table>';
+
+	$( '#'+containerID ).html(table);
+
+}

@@ -48,5 +48,9 @@
 
     "email":"emwrojor@who.int",
     "central_review":true
-  }
+  },
+
+  "glossary":{
+    "region":"governorate"
+	}
 }

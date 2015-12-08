@@ -22,6 +22,7 @@ function loadLocation( nodeID ){
 }
 
 //This method draws the location selector for any given node in the location tree.
+//It also updates page content.
 function loadLocationContent( nodeID ){
 
 	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===nodeID; });
@@ -55,13 +56,16 @@ function loadLocationContent( nodeID ){
 		html += "</div>";
 	}
 
-	//Call the tab's draw charts function.
-	//EVERY TAB SHOULD HAVE A DRAW CHARTS FUNCTION.
-	drawCharts( nodeID );
-
 	//Draw the location selector and update the location title.
 	$("#location-selector").html(html);
 	$("#location-title").text( node.model.text );
+
+	//Update any country specific phrasing in the page.
+	glossary();
+
+	//Call the tab's draw charts function.
+	//EVERY TAB SHOULD HAVE A DRAW CHARTS FUNCTION.
+	if( typeof drawCharts === 'function' ) drawCharts( nodeID );
 
 }
 

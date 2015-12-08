@@ -45,6 +45,10 @@
 
     "email":"emwrojor@who.int",
     "central_review":false
+  },
+
+  "glossary":{
+    "region":"kingdom"
   }
 }
 
