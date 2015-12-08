@@ -170,62 +170,83 @@ function drawAlertAggTable( containerID, aggData, variables ){
 
 }
 
-function drawCompletenessAggTable( containerID, regionData, locations){
+function drawCompletenessAggTable( containerID ){
 
-	var table = '<table class="table table-hover table-condensed">' +
-		         '<tr><th>' + capitalise(config.glossary.region) + '</th>' + 
-		         '<th>Daily register for last 24 hours</th>' +
-		         '<th>Daily register for last week</th>' +
-		         '<th>Daily register for last year</th></tr>';
+	$.getJSON( api_root+"/completeness/435/4", function( regionData ){
+		$.getJSON( api_root+"/locations", function( locations ){	
 
-	var regions = Object.keys(regionData);
+			regionData = regionData.regions;
 
-	for( var i in regions ){
-		var region = regions[i];
-		if( region != 1 ){
-			table += '<tr><td><a href="" onclick="drawCompletenessTables(' + region + 
-						'); return false;">' + locations[region].name + '</a></td>' +
-				      '<td>' + Math.round(regionData[region].last_day) + '%</td>' +
-				      '<td>' + Math.round(regionData[region].last_week) + '%</td>' + 
-				      '<td>' + Math.round(regionData[region].last_year) + '%</td></tr>'; 
-		}
-	}
-	table += '<tr class="info" ><td><a href="" onclick="drawCompletenessTables(1);' + 
-						'return false;">' + locations[1].name + '</a></td>' +
-				      '<td>' + Math.round(regionData[1].last_day) + '%</td>' +
-				      '<td>' + Math.round(regionData[1].last_week) + '%</td>' + 
-				      '<td>' + Math.round(regionData[1].last_year) + '%</td></tr>';  
-	
-	table += '</table>';
+			var table = '<table class="table table-hover table-condensed">' +
+							'<tr><th>' + capitalise(config.glossary.region) + '</th>' + 
+							'<th>Daily register for last 24 hours</th>' +
+							'<th>Daily register for last week</th>' +
+							'<th>Daily register for last year</th></tr>';
 
-	$( '#'+containerID ).html(table);
+			var regions = Object.keys(regionData);
 
+			for( var i in regions ){
+				var region = regions[i];
+				if( region != 1 ){
+					table += '<tr><td><a href="" onclick="drawCompletenessTables(' + region + 
+								'); return false;">' + locations[region].name + '</a></td>' +
+								'<td>' + Math.round(regionData[region].last_day) + '%</td>' +
+								'<td>' + Math.round(regionData[region].last_week) + '%</td>' + 
+								'<td>' + Math.round(regionData[region].last_year) + '%</td></tr>'; 
+				}
+			}
+			table += '<tr class="info" ><td><a href="" onclick="drawCompletenessTables(1);' + 
+								'return false;">' + locations[1].name + '</a></td>' +
+								'<td>' + Math.round(regionData[1].last_day) + '%</td>' +
+								'<td>' + Math.round(regionData[1].last_week) + '%</td>' + 
+								'<td>' + Math.round(regionData[1].last_year) + '%</td></tr>';  
+
+			table += '</table>';
+
+			$( '#'+containerID ).html(table);
+
+		});
+	});
 }
 
-function drawCompletenessTable( containerID, data, locations){
+function drawCompletenessTable( containerID, regionID ){
 
-	var table = '<table class="table table-hover table-condensed">' +
-		         '<tr><th> Clinic </th>' + 
-		         '<th>Daily register for last 24 hours</th>' +
-		         '<th>Daily register for last week</th>' +
-		         '<th>Daily register for last year</th></tr>';
+	$.getJSON( api_root+"/completeness/435/4", function( registerData ){
+		$.getJSON( api_root+"/completeness/1/4", function( caseData ){
+			$.getJSON( api_root+"/locations", function( locations ){	
 
-	var clinics = Object.keys(data);
+				registerData = registerData.clinics[regionID];
+				caseData = caseData.clinics[regionID];
 
-	for( var i in clinics ){
-		var clinic = clinics[i];
-		console.log(clinic);
-		console.log(data[clinic]);
+				var clinics = Object.keys(registerData);
+				var table = '<table class="table table-hover table-condensed">' +
+								'<tr><th> Clinic </th>' + 
+			 	            '<th class="fit" >Case reports<br>for last 24 hours</th>' +
+								'<th class="fit">Case reports<br>for last week</th>' +
+								'<th class="fit">Case reports<br>for last year</th>' +
+								'<th class="fit">Daily register<br>for last 24 hours</th>' +
+								'<th class="fit">Daily register<br>for last week</th>' +
+								'<th class="fit">Daily register<br>for last year</th></tr>';
 
-		table += '<tr><td>' + locations[clinic].name + '</td>' +
-			      '<td>' + Math.round(data[clinic].day) + '</td>' +
-			      '<td>' + Math.round(data[clinic].week) + '</td>' + 
-			      '<td>' + Math.round(data[clinic].year) + '</td></tr>'; 
+				for( var i in clinics ){
+
+					var clinic = clinics[i];
+
+					table += '<tr><td>' + locations[clinic].name + '</td>' +
+								'<td>' + Math.round(caseData[clinic].day) + '</td>' +
+								'<td>' + Math.round(caseData[clinic].week) + '</td>' + 
+								'<td>' + Math.round(caseData[clinic].year) + '</td>' +
+								'<td>' + Math.round(registerData[clinic].day) + '</td>' +
+								'<td>' + Math.round(registerData[clinic].week) + '</td>' + 
+								'<td>' + Math.round(registerData[clinic].year) + '</td></tr>'; 
 		
-	}
+				}
 	
-	table += '</table>';
+				table += '</table>';
 
-	$( '#'+containerID ).html(table);
+				$( '#'+containerID ).html(table);
 
+			});
+		});
+	});
 }

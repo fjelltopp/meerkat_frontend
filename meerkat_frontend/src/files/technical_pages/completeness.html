@@ -49,20 +49,17 @@
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 
 //Every tab needs a draw charts function that is called when loading a new location.
+//It's also called upon the first load of the page. 
 function drawCharts( locID ){
+
 	drawCompletenessTables( 1 );
+
 }
 
 function drawCompletenessTables( regionID ){
-	//TODO: Remove hardcorded variable ID from getJSON line below.
-	$.getJSON( api_root+"/completeness/435/4", function( data ){
-			$.getJSON( api_root+"/locations", function( locations ){	
 				
-				drawCompletenessAggTable( 'completeness-agg-table', data.regions, locations );
-				drawCompletenessTable( 'completeness-table', data.clinics[regionID], locations );
-
-			});
-	});
+	drawCompletenessAggTable( 'completeness-agg-table' );
+	drawCompletenessTable( 'completeness-table', regionID );
 
 }
 
