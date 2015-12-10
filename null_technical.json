@@ -6,6 +6,14 @@
     "nav":"<b>Null Island </b> &middot; WHO Public Health Surveillance",
     "mob_nav":"Health Surveillance"
   },
+
+  "map":{
+    "center":{
+      "lng":"0",
+      "lat":"0"
+    },
+    "zoom":"9"
+  },
   
   "tabs":[{
     "name":"Demographics",

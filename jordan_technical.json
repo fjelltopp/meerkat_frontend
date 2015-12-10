@@ -6,6 +6,13 @@
     "nav":"<b>Jordan </b> &middot; WHO Public Health Surveillance",
     "mob_nav":"Health Surveillance"
   },
+  "map":{
+    "center":{
+      "lng":"35.470810",
+      "lat":"30.850011"
+    },
+    "zoom":"8"
+  },
   
   "tabs":[{
     "name":"Demographics",

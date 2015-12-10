@@ -15,6 +15,10 @@ body.technical{
 	.table{
 		margin: 20px 0 10px;
 	}
+
+	.map{
+		height: 800px;
+	}
 }
 
 .technical-tabs{
@@ -78,8 +82,30 @@ button.header:hover{
 	color: $textGrey;
 }
 
+.info_map{
 
+	 padding: 6px 8px;
+	 font: 14px/16px Arial,Helvetica,sans-serif;
+	 background: rgba(255, 255, 255, 0.8) none repeat scroll 0% 0%;
+	 box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+	 border-radius: 5px;
 
+	.circle {
+		border-radius: 50%;
+		width: 15px;
+		height: 15px;
+		margin-top: 1px;
+	}
+
+	i {
+		width: 18px;
+		height: 18px;
+		float: left;
+		margin-right: 8px;
+		opacity: 1;
+		border-style: solid;
+	}
+}
 .location-box{
 	
 	display: inline-block;
@@ -266,4 +292,6 @@ tr.spaceUnder td.fit,
 #wrapper.toggled #page-content-wrapper {
 	position: relative;
 }
+
+
 

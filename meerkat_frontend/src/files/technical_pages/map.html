@@ -7,23 +7,25 @@
 
 </div>
 
-<div class="map">
+<div class="map-view">
 
 	<div id="page-content-wrapper">
 		<div class="row">
-			<div class="col-xs-12 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Map
-				</div>
-				<div class="chart__content">
-					Content
-				</div>
-			</div></div>
-		</div>
+			<div class="col-xs-12 less-padding-col">
+				<div class="chart box">
+					<div class="chart__heading">
+						Map
+					</div>
+					<div id="total-map" class="chart__content map">
 
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="breaker"></div>
 <script>
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+drawMap( 1, "total-map" );
 </script>
