@@ -11,7 +11,7 @@
 		</a>
 	</div>
 	<div class="tab-title hidden-xs col-sm-5 col-md-6">
-		<span id="diseaseTitle"></span>
+		<span id="diseaseTitle">Not loaded</span>
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 		Date not loaded.
@@ -34,7 +34,62 @@
 						Information
 					</div>
 					<div class="chart__content">
-						Content
+						<div class="diseaseInfo col-xs-12 col-sm-4">
+							<div class="diseaseInfo__title">
+								Classification
+							</div>
+							<div id="classification" class="diseaseInfo__content">
+								Data not loaded.
+							</div>
+						</div>
+						<div class="diseaseInfo col-xs-12 col-sm-4">
+							<div class="diseaseInfo__title">
+								Source
+							</div>
+							<div id="source" class="diseaseInfo__content">
+								Data not loaded.
+							</div>
+						</div>
+						<div class="diseaseInfo col-xs-12 col-sm-4">
+							<div class="diseaseInfo__title">
+								Alerts
+							</div>
+							<div id="diseaseAlerts" class="diseaseInfo__content">
+								Data not loaded.
+							</div>
+						</div>
+						<div class="diseaseInfo col-xs-12">
+							<div class="diseaseInfo__title ">
+								Case Definition
+							</div>
+							<div id="caseDefinition" class="diseaseInfo__content">
+								Data not loaded.
+							</div>
+						</div>
+						<div class="diseaseInfo col-xs-12">
+							<div class="diseaseInfo__title">
+								Risk Factor(s)
+							</div>
+							<div id="riskFactor" class="diseaseInfo__content">
+								Data not loaded.
+							</div>
+						</div>
+						<div class="diseaseInfo col-xs-12">
+							<div class="diseaseInfo__title">
+								Signs/Symptom(s)
+							</div>
+							<div id="signsSymptoms" class="diseaseInfo__content">
+								Data not loaded.
+							</div>
+						</div>
+						<div class="diseaseInfo col-xs-12">
+							<div class="diseaseInfo__title">
+								Labs/Diagnostics
+							</div>
+							<div id="labsDiagnostics" class="diseaseInfo__content">
+								Data not loaded.
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -100,7 +155,14 @@ function loadDiseaseContent( varID, locID ){
 
 		console.log(data);
 
-		$('#diseaseTitle').text = data.name;	
+		$('#diseaseTitle').text( data.name );
+		$('#classification').text( data.classification_casedef );
+		$('#source').text( data.source );
+		$('#diseaseAlerts').text( data.alert_desc );
+		$('#caseDefinition').text( data.case_def);
+		$('#riskFactor').text( data.risk_factors );
+		$('#signsSymptoms').text( data.symptoms);
+		$('#labsDiagnostics').text( data.labs_diagnostics );
 
 
 	});
