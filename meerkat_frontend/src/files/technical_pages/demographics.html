@@ -29,65 +29,81 @@
 
 	<div id="page-content-wrapper">
 		<div class="row">
-			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Gender
-					<div class="chart__type-selector pull-right">
-						<a href="" onclick="showChartType('bar','gender-charts');return false;" class="bar"> Bar </a> /
-						<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie"> Pie </a>
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						Gender
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','gender-charts');return false;" class="bar"> 
+								Bar 
+							</a> /
+							<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie"> 
+								Pie 
+							</a>
+						</div>
+					</div>
+					<div id="gender-charts" class="chartBox__content">
+						<div id="gender-bar-chart" class="bar chart"></div>
+						<div id="gender-pie-charts" class="pie chart hidden" ></div>
+						<div id="gender-table" class="table" ></div>
 					</div>
 				</div>
-				<div id="gender-charts" class="chart__content">
-					<div id="gender-bar-chart" class="bar chart"></div>
-					<div id="gender-pie-charts" class="pie chart hidden" ></div>
-					<div id="gender-table" class="table" ></div>
-				</div>
-			</div></div>
-			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Nationality
-					<div class="chart__type-selector pull-right">
-						<a href="" onclick="showChartType('bar','nationality-charts');return false;" class="bar"> Bar </a> /
-						<a href="" onclick="showChartType('pie','nationality-charts');return false;" class="pie"> Pie </a>
+			</div>
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						Nationality
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','nationality-charts');return false;" class="bar"> 
+								Bar 
+							</a> /
+							<a href="" onclick="showChartType('pie','nationality-charts');return false;" class="pie"> 
+								Pie 
+							</a>
+						</div>
+					</div>
+					<div id="nationality-charts" class="chartBox__content">
+						<div id="nationality-bar-chart" class="bar chart"></div>
+						<div id="nationality-pie-charts" class="pie chart hidden" ></div>
+						<div id="nationality-table" class="table" ></div>
 					</div>
 				</div>
-				<div id="nationality-charts" class="chart__content">
-					<div id="nationality-bar-chart" class="bar chart"></div>
-					<div id="nationality-pie-charts" class="pie chart hidden" ></div>
-					<div id="nationality-table" class="table" ></div>
-				</div>
-			</div></div>
+			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Age
-					<div class="chart__type-selector pull-right">
-						<a href="" onclick="showChartType('bar','age-charts');return false;" class="bar"> Bar </a> /
-						<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"> Pie </a>
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						Age
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','age-charts');return false;" class="bar"> Bar </a> /
+							<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"> Pie </a>
+						</div>
+					</div>
+					<div id="age-charts" class="chartBox__content">
+						<div id="age-bar-chart" class="bar chart"></div>
+						<div id="age-pie-charts" class="pie chart hidden" ></div>
+						<div id="age-table" class="table" ></div>
 					</div>
 				</div>
-				<div id="age-charts" class="chart__content">
-					<div id="age-bar-chart" class="bar chart"></div>
-					<div id="age-pie-charts" class="pie chart hidden" ></div>
-					<div id="age-table" class="table" ></div>
-				</div>
-			</div></div>
-			<div class="col-xs-12 col-md-6 less-padding-col"><div class="chart box">
-				<div class="chart__heading">
-					Status
-					<div class="chart__type-selector pull-right">
-						<a href="" onclick="showChartType('bar','status-charts');return false;" class="bar"> Bar </a> /
-						<a href="" onclick="showChartType('pie','status-charts');return false;" class="pie"> Pie </a>
+			</div>
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						Status
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','status-charts');return false;" class="bar"> Bar </a> /
+							<a href="" onclick="showChartType('pie','status-charts');return false;" class="pie"> Pie </a>
+						</div>
+					</div>
+					<div id="status-charts" class="chartBox__content">
+						<div id="status-bar-chart" class="bar chart"></div>
+						<div id="status-pie-charts" class="pie chart hidden" ></div>
+						<div id="status-table" class="table" ></div>
 					</div>
 				</div>
-				<div id="status-charts" class="chart__content">
-					<div id="status-bar-chart" class="bar chart"></div>
-					<div id="status-pie-charts" class="pie chart hidden" ></div>
-					<div id="status-table" class="table" ></div>
-				</div>
-			</div></div>
+			</div>
 		</div>
 
 	</div>

@@ -13,7 +13,8 @@ body.technical{
 	}
 
 	.table{
-		margin: 20px 0 10px;
+		margin: 0 0 10px;
+		border-top: white 2px solid;
 	}
 
 	.map{
@@ -121,12 +122,12 @@ button.header:hover{
 	margin:5px;
 }
 
-.chart{
+.chartBox{
 	min-height: 300px;
 	padding: 0px;
 }
 
-.chart__heading{
+.chartBox__heading{
 	border-bottom: 1px solid #D7D7D7;
 	color: #666;
 	font-family: inherit;
@@ -138,15 +139,19 @@ button.header:hover{
 	width: 100%;
 }
 
-.chart__content{
+.chartBox__content{
 	display: block;
-	padding: 20px 10px;
+	padding: 10px 10px;
 }
 
-.chart__type-selector{
+.chartBox__type-selector{
 	display: table-cell;
 	vertical-align: middle;
 	font-size: 14px;
+}
+
+.chart{
+	margin: 20px 0px;
 }
 
 .diseaseInfo{

@@ -310,4 +310,22 @@ function stripEmptyRecords( dataObject ){
 }
 
 
+Highcharts.setOptions({
+  colors: ["#0090CA", "#EE2631", "#27EE00", "#074EBF", "#F78900", "#ff0066", "#eeaaee",
+    "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+  chart: {
+    backgroundColor: null,
+    style: {
+      fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+    }
+	},
+  credits: {
+    enabled: false
+  },
+  exporting: {
+    enabled: false
+  }
+
+});
+
 
