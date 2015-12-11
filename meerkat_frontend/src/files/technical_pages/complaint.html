@@ -84,7 +84,7 @@ function drawCharts( locID ){
 
 	//Keep week abstracted out of the chart drawing process.
 	//In case we want the use to eb able to select the weeks to view.
-	var week = (get_epi_week()-1).toString();
+	var week = (get_epi_week()).toString();
 
 	$.getJSON( api_root+"/aggregate_category/pc/" + locID, function( data ){
 		$.getJSON( api_root+"/variables/pc", function( variables ){
