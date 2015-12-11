@@ -68,12 +68,15 @@ console.log("ready");
 	}
 
    //SHOW THE KEY_INDICATORS ----------------------------------------------
-	$.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/key_indicators", function( data ){
-	  $.each( data, function( x, y ){ 
-		 $.each( y, function( w, z){
-		   $.each( z, function( key, val ){ 
-		     $("#"+key).text(Math.round(val));
-		   });
+   $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/aggregate_category/key_indicators/1", function( category ){
+     $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/1", function( map ){
+	    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/alerts", function( alerts ){
+
+         $('#number_of_consultations').text(category['436'].year);
+         $('#number_of_cases').text(category['1'].year);
+         $('#number_of_alerts').text(alerts.alerts.length);
+         $('#number_of_facilities').text(map.length);
+
 		 });	 
      });
 	});
@@ -138,16 +141,26 @@ console.log("ready");
 
     var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
 
-    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/1", function( data ){
+    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/1", function( reports ){
+      $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/436", function( consultations ){
 		
-      $.each( data.map, function( x, z ){ 
-          if( z.lat !== "" && z.lng !== "" ){
-            var m = L.marker( [ z.lat, z.lng]);
-            m.name = z.name;
-            m.cases = z.cases;
-            m.consultations = z.consultations;
-            markers.addLayer( m );
-         }
+        for( var i=0; i<reports.length; i++ ){
+		  
+          var report = reports[i];
+          var consultation = consultations[i];
+
+			console.log( report );
+			console.log(consultation);
+
+		    if( report.geolocation[0] !== "" && report.geolocation[1] !== "" ){
+		      var m = L.marker( [ report.geolocation[0], report.geolocation[1]] );
+		      m.name = report.clinic;
+		      m.cases = report.value;
+		      m.consultations = consultation.value;
+		      markers.addLayer( m );
+				console.log(m);
+		    }  
+        }
       });
     });
 
