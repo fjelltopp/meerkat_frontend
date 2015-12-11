@@ -67,6 +67,9 @@ function drawBarChart( containerID, data, percent ){
 		}],
 	});
 
+console.log(data.labels);
+console.log( data.year);
+
 	//Get rid of the highcharts logo.
 	$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
 
@@ -153,6 +156,68 @@ function drawPieCharts( containerID, data, percent ){
 
 }
 
+function drawTimeChart( varID, locID, containerID ){
+
+	$.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
+
+		var labels = [];
+		var values = [];
+
+		for( var i = 1; i <= get_epi_week(); i++ ){
+
+			labels.push(i.toString());
+
+			if( typeof(data.weeks[i]) !== 'undefined' ){
+				values.push( data.weeks[i] );
+			}else{
+				values.push( 0 );
+			}
+
+		}
+
+		//Hack to get plot to size correctly when being drawn into a hidden object.
+		//If the object is hidden, set the plot width to the inner width of the parent.
+		//Otherwise, leave as undefined as specified in the highcharts api.
+		var plotWidth;
+		if( $('#'+containerID).hasClass('hidden') ){
+			plotWidth = $('#'+containerID).parent().width();
+		}
+
+
+		$('#'+containerID).highcharts({
+		chart: {
+			type: 'column',
+			width: plotWidth
+		},
+		title: '',
+		xAxis: {
+			categories: labels,
+			title: {
+				text: 'Epidemiological Week'
+			}
+		},
+		legend:{ enabled:false },
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Number of Reported Cases',
+				align: 'high'
+			},
+			labels: {
+				overflow: 'justify'
+			}
+		},			
+		series: [{
+			name: 'Year',
+			data:  values
+		}],
+		});
+
+		//Get rid of the highcharts logo.
+		$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
+	});
+
+}
 
 
 /* This function takes the response from a category aggregation and turns it into a data object
@@ -198,7 +263,7 @@ function makeDataObject( aggregation, variables, week, title ){
 
 /* This function strips empty records from a data object.  This is useful if the category
  * you are visualising has many 'bins' (for instance communicable diseases, or ICD-10 ).
- * If you stirp the empty records before drawing the table and graphs, the size of the drawings
+ * If you strip the empty records before drawing the table and graphs, the size of the drawings
  * can be significantly smaller and easier to comprhend.
  */
 function stripEmptyRecords( dataObject ){

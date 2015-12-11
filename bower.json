@@ -30,6 +30,9 @@
     },
     "leaflet-omnivore": {
       "main": "leaflet-omnivore.js"
+    },
+    "highcharts":{
+      "main":["lib/highcharts.js", "lib/highcharts-more.js"]
     }
   }
 }

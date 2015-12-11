@@ -46,8 +46,8 @@ function loadDiseaseContent( diseaseID, locID ){
 	//Disease-specific changes depend on the page content being loaded.
 	$( '#page-content' ).load( '/static/files/technical_pages/disease.html',
 	                           function(){ 
-	                           	$('#diseaseID').html(diseaseID);
-	                           	loadLocationContent(locID);
+	                           	loadDiseaseContent( diseaseID, locID );
+	                           	loadLocationContent( locID );
 	                           }); 
 										
 }

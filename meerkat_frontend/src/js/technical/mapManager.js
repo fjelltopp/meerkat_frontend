@@ -1,6 +1,10 @@
+
+/* This map visualises the number of reported cases for the given variable ID at
+ * each clinic. The numbers of cases at each clinic shown using a colour gradient.
+ */ 
 function drawMap( varID, containerID ){
 
-	$.getJSON( '/api/map/'+varID, function( data ){
+	$.getJSON( api_root+'/map/'+varID, function( data ){
 
 		L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
 		var map = L.mapbox.map(containerID, 'mrjb.k60d95kl', { 
@@ -13,21 +17,13 @@ function drawMap( varID, containerID ){
 	 		zoom: config.map.zoom 
 		});
 
-		//Blue colours - currently not used?
-		colours6 = [ '#9ecae1', '#6baed6', '#4292c6', '#2171b5', '#08519c', '#08306b' ];
-		colours4 = [ '#9ecae1', '#4292c6', '#2171b5', '#08519c' ];
-		colours3 = [ '#9ecae1', '#4292c6', '#08519c' ];
-		colours2 = [ '#6baed6', '#08519c' ];
+		//Red colours 
+		var colours6 = [ '#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d' ];
+		var colours4 = [ '#fc9272', '#ef3b2c', '#a50f15', '#67000d' ];
+		var colours3 = [ '#fc9272', '#ef3b2c', '#67000d' ];
+		var colours2 = [ '#fc9272', '#a50f15' ];
 
 		var colours = colours6;
-
-		//Red colours 
-		colours6 = [ '#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d' ];
-		colours4 = [ '#fc9272', '#ef3b2c', '#a50f15', '#67000d' ];
-		colours3 = [ '#fc9272', '#ef3b2c', '#67000d' ];
-		colours2 = [ '#fc9272', '#a50f15' ];
-
-
 
 		//Find the clinic with the maximum variable value.
 		var maximum = 0;
@@ -62,7 +58,7 @@ function drawMap( varID, containerID ){
 		//Populate limits[] with the upper-limit for each bin.
 		var binSize = Math.floor(maximum/number)+1;  // +1 because the final bin limit > maximum
 		var limit = 0;
-		var limits=[0];
+		var limits=[limit];
 
 		while( limit < binSize*number ){
 			limit += binSize;

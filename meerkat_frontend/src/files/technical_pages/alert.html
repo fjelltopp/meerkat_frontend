@@ -106,16 +106,16 @@ function drawAlertContent( alertID ){
 		table += "</table>";
 
 		//Draw!
-		$('#alertTitle').html(alertID);
-		$('#alertID').html(alertID);
-		$('#reason').html(alert.alerts.reason);
-		$('#date').html(alert.alerts.date.split("T")[0]);
-		$('#clinic').html(node.model.text);
-		$('#region').html(parent.model.text);
-		$('#patientID').html(alert.alerts.uuids);
-		$('#patientAge').html(alert.alerts.data.age);
-		$('#patientGender').html(alert.alerts.data.gender);
-		$('#checklist').html(table);		
+		$('#alertTitle').html( alertID );
+		$('#alertID').html( alertID );
+		$('#reason').html( alert.alerts.reason );
+		$('#date').html( alert.alerts.date.split("T")[0] );
+		$('#clinic').html( node.model.text );
+		$('#region').html( parent.model.text );
+		$('#patientID').html( alert.alerts.uuids );
+		$('#patientAge').html( alert.alerts.data.age );
+		$('#patientGender').html( alert.alerts.data.gender );
+		$('#checklist').html( table );		
 		
 	});
 }
