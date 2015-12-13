@@ -1,0 +1,16 @@
+Dear Colleagues,
+
+Welcome to the latest Communicable Diseases report from the national public health surveillance program in Jordan.
+
+View the latest full report:
+{{report_url}}
+
+This Communicable Diseases report represents cumulative cases reported from {{ email.data.clinic_num }} outpatient clinics in {{ email.data.project_region|e }} up until end of Epidemiological Week {{ email.data.epi_week_num }} ({{ email.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).
+
+
+## This Week's New Cases ##
+{% for cd in email.data.communicable_diseases|dictsort %}
+ - {{ cd[0]|e }}: {{ cd[1].suspected|last|e }} suspected cases; {{ cd[1].confirmed|last|e }} confirmed cases
+{% endfor %}
+
+See the complete report at <{{report_url}}> for full details of these diseases, including time series graphs.

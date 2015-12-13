@@ -35,6 +35,7 @@ class Config(object):
                     'api_name': 'jor_public_health',
                     'mailchimp_list_id': '',
                     'mailchimp_dir_id': '7989',
+                    'email_subject': 'MOH Jordan | Public Health Profile Epi Week {epi_week} ({epi_date})',
                     'email_from_name': 'MOH Jordan',
                     'email_from_address': 'notifications@moh.gov.jo',
                     'test_json_payload': 'meerkat_frontend/apiData/reports_public_health_jordan.json'
@@ -42,7 +43,14 @@ class Config(object):
                 'communicable_diseases': {
                     'title': 'Communicable Diseases Report',
                     'template': 'reports/report_jordan_communicable_diseases.html',
+                    'template_email_html': 'reports/email_jordan_cd_report.html',
+                    'template_email_plain': 'reports/email_jordan_cd_report.txt',
                     'api_name': 'jor_cd',
+                    'mailchimp_list_id': '',
+                    'mailchimp_dir_id': '7989',
+                    'email_subject': 'MOH Jordan | Communicable Diseases Report Epi Week {epi_week} ({epi_date})',
+                    'email_from_name': 'MOH Jordan',
+                    'email_from_address': 'notifications@moh.gov.jo',
                     'test_json_payload': 'meerkat_frontend/apiData/reports_communicable_diseases_jordan.json'
                 }
             },

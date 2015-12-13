@@ -94,15 +94,19 @@ def send_email_report(project, report):
                                week=epi_week)
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
         # RENDER!
-        # Extra parsing for natural language bullet points in email templates
-        patient_status = {
-            item['title'].lower().replace(" ", ""):
-                {'percent': item['percent'],
-                 'quantity': item['quantity']}
-                for item in data['data']['patient_status']}
-        extras = {
-            'patient_status': patient_status
-            }
+        if project == 'jordan' and report == 'public_health':
+            # Extra parsing for natural language bullet points in email templates
+            patient_status = {
+                item['title'].lower().replace(" ", ""):
+                    {'percent': item['percent'],
+                     'quantity': item['quantity']}
+                    for item in data['data']['patient_status']}
+            extras = {
+                'patient_status': patient_status
+                }
+        else:
+            extras = None
+
         html_email_body = render_template(
             projects[project]['reports'][report]['template_email_html'],
             email=data,
@@ -116,8 +120,8 @@ def send_email_report(project, report):
             report_url=report_url
         )
         subject = (
-            'MOH Jordan | Public Health Profile Epi Week {} ({})'
-            .format(epi_week, epi_date)
+            projects[project]['reports'][report]['email_subject']
+            .format(epi_week=epi_week, epi_date=epi_date)
         )
 
         # Send email as Mailchimp campaign
