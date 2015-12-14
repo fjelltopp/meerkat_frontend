@@ -91,4 +91,45 @@ function capitalise( string ){
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/* This function takes the response from a category aggregation and turns it into a data object
+ * for sending to one of the above draw-chart functions. */
+function makeDataObject( aggregation, variables, week, title ){
+
+	var bins = Object.keys(aggregation);
+
+	//Create an array of everything we have to collate over each data bin.
+	//E.g. For gender labels we create a list made up of 'Male' and 'Female'.
+	var labelData = [];
+	var idData = [];
+	var yearData = [];
+	var weekData = [];
+	var week1Data = [];
+	var week2Data = [];
+
+	for( var i=0; i<bins.length; i++ ){
+		
+		var label = bins[i];
+
+		labelData.push( variables[label].name );
+		idData.push( label );
+		yearData.push( if_exists(aggregation[label], 'year') );
+		weekData.push( if_exists(aggregation[label].weeks, week ) );
+		week1Data.push( if_exists(aggregation[label].weeks, (week-1).toString() ) );
+		week2Data.push( if_exists(aggregation[label].weeks, (week-2).toString() ) );
+	}
+
+	var dataObject = { 	
+		title: title,
+		labels: labelData, 
+		ids: idData, 
+		year: yearData , 
+		week: weekData,	
+		week1: week1Data,	
+		week2: week2Data
+	};
+
+	return dataObject;
+
+}
+
 

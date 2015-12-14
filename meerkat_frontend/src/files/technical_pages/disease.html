@@ -33,63 +33,9 @@
 					<div class="chartBox__heading">
 						Information
 					</div>
-					<div class="chartBox__content">
-						<div class="diseaseInfo col-xs-12 col-sm-4">
-							<div class="diseaseInfo__title">
-								Classification
-							</div>
-							<div id="classification" class="diseaseInfo__content">
-								Data not loaded.
-							</div>
-						</div>
-						<div class="diseaseInfo col-xs-12 col-sm-4">
-							<div class="diseaseInfo__title">
-								Source
-							</div>
-							<div id="source" class="diseaseInfo__content">
-								Data not loaded.
-							</div>
-						</div>
-						<div class="diseaseInfo col-xs-12 col-sm-4">
-							<div class="diseaseInfo__title">
-								Alerts
-							</div>
-							<div id="diseaseAlerts" class="diseaseInfo__content">
-								Data not loaded.
-							</div>
-						</div>
-						<div class="diseaseInfo col-xs-12">
-							<div class="diseaseInfo__title ">
-								Case Definition
-							</div>
-							<div id="caseDefinition" class="diseaseInfo__content">
-								Data not loaded.
-							</div>
-						</div>
-						<div class="diseaseInfo col-xs-12">
-							<div class="diseaseInfo__title">
-								Risk Factor(s)
-							</div>
-							<div id="riskFactor" class="diseaseInfo__content">
-								Data not loaded.
-							</div>
-						</div>
-						<div class="diseaseInfo col-xs-12">
-							<div class="diseaseInfo__title">
-								Signs/Symptom(s)
-							</div>
-							<div id="signsSymptoms" class="diseaseInfo__content">
-								Data not loaded.
-							</div>
-						</div>
-						<div class="diseaseInfo col-xs-12">
-							<div class="diseaseInfo__title">
-								Labs/Diagnostics
-							</div>
-							<div id="labsDiagnostics" class="diseaseInfo__content">
-								Data not loaded.
-							</div>
-						</div>
+					<div id="diseaseInfo" class="chartBox__content diseaseInfo">
+					</div>
+					<div id="disease-table" class="table">
 					</div>
 				</div>
 			</div>
@@ -145,6 +91,29 @@ $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
 
 var disease = 1;
 
+function buildHTML( title, data, id, colWidth ){
+
+	if( ( data != '' ) && ( typeof(data) != 'undefined' )  ){
+
+		var html = '';
+
+		if( typeof( colWidth ) != 'undefined' ){
+			html += ' <div class="diseaseInfo col-xs-12 col-sm-' + colWidth + '">';
+		}else{
+			html += ' <div class="diseaseInfo col-xs-12">';
+		}
+
+		html += '<div class="diseaseInfo__title">';
+		html += title;
+		html += '</div><div id="' + id + '" class="diseaseInfo__content">'
+		html += data;
+		html += '</div></div>';
+
+		$( '#diseaseInfo' ).append(html);
+
+	}
+}
+
 function loadDiseaseContent( varID, locID ){
 
 	disease = varID;
@@ -153,18 +122,31 @@ function loadDiseaseContent( varID, locID ){
 
 	$.getJSON( api_root + '/variable/' + varID, function( data ){
 
-		console.log(data);
-
 		$('#diseaseTitle').text( data.name );
-		$('#classification').text( data.classification_casedef );
-		$('#source').text( data.source );
-		$('#diseaseAlerts').text( data.alert_desc );
-		$('#caseDefinition').text( data.case_def);
-		$('#riskFactor').text( data.risk_factors );
-		$('#signsSymptoms').text( data.symptoms);
-		$('#labsDiagnostics').text( data.labs_diagnostics );
 
+		buildHTML( 'Classification', data.classification_casedef, 'classification', 4 ); 
+		buildHTML( 'Source', data.source, 'source', 4 );
+		buildHTML( 'Alerts', data.alert_desc, 'diseaseAlerts', 4 );
+		buildHTML( 'Case Definition', data.case_def, 'caseDefinition' );
+		buildHTML( 'Risk Factor(s)', data.risk_factors, 'riskFactors' );
+		buildHTML( 'Sign(s)/Symptom(s)', data.symptoms, 'signsSymptoms' );
+		buildHTML( 'Labs/Diagnostics', data.labs_diagnostics, 'signsSymptoms' );
 
+		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
+		if( data.category.indexOf( 'Chapter' ) > -1 ){
+
+			$.getJSON( api_root+"/aggregate_category/" + data.name + "/" + locID, function( subdiseases ){
+				$.getJSON( api_root+"/variables/" + data.name, function( variables ){
+
+					var title = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+					var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), "ICD10 Sub-diseases" );
+					dataObject = stripEmptyRecords( dataObject );
+
+					drawTable( 'disease-table', dataObject, true );
+				});
+			});
+
+		}
 	});
 
 }
