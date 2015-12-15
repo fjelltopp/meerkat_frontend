@@ -12,8 +12,12 @@ class Config(object):
     WEBMASTER_EMAIL = 'webmaster@emro.info'
     SITE_TITLE = 'WHO Meerkat'
     # Homepage stuff
-    HOMEPAGE_CONFIG = 'homepage_jordan.json'
+    HOMEPAGE_CONFIG = 'null_homepage.json'
     HOMEPAGE_API_ROOT = '/api'
+
+    #Technical Site Stuff
+    TECHNICAL_CONFIG = 'null_technical.json'
+    TECHNICAL_API_ROOT = '/api'
 
     # Reports specfic stuff
     API_ROOT = 'https://jordan.emro.info/api'

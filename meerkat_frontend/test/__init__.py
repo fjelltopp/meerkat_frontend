@@ -7,6 +7,8 @@ Unit tests for the Meerkat frontend
 import meerkat_frontend as mk
 import unittest
 from datetime import datetime
+from werkzeug.datastructures import Headers
+import base64
 
 
 class MeerkatFrontendTestCase(unittest.TestCase):
@@ -41,7 +43,12 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_technical(self):
         """Check the Technical page loads"""
         rv = self.app.get('/technical/')
-        self.assertEqual(rv.status_code, 200)
+        #Due to basic auth
+        self.assertEqual(rv.status_code, 401)
+        cred = base64.b64encode(b"admin:secret").decode("utf-8")
+        header= {"Authorization": "Basic {cred}".format(cred=cred)}
+        rv2 = self.app.get('/technical/', headers=header)
+        self.assertEqual(rv2.status_code, 200)
 
     # Utility FUNCTIONS
     def test_epi_week_to_date(self):

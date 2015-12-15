@@ -1,0 +1,62 @@
+{
+  "application":"technical",
+
+  "titles":{
+    "full":"Null Island <br> Public Health Surveillance",
+    "nav":"<b>Null Island </b> &middot; WHO Public Health Surveillance",
+    "mob_nav":"Health Surveillance"
+  },
+
+  "map":{
+    "center":{
+      "lng":"0",
+      "lat":"0"
+    },
+    "zoom":"9"
+  },
+  
+  "tabs":[{
+    "name":"Demographics",
+    "template":"demographics.html" 
+  },{
+    "name":"Presenting Complaint",
+    "template":"complaint.html" 
+  },{
+    "name":"Communicable Diseases",
+    "template":"diseases.html"
+  },{
+    "name":"Alerts",
+    "template":"alerts.html"
+  },{
+    "name":"Health Services",
+    "template":"services.html"
+  },{
+    "name":"Completeness",
+    "template":"completeness.html"
+  },{
+    "name":"Map View",
+    "template":"map.html"
+  }],
+
+  "footer":{
+    "logos":{
+		 "who":"who-logo-white-no-text.svg",
+		 "country_partner":"ni.png",
+		 "flag":"niFlag.png",
+		 "partners":[]
+    },
+
+    "partners":[
+      "The World Health Organisation",
+		"The Ministry of Health, Null Island"
+    ],
+
+    "email":"emwrojor@who.int",
+    "central_review":false
+  },
+
+  "glossary":{
+    "region":"kingdom"
+  }
+}
+

@@ -1,0 +1,122 @@
+<div class="top-bar row">
+	<div class="location-box box">
+		<a href="" onclick="loadTab('alerts'); return false;">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+			<div>Alerts</div>
+		</a>
+	</div>
+	<div class="tab-title hidden-xs col-sm-5 col-md-6">
+		Alert #<span id="alertTitle"></span>
+	</div>
+	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+		Date not loaded.
+	</div>
+
+</div>
+
+<div class="disease">
+
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						Alert Investigation Report
+					</div>
+					<div class="chartBox__content">
+						<table class="alert col-sm-6 col-xs-12">
+							<tr>
+								<td align="right" class="fit" ><b>Alert:</b></td> 
+								<td><span id="alertID" class="alertInfo" >No data loaded</span> </td>
+							</tr>
+							<tr>
+								<td align="right" class="fit" ><b>Case:</b></td>
+								<td><span id="reason" class="alertInfo" >No data loaded</span> </td>
+							</tr>
+							<tr>
+								<td align="right" class="fit" ><b>Date:</b></td>
+								<td><span id="date" class="alertInfo" >No data loaded</span> </td>
+							</tr>
+							<tr>
+								<td align="right" class="fit" ><b>Clinic:</b></td>
+								<td><span id="clinic" class="alertInfo" >No data loaded</span> </td>
+							</tr>
+							<tr class="spaceUnder">
+								<td align="right" class="fit" >
+									<b><span class="glossary capitalised" word="region">Region</span>:</b>
+								</td>
+								<td><span id="region" class="alertInfo" >No data loaded</span> </td>
+							</tr>
+							<tr>
+								<td align="right" class="fit" ><b>Patient ID:</b></td>
+								<td><span id="patientID" class="alertInfo" >No data loaded</span> </td>
+							</tr>
+							<tr>
+								<td align="right" class="fit" ><b>Patient Age:</b></td>
+								<td><span id="patientAge" class="alertInfo" >No data loaded</span> </td>
+							</tr>
+							<tr class="spaceUnder">
+								<td align="right" class="fit" ><b>Patient Gender:</b></td>
+								<td><span id="patientGender" class="alertInfo" >No data loaded</span> </td>
+							</tr>
+						</table>
+						<div class="col-sm-6 col-xs-12" >
+							<p><b>Alert Investigation</b></p>
+							<div id="checklist"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="breaker"></div>
+
+<script>
+$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+function drawAlertContent( alertID ){
+
+	$.getJSON( api_root+"/alert/"+alertID, function( alert ){
+		
+		//Load the location info for the given location ID from the location tree.
+		var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===alert.alerts.clinic; });
+		var parent = node.getPath();
+		parent = parent[parent.length-2];
+
+		//Assemble the alert investigation checklist as a table.
+		var stages = ["Referral", "Case Management", "Contact Tracing", "Laboratory Diagnosis" ];
+		var checklist = alert.links.data.checklist;
+		var table = "<table>";
+
+		for( var i in stages ){
+
+			var stage = stages[i];
+
+			table += "<tr><td align='right' class='fit' ><b>" + stage + "</b></td>";
+
+			if( checklist.indexOf( stage ) >= 0 ){
+				table += "<td> Completed </td>";
+			}else{
+				table += "<td> Not Completed </td></tr>";
+			}			
+		}
+
+		table += "</table>";
+
+		//Draw!
+		$('#alertTitle').html( alertID );
+		$('#alertID').html( alertID );
+		$('#reason').html( alert.alerts.reason );
+		$('#date').html( alert.alerts.date.split("T")[0] );
+		$('#clinic').html( node.model.text );
+		$('#region').html( parent.model.text );
+		$('#patientID').html( alert.alerts.uuids );
+		$('#patientAge').html( alert.alerts.data.age );
+		$('#patientGender').html( alert.alerts.data.gender );
+		$('#checklist').html( table );		
+		
+	});
+}
+</script>

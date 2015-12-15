@@ -41,7 +41,9 @@ gulp.task('jshint', function() {
 
 // JAVASCRIPT TASKS
 gulp.task('vendorJS', function() {
-  return gulp.src(mainBowerFiles())
+  return gulp.src( mainBowerFiles().concat([
+      'node_modules/tree-model/dist/TreeModel-min.js'
+    ]))
     .pipe(filter('*.js'))
     .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
@@ -89,7 +91,8 @@ gulp.task('mapbox-rename-css-to-scss', function() {
   return gulp.src([
       'bower_components/mapbox.js/mapbox.uncompressed.css',
       'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
-      'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css'
+      'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
+		'bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css'
     ])
     .pipe(rename(function(path) {
       path.extname = ".scss"
@@ -145,7 +148,8 @@ gulp.task('img', function() {
 
 //COPY OTHER FILES
 gulp.task( 'files', function(){
-  return gulp.src(['meerkat_frontend/src/files/*'])
+  return gulp.src(['meerkat_frontend/src/files/*',
+                   'meerkat_frontend/src/files/**/*'])
     .pipe(gulp.dest('meerkat_frontend/static/files'));
 });
 

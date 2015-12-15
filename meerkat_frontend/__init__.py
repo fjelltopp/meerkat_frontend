@@ -21,6 +21,8 @@ app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS', silent=True)
 #Load settings saved in config files.
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
 app.config['HOMEPAGE_CONFIG'] = json.loads( open(path).read())
+path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['TECHNICAL_CONFIG']
+app.config['TECHNICAL_CONFIG'] = json.loads( open(path).read())
 
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')

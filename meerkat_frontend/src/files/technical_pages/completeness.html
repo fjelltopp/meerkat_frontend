@@ -1,0 +1,66 @@
+<div class="top-bar row">
+	<div class="tab-title hidden-xs col-sm-5 col-md-6">
+		Completeness
+	</div>
+	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+		Date not loaded.
+	</div>
+
+</div>
+
+<div class="demographics toggled" id="wrapper">
+
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						<span class="glossary capitalised" word="region" >Region</span>s
+					</div>
+					<div class="chartBox__content">
+						<div id="completeness-agg-table" class="table">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						Clinics
+					</div>
+					<div class="chartBox__content">
+						<div id="completeness-table" class="table">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+
+$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+//Every tab needs a draw charts function that is called when loading a new location.
+//It's also called upon the first load of the page. 
+function drawCharts( locID ){
+
+	drawCompletenessTables( 1 );
+
+}
+
+function drawCompletenessTables( regionID ){
+				
+	drawCompletenessAggTable( 'completeness-agg-table' );
+	drawCompletenessTable( 'completeness-table', regionID );
+
+}
+
+</script>

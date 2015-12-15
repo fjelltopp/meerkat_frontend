@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<ul class="nav navbar-nav">
+  <li class="active"><a href="#" >Dashboard</a></li>
+<li><a href="/reports/" >Reports</a></li>
+  <li><a href="#" >Explore Data</a></li>
+  <li><a href="#" >Download Data</a></li>
+  <li><a href="/" >Log out</a></li>
+</ul>
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+    <div class="breaker"></div>
+      <ul class="technical-tabs">
+        {% for tab in content.tabs %}
+        <li>
+	       <a href="" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}" page="{{tab.template}}" onclick="loadTab('{{tab.name|striptags|lower|trim|replace(' ','_')}}'); return false;">{{tab.name}}</a>
+	     </li>
+        {% endfor %}
+	   </ul>
+      <div class="breaker"></div>
+    </div>
+  </div>
+
+  <div class="container tab-page" id="page-content"></div>
+
+{% endblock body %}
+
+{% block footer %}
+<div class="container">
+	<div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
+		<p class="footer__title">Meerkat Health Surveillance</p>
+		<p>Working with our partners:</p> 
+		<ul class="footer__supporters" >
+			{% for partner in content.footer.partners %}
+				<li>{{partner}}</li>
+			{% endfor %} 
+		</ul>
+		<p>For more information, please e-mail: {{content.footer.email|safe}} </p>
+	</div>
+	<div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
+		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
+		{% for logo in content.footer.logos.partners %}
+			<img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
+		{% endfor %} 
+	</div>
+</div>
+{% endblock footer %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+
+	var api_root = "{{config['TECHNICAL_API_ROOT']}}";
+	var config = {{config['TECHNICAL_CONFIG'] |tojson|safe}};
+
+	loadLocationTree( {{page | safe}} );
+
+</script>
+
+{% endblock pageJS %}
