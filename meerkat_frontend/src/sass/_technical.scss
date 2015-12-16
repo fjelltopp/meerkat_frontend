@@ -54,12 +54,8 @@ body.technical{
 	}
 }
 
-footer{
-	min-height: 10vh;
-}
-
 .tab-page{
-	min-height: 75vh;
+	min-height: 80vh;
 	position:relative;
 }
 
@@ -187,6 +183,7 @@ button.header:hover{
 	display: inline-block;
 	font-size: 24px;
 	line-height: 42px;
+	padding: 0 5px;
 }
 
 td.fit{
@@ -208,6 +205,13 @@ tr.spaceUnder td.fit,
 #checklist table tr{
 	border-top: $lightGrey solid 1px;
 	border-bottom: $lightGrey solid 1px;
+}
+
+footer{
+	background: $darkGrey;
+	color: $lightGrey;
+	padding: 20px;
+	min-height: 10vh;
 }
 
 .footer__label{

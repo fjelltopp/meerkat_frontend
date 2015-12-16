@@ -133,6 +133,15 @@ function loadDiseaseContent( varID, locID ){
 		buildHTML( 'Labs/Diagnostics', data.labs_diagnostics, 'signsSymptoms' );
 
 		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
+		drawDiseaseTable( varID, locID );
+	});
+
+}
+
+function drawDiseaseTable( varID, locID ){
+
+	$.getJSON( api_root + '/variable/' + varID, function( data ){
+		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
 		if( data.category.indexOf( 'Chapter' ) > -1 ){
 
 			$.getJSON( api_root+"/aggregate_category/" + data.name + "/" + locID, function( subdiseases ){
@@ -145,10 +154,8 @@ function loadDiseaseContent( varID, locID ){
 					drawTable( 'disease-table', dataObject, true );
 				});
 			});
-
 		}
 	});
-
 }
 
 //Every tab needs a draw charts function that is called when loading a new location.
@@ -157,6 +164,7 @@ function drawCharts( locID ){
 	//In case we want the use to eb able to select the weeks to view.
 	var week = (get_epi_week()-1).toString();
 	drawTimeChart( disease, locID, 'time-chart' );
+	drawDiseaseTable( disease, locID );
 
 }
 

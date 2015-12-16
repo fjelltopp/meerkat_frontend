@@ -63,7 +63,7 @@ function loadDisease( diseaseID, locID ){
 
 	//Record the page history.
 	currentState = { type: 'disease', dataID: diseaseID, locID: locID };
-	var url = 'diseases/disease_' + currentState.dataID + '/loc_' + locID;
+	var url = 'diseases/' + currentState.dataID + '/loc_' + locID;
 	history.pushState( currentState, 'Disease #' + diseaseID, '/technical/' + url );
 
 	loadDiseaseContent( diseaseID, locID );
@@ -92,7 +92,7 @@ function loadAlert( alertID ){
 
 	//Record the page history.
 	currentState = { type: 'alert', dataID: alertID, locID: locID };
-	var url = 'alerts/alert_' + currentState.dataID;
+	var url = 'alerts/' + currentState.dataID;
 	history.pushState( currentState, 'Alert #' + alertID, '/technical/' + url );
 
 	loadAlertContent( alertID );
@@ -104,27 +104,43 @@ function loadAlert( alertID ){
  * - 'type' ('tab', 'alert' or 'disease')
  * - 'dataID' (identifying data dependant on type, eg. tab-element ID, disease ID or alert ID)
  * - 'locID' (location ID, not used for all types)
+ *
+ * If object does not include type, it simply loads the locID location into the currently rendered template.
  * 
  * If logHistory == true, a page state will be pushed into the broswer history before loading content.
  */
 function loadPage( pageState, logHistory ){
 
-	switch( pageState.type ){
+	if( typeof(pageState.type) != 'undefined'){
 
-		case 'tab' :
-			if( logHistory ) loadTab( pageState.dataID, pageState.locID ); 
-			else loadTabContent( pageState.dataID, pageState.locID ); 
-			break;
+		switch( pageState.type ){
 
-		case 'alert' :
-			if( logHistory ) loadAlert( pageState.dataID ); 
-			else loadAlertContent( pageState.dataID ); 
- 			break;
+			case 'tab' :
+				if( logHistory ) loadTab( pageState.dataID, pageState.locID ); 
+				else loadTabContent( pageState.dataID, pageState.locID ); 
+				break;
 
-		case 'disease' : 
-			if( logHistory ) loadDisease( pageState.dataID, pageState.locID ); 
-			else loadDiseaseContent( pageState.dataID, pageState.locID ); 
-			break;
+			case 'alert' :
+				if( logHistory ) loadAlert( pageState.dataID ); 
+				else loadAlertContent( pageState.dataID ); 
+	 			break;
+
+			case 'disease' : 
+				if( logHistory ) loadDisease( pageState.dataID, pageState.locID ); 
+				else loadDiseaseContent( pageState.dataID, pageState.locID ); 
+				break;
+
+		}
+
+	}else{
+
+		if( typeof(pageState.locID) != 'undefined'){
+			if( logHistory ) loadLocation( pageState.locID );
+			else loadLocationContent( pageState.locID );
+
+		}else{
+			console.error( 'No information provided in the pageState' );
+		}
 
 	}
 }

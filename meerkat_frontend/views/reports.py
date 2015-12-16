@@ -18,14 +18,17 @@ reports = Blueprint('reports', __name__)
 
 # NORMAL ROUTES
 @reports.route('/')
-def index():
+@reports.route('/loc_<int:locID>')
+def index(locID=1):
+    return render_template('reports/index.html', content=current_app.config['REPORTS_CONFIG'], loc=locID)
+
     # Hacky hard-coded redirect.
     # TODO: Replace in config with something elegant
-    return redirect(url_for(
-        '.report',
-        project='jordan',
-        report='public_health')
-        )
+    #return redirect(url_for(
+    #    '.report',
+    #    project='jordan',
+    #    report='public_health')
+    #    )
 
 
 @reports.route('/test/<project>/<report>/')

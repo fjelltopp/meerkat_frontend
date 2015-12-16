@@ -73,6 +73,12 @@ $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
+
+	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+	var transitionEvent = whichTransitionEvent();
+	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+		$(window).resize();
+	});
 });
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );

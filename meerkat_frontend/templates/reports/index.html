@@ -1,18 +1,171 @@
-{% extends 'reports/base.html' %}
+{% extends 'base.html' %}
+
+{% block menu %}
+<ul class="nav navbar-nav">
+  <li><a href="/technical/" >Dashboard</a></li>
+  <li class="active"><a href="/reports/" >Reports</a></li>
+  <li><a href="#" >Explore Data</a></li>
+  <li><a href="#" >Download Data</a></li>
+  <li><a href="/" >Log out</a></li>
+</ul>
+{% endblock %}
+
 {% block body %}
 <!-- CONTENT -->
-<div class="row">
-  <div class="center-block">
-    <h2>{{ site_title }}</h2>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-12">
-    <div class="chart-wrapper">
-      <div class="chart-stage">
-        ￼<p>Please choose a report to view.</p>
-      </div>
-    </div>
-  </div>
+
+
+<div class="container page-content">
+	<div class="breaker"> </div>
+	<div class="top-bar row">
+		<div class="location-box box">
+			<a href="#menu-toggle" id="menu-toggle">
+			<div class="location-box__label">
+				<div>Location:</div>
+				<div id="location-title">Not Loaded</div>
+			</div>
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<span class="glyphicon glyphicon-chevron-left hidden"></span>
+			</a>
+		</div>
+		<div class="tab-title less-padding-col">
+			System Reports 
+		</div>
+		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+			Date not loaded.
+		</div>
+	</div>
+
+	<div class="toggled" id="wrapper">
+
+		<div id="sidebar-wrapper" >
+			<div id="location-selector" class="location-selector">
+				Locations not loaded
+			</div>
+		</div>
+
+		<div id="page-content-wrapper">
+			<div class="row">
+				<div class="col-xs-12 less-padding-col">
+					<div class="box">
+						{{content.introduction}}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			{% for report in content.reports %}
+				<div class="col-xs-12 col-md-6 less-padding-col">
+					<div class="chartBox box">
+						<div class="chartBox__heading">
+							{{report.name}} Reports
+						</div>
+						<div class="chartBox__content">
+							<p>{{report.introduction}}</p>
+							<p>Here are the latest {{report.name}} reports for your selected location:</p>
+							<div id="{{report.name|striptags|lower|trim|replace(' ','_')}}-table" class="reports-table">
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock body %}
+
+{% block footer %}
+<div class="container">
+	<div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
+		<p class="footer__title">Meerkat Health Surveillance</p>
+		<p>Working with our partners:</p> 
+		<ul class="footer__supporters" >
+			{% for partner in content.footer.partners %}
+				<li>{{partner}}</li>
+			{% endfor %} 
+		</ul>
+		<p>For more information, please e-mail: {{content.footer.email|safe}} </p>
+	</div>
+	<div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
+		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
+		{% for logo in content.footer.logos.partners %}
+			<img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
+		{% endfor %} 
+	</div>
+</div>
+{% endblock footer %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+
+$("#menu-toggle").click(function(e) {
+	e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+	$(".location-box .glyphicon").toggleClass( "hidden" );
+});
+
+
+
+var config = {{content|tojson|safe}};
+var api_root = "{{config['TECHNICAL_API_ROOT']}}";
+
+loadLocationTree({locID:{{loc}}});
+
+$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+function drawCharts(locID){
+
+	//Load the location data from the locations tree.
+	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===locID; });
+
+	//Draw the report selection table for all available reports.
+	for( var i in config.reports ){
+
+		var report = config.reports[i];
+		var year = new Date().getFullYear();
+		var reportID = report.name.toLowerCase().split(' ').join('_');
+
+		var html = '<table class="table table-hover table-condensed">';
+		html += '<tr><th colspan="3">Location: ' + node.model.text + '</th></tr>';
+
+		//Create a number of auto links for the previous n weeks (specified in the config file.
+		for( var j=0; j<report.number; j++ ){
+			
+			var week = get_epi_week()-j-1;
+
+			if( week > 0 ){
+				html += '<tr><td class="indent" >Week '+ week + '</td>';
+				html += '<td><a href="' + report.url + '/' + locID + '/' + year + '/' + week +
+				        '" target="_blank">HTML Report</a></td>';
+				html += '<td><a href="" onclick="alert(\'PDF report not available yet.\');' +
+				        'return false;">PDF Report</a></td></tr>';
+			}
+		}
+
+		//Then create a selector that allows you to select any week you like. 
+		html += '<tr><td><select id="' + reportID + '-week-selector">';
+
+		for( var k = get_epi_week()-report.number-1; k > 0; k-- ){
+			html += '<option value=' + k + '>Week ' + k + '</option>';
+		}
+
+		html += '</select></td>';
+
+		var url = report.url + '/' + locID + '/' + year + '/';
+
+		//Make the html link pick up the selected week from the selector.
+		html += '<td><a href="" onclick="window.open(\'' + url + '\' + $(\'#' + reportID + 
+		        '-week-selector\').val(), \'_blank\');return false;">HTML Report</a></td>';
+		html += '<td><a href="" onclick="alert(\'PDF report not available yet.\'); return false;">' +
+		        'PDF Report</a></td></tr>';
+		html += '</table>';
+
+		//DRAW!
+		$( '#' + reportID + "-table" ).html( html );
+	}
+}
+
+</script>
+
+{% endblock pageJS %}

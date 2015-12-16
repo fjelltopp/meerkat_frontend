@@ -36,7 +36,7 @@ def index(tab="demographics", locID=1):
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState)
 
-@technical.route('/alerts/alert_<alertID>')
+@technical.route('/alerts/<alertID>')
 def alert( alertID=1 ):
     """Serves an individual alert investigation report for the given alert ID."""
     pageState = "{ type: 'alert', dataID: '" + alertID + "' }"
@@ -44,8 +44,8 @@ def alert( alertID=1 ):
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState)
 
-@technical.route('/diseases/disease_<int:diseaseID>/')
-@technical.route('/diseases/disease_<int:diseaseID>/loc_<int:locID>')
+@technical.route('/diseases/<int:diseaseID>/')
+@technical.route('/diseases/<int:diseaseID>/loc_<int:locID>')
 def disease( diseaseID=1, locID=1 ):
     """Serves a disease report page for the given aggregation variable and lcoation ID."""
     pageState = "{ type: 'disease', dataID: '" + str(diseaseID) + "', locID: " + str(locID) + " }"

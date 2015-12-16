@@ -4,19 +4,52 @@ var locations;
 //This is the first method called when loading the technical site. 
 //It loads the location tree data and renders the initial tab page (e.g. Demographics)
 function loadLocationTree( initialPageState ){
+	console.log( initialPageState );
+
 	$.getJSON( api_root+"/locationtree", function( data ){
+
 		locations = locationsTree.parse(data);
-		loadPage( initialPageState, true );
+		if( typeof( initialPageState ) != 'undefined' ) loadPage( initialPageState, true );
+
 	});
 }
 
 //This method is called when wishing to filter by location.
 function loadLocation( nodeID ){
 
+	//We want to work with a clone of the page state, not the pagestate itself.
+	if( typeof(history.state) != 'undefined'){
+		currentState = $.extend(true, {}, history.state);
+	}else{
+		currentState = {};	
+	}
+
 	//Record the page history.
-	currentState = { type: history.state.type, dataID: history.state.dataID, locID: nodeID };
-	var url = nodeID == 1 ? currentState.dataID : currentState.dataID + '/loc_' + nodeID;
-	history.pushState( currentState, $( '#'+currentState.tabID ).text(), '/technical/' + url );
+	currentState.locID = nodeID;
+
+	//Add the location into the URL without depending on the page that is being loaded.
+	//This is because the location manager needs to be useable across different parts of the frontend.
+	//Start by getting the current URL then remove the host domain name.
+	var url = window.location.href;
+	url = url.substring( url.indexOf( window.location.host ) + window.location.host.length );
+
+	//Next see if a location is already defined at the end of the URL
+	var index = url.indexOf('/loc_');
+
+	//If nodeID = 1 (the whole country) don't both specifying location in URL.
+	if( nodeID != 1 ){
+		if( index != -1 ){
+			//If the location is defined, replace it with the new location.
+			url = url.substring(0, index) + '/loc_' + nodeID;
+		}else{
+			//If the non-location specific url doesn't finish with a slash, add one.
+			if( url.slice(-1) != '/' ) url += '/' ;
+			//Then add the location string.
+			url += 'loc_' + nodeID;
+		}
+	}
+
+	history.pushState( currentState, "", url );
 
 	loadLocationContent( nodeID );
 }
@@ -65,6 +98,7 @@ function loadLocationContent( nodeID ){
 
 	//Call the tab's draw charts function.
 	//EVERY TAB SHOULD HAVE A DRAW CHARTS FUNCTION.
+	//TODO: More approaite name for drawCharts? Maybe drawLocation? updateContent?
 	if( typeof drawCharts === 'function' ) drawCharts( nodeID );
 
 }
