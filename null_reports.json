@@ -4,11 +4,7 @@
 
   "titles":{
     "full":"Null Island <br> Public Health Surveillance",
-<<<<<<< HEAD
-    "nav":"<b>Null Island </b> &middot; WHO Public Health Surveillance",
-=======
     "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
->>>>>>> Added export-to-csv files and created categorySummation() function.
     "mob_nav":"Health Surveillance"
   },
 

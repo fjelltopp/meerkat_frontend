@@ -174,7 +174,7 @@ function drawAlertAggTable( containerID, aggData, variables ){
 
 function drawCompletenessAggTable( containerID ){
 
-	$.getJSON( api_root+"/completeness/435/4", function( regionData ){
+	$.getJSON( api_root+"/completeness/reg_1/4", function( regionData ){
 		$.getJSON( api_root+"/locations", function( locations ){	
 
 			regionData = regionData.regions;
@@ -213,8 +213,8 @@ function drawCompletenessAggTable( containerID ){
 
 function drawCompletenessTable( containerID, regionID ){
 
-	$.getJSON( api_root+"/completeness/435/4", function( registerData ){
-		$.getJSON( api_root+"/completeness/1/4", function( caseData ){
+	$.getJSON( api_root+"/completeness/reg_1/4", function( registerData ){
+		$.getJSON( api_root+"/completeness/tot_1/4", function( caseData ){
 			$.getJSON( api_root+"/locations", function( locations ){	
 
 				registerData = registerData.clinics[regionID];
