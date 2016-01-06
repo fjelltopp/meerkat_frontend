@@ -46,6 +46,11 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						Presenting Complaint
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('complaint-table','complaint.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div id="complaint-table" class="chartBox__content table">
 					
@@ -56,6 +61,11 @@
 				<div class="chartBox box ">
 					<div class="chartBox__heading">
 						ICD-10 Table
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('icd-table','icd10.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div id="icd-table" class="chartBox__content table">
 					
@@ -84,7 +94,6 @@ $("#menu-toggle").click(function(e) {
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 
 
-
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
 
@@ -92,27 +101,25 @@ function drawCharts( locID ){
 	//In case we want the use to eb able to select the weeks to view.
 	var week = (get_epi_week()).toString();
 
-	$.getJSON( api_root+"/aggregate_category/pc/" + locID, function( data ){
-		$.getJSON( api_root+"/variables/pc", function( variables ){
+	categorySummation({ category: 'pc', 
+	                    locID: locID,
+	                    week: week, 
+	                    tableID: 'complaint-table', 
+	                    percent: true,
+	                    linkFunction: 'loadDisease',
+	                    title: 'Category'
+	                   });
 
-			var title = "";
-			var dataObject = makeDataObject(data, variables, week, title );
-			drawTable( 'complaint-table', dataObject, true, false, 'loadDisease' );
-
-		});
-	});
-
-	$.getJSON( api_root+"/aggregate_category/Chapter/" + locID, function( data ){
-		$.getJSON( api_root+"/variables/Chapter", function( variables ){
-
-			var title = "";
-			var dataObject = stripEmptyRecords( makeDataObject(data, variables, week, title ) );
-
-			drawTable( 'icd-table', dataObject, true, false, 'loadDisease' );
-			drawBarChart( 'icd-bar-chart', dataObject, true );
-
-		});
-	});
+	categorySummation({ category: 'Chapter', 
+	                    locID: locID,
+	                    week: week, 
+	                    tableID: 'icd-table',
+	                    barID: 'icd-bar-chart',
+	                    percent: true,
+	                    linkFunction: 'loadDisease',
+	                    strip: true,
+	                    title: 'ICD10 Chapter'
+	                   });	 
 
 }
 

@@ -4,7 +4,6 @@ var locations;
 //This is the first method called when loading the technical site. 
 //It loads the location tree data and renders the initial tab page (e.g. Demographics)
 function loadLocationTree( initialPageState ){
-	console.log( initialPageState );
 
 	$.getJSON( api_root+"/locationtree", function( data ){
 

@@ -87,7 +87,6 @@ function drawAlertContent( alertID ){
 
 		//Assemble the alert investigation checklist as a table.
 		var stages = ["Referral", "Case Management", "Contact Tracing", "Laboratory Diagnosis" ];
-		var checklist = alert.links.data.checklist;
 		var table = "<table>";
 
 		for( var i in stages ){
@@ -96,7 +95,7 @@ function drawAlertContent( alertID ){
 
 			table += "<tr><td align='right' class='fit' ><b>" + stage + "</b></td>";
 
-			if( checklist.indexOf( stage ) >= 0 ){
+			if( alert.links != undefined && alert.links.data.checklist.indexOf( stage ) >= 0 ){
 				table += "<td> Completed </td>";
 			}else{
 				table += "<td> Not Completed </td></tr>";
@@ -104,7 +103,7 @@ function drawAlertContent( alertID ){
 		}
 
 		table += "</table>";
-
+		
 		//Draw!
 		$('#alertTitle').html( alertID );
 		$('#alertID').html( alertID );

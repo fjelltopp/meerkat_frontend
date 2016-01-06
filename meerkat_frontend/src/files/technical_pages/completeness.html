@@ -16,6 +16,12 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						<span class="glossary capitalised" word="region" >Region</span>s
+						<div class="box__type-selector pull-right">
+							<a href="" class="csv"
+							   onclick="exportTableToCSV('completeness-agg-table','completenessSummary.csv', this);" > 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div class="chartBox__content">
 						<div id="completeness-agg-table" class="table">
@@ -30,6 +36,12 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						Clinics
+						<div class="box__type-selector pull-right">
+							<a href="" class="csv"
+							   onclick="exportTableToCSV('completeness-agg-table','completeness.csv', this);" > 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div class="chartBox__content">
 						<div id="completeness-table" class="table">

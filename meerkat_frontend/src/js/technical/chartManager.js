@@ -67,9 +67,6 @@ function drawBarChart( containerID, data, percent ){
 		}],
 	});
 
-console.log(data.labels);
-console.log( data.year);
-
 	//Get rid of the highcharts logo.
 	$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
 

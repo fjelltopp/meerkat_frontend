@@ -12,10 +12,12 @@ function drawTable( containerID, data, percent, no_total, linkFunction ){
 	//Initialise an array to store the summation values for the table.
 	var sum=[0,0,0,0];
 
+	var weeks = lastWeeks( get_epi_week(), 3 );	
+	
 	//Table headers.
 	table = '<table class="table table-hover table-condensed"><tr>' +
-	        '<th>' + data.title + '</th><th>Week ' + (get_epi_week()) + '</th>' +
-	        '<th>Week ' + (get_epi_week()-1) + '</th><th>Week ' + (get_epi_week()-2) + '</th>' + 
+	        '<th>' + data.title + '</th><th>Week ' + weeks[0] + '</th>' +
+	        '<th>Week ' + weeks[1] + '</th><th>Week ' + weeks[2] + '</th>' + 
 	        '<th>This Year</th></tr>';
 
 	//Calculate the percentages, if we're to show percentages.
@@ -100,16 +102,16 @@ function drawAlertsTable(containerID, alerts, variables){
 
 			var alert = alerts[i].alerts;
 
-			table += '<tr><td>' + alert.id + '</td><td>' + variables[ alert.reason ].name + '</td>' +
-				      '<td>' + locations[locations[alert.clinic].parent_location].name + '</td>' +
-						'<td>' + locations[alert.clinic].name + '</td>' +
-						'<td>' + alert.date.split("T")[0] + '</td>'; 
+			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.id + '\'); return false;">' + 
+			         alert.id + '</a></td><td>' + variables[ alert.reason ].name + '</td>' +
+			         '<td>' + locations[locations[alert.clinic].parent_location].name + '</td>' +
+			         '<td>' + locations[alert.clinic].name + '</td>' +
+			         '<td>' + alert.date.split("T")[0] + '</td>'; 
 
 			//For some alerts we have no linked follow up report - so check that links is defined.
 			if( typeof alerts[i].links != 'undefined' ){
 				var link = alerts[i].links;
-				table += '<td><a href="" onclick="loadAlert(\'' + alert.id + '\'); return false;">' + 
-				link.to_date.split("T")[0] + '</a></td><td>' + link.data.status + '</td></tr>';
+				table += '<td>' + link.to_date.split("T")[0] + '</td><td>' + link.data.status + '</td></tr>';
 			}else{
 				table += '<td>-</td><td>Pending</td></tr>';
 			}					
@@ -146,7 +148,7 @@ function drawAlertAggTable( containerID, aggData, variables ){
 		var reason = reasons[i];
 		var total = 0;		
 										
-		table += '<tr><td><a href="" onclick="loadAlertTables(' + reason + ');return false;">' + 
+		table += '<tr><td><a href="" onclick="loadAlertTables(\'' + reason + '\');return false;">' + 
 		         variables[reason].name + '</a></td>';
 
 		for( var j in statusList ){

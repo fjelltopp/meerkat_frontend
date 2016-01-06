@@ -11,7 +11,7 @@ class Config(object):
     # Global stuff
     ROOT_URL = 'https://jordan.emro.info'
     WEBMASTER_EMAIL = 'webmaster@emro.info'
-    SITE_TITLE = 'WHO Meerkat'
+    SITE_TITLE = 'Meerkat Health Surveillance'
 
     # Homepage stuff
     HOMEPAGE_CONFIG = 'null_homepage.json'

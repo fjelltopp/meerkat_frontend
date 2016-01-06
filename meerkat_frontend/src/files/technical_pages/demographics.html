@@ -39,12 +39,15 @@
 							</a> /
 							<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie"> 
 								Pie 
-							</a>
+							</a> /
+							<a href="" onclick="exportTableToCSV('gender-table','gender.csv', this);" class="csv"> 
+								Excel 
+							</a> 
 						</div>
 					</div>
 					<div id="gender-charts" class="chartBox__content">
 						<div id="gender-bar-chart" class="bar chart"></div>
-						<div id="gender-pie-charts" class="pie chart hidden" ></div>
+						<div id="gender-pie-chart" class="pie chart hidden" ></div>
 						<div id="gender-table" class="table" ></div>
 					</div>
 				</div>
@@ -59,12 +62,15 @@
 							</a> /
 							<a href="" onclick="showChartType('pie','nationality-charts');return false;" class="pie"> 
 								Pie 
-							</a>
+							</a>/
+							<a href="" onclick="exportTableToCSV('nationality-table','nationality.csv', this);" class="csv"> 
+								Excel 
+							</a> 
 						</div>
 					</div>
 					<div id="nationality-charts" class="chartBox__content">
 						<div id="nationality-bar-chart" class="bar chart"></div>
-						<div id="nationality-pie-charts" class="pie chart hidden" ></div>
+						<div id="nationality-pie-chart" class="pie chart hidden" ></div>
 						<div id="nationality-table" class="table" ></div>
 					</div>
 				</div>
@@ -78,12 +84,15 @@
 						Age
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="showChartType('bar','age-charts');return false;" class="bar"> Bar </a> /
-							<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"> Pie </a>
+							<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"> Pie </a> /
+							<a href="" onclick="exportTableToCSV('age-table','age.csv', this);" class="csv"> 
+								Excel 
+							</a> 
 						</div>
 					</div>
 					<div id="age-charts" class="chartBox__content">
 						<div id="age-bar-chart" class="bar chart"></div>
-						<div id="age-pie-charts" class="pie chart hidden" ></div>
+						<div id="age-pie-chart" class="pie chart hidden" ></div>
 						<div id="age-table" class="table" ></div>
 					</div>
 				</div>
@@ -94,12 +103,15 @@
 						Status
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="showChartType('bar','status-charts');return false;" class="bar"> Bar </a> /
-							<a href="" onclick="showChartType('pie','status-charts');return false;" class="pie"> Pie </a>
+							<a href="" onclick="showChartType('pie','status-charts');return false;" class="pie"> Pie </a> /
+							<a href="" onclick="exportTableToCSV('status-table','status.csv', this);" class="csv"> 
+								Excel 
+							</a> 
 						</div>
 					</div>
 					<div id="status-charts" class="chartBox__content">
 						<div id="status-bar-chart" class="bar chart"></div>
-						<div id="status-pie-charts" class="pie chart hidden" ></div>
+						<div id="status-pie-chart" class="pie chart hidden" ></div>
 						<div id="status-table" class="table" ></div>
 					</div>
 				</div>
@@ -127,34 +139,26 @@ $("#menu-toggle").click(function(e) {
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 
-//There was a pattern when drawing the charts for this page.
-//So this function is a refactorisation of that pattern.
-function categorySummation( category, locID, week ){
-
-	$.getJSON( api_root+"/aggregate_category/"+ category + "/" + locID, function( data ){
-		$.getJSON( api_root+"/variables/" + category, function( variables ){
-
-			var title = category.charAt(0).toUpperCase() + category.slice(1);
-			var dataObject = makeDataObject(data, variables, week, title );
-
-			drawBarChart( category+'-bar-chart', dataObject, true);
-			drawPieCharts( category+'-pie-charts', dataObject, true );
-			drawTable( category+'-table', dataObject, true );
-		});
-	});
-}
-
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
 
 	//Keep week abstracted out of the chart drawing process.
-	//In case we want the use to eb able to select the weeks to view.
+	//In case we want the user to be able to select the weeks to view.
 	var week = (get_epi_week()).toString();
 
-	categorySummation( 'gender', locID, week );
-	categorySummation( 'nationality', locID, week );
-	categorySummation( 'status', locID, week );
-	categorySummation( 'age', locID, week );
+	//For each category draw a category summation.
+	var categories = ['gender', 'nationality', 'status', 'age'];
+	for( var i in categories ){
+		categorySummation({ category: categories[i],
+		                    locID: locID,
+		                    week: week,
+		                    tableID: categories[i]+'-table',
+		                    barID: categories[i]+'-bar-chart',
+		                    pieID: categories[i]+'-pie-chart',
+		                    percent: true 
+		                  });
+	}
+
 }
 
 

@@ -33,6 +33,11 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						Selection Table
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('alert-agg-table','alertsSummary.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div class="chartBox__content">
 						<div id="alert-agg-table" class="table">
@@ -47,6 +52,11 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						Info Table
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('alert-table','alerts.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div class="chartBox__content">
 						<div id="alert-table" class="table" >
@@ -104,6 +114,7 @@ function loadAlertTables( reason, locID ){
 		if( typeof reason !== 'undefined' ){
 			url += "&reason=" + reason;
 		}
+		console.log( url );
 
 		$.getJSON( url, function( data ) {
 			
