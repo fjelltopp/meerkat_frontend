@@ -50,37 +50,6 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         rv2 = self.app.get('/technical/', headers=header)
         self.assertEqual(rv2.status_code, 200)
 
-    # Utility FUNCTIONS
-    def test_epi_week_to_date(self):
-        """Ensure epi_week_to_date is sane"""
-        self.assertEqual(
-            mk.common.epi_week_to_date(42, year=2015),
-            datetime(2015, 10, 22)
-        )
-        self.assertEqual(
-            mk.common.epi_week_to_date(12, year=2023),
-            datetime(2023, 3, 26)
-        )
-        self.assertEqual(
-            mk.common.epi_week_to_date(4, year=2008),
-            datetime(2008, 1, 29)
-        )
-
-    def test_date_to_epi_week(self):
-        """Ensure date_to_epi_week is sane"""
-        self.assertEqual(
-            mk.common.date_to_epi_week(datetime(2008, 1, 27)),
-            4
-        )
-        self.assertEqual(
-            mk.common.date_to_epi_week(datetime(2023, 3, 25)),
-            12
-        )
-        self.assertEqual(
-            mk.common.date_to_epi_week(datetime(2015, 10, 26)),
-            43
-        )
-
     #HOMEPAGE testing
     def test_index(self):
         """Ensure the config file is loading correctly"""
