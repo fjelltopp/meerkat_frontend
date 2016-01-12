@@ -14,20 +14,29 @@
       "name":"Public Health Profile",
 		"introduction":"This report summarises the state of public health in the selected location.",
       "url":"/reports/null/public_health",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
 		"number":3
     },{
       "name":"Communicable Disease",
 		"introduction":"This report tracks the spread of communicable diseases across the selected location.",
       "url":"/reports/null/communicable_disease",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
 		"number":3
     }
   ],
+
+  "flag":"ni.png",
 
   "footer":{
     "logos":{
 		 "who":"who-logo-white-no-text.svg",
 		 "country_partner":"ni.png",
-		 "flag":"niFlag.png",
 		 "partners":[]
     },
 

@@ -5,6 +5,7 @@ A Flask Blueprint module for the technical site.
 """
 from flask import Blueprint, render_template, current_app, request, Response
 import json
+from .. import common as c
 
 technical = Blueprint('technical', __name__)
 

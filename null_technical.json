@@ -38,11 +38,12 @@
     "template":"map.html"
   }],
 
+  "flag":"ni.png",
+
   "footer":{
     "logos":{
 		 "who":"who-logo-white-no-text.svg",
 		 "country_partner":"ni.png",
-		 "flag":"niFlag.png",
 		 "partners":[]
     },
 

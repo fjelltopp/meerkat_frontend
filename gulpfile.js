@@ -111,7 +111,10 @@ gulp.task('fonts', function() {
 
 // IMG TASKS
 gulp.task('copyFlags', function() {
-  return gulp.src(['bower_components/flag-icon-css/flags/**/*'])
+  return gulp.src([
+      'bower_components/flag-icon-css/flags/**/*', 
+      'meerkat_frontend/src/img/flags/**/*'
+    ])
     .pipe(gulp.dest('meerkat_frontend/static/img/flags'));
 });
 

@@ -14,7 +14,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand scroll-top" href="#">
-          <span class="who-logo-white-no-text navbar-img"></span>
+          <img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> </img>
           <span class="hidden-xs hidden-sm">{{content.titles.nav|safe}}</span>
           <span class="visible-xs visible-sm">{{content.titles.mob_nav|safe}}</span>
         </a>

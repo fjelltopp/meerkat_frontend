@@ -28,6 +28,17 @@ def api(url, project):
         abort(500, r )
     return output
 
+def apiRequest(url):
+    api_request = ''.join(['http://127.0.0.1', current_app.config['HOMEPAGE_API_ROOT'], url])
+    try:
+        r = requests.get( api_request )
+    except requests.exceptions.RequestException as e:
+        abort(500, e)
+    try:
+        output = r.json()
+    except Exception as e:
+        abort(500, r )
+    return output
 
 def epi_week_to_date(epi_week, year=datetime.today().year):
     """Converts an epi_week (int) to a datetime object"""

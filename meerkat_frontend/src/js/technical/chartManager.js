@@ -59,10 +59,10 @@ function drawBarChart( containerID, data, percent ){
 			}
 		},			
 		series: [{
-			name: 'Year',
+			name: 'This Year',
 			data:  data.year
 		},{
-			name: 'Last Week',
+			name: 'This Week',
 			data:  data.week
 		}],
 	});
@@ -130,7 +130,7 @@ function drawPieCharts( containerID, data, percent ){
 			}
 		},
 		series: [{
-			name: 'Week',
+			name: 'This Week',
 			center: ['20%','50%'],
 			size: "70%",
 			colorByPoint: true,
@@ -138,7 +138,7 @@ function drawPieCharts( containerID, data, percent ){
 			title: { text: '<b>Week</b>', verticalAlign: 'top', y: -40 },
 			data: restructured.week
 		},{
-			name: 'Year',
+			name: 'This Year',
 			center: ['80%','50%'],
 			size: "70%",
 			colorByPoint: true,

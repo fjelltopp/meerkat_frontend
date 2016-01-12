@@ -5,10 +5,10 @@
     "nav":"<b>Jordan </b> &middot; Public Health Surveillance",
     "mob_nav":"Health Surveillance"
   },
+  "flag":"jo.svg",
   "logos":{
     "who":"who.png",
     "country_partner":"JOH.png",
-    "flag":"jo.svg",
     "partners":[
       "kuwait.gif"
     ]
