@@ -62,15 +62,15 @@ def test(project, report):
         abort(501)
 
 
-@reports.route('/email/<project>/<report>/', methods=['POST'])
-def send_email_report(project, report):
+@reports.route('/email/<report>/', methods=['POST'])
+def send_email_report(report):
     """Sends an email via Mailchimp with the latest report"""
     projects = current_app.config['REPORT_LIST']
     # Hacky hard-coded value to add some semblance of access control...
     if 'apikey' not in request.json or request.json['apikey'] \
        != 'simbasucksass':
         abort(401)
-    if project in projects and report in projects[project]['reports']:
+    if project in projects and report in projects['reports']:
         location = projects[project]['default_location']
         end = c.epi_week_to_date(c.date_to_epi_week() - 1)
         api_request = '/reports/{report}/{loc}/{end}'.format(
@@ -177,38 +177,39 @@ def send_email_report(project, report):
         abort(501)
 
 
-@reports.route('/<project>/<report>/')
-@reports.route('/<project>/<report>/<location>/')
-@reports.route('/<project>/<report>/<location>/<int:year>/')
-@reports.route('/<project>/<report>/<location>/<int:year>/<int:week>/')
-def report(project, report=None, location=None, year=None, week=None):
+@reports.route('/<report>/')
+@reports.route('/<report>/<location>/')
+@reports.route('/<report>/<location>/<int:year>/')
+@reports.route('/<report>/<location>/<int:year>/<int:week>/')
+def report(report=None, location=None, year=None, week=None):
     """Serves dynamic report for a location and date"""
     # Check that the requested project and report are valid
-    projects = current_app.config['REPORT_LIST']
-    if project in projects and report in projects[project]['reports']:
+    report_list = current_app.config['REPORT_LIST']
+    if report in report_list['reports']:
         if not location:
-            location = projects[project]['default_location']
+            location = report_list['default_location']
         if week or year:
             if week:
                 end_date = c.epi_week_to_date(week, year)
             else:
                 end_date = c.epi_week_to_date(1, year)
             api_request = '/reports/{report}/{loc}/{end}'.format(
-                report=projects[project]['reports'][report]['api_name'],
+                report=report_list['reports'][report]['api_name'],
                 loc=location,
                 end=end_date.strftime('%Y-%m-%d')
             )
         else:
             # Return most recent epiweek
             api_request = '/reports/{report}/{loc}/{end}'.format(
-                report=projects[project]['reports'][report]['api_name'],
+                report=report_list['reports'][report]['api_name'],
                 loc=location,
                 end=c.epi_week_to_date(
                     c.date_to_epi_week() - 1
                 ).strftime('%Y-%m-%d')
             )
-        data = c.api(api_request, project)
-        if project == 'jordan' and report == 'public_health':
+
+        data = c.api(api_request)
+        if report == 'public_health':
             # Extra parsing for natural language bullet points
             extras = {
                 'patient_status': {
@@ -222,7 +223,7 @@ def report(project, report=None, location=None, year=None, week=None):
             extras = None
         # Render correct template for the report
         return render_template(
-            projects[project]['reports'][report]['template'],
+            report_list['reports'][report]['template'],
             report=data,
             extras=extras
         )

@@ -16,7 +16,7 @@ from .views.reports import reports
 # Create the Flask app
 app = Flask(__name__)
 app.config.from_object('config.Development')
-app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS', silent=True)
+app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')#, silent=True)
 
 #Load settings saved in config files.
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
@@ -42,16 +42,16 @@ if app.config['TESTING']:
     app.add_url_rule(app.config['HOMEPAGE_API_ROOT']+'/<filename>', 'api', api)
 
 # Logging to syslog
-if not app.debug:
-    import logging
-    from logging.handlers import SysLogHandler
-    syslog = SysLogHandler(address=app.config['SYSLOG_PATH'])
-    syslog.setLevel(logging.WARNING)
-    syslog.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s '
-        '[in %(pathname)s:%(lineno)d]'
-    ))
-    app.logger.addHandler(syslog)
+# if not app.debug:
+#     import logging
+#     from logging.handlers import SysLogHandler
+#     syslog = SysLogHandler(address=app.config['SYSLOG_PATH'])
+#     syslog.setLevel(logging.WARNING)
+#     syslog.setFormatter(logging.Formatter(
+#         '%(asctime)s %(levelname)s: %(message)s '
+#         '[in %(pathname)s:%(lineno)d]'
+#     ))
+#     app.logger.addHandler(syslog)
 
 # Main
 if __name__ == "__main__":
