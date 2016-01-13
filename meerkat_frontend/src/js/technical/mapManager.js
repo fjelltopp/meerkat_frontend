@@ -23,6 +23,8 @@ function drawMap( varID, containerID ){
 		var colours3 = [ '#fc9272', '#ef3b2c', '#67000d' ];
 		var colours2 = [ '#fc9272', '#a50f15' ];
 
+		//Default to the 6 colour system.  
+		//If fewer bins, due to smaller range, then change to fewer colours.
 		var colours = colours6;
 
 		//Find the clinic with the maximum variable value.
