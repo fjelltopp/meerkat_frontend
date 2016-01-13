@@ -6,7 +6,7 @@ Configuration and settings
 
 class Config(object):
     DEBUG = False
-    TESTING = False
+    TESTING = True
 
     # Global stuff
     ROOT_URL = 'https://jordan.emro.info'
@@ -22,7 +22,7 @@ class Config(object):
     TECHNICAL_API_ROOT = '/api'
 
     # Reports specfic stuff
-    API_ROOT = 'https://jordan.emro.info/api'
+    API_ROOT = '/api'
     REPORTS_CONFIG = 'null_reports.json'
 
     REPORT_LIST = {
