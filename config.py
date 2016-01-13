@@ -40,7 +40,8 @@ class Config(object):
                 'mailchimp_dir_id': '7989',
                 'email_from_name': 'MOH Demo',
                 'email_from_address': 'demo@emro.info',
-                'test_json_payload': 'meerkat_frontend/apiData/reports_public_health_demo.json',
+                'map_centre': [0, 0, 7],
+                'test_json_payload': 'meerkat_frontend/apiData/reports_public_health.json',
             },
             'communicable_diseases': {
                 'title': 'Communicable Diseases Report',

@@ -334,6 +334,7 @@ var demographicsAges = {
   }],
   labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
 };
+
 // Nationality
 var nationality = [{% for item in report.data.nationality %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Status
@@ -391,6 +392,9 @@ $(function() {
     pieChart(childHealthConditionsGender)
   );
 });
+// Draw map
+draw_public_health_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+
 </script>
 {% endblock extra_js %}
 {% block footer %}

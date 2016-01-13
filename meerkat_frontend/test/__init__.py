@@ -30,16 +30,19 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_reports(self):
         """Check the Reports page loads"""
         rv = self.app.get('/reports/')
-        self.assertIn(rv.status_code, [200, 301, 302])
+        self.assertIn(rv.status_code, [302])
 
-    def test_reports_jor_pub_health(self):
-        rv = self.app.get('/reports/test/jordan/public_health')
-        self.assertIn(rv.status_code, [200, 301, 302])
+    def test_reports_pub_health(self):
+        rv = self.app.get('/reports/test/public_health/')
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b"5,941 consultations", rv.data)
+        self.assertIn(b"Viral infections characterized by skin and mucous membrane lesions", rv.data)
+    def test_reports_cd(self):
+        rv = self.app.get('/reports/test/communicable_diseases/')
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b"There were no new confirmed cases and 1 new suspected cases of Bloody diarrhoea this week.", rv.data)
 
-    def test_reports_jor_cd(self):
-        rv = self.app.get('/reports/test/jordan/communicable_diseases')
-        self.assertIn(rv.status_code, [200, 301, 302])
-
+        
     def test_technical(self):
         """Check the Technical page loads"""
         rv = self.app.get('/technical/')
