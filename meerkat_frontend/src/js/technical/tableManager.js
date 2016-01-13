@@ -30,7 +30,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 		}else{
 			table+='<tr><td>'+data.labels[i]+'</td>';
 		}
-
+		console.log( data.yearPerc );
 		if(data.yearPerc){
 		
 			table += "<td>" + format(data.week[i]) + " <div class='table-percent'>(" + 

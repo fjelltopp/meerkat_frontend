@@ -253,7 +253,8 @@ function categorySummation( details ){
 					//AJAX Failed
 					console.error( "Ajax request for the previous year's percent denominator information failed.");
 				}
-
+				details.percent = percentDenom;
+				
 			}else if( !percentDenom && typeof details.percent == 'string'){
 				//AJAX Failed
 				console.error( "Ajax request for percent denominator information failed.");
@@ -263,7 +264,7 @@ function categorySummation( details ){
 			var title = details.category.charAt(0).toUpperCase() + details.category.slice(1);
 			if( details.title ) title = details.title;
 			 
-			var dataObject = makeDataObject(catData, variables, details.week, title, percentDenom );
+			var dataObject = makeDataObject(catData, variables, details.week, title, details.percent );
 			if( details.strip ) dataObject = stripEmptyRecords( dataObject );
 
 			if( details.barID ) drawBarChart( details.barID, dataObject, true);

@@ -6,7 +6,7 @@ Configuration and settings
 
 class Config(object):
     DEBUG = False
-    TESTING = True
+    TESTING = False
 
     # Global stuff
     ROOT_URL = 'https://jordan.emro.info'
