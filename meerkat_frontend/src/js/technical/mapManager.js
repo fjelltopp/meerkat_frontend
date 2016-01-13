@@ -7,7 +7,7 @@ function drawMap( varID, containerID ){
 	$.getJSON( api_root+'/map/'+varID, function( data ){
 
 		L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-		var map = L.mapbox.map(containerID, 'mrjb.k60d95kl', { 
+		var map = L.mapbox.map( containerID, 'mrjb.k60d95kl', { 
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' + 
 					       ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
 					       'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',

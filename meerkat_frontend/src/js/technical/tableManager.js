@@ -1,10 +1,9 @@
 /* Creates epi tables with data from: current week, last two weeks and the year.
  * Takes the same data object as the chart drawing functions.
  * If linkFunction is defined we add the given function "onclick" to each table row.
- * If percent is positive we add percentages. 
  * If no_total is positive we do not add total
  */
-function drawTable( containerID, data, percent, no_total, linkFunction ){
+function drawTable( containerID, data, no_total, linkFunction ){
 
 	//We want to work with a clone of the data, not the data itself.
 	data = $.extend(true, {}, data);
@@ -20,27 +19,19 @@ function drawTable( containerID, data, percent, no_total, linkFunction ){
 	        '<th>Week ' + weeks[1] + '</th><th>Week ' + weeks[2] + '</th>' + 
 	        '<th>This Year</th></tr>';
 
-	//Calculate the percentages, if we're to show percentages.
-	if(percent){
-		data.yearPerc = calc_percent_dist( data.year );
-		data.weekPerc = calc_percent_dist( data.week );
-		data.week1Perc = calc_percent_dist( data.week1 );
-		data.week2Perc = calc_percent_dist( data.week2 );
-	}
-
 	//For each data category, assemble a html string listing data for the three weeks and the year.
 	for (var i =0; i< data.labels.length;i++){
 
 		if(typeof linkFunction != 'undefined'){
 
 			table +=	"<tr><td>"+
-			         "<a href='' onclick='" + linkFunction + "("+ data.ids[i] +
-			         ");return false;' >" + data.labels[i]+'</a></td>';
+			         "<a href='' onclick='" + linkFunction + "(\""+ data.ids[i] +
+			         "\");return false;' >" + data.labels[i]+'</a></td>';
 		}else{
 			table+='<tr><td>'+data.labels[i]+'</td>';
 		}
 
-		if(percent){
+		if(data.yearPerc){
 		
 			table += "<td>" + format(data.week[i]) + " <div class='table-percent'>(" + 
 			                                             data.weekPerc[i] + "%)</div></td>" + 

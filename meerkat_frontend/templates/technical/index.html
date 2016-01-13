@@ -57,6 +57,7 @@
 
 	var api_root = "{{config['TECHNICAL_API_ROOT']}}";
 	var config = {{config['TECHNICAL_CONFIG']|tojson|safe}};
+	var week = {{week.epi_week|safe}};
 
 	loadLocationTree( {{page | safe}} );
 
