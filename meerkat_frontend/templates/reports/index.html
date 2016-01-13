@@ -109,7 +109,7 @@ $("#menu-toggle").click(function(e) {
 
 var config = {{content|tojson|safe}};
 var api_root = "{{config['TECHNICAL_API_ROOT']}}";
-
+var week = {{week.epi_week}};
 loadLocationTree({locID:{{loc}}});
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );

@@ -69,7 +69,7 @@ class Production(Config):
 
 class Development(Config):
     DEBUG = True
-    TESTING = True
+    TESTING = False
 
 class Testing(Config):
     DEBUG = False

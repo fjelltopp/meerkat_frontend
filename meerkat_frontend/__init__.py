@@ -38,12 +38,6 @@ def slug(s):
     """Creates a slugify filter for Jinja templates"""
     return slugify(s)
 
-# A means to serve static data files, only when testing the system.
-def api(filename):
-    return send_file('apiData/'+filename+'.json')
-if app.config['TESTING']:
-    app.add_url_rule(app.config['HOMEPAGE_API_ROOT']+'/<filename>', 'api', api)
-
 # Logging to syslog
 if not app.debug:
     import logging
