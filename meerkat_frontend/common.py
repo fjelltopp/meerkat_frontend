@@ -24,8 +24,8 @@ def api(url):
             r = requests.get(
                 api_request,
                 auth=HTTPBasicAuth(
-                    current_app.config['REPORT_LIST'][project]['basic_auth']['username'],
-                    current_app.config['REPORT_LIST'][project]['basic_auth']['password']
+                    current_app.config['REPORT_LIST']['basic_auth']['username'],
+                    current_app.config['REPORT_LIST']['basic_auth']['password']
                 ))
 
         except requests.exceptions.RequestException as e:

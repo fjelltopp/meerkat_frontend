@@ -23,7 +23,7 @@ def index(locID=1):
     return render_template('reports/index.html',
                            content=current_app.config['REPORTS_CONFIG'],
                            loc=locID,
-                           week=c.api('/epi_week', 'jordan' ))
+                           week=c.api('/epi_week'))
 
 @reports.route('/test/<report>/')
 def test(report):
@@ -57,7 +57,8 @@ def test(report):
         return render_template(
             report_list['reports'][report]['template'],
             report=data,
-            extras=extras
+            extras=extras,
+            address=report_list["address"]
         )
     else:
         abort(501)
@@ -230,7 +231,8 @@ def report(report=None, location=None, year=None, week=None):
         return render_template(
             report_list['reports'][report]['template'],
             report=data,
-            extras=extras
+            extras=extras,
+            address=report_list["address"]
         )
 
     else:

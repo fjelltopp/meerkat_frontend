@@ -30,7 +30,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_reports(self):
         """Check the Reports page loads"""
         rv = self.app.get('/reports/')
-        self.assertIn(rv.status_code, [302])
+        self.assertIn(rv.status_code, [200])
 
     def test_reports_pub_health(self):
         rv = self.app.get('/reports/test/public_health/')
@@ -49,7 +49,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         #Due to basic auth
         self.assertEqual(rv.status_code, 401)
         cred = base64.b64encode(b"admin:secret").decode("utf-8")
-        header= {"Authorization": "Basic {cred}".format(cred=cred)}
+        header = {"Authorization": "Basic {cred}".format(cred=cred)}
         rv2 = self.app.get('/technical/', headers=header)
         self.assertEqual(rv2.status_code, 200)
 

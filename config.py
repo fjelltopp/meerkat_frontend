@@ -33,6 +33,13 @@ class Config(object):
         'api_endpoints': {
             'mailchimp_campaign': 'https://us6.api.mailchimp.com/2.0/campaigns/'
         },
+        "address": """
+          <strong>Ministry of Health</strong><br>
+          Null Island Street 3<br>
+          Null Island City 433<br>
+          Null Island<br>
+          <abbr title="Website">W:</abbr> <a href="https://demo.aws.emro.info">https://demo.aws.emro.info</a>
+        """,
         'reports': {
             'public_health': {
                 'title': 'Public Health Profile',
