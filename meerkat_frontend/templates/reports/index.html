@@ -98,7 +98,10 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
-
+  $(function(){
+  IStillHaveNoIdeaWhyThisIsNeeded
+  });
+  
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");

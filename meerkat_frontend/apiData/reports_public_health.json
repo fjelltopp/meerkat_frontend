@@ -1,0 +1,305 @@
+{
+    "data": {
+        "alerts": [
+            {
+                "quantity": 6,
+                "subject": "moh_11"
+            },
+            {
+                "quantity": 6,
+                "subject": "moh_24"
+            },
+            {
+                "quantity": 1,
+                "subject": "moh_13"
+            }
+        ],
+        "alerts_total": 13,
+        "child_health": [
+            {
+                "percent": 20.0,
+                "quantity": 1,
+                "title": "Viral infections of the central nervous system"
+            },
+            {
+                "percent": 20.0,
+                "quantity": 1,
+                "title": "Disorders of other endocrine glands"
+            },
+            {
+                "percent": 20.0,
+                "quantity": 1,
+                "title": "Other bacterial diseases"
+            },
+            {
+                "percent": 20.0,
+                "quantity": 1,
+                "title": "Intestinal infectious diseases"
+            },
+            {
+                "percent": 20.0,
+                "quantity": 1,
+                "title": "Viral infections characterized by skin and mucous membrane lesions"
+            }
+        ],
+        "clinic_num": 4,
+        "demographics": [
+            {
+                "age": "<5",
+                "female": {
+                    "percent": 100.0,
+                    "quantity": 5
+                },
+                "male": {
+                    "percent": 0.0,
+                    "quantity": 0
+                }
+            },
+            {
+                "age": "5-9",
+                "female": {
+                    "percent": 60.0,
+                    "quantity": 3
+                },
+                "male": {
+                    "percent": 40.0,
+                    "quantity": 2
+                }
+            },
+            {
+                "age": "10-14",
+                "female": {
+                    "percent": 83.33333333333334,
+                    "quantity": 5
+                },
+                "male": {
+                    "percent": 16.666666666666664,
+                    "quantity": 1
+                }
+            },
+            {
+                "age": "15-19",
+                "female": {
+                    "percent": 83.33333333333334,
+                    "quantity": 5
+                },
+                "male": {
+                    "percent": 16.666666666666664,
+                    "quantity": 1
+                }
+            },
+            {
+                "age": "20-59",
+                "female": {
+                    "percent": 58.06451612903226,
+                    "quantity": 36
+                },
+                "male": {
+                    "percent": 41.935483870967744,
+                    "quantity": 26
+                }
+            },
+            {
+                "age": ">60",
+                "female": {
+                    "percent": 70.66666666666667,
+                    "quantity": 53
+                },
+                "male": {
+                    "percent": 29.333333333333332,
+                    "quantity": 22
+                }
+            }
+        ],
+        "epi_week_date": "2016-01-12T14:10:45.924860",
+        "epi_week_num": 2,
+        "global_clinic_num": 4,
+        "mental_health": [
+            {
+                "percent": 100.0,
+                "quantity": 10,
+                "title": "Neurotic,stress-related and somatoform disorders"
+            }
+        ],
+        "morbidity_communicable": [
+            {
+                "percent": 50.0,
+                "quantity": 27,
+                "title": "Other bacterial diseases"
+            },
+            {
+                "percent": 24.074074074074073,
+                "quantity": 13,
+                "title": "Viral infections of the central nervous system"
+            },
+            {
+                "percent": 14.814814814814813,
+                "quantity": 8,
+                "title": "Intestinal infectious diseases"
+            },
+            {
+                "percent": 11.11111111111111,
+                "quantity": 6,
+                "title": "Viral infections characterized by skin and mucous membrane lesions"
+            }
+        ],
+        "morbidity_non_communicable": [
+            {
+                "percent": 46.875,
+                "quantity": 15,
+                "title": "Other disorders of glucose regulation and pancreatic internal secretion"
+            },
+            {
+                "percent": 21.875,
+                "quantity": 7,
+                "title": "Malnutrition"
+            },
+            {
+                "percent": 12.5,
+                "quantity": 4,
+                "title": "Other nutritional deficiencies"
+            },
+            {
+                "percent": 12.5,
+                "quantity": 4,
+                "title": "Obesity and other hyperalimentation"
+            },
+            {
+                "percent": 6.25,
+                "quantity": 2,
+                "title": "Disorders of other endocrine glands"
+            }
+        ],
+        "nationality": [
+            {
+                "percent": 53.271028037383175,
+                "quantity": 57,
+                "title": "Demo"
+            },
+            {
+                "percent": 46.728971962616825,
+                "quantity": 50,
+                "title": "Null Island"
+            }
+        ],
+        "patient_status": [
+            {
+                "percent": 50.467289719626166,
+                "quantity": 54,
+                "title": "Refugee"
+            },
+            {
+                "percent": 49.532710280373834,
+                "quantity": 53,
+                "title": "National"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Other"
+            }
+        ],
+        "percent_cases_female": 51.4018691588785,
+        "percent_cases_lt_5yo": 4.672897196261682,
+        "percent_cases_male": 48.598130841121495,
+        "percent_morbidity_communicable": 46.728971962616825,
+        "percent_morbidity_mental_health": 9.345794392523365,
+        "percent_morbidity_non_communicable": 28.971962616822427,
+        "presenting_complaints": [
+            {
+                "percent": 48.07692307692308,
+                "quantity": 50,
+                "title": "Communicable disease"
+            },
+            {
+                "percent": 4.807692307692308,
+                "quantity": 5,
+                "title": "Child Health"
+            },
+            {
+                "percent": 29.807692307692307,
+                "quantity": 31,
+                "title": "Non-communicable disease"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Other"
+            },
+            {
+                "percent": 2.8846153846153846,
+                "quantity": 3,
+                "title": "Reproductive Health"
+            },
+            {
+                "percent": 9.615384615384617,
+                "quantity": 10,
+                "title": "Mental Health"
+            },
+            {
+                "percent": 4.807692307692308,
+                "quantity": 5,
+                "title": "Injury"
+            }
+        ],
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Demo",
+        "public_health_indicators": [
+            {
+                "percent": null,
+                "quantity": 107,
+                "title": "Cases Reported"
+            },
+            {
+                "percent": 58.87850467289719,
+                "quantity": 63,
+                "title": "Mental Health (mhGAP) algorithm followed"
+            },
+            {
+                "percent": 1400.0,
+                "quantity": 70,
+                "title": "Child Health (IMCI) algorithm followed"
+            },
+            {
+                "percent": 56.074766355140184,
+                "quantity": 60,
+                "title": "Reproductive Health screening"
+            },
+            {
+                "percent": 53.271028037383175,
+                "quantity": 57,
+                "title": "Laboratory results recorded"
+            },
+            {
+                "percent": 59.813084112149525,
+                "quantity": 64,
+                "title": "Prescribing practice recorded"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Smoking prevalence (current)"
+            }
+        ],
+        "reporting_sites": [
+            {
+                "percent": 80.37383177570094,
+                "quantity": 86,
+                "title": "Region 1"
+            },
+            {
+                "percent": 19.626168224299064,
+                "quantity": 21,
+                "title": "Region 2"
+            }
+        ],
+        "total_cases": 107,
+        "total_consultations": 5941
+    },
+    "meta": {
+        "generation_timestamp": "2016-01-13T14:10:45.925187",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "124d9945-b981-4332-8ae3-b9f7579f8188"
+    }
+}

@@ -36,7 +36,7 @@ def index(tab="demographics", locID=1):
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState,
-                           week=c.api( '/epi_week', 'jordan' ))
+                           week=c.api('/epi_week'))
 
 @technical.route('/alerts/<alertID>')
 def alert( alertID=1 ):
@@ -45,7 +45,7 @@ def alert( alertID=1 ):
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState,
-                           week=c.api( '/epi_week', 'jordan' ))
+                           week=c.api('/epi_week'))
 
 @technical.route('/diseases/<diseaseID>/')
 @technical.route('/diseases/<diseaseID>/loc_<int:locID>')
@@ -55,4 +55,4 @@ def disease( diseaseID='tot_1', locID=1 ):
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState,
-                           week=c.api( '/epi_week', 'jordan' ))
+                           week=c.api('/epi_week'))

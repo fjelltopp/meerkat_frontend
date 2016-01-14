@@ -1,10 +1,12 @@
-$(function() {
-  L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-  var map = L.mapbox.map('map', 'mrjb.k60d95kl', {
-      zoomControl: false,
-      fullscreenControl: true // Display fullscreen toggle button
+
+
+function draw_public_health_map(api_call, map_centre){
+    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+    var map = L.mapbox.map('map', 'mrjb.k60d95kl', {
+	zoomControl: false,
+	fullscreenControl: true // Display fullscreen toggle button
     })
-    .setView([31.5, 36], 7);
+    .setView([map_centre[0], map_centre[1]], map_centre[2]);
 
     // Disable map dragging on touch devices to ensure scrolling works
     map.dragging.disable();
@@ -18,7 +20,7 @@ $(function() {
       }
     });
 
-  $.getJSON('https://jordan.emro.info/api/geojson_clinics/2', function(data) {
+  $.getJSON(api_call, function(data) {
     var geoJsonLayer = L.geoJson(data, {
       onEachFeature: function(feature, layer) {
         layer.bindPopup(feature.properties.name);
@@ -32,4 +34,4 @@ $(function() {
     map.addLayer(markers);
     map.fitBounds(markers.getBounds());
   });
-});
+}

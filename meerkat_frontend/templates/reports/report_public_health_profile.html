@@ -19,7 +19,7 @@
         <ul>
           <li>A total of <strong>{{ report.data.total_consultations|commas }} consultations</strong> and <strong>{{ report.data.total_cases|commas }} cases</strong> reported from {{ report.data.clinic_num|commas }} health facilities.</li>
           <li><strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> and <strong>{{ report.data.percent_cases_lt_5yo|float|round(1) }}% under five years</strong> of age.</li>
-          <li><strong>{{ extras.patient_status.jordanian.percent|float|round(1) }}% Jordanian national</strong> and <strong>{{ extras.patient_status.refugee.percent|float|round(1) }}% refugee status</strong>.</li>
+          <li><strong>{{ extras.patient_status.national.percent|float|round(1) }}% {{ extras.bullet_nationality_display }} nationals</strong> and <strong>{{ extras.patient_status.refugee.percent|float|round(1) }}% refugee status</strong>.</li>
           <li><strong>{{ report.data.percent_morbidity_communicable|float|round(1) }}% morbidity due to communicable disease</strong>, including {% for disease in report.data.morbidity_communicable %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
           <li><strong>{{ report.data.percent_morbidity_non_communicable|float|round(1) }}% morbidity due to non-communicable disease</strong>, including {% for disease in report.data.morbidity_non_communicable %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
           <li><strong>{{ report.data.percent_morbidity_mental_health|float|round(1) }}% morbidity due to mental health conditions</strong>, including {% for disease in report.data.mental_health %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
@@ -303,11 +303,7 @@
       <div class="chart-title">Contact Information</div>
       <div class="chart-stage">
         <address>
-          <strong>Ministry of Health</strong><br>
-          Prince Hamza Bin Al Hussein Street 67<br>
-          Amman 11181<br>
-          Jordan<br>
-          <abbr title="Website">W:</abbr> <a href="https://iers.moh.gov.jo">https://iers.moh.gov.jo</a>
+	  {{address|safe}}
         </address>
       </div>
     </div>
@@ -334,6 +330,7 @@ var demographicsAges = {
   }],
   labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
 };
+
 // Nationality
 var nationality = [{% for item in report.data.nationality %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Status
@@ -391,6 +388,9 @@ $(function() {
     pieChart(childHealthConditionsGender)
   );
 });
+// Draw map
+draw_public_health_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+
 </script>
 {% endblock extra_js %}
 {% block footer %}

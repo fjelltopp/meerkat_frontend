@@ -1,0 +1,57 @@
+{
+    "data": {
+        "communicable_diseases": {
+            "Bloody diarrhoea": {
+                "confirmed": [
+                    0,
+                    0
+                ],
+                "suspected": [
+                    0,
+                    1
+                ],
+                "weeks": [
+                    1,
+                    2
+                ]
+            },
+            "Pertussis": {
+                "confirmed": [
+                    0,
+                    0
+                ],
+                "suspected": [
+                    3,
+                    1
+                ],
+                "weeks": [
+                    1,
+                    2
+                ]
+            },
+            "Viral meningitis": {
+                "confirmed": [
+                    0,
+                    1
+                ],
+                "suspected": [
+                    2,
+                    2
+                ],
+                "weeks": [
+                    1,
+                    2
+                ]
+            }
+        },
+        "epi_week_date": "2016-01-12T14:12:55.134805",
+        "epi_week_num": 2,
+        "project_epoch": "2016-01-01T00:00:00"
+    },
+    "meta": {
+        "generation_timestamp": "2016-01-13T14:12:55.135011",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "58f1a434-0082-429a-9257-62154162c078"
+    }
+}

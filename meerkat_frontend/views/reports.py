@@ -20,34 +20,25 @@ reports = Blueprint('reports', __name__)
 @reports.route('/')
 @reports.route('/loc_<int:locID>')
 def index(locID=1):
-    return render_template('reports/index.html', 
-                           content=current_app.config['REPORTS_CONFIG'], 
+    return render_template('reports/index.html',
+                           content=current_app.config['REPORTS_CONFIG'],
                            loc=locID,
-                           week=c.api( '/epi_week', 'jordan' ))
+                           week=c.api('/epi_week'))
 
-    # Hacky hard-coded redirect.
-    # TODO: Replace in config with something elegant
-    #return redirect(url_for(
-    #    '.report',
-    #    project='jordan',
-    #    report='public_health')
-    #    )
-
-
-@reports.route('/test/<project>/<report>/')
-def test(project, report):
+@reports.route('/test/<report>/')
+def test(report):
     """Serves a test report page using a static JSON file."""
-    projects = current_app.config['REPORT_LIST']
-    if project in projects and report in projects[project]['reports']:
+    report_list = current_app.config['REPORT_LIST']
+    if report in report_list['reports']:
         try:
-            with open(projects[project]['reports'][report]['test_json_payload']) as json_blob:
+            with open(report_list['reports'][report]['test_json_payload'])as json_blob:
                 data = json.load(json_blob)
         except IOError:
             abort(500)
         except json.JSONDecodeError:
             abort(500)
 
-        if project == 'jordan' and report == 'public_health':
+        if report == 'public_health':
             # Extra parsing for natural language bullet points
             extras = {
                 'patient_status': {
@@ -55,36 +46,41 @@ def test(project, report):
                         {
                             'percent': item['percent'],
                             'quantity': item['quantity']
-                        } for item in data['data']['patient_status']}
+                        } for item in data['data']['patient_status']
+                },
+                'map_centre': report_list['reports'][report]["map_centre"],
+                'map_api_call': (current_app.config['HOMEPAGE_API_ROOT'] +
+                                 "/clinics/1") # set to browser api root
                 }
         else:
             extras = None
         return render_template(
-            projects[project]['reports'][report]['template'],
+            report_list['reports'][report]['template'],
             report=data,
-            extras=extras
+            extras=extras,
+            address=report_list["address"]
         )
     else:
         abort(501)
 
 
-@reports.route('/email/<project>/<report>/', methods=['POST'])
-def send_email_report(project, report):
+@reports.route('/email/<report>/', methods=['POST'])
+def send_email_report(report):
     """Sends an email via Mailchimp with the latest report"""
-    projects = current_app.config['REPORT_LIST']
+    report_list = current_app.config['REPORT_LIST']
     # Hacky hard-coded value to add some semblance of access control...
     if 'apikey' not in request.json or request.json['apikey'] \
        != 'simbasucksass':
         abort(401)
-    if project in projects and report in projects[project]['reports']:
-        location = projects[project]['default_location']
+    if report in report_list['reports']:
+        location = report_list['default_location']
         end = c.epi_week_to_date(c.date_to_epi_week() - 1)
         api_request = '/reports/{report}/{loc}/{end}'.format(
-            report=projects[project]['reports'][report]['api_name'],
+            report=report_list['reports'][report]['api_name'],
             loc=location,
             end=end.strftime('%Y-%m-%d')
             )
-        data = c.api(api_request, project)
+        data = c.api(api_request)
         epi_week = data['data']['epi_week_num']
         epi_year = format_datetime(
             datetime_from_json(data['data']['epi_week_date']),
@@ -93,7 +89,6 @@ def send_email_report(project, report):
             datetime_from_json(data['data']['epi_week_date']),
             format='%-d %B %Y')
         relative_url = url_for('.report',
-                               project=project,
                                report=report,
                                location=location,
                                year=epi_year,
@@ -110,13 +105,13 @@ def send_email_report(project, report):
             'patient_status': patient_status
             }
         html_email_body = render_template(
-            projects[project]['reports'][report]['template_email_html'],
+            report_list['reports'][report]['template_email_html'],
             email=data,
             extras=extras,
             report_url=report_url
         )
         plain_email_body = render_template(
-            projects[project]['reports'][report]['template_email_plain'],
+            report_list['reports'][report]['template_email_plain'],
             email=data,
             extras=extras,
             report_url=report_url
@@ -128,20 +123,20 @@ def send_email_report(project, report):
 
         # Send email as Mailchimp campaign
         # First create the campaign
-        endpoint = projects[project]['api_endpoints']['mailchimp_campaign']
+        endpoint = report_list['api_endpoints']['mailchimp_campaign']
         message = {
-            "apikey": projects[project]['keys']['mailchimp'],
+            "apikey": report_list['keys']['mailchimp'],
             "type": "regular",
             "options": {
                 "list_id":
-                    projects[project]['reports'][report]['mailchimp_list_id'],
+                    report_list['reports'][report]['mailchimp_list_id'],
                 "subject": subject,
                 "from_email":
-                    projects[project]['reports'][report]['email_from_address'],
+                    report_list['reports'][report]['email_from_address'],
                 "from_name":
-                    projects[project]['reports'][report]['email_from_name'],
+                    report_list['reports'][report]['email_from_name'],
                 "folder_id":
-                    projects[project]['reports'][report]['mailchimp_dir_id'],
+                    report_list['reports'][report]['mailchimp_dir_id'],
                 "authenticate": True,
                 "auto_footer": True,
                 "inline_css": True
@@ -165,7 +160,7 @@ def send_email_report(project, report):
             except ValueError:
                 abort(500)
             send = {
-                "apikey": projects[project]['keys']['mailchimp'],
+                "apikey": report_list['keys']['mailchimp'],
                 "cid": campaign['id']
                 }
             try:
@@ -183,38 +178,39 @@ def send_email_report(project, report):
         abort(501)
 
 
-@reports.route('/<project>/<report>/')
-@reports.route('/<project>/<report>/<location>/')
-@reports.route('/<project>/<report>/<location>/<int:year>/')
-@reports.route('/<project>/<report>/<location>/<int:year>/<int:week>/')
-def report(project, report=None, location=None, year=None, week=None):
+@reports.route('/<report>/')
+@reports.route('/<report>/<location>/')
+@reports.route('/<report>/<location>/<int:year>/')
+@reports.route('/<report>/<location>/<int:year>/<int:week>/')
+def report(report=None, location=None, year=None, week=None):
     """Serves dynamic report for a location and date"""
     # Check that the requested project and report are valid
-    projects = current_app.config['REPORT_LIST']
-    if project in projects and report in projects[project]['reports']:
+    report_list = current_app.config['REPORT_LIST']
+    if report in report_list['reports']:
         if not location:
-            location = projects[project]['default_location']
+            location = report_list['default_location']
         if week or year:
             if week:
                 end_date = c.epi_week_to_date(week, year)
             else:
                 end_date = c.epi_week_to_date(1, year)
             api_request = '/reports/{report}/{loc}/{end}'.format(
-                report=projects[project]['reports'][report]['api_name'],
+                report=report_list['reports'][report]['api_name'],
                 loc=location,
                 end=end_date.strftime('%Y-%m-%d')
             )
         else:
             # Return most recent epiweek
             api_request = '/reports/{report}/{loc}/{end}'.format(
-                report=projects[project]['reports'][report]['api_name'],
+                report=report_list['reports'][report]['api_name'],
                 loc=location,
                 end=c.epi_week_to_date(
                     c.date_to_epi_week() - 1
                 ).strftime('%Y-%m-%d')
             )
-        data = c.api(api_request, project)
-        if project == 'jordan' and report == 'public_health':
+
+        data = c.api(api_request)
+        if report == 'public_health':
             # Extra parsing for natural language bullet points
             extras = {
                 'patient_status': {
@@ -222,15 +218,21 @@ def report(project, report=None, location=None, year=None, week=None):
                         {
                             'percent': item['percent'],
                             'quantity': item['quantity']
-                        } for item in data['data']['patient_status']}
-                }
+                        } for item in data['data']['patient_status']
+                },
+                'map_centre': report_list['reports'][report]["map_centre"],
+                'map_api_call': (current_app.config['HOMEPAGE_API_ROOT'] +
+                                 "/clinics/{}".format(location)) # set to browser api root
+                
+            }
         else:
             extras = None
         # Render correct template for the report
         return render_template(
-            projects[project]['reports'][report]['template'],
+            report_list['reports'][report]['template'],
             report=data,
-            extras=extras
+            extras=extras,
+            address=report_list["address"]
         )
 
     else:

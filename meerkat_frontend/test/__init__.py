@@ -30,56 +30,28 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_reports(self):
         """Check the Reports page loads"""
         rv = self.app.get('/reports/')
-        self.assertIn(rv.status_code, [200, 301, 302])
+        self.assertIn(rv.status_code, [200])
 
-    def test_reports_jor_pub_health(self):
-        rv = self.app.get('/reports/test/jordan/public_health')
-        self.assertIn(rv.status_code, [200, 301, 302])
+    def test_reports_pub_health(self):
+        rv = self.app.get('/reports/test/public_health/')
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b"5,941 consultations", rv.data)
+        self.assertIn(b"Viral infections characterized by skin and mucous membrane lesions", rv.data)
+    def test_reports_cd(self):
+        rv = self.app.get('/reports/test/communicable_diseases/')
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b"There were no new confirmed cases and 1 new suspected cases of Bloody diarrhoea this week.", rv.data)
 
-    def test_reports_jor_cd(self):
-        rv = self.app.get('/reports/test/jordan/communicable_diseases')
-        self.assertIn(rv.status_code, [200, 301, 302])
-
+        
     def test_technical(self):
         """Check the Technical page loads"""
         rv = self.app.get('/technical/')
         #Due to basic auth
         self.assertEqual(rv.status_code, 401)
         cred = base64.b64encode(b"admin:secret").decode("utf-8")
-        header= {"Authorization": "Basic {cred}".format(cred=cred)}
+        header = {"Authorization": "Basic {cred}".format(cred=cred)}
         rv2 = self.app.get('/technical/', headers=header)
         self.assertEqual(rv2.status_code, 200)
-
-    # Utility FUNCTIONS
-    def test_epi_week_to_date(self):
-        """Ensure epi_week_to_date is sane"""
-        self.assertEqual(
-            mk.common.epi_week_to_date(42, year=2015),
-            datetime(2015, 10, 22)
-        )
-        self.assertEqual(
-            mk.common.epi_week_to_date(12, year=2023),
-            datetime(2023, 3, 26)
-        )
-        self.assertEqual(
-            mk.common.epi_week_to_date(4, year=2008),
-            datetime(2008, 1, 29)
-        )
-
-    def test_date_to_epi_week(self):
-        """Ensure date_to_epi_week is sane"""
-        self.assertEqual(
-            mk.common.date_to_epi_week(datetime(2008, 1, 27)),
-            4
-        )
-        self.assertEqual(
-            mk.common.date_to_epi_week(datetime(2023, 3, 25)),
-            12
-        )
-        self.assertEqual(
-            mk.common.date_to_epi_week(datetime(2015, 10, 26)),
-            43
-        )
 
     #HOMEPAGE testing
     def test_index(self):

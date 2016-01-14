@@ -39,16 +39,16 @@ def slug(s):
     return slugify(s)
 
 # Logging to syslog
-if not app.debug:
-    import logging
-    from logging.handlers import SysLogHandler
-    syslog = SysLogHandler(address=app.config['SYSLOG_PATH'])
-    syslog.setLevel(logging.WARNING)
-    syslog.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)s: %(message)s '
-        '[in %(pathname)s:%(lineno)d]'
-    ))
-    app.logger.addHandler(syslog)
+# if not app.debug:
+#     import logging
+#     from logging.handlers import SysLogHandler
+#     syslog = SysLogHandler(address=app.config['SYSLOG_PATH'])
+#     syslog.setLevel(logging.WARNING)
+#     syslog.setFormatter(logging.Formatter(
+#         '%(asctime)s %(levelname)s: %(message)s '
+#         '[in %(pathname)s:%(lineno)d]'
+#     ))
+#     app.logger.addHandler(syslog)
 
 # Main
 if __name__ == "__main__":
