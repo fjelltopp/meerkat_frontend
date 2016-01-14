@@ -3,9 +3,10 @@
 
   "titles":{
     "full":"Jordan <br> Public Health Surveillance",
-    "nav":"<b>Jordan </b> &middot; WHO Public Health Surveillance",
+    "nav":"<b>Jordan </b> &middot; Public Health Surveillance",
     "mob_nav":"Health Surveillance"
   },
+  "flag":"jo.svg",
   "map":{
     "center":{
       "lng":"35.470810",
@@ -41,7 +42,6 @@
     "logos":{
       "who":"who-logo-white-no-text.svg",
       "country_partner":"JOH.png",
-      "flag":"jo.svg",
       "partners":[
         "kuwait.gif"
       ]

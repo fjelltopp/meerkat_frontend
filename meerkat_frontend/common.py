@@ -6,30 +6,35 @@ Shared functions for meerkat_frontend.
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 
-from flask import current_app, abort
+from flask import current_app, abort, send_file
 import requests
+import json, os
 from requests.auth import HTTPBasicAuth
 
 
 def api(url):
     """Returns JSON data from API request"""
-    api_request = ''.join([current_app.config['API_ROOT'], url])
-    try:
-        r = requests.get(
-            api_request,
-            auth=HTTPBasicAuth(
-                current_app.config['REPORT_LIST']['basic_auth']['username'],
-                current_app.config['REPORT_LIST']['basic_auth']['password']
-            ))
+    if( current_app.config['TESTING'] ):
+        path = os.path.dirname(os.path.realpath(__file__))+"/apiData"+url
+        with open(path+'.json') as data_file:    
+            return json.load(data_file)
+    else:
+        api_request = ''.join([current_app.config['API_ROOT'], url])
+        try:
+            r = requests.get(
+                api_request,
+                auth=HTTPBasicAuth(
+                    current_app.config['REPORT_LIST'][project]['basic_auth']['username'],
+                    current_app.config['REPORT_LIST'][project]['basic_auth']['password']
+                ))
 
-    except requests.exceptions.RequestException as e:
-        abort(500, e)
-    try:
-        output = r.json()
-    except Exception as e:
-        abort(500, r )
-    return output
-
+        except requests.exceptions.RequestException as e:
+            abort(500, e)
+        try:
+            output = r.json()
+        except Exception as e:
+            abort(500, r )
+        return output
 
 def epi_week_to_date(epi_week, year=datetime.today().year):
     """Converts an epi_week (int) to a datetime object"""

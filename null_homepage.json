@@ -2,13 +2,13 @@
   "application":"homepage",
   "titles":{
     "full":"Null Island <br> Public Health Surveillance",
-    "nav":"<b>Null Island </b> &middot; WHO Public Health Surveillance",
+    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
     "mob_nav":"Health Surveillance"
   },
+  "flag":"ni.png",
   "logos":{
     "who":"who.png",
     "country_partner":"ni.png",
-    "flag":"niFlag.png",
     "partners":[]
   },
   "links":{

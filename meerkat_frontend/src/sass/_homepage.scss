@@ -2,6 +2,7 @@ body.homepage{
 	padding: 50px 0px 0px;
 	color: $textGrey;
 }
+
 // NAVBAR FORMATING
 .navbar{
 
@@ -9,6 +10,14 @@ body.homepage{
 	margin-bottom: 0;
    border: none;
 
+	.navbar-flag {
+		float: left;
+		margin-right: 10px;
+		height: 30px;
+		margin: -5px 10px 0px 0px;
+		border-radius: 5px;
+		border: 1px solid #01719F;
+	}
 
 	.navbar-nav{
 

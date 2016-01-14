@@ -7,10 +7,12 @@ Configuration and settings
 class Config(object):
     DEBUG = False
     TESTING = False
+
     # Global stuff
     ROOT_URL = 'https://demo.emro.info'
     WEBMASTER_EMAIL = 'webmaster@emro.info'
-    SITE_TITLE = 'WHO Meerkat'
+    SITE_TITLE = 'Meerkat Health Surveillance'
+
     # Homepage stuff
     HOMEPAGE_CONFIG = 'null_homepage.json'
     HOMEPAGE_API_ROOT = '/api'
@@ -21,6 +23,8 @@ class Config(object):
 
     # Reports specfic stuff
     API_ROOT = 'http://localhost/api'
+    REPORTS_CONFIG = 'null_reports.json'
+
     REPORT_LIST = {
         'default_location': 1,
         'keys': {
@@ -62,10 +66,9 @@ class Production(Config):
     DEBUG = False
     TESTING = False
 
-
 class Development(Config):
     DEBUG = True
-    TESTING = True
+    TESTING = False
 
 class Testing(Config):
     DEBUG = False

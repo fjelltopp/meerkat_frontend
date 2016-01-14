@@ -59,16 +59,13 @@ function drawBarChart( containerID, data, percent ){
 			}
 		},			
 		series: [{
-			name: 'Year',
+			name: 'This Year',
 			data:  data.year
 		},{
-			name: 'Last Week',
+			name: 'This Week',
 			data:  data.week
 		}],
 	});
-
-console.log(data.labels);
-console.log( data.year);
 
 	//Get rid of the highcharts logo.
 	$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
@@ -133,7 +130,7 @@ function drawPieCharts( containerID, data, percent ){
 			}
 		},
 		series: [{
-			name: 'Week',
+			name: 'This Week',
 			center: ['20%','50%'],
 			size: "70%",
 			colorByPoint: true,
@@ -141,7 +138,7 @@ function drawPieCharts( containerID, data, percent ){
 			title: { text: '<b>Week</b>', verticalAlign: 'top', y: -40 },
 			data: restructured.week
 		},{
-			name: 'Year',
+			name: 'This Year',
 			center: ['80%','50%'],
 			size: "70%",
 			colorByPoint: true,
@@ -269,20 +266,20 @@ function stripEmptyRecords( dataObject ){
 
 
 Highcharts.setOptions({
-  colors: ["#0090CA", "#EE2631", "#27EE00", "#074EBF", "#F78900", "#ff0066", "#eeaaee",
-    "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
-  chart: {
-    backgroundColor: null,
-    style: {
-      fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
-    }
+	colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
+	         "#CDEDF6", "#690500", "#77477B", "#40476D","#042A2B" ],
+	chart: {
+		backgroundColor: null,
+		style: {
+			fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+		}
 	},
-  credits: {
-    enabled: false
-  },
-  exporting: {
-    enabled: false
-  }
+	credits: {
+		enabled: false
+	},
+	exporting: {
+		enabled: false
+	}
 
 });
 

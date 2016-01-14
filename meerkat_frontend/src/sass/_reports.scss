@@ -1,0 +1,25 @@
+body.reports{
+
+	padding: 50px 0px 0px;
+	color: $textGrey;
+	background: $lightGrey;
+
+	.row{
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+
+	.breaker{
+		height: 20px;
+	}
+
+	td.indent{
+		padding: 5px 12px;
+	}
+
+}
+
+.page-content{
+	min-height: 80vh;
+	padding: 10px 0;
+}

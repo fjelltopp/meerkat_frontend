@@ -5,6 +5,7 @@ A Flask Blueprint module for the technical site.
 """
 from flask import Blueprint, render_template, current_app, request, Response
 import json
+from .. import common as c
 
 technical = Blueprint('technical', __name__)
 
@@ -34,21 +35,24 @@ def index(tab="demographics", locID=1):
     pageState = "{ type: 'tab', dataID: '" + tab + "', locID: " + str(locID) + " }"
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
-                           page=pageState)
+                           page=pageState,
+                           week=c.api( '/epi_week', 'jordan' ))
 
-@technical.route('/alerts/alert_<alertID>')
+@technical.route('/alerts/<alertID>')
 def alert( alertID=1 ):
     """Serves an individual alert investigation report for the given alert ID."""
     pageState = "{ type: 'alert', dataID: '" + alertID + "' }"
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
-                           page=pageState)
+                           page=pageState,
+                           week=c.api( '/epi_week', 'jordan' ))
 
-@technical.route('/diseases/disease_<int:diseaseID>/')
-@technical.route('/diseases/disease_<int:diseaseID>/loc_<int:locID>')
-def disease( diseaseID=1, locID=1 ):
+@technical.route('/diseases/<diseaseID>/')
+@technical.route('/diseases/<diseaseID>/loc_<int:locID>')
+def disease( diseaseID='tot_1', locID=1 ):
     """Serves a disease report page for the given aggregation variable and lcoation ID."""
     pageState = "{ type: 'disease', dataID: '" + str(diseaseID) + "', locID: " + str(locID) + " }"
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
-                           page=pageState)
+                           page=pageState,
+                           week=c.api( '/epi_week', 'jordan' ))

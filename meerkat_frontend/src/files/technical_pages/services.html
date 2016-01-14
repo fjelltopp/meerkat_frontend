@@ -33,6 +33,11 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						Childhood Vaccinations
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('epi-table','vaccinations.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div class="chartBox__content">
 						<div id="epi-table" class="table">
@@ -48,6 +53,11 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						Health Utilisation
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('use-table','use.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div class="chartBox__content">
 						<div id="use-table" class="table">
@@ -59,6 +69,11 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						Visit Type
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('visit-table','visit.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
 					</div>
 					<div class="chartBox__content">
 						<div id="visit-table" class="table">
@@ -107,11 +122,35 @@ function drawCharts( locID ){
 
 	//Keep week abstracted out of the chart drawing process.
 	//In case we want the use to eb able to select the weeks to view.
-	var week = (get_epi_week()-1).toString();
+	var week = get_epi_week().toString();
 
-	categoryTable( 'epi', locID, week, true );
-	categoryTable( 'use', locID, week, false );
-	categoryTable( 'visit', locID, week, true );
+
+	categorySummation({ category: 'epi', 
+	                    locID: locID,
+	                    week: week, 
+	                    tableID: 'epi-table', 
+	                    no_total: true,
+	                    linkFunction: 'loadDisease',
+	                    title: 'Vaccination',
+	                    percent: 'vac_1'
+	                   });
+
+	categorySummation({ category: 'use', 
+	                    locID: locID,
+	                    week: week, 
+	                    tableID: 'use-table',
+	                    no_total: true, 
+	                    linkFunction: 'loadDisease'
+	                   });
+
+	categorySummation({ category: 'visit', 
+	                    locID: locID,
+	                    week: week, 
+	                    tableID: 'visit-table', 
+	                    percent: true,
+	                    linkFunction: 'loadDisease'
+	                   });
+
 }
 
 

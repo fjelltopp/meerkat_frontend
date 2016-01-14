@@ -1,0 +1,55 @@
+{
+  "application":"reports",
+  "country":"Null Island",
+
+  "titles":{
+    "full":"Null Island <br> Public Health Surveillance",
+    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
+    "mob_nav":"Health Surveillance"
+  },
+
+  "introduction":"Here you can download summary reports drawn from the epidiemological data.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et elit metus. Donec bibendum risus quam, semper laoreet mauris placerat quis. Ut molestie ornare ligula, vel tristique mauris auctor ac. Etiam vitae nunc auctor nulla tempus faucibus id ac tortor. Cras tempus consectetur finibus. Mauris finibus consectetur nisi, suscipit pulvinar neque commodo non. Phasellus eu semper augue. Maecenas tristique felis vitae commodo viverra. Proin sem dolor, egestas in sodales at, consectetur nec arcu. Nullam vulputate eget quam non ultricies. ",
+
+  "reports":[{
+      "name":"Public Health Profile",
+		"introduction":"This report summarises the state of public health in the selected location.",
+      "url":"/reports/null/public_health",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
+		"number":3
+    },{
+      "name":"Communicable Disease",
+		"introduction":"This report tracks the spread of communicable diseases across the selected location.",
+      "url":"/reports/null/communicable_disease",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
+		"number":3
+    }
+  ],
+
+  "flag":"ni.png",
+
+  "footer":{
+    "logos":{
+		 "who":"who-logo-white-no-text.svg",
+		 "country_partner":"ni.png",
+		 "partners":[]
+    },
+
+    "partners":[
+      "The World Health Organisation",
+		"The Ministry of Health, Null Island"
+    ],
+
+    "email":"emwrojor@who.int",
+    "central_review":false
+  },
+
+  "glossary":{
+    "region":"kingdom"
+  }
+}
