@@ -141,7 +141,7 @@ function communicableDiseasesBarChart(categories, series, labels) {
 }
 
 // Global chart settings
-$(function() {
+/*$(function() {
       Highcharts.setOptions({
         colors: ["#0098CB", "#EE2631", "#27EE00", "#074EBF", "#F78900", "#ff0066", "#eeaaee",
           "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
@@ -182,4 +182,5 @@ $(function() {
         }
       });
     }
-);
+);*/
+

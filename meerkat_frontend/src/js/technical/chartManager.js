@@ -264,23 +264,22 @@ function stripEmptyRecords( dataObject ){
 	return newData;
 }
 
-
-Highcharts.setOptions({
-	colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
-	         "#CDEDF6", "#690500", "#77477B", "#40476D","#042A2B" ],
-	chart: {
-		backgroundColor: null,
-		style: {
-			fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+	Highcharts.setOptions({
+		colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
+			      "#CDEDF6", "#690500", "#77477B", "#40476D","#042A2B" ],
+		chart: {
+			backgroundColor: null,
+			style: {
+				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+			}
+		},
+		credits: {
+			enabled: false
+		},
+		exporting: {
+			enabled: false
 		}
-	},
-	credits: {
-		enabled: false
-	},
-	exporting: {
-		enabled: false
-	}
 
-});
+	});
 
 

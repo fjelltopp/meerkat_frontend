@@ -54,9 +54,10 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
-  $(function(){
-  IdontKnowWhyThisIsNeeded
-  });
+
+	$(function(){
+		IdontKnowWhyThisIsNeeded
+	});
 	var api_root = "{{config['TECHNICAL_API_ROOT']}}";
 	var config = {{config['TECHNICAL_CONFIG']|tojson|safe}};
 	var week = {{week.epi_week|safe}};
