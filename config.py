@@ -14,16 +14,16 @@ class Config(object):
     SITE_TITLE = 'Meerkat Health Surveillance'
 
     # Homepage stuff
-    HOMEPAGE_CONFIG = 'null_homepage.json'
+    HOMEPAGE_CONFIG = 'jordan_homepage.json'
     HOMEPAGE_API_ROOT = '/api'
 
     #Technical Site Stuff
-    TECHNICAL_CONFIG = 'null_technical.json'
+    TECHNICAL_CONFIG = 'jordan_technical.json'
     TECHNICAL_API_ROOT = '/api'
 
     # Reports specfic stuff
     API_ROOT = 'http://localhost/api'
-    REPORTS_CONFIG = 'null_reports.json'
+    REPORTS_CONFIG = 'jordan_reports.json'
 
     REPORT_LIST = {
         'default_location': 1,

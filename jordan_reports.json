@@ -1,0 +1,58 @@
+{
+  "application":"reports",
+  "country":"Jordan",
+
+  "titles":{
+    "full":"Jordan <br> Public Health Surveillance",
+    "nav":"<b>Jordan </b> &middot; Public Health Surveillance",
+    "mob_nav":"Health Surveillance"
+  },
+
+  "introduction":"Here you can download summary reports drawn from the epidiemological data.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et elit metus. Donec bibendum risus quam, semper laoreet mauris placerat quis. Ut molestie ornare ligula, vel tristique mauris auctor ac. Etiam vitae nunc auctor nulla tempus faucibus id ac tortor. Cras tempus consectetur finibus. Mauris finibus consectetur nisi, suscipit pulvinar neque commodo non. Phasellus eu semper augue. Maecenas tristique felis vitae commodo viverra. Proin sem dolor, egestas in sodales at, consectetur nec arcu. Nullam vulputate eget quam non ultricies.",
+
+  "reports":[{
+      "name":"Public Health Profile",
+		"introduction":"This report summarises the state of public health in the selected location.",
+      "url":"/reports/public_health",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
+		"number":3
+    },{
+      "name":"Communicable Disease",
+		"introduction":"This report tracks the spread of communicable diseases across the selected location.",
+      "url":"/reports/communicable_diseases",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
+		"number":3
+    }
+  ],
+
+  "flag":"jo.svg",
+
+  "footer":{
+    "logos":{
+      "who":"who-logo-white-no-text.svg",
+      "country_partner":"JOH.png",
+      "partners":[
+        "kuwait.gif"
+      ]
+    },
+
+    "partners":[
+      "The World Health Organisation",
+      "The Ministry of Health, Jordan",
+      "The Government of Kuwait"
+    ],
+
+    "email":"emwrojor@who.int",
+    "central_review":true
+  },
+
+  "glossary":{
+    "region":"governorate"
+  }
+}

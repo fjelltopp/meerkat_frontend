@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "homepage": "https://github.com/who-emro/meerkat_frontend",
   "authors": [
-    "Kenrick Turner <kenrick@kenners.org>"
+    "Kenrick Turner <kenrick@kenners.org>",
+    "Jonathan Berry <jonathan.s.berry@gmail.com>"
   ],
   "license": "MIT",
   "private": true,
@@ -32,7 +33,7 @@
       "main": "leaflet-omnivore.js"
     },
     "highcharts":{
-      "main":["highcharts.js", "highcharts-more.js"]
+      "main":["lib/highcharts.js", "lib/highcharts-more.js"]
     }
   }
 }
