@@ -158,17 +158,19 @@ function glossary(){
 
 	var elements = $('.glossary');
 
-	for( var i in elements ){
+	elements.each( function(){
 
-		var e = elements[i];
-		var word = $(e).attr('word');
+		var word = $(this).attr('word');
 		var replacement = config.glossary[word];
 
-		if( $(e).hasClass('capitalised') ) replacement = capitalise(replacement);
+		if( $(this).hasClass('capitalised') ) replacement = capitalise(replacement);
 
-		$(e).html(replacement);
-	}
+		$(this).html(replacement);
+
+	});
+
 }
+
 
 //Respond to the user pressing forward or back by loading the correct page content.
 window.onpopstate = function(event) {
