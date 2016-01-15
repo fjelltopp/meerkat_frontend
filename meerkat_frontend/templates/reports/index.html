@@ -108,7 +108,7 @@ $("#menu-toggle").click(function(e) {
 
 
 var config = {{content|tojson|safe}};
-var api_root = "{{config['TECHNICAL_API_ROOT']}}";
+var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 loadLocationTree({locID:{{loc}}});
 

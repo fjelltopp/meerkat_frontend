@@ -16,7 +16,7 @@ from .views.reports import reports
 # Create the Flask app
 app = Flask(__name__)
 app.config.from_object('config.Development')
-app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS', silent=True)
+app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 
 #Load settings saved in config files.
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']

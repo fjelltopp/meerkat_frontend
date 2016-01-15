@@ -49,8 +49,8 @@ def test(report):
                         } for item in data['data']['patient_status']
                 },
                 'map_centre': report_list['reports'][report]["map_centre"],
-                'map_api_call': (current_app.config['HOMEPAGE_API_ROOT'] +
-                                 "/clinics/1") # set to browser api root
+                'map_api_call': (current_app.config['EXTERNAL_API_ROOT'] +
+                                 "/clinics/1")
                 }
         else:
             extras = None
@@ -221,7 +221,7 @@ def report(report=None, location=None, year=None, week=None):
                         } for item in data['data']['patient_status']
                 },
                 'map_centre': report_list['reports'][report]["map_centre"],
-                'map_api_call': (current_app.config['HOMEPAGE_API_ROOT'] +
+                'map_api_call': (current_app.config['EXTERNAL_API_ROOT'] +
                                  "/clinics/{}".format(location)) # set to browser api root
                 
             }
