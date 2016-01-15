@@ -103,7 +103,7 @@ function loadAlertTables( reason, locID ){
 		else locID = history.state.locID;
 	}
 
-	$.getJSON( api_root+"/variables/moh", function( variables ){
+	$.getJSON( api_root+"/variables/cd_tab", function( variables ){
 			
 		$.getJSON( api_root+"/aggregate_alerts?location="+locID, function( aggData ){
 			drawAlertAggTable('alert-agg-table', aggData, variables);
