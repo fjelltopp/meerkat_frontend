@@ -3,9 +3,9 @@ python:
 - '3.5'
 env:
   - TRAVIS_NODE_VERSION="0.12"
-    MEERKAT_FRONTEND_SETTGINS = '/home/travis/build/who-emro/meerkat_frontend/countr_config/null_config.py'
+    MEERKAT_FRONTEND_SETTGINS='/home/travis/build/who-emro/meerkat_frontend/countr_config/null_config.py'
   - TRAVIS_NODE_VERSION="4"
-    MEERKAT_FRONTEND_SETTGINS = '/home/travis/build/who-emro/meerkat_frontend/countr_config/null_config.py'
+    MEERKAT_FRONTEND_SETTGINS='/home/travis/build/who-emro/meerkat_frontend/countr_config/null_config.py'
 install:
 - pip install .
 - pip install -r .travis-requirements.txt
