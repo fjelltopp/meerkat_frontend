@@ -380,13 +380,13 @@ body.homepage{
 }
 
 
-.homepage-footer{
+.homepage footer{
 
 	background-color: $darkGrey;
 	color: $lightGrey;
 	border-top: 1px solid $darkGrey;
 
-	.container{
+	p{
 		padding:20px;
 		text-align: center;
 		margin-top: 20px;

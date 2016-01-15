@@ -72,8 +72,8 @@ console.log("ready");
      $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/1", function( map ){
 	    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/alerts", function( alerts ){
 
-         $('#number_of_consultations').text(category['436'].year);
-         $('#number_of_cases').text(category['1'].year);
+         $('#number_of_consultations').text(category['reg_2'].year);
+         $('#number_of_cases').text(category['tot_1'].year);
          $('#number_of_alerts').text(alerts.alerts.length);
          $('#number_of_facilities').text(map.length);
 
@@ -141,8 +141,8 @@ console.log("ready");
 
     var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
 
-    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/1", function( reports ){
-      $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/436", function( consultations ){
+    $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/tot_1", function( reports ){
+      $.getJSON( "{{config['HOMEPAGE_API_ROOT']}}/map/reg_2", function( consultations ){
 		
         for( var i=0; i<reports.length; i++ ){
 		  
