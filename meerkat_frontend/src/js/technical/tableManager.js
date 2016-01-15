@@ -88,12 +88,13 @@ function drawAlertsTable(containerID, alerts, variables){
 		            '<th>Clinic</th><th>Date Reported</th><th>Date Investigated</th><th>Status</th>' +
 		            '</tr>';
 
-	        //For each alert in the given array of alerts create the html for a row of the table.
+		//For each alert in the given array of alerts create the html for a row of the table.
 		for( var i in alerts ){
 
 			var alert = alerts[i].alerts;
+
 			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.id + '\'); return false;">' + 
-			         alert.id + '</a></td><td>' + variables[ alert.reason ].alert_name + '</td>' +
+			         alert.id + '</a></td><td>' + variables[ alert.reason ].name + '</td>' +
 			         '<td>' + locations[locations[alert.clinic].parent_location].name + '</td>' +
 			         '<td>' + locations[alert.clinic].name + '</td>' +
 			         '<td>' + alert.date.split("T")[0] + '</td>'; 
@@ -139,7 +140,7 @@ function drawAlertAggTable( containerID, aggData, variables ){
 		var total = 0;		
 										
 		table += '<tr><td><a href="" onclick="loadAlertTables(\'' + reason + '\');return false;">' + 
-		         reason + '</a></td>';
+		         variables[reason].name + '</a></td>';
 
 		for( var j in statusList ){
 
