@@ -40,18 +40,19 @@ def test(report):
 
         if report == 'public_health':
             # Extra parsing for natural language bullet points
-            extras = {
-                'patient_status': {
-                    item['title'].lower().replace(" ", ""):
-                        {
-                            'percent': item['percent'],
-                            'quantity': item['quantity']
-                        } for item in data['data']['patient_status']
-                },
-                'map_centre': report_list['reports'][report]["map_centre"],
-                'map_api_call': (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1")
+            extras = {"patient_status": {}}
+            for item in data['data']['patient_status']:
+                title = item['title'].lower().replace(" ", "")
+                if title not in ["refugee", "other"]:
+                    title = "national"
+                extras["patient_status"][title] = {
+                    'percent': item['percent'],
+                    'quantity': item['quantity']
                 }
+            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
+                                 "/clinics/1")
+
         else:
             extras = None
         return render_template(
@@ -212,19 +213,18 @@ def report(report=None, location=None, year=None, week=None):
         data = c.api(api_request)
         if report == 'public_health':
             # Extra parsing for natural language bullet points
-            extras = {
-                'patient_status': {
-                    item['title'].lower().replace(" ", ""):
-                        {
-                            'percent': item['percent'],
-                            'quantity': item['quantity']
-                        } for item in data['data']['patient_status']
-                },
-                'map_centre': report_list['reports'][report]["map_centre"],
-                'map_api_call': (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/{}".format(location)) # set to browser api root
-                
-            }
+            extras = {"patient_status": {}}
+            for item in data['data']['patient_status']:
+                title = item['title'].lower().replace(" ", "")
+                if title not in ["refugee", "other"]:
+                    title = "national"
+                extras["patient_status"][title] = {
+                    'percent': item['percent'],
+                    'quantity': item['quantity']
+                }
+            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
+                                 "/clinics/1")
         else:
             extras = None
         # Render correct template for the report
