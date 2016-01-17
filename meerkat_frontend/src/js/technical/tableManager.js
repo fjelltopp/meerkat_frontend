@@ -224,7 +224,12 @@ function drawCompletenessTable( containerID, regionID ){
 				for( var i in clinics ){
 
 					var clinic = clinics[i];
-
+				    if( !(clinic in caseData)){
+					caseData[clinic] = {} ; 
+					caseData[clinic].day = 0;
+					caseData[clinic].week = 0;
+					caseData[clinic].year = 0;
+				    }
 					table += '<tr><td>' + locations[clinic].name + '</td>' +
 								'<td>' + Math.round(caseData[clinic].day) + '</td>' +
 								'<td>' + Math.round(caseData[clinic].week) + '</td>' + 
