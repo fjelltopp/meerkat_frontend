@@ -37,7 +37,7 @@
     "name":"Map View",
     "template":"map.html"
   }],
-
+  "central_review": 0,
   "flag":"ni.png",
 
   "footer":{

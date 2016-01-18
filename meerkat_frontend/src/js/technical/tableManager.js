@@ -4,7 +4,7 @@
  * If no_total is positive we do not add total
  */
 function drawTable( containerID, data, no_total, linkFunction ){
-
+	
 	//We want to work with a clone of the data, not the data itself.
 	data = $.extend(true, {}, data);
 
@@ -77,7 +77,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
  * and provides links to the individual Alert Investigation reports. 
  */
 function drawAlertsTable(containerID, alerts, variables){
-
+    
 	$.getJSON( api_root+"/locations", function( locations ){
 
 		//Create the table headers, using the central review flag from the cofiguration file.
@@ -87,7 +87,14 @@ function drawAlertsTable(containerID, alerts, variables){
 		            '<th><span class="glossary capitalised" word="region">Region</span></th>' + 
 		            '<th>Clinic</th><th>Date Reported</th><th>Date Investigated</th><th>Status</th>' +
 		            '</tr>';
+		if(config.central_review){
+			table = '<table class="table table-hover table-condensed">' +
+		            '<tr><th>Alert ID</th><th>Alert</th>' +
+		            '<th><span class="glossary capitalised" word="region">Region</span></th>' + 
+		            '<th>Clinic</th><th>Date Reported</th><th>Date Investigated</th><th>Central Review</th><th>Status</th>' +
+		            '</tr>';
 
+		}
 		//For each alert in the given array of alerts create the html for a row of the table.
 		for( var i in alerts ){
 
@@ -99,13 +106,30 @@ function drawAlertsTable(containerID, alerts, variables){
 			         '<td>' + locations[alert.clinic].name + '</td>' +
 			         '<td>' + alert.date.split("T")[0] + '</td>'; 
 
-			//For some alerts we have no linked follow up report - so check that links is defined.
-			if( typeof alerts[i].links != 'undefined' ){
-				var link = alerts[i].links;
-				table += '<td>' + link.to_date.split("T")[0] + '</td><td>' + link.data.status + '</td></tr>';
+			//Some countries(Jordan) has a central review in addition to alert_investigation
+			// If the alert has been investigated (and has a central review) we display that in the table
+			if(config.central_review){
+				if( "links" in alerts[i] && "alert_investigation" in alerts[i].links ){
+					var investigation = alerts[i].links.alert_investigation;
+					status = investigation.data.status;
+					central_review_date = "-";
+					if ("central_review" in alerts[i].links){
+						status = alerts[i].links.central_review.data.status;
+						central_review_date = alerts[i].links.central_review.to_date.split("T")[0] ;
+					}
+					table += '<td>' + investigation.to_date.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
+				}else{
+					table += '<td>-</td><td>-</td><td>Pending</td></tr>';
+				}
+			
 			}else{
-				table += '<td>-</td><td>Pending</td></tr>';
-			}					
+				if( "links" in alerts[i] && "alert_investigation" in alerts[i].links ){
+					var link = alerts[i].links.alert_investigation;
+					table += '<td>' + link.to_date.split("T")[0] + '</td><td>' + link.data.status + '</td></tr>';
+				}else{
+					table += '<td>-</td><td>Pending</td></tr>';
+				}
+			}
 		}
 
 		table+="</table>";
