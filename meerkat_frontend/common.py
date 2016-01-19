@@ -19,13 +19,13 @@ def api(url):
         with open(path+'.json') as data_file:    
             return json.load(data_file)
     else:
-        api_request = ''.join([current_app.config['API_ROOT'], url])
+        api_request = ''.join([current_app.config['INTERNAL_API_ROOT'], url])
         try:
             r = requests.get(
                 api_request,
                 auth=HTTPBasicAuth(
-                    current_app.config['REPORT_LIST']['basic_auth']['username'],
-                    current_app.config['REPORT_LIST']['basic_auth']['password']
+                    current_app.config['AUTHENTICATION']['basic_auth']['username'],
+                    current_app.config['AUTHENTICATION']['basic_auth']['password']
                 ))
 
         except requests.exceptions.RequestException as e:

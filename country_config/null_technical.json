@@ -2,17 +2,17 @@
   "application":"technical",
 
   "titles":{
-    "full":"Jordan <br> Public Health Surveillance",
-    "nav":"<b>Jordan </b> &middot; Public Health Surveillance",
+    "full":"Null Island <br> Public Health Surveillance",
+    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
     "mob_nav":"Health Surveillance"
   },
-  "flag":"jo.svg",
+
   "map":{
     "center":{
-      "lng":"35.470810",
-      "lat":"30.850011"
+      "lng":"0",
+      "lat":"0"
     },
-    "zoom":"8"
+    "zoom":"9"
   },
   
   "tabs":[{
@@ -37,27 +37,27 @@
     "name":"Map View",
     "template":"map.html"
   }],
+  "central_review": 0,
+  "flag":"ni.png",
 
   "footer":{
     "logos":{
-      "who":"who-logo-white-no-text.svg",
-      "country_partner":"JOH.png",
-      "partners":[
-        "kuwait.gif"
-      ]
+		 "who":"who-logo-white-no-text.svg",
+		 "country_partner":"ni.png",
+		 "partners":[]
     },
 
     "partners":[
       "The World Health Organisation",
-      "The Ministry of Health, Jordan",
-      "The Government of Kuwait"
+		"The Ministry of Health, Null Island"
     ],
 
     "email":"emwrojor@who.int",
-    "central_review":true
+    "central_review":false
   },
 
   "glossary":{
-    "region":"governorate"
-	}
+    "region":"kingdom"
+  }
 }
+
