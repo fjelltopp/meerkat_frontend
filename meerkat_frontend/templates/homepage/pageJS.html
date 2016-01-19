@@ -66,6 +66,7 @@
 	}
 
    //SHOW THE KEY_INDICATORS ----------------------------------------------
+
    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/aggregate_category/key_indicators/1", function( category ){
      $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/map/1", function( map ){
 	    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/alerts", function( alerts ){

@@ -13,9 +13,9 @@ body.homepage{
 	.navbar-flag {
 		float: left;
 		margin-right: 10px;
-		height: 30px;
-		margin: -5px 10px 0px 0px;
-		border-radius: 5px;
+		height: 22px;
+		margin: 0px 10px 0px -10px;
+		border-radius: 3px;
 		border: 1px solid #01719F;
 	}
 
@@ -251,7 +251,7 @@ body.homepage{
 }
 .reports-button{
 
-	margin: 50px 0px 0px;
+	margin: 40px 0px 0px;
 	text-align: center;
 
 	a,
@@ -265,6 +265,7 @@ body.homepage{
 		width: 250px;
 		display: inline-block;
 		font-weight: bold;
+		margin:10px;
 	}
 }
 
