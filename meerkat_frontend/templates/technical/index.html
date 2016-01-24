@@ -58,7 +58,9 @@
 	var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 	var config = {{config['TECHNICAL_CONFIG']|tojson|safe}};
 	var week = {{week.epi_week|safe}};
-
+	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
+	});
 	loadLocationTree( {{page | safe}} );
 
 </script>

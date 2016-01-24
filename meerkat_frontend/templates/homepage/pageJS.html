@@ -67,13 +67,13 @@
 
    //SHOW THE KEY_INDICATORS ----------------------------------------------
 
-   $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/aggregate_category/key_indicators/1", function( category ){
-     $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/map/1", function( map ){
-	    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/alerts", function( alerts ){
+   $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/key_indicators", function( category ){
+     $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( map ){
+	    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_alerts", function( alerts ){
 
          $('#number_of_consultations').text(category['reg_2'].year);
          $('#number_of_cases').text(category['tot_1'].year);
-         $('#number_of_alerts').text(alerts.alerts.length);
+         $('#number_of_alerts').text(alerts.num_alerts);
          $('#number_of_facilities').text(map.length);
 
 		 });	 
@@ -140,8 +140,8 @@
 
     var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
 
-    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/map/tot_1", function( reports ){
-      $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/map/reg_2", function( consultations ){
+    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( reports ){
+      $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/consultation_map", function( consultations ){
 		
         for( var i=0; i<reports.length; i++ ){
 		  
