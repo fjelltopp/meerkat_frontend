@@ -10,7 +10,8 @@ class Config(object):
 
     INTERNAL_API_ROOT = 'http://dev_nginx_1/api'
     EXTERNAL_API_ROOT = '/api'
-
+    USERNAME = "admin"
+    PASSWORD = "secret"
 
 class Production(Config):
     DEBUG = False
