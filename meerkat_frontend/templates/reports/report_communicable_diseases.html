@@ -3,7 +3,7 @@
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
-  <h2><span class="flag-icon flag-icon-jo"></span> <span class="hidden-xs">Jordan &middot; </span>Communicable Diseases Report
+  <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Communicable Diseases Report
     <span class="report-week">
         Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
@@ -45,7 +45,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">More Information</div>
       <div class="chart-stage">
-        <p>A program of public health surveillance is being implemented in 291 outpatient clinics in Jordan, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
+ <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
         <p>The clinician uses the system within the consultation, which introduces clinical-decision support for child health and mental health, as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
       </div>
     </div>

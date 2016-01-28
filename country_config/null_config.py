@@ -11,6 +11,8 @@ TECHNICAL_CONFIG = 'country_config/null_technical.json'
 # Reports specfic stuff
 REPORTS_CONFIG = 'country_config/null_reports.json'
 
+FLAGG_ABR = "no"
+
 AUTHENTICATION = {
     'basic_auth':{
         'username': '',
