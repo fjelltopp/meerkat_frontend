@@ -147,7 +147,7 @@ function drawCharts( locID ){
 	var week = (get_epi_week()).toString();
 
 	//For each category draw a category summation.
-	var categories = ['gender', 'nationality', 'status', 'age'];
+	var categories = ['gender', 'status', 'age'];
 	for( var i in categories ){
 		categorySummation({ category: categories[i],
 		                    locID: locID,
@@ -155,9 +155,19 @@ function drawCharts( locID ){
 		                    tableID: categories[i]+'-table',
 		                    barID: categories[i]+'-bar-chart',
 		                    pieID: categories[i]+'-pie-chart',
-		                    percent: true 
+		                    percent: true
 		                  });
 	}
+	categorySummation({ category: 'nationality',
+		                 locID: locID,
+		                 week: week,
+		                 tableID: 'nationality-table',
+		                 barID: 'nationality-bar-chart',
+		                 pieID: 'nationality-pie-chart',
+		                 percent: true,
+	                    strip: true
+		               });
+
 
 }
 

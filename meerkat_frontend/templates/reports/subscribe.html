@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<ul class="nav navbar-nav">
+  <li><a href="/technical/" >Dashboard</a></li>
+  <li class="active"><a href="/reports/" >Reports</a></li>
+  <li><a href="#" >Explore Data</a></li>
+  <li><a href="#" >Download Data</a></li>
+  <li><a href="/" >Log out</a></li>
+</ul>
+{% endblock %}
+
+{% block body %}
+<!-- CONTENT -->
+
+
+<div class="container page-content">
+	<div class="breaker"> </div>
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			Meerkat Notifications 
+		</div>
+		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+			Date not loaded.
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="box chartBox">
+					<div class="chartBox__heading">
+						Subscribe to our mailing lists...
+					</div>
+					<div class="chartBox__content"    
+						<div class="intro">
+						Use the form below to subscribe to our e-mail and SMS notification system.   You will receive alerts from the surveillance data that are tailored to your region and diseases of interest. You can also receive our monthly reports delivered straight to your inbox as soon as they are published. 
+						</div>
+
+						<form class="subscribe row">
+							<div class="left-part col-sm-12 col-md-6 more-padding-col">
+								<div class="personal">
+									<div class="title row">Please enter your personal details...</div>
+									<div class="row">
+										<label class="col-xs-12 col-sm-4" >First Name*</label>
+										<input class="col-xs-12 col-sm-8" type="text" name="first_name">
+									</div>
+									<div class="row">
+										<label class="col-xs-12 col-sm-4" >Last Name*</label>
+										<input class="col-xs-12 col-sm-8" type="text" name="last_name">
+									</div>
+									<div class="row">
+										<label class="col-xs-12 col-sm-4" >E-mail*</label>
+										<input class="col-xs-12 col-sm-8" type="text" name="email">
+									</div>
+									<div class="row">
+									   <label class="col-xs-12 col-sm-4" >Re-type E-mail*</label>
+										<input class ="col-xs-12 col-sm-8" type="text" name="email2">
+									</div>
+									<div class="row">
+									   <label class="col-xs-12 col-sm-4" >SMS Number</label>
+										<input class="col-xs-12 col-sm-8" type="text" name="sms" >
+									</div>
+								</div>
+								<div id="report-select" class="row"> </div>
+								<div class="row">
+									<div class="title" >
+										Choose which regions you want to receive alerts from...
+									</div>
+									<div class="col-xs-0 col-sm-4"></div>
+									<div id="region-select"> </div>
+								</div>
+							</div>
+							<div class="right-part col-sm-12 col-md-6 more-padding-col">
+								<div id="disease-select"> </div>
+								<div class="submit row">
+									<input class="submit btn btn-default btn-lg" type="submit" value="Subscribe" >
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+
+{% block footer %}
+<div class="container">
+	<div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
+		<p class="footer__title">Meerkat Health Surveillance</p>
+		<p>Working with our partners:</p> 
+		<ul class="footer__supporters" >
+			{% for partner in content.footer.partners %}
+				<li>{{partner}}</li>
+			{% endfor %} 
+		</ul>
+		<p>For more information, please e-mail: {{content.footer.email|safe}} </p>
+	</div>
+	<div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
+		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
+		{% for logo in content.footer.logos.partners %}
+			<img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
+		{% endfor %} 
+	</div>
+</div>
+{% endblock footer %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+  
+var config = {{content|tojson|safe}};
+var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+var week = {{week.epi_week}};
+
+$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+//Draw the topic selection box.
+$.getJSON( api_root+"/variables/cd_tab", function( variables ){
+	$.getJSON( api_root+"/locationtree", function( locations ){
+
+		//Draw the disease Selector
+		var disSel ="<div class='title  row'>Choose which alerts you wish to receive...</div>";
+		disSel += "<div class='row'>";
+		var keys = Object.keys(variables);
+
+		for( var i in keys ){
+			disSel += "<div class='col-xs-12 col-sm-6 col-md-4 check'>";
+			disSel += "<input type='checkbox' name='disease' value='" + keys[i] + "'>";
+			disSel += variables[keys[i]].name + "</div>";
+		}
+		disSel += "</div>";
+		$('#disease-select').html(disSel);
+
+		//Draw the region selector
+      var regSel = "<select><option value='1' selected='selected'>";
+      regSel += "All Regions </option>"  
+      for( var k in locations.nodes ){
+			regSel += "<option value='" + locations.nodes[k].id + "' >" + locations.nodes[k].text + "</option>"; 
+		}
+      regSel += "</select>";
+		$('#region-select').html(regSel);
+
+		//Draw the report selector
+		var repSel = "<div class='title'>Choose which reports you would like to receive... </div>";
+		repSel += "<div class='col-xs-0 col-sm-4'></div><div class='col-xs-12 col-sm-8 no-padding-col'>";
+		for( var j in config.reports ){
+			repSel += "<div class='col-xs-12 col-sm-6 check'>";
+			repSel += "<input type='checkbox' name='report' value='" + j + "'>";
+			repSel += config.reports[j].name + "</div>";
+		}
+		repSel += "</div>";
+		$('#report-select').html(repSel);		
+
+	});
+});
+
+
+</script>
+
+{% endblock pageJS %}

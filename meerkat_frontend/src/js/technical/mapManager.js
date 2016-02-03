@@ -12,7 +12,7 @@ function drawMap( varID, containerID, location ){
 					       ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
 					       'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 	 		maxZoom: 18,
-			scrollWheelZoom: 'center',
+			scrollWheelZoom: false,
 	 		center: new L.LatLng( config.map.center.lat, config.map.center.lng ),
 	 		zoom: config.map.zoom 
 		});

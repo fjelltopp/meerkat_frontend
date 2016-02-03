@@ -23,3 +23,74 @@ body.reports{
 	min-height: 80vh;
 	padding: 10px 0;
 }
+
+
+form.subscribe{
+
+   margin: 10px 0px 20px;
+
+	label{
+		text-align: left;
+      padding: 5px 10px;
+	}
+   
+	input{
+		border: 1px solid $darkGrey;
+		border-radius: 5px;
+		padding: 5px 10px;
+	}
+
+   .row{
+		margin: 10px 0;
+	}
+
+	input.submit{
+		margin-top:20px;
+		display: inline-block; 
+      background: $blue;
+      border: $blue;
+      color: #FFF;
+		padding: 10px 15px;
+	}
+
+	input.submit:active{
+		background: $highlight;
+		border: $highlight;
+	}
+
+	@media (min-width: 768px) {
+		label{
+			text-align: right;
+		}
+	}
+
+	.title{
+		max-width: 100%;
+		margin-bottom: 5px;
+		font-weight: bold;
+		margin-top: 20px;
+	}
+
+   .check{
+		padding: 0px 20px;
+		position:relative;
+
+		input{
+			position: absolute;
+			left: 0px;			
+		}
+
+	}
+
+	.submit.row{
+		text-align: center;
+	}
+}
+
+.no-padding-col{
+	padding: 0px;
+}
+
+.more-padding-col{
+	padding: 0px 20px
+}
