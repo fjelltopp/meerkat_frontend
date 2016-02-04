@@ -12,6 +12,7 @@ from flask import Flask, send_file
 from .views.homepage import homepage
 from .views.technical import technical
 from .views.reports import reports
+from .views.messaging import messaging
 
 # Create the Flask app
 app = Flask(__name__)
@@ -33,6 +34,7 @@ app.config['REPORTS_CONFIG'] = json.loads( open(path).read())
 app.register_blueprint(homepage, url_prefix='/')
 app.register_blueprint(technical, url_prefix='/technical')
 app.register_blueprint(reports, url_prefix='/reports')
+app.register_blueprint(messaging, url_prefix='/messaging')
 
 @app.template_filter('slugify')
 def slug(s):

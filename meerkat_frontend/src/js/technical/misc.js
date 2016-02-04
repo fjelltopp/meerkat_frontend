@@ -168,8 +168,8 @@ function makeDataObject( aggregation, variables, week, title, percent ){
 
 /* This function factorises out repeated code when drawing tables and charts for category aggregations.
  * It also helps to share data from AJAX calls where possible, rather than making multiple replicated
- * AJAX calls for tables, bar charts and pie charts. The function also handles the turn over
- * of years, by combining data from the previous year into the current year if necessary. In gneral,
+ * AJAX calls for tables, bar charts and pie charts. The function manages the turn over
+ * of years, by combining data from the previous year into the current year if necessary. In general,
  * when aggregating over a category, you should display the results using this function. All the 
  * parameters are specified in a details object. */
 function categorySummation( details ){ 

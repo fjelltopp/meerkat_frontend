@@ -49,6 +49,30 @@ def api(url, api_key=False):
             abort(500, r )
         return output
 
+def hermes(url, json):
+    """Makes a Hermes API request"""
+    if( current_app.config['TESTING'] ):
+        path = os.path.dirname(os.path.realpath(__file__))+"/apiData"+url
+        with open(path+'.json') as data_file:    
+            return json.load(data_file)
+    else:
+        api_request = ''.join([current_app.config['INTERNAL_API_ROOT'], url])
+        try:
+            r = requests.get(
+                api_request,
+                auth=HTTPBasicAuth(
+                    current_app.config['AUTHENTICATION']['basic_auth']['username'],
+                    current_app.config['AUTHENTICATION']['basic_auth']['password']
+                ))
+
+        except requests.exceptions.RequestException as e:
+            abort(500, e)
+        try:
+            output = r.json()
+        except Exception as e:
+            abort(500, r )
+        return output
+
 def epi_week_to_date(epi_week, year=datetime.today().year):
     """Converts an epi_week (int) to a datetime object"""
     api_request = "/epi_week_start/{}/{}".format(year, epi_week)

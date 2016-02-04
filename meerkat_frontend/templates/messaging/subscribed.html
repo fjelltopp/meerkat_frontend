@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+<ul class="nav navbar-nav">
+  <li><a href="/technical/" >Dashboard</a></li>
+  <li class="active"><a href="/reports/" >Reports</a></li>
+  <li><a href="#" >Explore Data</a></li>
+  <li><a href="#" >Download Data</a></li>
+  <li><a href="/" >Log out</a></li>
+</ul>
+{% endblock %}
+
+{% block body %}
+<!-- CONTENT -->
+
+
+<div class="container page-content">
+	<div class="breaker"> </div>
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			Meerkat Notifications 
+		</div>
+		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+			Date not loaded.
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="box chartBox">
+					<div class="chartBox__heading">
+						Please verify your contact details
+					</div>
+					<div class="chartBox__content" >    
+						<div class="intro">
+						    <p>Thankyou for subscribing to Meerkat Health Surveillance notificaitons.</p>
+                      <p><b>Before we can activate your subscription, we need to verify your contact details.<b></p>
+                      <p>To do this, please follow the instructions in the e-mail we have sent you.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+
+{% block footer %}
+<div class="container">
+	<div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
+		<p class="footer__title">Meerkat Health Surveillance</p>
+		<p>Working with our partners:</p> 
+		<ul class="footer__supporters" >
+			{% for partner in content.footer.partners %}
+				<li>{{partner}}</li>
+			{% endfor %} 
+		</ul>
+		<p>For more information, please e-mail: {{content.footer.email|safe}} </p>
+	</div>
+	<div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
+		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
+		{% for logo in content.footer.logos.partners %}
+			<img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
+		{% endfor %} 
+	</div>
+</div>
+{% endblock footer %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+  
+var config = {{content|tojson|safe}};
+var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+var week = {{week.epi_week}};
+
+$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+
+function submitForm(){
+
+}
+
+</script>
+
+{% endblock pageJS %}

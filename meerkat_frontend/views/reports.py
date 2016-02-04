@@ -31,12 +31,7 @@ def index(locID=1):
                            content=current_app.config['REPORTS_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
-
-@reports.route('/subscribe')
-def subscribe(locID=1):
-    return render_template('reports/subscribe.html',
-                           content=current_app.config['REPORTS_CONFIG'],
-                           week=c.api('/epi_week'))
+    
 
 @reports.route('/test/<report>/')
 def test(report):
