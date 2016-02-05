@@ -10,6 +10,7 @@ class Config(object):
 
     INTERNAL_API_ROOT = 'http://dev_nginx_1/api'
     EXTERNAL_API_ROOT = '/api'
+    HERMES_ROOT = 'http://hermes.aws.emro.info'
     USERNAME = "admin"
     PASSWORD = "secret"
 

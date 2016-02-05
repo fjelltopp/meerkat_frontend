@@ -36,29 +36,30 @@
 						Use the form below to subscribe to our e-mail and SMS notification system.   You will receive alerts from the surveillance data that are tailored to your region and diseases of interest. You can also receive our monthly reports delivered straight to your inbox as soon as they are published. 
 						</div>
 
-						<form class="subscribe row">
+						<form class="subscribe row" id='subscribe-form' method='POST' action='subscribe/subscribed'>
 							<div class="left-part col-sm-12 col-md-6 more-padding-col">
 								<div class="personal">
 									<div class="title row">Please enter your personal details...</div>
 									<div class="row">
 										<label class="col-xs-12 col-sm-4" >First Name*</label>
-										<input class="col-xs-12 col-sm-8" type="text" name="first_name">
+										<input class="col-xs-12 col-sm-8" type="text" name="first_name" required>
 									</div>
 									<div class="row">
 										<label class="col-xs-12 col-sm-4" >Last Name*</label>
-										<input class="col-xs-12 col-sm-8" type="text" name="last_name">
+										<input class="col-xs-12 col-sm-8" type="text" name="last_name" required>
 									</div>
 									<div class="row">
 										<label class="col-xs-12 col-sm-4" >E-mail*</label>
-										<input class="col-xs-12 col-sm-8" type="text" name="email">
+										<input id='email' class="col-xs-12 col-sm-8" type="email" name="email" required>
 									</div>
 									<div class="row">
 									   <label class="col-xs-12 col-sm-4" >Re-type E-mail*</label>
-										<input class ="col-xs-12 col-sm-8" type="text" name="email2">
+										<input class ="col-xs-12 col-sm-8" type="email"
+										       required oninput='checkEqual(this)'>
 									</div>
 									<div class="row">
 									   <label class="col-xs-12 col-sm-4" >SMS Number</label>
-										<input class="col-xs-12 col-sm-8" type="text" name="sms" >
+										<input class="col-xs-12 col-sm-8" type="tel" name="sms" optional>
 									</div>
 								</div>
 								<div id="report-select" class="row"> </div>
@@ -73,7 +74,7 @@
 							<div class="right-part col-sm-12 col-md-6 more-padding-col">
 								<div id="disease-select"> </div>
 								<div class="submit row">
-									<input class="submit btn btn-default btn-lg" type="submit" value="Subscribe" >
+									<input class="submit btn btn-default btn-lg" type='submit' value="Subscribe" >
 								</div>
 							</div>
 
@@ -128,12 +129,14 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		disSel += "";
 		disSel += "<div class='row'>";
 		disSel += "<div class='col-xs-12 col-sm-6 col-md-4 check'>";
-		disSel += "<input type='checkbox' value='allDis' onclick='toggleAll(this);'>All Alerts</div> ";
+		disSel += "<input type='checkbox' value='allDis' name='topics'";
+		disSel += "onclick='toggleAll(this); checkSelected(this);'>All Alerts</div> ";
 		var keys = Object.keys(variables);
 
 		for( var i in keys ){
 			disSel += "<div class='col-xs-12 col-sm-6 col-md-4 check'>";
-			disSel += "<input type='checkbox' name='diseases' value='" + keys[i] + "'>";
+			disSel += "<input type='checkbox' class='disease' name='topics'";
+         disSel += "onclick='checkSelected(this)' value='" + keys[i] + "'>";
 			disSel += variables[keys[i]].name + "</div>";
 		}
 		disSel += "</div>";
@@ -153,7 +156,8 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		repSel += "<div class='col-xs-0 col-sm-4'></div><div class='col-xs-12 col-sm-8 no-padding-col'>";
 		for( var j in config.reports ){
 			repSel += "<div class='col-xs-12 col-sm-6 check'>";
-			repSel += "<input type='checkbox' name='reports' value='report-" + j + "'>";
+			repSel += "<input type='checkbox' onclick='checkSelected(this);' class='reports'";
+			repSel += "name='topics' value='report-" + j + "'>";
 			repSel += config.reports[j].name + "</div>";
 		}
 		repSel += "</div>";
@@ -162,18 +166,41 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 	});
 });
 
-function submitForm(){
-
+function toggleAll(source){
+	$('.disease').each( function(){
+		this.checked = source.checked;
+		this.disabled = source.checked ? true : false;
+	});
 }
 
-function toggleAll(source){
-	checkboxes = document.getElementsByName('diseases');
-	console.log(checkboxes);
-	for(var i in checkboxes){
-		checkboxes[i].checked = source.checked;
-		checkboxes[i].disabled = !checkboxes[i].disabled;
+//FORM VALIDATION METHODS
+
+//Check that the two e-mail address are equal
+function checkEqual(input) {
+	console.log( input.value )
+	console.log( document.getElementById('email').value )
+	if (input.value != document.getElementById('email').value ) {
+		input.setCustomValidity('Emails Must be Matching.');
+	} else {
+		//Input is valid -- reset the error message
+		input.setCustomValidity('');
 	}
 }
+
+//Check that at least one checkbox is clicked
+function checkSelected(input) {
+
+	checked = $('input[name=topics]:checked').length;
+	if(!checked) {
+		input.setCustomValidity('You must tick at least one checkbox.');
+	}else{
+		boxes = document.getElementsByName('topics')
+		for( var i=0; i<boxes.length; i++ ){
+			boxes[i].setCustomValidity('');
+		}
+	}
+}
+
 </script>
 
 {% endblock pageJS %}

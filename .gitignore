@@ -50,4 +50,6 @@ ehthumbs.db
 Thumbs.db
 *~
 
-*secret.cfg
+#My secret settings
+secret.cfg
+

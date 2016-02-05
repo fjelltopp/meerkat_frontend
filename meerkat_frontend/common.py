@@ -49,29 +49,28 @@ def api(url, api_key=False):
             abort(500, r )
         return output
 
-def hermes(url, json):
+def hermes(url, method, data):
     """Makes a Hermes API request"""
-    if( current_app.config['TESTING'] ):
-        path = os.path.dirname(os.path.realpath(__file__))+"/apiData"+url
-        with open(path+'.json') as data_file:    
-            return json.load(data_file)
-    else:
-        api_request = ''.join([current_app.config['INTERNAL_API_ROOT'], url])
-        try:
-            r = requests.get(
-                api_request,
-                auth=HTTPBasicAuth(
-                    current_app.config['AUTHENTICATION']['basic_auth']['username'],
-                    current_app.config['AUTHENTICATION']['basic_auth']['password']
-                ))
 
-        except requests.exceptions.RequestException as e:
-            abort(500, e)
-        try:
-            output = r.json()
-        except Exception as e:
-            abort(500, r )
-        return output
+    #Add the API key and turn into JSON.
+    data["api_key"] = current_app.config['HERMES_API_KEY']
+
+    #Assemble the other request params.
+    url = current_app.config['HERMES_ROOT']+url #+"?api_key="+current_app.config['HERMES_API_KEY']
+    headers = {'content-type' : 'application/json'}
+
+    current_app.logger.warning( "Sending json data:" + json.dumps(data) )
+
+    #Make the request and handle the response.
+    try:
+        r = requests.request( 'PUT', url, data=json.dumps(data), headers=headers)
+    except requests.exceptions.RequestException as e:
+        abort(500, e)
+    try:
+        output = r.json()
+    except Exception as e:
+        abort(500, r )
+    return output
 
 def epi_week_to_date(epi_week, year=datetime.today().year):
     """Converts an epi_week (int) to a datetime object"""

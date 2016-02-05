@@ -33,9 +33,12 @@
 					</div>
 					<div class="chartBox__content" >    
 						<div class="intro">
-						    <p>Thankyou for subscribing to Meerkat Health Surveillance notificaitons.</p>
-                      <p><b>Before we can activate your subscription, we need to verify your contact details.<b></p>
-                      <p>To do this, please follow the instructions in the e-mail we have sent you.</p>
+							<p>Hello {{data['first_name']}} {{data['last_name']}},</p>
+							<p>Thankyou for subscribing to Meerkat Health Surveillance notifications.</p>
+							<p><b>Before we can activate your subscription, we need to verify your contact details.</b></p>
+							<p>To do this, please follow the instructions in the e-mail we have sent to your address: 
+							   {{data['email']}}.</p>
+							
 						</div>
 					</div>
 				</div>

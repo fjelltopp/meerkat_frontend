@@ -20,6 +20,8 @@ AUTHENTICATION = {
     }
 }
 
+HERMES_API_KEY='8309a761-1dab-4cfb-9614-61c239c951ec'
+
 REPORT_LIST = {
     'default_location': 1,
     'keys': {

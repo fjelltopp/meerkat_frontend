@@ -24,14 +24,28 @@ def subscribe():
                            week=c.api('/epi_week'))
 
 # Stage 2: Confirm subscription request and inform user of verification process.
-@messaging.route('/subscribed', methods=['POST'])
-def subscribed():
-    #TODO: Form validation.
+@messaging.route('/subscribe/subscribed', methods=['POST'])
+def subscribed(): 
+    
+    #Convert form immutabledict to dict.
+    data={}
+    for key in request.form.keys():
+        key_list = request.form.getlist(key) 
+        if( len(key_list) > 1 ): 
+
+            data[key] = key_list
+        else: 
+            data[key] = key_list[0]
+
     #TODO: Call hermes subscribe method.
+    response = c.hermes('/subscribe', 'PUT', data)
+    current_app.logger.warning('Response is: ' + str(response))
+
     #TODO: Send verification email/sms.
     return render_template('messaging/subscribed.html',
                            content=current_app.config['REPORTS_CONFIG'],
-                           week=c.api('/epi_week'))
+                           week=c.api('/epi_week'),
+                           data=data)
 
 # Stage 3: Verify contact details.
 @messaging.route('/subscribe/verify/<string:subscriber_id>')
