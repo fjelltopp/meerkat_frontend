@@ -142,23 +142,20 @@
 
     $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( reports ){
       $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/consultation_map", function( consultations ){
-		
-        for( var i=0; i<reports.length; i++ ){
-		  
-          var report = reports[i];
-          var consultation = consultations[i];
+         for( key in reports){
+	    if (reports.hasOwnProperty(key)){	      
+          var report = reports[key];
+          var consultation = consultations[key];
 
-			console.log( report );
-			console.log(consultation);
-
-		    if( report.geolocation[0] !== "" && report.geolocation[1] !== "" ){
+		    if( report.geolocation[0] && report.geolocation[1] ){
 		      var m = L.marker( [ report.geolocation[0], report.geolocation[1]] );
 		      m.name = report.clinic;
 		      m.cases = report.value;
 		      m.consultations = consultation.value;
 		      markers.addLayer( m );
-				console.log(m);
-		    }  
+//				console.log(m);
+		      }
+	}
         }
       });
     });

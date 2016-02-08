@@ -68,7 +68,7 @@ function drawMap( varID, containerID ){
 		}
 
 		//For each clinic, select the marker colour and add the marker to the map.
-		for( i = 0; i < data.length; i++ ){
+		for(i in data){
 
 			var bin = Math.floor((data[i].value-1)/binSize); //-1 because bins are inclusive of the upper-limit
 			
