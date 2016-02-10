@@ -41,13 +41,13 @@ gulp.task('jshint', function() {
 
 // JAVASCRIPT TASKS
 gulp.task('vendorJS', function() {
-  return gulp.src( mainBowerFiles().concat([
+	return gulp.src( mainBowerFiles().concat([
       'node_modules/tree-model/dist/TreeModel-min.js'
     ]))
     .pipe(filter('*.js'))
-    .pipe(sourcemaps.init())
+ //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
-    .pipe(sourcemaps.write())
+ //   .pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/js'));
 });
 
