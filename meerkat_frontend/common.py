@@ -6,10 +6,21 @@ Shared functions for meerkat_frontend.
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 
-from flask import current_app, abort, send_file
+from flask import current_app, abort, send_file, Response
 import requests
 import json, os
 from requests.auth import HTTPBasicAuth
+
+def check_auth(username, password):
+    """This function is called to check if a username / password combination is valid."""
+    return username == current_app.config["USERNAME"] and password == current_app.config["PASSWORD"]
+
+def authenticate():
+    """Sends a 401 response that enables basic auth."""
+    return Response(
+    'Could not verify your access level for that URL.\n'
+    'You have to login with proper credentials', 401,
+    {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 
 def api(url):

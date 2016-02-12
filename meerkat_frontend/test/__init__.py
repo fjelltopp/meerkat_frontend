@@ -17,6 +17,9 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         """Setup for testing"""
         mk.app.config['TESTING'] = True
         self.app = mk.app.test_client()
+        cred = base64.b64encode(b"admin:secret").decode("utf-8")
+        self.header = {"Authorization": "Basic {cred}".format(cred=cred)}
+
 
     def tearDown(self):
         pass
@@ -30,15 +33,18 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_reports(self):
         """Check the Reports page loads"""
         rv = self.app.get('/reports/')
-        self.assertIn(rv.status_code, [200])
+        self.assertIn(rv.status_code, [401])
+        rv2 = self.app.get('/reports/', headers=self.header)
+        self.assertEqual(rv2.status_code, 200)
+        
 
     def test_reports_pub_health(self):
-        rv = self.app.get('/reports/test/public_health/')
+        rv = self.app.get('/reports/test/public_health/',headers=self.header)
         self.assertIn(rv.status_code, [200])
         self.assertIn(b"5,941 consultations", rv.data)
         self.assertIn(b"Viral infections characterized by skin and mucous membrane lesions", rv.data)
     def test_reports_cd(self):
-        rv = self.app.get('/reports/test/communicable_diseases/')
+        rv = self.app.get('/reports/test/communicable_diseases/',headers=self.header)
         self.assertIn(rv.status_code, [200])
         self.assertIn(b"There were no new confirmed cases and 1 new suspected cases of Bloody diarrhoea this week.", rv.data)
 

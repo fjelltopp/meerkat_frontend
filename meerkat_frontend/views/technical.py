@@ -9,23 +9,14 @@ from .. import common as c
 
 technical = Blueprint('technical', __name__)
 
-def check_auth(username, password):
-    """This function is called to check if a username / password combination is valid."""
-    return username == current_app.config["USERNAME"] and password == current_app.config["PASSWORD"]
 
-def authenticate():
-    """Sends a 401 response that enables basic auth."""
-    return Response(
-    'Could not verify your access level for that URL.\n'
-    'You have to login with proper credentials', 401,
-    {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 @technical.before_request
 def requires_auth():
     """Checks that the user has authenticated before returning any page from the technical site."""
     auth = request.authorization
-    if not auth or not check_auth(auth.username, auth.password):
-        return authenticate()
+    if not auth or not c.check_auth(auth.username, auth.password):
+        return c.authenticate()
 
 @technical.route('/')
 @technical.route('/<tab>')

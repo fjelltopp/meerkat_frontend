@@ -79,7 +79,7 @@ $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 function drawAlertContent( alertID ){
 
 	$.getJSON( api_root+"/alert/"+alertID, function( alert ){
-		
+            $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		//Load the location info for the given location ID from the location tree.
 		var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===alert.alerts.clinic; });
 		var parent = node.getPath();
@@ -107,7 +107,7 @@ function drawAlertContent( alertID ){
 		//Draw!
 		$('#alertTitle').html( alertID );
 		$('#alertID').html( alertID );
-		$('#reason').html( alert.alerts.reason );
+		$('#reason').html( variables[alert.alerts.reason].name );
 		$('#date').html( alert.alerts.date.split("T")[0] );
 		$('#clinic').html( node.model.text );
 		$('#region').html( parent.model.text );
@@ -116,6 +116,8 @@ function drawAlertContent( alertID ){
 		$('#patientGender').html( alert.alerts.data.gender );
 		$('#checklist').html( table );		
 		
-	});
+         });
+      });
+
 }
 </script>
