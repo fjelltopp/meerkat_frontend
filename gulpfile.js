@@ -73,7 +73,7 @@ gulp.task('js', function() {
 // SASS/CSS TASKS
 gulp.task('sass', ['mapbox-rename-css-to-scss'], function() {
   return gulp.src('meerkat_frontend/src/sass/main.scss')
-    .pipe(sourcemaps.init())
+//    .pipe(sourcemaps.init())
     .pipe(gulpif(
       production,
       sass({
@@ -82,7 +82,7 @@ gulp.task('sass', ['mapbox-rename-css-to-scss'], function() {
       sass({
         outputStyle: 'expanded'
       }).on('error', sass.logError)))
-    .pipe(sourcemaps.write())
+//    .pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/css'));
 });
 

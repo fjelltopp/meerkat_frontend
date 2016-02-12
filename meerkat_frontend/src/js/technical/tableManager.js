@@ -163,7 +163,7 @@ function drawAlertAggTable( containerID, aggData, variables ){
 		var reason = reasons[i];
 		var total = 0;		
 										
-		table += '<tr><td><a href="" onclick="loadAlertTables(\'' + variables[reason].name + '\');return false;">' + 
+		table += '<tr><td><a href="" onclick="loadAlertTables(\'' + reason + '\');return false;">' + 
 		         variables[reason].name + '</a></td>';
 
 		for( var j in statusList ){
