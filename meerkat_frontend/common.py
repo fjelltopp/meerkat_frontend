@@ -23,7 +23,7 @@ def authenticate():
     {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 
-def api(url):
+def api(url, api_key=False):
     """Returns JSON data from API request"""
     if( current_app.config['TESTING'] ):
         path = os.path.dirname(os.path.realpath(__file__))+"/apiData"+url
@@ -32,13 +32,15 @@ def api(url):
     else:
         api_request = ''.join([current_app.config['INTERNAL_API_ROOT'], url])
         try:
-            r = requests.get(
-                api_request,
-                auth=HTTPBasicAuth(
-                    current_app.config['AUTHENTICATION']['basic_auth']['username'],
-                    current_app.config['AUTHENTICATION']['basic_auth']['password']
-                ))
-
+            if api_key:
+                r = requests.get(
+                    api_request,
+                    params={"api_key": current_app.config["TECHNICAL_CONFIG"]["api_key"]}
+                )
+            else:
+                r = requests.get(
+                    api_request
+                )
         except requests.exceptions.RequestException as e:
             abort(500, e)
         try:

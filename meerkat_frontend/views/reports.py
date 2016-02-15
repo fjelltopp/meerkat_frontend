@@ -88,7 +88,7 @@ def send_email_report(report):
             loc=location,
             end=end.strftime('%Y-%m-%d')
             )
-        data = c.api(api_request)
+        data = c.api(api_request, api_key=True)
         epi_week = data['data']['epi_week_num']
         epi_year = format_datetime(
             datetime_from_json(data['data']['epi_week_date']),
@@ -217,7 +217,7 @@ def report(report=None, location=None, year=None, week=None):
                 ).strftime('%Y-%m-%d')
             )
 
-        data = c.api(api_request)
+        data = c.api(api_request, api_key=True)
         data["flag"] = current_app.config["FLAGG_ABR"]
         if report == 'public_health':
             # Extra parsing for natural language bullet points
