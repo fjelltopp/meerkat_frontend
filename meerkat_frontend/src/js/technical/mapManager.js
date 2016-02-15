@@ -1,13 +1,13 @@
-
 /* This map visualises the number of reported cases for the given variable ID at
  * each clinic. The numbers of cases at each clinic shown using a colour gradient.
- */ 
-function drawMap( varID, containerID ){
-
-	$.getJSON( api_root+'/map/'+varID, function( data ){
-
+ */
+map = null;
+function drawMap( varID, containerID, location ){
+	location = location || 1 ;
+	
+	$.getJSON( api_root+'/map/'+varID+'/'+location, function( data ){
 		L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-		var map = L.mapbox.map( containerID, 'mrjb.k60d95kl', { 
+		map = L.mapbox.map( containerID, 'mrjb.k60d95kl', { 
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' + 
 					       ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
 					       'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -16,7 +16,7 @@ function drawMap( varID, containerID ){
 	 		center: new L.LatLng( config.map.center.lat, config.map.center.lng ),
 	 		zoom: config.map.zoom 
 		});
-
+		
 		//Red colours 
 		var colours6 = [ '#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d' ];
 		var colours4 = [ '#fc9272', '#ef3b2c', '#a50f15', '#67000d' ];
@@ -66,7 +66,7 @@ function drawMap( varID, containerID ){
 			limit += binSize;
 			limits.push(limit);
 		}
-
+		markers = [];
 		//For each clinic, select the marker colour and add the marker to the map.
 		for(i in data){
 
@@ -84,6 +84,11 @@ function drawMap( varID, containerID ){
 
 			marker.bindPopup( "<b>" + data[i].clinic + "</b><br/>" + data[i].value + " cases" );
 			marker.addTo( map );
+			markers[markers.length] = marker;
+		}
+		if(markers.length > 0){
+			var group = new L.featureGroup(markers);
+			map.fitBounds(group.getBounds());
 		}
 
 		//Add the legend.
@@ -108,6 +113,5 @@ function drawMap( varID, containerID ){
 		};
 
 		legend.addTo( map );
-
 	});
 }
