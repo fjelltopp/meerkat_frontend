@@ -15,7 +15,6 @@
 
 
 <div class="container page-content">
-	<div class="breaker"> </div>
 	<div class="top-bar row">
 		<div class="tab-title less-padding-col">
 			Meerkat Notifications 
@@ -33,8 +32,10 @@
 					</div>
 					<div class="chartBox__content" >    
 						<div class="intro">
-						    <p>Your contact details have been successfully verified.</p>
-                      <p>Thankyou for subscribing.</p>
+                     {{ message }}
+							<p>Your contact details have been successfully verified.</p>
+							<p>Thankyou for subscribing, you should now receive your desired notifications.</p>
+							<p>You may unsubscribe at any point by clicking on the relavent link in your e-mails.</p> 
 						</div>
 					</div>
 				</div>

@@ -11,6 +11,9 @@ TECHNICAL_CONFIG = 'country_config/null_technical.json'
 # Reports specfic stuff
 REPORTS_CONFIG = 'country_config/null_reports.json'
 
+# Messaging specfic stuff
+MESSAGING_CONFIG = 'country_config/null_messaging.json'
+
 FLAGG_ABR = "no"
 
 AUTHENTICATION = {

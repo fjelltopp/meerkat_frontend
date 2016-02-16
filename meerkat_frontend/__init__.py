@@ -19,6 +19,7 @@ app = Flask(__name__)
 app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
+app.secret_key = 'some_secret'
 
 #Load settings saved in config files.
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
@@ -29,6 +30,9 @@ app.config['TECHNICAL_CONFIG'] = json.loads( open(path).read())
 
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['REPORTS_CONFIG']
 app.config['REPORTS_CONFIG'] = json.loads( open(path).read())
+
+path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['MESSAGING_CONFIG']
+app.config['MESSAGING_CONFIG'] = json.loads( open(path).read())
 
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')

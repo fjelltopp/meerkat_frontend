@@ -49,7 +49,7 @@ def api(url, api_key=False):
             abort(500, r )
         return output
 
-def hermes(url, method, data):
+def hermes(url, method, data={}):
     """Makes a Hermes API request"""
 
     #Add the API key and turn into JSON.
@@ -59,17 +59,17 @@ def hermes(url, method, data):
     url = current_app.config['HERMES_ROOT']+url #+"?api_key="+current_app.config['HERMES_API_KEY']
     headers = {'content-type' : 'application/json'}
 
-    current_app.logger.warning( "Sending json data:" + json.dumps(data) )
-
+    current_app.logger.warning( "Sending json data:" + json.dumps(data) +"\nTo url: " + url )
+    
     #Make the request and handle the response.
     try:
-        r = requests.request( 'PUT', url, data=json.dumps(data), headers=headers)
+        r = requests.request( method, url, json=data, headers=headers)
     except requests.exceptions.RequestException as e:
-        abort(500, e)
+        abort(500, "request")
     try:
-        output = r.json()
-    except Exception as e:
-        abort(500, r )
+        output = r.json()   
+    except Exception:
+        abort(500, r.text )
     return output
 
 def epi_week_to_date(epi_week, year=datetime.today().year):

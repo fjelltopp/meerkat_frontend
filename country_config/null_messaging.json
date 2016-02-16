@@ -1,0 +1,44 @@
+{ 
+	"subscribe":{
+		"pre_countries":["gb","us"],
+		"topic_prefix": "null-",
+      "reports":[{
+				"name":"Public Health Profile",
+				"id":"ph"
+			},{
+				"name":"Communicable Disease",
+				"id":"cd"
+			}
+		]
+	},
+	"messages":{
+		"country": "Null Island",
+      "contact": "emrojor@who.int"
+	},
+	"titles":{
+		"full":"Null Island <br> Public Health Surveillance",
+		"nav":"<b>Null Island </b> &middot; Public Health Surveillance",
+		"mob_nav":"Health Surveillance"
+	},
+	"application":"messaging",
+	"flag":"ni.png",
+	"logos":{
+		"who":"who.png",
+		"country_partner":"ni.png",
+		"partners":[]
+	},
+	"footer":{
+		"logos":{
+			"who":"who-logo-white-no-text.svg",
+			"country_partner":"ni.png",
+			"partners":[]
+		},
+
+		"partners":[
+			"The World Health Organisation",
+			"The Ministry of Health, Null Island"
+		],
+
+		"email":"emwrojor@who.int"
+	}
+}

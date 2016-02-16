@@ -23,7 +23,8 @@
     "leaflet.markercluster": "~0.4.0",
     "highcharts": "~4.1.7",
     "Leaflet.fullscreen": "Leaflet/Leaflet.fullscreen#~0.0.4",
-    "leaflet-omnivore": "~0.3.2"
+    "leaflet-omnivore": "~0.3.2",
+    "intl-tel-input":"~7.1.1"
   },
   "overrides": {
     "Leaflet.fullscreen": {

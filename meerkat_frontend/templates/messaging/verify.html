@@ -15,7 +15,6 @@
 
 
 <div class="container page-content">
-	<div class="breaker"> </div>
 	<div class="top-bar row">
 		<div class="tab-title less-padding-col">
 			Meerkat Notifications 
@@ -33,13 +32,36 @@
 					</div>
 					<div class="chartBox__content"    
 						<div class="intro">
-						We need to be sure that you have given the right contact details
+                  {% if data['sms'] %}
+
+						   We need to be sure that you have given the correct phone number: {{data['sms']}}.<br>
+							To check this we have just sent you a text with a verification code. Please submit the code below.
+
+							<div class="breaker"></div>
+							<form id="verify-sms" class="verify" method="POST" 
+                           action="/messaging/subscribe/sms_code/{{data['id']}}">
+								<div class="left-part col-sm-12 col-md-6 more-padding-col">
+									<div class="row">
+										<label class="col-xs-12 col-sm-6" >SMS Verification Code*</label>
+										<input class="col-xs-12 col-sm-6" type="text" name="code" required>
+									</div>
+									<div class="breaker"></div>
+									<div class="submit row">
+										<div class="col-xs-12 col-sm-6" >
+											<input class="submit btn btn-primary" type='submit' value="Submit Code" >	
+										</div>
+										<div class="col-xs-12 col-sm-6 no-padding-col" >
+											<a class="btn btn-default" 
+											   href="/messaging/subscribe/sms_code/{{data['id']}}"
+                                    onclick="alert('A new code has been sent to your phone')">
+												Send New Code
+											</a>
+										</div>
+									</div>
+								</div>
+							</form>
+                  {% endif %}
 						</div>
-
-						<form class="verify row">
-							
-
-						</form>
 					</div>
 				</div>
 			</div>
@@ -79,11 +101,6 @@ var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
-
-
-function submitForm(){
-
-}
 
 </script>
 

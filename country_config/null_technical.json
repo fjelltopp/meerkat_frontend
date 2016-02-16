@@ -55,9 +55,10 @@
 		"The Ministry of Health, Null Island"
     ],
 
-    "email":"emwrojor@who.int",
-    "central_review":false
+    "email":"emwrojor@who.int"
   },
+
+  "central_review":false,
 
   "glossary":{
     "region":"kingdom"

@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/intlTelInput.css') }}" />
+{% endblock %}
+
 {% block menu %}
 <ul class="nav navbar-nav">
   <li><a href="/technical/" >Dashboard</a></li>
@@ -12,10 +16,7 @@
 
 {% block body %}
 <!-- CONTENT -->
-
-
 <div class="container page-content">
-	<div class="breaker"> </div>
 	<div class="top-bar row">
 		<div class="tab-title less-padding-col">
 			Meerkat Notifications 
@@ -59,7 +60,7 @@
 									</div>
 									<div class="row">
 									   <label class="col-xs-12 col-sm-4" >SMS Number</label>
-										<input class="col-xs-12 col-sm-8" type="tel" name="sms" optional>
+										<input id="sms-number" class="col-xs-12 col-sm-8" value="" type="tel" name="sms" optional>
 									</div>
 								</div>
 								<div id="report-select" class="row"> </div>
@@ -110,7 +111,7 @@
 {% endblock footer %}
 
 {% block pageJS %}
-
+<script src="{{ url_for('static', filename='js/intlTelInput.js') }}"></script>
 <script type="text/javascript" >
   
 var config = {{content|tojson|safe}};
@@ -119,7 +120,43 @@ var week = {{week.epi_week}};
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 
-//Draw the topic selection box.
+//Configure the telephone input field.
+var telInput = $('#sms-number');
+var preferred = {{content.subscribe.pre_countries|safe}};
+
+telInput.intlTelInput({
+	initialCountry: "auto",
+	geoIpLookup: function(callback) {
+		$.get('http://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+			var countryCode = (resp && resp.country) ? resp.country : "";
+			callback(countryCode);
+		});
+	},
+	utilsScript: "{{ url_for('static', filename='js/utils.js') }}",
+	preferredCountries: preferred,
+	formatAsYouType: true,
+});
+
+var reset = function(){
+	console.log( "keyup change called");
+	telInput[0].setCustomValidity('');
+};
+
+telInput.blur(function() {
+	reset()
+	if ($.trim(telInput.val())) {
+		console.log('has value');
+		if (telInput.intlTelInput("isValidNumber")) {
+			telInput[0].setCustomValidity('');
+		} else {
+			telInput[0].setCustomValidity('Not a valid phone number for this country.' );
+		}
+	}
+});
+
+telInput.on("keyup change", reset);
+
+//Draw the dynamic elements of the form.
 $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 	$.getJSON( api_root+"/locationtree", function( locations ){
 
@@ -129,7 +166,7 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		disSel += "";
 		disSel += "<div class='row'>";
 		disSel += "<div class='col-xs-12 col-sm-6 col-md-4 check'>";
-		disSel += "<input type='checkbox' value='allDis' name='topics'";
+		disSel += "<input id='all-diseases' type='checkbox' value='allDis' name='topics'";
 		disSel += "onclick='toggleAll(this); checkSelected(this);'>All Alerts</div> ";
 		var keys = Object.keys(variables);
 
@@ -143,10 +180,12 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		$('#disease-select').html(disSel);
 
 		//Draw the region selector
-      var regSel = "<select><option value='1' selected='selected'>";
+      var regSel = "<select id='region-selector'><option value='{{content.subscribe.topic_prefix}}1'"+
+		             "selected='selected'>";
       regSel += "All Regions </option>"  
       for( var k in locations.nodes ){
-			regSel += "<option value='" + locations.nodes[k].id + "' >" + locations.nodes[k].text + "</option>"; 
+			regSel += "<option name='regions' value='{{content.subscribe.topic_prefix}}" +
+                   locations.nodes[k].id + "' >" + locations.nodes[k].text + "</option>"; 
 		}
       regSel += "</select>";
 		$('#region-select').html(regSel);
@@ -154,11 +193,11 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		//Draw the report selector
 		var repSel = "<div class='title'>Choose which reports you would like to receive... </div>";
 		repSel += "<div class='col-xs-0 col-sm-4'></div><div class='col-xs-12 col-sm-8 no-padding-col'>";
-		for( var j in config.reports ){
+		for( var j in config.subscribe.reports ){
 			repSel += "<div class='col-xs-12 col-sm-6 check'>";
 			repSel += "<input type='checkbox' onclick='checkSelected(this);' class='reports'";
-			repSel += "name='topics' value='report-" + j + "'>";
-			repSel += config.reports[j].name + "</div>";
+			repSel += "name='topics' value='" + config.subscribe.reports[j].id + "'>";
+			repSel += config.subscribe.reports[j].name + "</div>";
 		}
 		repSel += "</div>";
 		$('#report-select').html(repSel);		
@@ -166,6 +205,7 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 	});
 });
 
+//Toggle all disease checkboxes when all diseases are selected.
 function toggleAll(source){
 	$('.disease').each( function(){
 		this.checked = source.checked;
@@ -181,9 +221,11 @@ function checkEqual(input) {
 	console.log( document.getElementById('email').value )
 	if (input.value != document.getElementById('email').value ) {
 		input.setCustomValidity('Emails Must be Matching.');
+		return false;
 	} else {
 		//Input is valid -- reset the error message
 		input.setCustomValidity('');
+		return true;
 	}
 }
 
@@ -191,16 +233,46 @@ function checkEqual(input) {
 function checkSelected(input) {
 
 	checked = $('input[name=topics]:checked').length;
+	console.log(checked)
 	if(!checked) {
 		input.setCustomValidity('You must tick at least one checkbox.');
+		return false;
 	}else{
 		boxes = document.getElementsByName('topics')
 		for( var i=0; i<boxes.length; i++ ){
 			boxes[i].setCustomValidity('');
 		}
+		return true;
 	}
 }
 
+$("#subscribe-form").submit(function() {
+	//Check validity
+	if( !checkSelected( document.getElementById('all-diseases') ) ){
+		checked = $('input[name=topics]').each( function(){
+			this.setCustomValidity('You must tick at least one checkbox.');
+		});		
+		return false;
+	}
+	//Get the formatted sms number, if it's not there remove it
+   var number = telInput.intlTelInput("getNumber")
+	if( number ){
+		telInput.val(number);
+	}else{
+		telInput.remove();
+	}
+	//Assemble the topic IDs
+	var prefix = $('#region-selector').val() + '-';
+	$('input[name=topics]:checked').each( function(){
+			//Remove everything up to the last hyphen
+			//Old prefix can be retained in cache.
+			var value = $(this).val();
+			var parts = value.split("-");
+			value = parts[parts.length-1]
+			//Replace with new prefix.
+			$(this).val( prefix+value );
+	});
+});
 </script>
 
 {% endblock pageJS %}
