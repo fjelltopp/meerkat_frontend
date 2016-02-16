@@ -74,8 +74,7 @@
          $('#number_of_consultations').text(category['reg_2'].year);
          $('#number_of_cases').text(category['tot_1'].year);
          $('#number_of_alerts').text(alerts.num_alerts);
-         $('#number_of_facilities').text(map.length);
-
+         $('#number_of_facilities').text(Object.keys(map).length);
 		 });	 
      });
 	});
