@@ -8,7 +8,9 @@ input.submit:hover{
 
 form.subscribe,
 form.verify{
-	input.submit:active{
+	input.submit:active,
+   input.submit:visited,
+	input.submit:focus{
 		background: $highlight;
 		border: $highlight 1px solid;
 	}
@@ -38,6 +40,7 @@ form.subscribe{
 		margin-top:20px;
 		display: inline-block; 
 		padding: 10px 15px;
+		border: $blue 1px solid;
 	}
 
 	@media (min-width: 768px) {
