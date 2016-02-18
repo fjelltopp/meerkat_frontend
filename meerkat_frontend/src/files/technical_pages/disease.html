@@ -141,17 +141,21 @@ function drawDiseaseContent( varID, locID ){
 function drawDiseaseTable( varID, locID ){
 
 	$.getJSON( api_root + '/variable/' + varID, function( data ){
+
+		console.log( data )
 		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
 		if( data.category.indexOf( 'Chapter' ) > -1 ){
 
 			$.getJSON( api_root+"/aggregate_category/" + data.name + "/" + locID, function( subdiseases ){
 				$.getJSON( api_root+"/variables/" + data.name, function( variables ){
 
+					console.log( subdiseases );
+
 					var title = data.name.charAt(0).toUpperCase() + data.name.slice(1);
 					var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), "ICD10 Sub-diseases" );
 					dataObject = stripEmptyRecords( dataObject );
 
-					drawTable( 'disease-table', dataObject, true );
+					drawTable( 'disease-table', dataObject, true, 'loadDisease' );
 				});
 			});
 		}
