@@ -1,0 +1,87 @@
+<div class="top-bar row">
+
+	<div class="location-box box">
+		<a href="#menu-toggle" id="menu-toggle">
+		<div class="location-box__label">
+			<div>Location:</div>
+			<div id="location-title">Not Loaded</div>
+		</div>
+		<span class="glyphicon glyphicon-chevron-right"></span>
+		<span class="glyphicon glyphicon-chevron-left hidden"></span>
+		</a>
+	</div>
+	<div class="tab-title hidden-xs col-sm-5 col-md-6">
+		Non Communicable Diseases
+	</div>
+	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+		Date not loaded.
+	</div>
+
+</div>
+
+<div class="demographics toggled" id="wrapper">
+
+	<div id="sidebar-wrapper" >
+		<div id="location-selector" class="location-selector">
+			Locations not loaded
+		</div>
+	</div>
+
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						Non Communicable Diseases
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('disease-table','ncds.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
+					</div>
+					<div class="chartBox__content">
+						<div id="nc_disease-bar-chart" class="chart"></div>
+						<div id="nc_disease-table" class="table"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+$("#menu-toggle").click(function(e) {
+	e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+	$(".location-box .glyphicon").toggleClass( "hidden" );
+
+	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+	var transitionEvent = whichTransitionEvent();
+	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+		$(window).resize();
+	});
+});
+$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+//Every tab needs a draw charts function that is called when loading a new location.
+function drawCharts( locID ){
+
+	//Keep week abstracted out of the chart drawing process.
+	//In case we want the use to eb able to select the weeks to view.
+	var week = get_epi_week().toString();
+
+	categorySummation({ category: 'ncd_tab', 
+	                    locID: locID,
+	                    week: week, 
+	                    tableID: 'nc_disease-table', 
+	                    barID: 'nc_disease-bar-chart',
+	                    percent: true,
+	                    linkFunction: 'loadDisease',
+                            strip: true,
+                            title: 'Communicable Disease'
+	                   });
+
+}
+</script>
