@@ -1,17 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'messaging/base.html' %}
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/intlTelInput.css') }}" />
-{% endblock %}
-
-{% block menu %}
-<ul class="nav navbar-nav">
-  <li><a href="/technical/" >Dashboard</a></li>
-  <li class="active"><a href="/reports/" >Reports</a></li>
-  <li><a href="#" >Explore Data</a></li>
-  <li><a href="#" >Download Data</a></li>
-  <li><a href="/" >Log out</a></li>
-</ul>
 {% endblock %}
 
 {% block body %}
@@ -32,7 +22,7 @@
 					<div class="chartBox__heading">
 						Subscribe to our mailing lists...
 					</div>
-					<div class="chartBox__content"    
+					<div class="chartBox__content" >  
 						<div class="intro">
 						Use the form below to subscribe to our e-mail and SMS notification system.   You will receive alerts from the surveillance data that are tailored to your region and diseases of interest. You can also receive our monthly reports delivered straight to your inbox as soon as they are published. 
 						</div>

@@ -34,7 +34,7 @@ def requires_auth():
 
 # THE SUBSCRIBING PROCESS
 # Stage 1: Fill out a subscription form.
-@messaging.route('/subscribe')
+@messaging.route('/')
 def subscribe():
     return render_template('messaging/subscribe.html',
                            content=current_app.config['MESSAGING_CONFIG'],
@@ -61,7 +61,7 @@ def subscribed():
     url = request.url_root + "messaging/subscribe/verify/"+subscribe_response['subscriber_id'];
 
     message = ( "Dear " + data['first_name'] + " " + data['last_name']+",\n\n"
-                "Thankyou for subscribing to receive Meerkat Health Surveillance notifications from "
+                "Thank you for subscribing to receive Meerkat Health Surveillance notifications from "
                 + current_app.config['MESSAGING_CONFIG']['messages']['country'] + ".\n\nPlease verify your "
                 "contact details by copying and pasting the following url into your address bar:\n" 
                 + url + "\n\nBest wishes,\nThe Meerkat Health Surveillance team" )
@@ -69,8 +69,10 @@ def subscribed():
     email = {
         'email': data['email'],
         'subject': "Please verify your contact details",
-        'message': message
+        'message': message,
+        'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
     }
+
     email_response = c.hermes('/email', 'PUT', email)
     current_app.logger.warning('Response is: ' + str(email_response))
 
@@ -137,7 +139,8 @@ def verified(subscriber_id):
         'email': subscriber['email'],
         'subject': "Your subscription has been successful",
         'message': message,
-        'html': html
+        'html': html,
+        'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
     }
 
     email_response = c.hermes('/email', 'PUT', email)
@@ -190,7 +193,7 @@ def set_code(subscriber_id, sms):
     code = round(random.random()*9999)
     data = {
         'sms': sms,
-        'message': 'Thankyou for subscribing to Meerkat Health Surveillance notifications. ' +
+        'message': 'Thank you for subscribing to Meerkat Health Surveillance notifications. ' +
             'Your verification code is: ' + str(code) + '. Please follow the instructions in the ' + 
             'email we sent you to verify your contact details.'
     }
