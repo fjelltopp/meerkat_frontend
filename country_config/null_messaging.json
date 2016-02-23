@@ -2,12 +2,15 @@
 	"subscribe":{
 		"pre_countries":["gb","us"],
 		"topic_prefix": "null-",
-      "reports":[{
+        "reports":[{
 				"name":"Public Health Profile",
 				"id":"ph"
 			},{
 				"name":"Communicable Disease",
 				"id":"cd"
+			},{
+				"name":"Non-communicable Disease",
+				"id":"ncd"
 			}
 		]
 	},
