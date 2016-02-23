@@ -168,7 +168,7 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		             "selected='selected'>";
       regSel += "All Regions </option>"  
       for( var k in locations.nodes ){
-			regSel += "<option name='regions' value='{{content.subscribe.topic_prefix}}" +
+			regSel += "<option name='regions' value='" +
                    locations.nodes[k].id + "' >" + locations.nodes[k].text + "</option>"; 
 		}
       regSel += "</select>";
@@ -201,8 +201,6 @@ function toggleAll(source){
 
 //Check that the two e-mail address are equal
 function checkEqual(input) {
-	console.log( input.value )
-	console.log( document.getElementById('email').value )
 	if (input.value != document.getElementById('email').value ) {
 		input.setCustomValidity('Emails Must be Matching.');
 		return false;
@@ -231,6 +229,7 @@ function checkSelected(input) {
 }
 
 $("#subscribe-form").submit(function() {
+
 	//Check validity
 	if( !checkSelected( document.getElementById('all-diseases') ) ){
 		checked = $('input[name=topics]').each( function(){
@@ -238,23 +237,36 @@ $("#subscribe-form").submit(function() {
 		});		
 		return false;
 	}
+
 	//Get the formatted sms number, if it's not there remove it
-   var number = telInput.intlTelInput("getNumber")
+	var number = telInput.intlTelInput("getNumber")
 	if( number ){
 		telInput.val(number);
 	}else{
 		telInput.remove();
 	}
+
 	//Assemble the topic IDs
-	var prefix = $('#region-selector').val() + '-';
+	var prefix = '{{content.subscribe.topic_prefix}}';
+	//Get the region		   
+	var reg = $('#region-selector').val()
+
 	$('input[name=topics]:checked').each( function(){
-			//Remove everything up to the last hyphen
-			//Old prefix can be retained in cache.
-			var value = $(this).val();
-			var parts = value.split("-");
-			value = parts[parts.length-1]
-			//Replace with new prefix.
-			$(this).val( prefix+value );
+
+		//Remove everything up to the last hyphen
+		//Old prefix can be retained in cache.
+		var value = $(this).val();
+		var parts = value.split("-");
+		value = parts[parts.length-1]
+
+		//Replace with new prefix.
+		//Only add the region to disease topics (not needed for reports).
+		if( $(this).hasClass('reports') ){
+			$(this).val( prefix + value );
+		}else{
+			$(this).val( prefix + reg + "-" + value );
+		}
+		
 	});
 });
 </script>

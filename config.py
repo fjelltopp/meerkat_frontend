@@ -29,7 +29,6 @@ class Config(object):
     HERMES_API_KEY = from_env( 'HERMES_API_KEY', 'test-hermes' )
     USERNAME = "admin"
     PASSWORD = "secret"
-
     
 
 class Production(Config):
