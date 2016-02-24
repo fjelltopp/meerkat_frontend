@@ -26,7 +26,9 @@ class Config(object):
     INTERNAL_API_ROOT = 'http://dev_nginx_1/api'
     EXTERNAL_API_ROOT = '/api'
     HERMES_ROOT = 'https://hermes.aws.emro.info'
-    HERMES_API_KEY = from_env( 'HERMES_API_KEY', 'test-hermes' )
+    HERMES_API_KEY = from_env('HERMES_API_KEY', 'test-hermes' )
+    USE_BASIC_AUTH = from_env('USE_BASIC_AUTH', True)
+    AUTH = {}
     USERNAME = "admin"
     PASSWORD = "secret"
     
