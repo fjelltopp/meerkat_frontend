@@ -1,0 +1,218 @@
+{
+    "data": {
+        "alerts_total": 56,
+        "clinic_num": 4,
+        "demographics": [
+            {
+                "age": "<5",
+                "female": {
+                    "percent": 0.0,
+                    "quantity": 0
+                },
+                "male": {
+                    "percent": 0.0,
+                    "quantity": 0
+                }
+            },
+            {
+                "age": "5-9",
+                "female": {
+                    "percent": 50.0,
+                    "quantity": 2
+                },
+                "male": {
+                    "percent": 50.0,
+                    "quantity": 2
+                }
+            },
+            {
+                "age": "10-14",
+                "female": {
+                    "percent": 50.0,
+                    "quantity": 2
+                },
+                "male": {
+                    "percent": 50.0,
+                    "quantity": 2
+                }
+            },
+            {
+                "age": "15-19",
+                "female": {
+                    "percent": 60.0,
+                    "quantity": 3
+                },
+                "male": {
+                    "percent": 40.0,
+                    "quantity": 2
+                }
+            },
+            {
+                "age": "20-59",
+                "female": {
+                    "percent": 50.0,
+                    "quantity": 11
+                },
+                "male": {
+                    "percent": 50.0,
+                    "quantity": 11
+                }
+            },
+            {
+                "age": ">60",
+                "female": {
+                    "percent": 51.61290322580645,
+                    "quantity": 16
+                },
+                "male": {
+                    "percent": 48.38709677419355,
+                    "quantity": 15
+                }
+            }
+        ],
+        "epi_week_date": "2016-02-23T15:33:51.914044",
+        "epi_week_num": 8,
+        "gender": [
+            {
+                "percent": 46.57534246575342,
+                "quantity": 34,
+                "title": "Female"
+            },
+            {
+                "percent": 43.83561643835616,
+                "quantity": 32,
+                "title": "Male"
+            }
+        ],
+        "global_clinic_num": 4,
+        "morbidity_communicable_cd_tab": [
+            {
+                "percent": 17.857142857142858,
+                "quantity": 10,
+                "title": "Polio"
+            },
+            {
+                "percent": 16.071428571428573,
+                "quantity": 9,
+                "title": "Measles"
+            },
+            {
+                "percent": 14.285714285714285,
+                "quantity": 8,
+                "title": "Cholera"
+            },
+            {
+                "percent": 12.5,
+                "quantity": 7,
+                "title": "Diphtheria"
+            },
+            {
+                "percent": 10.714285714285714,
+                "quantity": 6,
+                "title": "Whooping cough"
+            }
+        ],
+        "morbidity_communicable_icd": [
+            {
+                "percent": 50.0,
+                "quantity": 38,
+                "title": "Other bacterial diseases"
+            },
+            {
+                "percent": 19.736842105263158,
+                "quantity": 15,
+                "title": "Viral infections of the central nervous system"
+            },
+            {
+                "percent": 18.421052631578945,
+                "quantity": 14,
+                "title": "Intestinal infectious diseases"
+            },
+            {
+                "percent": 11.842105263157894,
+                "quantity": 9,
+                "title": "Viral infections characterized by skin and mucous membrane lesions"
+            }
+        ],
+        "nationality": [
+            {
+                "percent": 56.060606060606055,
+                "quantity": 37,
+                "title": "Demo"
+            },
+            {
+                "percent": 43.93939393939394,
+                "quantity": 29,
+                "title": "Null Island"
+            }
+        ],
+        "patient_status": [
+            {
+                "percent": 60.60606060606061,
+                "quantity": 40,
+                "title": "Refugee"
+            },
+            {
+                "percent": 39.39393939393939,
+                "quantity": 26,
+                "title": "Jordanian"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Other"
+            }
+        ],
+        "percent_cases_female": 46.57534246575342,
+        "percent_cases_lt_5yo": 0.0,
+        "percent_cases_male": 43.83561643835616,
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Demo",
+        "public_health_indicators": [
+            {
+                "percent": null,
+                "quantity": 73,
+                "title": "Cases Reported"
+            },
+            {
+                "percent": 63.013698630136986,
+                "quantity": 46,
+                "title": "Laboratory results recorded"
+            },
+            {
+                "percent": 63.013698630136986,
+                "quantity": 46,
+                "title": "Prescribing practice recorded"
+            },
+            {
+                "percent": 100,
+                "quantity": 56,
+                "title": "Alerts generated"
+            },
+            {
+                "percent": 71.42857142857143,
+                "quantity": 40,
+                "title": "Alerts investigated"
+            }
+        ],
+        "reporting_sites": [
+            {
+                "percent": 78.08219178082192,
+                "quantity": 57,
+                "title": "Region 1"
+            },
+            {
+                "percent": 21.91780821917808,
+                "quantity": 16,
+                "title": "Region 2"
+            }
+        ],
+        "total_cases": 73
+    },
+    "meta": {
+        "generation_timestamp": "2016-02-24T15:33:51.914230",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "d530da23-ed83-46b9-ba68-cd80a1acdeda"
+    }
+}
