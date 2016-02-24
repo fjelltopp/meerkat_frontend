@@ -45,6 +45,16 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         self.assertIn(rv.status_code, [200])
         self.assertIn(b"5,941 consultations", rv.data)
         self.assertIn(b"Viral infections characterized by skin and mucous membrane lesions", rv.data)
+    def test_reports_cd_pub_health(self):
+        rv = self.app.get('/reports/test/cd_public_health/',headers=self.header)
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b"73 cases", rv.data)
+        self.assertIn(b"Viral infections characterized by skin and mucous membrane lesions", rv.data)
+    def test_reports_ncd_pub_health(self):
+        rv = self.app.get('/reports/test/ncd_public_health/',headers=self.header)
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b"64 cases", rv.data)
+        self.assertIn(b"Other disorders of glucose regulation and pancreatic internal secretion", rv.data)
     def test_reports_cd(self):
         rv = self.app.get('/reports/test/communicable_diseases/',headers=self.header)
         self.assertIn(rv.status_code, [200])

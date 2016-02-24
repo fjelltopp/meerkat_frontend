@@ -1,0 +1,197 @@
+{
+    "data": {
+        "clinic_num": 4,
+        "demographics": [
+            {
+                "age": "<5",
+                "female": {
+                    "percent": 0.0,
+                    "quantity": 0
+                },
+                "male": {
+                    "percent": 0.0,
+                    "quantity": 0
+                }
+            },
+            {
+                "age": "5-9",
+                "female": {
+                    "percent": 100.0,
+                    "quantity": 4
+                },
+                "male": {
+                    "percent": 0.0,
+                    "quantity": 0
+                }
+            },
+            {
+                "age": "10-14",
+                "female": {
+                    "percent": 100.0,
+                    "quantity": 1
+                },
+                "male": {
+                    "percent": 0.0,
+                    "quantity": 0
+                }
+            },
+            {
+                "age": "15-19",
+                "female": {
+                    "percent": 50.0,
+                    "quantity": 1
+                },
+                "male": {
+                    "percent": 50.0,
+                    "quantity": 1
+                }
+            },
+            {
+                "age": "20-59",
+                "female": {
+                    "percent": 46.15384615384615,
+                    "quantity": 12
+                },
+                "male": {
+                    "percent": 53.84615384615385,
+                    "quantity": 14
+                }
+            },
+            {
+                "age": ">60",
+                "female": {
+                    "percent": 60.0,
+                    "quantity": 18
+                },
+                "male": {
+                    "percent": 40.0,
+                    "quantity": 12
+                }
+            }
+        ],
+        "epi_week_date": "2016-02-23T15:29:26.711608",
+        "epi_week_num": 8,
+        "gender": [
+            {
+                "percent": 56.25,
+                "quantity": 36,
+                "title": "Female"
+            },
+            {
+                "percent": 42.1875,
+                "quantity": 27,
+                "title": "Male"
+            }
+        ],
+        "global_clinic_num": 4,
+        "morbidity_non_communicable_icd": [
+            {
+                "percent": 24.615384615384617,
+                "quantity": 16,
+                "title": "Other disorders of glucose regulation and pancreatic internal secretion"
+            },
+            {
+                "percent": 21.53846153846154,
+                "quantity": 14,
+                "title": "Malnutrition"
+            },
+            {
+                "percent": 15.384615384615385,
+                "quantity": 10,
+                "title": "Disorders of other endocrine glands"
+            },
+            {
+                "percent": 12.307692307692308,
+                "quantity": 8,
+                "title": "Other nutritional deficiencies"
+            },
+            {
+                "percent": 10.76923076923077,
+                "quantity": 7,
+                "title": "Diabetes mellitus"
+            }
+        ],
+        "morbidity_non_communicable_ncd_tab": [
+            {
+                "percent": 70.0,
+                "quantity": 7,
+                "title": "Diabetes mellitus"
+            },
+            {
+                "percent": 30.0,
+                "quantity": 3,
+                "title": "Bronchitis, not specified as acute or chronic"
+            }
+        ],
+        "nationality": [
+            {
+                "percent": 55.55555555555556,
+                "quantity": 35,
+                "title": "Demo"
+            },
+            {
+                "percent": 44.44444444444444,
+                "quantity": 28,
+                "title": "Null Island"
+            }
+        ],
+        "patient_status": [
+            {
+                "percent": 57.14285714285714,
+                "quantity": 36,
+                "title": "Jordanian"
+            },
+            {
+                "percent": 42.857142857142854,
+                "quantity": 27,
+                "title": "Refugee"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Other"
+            }
+        ],
+        "percent_cases_female": 56.25,
+        "percent_cases_lt_5yo": 0.0,
+        "percent_cases_male": 42.1875,
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Demo",
+        "public_health_indicators": [
+            {
+                "percent": null,
+                "quantity": 64,
+                "title": "Cases Reported"
+            },
+            {
+                "percent": 51.5625,
+                "quantity": 33,
+                "title": "Laboratory results recorded"
+            },
+            {
+                "percent": 57.8125,
+                "quantity": 37,
+                "title": "Prescribing practice recorded"
+            }
+        ],
+        "reporting_sites": [
+            {
+                "percent": 70.3125,
+                "quantity": 45,
+                "title": "Region 1"
+            },
+            {
+                "percent": 29.6875,
+                "quantity": 19,
+                "title": "Region 2"
+            }
+        ],
+        "total_cases": 64
+    },
+    "meta": {
+        "generation_timestamp": "2016-02-24T15:29:26.712145",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "3d601007-4651-4b35-b961-664a1e6f2586"
+    }
+}
