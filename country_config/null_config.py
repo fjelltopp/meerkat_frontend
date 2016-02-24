@@ -54,6 +54,20 @@ REPORT_LIST = {
             'map_centre': [0, 0, 7],
             'test_json_payload': 'meerkat_frontend/apiData/reports_public_health.json',
         },
+        'cd_public_health': {
+            'title': 'Communicable Disease Profile Report',
+            'template': 'reports/report_cd_public_health_profile.html',
+            'api_name': 'cd_public_health',
+            'map_centre': [0, 0, 7],
+            'test_json_payload': 'meerkat_frontend/apiData/reports_cd_public_health.json',
+        },
+       'ncd_public_health': {
+            'title': 'Non-Communicable Disease Profile Report',
+            'template': 'reports/report_ncd_public_health_profile.html',
+            'api_name': 'ncd_public_health',
+            'map_centre': [0, 0, 7],
+            'test_json_payload': 'meerkat_frontend/apiData/reports_ncd_public_health.json',
+        },
         'communicable_diseases': {
             'title': 'Communicable Diseases Report',
             'template': 'reports/report_communicable_diseases.html',

@@ -19,6 +19,24 @@
 			"week":50
 		},
 		"number":3
+  },{
+      "name":"Communicable Disease Profile Report",
+		"introduction":"This report summarises the state of communicable disease public health in the selected location.",
+      "url":"/reports/cd_public_health",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
+		"number":3
+  },{
+      "name":"Non-Communicable Disease Profile Report",
+		"introduction":"This report summarises the state of non-communicable disease public health in the selected location.",
+      "url":"/reports/ncd_public_health",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
+		"number":3
     },{
       "name":"Communicable Disease",
 		"introduction":"This report tracks the spread of communicable diseases across the selected location.",

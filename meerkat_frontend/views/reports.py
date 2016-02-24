@@ -46,7 +46,7 @@ def test(report):
         except json.JSONDecodeError:
             abort(500)
         data["flag"] = current_app.config["FLAGG_ABR"]
-        if report == 'public_health':
+        if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
             # Extra parsing for natural language bullet points
             extras = {"patient_status": {}}
             for item in data['data']['patient_status']:
@@ -220,7 +220,7 @@ def report(report=None, location=None, year=None, week=None):
 
         data = c.api(api_request, api_key=True)
         data["flag"] = current_app.config["FLAGG_ABR"]
-        if report == 'public_health':
+        if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
             # Extra parsing for natural language bullet points
             extras = {"patient_status": {}}
             for item in data['data']['patient_status']:
