@@ -1,0 +1,36 @@
+.download{
+	.col-centered{
+		text-align: left;
+	}
+}
+
+#data-download{
+
+	input.submit:active,
+    input.submit:visited,
+	input.submit:focus{
+		background: $highlight;
+		border: $highlight 1px solid;
+	}
+
+   .check{
+		padding: 0px 20px;
+		position: relative;
+
+		input{
+			position: absolute;
+			left: 0px;			
+		}
+
+	}
+
+	.row{
+		margin-bottom: 15px;
+	}
+
+	.chartBox{
+		min-height: 0px;
+	}
+
+}
+

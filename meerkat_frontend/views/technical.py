@@ -47,3 +47,5 @@ def disease( diseaseID='tot_1', locID=1 ):
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState,
                            week=c.api('/epi_week'))
+
+

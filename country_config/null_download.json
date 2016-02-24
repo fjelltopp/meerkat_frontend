@@ -1,0 +1,60 @@
+{
+  "application":"download",
+
+  "titles":{
+    "full":"Null Island <br> Public Health Surveillance",
+    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
+    "mob_nav":"Health Surveillance"
+  },
+
+  "api_key": "test-api", 
+
+  "intro":"Use this page to download raw data for use in your own analysis. Select which form's data you would like to download, and optionally further select which attributes you would like to download. ",
+
+  "forms":{
+    "case":{
+      "name":"Case Report",
+      "default":[
+        "pt1./status",
+        "start",
+        "index"
+      ]
+    },
+
+    "alert":{
+      "name":"Alert",
+      "default":[
+        "SubmissionDate",
+        "deviceid",
+        "clinic"
+      ]
+    },
+
+    "register":{
+      "name":"Register",
+      "default":[
+        "surveillance./afp",
+        "consult./consultations",
+        "start"
+      ]
+    }
+  },
+
+  "flag":"ni.png",
+
+  "footer":{
+    "logos":{
+		 "who":"who-logo-white-no-text.svg",
+		 "country_partner":"ni.png",
+		 "partners":[]
+    },
+
+    "partners":[
+      "The World Health Organisation",
+		"The Ministry of Health, Null Island"
+    ],
+
+    "email":"emwrojor@who.int"
+  }
+}
+

@@ -13,6 +13,7 @@ from .views.homepage import homepage
 from .views.technical import technical
 from .views.reports import reports
 from .views.messaging import messaging
+from .views.download import download
 
 # Create the Flask app
 app = Flask(__name__)
@@ -34,11 +35,15 @@ app.config['REPORTS_CONFIG'] = json.loads( open(path).read())
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['MESSAGING_CONFIG']
 app.config['MESSAGING_CONFIG'] = json.loads( open(path).read())
 
+path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['DOWNLOAD_CONFIG']
+app.config['DOWNLOAD_CONFIG'] = json.loads( open(path).read())
+
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')
 app.register_blueprint(technical, url_prefix='/technical')
 app.register_blueprint(reports, url_prefix='/reports')
 app.register_blueprint(messaging, url_prefix='/messaging')
+app.register_blueprint(download, url_prefix='/download')
 
 @app.template_filter('slugify')
 def slug(s):
