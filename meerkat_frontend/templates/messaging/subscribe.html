@@ -9,7 +9,7 @@
 <div class="container page-content">
 	<div class="top-bar row">
 		<div class="tab-title less-padding-col">
-			Meerkat Notifications 
+			Notifications Service
 		</div>
 		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 			Date not loaded.
@@ -41,12 +41,13 @@
 									</div>
 									<div class="row">
 										<label class="col-xs-12 col-sm-4" >E-mail*</label>
-										<input id='email' class="col-xs-12 col-sm-8" type="email" name="email" required>
+										<input id='email' class="col-xs-12 col-sm-8" type="email" name="email"
+										       required oninput='checkEqual()'>
 									</div>
 									<div class="row">
 									   <label class="col-xs-12 col-sm-4" >Re-type E-mail*</label>
-										<input class ="col-xs-12 col-sm-8" type="email"
-										       required oninput='checkEqual(this)'>
+										<input class ="col-xs-12 col-sm-8" type="email" id="email2"
+										       required oninput='checkEqual()'>
 									</div>
 									<div class="row">
 									   <label class="col-xs-12 col-sm-4" >SMS Number</label>
@@ -62,6 +63,7 @@
 									<div id="region-select"> </div>
 								</div>
 							</div>
+							<input type="hidden" name="country" value="{{content.messages.country}}">
 							<div class="right-part col-sm-12 col-md-6 more-padding-col">
 								<div id="disease-select"> </div>
 								<div class="submit row">
@@ -122,14 +124,12 @@ telInput.intlTelInput({
 });
 
 var reset = function(){
-	console.log( "keyup change called");
 	telInput[0].setCustomValidity('');
 };
 
 telInput.blur(function() {
 	reset()
 	if ($.trim(telInput.val())) {
-		console.log('has value');
 		if (telInput.intlTelInput("isValidNumber")) {
 			telInput[0].setCustomValidity('');
 		} else {
@@ -164,7 +164,7 @@ $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		$('#disease-select').html(disSel);
 
 		//Draw the region selector
-      var regSel = "<select id='region-selector'><option value='{{content.subscribe.topic_prefix}}1'"+
+      var regSel = "<select id='region-selector'><option value='1'"+
 		             "selected='selected'>";
       regSel += "All Regions </option>"  
       for( var k in locations.nodes ){
@@ -200,13 +200,17 @@ function toggleAll(source){
 //FORM VALIDATION METHODS
 
 //Check that the two e-mail address are equal
-function checkEqual(input) {
-	if (input.value != document.getElementById('email').value ) {
-		input.setCustomValidity('Emails Must be Matching.');
+function checkEqual( ) {
+
+	var email1 = document.getElementById('email');
+	var email2 = document.getElementById('email2');
+
+	if ( email2.value != email1.value ) {
+		email2.setCustomValidity('Emails Must be Matching.');
 		return false;
 	} else {
 		//Input is valid -- reset the error message
-		input.setCustomValidity('');
+		email2.setCustomValidity('');
 		return true;
 	}
 }
@@ -215,7 +219,6 @@ function checkEqual(input) {
 function checkSelected(input) {
 
 	checked = $('input[name=topics]:checked').length;
-	console.log(checked)
 	if(!checked) {
 		input.setCustomValidity('You must tick at least one checkbox.');
 		return false;
@@ -228,46 +231,57 @@ function checkSelected(input) {
 	}
 }
 
-$("#subscribe-form").submit(function() {
+$("#subscribe-form").submit(function(event) {
+
+	var valid = true;
 
 	//Check validity
 	if( !checkSelected( document.getElementById('all-diseases') ) ){
 		checked = $('input[name=topics]').each( function(){
 			this.setCustomValidity('You must tick at least one checkbox.');
 		});		
-		return false;
+		valid = false;
 	}
 
-	//Get the formatted sms number, if it's not there remove it
-	var number = telInput.intlTelInput("getNumber")
-	if( number ){
-		telInput.val(number);
-	}else{
-		telInput.remove();
-	}
+	if( !checkEqual() ) valid = false;
 
-	//Assemble the topic IDs
-	var prefix = '{{content.subscribe.topic_prefix}}';
-	//Get the region		   
-	var reg = $('#region-selector').val()
+	if( valid ){	
 
-	$('input[name=topics]:checked').each( function(){
-
-		//Remove everything up to the last hyphen
-		//Old prefix can be retained in cache.
-		var value = $(this).val();
-		var parts = value.split("-");
-		value = parts[parts.length-1]
-
-		//Replace with new prefix.
-		//Only add the region to disease topics (not needed for reports).
-		if( $(this).hasClass('reports') ){
-			$(this).val( prefix + value );
+		//Get the formatted sms number, if it's not there remove it
+		var number = telInput.intlTelInput("getNumber")
+		if( number ){
+			telInput.val(number);
 		}else{
-			$(this).val( prefix + reg + "-" + value );
+			telInput.remove();
 		}
-		
-	});
+
+		//Assemble the topic IDs
+		var prefix = '{{content.subscribe.topic_prefix}}';
+		//Get the region		   
+		var reg = $('#region-selector').val()
+
+		$( 'input[name=topics]:checked' ).each( function(){
+
+			//Remove everything up to the last hyphen
+			//Old prefix can be retained in cache.
+			var value = $(this).val();
+			var parts = value.split("-");
+			value = parts[parts.length-1]
+
+			//Replace with new prefix.
+			//Only add the region to disease topics (not needed for reports).
+			if( $(this).hasClass('reports') ){
+				$(this).val( prefix + value );
+			}else{
+				$(this).val( prefix + reg + "-" + value );
+			}	
+
+		});
+
+		return;
+	}
+
+	event.preventDefault();
 });
 </script>
 

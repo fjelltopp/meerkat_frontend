@@ -61,10 +61,12 @@ def subscribed():
     url = request.url_root + "messaging/subscribe/verify/"+subscribe_response['subscriber_id'];
 
     message = ( "Dear " + data['first_name'] + " " + data['last_name']+",\n\n"
-                "Thank you for subscribing to receive Meerkat Health Surveillance notifications from "
+                "Thank you for subscribing to receive public health surveillance notifications from "
                 + current_app.config['MESSAGING_CONFIG']['messages']['country'] + ".\n\nPlease verify your "
                 "contact details by copying and pasting the following url into your address bar:\n" 
-                + url + "\n\nBest wishes,\nThe Meerkat Health Surveillance team" )
+                + url + "\n\nBest wishes,\nThe " +
+                current_app.config['MESSAGING_CONFIG']['messages']['country'] + 
+                " Public Health Surveillance team" )
 
     email = {
         'email': data['email'],
@@ -112,28 +114,29 @@ def verified(subscriber_id):
     #Get the subscriber
     subscriber = c.hermes( '/subscribe/'+subscriber_id, 'GET' )['Item']
 
+    country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+
     # Send a confirmation e-mail with the unsubscribe link.
     message = ( "Dear " + subscriber['first_name'] + " " + subscriber['last_name']+",\n\n"
-                "Thank you for subscribing to receive Meerkat Health Surveillance notifications from "
-                + current_app.config['MESSAGING_CONFIG']['messages']['country'] + 
-                ".  We can confirm that your contact details have been "
+                "Thank you for subscribing to receive public health surveillance notifications from "
+                + country + ".  We can confirm that your contact details have been "
                 "successfully verified.\n\nIn every e-mail we send you, we should provide a link that "
                 "will enable you to unsubscribe from receiving our notifications. If you wish to "
                 "unsubscribe now copy and paste the following url into your address bar:\n"
                 + current_app.config['HERMES_ROOT'] + "/unsubscribe/" + subscriber_id +
                 "\n\nDo not hesitate to get in touch should you have any questions:"
                 + current_app.config['MESSAGING_CONFIG']['messages']['contact'] + "\n\nBest wishes,\n"
-                "The Meerkat Health Surveillance team" )
+                "The " + country + " Public Health Surveillance team" )
 
     html = ( "<p>Dear " + subscriber['first_name'] + " " + subscriber['last_name'] + ",</p>"
-             "<p>Thank you for subscribing to receive Meerkat Health Surveillance notifications from "
-             + current_app.config['MESSAGING_CONFIG']['messages']['country'] +  ".  We can confirm that your "
+             "<p>Thank you for subscribing to receive public health surveillance notifications from "
+             + country +  ".  We can confirm that your "
              "contact details have been successfully verified.</p><p>In every e-mail we send you, we "
              "should provide a link that will enable you to unsubscribe from receiving our notifications.  " 
              "If you wish to unsubscribe now <a href='" + current_app.config['HERMES_ROOT'] + "/unsubscribe/" 
              + subscriber_id + "'>click here.</a></p><p>Do not hesitate to get in touch should you have "
              "any questions: " + current_app.config['MESSAGING_CONFIG']['messages']['contact'] + 
-             "</p><p>Best wishes,<br>The Meerkat Health Surveillance team</p>" )
+             "</p><p>Best wishes,<br>The " + country + " Public Health Surveillance team</p>" )
 
     email = {
         'email': subscriber['email'],
@@ -193,7 +196,8 @@ def set_code(subscriber_id, sms):
     code = round(random.random()*9999)
     data = {
         'sms': sms,
-        'message': 'Thank you for subscribing to Meerkat Health Surveillance notifications. ' +
+        'message': 'Thank you for subscribing to receive public health surveillance notifications from ' +
+			current_app.config['MESSAGING_CONFIG']['messages']['country'] + '. ' +
             'Your verification code is: ' + str(code) + '. Please follow the instructions in the ' + 
             'email we sent you to verify your contact details.'
     }
