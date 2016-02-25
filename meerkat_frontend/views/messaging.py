@@ -68,10 +68,19 @@ def subscribed():
                 current_app.config['MESSAGING_CONFIG']['messages']['country'] + 
                 " Public Health Surveillance team" )
 
+    html = ( "<p>Dear " + data['first_name'] + " " + data['last_name']+",</p>"
+             "<p>Thank you for subscribing to receive public health surveillance notifications from "
+             + current_app.config['MESSAGING_CONFIG']['messages']['country'] + ".</p><p>Please "
+             "verify your contact details by <a href='" + url + "' target='_blank'>clicking here</a>." 
+             "</p><p>Best wishes,<br>The "
+             + current_app.config['MESSAGING_CONFIG']['messages']['country'] + 
+             " Public Health Surveillance team</p>" )
+
     email = {
         'email': data['email'],
         'subject': "Please verify your contact details",
         'message': message,
+		'html':html,
         'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
     }
 
