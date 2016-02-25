@@ -49,14 +49,14 @@
 
   "footer":{
     "logos":{
-		  "who":"who-logo-white-no-text.svg",
-		  "country_partner":"ni.png",
-		  "partners":[]
+      "who":"who-logo-white-no-text.svg",
+      "country_partner":"ni.png",
+      "partners":[]
     },
 
     "partners":[
       "The World Health Organisation",
-		  "The Ministry of Health, Null Island"
+      "The Ministry of Health, Null Island"
     ],
 
     "email":"emwrojor@who.int"

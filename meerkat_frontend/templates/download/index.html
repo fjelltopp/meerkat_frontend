@@ -2,12 +2,12 @@
 
 {% block menu %}
 <ul class="nav navbar-nav">
-  <li><a href="#" >Dashboard</a></li>
-  <li><a href="/reports/" >Reports</a></li>
-  <li><a href="/messaging/" >Notifications</a></li>
-  <li><a href="#" >Explore Data</a></li>
-  <li class="active"><a href="/download/" >Download Data</a></li>
-  <li><a href="/" >Log out</a></li>
+	<li><a href="#" >Dashboard</a></li>
+	<li><a href="/reports/" >Reports</a></li>
+	<li><a href="/messaging/" >Notifications</a></li>
+	<li><a href="#" >Explore Data</a></li>
+	<li class="active"><a href="/download/" >Download Data</a></li>
+	<li><a href="/" >Log out</a></li>
 </ul>
 {% endblock %}
 
@@ -29,9 +29,9 @@
 					<div class="chartBox__heading">
 						Select the data you wish to download
 					</div>
-					<div class="chartBox__content" >    
+					<div class="chartBox__content" >
 						<div class="intro">
-                        	{{content.intro}}
+							{{content.intro}}
 						</div>
 						<div class="breaker"></div>
 						<div class="row">
@@ -105,7 +105,7 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
-  
+
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
@@ -151,7 +151,7 @@ function selectAll(){
 
 function selectNone(){	
 	$('input[name=attributes]').each(function(){
-	  this.checked = false;
+		this.checked = false;
 	});
 	checkSelected( );
 }
