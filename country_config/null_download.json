@@ -15,28 +15,33 @@
     "case":{
       "name":"Case Report",
       "default":[
-        "pt1./status",
-        "start",
-        "index"
+        "today",
+        "clinic",
+        "district",
+        "region",
+        "intro./visit_type",
+        "intro./module",
+        "pt./visit_date",
+        "pt1./status,pt1./gender",
+        "pt1./age,nationality",
+        "child_age",
+        "vaccination",
+        "vaccination_type",
+        "pc_mh",
+        "smoke_ever",
+        "smoke_now",
+        "icd_code"
       ]
     },
 
     "alert":{
       "name":"Alert",
-      "default":[
-        "SubmissionDate",
-        "deviceid",
-        "clinic"
-      ]
+      "default":[]
     },
 
     "register":{
       "name":"Register",
-      "default":[
-        "surveillance./afp",
-        "consult./consultations",
-        "start"
-      ]
+      "default":[]
     }
   },
 
@@ -44,14 +49,14 @@
 
   "footer":{
     "logos":{
-		 "who":"who-logo-white-no-text.svg",
-		 "country_partner":"ni.png",
-		 "partners":[]
+		  "who":"who-logo-white-no-text.svg",
+		  "country_partner":"ni.png",
+		  "partners":[]
     },
 
     "partners":[
       "The World Health Organisation",
-		"The Ministry of Health, Null Island"
+		  "The Ministry of Health, Null Island"
     ],
 
     "email":"emwrojor@who.int"

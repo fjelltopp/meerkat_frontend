@@ -54,6 +54,9 @@
 											<a href="#" onclick='selectAll(); return false;'>
 												All
 											</a> /
+											<a href="#" onclick='selectNone(); return false;'>
+												None
+											</a> /
 											<a href="#" onclick='selectDefault(); return false;'>
 												Default
 											</a>
@@ -145,20 +148,32 @@ function selectAll(){
 	});
 }
 
+function selectNone(){	
+	$('input[name=attributes]').each(function(){
+	  this.checked = false;
+	});
+}
+
 function selectDefault(){
 
-	//Uncheck everything
-	$('input[name=attributes]').each(function(){
-		this.checked = false;
-	});
+	//Load the default values.
+	var defaultAttributes = config.forms[ $('#form-selector').val() ].default;
+	console.log(defaultAttributes);
+	//If no default values, the default to select all.
+	if( defaultAttributes.length == 0 ){
 
-	//Then load the default values.
-	var defaultAttributes = config.forms[$('#form-selector').val()].default;
+		selectAll();
 
-	//Finally set each default attribute checkbox to checked.
-	for( var k in defaultAttributes ){
-		
-		$("input[value='" + defaultAttributes[k] + "']" ).prop('checked', true); 
+	//Else just select default fields.
+	}else{
+
+		//Uncheck everything
+		selectNone();
+
+		//Finally set each default attribute checkbox to checked.
+		for( var k in defaultAttributes ){		
+		  $("input[value='" + defaultAttributes[k] + "']" ).prop('checked', true); 
+		}
 	}
 }
 
@@ -193,18 +208,13 @@ $.getJSON( api_root+"/export/forms", function( data ){
 
 			attrSelector += "<div class='check attribute col-xs-12 col-md-6' >"
 			attrSelector += "<input type='checkbox' name='attributes' ";
-            attrSelector += "onclick='checkSelected();' value='" + allAttributes[j] + "' ";
-
-			if( defaultAttributes.indexOf( allAttributes[j] ) != -1 ){
-				attrSelector += "checked";
-			}
-			
+         attrSelector += "onclick='checkSelected();' value='" + allAttributes[j] + "' ";
 			attrSelector += "> <label>" + allAttributes[j] + "</label></div>";
 
 		}
 
 		$('#attribute-selector .chartBox__content').html(attrSelector);
-
+		selectDefault();
 	}
 
 	drawAttributes( $('#form-selector').val() );
@@ -224,7 +234,7 @@ $.getJSON( api_root+"/export/forms", function( data ){
 
 	
 
-	$('#data-download').submit( function(){
+	$('#data-download').submit( function(event){
 		//Validate the form.
 		if( checkSelected() ){
 			//Assemble the appropriate API call.
@@ -236,7 +246,8 @@ $.getJSON( api_root+"/export/forms", function( data ){
 			url += "&api_key=" + config.api_key;
 
 			window.open( url );
-			return false;
+		}else{
+			event.preventDefault();
 		}
 	});
 
