@@ -146,12 +146,14 @@ function selectAll(){
 	$('input[name=attributes]').each(function(){
 		this.checked = true;
 	});
+	checkSelected( );
 }
 
 function selectNone(){	
 	$('input[name=attributes]').each(function(){
 	  this.checked = false;
 	});
+	checkSelected( );
 }
 
 function selectDefault(){
@@ -175,6 +177,7 @@ function selectDefault(){
 		  $("input[value='" + defaultAttributes[k] + "']" ).prop('checked', true); 
 		}
 	}
+	checkSelected( );
 }
 
 $.getJSON( api_root+"/export/forms", function( data ){
