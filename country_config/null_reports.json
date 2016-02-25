@@ -20,7 +20,7 @@
 		},
 		"number":3
   },{
-      "name":"Communicable Disease Profile Report",
+      "name":"Communicable Disease Profile",
 		"introduction":"This report summarises the state of communicable disease public health in the selected location.",
       "url":"/reports/cd_public_health",
 		"start_date":{
@@ -29,7 +29,7 @@
 		},
 		"number":3
   },{
-      "name":"Non-Communicable Disease Profile Report",
+      "name":"Non-Communicable Disease Profile",
 		"introduction":"This report summarises the state of non-communicable disease public health in the selected location.",
       "url":"/reports/ncd_public_health",
 		"start_date":{
