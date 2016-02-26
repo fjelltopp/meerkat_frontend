@@ -43,26 +43,36 @@
 									</label>
 									<select class="col-sm-offset-3" id="form-selector"></select>
 								</div>
-								<div class="row check">
-									<input id="show-attributes" type="checkbox" checked>
-									<label>Just download the default attributes.</label>
-								</div>
-								<div id="attribute-selector" style="display:none;" class="row box chartBox">
+								<div id="basic-selector" class="row box chartBox">
 									<div class="chartBox__heading">
-										Avilable Attributes
+										Data Fields
 										<div class="pull-right">
-											<a href="#" onclick='selectAll(); return false;'>
+											<a href="#" onclick="selectAll('basic-fields'); return false;">
 												All
 											</a> /
-											<a href="#" onclick='selectNone(); return false;'>
+											<a href="#" onclick="selectNone('basic-fields'); return false;">
 												None
-											</a> /
-											<a href="#" onclick='selectDefault(); return false;'>
-												Default
 											</a>
 										</div>
 									</div>
-									<div class="chartBox__content"></div>
+									<div id="basic-fields" class="chartBox__content"></div>
+								</div>
+								<div class="row check">
+									<label><a id="show-fields" href="#">View advanced fields</a></label>
+								</div>
+								<div id="advanced-selector" style="display:none;" class="row box chartBox">
+									<div class="chartBox__heading">
+										Advanced Fields
+										<div class="pull-right">
+											<a href="#" onclick="selectAll('advanced-fields'); return false;">
+												All
+											</a> /
+											<a href="#" onclick="selectNone('advanced-fields'); return false;">
+												None
+											</a>
+										</div>
+									</div>
+									<div id="advanced-fields" class="chartBox__content"></div>
 								</div>
 								<div class="row">
 									<input type="submit" 
@@ -142,15 +152,15 @@ function checkSelected( ) {
 	}
 }
 
-function selectAll(){
-	$('input[name=attributes]').each(function(){
+function selectAll( idTag ){
+	$('#' + idTag + ' input[name=attributes]').each(function(){
 		this.checked = true;
 	});
 	checkSelected( );
 }
 
-function selectNone(){	
-	$('input[name=attributes]').each(function(){
+function selectNone( idTag ){	
+	$('#' + idTag + ' input[name=attributes]').each(function(){
 		this.checked = false;
 	});
 	checkSelected( );
@@ -160,7 +170,7 @@ function selectDefault(){
 
 	//Load the default values.
 	var defaultAttributes = config.forms[ $('#form-selector').val() ].default;
-	console.log(defaultAttributes);
+
 	//If no default values, the default to select all.
 	if( defaultAttributes.length == 0 ){
 
@@ -182,52 +192,76 @@ function selectDefault(){
 
 $.getJSON( api_root+"/export/forms", function( data ){
 
+	function drawAttributes(form){
+
+		var basicFieldsHtml = "";
+		var advancedFieldsHtml = "";
+
+		var allFields = data[form];
+		var basicFields = config.forms[form].default;
+		var advancedFields = $(allFields).not(basicFields).get();
+
+		//If there are no basic fields provided, then show all fields as basic fields.
+		if( basicFields.length == 0 ){
+			basicFields = advancedFields;
+			advancedFields = [];
+			$('#show-fields').hide();
+			$('#advanced-selector').slideUp();
+		}else{
+			$('#show-fields').show();
+		}
+
+		for( var j in basicFields ){
+
+			basicFieldsHtml += "<div class='check attribute col-xs-12 col-md-6' >"
+			basicFieldsHtml += "<input type='checkbox' name='attributes' ";
+			basicFieldsHtml += "onclick='checkSelected();' value='" + basicFields[j] + "' ";
+			basicFieldsHtml += "> <label>" + basicFields[j] + "</label></div>";
+
+		}
+
+		for( var k in advancedFields ){
+
+			advancedFieldsHtml += "<div class='check attribute col-xs-12 col-md-6' >"
+			advancedFieldsHtml += "<input type='checkbox' name='attributes' ";
+			advancedFieldsHtml += "onclick='checkSelected();' value='" + advancedFields[k] + "' ";
+			advancedFieldsHtml += "> <label>" + advancedFields[k] + "</label></div>";
+
+		}
+
+		$('#basic-fields').html(basicFieldsHtml);
+		$('#advanced-fields').html(advancedFieldsHtml);
+
+		selectAll( 'basic-fields');
+	}
+
+
 	var configForms = Object.keys(config.forms);
 	var apiForms = Object.keys( data );
 	var formSelector = "";
 
-    for( var i in apiForms ){
+	for( var i in apiForms ){
 
-		formSelector += "<option value='" + apiForms[i] + "'>";
+		formSelector += "<option value='" + apiForms[i] + "' ";
+		if( apiForms[i] == "case" ) formSelector += "selected='selected'"
+		formSelector += ">";
+
 		//If the form is recorded in the config file, use the given "display name".
 		if( configForms.indexOf( apiForms[i] ) != -1 ){
 			formSelector += config.forms[ apiForms[i] ].name;
 		}else{
 			formSelector += apiForms[i];		
 		}
+
 		formSelector += "</option>"
 	}
 
 	$('#form-selector').html(formSelector);
 
-	
-	function drawAttributes(form){
-
-		var attrSelector = "";
-		var allAttributes = data[form];
-		var defaultAttributes = config.forms[form].default;
-		
-		for( var j in allAttributes ){
-
-			attrSelector += "<div class='check attribute col-xs-12 col-md-6' >"
-			attrSelector += "<input type='checkbox' name='attributes' ";
-         attrSelector += "onclick='checkSelected();' value='" + allAttributes[j] + "' ";
-			attrSelector += "> <label>" + allAttributes[j] + "</label></div>";
-
-		}
-
-		$('#attribute-selector .chartBox__content').html(attrSelector);
-		selectDefault();
-	}
-
 	drawAttributes( $('#form-selector').val() );
 
-	$('#show-attributes').change( function(){
-		if( this.checked ){
-			$('#attribute-selector').slideUp();
-		}else{
-			$('#attribute-selector').slideDown();
-		}
+	$('#show-fields').click( function(){
+		$('#advanced-selector').slideToggle();
 		drawAttributes( $('#form-selector').val() );
 	});
 
