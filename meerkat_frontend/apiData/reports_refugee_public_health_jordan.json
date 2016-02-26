@@ -1,0 +1,210 @@
+{
+    "data": {
+        "clinic_num": 3,
+        "crude_mortality_rate": 679.7583081570997,
+        "demographics": [
+            {
+                "age": "<5",
+                "female": {
+                    "percent": 52.26063829787234,
+                    "quantity": 393
+                },
+                "male": {
+                    "percent": 47.73936170212766,
+                    "quantity": 359
+                }
+            },
+            {
+                "age": "5-17",
+                "female": {
+                    "percent": 50.15128593040848,
+                    "quantity": 663
+                },
+                "male": {
+                    "percent": 49.84871406959152,
+                    "quantity": 659
+                }
+            },
+            {
+                "age": "18-59",
+                "female": {
+                    "percent": 48.70266479663394,
+                    "quantity": 1389
+                },
+                "male": {
+                    "percent": 51.29733520336606,
+                    "quantity": 1463
+                }
+            },
+            {
+                "age": ">60",
+                "female": {
+                    "percent": 49.33730947647449,
+                    "quantity": 1489
+                },
+                "male": {
+                    "percent": 50.66269052352551,
+                    "quantity": 1529
+                }
+            }
+        ],
+        "epi_week_date": "2016-02-25T15:16:54.730630",
+        "epi_week_num": 8,
+        "gender": [
+            {
+                "percent": 49.521651560926486,
+                "quantity": 3934,
+                "title": "Female"
+            },
+            {
+                "percent": 50.478348439073514,
+                "quantity": 4010,
+                "title": "Male"
+            }
+        ],
+        "injury": [
+            {
+                "percent": 50.82397003745318,
+                "quantity": 1357,
+                "title": "Injury (war related)"
+            },
+            {
+                "percent": 49.17602996254682,
+                "quantity": 1313,
+                "title": "Bites (all causes)"
+            }
+        ],
+        "mental_health": [
+            {
+                "percent": 50.19934758970641,
+                "quantity": 1385,
+                "title": "Psychotic disorder (including mania)"
+            },
+            {
+                "percent": 49.80065241029358,
+                "quantity": 1374,
+                "title": "Severe emotional disorder"
+            }
+        ],
+        "morbidity_communicable": [
+            {
+                "percent": 34.07333499625842,
+                "quantity": 1366,
+                "title": "Eye Conditions"
+            },
+            {
+                "percent": 33.699176852082815,
+                "quantity": 1351,
+                "title": "Upper Respiratory Tract Infection"
+            },
+            {
+                "percent": 32.22748815165877,
+                "quantity": 1292,
+                "title": "Meningitis"
+            }
+        ],
+        "morbidity_non_communicable": [
+            {
+                "percent": 50.31728256812244,
+                "quantity": 1348,
+                "title": "Asthma"
+            },
+            {
+                "percent": 49.68271743187756,
+                "quantity": 1331,
+                "title": "Cancer"
+            }
+        ],
+        "n_clinicians": 9,
+        "percent_cases_female": 49.521651560926486,
+        "percent_cases_lt_5yo": 9.466263846928499,
+        "percent_cases_male": 50.478348439073514,
+        "percent_morbidity_communicable": 33.085747297185776,
+        "percent_morbidity_injury_health": 22.03515721713295,
+        "percent_morbidity_mental_health": 22.76966245770405,
+        "percent_morbidity_non_communicable": 22.10943302797722,
+        "presenting_complaints": [
+            {
+                "percent": 33.085747297185776,
+                "quantity": 4009,
+                "title": "Communicable Disease"
+            },
+            {
+                "percent": 22.10943302797722,
+                "quantity": 2679,
+                "title": "Non-Communicable Disease"
+            },
+            {
+                "percent": 22.76966245770405,
+                "quantity": 2759,
+                "title": "Mental Health"
+            },
+            {
+                "percent": 22.03515721713295,
+                "quantity": 2670,
+                "title": "Injury"
+            }
+        ],
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Jordan",
+        "public_health_indicators": [
+            {
+                "percent": null,
+                "quantity": 1.1294516158564496,
+                "title": "Health Utilisation Rate"
+            },
+            {
+                "percent": null,
+                "quantity": 2.7313131313131316,
+                "title": "Number of consultations per clinician per day"
+            },
+            {
+                "percent": null,
+                "quantity": 1.0244082840236686,
+                "title": "Hospitalisation rate"
+            },
+            {
+                "percent": null,
+                "quantity": 1.0244082840236686,
+                "title": "Referral rate"
+            },
+            {
+                "percent": null,
+                "quantity": 679.7583081570997,
+                "title": "Crude Mortality Rate (CMR) "
+            },
+            {
+                "percent": null,
+                "quantity": 1.34159007931512,
+                "title": "Under-five Mortality Rate (U5MR) "
+            }
+        ],
+        "reporting_sites": [
+            {
+                "percent": 34.612527853429064,
+                "quantity": 4194,
+                "title": "Ruwayshid Hospital"
+            },
+            {
+                "percent": 33.259057522489066,
+                "quantity": 4030,
+                "title": "Al-Hadalat "
+            },
+            {
+                "percent": 32.12841462408187,
+                "quantity": 3893,
+                "title": "Ar-Rukban"
+            }
+        ],
+        "total_cases": 12117,
+        "total_consultations": 1352,
+        "total_population": 7944,
+        "u5_crude_mortality_rate": 1813.8297872340424
+    },
+    "meta": {
+        "generation_timestamp": "2016-02-26T15:16:54.730827",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "40def587-757a-4e4b-838b-8e74db4e4073"
+    }
+}

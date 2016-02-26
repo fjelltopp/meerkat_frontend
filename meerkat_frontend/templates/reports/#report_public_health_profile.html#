@@ -1,9 +1,9 @@
 {% extends 'reports/base.html' %}
-{% block title %}{{report.data.project_region|e}} &middot;Communicable Disease Profile  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; Public Health Profile &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
-  <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Communicable Disease Profile 
+  <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Public Health Profile
     <span class="report-week">
         Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
@@ -17,15 +17,12 @@
       <div class="chart-stage">
         ￼ <p>Information reported in this public health profile represents cumulative cases reported from {{ report.data.clinic_num }} outpatient clinics in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
         <ul>
-          <li>A total of <strong>{{ report.data.total_cases|commas }} cases</strong> reported from {{ report.data.clinic_num|commas }} health facilities.</li>
+          <li>A total of <strong>{{ report.data.total_consultations|commas }} consultations</strong> and <strong>{{ report.data.total_cases|commas }} cases</strong> reported from {{ report.data.clinic_num|commas }} health facilities.</li>
           <li><strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> and <strong>{{ report.data.percent_cases_lt_5yo|float|round(1) }}% under five years</strong> of age.</li>
           <li><strong>{{ extras.patient_status.national.percent|float|round(1) }}% {{ extras.bullet_nationality_display }} nationals</strong> and <strong>{{ extras.patient_status.refugee.percent|float|round(1) }}% refugee status</strong>.</li>
-          {% for disease in report.data.morbidity_communicable_cd_tab %}
-	  <li><strong>{{ disease.percent|float|round(1) }}%</strong> morbidity due to {{ disease.title|e }}
-          {% endfor %}
-        </table>
-
-	  
+          <li><strong>{{ report.data.percent_morbidity_communicable|float|round(1) }}% morbidity due to communicable disease</strong>, including {% for disease in report.data.morbidity_communicable %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
+          <li><strong>{{ report.data.percent_morbidity_non_communicable|float|round(1) }}% morbidity due to non-communicable disease</strong>, including {% for disease in report.data.morbidity_non_communicable %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
+          <li><strong>{{ report.data.percent_morbidity_mental_health|float|round(1) }}% morbidity due to mental health conditions</strong>, including {% for disease in report.data.mental_health %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
         </ul>
         <h4>Alerts</h4>
         {% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
@@ -96,12 +93,29 @@
       </div>
     </div>
   </div>
-  <!-- GENDER-->
+  <!-- PRESENTING COMPLAINT-->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Gender</div>
+      <div class="chart-title">Presenting Complaint</div>
       <div class="chart-stage">
-        <div id="chart-gender"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>% morbidity</th>
+              <th># of cases</th>
+            </tr>
+          </thead>
+          {% for complaint in report.data.presenting_complaints %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ complaint.title|e }}</td>
+            <td>{{ complaint.percent|float|round(1) }}%</td>
+            <td>{{ complaint.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
@@ -166,7 +180,7 @@
   <!-- MORBIDITY COMMUNICABLE DISEASE -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">ICD-10 Classification</div>
+      <div class="chart-title">Communicable Disease</div>
       <div class="chart-stage">
         <div id="chart-mor-communicable-disease"></div>
         <table class="table table-striped">
@@ -178,7 +192,7 @@
               <th># of cases</th>
             </tr>
           </thead>
-          {% for disease in report.data.morbidity_communicable_icd %}
+          {% for disease in report.data.morbidity_communicable %}
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ disease.title|e }}</td>
@@ -190,12 +204,12 @@
       </div>
     </div>
   </div>
-  <!-- MORBIDITY COMMUNICABLE DISEASE CD TAB-->
+  <!-- MORBIDITY NON-COMMUNICABLE DISEASE -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Communicable Disease</div>
+      <div class="chart-title">Non-Communicable Disease</div>
       <div class="chart-stage">
-        <div id="chart-mor-communicable-disease-list"></div>
+        <div id="chart-mor-non-communicable-disease"></div>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -205,7 +219,7 @@
               <th># of cases</th>
             </tr>
           </thead>
-          {% for disease in report.data.morbidity_communicable_cd_tab %}
+          {% for disease in report.data.morbidity_non_communicable %}
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ disease.title|e }}</td>
@@ -218,7 +232,62 @@
     </div>
   </div>
 </div>
-
+<div class="row">
+  <!-- MENTAL HEALTH CONDITIONS -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Mental Health Conditions</div>
+      <div class="chart-stage">
+        <div id="chart-mental-health"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>% morbidity</th>
+              <th># of cases</th>
+            </tr>
+          </thead>
+          {% for disease in report.data.mental_health %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ disease.title|e }}</td>
+            <td>{{ disease.percent|float|round(1) }}%</td>
+            <td>{{ disease.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- IMCI CHILD HEALTH CONDITIONS-->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Child Health Conditions</div>
+      <div class="chart-stage">
+        <div id="chart-child-health"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>% morbidity</th>
+              <th># of cases</th>
+            </tr>
+          </thead>
+          {% for disease in report.data.child_health %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ disease.title|e }}</td>
+            <td>{{ disease.percent|float|round(1) }}%</td>
+            <td>{{ disease.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -261,16 +330,22 @@ var demographicsAges = {
   }],
   labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
 };
-// Gender
-var gender = [{% for item in report.data.gender %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+
 // Nationality
 var nationality = [{% for item in report.data.nationality %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Status
 var patientStatus = [{% for item in report.data.patient_status %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Communicable diseases
-var communicableDiseases = [{% for item in report.data.morbidity_communicable_icd %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+var communicableDiseases = [{% for item in report.data.morbidity_communicable %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Non-communicable diseases
-var CommunicableDiseasesList = [{% for item in report.data.morbidity_communicable_cd_tab %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+var nonCommunicableDiseases = [{% for item in report.data.morbidity_non_communicable %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+// Mental health
+var mentalHealthConditions = [{% for item in report.data.mental_health %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+var mentalHealthConditionsAge = [{% for item in report.data.mental_health_age %}{name: "{{ item.title|e }}", y: {{ item.percent }}}{% if not loop.last %},{% endif %}{% endfor %}];
+var mentalHealthConditionsGender = [{% for item in report.data.mental_health_gender %}{name: "{{ item.title|e }}", y: {{ item.percent }}}{% if not loop.last %},{% endif %}{% endfor %}];
+// Child health
+var childHealthConditions = [{% for item in report.data.child_health %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+var childHealthConditionsGender = [{% for item in report.data.child_health_gender %}{name: "{{ item.title|e }}", y: {{ item.percent }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Plots charts for report
 $(function() {
   $('#chart-reporting-sites').highcharts(
@@ -288,17 +363,29 @@ $(function() {
   $('#chart-nationality').highcharts(
     pieChart(nationality)
   );
-  $('#chart-gender').highcharts(
-    pieChart(gender)
-  );
   $('#chart-status').highcharts(
     pieChart(patientStatus)
   );
   $('#chart-mor-communicable-disease').highcharts(
     pieChart(communicableDiseases)
   );
-  $('#chart-mor-communicable-disease-list').highcharts(
-    pieChart(CommunicableDiseasesList)
+  $('#chart-mor-non-communicable-disease').highcharts(
+    pieChart(nonCommunicableDiseases)
+  );
+  $('#chart-mental-health').highcharts(
+    pieChart(mentalHealthConditions)
+  );
+  $('#chart-child-health').highcharts(
+    pieChart(childHealthConditions)
+  );
+  $('#chart-mental-health-gender').highcharts(
+    pieChart(mentalHealthConditionsGender)
+  );
+  $('#chart-mental-health-age').highcharts(
+    pieChart(mentalHealthConditionsAge)
+  );
+  $('#chart-child-health-gender').highcharts(
+    pieChart(childHealthConditionsGender)
   );
 });
 // Draw map
