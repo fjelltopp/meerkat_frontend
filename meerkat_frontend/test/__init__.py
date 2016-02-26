@@ -59,7 +59,6 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         rv = self.app.get('/reports/test/communicable_diseases/',headers=self.header)
         self.assertIn(rv.status_code, [200])
         self.assertIn(b"There were no new confirmed cases and 1 new suspected cases of Bloody diarrhoea this week.", rv.data)
-
         
     def test_technical(self):
         """Check the Technical page loads"""
