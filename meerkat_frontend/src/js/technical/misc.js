@@ -316,3 +316,34 @@ function exportTableToCSV(tableID, filename, link) {
 	               'target': '_blank'
 	             });
 }
+
+//Function to get the intersect of two arrays.
+function getIntersect( arr1, arr2 ){
+
+	var r = [], o = {}, l = arr2.length, i, v;
+
+	for (i = 0; i < l; i++) {
+		o[arr2[i]] = true;
+	}
+
+	l = arr1.length;
+
+	for (i = 0; i < l; i++) {
+
+		v = arr1[i];
+
+		if (v in o) {
+			r.push(v);
+		}
+	}
+	return r;
+}
+
+function getDifference( arr1, arr2 ){
+	return arr1.filter( function(x) { 
+		return arr2.indexOf(x) < 0; 
+	});
+}
+  
+
+

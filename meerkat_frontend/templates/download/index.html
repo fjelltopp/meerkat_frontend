@@ -197,9 +197,9 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		var basicFieldsHtml = "";
 		var advancedFieldsHtml = "";
 
-		var allFields = data[form]; //All api fields. 
-		var basicFields = $(allFields).filter( config.forms[form].default );  //Intersect of api/config.
-		var advancedFields = $(allFields).not(basicFields).get(); //The difference of api/basic
+		var allFields = data[form]; //All api fields, from which we take intersect and difference. 
+		var basicFields = getIntersect( allFields, config.forms[form].default ); 
+		var advancedFields = getDifference( allFields, basicFields ); 
 
 		//If there are no basic fields provided, then show all fields as basic fields.
 		if( basicFields.length == 0 ){
@@ -211,13 +211,14 @@ $.getJSON( api_root+"/export/forms", function( data ){
 			$('#show-fields').show();
 		}
 
-		console.log( basicFields )
+		console.log( "Listing basic fields" )
 
 		for( var j in basicFields ){
 			basicFieldsHtml += "<div class='check attribute col-xs-12 col-md-6' >"
 			basicFieldsHtml += "<input type='checkbox' name='attributes' ";
 			basicFieldsHtml += "onclick='checkSelected();' value='" + basicFields[j] + "' ";
 			basicFieldsHtml += "> <label>" + basicFields[j] + "</label></div>";
+      console.log( basicFields[j] )
 		}
 
 		for( var k in advancedFields ){
