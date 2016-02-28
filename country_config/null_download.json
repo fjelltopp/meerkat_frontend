@@ -15,20 +15,41 @@
     "case":{
       "name":"Case Report",
       "default":[
-        "today",
-        "clinic",
-        "district",
-        "region",
         "intro./visit_type",
-        "intro./module",
         "pt./visit_date",
         "pt1./status",
         "pt1./gender",
         "pt1./age",
         "nationality",
-        "child_age",
-        "vaccination",
+        "pc_imci",
+        "cd",
+        "cd./symptoms",
+        "cd./risk",
+        "cd./prevvaccination",
+        "cd./onsetdate",
+        "cd./diagnosisdate",
+        "cd./classification",
+        "cd./importdate",
+        "cd./importcountry",
+        "cd./hiv_vct",
+        "cd./tb_hiv_status",
+        "cd./rubella_married",
+        "cd./rubella_pregnant",
+        "cd./rubella_gestation",
+        "results./bp_systolic",
+        "results./bp_diastolic",
+        "results./bmi_height",
+        "results./bmi_weight",
+        "results./glucose_random",
+        "results./glucose_fasting",
+        "results./hba1c",
+        "results./cholesterol",
+        "results./urea",
+        "results./creatinine",
+        "results./fev1",
+        "results./fvc",
         "vaccination_type",
+        "imci_code",
         "pc_mh",
         "smoke_ever",
         "smoke_now",
@@ -38,12 +59,23 @@
 
     "alert":{
       "name":"Alert",
-      "default":[]
+      "default":[
+        "pt./investigator_name",
+        "pt./alert_idicd_code",
+        "alert_labs./return_lab"
+      ]
     },
 
     "register":{
       "name":"Register",
-      "default":[]
+      "default":[
+        "intro./visit_date",
+        "consult./consultations",
+        "consult./consultations_refugee",
+        "surveillance./afp",
+        "surveillance./measles",
+        "surveillance./diarrhoea"
+      ]
     }
   },
 
