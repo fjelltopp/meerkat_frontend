@@ -1,0 +1,117 @@
+{% extends 'reports/base.html' %}
+{% block title %}{{report.data.project_region|e}} &middot; North Eastern Border Communicable Disease Report &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+  <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>North Eastern Border Communicable Disease Report
+    <span class="report-week">
+        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+    </span>
+  </h2>
+</div>
+<div class="row">
+  <!-- HIGHLIGHTS -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">Highlights</div>
+      <div class="chart-stage">
+        ￼ <p>This Communicable Disease Report represents cumulative cases reported from {{ report.data.clinic_num }} clinics in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Population</div>
+      <div class="chart-stage">
+        <div id="chart-population"></div>
+	<p>There were {{ report.data.population.suspected|last|e }} refugees registerd this week.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Number of Clinicians</div>
+      <div class="chart-stage">
+        <div id="chart-clinicians"></div>
+	<p>There were {{ report.data.number_clinicians.suspected|last|e }} clinicians this week.</p>
+      </div>
+    </div>
+  </div>
+</div>
+  
+{% for row in report.data.communicable_diseases|dictsort|batch(2) %}
+<div class="row">
+  {% for cd in row %}
+  <!-- {{ cd[0]|e }} -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ cd[0]|e }}</div>
+      <div class="chart-stage">
+        <div id="chart-{{ cd[0]|slugify }}"></div>
+        {% set susp_cases = cd[1].suspected|last|e %}
+        <p>There were {% if susp_cases == '0' %}no{% else %}{{ susp_cases }}{% endif %} new suspected cases of {{ cd[0]|e }} this week.</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+</div>
+<!-- MORE INFO AND CONTACT -->
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">More Information</div>
+      <div class="chart-stage">
+ <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
+        <p>The clinician uses the system within the consultation, which introduces clinical-decision support for child health and mental health, as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Contact Information</div>
+      <div class="chart-stage">
+        <address>
+	  {{address|safe}}
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="map" style="display: hidden;"></div>
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+<script>
+$(function() {
+  {% for k, v in report.data.communicable_diseases|dictsort %}
+  // {{ k }}
+  $('#chart-{{ k|slugify }}').highcharts(
+    refugeeCommunicableDiseasesChart(
+      {{ v.weeks }},
+      [{{ v.suspected }}],
+      { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
+    )
+  );
+  {% endfor %}
+  $('#chart-population').highcharts(
+     refugeeCommunicableDiseasesChart(
+       {{ report.data.population.weeks }},
+       [{{ report.data.population.suspected }}],
+       { yAxis: { text: 'Population' }, xAxis: {text: 'Epi Week'} }
+  ));
+  $('#chart-clinicians').highcharts(
+     refugeeCommunicableDiseasesChart(
+       {{ report.data.number_clinicians.weeks }},
+       [{{ report.data.number_clinicians.suspected }}],
+       { yAxis: { text: 'Number of Clinicans' }, xAxis: {text: 'Epi Week'} }
+   ));
+});
+</script>
+{% endblock extra_js %}
+{% block footer %}
+<p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
+{% endblock footer %}

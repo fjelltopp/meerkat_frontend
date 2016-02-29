@@ -1,0 +1,863 @@
+{
+    "data": {
+        "clinic_num": 3,
+        "communicable_diseases": {
+            "Acute Flaccid Paralysis": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Acute Jaundice Syndrome": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Bloody Diarrhoea": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Eye Conditions": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 1483
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1483
+            },
+            "Fever of Unknown Origin": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "IRTI": {
+                ">60": {
+                    "female": 0
+                },
+                "total": 0
+            },
+            "Intestinal Worms": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Leishmaniasis": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Lower Respiratory Tract Infection": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Meningitis": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 1540,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1540
+            },
+            "Other": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Skin Conditions": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Tuberculosis": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Upper Respiratory Tract Infection": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 1483,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1483
+            },
+            "Watery Diarrhoea": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            }
+        },
+        "epi_week_date": "2016-02-28T16:08:31.901977",
+        "epi_week_num": 9,
+        "injury": {
+            "Assault with a weapon (non-war related)": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Bites (all causes)": {
+                "0-4": {
+                    "female": 0,
+                    "male": 1451
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1451
+            },
+            "Injury (burns)": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Injury (war related)": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 1546,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1546
+            },
+            "Other": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            }
+        },
+        "mental_health": {
+            "Alcohol or other substance use disorder": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Epilepsy / Seizures": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Other": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Psychotic disorder (including mania)": {
+                "0-4": {
+                    "female": 0,
+                    "male": 1469
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1469
+            },
+            "Severe emotional disorder, including moderate-severe depression": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 1508
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1508
+            }
+        },
+        "mortality": {
+            "breakdown": {
+                "Bloody Diarrhoea": {
+                    "0-4": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "18-59": {
+                        "female": 1504,
+                        "male": 0
+                    },
+                    "5-17": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    ">60": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "total": 1504
+                },
+                "Ischaemic Heart Disease": {
+                    "0-4": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "18-59": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "5-17": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    ">60": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "total": 0
+                },
+                "Lower Respiratory Tract Infection": {
+                    "0-4": {
+                        "female": 1491,
+                        "male": 0
+                    },
+                    "18-59": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "5-17": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    ">60": {
+                        "male": 0
+                    },
+                    ">61": {
+                        "female": 0
+                    },
+                    "total": 1491
+                },
+                "Other": {
+                    "0-4": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "18-59": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "5-17": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    ">60": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "total": 0
+                },
+                "Tuberculosis": {
+                    "0-4": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "18-59": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "5-17": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    ">60": {
+                        "female": 1535,
+                        "male": 0
+                    },
+                    "total": 1535
+                },
+                "Watery Diarrhoea": {
+                    "0-4": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "18-59": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "5-17": {
+                        "female": 0,
+                        "male": 1490
+                    },
+                    ">60": {
+                        "female": 0,
+                        "male": 0
+                    },
+                    "total": 1490
+                }
+            },
+            "crude_mortality_rate": 730.8486099308001,
+            "u5_crude_mortality_rate": 1866.0826032540676
+        },
+        "n_clinicians": 6,
+        "non_communicable_diseases": {
+            "Asthma": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 1487,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1487
+            },
+            "Cancer": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 1543
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 1543
+            },
+            "Cardiovascular Disease": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Chronic Obstructive Pulmonary Disease": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Diabetes": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Hypertension": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Ischaemic Heart Disease": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Liver Disease": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Other": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            },
+            "Thyroid Disease": {
+                "0-4": {
+                    "female": 0,
+                    "male": 0
+                },
+                "18-59": {
+                    "female": 0,
+                    "male": 0
+                },
+                "5-17": {
+                    "female": 0,
+                    "male": 0
+                },
+                ">60": {
+                    "female": 0,
+                    "male": 0
+                },
+                "total": 0
+            }
+        },
+        "population": {
+            "Refugee Population": {
+                "0-4": {
+                    "female": 413,
+                    "male": 386
+                },
+                "18-59": {
+                    "female": 1549,
+                    "male": 1403
+                },
+                "5-17": {
+                    "female": 670,
+                    "male": 686
+                },
+                ">60": {
+                    "female": 1525,
+                    "male": 1605
+                },
+                "total": 8237
+            }
+        },
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Jordan",
+        "referrals": [
+            {
+                "percent": null,
+                "quantity": 1472,
+                "title": "Hospital Referrals"
+            },
+            {
+                "percent": null,
+                "quantity": 0,
+                "title": "Other Referrals"
+            },
+            {
+                "percent": null,
+                "quantity": 0.9665134602757715,
+                "title": "Hospitalisation rate"
+            },
+            {
+                "percent": null,
+                "quantity": 0.9665134602757715,
+                "title": "Referral rate"
+            }
+        ],
+        "staffing": [
+            {
+                "percent": null,
+                "quantity": 1523,
+                "title": "Total Consultations"
+            },
+            {
+                "percent": null,
+                "quantity": 6,
+                "title": "Number of Clinicians"
+            },
+            {
+                "percent": null,
+                "quantity": 1.1635785542945416,
+                "title": "Health Utilisation Rate"
+            },
+            {
+                "percent": null,
+                "quantity": 4.376436781609195,
+                "title": "Number of consultations per clinician per day"
+            }
+        ],
+        "total_population": 8237
+    },
+    "meta": {
+        "generation_timestamp": "2016-02-29T16:08:31.902300",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "a6b85ffc-2726-4667-8741-33e92b23fc8c"
+    }
+}

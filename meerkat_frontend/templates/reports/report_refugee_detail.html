@@ -1,0 +1,156 @@
+{% extends 'reports/base.html' %}
+
+{% macro table(data, age_group=["0-4","5-17","18-59",">60"]) -%}
+ <table class="table table-striped"> 
+  <thead> 
+     <tr>
+         <th></th>
+         <th colspan="2">0 to 4</th>
+	 <th> Total < 5 </th>
+         <th colspan="2">5 to 17</th>
+	 <th> Total 5 to 17 </th>	      
+         <th colspan="2">18-59</th>
+	 <th> Total 18 to 59 </th>	      
+	 <th colspan="2"> > 60 </th>
+	 <th> Total > 60 </th>
+	 <th> Grand Total </th>
+     <tr>
+       <th></th>
+       <th>Male</th>
+       <th>Female</th>
+       <th></th>
+       <th>Male</th>
+       <th>Female</th>
+       <th></th>
+       <th>Male</th>
+       <th>Female</th>
+       <th></th>
+       <th>Male</th>
+       <th>Female</th>
+       <th></th>
+       <th></th>
+     </tr>
+  </thead>
+  {% for key,value in data|dictsort%} 
+   <tr>
+     <td>{{ key }}</td>
+     {% for age in age_group %}
+        <td> {{ value[age].male }} </td>
+        <td> {{ value[age].female }}</td>
+        <td> {{ value[age].male + value[age].male}}</td>
+     {% endfor %}
+     <td> {{ value.total }} </td>
+   </tr>
+   {% endfor %}
+   </table>
+ {%- endmacro %}
+{% macro simple_table(data) -%}
+<table class="table table-striped"> 
+    {% for item in data%} 
+   <tr>
+     <td>{{ item.title }}</td>
+     <td>{{ "{0}".format(item.quantity|float|round(1) if item.quantity % 1 else item.quantity|int) }} </td>
+   </tr>
+   {% endfor %}
+</table>
+{%- endmacro %}  
+
+
+{% block title %}{{report.data.project_region|e}} &middot; North Eastern Border Detalied Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+  <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> North Eastern Border Detailed Report
+    <span class="report-week">
+        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+    </span>
+  </h2>
+</div>
+<div class="row">
+  <!-- 1. Population -->
+  <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">1. Population</div>
+        {{ table(report.data.population) }}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- 2. Mortality -->
+  <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">2. Mortality</div>
+        {{ table(report.data.mortality_breakdown) }}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- 2. Mortality -->
+  <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">2. Mortality Indicators</div>
+        {{ simple_table(report.data.mortality) }}
+    </div>
+  </div>
+</div>
+
+<!-- 3. Morbidity -->
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">3.1 Staffing and Service Availability</div>
+        {{ simple_table(report.data.staffing) }}
+    </div>
+  </div>
+</div>
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">3.2 Acute Health Conditions</div>
+        {{ table(report.data.communicable_diseases) }}
+    </div>
+  </div>
+</div>
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">3.3 Cronic Health Conditions</div>
+        {{ table(report.data.non_communicable_diseases) }}
+    </div>
+  </div>
+</div>
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">3.4 Mental Health</div>
+        {{ table(report.data.mental_health) }}
+    </div>
+  </div>
+</div>
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">3.5 Injuries </div>
+        {{ table(report.data.injury) }}
+    </div>
+  </div>
+</div>
+<!-- 5. Referrals -->
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">5. Referrals</div>
+        {{ simple_table(report.data.referrals) }}
+    </div>
+  </div>
+</div>
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+<script>
+
+</script>
+{% endblock extra_js %}
+{% block footer %}
+<p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
+{% endblock footer %}
