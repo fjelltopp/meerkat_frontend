@@ -57,13 +57,14 @@ app.register_blueprint(download, url_prefix='/download')
 
 
 # Paths specified in config file
-def prepare_function(template):
+def prepare_function(template, config):
     def function():
-        return render_template(template)
+        return render_template(template, content=config)
     return function
 
-for url, template in app.config["EXTRA_PAGES"].items():
-    function = prepare_function(template)
+for url, value in app.config["EXTRA_PAGES"].items():
+    path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
+    function = prepare_function(value['template'], json.loads( open(path).read()))
     app.add_url_rule('/{}'.format(url), url, function)
     
 
