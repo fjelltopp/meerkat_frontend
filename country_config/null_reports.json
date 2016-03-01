@@ -8,10 +8,10 @@
     "mob_nav":"Health Surveillance"
   },
 
-  "introduction":"Here you can download summary reports drawn from the epidiemological data.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et elit metus. Donec bibendum risus quam, semper laoreet mauris placerat quis. Ut molestie ornare ligula, vel tristique mauris auctor ac. Etiam vitae nunc auctor nulla tempus faucibus id ac tortor. Cras tempus consectetur finibus. Mauris finibus consectetur nisi, suscipit pulvinar neque commodo non. Phasellus eu semper augue. Maecenas tristique felis vitae commodo viverra. Proin sem dolor, egestas in sodales at, consectetur nec arcu. Nullam vulputate eget quam non ultricies. ",
+  "introduction":"Here you can download summary reports drawn from the epidiemological data. ",
 
   "reports":[{
-      "name":"Public Health Profile",
+      "name":"Public Health Profile Report",
 		"introduction":"This report summarises the state of public health in the selected location.",
       "url":"/reports/public_health",
 		"start_date":{
@@ -38,7 +38,7 @@
 		},
 		"number":3
     },{
-      "name":"Communicable Disease",
+      "name":"Communicable Disease Report",
 		"introduction":"This report tracks the spread of communicable diseases across the selected location.",
       "url":"/reports/communicable_diseases",
 		"start_date":{
