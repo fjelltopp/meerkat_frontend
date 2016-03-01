@@ -1,24 +1,33 @@
 {% extends 'reports/base.html' %}
 
-{% macro table(data, age_group=["0-4","5-17","18-59",">60"], age_total=True, age=None, age_gender=None, age_percentage=True) -%}
+{% macro table(data, age_group=["0-4","5-17","18-59",">60"], age_total=True, ages=None, age_gender=None, age_percentage=True,percent=True,u5_percent=False) -%}
  <table class="table table-striped"> 
   <thead> 
      <tr>
          <th></th>
          <th colspan="2">0 to 4</th>
 	 <th> Total < 5 </th>
+         {% if age_total and u5_percent %}
+            <th> U5 % by cause </th>
+	 {% endif %}
          <th colspan="2">5 to 17</th>
-	 <th> Total 5 to 17 </th>	      
+	 <th> Total 5 to 17 </th>
          <th colspan="2">18-59</th>
 	 <th> Total 18 to 59 </th>	      
 	 <th colspan="2"> > 60 </th>
 	 <th> Total > 60 </th>
 	 <th> Grand Total </th>
+	 {% if age_total and percent %}
+            <th> % by cause </th>
+	 {% endif %}
      <tr>
        <th></th>
        <th>Male</th>
        <th>Female</th>
        <th></th>
+       {% if age_total and u5_percent %}
+         <th></th>
+       {% endif %}
        <th>Male</th>
        <th>Female</th>
        <th></th>
@@ -29,6 +38,10 @@
        <th>Female</th>
        <th></th>
        <th></th>
+       {% if age_total and percent %}
+         <th></th>
+       {% endif %}
+
      </tr>
   </thead>
   {% for key,value in data|dictsort%} 
@@ -38,8 +51,14 @@
         <td> {{ value[age].male }} </td>
         <td> {{ value[age].female }}</td>
         <td> {{ value[age].female + value[age].male }}</td>
+	 {% if age_total and u5_percent and age=="0-4" %}
+            <td> {{ ((value[age].female + value[age].male) / (ages["0-4"] if ages["0-4"] !=0 else 1) *100)|round(1) }}%</td>
+	 {% endif %}
      {% endfor %}
      <td> {{ value.total }} </td>
+     {% if age_total and percent %}
+       <td> {{ (value.total / ages.values()|sum * 100)|round(1) }}%</td>
+     {% endif %}
    </tr>
    {% endfor %}
    {% if age_total %}
@@ -47,32 +66,41 @@
      <td> Total </td>
      <td> {{ age_gender["0-4"]["male"] }} </td>
      <td> {{ age_gender["0-4"]["female"] }} </td>
-     <td> {{ age["0-4"] }} </td>
+     <td> {{ ages["0-4"] }} </td>
+     {% if age_total and u5_percent %}
+        <td>100%</td>
+     {% endif %}
      <td> {{ age_gender["5-17"]["male"] }} </td>
      <td> {{ age_gender["5-17"]["female"] }} </td>
-     <td> {{ age["5-17"] }} </td>
+     <td> {{ ages["5-17"] }} </td>
      <td> {{ age_gender["18-59"]["male"] }} </td>
      <td> {{ age_gender["18-59"]["female"] }} </td>
-     <td> {{ age["18-59"] }} </td>
+     <td> {{ ages["18-59"] }} </td>
      <td> {{ age_gender[">60"]["male"] }} </td>
      <td> {{ age_gender[">60"]["female"] }} </td>
-     <td> {{ age[">60"] }} </td>
-     <td> {{ age.values()|sum }} </td>
+     <td> {{ ages[">60"] }} </td>
+     <td> {{ ages.values()|sum }} </td>
+     {% if percent %}
+       <td> 100 % </td>
+     {% endif %}
    </tr>
    {% endif %}
 
    {% if age_percentage %}
-   {% set total = age.values()|sum %}
+   {% set total = ages.values()|sum %}
    <tr>
      <td> % by age group </td>
      <td> </td> <td> </td>
-     <td> {{ (age["0-4"] / total * 100)|round(0)|int }}% </td>
+     <td> {{ (ages["0-4"] / total * 100)|round(0)|int }}% </td>
+     {% if age_total and u5_percent %}
+        <td></td>
+     {% endif %}
      <td> </td> <td> </td>
-     <td> {{ (age["5-17"] / total * 100)|round(0)|int }}% </td>
+     <td> {{ (ages["5-17"] / total * 100)|round(0)|int }}% </td>
      <td> </td> <td> </td>
-     <td> {{ (age["18-59"] / total * 100)|round(0)|int }}% </td>
+     <td> {{ (ages["18-59"] / total * 100)|round(0)|int }}% </td>
      <td> </td> <td> </td>
-     <td> {{ (age[">60"] / total * 100)|round(0)|int }}% </td>
+     <td> {{ (ages[">60"] / total * 100)|round(0)|int }}% </td>
      <td> 100% </td>
      </tr>
    {% endif %}
@@ -114,7 +142,7 @@
   <div class="cols-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">2. Mortality</div>
-        {{ table(report.data.mortality_breakdown.diseases, age_gender=report.data.mortality_breakdown.age_gender, age=report.data.mortality_breakdown.age) }}
+        {{ table(report.data.mortality_breakdown.diseases, age_gender=report.data.mortality_breakdown.age_gender, ages=report.data.mortality_breakdown.age,u5_percent=True) }}
     </div>
   </div>
 </div>
@@ -141,7 +169,7 @@
    <div class="cols-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">3.2 Acute Health Conditions</div>
-        {{ table(report.data.communicable_diseases.diseases, age_gender=report.data.communicable_diseases.age_gender, age=report.data.communicable_diseases.age) }}
+        {{ table(report.data.communicable_diseases.diseases, age_gender=report.data.communicable_diseases.age_gender, ages=report.data.communicable_diseases.age,u5_percent=True) }}
     </div>
   </div>
 </div>
@@ -149,7 +177,7 @@
    <div class="cols-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">3.3 Cronic Health Conditions</div>
-        {{ table(report.data.non_communicable_diseases.diseases, age_gender=report.data.non_communicable_diseases.age_gender, age=report.data.non_communicable_diseases.age) }}
+        {{ table(report.data.non_communicable_diseases.diseases, age_gender=report.data.non_communicable_diseases.age_gender, ages=report.data.non_communicable_diseases.age) }}
     </div>
   </div>
 </div>
@@ -157,7 +185,7 @@
    <div class="cols-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">3.4 Mental Health</div>
-        {{ table(report.data.mental_health.diseases, age_gender=report.data.mental_health.age_gender, age=report.data.mental_health.age) }}
+        {{ table(report.data.mental_health.diseases, age_gender=report.data.mental_health.age_gender, ages=report.data.mental_health.age) }}
     </div>
   </div>
 </div>
@@ -165,7 +193,7 @@
    <div class="cols-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">3.5 Injuries </div>
-        {{ table(report.data.injury.diseases, age_gender=report.data.injury.age_gender, age=report.data.injury.age) }}
+        {{ table(report.data.injury.diseases, age_gender=report.data.injury.age_gender, ages=report.data.injury.age) }}
     </div>
   </div>
 </div>
@@ -174,7 +202,7 @@
    <div class="cols-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">5. Referrals</div>
-        {{ simple_table(report.data.referrals.diseases) }}
+        {{ simple_table(report.data.referrals) }}
     </div>
   </div>
 </div>
