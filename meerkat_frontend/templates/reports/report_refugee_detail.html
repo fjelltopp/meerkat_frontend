@@ -1,56 +1,50 @@
 {% extends 'reports/base.html' %}
 
 {% macro table(data, age_group=["0-4","5-17","18-59",">60"], age_total=True, ages=None, age_gender=None, age_percentage=True,percent=True,u5_percent=False) -%}
- <table class="table table-striped"> 
+<div class="table-responsive">
+ <table class="centered table table-hover table-condensed"> 
   <thead> 
      <tr>
-         <th></th>
-         <th colspan="2">0 to 4</th>
-	 <th> Total < 5 </th>
-         {% if age_total and u5_percent %}
-            <th> U5 % by cause </th>
-	 {% endif %}
-         <th colspan="2">5 to 17</th>
-	 <th> Total 5 to 17 </th>
-         <th colspan="2">18-59</th>
-	 <th> Total 18 to 59 </th>	      
-	 <th colspan="2"> > 60 </th>
-	 <th> Total > 60 </th>
-	 <th> Grand Total </th>
-	 {% if age_total and percent %}
-            <th> % by cause </th>
-	 {% endif %}
-     <tr>
        <th></th>
-       <th>Male</th>
-       <th>Female</th>
-       <th></th>
-       {% if age_total and u5_percent %}
-         <th></th>
-       {% endif %}
-       <th>Male</th>
-       <th>Female</th>
-       <th></th>
-       <th>Male</th>
-       <th>Female</th>
-       <th></th>
-       <th>Male</th>
-       <th>Female</th>
-       <th></th>
-       <th></th>
+        {% if age_total and u5_percent %}
+            <th colspan="4" class="border-left" >0 to 4</th>
+        {% else %}
+            <th colspan="3" class="border-left" >0 to 4</th>
+        {% endif %}
+       <th colspan="3" class="border-left">5 to 17</th>      
+       <th colspan="3" class="border-left">18 to 59</th>      
+       <th colspan="3" class="border-left">> 60</th>
+       <th rowspan="2" class="border-left">Grand Total</th>
        {% if age_total and percent %}
-         <th></th>
+          <th rowspan="2"> % by cause </th>
        {% endif %}
-
+      </tr>
+      <tr>
+       <th></th>
+       <th class="border-left">Male</th>
+       <th>Female</th>
+       <th>Total</th>
+       {% if age_total and u5_percent %}
+         <th>% by cause</th>
+       {% endif %}
+       <th class="border-left">Male</th>
+       <th>Female</th>
+       <th>Total</th>
+       <th class="border-left">Male</th>
+       <th>Female</th>
+       <th>Total</th>
+       <th class="border-left">Male</th>
+       <th>Female</th>
+       <th>Total </th>
      </tr>
   </thead>
   {% for key,value in data|dictsort%} 
    <tr>
-     <td>{{ key }}</td>
+     <td class="key" >{{ key }}</td>
      {% for age in age_group %}
         <td> {{ value[age].male }} </td>
         <td> {{ value[age].female }}</td>
-        <td> {{ value[age].female + value[age].male }}</td>
+        <td class="total"> {{ value[age].female + value[age].male }}</td>
 	 {% if age_total and u5_percent and age=="0-4" %}
             <td> {{ ((value[age].female + value[age].male) / (ages["0-4"] if ages["0-4"] !=0 else 1) *100)|round(1) }}%</td>
 	 {% endif %}
@@ -62,25 +56,25 @@
    </tr>
    {% endfor %}
    {% if age_total %}
-   <tr>
-     <td> Total </td>
+   <tr class="total-row">
+     <td class="key"> Total </td>
      <td> {{ age_gender["0-4"]["male"] }} </td>
      <td> {{ age_gender["0-4"]["female"] }} </td>
-     <td> {{ ages["0-4"] }} </td>
+     <td class="total"> {{ ages["0-4"] }} </td>
      {% if age_total and u5_percent %}
         <td>100%</td>
      {% endif %}
      <td> {{ age_gender["5-17"]["male"] }} </td>
      <td> {{ age_gender["5-17"]["female"] }} </td>
-     <td> {{ ages["5-17"] }} </td>
+     <td class="total"> {{ ages["5-17"] }} </td>
      <td> {{ age_gender["18-59"]["male"] }} </td>
      <td> {{ age_gender["18-59"]["female"] }} </td>
-     <td> {{ ages["18-59"] }} </td>
+     <td class="total"> {{ ages["18-59"] }} </td>
      <td> {{ age_gender[">60"]["male"] }} </td>
      <td> {{ age_gender[">60"]["female"] }} </td>
-     <td> {{ ages[">60"] }} </td>
-     <td> {{ ages.values()|sum }} </td>
-     {% if percent %}
+     <td class="total"> {{ ages[">60"] }} </td>
+     <td class="total"> {{ ages.values()|sum }} </td>
+      {% if percent %}
        <td> 100 % </td>
      {% endif %}
    </tr>
@@ -88,21 +82,22 @@
 
    {% if age_percentage %}
    {% set total = ages.values()|sum %}
-   <tr>
-     <td> % by age group </td>
+   <tr class="total-row">
+     <td class="key"> % by age group </td>
      <td> </td> <td> </td>
-     <td> {{ (ages["0-4"] / total * 100)|round(0)|int }}% </td>
+     <td class="total"> {{ (ages["0-4"] / total * 100)|round(0)|int }}% </td>
      {% if age_total and u5_percent %}
         <td></td>
      {% endif %}
+
      <td> </td> <td> </td>
-     <td> {{ (ages["5-17"] / total * 100)|round(0)|int }}% </td>
+     <td class="total"> {{ (ages["5-17"] / total * 100)|round(0)|int }}% </td>
      <td> </td> <td> </td>
-     <td> {{ (ages["18-59"] / total * 100)|round(0)|int }}% </td>
+     <td class="total"> {{ (ages["18-59"] / total * 100)|round(0)|int }}% </td>
      <td> </td> <td> </td>
-     <td> {{ (ages[">60"] / total * 100)|round(0)|int }}% </td>
-     <td> 100% </td>
-     </tr>
+     <td class="total"> {{ (ages[">60"] / total * 100)|round(0)|int }}% </td>
+     <td class="total"> 100% </td>
+   </tr>
    {% endif %}
    </table>
  {%- endmacro %}
@@ -115,6 +110,7 @@
    </tr>
    {% endfor %}
 </table>
+</div>
 {%- endmacro %}  
 
 
