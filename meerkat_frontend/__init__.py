@@ -8,7 +8,8 @@ different services such as the API and Reports.
 """
 import json, os
 from slugify import slugify
-from flask import Flask, send_file
+from flask import Flask, send_file, render_template
+import jinja2
 from .views.homepage import homepage
 from .views.technical import technical
 from .views.reports import reports
@@ -17,10 +18,19 @@ from .views.download import download
 
 # Create the Flask app
 app = Flask(__name__)
+
 app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
+if app.config["TEMPLATE_FOLDER"]:
+    my_loader = jinja2.ChoiceLoader([
+        app.jinja_loader,
+        jinja2.FileSystemLoader(app.config["TEMPLATE_FOLDER"]),
+    ])
+    app.jinja_loader = my_loader
+
+
 
 #Load settings saved in config files.
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
@@ -44,6 +54,19 @@ app.register_blueprint(technical, url_prefix='/technical')
 app.register_blueprint(reports, url_prefix='/reports')
 app.register_blueprint(messaging, url_prefix='/messaging')
 app.register_blueprint(download, url_prefix='/download')
+
+
+# Paths specified in config file
+def prepare_function(template, config):
+    def function():
+        return render_template(template, content=config)
+    return function
+
+for url, value in app.config["EXTRA_PAGES"].items():
+    path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
+    function = prepare_function(value['template'], json.loads( open(path).read()))
+    app.add_url_rule('/{}'.format(url), url, function)
+    
 
 @app.template_filter('slugify')
 def slug(s):

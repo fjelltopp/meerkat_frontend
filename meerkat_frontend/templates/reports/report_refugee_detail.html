@@ -1,0 +1,205 @@
+{% extends 'reports/base.html' %}
+
+{% macro table(data, age_group=["0-4","5-17","18-59",">60"], age_total=True, ages=None, age_gender=None, age_percentage=True,percent=True,u5_percent=False) -%}
+ <table class="refugee centered table table-hover table-condensed"> 
+  <thead> 
+     <tr>
+       <th rowspan="2" ></th>
+        {% if age_total and u5_percent %}
+            <th colspan="4" class="border-left" >0 to 4</th>
+        {% else %}
+            <th colspan="3" class="border-left" >0 to 4</th>
+        {% endif %}
+       <th colspan="3" class="border-left">5 to 17</th>      
+       <th colspan="3" class="border-left">18 to 59</th>      
+       <th colspan="3" class="border-left">> 60</th>
+       <th rowspan="2" class="border-left">Grand Total</th>
+       {% if age_total and percent %}
+          <th rowspan="2" class="highlight border-left"> % by cause </th>
+       {% endif %}
+      </tr>
+      <tr>
+       <th class="border-left">Male</th>
+       <th>Female</th>
+       <th>Total</th>
+       {% if age_total and u5_percent %}
+         <th class="highlight border-left">% by cause</th>
+       {% endif %}
+       <th class="border-left">Male</th>
+       <th>Female</th>
+       <th>Total</th>
+       <th class="border-left">Male</th>
+       <th>Female</th>
+       <th>Total</th>
+       <th class="border-left">Male</th>
+       <th>Female</th>
+       <th>Total </th>
+     </tr>
+  </thead>
+  {% for key,value in data|dictsort%} 
+   <tr>
+     <td class="key" >{{ key }}</td>
+     {% for age in age_group %}
+        <td> {{ value[age].male }} </td>
+        <td> {{ value[age].female }}</td>
+        <td class="total"> {{ value[age].female + value[age].male }}</td>
+	 {% if age_total and u5_percent and age=="0-4" %}
+            <td class="highlight"> {{ ((value[age].female + value[age].male) / (ages["0-4"] if ages["0-4"] !=0 else 1) *100)|round(1) }}%</td>
+	 {% endif %}
+     {% endfor %}
+     <td> {{ value.total }} </td>
+     {% if age_total and percent %}
+       <td class="highlight"> {{ (value.total / ages.values()|sum * 100)|round(1) }}%</td>
+     {% endif %}
+   </tr>
+   {% endfor %}
+   {% if age_total %}
+   <tr class="total-row">
+     <td class="key"> Total </td>
+     <td> {{ age_gender["0-4"]["male"] }} </td>
+     <td> {{ age_gender["0-4"]["female"] }} </td>
+     <td class="total"> {{ ages["0-4"] }} </td>
+     {% if age_total and u5_percent %}
+        <td class="highlight">100%</td>
+     {% endif %}
+     <td> {{ age_gender["5-17"]["male"] }} </td>
+     <td> {{ age_gender["5-17"]["female"] }} </td>
+     <td class="total"> {{ ages["5-17"] }} </td>
+     <td> {{ age_gender["18-59"]["male"] }} </td>
+     <td> {{ age_gender["18-59"]["female"] }} </td>
+     <td class="total"> {{ ages["18-59"] }} </td>
+     <td> {{ age_gender[">60"]["male"] }} </td>
+     <td> {{ age_gender[">60"]["female"] }} </td>
+     <td class="total"> {{ ages[">60"] }} </td>
+     <td class="total"> {{ ages.values()|sum }} </td>
+      {% if percent %}
+       <td class="highlight"> 100 % </td>
+     {% endif %}
+   </tr>
+   {% endif %}
+
+   {% if age_percentage %}
+   {% set total = ages.values()|sum %}
+   <tr class="">
+     <td class="key highlight"> % by age group </td>
+     <td> </td> <td> </td>
+     <td class="total highlight"> {{ (ages["0-4"] / total * 100)|round(0)|int }}% </td>
+     {% if age_total and u5_percent %}
+        <td></td>
+     {% endif %}
+
+     <td> </td> <td> </td>
+     <td class="total highlight"> {{ (ages["5-17"] / total * 100)|round(0)|int }}% </td>
+     <td> </td> <td> </td>
+     <td class="total highlight"> {{ (ages["18-59"] / total * 100)|round(0)|int }}% </td>
+     <td> </td> <td> </td>
+     <td class="total highlight"> {{ (ages[">60"] / total * 100)|round(0)|int }}% </td>
+     <td class="total highlight"> 100% </td>
+   </tr>
+   {% endif %}
+   </table>
+ {%- endmacro %}
+
+{% macro simple_table(data) -%}
+<table class="refugee table table-hover table-condensed centred small"> 
+    {% for item in data%} 
+   <tr>
+     <td class="total key">{{ item.title }}</td>
+     <td class="">{{ "{0}".format(item.quantity|float|round(1) if item.quantity % 1 else item.quantity|int) }} </td>
+   </tr>
+   {% endfor %}
+</table>
+
+{%- endmacro %}  
+
+
+{% block title %}{{report.data.project_region|e}} &middot; North Eastern Border Detalied Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+  <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> North Eastern Border Detailed Report
+    <span class="report-week">
+        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+    </span>
+  </h2>
+</div>
+<div class="row">
+  <!-- 1. Population -->
+  <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">1. Population</div>
+      <div class="table-wrapper">
+          {{ table(report.data.population, age_total=False, age_percentage=False) }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- 2. Mortality -->
+  <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">2. Mortality</div>
+      <div class="table-title">2.1 Mortality Data</div>
+      <div class="table-wrapper table-responsive">
+        {{ table(report.data.mortality_breakdown.diseases, age_gender=report.data.mortality_breakdown.age_gender, ages=report.data.mortality_breakdown.age,u5_percent=True) }}
+      </div>
+      <div class="table-title">2.2 Mortality Indicators</div>
+      <div class="small-table-wrapper">
+        {{ simple_table(report.data.mortality) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Morbidity -->
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">3. Morbidity</div>
+      <div class="table-title">3.1 Staffing and Service Availability</div>
+      <div class="small-table-wrapper table-responsive">
+        {{ simple_table(report.data.staffing) }}
+      </div>
+      <div class="table-title">3.2 Acute Health Conditions</div>
+      <div class="table-wrapper table-responsive"> 
+        {{ table(report.data.communicable_diseases.diseases, age_gender=report.data.communicable_diseases.age_gender, ages=report.data.communicable_diseases.age,u5_percent=True) }}
+      </div>
+      <div class="table-title">3.3 Cronic Health Conditions</div>
+      <div class="table-wrapper table-responsive">
+        {{ table(report.data.non_communicable_diseases.diseases, age_gender=report.data.non_communicable_diseases.age_gender, ages=report.data.non_communicable_diseases.age) }}
+      </div>
+      <div class="table-title">3.4 Mental Health</div>
+      <div class="table-wrapper table-responsive">
+        {{ table(report.data.mental_health.diseases, age_gender=report.data.mental_health.age_gender, ages=report.data.mental_health.age) }}
+      </div>
+      <div class="table-title">3.5 Injuries </div>
+      <div class="table-wrapper table-responsive">
+        {{ table(report.data.injury.diseases, age_gender=report.data.injury.age_gender, ages=report.data.injury.age) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 5. Referrals -->
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">4. Referrals</div>
+      <div class="small-table-wrapper table-responsive">
+        {{ simple_table(report.data.referrals) }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+<script>
+
+</script>
+{% endblock extra_js %}
+{% block footer %}
+<p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
+{% endblock footer %}

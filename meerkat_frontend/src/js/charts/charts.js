@@ -137,9 +137,60 @@ function communicableDiseasesBarChart(categories, series, labels) {
       data: series[1],
     }]
   };
-  return chart;
+	return chart;
+	
 }
-
+function refugeeCommunicableDiseasesChart(categories, series, labels) {
+  var chart = {
+    chart: {
+      animation: false
+    },
+    title: {
+      text: null
+    },
+    legend: {
+      enabled: false,
+      style: {
+        fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+      }
+    },
+    plotOptions: {
+      spline: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+    xAxis: {
+      categories: categories,
+      title: {
+        text: labels.xAxis.text,
+        align: 'middle'
+      }
+    },
+    yAxis: {
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      },
+	  labels: {
+        formatter: function () {
+          return this.value;
+        }
+	  },
+      allowDecimals: true,
+	  min: 0,
+    },
+      series: [
+		  {
+      type: 'spline',
+      name: 'Suspected',
+			  data: series[0],
+			  lineWidth: 5
+    }]
+  };
+	return chart;
+}
 // Global chart settings
 /*$(function() {
       Highcharts.setOptions({

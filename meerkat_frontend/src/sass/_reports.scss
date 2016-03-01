@@ -24,4 +24,86 @@ body.reports{
 	padding: 10px 0;
 }
 
+.centered, .centered th{
+  text-align: center;
+}
 
+
+.refugee th{
+  background: $lightGrey;
+}
+
+.key{
+  text-align: left;
+  border-right: 2px solid #ddd;
+}
+
+.total{
+  border-right: 2px solid #ddd;
+  border-left: 2px solid #ddd;
+  background: $lightGrey;
+}
+
+.total-row{
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  background: $lightGrey;
+}
+
+.border-left{
+  border-left: 2px solid #ddd;
+}
+
+.border-top{
+  border-top: 2px solid #ddd;
+}
+
+.border-right{
+  border-right: 2px solid #ddd;
+}
+
+.border-bottom{
+  border-bottom: 2px solid #ddd;
+}
+
+.table tbody td.highlight{
+  background: $highlight;
+  color: #FFF;
+  border: $highlight;
+}
+
+.table th.highlight{
+  background: $highlight;
+  color: #FFF;
+}
+
+.dark{
+  background: $darkGrey;
+}
+
+.table-wrapper{
+  margin: 15px;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+}
+
+.small-table-wrapper{
+  margin: 15px;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+table.refugee.table{
+  margin-bottom: 0px;
+} 
+
+table.refugee.small{
+  width: initial;
+}
+
+.table-title{
+  margin: 15px 0px 0px 50px;
+  font-weight: bold;
+  font-size: 15px;
+}
