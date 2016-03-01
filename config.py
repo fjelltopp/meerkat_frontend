@@ -31,6 +31,8 @@ class Config(object):
     AUTH = {}
     USERNAME = "admin"
     PASSWORD = "secret"
+    EXTRA_PAGES = {}
+    TEMPLATE_FOLDER = None
     
 
 class Production(Config):
