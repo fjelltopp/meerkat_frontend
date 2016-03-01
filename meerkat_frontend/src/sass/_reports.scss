@@ -65,3 +65,8 @@ th{
   border-bottom: 2px solid #ddd;
 }
 
+.highlight{
+  background: $highlight;
+  color: #FFF;
+  border: $highlight;
+}
