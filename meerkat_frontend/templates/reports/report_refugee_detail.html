@@ -5,7 +5,7 @@
  <table class="centered table table-hover table-condensed"> 
   <thead> 
      <tr>
-       <th></th>
+       <th rowspan="2"></th>
         {% if age_total and u5_percent %}
             <th colspan="4" class="border-left" >0 to 4</th>
         {% else %}
@@ -20,7 +20,6 @@
        {% endif %}
       </tr>
       <tr>
-       <th></th>
        <th class="border-left">Male</th>
        <th>Female</th>
        <th>Total</th>
@@ -83,20 +82,20 @@
    {% if age_percentage %}
    {% set total = ages.values()|sum %}
    <tr class="total-row">
-     <td class="key"> % by age group </td>
+     <td class="key highlight"> % by age group </td>
      <td> </td> <td> </td>
-     <td class="total"> {{ (ages["0-4"] / total * 100)|round(0)|int }}% </td>
+     <td class="total highlight"> {{ (ages["0-4"] / total * 100)|round(0)|int }}% </td>
      {% if age_total and u5_percent %}
         <td></td>
      {% endif %}
 
      <td> </td> <td> </td>
-     <td class="total"> {{ (ages["5-17"] / total * 100)|round(0)|int }}% </td>
+     <td class="total highlight"> {{ (ages["5-17"] / total * 100)|round(0)|int }}% </td>
      <td> </td> <td> </td>
-     <td class="total"> {{ (ages["18-59"] / total * 100)|round(0)|int }}% </td>
+     <td class="total highlight"> {{ (ages["18-59"] / total * 100)|round(0)|int }}% </td>
      <td> </td> <td> </td>
-     <td class="total"> {{ (ages[">60"] / total * 100)|round(0)|int }}% </td>
-     <td class="total"> 100% </td>
+     <td class="total highlight"> {{ (ages[">60"] / total * 100)|round(0)|int }}% </td>
+     <td class="total highlight"> 100% </td>
    </tr>
    {% endif %}
    </table>
