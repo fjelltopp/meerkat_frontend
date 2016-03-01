@@ -355,7 +355,7 @@ body.homepage{
 	.chevron span{
 		line-height: 200px;
 		cursor: pointer;
-	}
+	}.btn-default:active:hover, .btn-default:active:focus, .btn-default.focus:active,
 
 	.window{
 		position: relative;
@@ -442,4 +442,8 @@ body.homepage{
 
 a:hover{
 	color: $highlight;
+}
+
+.btn-default:active:hover, .btn-default:active:focus, .btn-default.focus:active{
+	background: $highlight;
 }
