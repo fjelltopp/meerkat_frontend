@@ -28,7 +28,8 @@ body.reports{
   text-align: center;
 }
 
-th{
+
+.refugee th{
   background: $lightGrey;
 }
 
@@ -65,8 +66,44 @@ th{
   border-bottom: 2px solid #ddd;
 }
 
-.highlight{
+.table tbody td.highlight{
   background: $highlight;
   color: #FFF;
   border: $highlight;
+}
+
+.table th.highlight{
+  background: $highlight;
+  color: #FFF;
+}
+
+.dark{
+  background: $darkGrey;
+}
+
+.table-wrapper{
+  margin: 15px;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+}
+
+.small-table-wrapper{
+  margin: 15px;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+table.refugee.table{
+  margin-bottom: 0px;
+} 
+
+table.refugee.small{
+  width: initial;
+}
+
+.table-title{
+  margin: 15px 0px 0px 50px;
+  font-weight: bold;
+  font-size: 15px;
 }
