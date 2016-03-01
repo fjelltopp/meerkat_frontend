@@ -24,4 +24,44 @@ body.reports{
 	padding: 10px 0;
 }
 
+.centered, .centered th{
+  text-align: center;
+}
+
+th{
+  background: $lightGrey;
+}
+
+.key{
+  text-align: left;
+  border-right: 2px solid #ddd;
+}
+
+.total{
+  border-right: 2px solid #ddd;
+  border-left: 2px solid #ddd;
+  background: $lightGrey;
+}
+
+.total-row{
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  background: $lightGrey;
+}
+
+.border-left{
+  border-left: 2px solid #ddd;
+}
+
+.border-top{
+  border-top: 2px solid #ddd;
+}
+
+.border-right{
+  border-right: 2px solid #ddd;
+}
+
+.border-bottom{
+  border-bottom: 2px solid #ddd;
+}
 
