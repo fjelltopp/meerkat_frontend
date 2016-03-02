@@ -179,11 +179,11 @@ function refugeeCommunicableDiseasesChart(categories, series, labels) {
         }
 	  },
       allowDecimals: true,
-	  min: 0,
+	  min: 0
     },
       series: [
 		  {
-      type: 'spline',
+      type: 'column',
       name: 'Suspected',
 			  data: series[0],
 			  lineWidth: 5
