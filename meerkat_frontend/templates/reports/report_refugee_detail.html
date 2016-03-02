@@ -40,14 +40,14 @@
    <tr>
      <td class="key" >{{ key }}</td>
      {% for age in age_group %}
-        <td> {{ value[age].male }} </td>
-        <td> {{ value[age].female }}</td>
-        <td class="total"> {{ value[age].female + value[age].male }}</td>
+        <td> {{ value[age].male|commas }} </td>
+        <td> {{ value[age].female|commas }}</td>
+        <td class="total"> {{ (value[age].female + value[age].male)|commas }}</td>
 	 {% if age_total and u5_percent and age=="0-4" %}
             <td class="highlight"> {{ ((value[age].female + value[age].male) / (ages["0-4"] if ages["0-4"] !=0 else 1) *100)|round(1) }}%</td>
 	 {% endif %}
      {% endfor %}
-     <td> {{ value.total }} </td>
+     <td> {{ value.total|commas }} </td>
      {% if age_total and percent %}
        <td class="highlight"> {{ (value.total / ages.values()|sum * 100)|round(1) }}%</td>
      {% endif %}
@@ -56,22 +56,22 @@
    {% if age_total %}
    <tr class="total-row">
      <td class="key"> Total </td>
-     <td> {{ age_gender["0-4"]["male"] }} </td>
-     <td> {{ age_gender["0-4"]["female"] }} </td>
-     <td class="total"> {{ ages["0-4"] }} </td>
+     <td> {{ age_gender["0-4"]["male"]|commas }} </td>
+     <td> {{ age_gender["0-4"]["female"]|commas }} </td>
+     <td class="total"> {{ ages["0-4"]|commas }} </td>
      {% if age_total and u5_percent %}
         <td class="highlight">100%</td>
      {% endif %}
-     <td> {{ age_gender["5-17"]["male"] }} </td>
-     <td> {{ age_gender["5-17"]["female"] }} </td>
-     <td class="total"> {{ ages["5-17"] }} </td>
-     <td> {{ age_gender["18-59"]["male"] }} </td>
-     <td> {{ age_gender["18-59"]["female"] }} </td>
-     <td class="total"> {{ ages["18-59"] }} </td>
-     <td> {{ age_gender[">60"]["male"] }} </td>
-     <td> {{ age_gender[">60"]["female"] }} </td>
-     <td class="total"> {{ ages[">60"] }} </td>
-     <td class="total"> {{ ages.values()|sum }} </td>
+     <td> {{ age_gender["5-17"]["male"]|commas }} </td>
+     <td> {{ age_gender["5-17"]["female"]|commas }} </td>
+     <td class="total"> {{ ages["5-17"]|commas }} </td>
+     <td> {{ age_gender["18-59"]["male"]|commas }} </td>
+     <td> {{ age_gender["18-59"]["female"]|commas }} </td>
+     <td class="total"> {{ ages["18-59"]|commas }} </td>
+     <td> {{ age_gender[">60"]["male"]|commas }} </td>
+     <td> {{ age_gender[">60"]["female"]|commas }} </td>
+     <td class="total"> {{ ages[">60"]|commas }} </td>
+     <td class="total"> {{ ages.values()|sum|commas }} </td>
       {% if percent %}
        <td class="highlight"> 100 % </td>
      {% endif %}
@@ -164,7 +164,7 @@
       <div class="table-wrapper table-responsive"> 
         {{ table(report.data.communicable_diseases.diseases, age_gender=report.data.communicable_diseases.age_gender, ages=report.data.communicable_diseases.age,u5_percent=True) }}
       </div>
-      <div class="table-title">3.3 Cronic Health Conditions</div>
+      <div class="table-title">3.3 Chronic Health Conditions</div>
       <div class="table-wrapper table-responsive">
         {{ table(report.data.non_communicable_diseases.diseases, age_gender=report.data.non_communicable_diseases.age_gender, ages=report.data.non_communicable_diseases.age) }}
       </div>
@@ -193,12 +193,32 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">More Information</div>
+      <div class="chart-stage">
+        <p>A program of public health surveillance is being implemented in 286 outpatient clinics in Jordan, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p><p>
+	  The system has been adapted to fulfil the needs of an emergency health information system (HIS) in the north eastern border of Jordan, working with MOH, RMS, UNHCR, ICRC, UNICEF, MSF and other partners.
+	  </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Contact Information</div>
+      <div class="chart-stage">
+        <address>
+	  {{address|safe}}
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock body %}
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
-<script>
-
-</script>
 {% endblock extra_js %}
 {% block footer %}
 <p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>

@@ -11,7 +11,7 @@
 		</a>
 	</div>
 	<div class="tab-title hidden-xs col-sm-5 col-md-6">
-		Non Communicable Diseases
+		Non-Communicable Diseases
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 		Date not loaded.
@@ -32,7 +32,7 @@
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
 					<div class="chartBox__heading">
-						Non Communicable Diseases
+						Non-Communicable Diseases
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="exportTableToCSV('disease-table','ncds.csv', this);" class="csv"> 
 								Excel 
@@ -79,8 +79,8 @@ function drawCharts( locID ){
 	                    barID: 'nc_disease-bar-chart',
 	                    percent: true,
 	                    linkFunction: 'loadDisease',
-                            strip: true,
-                            title: 'Communicable Disease'
+                      strip: false,
+                      title: 'Non-Communicable Disease'
 	                   });
 
 }

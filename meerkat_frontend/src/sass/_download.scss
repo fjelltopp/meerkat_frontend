@@ -7,15 +7,16 @@
 #data-download{
 
 	input.submit:active,
-    input.submit:visited,
+	input.submit:visited,
 	input.submit:focus{
 		background: $highlight;
 		border: $highlight 1px solid;
 	}
 
-   .check{
+	.check{
 		padding: 0px 20px;
 		position: relative;
+		overflow: hidden;
 
 		input{
 			position: absolute;

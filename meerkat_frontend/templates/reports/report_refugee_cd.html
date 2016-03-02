@@ -20,27 +20,7 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">Population</div>
-      <div class="chart-stage">
-        <div id="chart-population"></div>
-	<p>There were {{ report.data.population.suspected|last|e }} refugees registerd this week.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">Number of Clinicians</div>
-      <div class="chart-stage">
-        <div id="chart-clinicians"></div>
-	<p>There were {{ report.data.number_clinicians.suspected|last|e }} clinicians this week.</p>
-      </div>
-    </div>
-  </div>
-</div>
-  
+ 
 {% for row in report.data.communicable_diseases|dictsort|batch(2) %}
 <div class="row">
   {% for cd in row %}

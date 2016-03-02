@@ -255,7 +255,7 @@ body.homepage{
 }
 .reports-button{
 
-	margin: 40px 0px 0px;
+	margin: 20px 0px 0px;
 	text-align: center;
 
 	a,
@@ -447,3 +447,13 @@ a:hover{
 .btn-default:active:hover, .btn-default:active:focus, .btn-default.focus:active{
 	background: $highlight;
 }
+
+.reports-options{
+	margin-top: 20px;
+	text-align: center;
+}
+
+.selector-wrapper{
+	display:inline-block;
+	margin: 10px 10px;
+}	

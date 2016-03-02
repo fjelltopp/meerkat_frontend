@@ -15,6 +15,7 @@ from .views.technical import technical
 from .views.reports import reports
 from .views.messaging import messaging
 from .views.download import download
+from . import common as c
 
 # Create the Flask app
 app = Flask(__name__)
@@ -59,7 +60,7 @@ app.register_blueprint(download, url_prefix='/download')
 # Paths specified in config file
 def prepare_function(template, config):
     def function():
-        return render_template(template, content=config)
+        return render_template(template, content=config, week=c.api('/epi_week'))
     return function
 
 for url, value in app.config["EXTRA_PAGES"].items():
