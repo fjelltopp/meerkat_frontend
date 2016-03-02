@@ -8,7 +8,7 @@ different services such as the API and Reports.
 """
 import json, os
 from slugify import slugify
-from flask import Flask, send_file, render_template
+from flask import Flask, send_file, render_template, request
 import jinja2
 from .views.homepage import homepage
 from .views.technical import technical
@@ -58,14 +58,24 @@ app.register_blueprint(download, url_prefix='/download')
 
 
 # Paths specified in config file
-def prepare_function(template, config):
+def prepare_function(template, config, authentication=False):
     def function():
+        if authentication:
+            auth = request.authorization
+            if not auth or not c.check_auth(auth.username, auth.password):
+                return c.authenticate()
         return render_template(template, content=config, week=c.api('/epi_week'))
     return function
 
 for url, value in app.config["EXTRA_PAGES"].items():
     path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
-    function = prepare_function(value['template'], json.loads( open(path).read()))
+    if "authenticate" in value and value["authenticate"]:
+        authenticate = True
+    else:
+        authenticate = False
+    function = prepare_function(value['template'],
+                                json.loads( open(path).read()),
+                                authentication=authenticate)
     app.add_url_rule('/{}'.format(url), url, function)
     
 
