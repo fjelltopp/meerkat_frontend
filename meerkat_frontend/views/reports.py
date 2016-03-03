@@ -81,11 +81,14 @@ def test(report):
 def send_email_report(report):
     """Sends an email via Mailchimp with the latest report"""
     report_list = current_app.config['REPORT_LIST']
+    country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+    current_app.logger.warning( "Sending report email" )
     # Hacky hard-coded value to add some semblance of access control...
-    if 'apikey' not in request.json or request.json['apikey'] \
-       != 'simbasucksass':
-        abort(401)
+    #if 'apikey' not in request.json or request.json['apikey'] \
+    #   != 'simbasucksass':
+    #    abort(401)
     if report in report_list['reports']:
+
         location = report_list['default_location']
         end = c.epi_week_to_date(c.date_to_epi_week() - 1)
         api_request = '/reports/{report}/{loc}/{end}'.format(
@@ -107,6 +110,7 @@ def send_email_report(report):
                                year=epi_year,
                                week=epi_week)
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
+
         # RENDER!
         # Extra parsing for natural language bullet points in email templates
         patient_status = {
@@ -117,6 +121,7 @@ def send_email_report(report):
         extras = {
             'patient_status': patient_status
             }
+
         html_email_body = render_template(
             report_list['reports'][report]['template_email_html'],
             email=data,
@@ -130,64 +135,31 @@ def send_email_report(report):
             report_url=report_url
         )
         subject = (
-            'MOH Jordan | Public Health Profile Epi Week {} ({})'
-            .format(epi_week, epi_date)
+            '{} | {} Epi Week {} ({})'
+            .format(country, report_list['reports'][report]['title'], epi_week, epi_date)
         )
-
-        # Send email as Mailchimp campaign
-        # First create the campaign
-        endpoint = report_list['api_endpoints']['mailchimp_campaign']
+        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
+        
+        #Assemble the message data in a manner hermes will understand.
         message = {
-            "apikey": report_list['keys']['mailchimp'],
-            "type": "regular",
-            "options": {
-                "list_id":
-                    report_list['reports'][report]['mailchimp_list_id'],
-                "subject": subject,
-                "from_email":
-                    report_list['reports'][report]['email_from_address'],
-                "from_name":
-                    report_list['reports'][report]['email_from_name'],
-                "folder_id":
-                    report_list['reports'][report]['mailchimp_dir_id'],
-                "authenticate": True,
-                "auto_footer": True,
-                "inline_css": True
-            },
-            "content": {
-                "html": html_email_body,
-                "text": plain_email_body
-            }
-            }
-        try:
-            result = requests.post(
-                ''.join([endpoint, 'create.json']),
-                json=message
-            )
-        except requests.exceptions.RequestException:
-            abort(500)
-        # If we've successfully created the campaign, let's now Send it.
-        if result.status_code == 200:
-            try:
-                campaign = result.json()
-            except ValueError:
-                abort(500)
-            send = {
-                "apikey": report_list['keys']['mailchimp'],
-                "cid": campaign['id']
-                }
-            try:
-                result = requests.post(
-                    ''.join([endpoint, 'send.json']),
-                    json=send
-                )
-                pass
-            except requests.exceptions.RequestException:
-                abort(500)
+            "id": topic + "-" + str(epi_week) + "-" + str(epi_year),
+            "topics": topic,
+            "html-message": html_email_body,
+            "message": plain_email_body,
+            "subject": subject,
+            "from": current_app.config['MESSAGING_CONFIG']['messages']['from']
+        }
+
+        #Publish the message to hermes
+        r = c.hermes( '/publish', 'PUT', message )
+
+        if r.status_code == 200:
+            return 'OK'
         else:
-            abort(500)
-        return 'OK'
+            current_app.logger.warning( "Aborting. Hermes error:" + str(r.json()) ) 
+            abort( 502 )
     else:
+        current_app.logger.warning( "Aborting. Report doesn't exist." ) 
         abort(501)
 
 
