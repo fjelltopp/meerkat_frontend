@@ -79,14 +79,11 @@ def test(report):
 
 @reports.route('/email/<report>/', methods=['POST'])
 def send_email_report(report):
-    """Sends an email via Mailchimp with the latest report"""
+    """Sends an email via Hermes with the latest report"""
+
     report_list = current_app.config['REPORT_LIST']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
-    current_app.logger.warning( "Sending report email" )
-    # Hacky hard-coded value to add some semblance of access control...
-    #if 'apikey' not in request.json or request.json['apikey'] \
-    #   != 'simbasucksass':
-    #    abort(401)
+
     if report in report_list['reports']:
 
         location = report_list['default_location']
