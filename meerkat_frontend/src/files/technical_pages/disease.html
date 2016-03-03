@@ -131,7 +131,6 @@ function drawDiseaseContent( varID, locID ){
 		buildHTML( 'Risk Factor(s)', data.risk_factors, 'riskFactors' );
 		buildHTML( 'Sign(s)/Symptom(s)', data.symptoms, 'signsSymptoms' );
 		buildHTML( 'Labs/Diagnostics', data.labs_diagnostics, 'signsSymptoms' );
-
 		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
 		drawDiseaseTable( varID, locID );
 	});
@@ -148,14 +147,14 @@ function drawDiseaseTable( varID, locID ){
 
 			$.getJSON( api_root+"/aggregate_category/" + data.name + "/" + locID, function( subdiseases ){
 				$.getJSON( api_root+"/variables/" + data.name, function( variables ){
-
-					console.log( subdiseases );
+                                       
+					console.log( Object.keys(subdiseases).length );
                                      
                                         var title = data.name.charAt(0).toUpperCase() + data.name.slice(1);
-                                        if( subdiseases.length > 0){
+                                        if( Object.keys(subdiseases).length > 0){
                    				var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), "ICD10 Sub-diseases" );
           		 			dataObject = stripEmptyRecords( dataObject );
- 
+
                                                 drawTable( 'disease-table', dataObject, true, 'loadDisease' );
                                         }
 				});

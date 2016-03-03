@@ -142,7 +142,7 @@
     $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( reports ){
       $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/consultation_map", function( consultations ){
          for( key in reports){
-	    if (reports.hasOwnProperty(key)){	      
+           if (reports.hasOwnProperty(key)){
           var report = reports[key];
           var consultation = consultations[key];
 
