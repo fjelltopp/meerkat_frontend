@@ -3,7 +3,7 @@ reports.py
 
 A Flask Blueprint module for reports.
 """
-from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app
+from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, make_response
 from datetime import datetime, date
 try:
     import simplejson as json
@@ -12,6 +12,9 @@ except ImportError:
 import dateutil.parser
 import requests
 from .. import common as c
+
+import pdfcrowd
+from flask_weasyprint import HTML, render_pdf
 
 reports = Blueprint('reports', __name__)
 
@@ -256,6 +259,34 @@ def report(report=None, location=None, year=None, week=None):
 
     else:
         abort(501)
+
+@reports.route('/<report>.pdf')
+@reports.route('/<report>_<location>.pdf')
+@reports.route('/<report>_<location>_<int:year>.pdf')
+@reports.route('/<report>_<location>_<int:year>_<int:week>.pdf')
+def pdf_report(report=None, location=None, year=None, week=None):
+    relative_url = url_for('.report',
+                           report=report,
+                           location=location,
+                           year=year,
+                           week=week)
+    #report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
+
+    report_url = ''.join(['http://localhost',relative_url])
+
+    #client = pdfcrowd.Client("jsoppela", "632073174ee4b5c4b0055905be7c73c4")
+    #pdf = client.convertURI(report_url)
+
+    #resp = make_response(pdf)
+
+    #def return_pdf():
+    #    yield pdf
+
+    #return Response(pdf, mimetype='application/pdf')
+    return 'Report URL: ' + str(report_url)
+    #return render_pdf(url_for('.report', report=report, location=location, year=year, week=week))
+    #return report(report=report, location=location, year=year, week=week)
+    #return render_pdf(report_url)
 
 
 @reports.route('/error/<int:error>/')
