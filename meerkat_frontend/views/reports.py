@@ -226,12 +226,15 @@ def pdf_report(report=None, location=None, year=None, week=None):
     
     if report in report_list['reports']:
         ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
+
         html = render_template(
             ret['template'],
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address']
             )
+        html=html.replace("/static/", "https://demo.aws.emro.info/static/")
+        client.usePrintMedia(True)
         pdf = client.convertHtml(html)
         return Response(pdf, mimetype='application/pdf')
         #return render_pdf(HTML(string=html))
