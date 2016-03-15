@@ -17,6 +17,9 @@ MESSAGING_CONFIG = 'country_config/null_messaging.json'
 # Download Data specfic stuff
 DOWNLOAD_CONFIG = 'country_config/null_download.json'
 
+# Explore Data specfic stuff
+Explore_CONFIG = 'country_config/null_explore.json'
+
 FLAGG_ABR = "no"
 
 AUTHENTICATION = {

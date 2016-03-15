@@ -1,0 +1,29 @@
+{
+  "application":"explore",
+
+  "titles":{
+    "full":"Null Island <br> Public Health Surveillance",
+    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
+    "mob_nav":"Health Surveillance"
+  },
+
+  "api_key": "test-api", 
+
+  "flag":"ni.png",
+
+  "footer":{
+    "logos":{
+      "who":"who-logo-white-no-text.svg",
+      "country_partner":"ni.png",
+      "partners":[]
+    },
+
+    "partners":[
+      "The World Health Organisation",
+      "The Ministry of Health, Null Island"
+    ],
+
+    "email":"emwrojor@who.int"
+  }
+}
+

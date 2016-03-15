@@ -15,6 +15,7 @@ from .views.technical import technical
 from .views.reports import reports
 from .views.messaging import messaging
 from .views.download import download
+from .views.explore import explore
 from . import common as c
 
 # Create the Flask app
@@ -49,13 +50,16 @@ app.config['MESSAGING_CONFIG'] = json.loads( open(path).read())
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['DOWNLOAD_CONFIG']
 app.config['DOWNLOAD_CONFIG'] = json.loads( open(path).read())
 
+path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['EXPLORE_CONFIG']
+app.config['EXPLORE_CONFIG'] = json.loads( open(path).read())
+
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')
 app.register_blueprint(technical, url_prefix='/technical')
 app.register_blueprint(reports, url_prefix='/reports')
 app.register_blueprint(messaging, url_prefix='/messaging')
 app.register_blueprint(download, url_prefix='/download')
-
+app.register_blueprint(explore, url_prefix='/explore')
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):
