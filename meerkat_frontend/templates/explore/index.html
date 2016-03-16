@@ -23,28 +23,23 @@
 		</div>
 	</div>
 	<div id="page-content-wrapper">
-	<div class="row">
-<<<<<<< HEAD
-			<div class="col-xs-12 less-padding-col">
-				<div class="box chartBox">
-					<div class="chartBox__heading">
-						Explore Data
-					</div>
-					<div class="chartBox__content" >
-						
-=======
-			<div class="col-xs-12 less-padding-col exploreChart" >			
-				<div class="box xaxis" >
-				</div>
-				<div class="row">
-					<div class="box chartbox yaxis" >
-					</div>
-					<div class="box chartBox" >
->>>>>>> Added a css/html frame work the chart
-					</div>
-				</div>
-			</div>
-		</div>
+	  <div class="row">
+		  <div class="col-xs-12 less-padding-col exploreChart" >			
+			  <div class="box xaxis" >
+          <div class="axis-selector">
+          </div>
+			  </div>
+			  <div class="row">
+				  <div class="box yaxis" >
+            <div class="axis-selector">
+            </div>
+				  </div>
+				  <div class="box chartBox" >
+            <div class="table-responsive" ></div>
+				  </div>
+			  </div>
+		  </div>
+    </div>
 	</div>
 </div>
 {% endblock body %}
@@ -80,20 +75,85 @@ var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
-<<<<<<< HEAD
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
-=======
+
 $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
->>>>>>> Added a css/html frame work the chart
 
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
 });
 
+var axisSelector = "<select>"
 
-<<<<<<< HEAD
-=======
+for( var i in config.categories ){
+  var cat = config.categories[i];
+  axisSelector += "<option value='" + cat[0] + "'>" + cat[1] + "</option>";
+}
+axisSelector += "</select>";
+
+$('.axis-selector').html(axisSelector);
+
+$('.axis-selector').change( function(){
+  drawCrossPlot( $('.xaxis .axis-selector select').val(), $('.yaxis .axis-selector select').val() );
+});
+
+function drawCrossPlot( catx, caty ){
+
+	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
+	var queryData, catxData, catyData;
+
+	//Assemble an array of AJAX calls 
+	var deferreds = [
+		$.getJSON( api_root + '/query_category/' + caty + '/' + catx + '?use_ids=1', function(data) {
+			queryData = data;
+		}),
+		$.getJSON( api_root + "/variables/" + catx, function(data) {
+			catxData = data;
+		}),
+    $.getJSON( api_root + "/variables/" + caty, function(data) {
+			catyData = data;
+		})
+	];
+
+	//Run the AJAX reuqests asynchronously and act when they have all completed.
+	$.when.apply( $, deferreds ).then(function() {
+
+    var table = "<table class='table table-hover'>"
+    
+    var yKeys = Object.keys( queryData );
+
+    //We draw html tables by rows, not columns, so begin by looping through y.
+    for( var y in yKeys ){
+
+      var yKey = yKeys[y];
+      var xKeys = Object.keys( queryData[yKey] );
+
+      //If first time, draw headers.
+      if( y == 0 ){
+        table += "<tr><th class='header'></th>";
+        for( var h in xKeys ){
+          table += "<th>" + catxData[xKeys[h]].name + "</th>";
+        }
+        table += "</tr>";
+      }
+
+      table += "<tr><td class='header'>" + catyData[yKey].name + "</td>";
+      //Loop through x, drawing a new cell for each data point.
+      for( var x in xKeys ){
+        var xKey = xKeys[x];
+        table += "<td>" + queryData[yKey][xKey] + "</td>";
+      }
+      table += "</tr>";
+
+    } 
+
+    table += "</table>"
+    
+    $('.exploreChart .table-responsive').html(table);
+  });
+
+
+}
 
 </script>
->>>>>>> Added a css/html frame work the chart
+
 {% endblock pageJS %}
