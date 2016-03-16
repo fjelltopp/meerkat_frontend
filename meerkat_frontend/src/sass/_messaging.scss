@@ -1,5 +1,7 @@
 input.submit,
-input.submit:hover{
+input.submit:hover,
+.submit,
+.submit:hover{
 	background: $blue;
 	border: $blue 1px solid;
 	color: #FFF;
