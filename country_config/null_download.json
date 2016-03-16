@@ -323,6 +323,9 @@
         "pt1./gender",
         "pt1./age",
         "nationality",
+        "clinic",
+        "district",
+        "region",
         "pc_imci",
         "cd",
         "cd./symptoms",
@@ -376,7 +379,10 @@
         "consult./consultations_refugee",
         "surveillance./afp",
         "surveillance./measles",
-        "surveillance./diarrhoea"
+        "surveillance./diarrhoea",
+        "clinic",
+        "district",
+        "region"
       ]
     }
   },
