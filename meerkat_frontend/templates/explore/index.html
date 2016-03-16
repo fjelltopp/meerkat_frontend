@@ -24,6 +24,7 @@
 	</div>
 	<div id="page-content-wrapper">
 	<div class="row">
+<<<<<<< HEAD
 			<div class="col-xs-12 less-padding-col">
 				<div class="box chartBox">
 					<div class="chartBox__heading">
@@ -31,6 +32,15 @@
 					</div>
 					<div class="chartBox__content" >
 						
+=======
+			<div class="col-xs-12 less-padding-col exploreChart" >			
+				<div class="box xaxis" >
+				</div>
+				<div class="row">
+					<div class="box chartbox yaxis" >
+					</div>
+					<div class="box chartBox" >
+>>>>>>> Added a css/html frame work the chart
 					</div>
 				</div>
 			</div>
@@ -70,11 +80,20 @@ var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
+<<<<<<< HEAD
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+=======
+$("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
+>>>>>>> Added a css/html frame work the chart
 
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
 });
 
 
+<<<<<<< HEAD
+=======
+
+</script>
+>>>>>>> Added a css/html frame work the chart
 {% endblock pageJS %}
