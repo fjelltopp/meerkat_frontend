@@ -15,6 +15,7 @@
   "prepared":[{
       "title":"Communicable Diseases",
       "api":"/api/export/category/cd_tab/communicable_diseases",
+      "name_category": "individual_icd",
       "fields":[
         ["intro./visit_type","Visit Type"],
         ["pt./visit_date","Visit Date"],
@@ -46,6 +47,7 @@
     },{
       "title":"Non-Communicable Diseases",
       "api":"/api/export/category/ncd_tab/non_communicable_diseases",
+      "name_category": "individual_icd",
       "fields":[
         ["intro./visit_type","Visit Type"],
         ["pt./visit_date","Visit Date"],
@@ -77,6 +79,7 @@
     },{
       "title":"Mental Health",
       "api":"/api/export/category/mhgap/mental_health",
+      "name_category": "individual_icd",
       "fields":[
         ["intro./visit_type","Visit Type"],
         ["pt./visit_date","Visit Date"],
@@ -95,7 +98,8 @@
       ]
     },{
       "title":"IMCI",
-      "api":"/api/export/category/imci/imci",
+       "api":"/api/export/category/imci/imci",
+      "name_category": "individual_icd",
       "fields":[
         ["intro./visit_type", "Visit Type"],
         ["pt./visit_date", "Visit Date"],
@@ -172,6 +176,7 @@
     },{
       "title":"Nutrition",
       "api": "/api/export/category/child_under_24/nutrition",
+      "name_category": "individual_icd",
       "fields":[
 	  ["intro./visit_type","Visit Type"],
 	  ["pt./visit_date","Visit Date"],
@@ -194,6 +199,7 @@
     },{
 	"title": "Vaccination",
 	"api":"/api/export/category/under_five/vaccination",
+        "name_category": "individual_icd",
 	"fields":[
 	    ["intro./visit_type","Visit Type"],
 	    ["pt./visit_date","Visit Date"],
@@ -213,6 +219,7 @@
     },{
       "title":"mhGAP",
       "api":"/api/export/category/mhgap/mhgap",
+      "name_category": "individual_icd",
       "fields":[
         ["intro./visit_type","Visit Type"],
         ["pt./visit_date","Visit Date"],
@@ -285,7 +292,8 @@
       ]
     },{
 	"title": "Public Health",
-	"api":"/api/export/category/cd_tab/public_health",
+	"api":"/api/export/category/new_visit/public_health",
+        "name_category": "individual_icd",
 	"fields":[
 	    ["intro./visit_type","Visit Type"],
 	    ["pt./visit_date","Visit Date"],
@@ -297,7 +305,7 @@
 	    ["pt1./age","Age (Years)"],
 	    ["child_age","Age (Months)"],
 	    ["nationality","Nationality"],
-	    ["icd_name","Communicable Disease"],
+	    ["icd_name","Disease"],
 	    ["icd_code","ICD 10 Code"],
 	    ["smoke_ever","Ever smoked?"],
 	    ["smoke_now","Smoke now?"]

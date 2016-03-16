@@ -320,8 +320,12 @@ $.getJSON( api_root+"/export/forms", function( data ){
 
 	$('#prepared-data-download').submit( function(event){
 		//Assemble the appropriate API call.
-		var dataSet = config.prepared[$('#prepared-selector').val()];
-		var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
+	        var dataSet = config.prepared[$('#prepared-selector').val()];
+		if( "name_category" in dataSet){			      
+   	          var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
+		}else{
+		   var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields)
+		}			      
 		url += "&api_key=" + config.api_key;
 		window.open( url );
 	});
