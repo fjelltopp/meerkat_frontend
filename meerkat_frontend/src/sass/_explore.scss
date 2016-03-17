@@ -8,18 +8,47 @@
 		margin-top: 5px;
 	}
 
+  .cornerBox{
+    width: 55px;
+    height: 45px;
+    margin-right: 5px;
+    text-align: center;
+    
+    span{
+      transform: rotate(-45deg);
+      margin-left: 5px;
+			margin-top: 3px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+  }
+
 	.xaxis{
-		width: 100%;
+		width: calc(100% - 45px);
 		height: 45px;
 
     .axis-selector{
-      margin-left: 110px;
+      margin-left: 80px;
+			width: 300px;
+			float: left;
     }
+	
+		.options{
+			float: right;
+			font-size: 20px;
+			margin-right: 10px;
+
+			span{
+				cursor: pointer;
+			}
+		}
 	}
 
 	.yaxis,
+  .xaxis,
+  .cornerBox,
 	.chartBox{
-  	padding: 2px 6px;
 		float: left;
 	}
 	
@@ -32,6 +61,7 @@
 
 	.chartBox{
 		width: calc(100% - 45px);
+		padding: 5px;
 	}
 
   .yaxis .axis-selector{
@@ -49,13 +79,13 @@
     }
   }
 
-}
+	.timeline{
+		width: 100%;
+	}
 
-
-
-.exploreChart{
   .table, th{
     text-align: center;
+		margin: 0px;
   }
 
   .table th,

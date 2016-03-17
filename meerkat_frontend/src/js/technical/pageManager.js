@@ -17,7 +17,7 @@ function loadTabContent( tabID, locID ){
 										
 
 	//Update the active tab styling
-	$('.technical-tabs li.active').removeClass('active');
+	$('.tabs li.active').removeClass('active');
 	$( '#'+tabID ).parent().addClass('active');
 
 }

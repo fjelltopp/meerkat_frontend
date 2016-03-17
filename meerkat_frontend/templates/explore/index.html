@@ -23,23 +23,45 @@
 		</div>
 	</div>
 	<div id="page-content-wrapper">
-	  <div class="row">
-		  <div class="col-xs-12 less-padding-col exploreChart" >			
-			  <div class="box xaxis" >
-          <div class="axis-selector">
-          </div>
-			  </div>
-			  <div class="row">
-				  <div class="box yaxis" >
-            <div class="axis-selector">
-            </div>
-				  </div>
-				  <div class="box chartBox" >
-            <div class="table-responsive" ></div>
-				  </div>
-			  </div>
-		  </div>
-    </div>
+		<div class="row">
+			<div class="col-xs-12 less-padding-col exploreChart" >
+				<div class="row">		
+					<div class="box cornerBox" >
+						<span class="glyphicon glyphicon-transfer" id="transpose-button" 
+						      onclick="callTranspose();" title="Flip axis" >
+						</span>
+					</div>
+
+					<div class="box xaxis" >
+						<div class="axis-selector">
+						</div>
+						<div class="options">
+							<span class="glyphicon glyphicon-resize-small chart-option" id="strip-button"
+							      onClick="callStrip();" title="Hide/show empty records" 
+							      value="" name="strip">
+							</span>
+							<span class="glyphicon glyphicon-pencil chart-option" id="colour-button"
+							      onClick="callColour();" title="Colour the table" 
+							      value=true name="colour">
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="box yaxis" >
+						<div class="axis-selector">
+						</div>
+					</div>
+					<div class="box chartBox" >
+						<div class="table-responsive" > </div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="box timeline" >
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock body %}
@@ -59,7 +81,7 @@
 	<div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
 		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
 		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}"
-		     id="countryLogo" ></img> 
+				 id="countryLogo" ></img> 
 		{% for logo in content.footer.logos.partners %}
 			<img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
 		{% endfor %} 
@@ -75,82 +97,86 @@ var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
-
 $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
 
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
 });
 
+//Draw axis category selectors.
 var axisSelector = "<select>"
-
 for( var i in config.categories ){
-  var cat = config.categories[i];
-  axisSelector += "<option value='" + cat[0] + "'>" + cat[1] + "</option>";
+	var cat = config.categories[i];
+	axisSelector += "<option value='" + cat[0] + "'>" + cat[1] + "</option>";
 }
 axisSelector += "</select>";
-
 $('.axis-selector').html(axisSelector);
 
+//Set a default table.
+$('.xaxis .axis-selector option[value="age"]').attr('selected',true);
+$('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
+reDraw();
+
+//Add a listener to the axis selectors, update table upon change.
 $('.axis-selector').change( function(){
-  drawCrossPlot( $('.xaxis .axis-selector select').val(), $('.yaxis .axis-selector select').val() );
+	reDraw();
 });
 
-function drawCrossPlot( catx, caty ){
+//The chart state is stored in the html page - specifically '.chart-option' elements.
+//Each of these elements should have a name and a value attribute.
+//This function draws a new chart based upon these attributes.
+function reDraw( ){
 
-	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
-	var queryData, catxData, catyData;
+	var options = {};
 
-	//Assemble an array of AJAX calls 
-	var deferreds = [
-		$.getJSON( api_root + '/query_category/' + caty + '/' + catx + '?use_ids=1', function(data) {
-			queryData = data;
-		}),
-		$.getJSON( api_root + "/variables/" + catx, function(data) {
-			catxData = data;
-		}),
-    $.getJSON( api_root + "/variables/" + caty, function(data) {
-			catyData = data;
-		})
-	];
+	//Assemble correct options object from html elements.
+	$('.chart-option').each( function(){
+		options[$(this).attr('name')] = $(this).attr('value');
+	});
 
-	//Run the AJAX reuqests asynchronously and act when they have all completed.
-	$.when.apply( $, deferreds ).then(function() {
+	//Draw new chart
+	createCrossPlot( $('.xaxis .axis-selector select').val(), 
+	                 $('.yaxis .axis-selector select').val(), 
+	                 options );
 
-    var table = "<table class='table table-hover'>"
-    
-    var yKeys = Object.keys( queryData );
+}
 
-    //We draw html tables by rows, not columns, so begin by looping through y.
-    for( var y in yKeys ){
+//Function that updates the colour option value.
+function callColour(){
+	var value = $('#colour-button').attr("value");
+	$('#colour-button').attr("value", value=="true" ? "false" : "true" );
+	reDraw();
+}
 
-      var yKey = yKeys[y];
-      var xKeys = Object.keys( queryData[yKey] );
+//Function that updates the strip-empty-records option value. 
+function callStrip(){
 
-      //If first time, draw headers.
-      if( y == 0 ){
-        table += "<tr><th class='header'></th>";
-        for( var h in xKeys ){
-          table += "<th>" + catxData[xKeys[h]].name + "</th>";
-        }
-        table += "</tr>";
-      }
+	var value = $('#strip-button').attr("value");
 
-      table += "<tr><td class='header'>" + catyData[yKey].name + "</td>";
-      //Loop through x, drawing a new cell for each data point.
-      for( var x in xKeys ){
-        var xKey = xKeys[x];
-        table += "<td>" + queryData[yKey][xKey] + "</td>";
-      }
-      table += "</tr>";
+	if( value == "" ){
+		$('#strip-button').attr("value","xy");
+		$('#strip-button' ).addClass('glyphicon-resize-full');
+		$('#strip-button' ).removeClass('glyphicon-resize-small');
+	}else{
+		$('#strip-button').attr("value","");
+		$('#strip-button' ).addClass('glyphicon-resize-small');
+		$('#strip-button' ).removeClass('glyphicon-resize-full');
+	}
 
-    } 
+	reDraw();
 
-    table += "</table>"
-    
-    $('.exploreChart .table-responsive').html(table);
-  });
+}
 
+//Function that transposes the data table.
+function callTranspose(){
+
+	var x = $('.xaxis .axis-selector select').val();
+	var y = $('.yaxis .axis-selector select').val();
+
+	$('.yaxis .axis-selector select').val(x);
+	$('.xaxis .axis-selector select').val(y);
+
+	reDraw();
 
 }
 
