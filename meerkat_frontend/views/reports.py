@@ -234,7 +234,13 @@ def pdf_report(report=None, location=None, year=None, week=None):
             address=ret['address']
             )
         html=html.replace("/static/", "https://demo.aws.emro.info/static/")
+        #html=html.replace("col-md-6","col-xs-6")
         client.usePrintMedia(True)
+        #client.setPageWidth('1200pt')
+        client.setPageWidth('1200pt');
+        client.setPageHeight('1697pt');
+        client.setHtmlZoom(400)
+        #client.setPdfScalingFactor(1.4)
         pdf = client.convertHtml(html)
         return Response(pdf, mimetype='application/pdf')
         #return render_pdf(HTML(string=html))

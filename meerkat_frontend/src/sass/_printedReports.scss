@@ -1,6 +1,15 @@
 
 
-@media only print {
+#mapbox-panel-printed {
+	display: none;
+}
+
+@media print {
+
+	html, body {
+   		width: 1200px;
+   		height: 1697px;
+ 	}
 
 	@page {
 		size: portrait;
@@ -8,12 +17,40 @@
 	}
 
 	.col-sm-6 {
-  		width: 100%;
+  		width: 50%;
 	}
 
 	.chart-wrapper {
-	   page-break-after: always;
+	   
+	   // page-break-after: always;
 	   border-style: hidden;
+	}
+
+	.row {
+		border-top: 1px solid #e2e2e2;
+		// page-break-inside: avoid;
+	}
+
+	#mapbox-panel {
+		display: none;
+	}
+
+	#mapbox-panel-printed {
+		display: block;
+	}
+
+	// FLAG
+	.flag-icon {
+		// background: #000 !important;
+        // background-size: contain !important;
+        // background-position: 50% !important;
+        // background-repeat: no-repeat !important;
+        // position: relative !important;
+        // display: inline-block !important;
+        // width: 1.33333em !important;
+        // line-height: 1em !important;
+
+        display: none !important;
 	}
 
 	// CHARTS
@@ -25,64 +62,4 @@
 	  font-size: 0.6em;
 	}
 
-	a,
-	a:visited {
-	  text-decoration: underline;
-	}
-	a[href]:after {
-	  content: " (" attr(href) ")";
-	}
-	abbr[title]:after {
-	  content: " (" attr(title) ")";
-	}
-	a[href^="#"]:after,
-	a[href^="javascript:"]:after {
-	  content: "";
-	}
-	pre,
-	blockquote {
-	  border: 1px solid #999;
-	  page-break-inside: avoid;
-	}
-	thead {
-	  display: table-header-group;
-	}
-	tr,
-	img {
-	  page-break-inside: avoid;
-	}
-	img {
-	  max-width: 100% !important;
-	}
-	p,
-	h2,
-	h3 {
-	  orphans: 3;
-	  widows: 3;
-	}
-	h2,
-	h3 {
-	  page-break-after: avoid;
-	}
-	.navbar {
-	  display: none;
-	}
-	.btn > .caret,
-	.dropup > .btn > .caret {
-	  border-top-color: #000 !important;
-	}
-	.label {
-	  border: 1px solid #000;
-	}
-	.table {
-	  border-collapse: collapse !important;
-	}
-	.table td,
-	.table th {
-	  background-color: #fff !important;
-	}
-	.table-bordered th,
-	.table-bordered td {
-	  border: 1px solid #ddd !important;
-	}
 }

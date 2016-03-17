@@ -42,7 +42,8 @@ function pieChart(series) {
                 }
                 return wrapped_key;
               }
-          }
+          },
+          animation: false
       }
     } 
   };
