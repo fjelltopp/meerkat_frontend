@@ -23,6 +23,30 @@
 		</div>
 	</div>
 	<div id="page-content-wrapper">
+	  <div class="row">
+	    <div class='col-xs-6'>
+              <div class="form-group">
+		<label> Start Date: </label>
+                <div class='input-group date' id='start-date'>
+                  <input type='text' class="form-control "/>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+	    <div class='col-xs-6'>
+              <div class="form-group">
+		<label> End Date: </label> 
+                <div class='input-group date' id='end-date'>
+                  <input type='text' class="form-control explore-date" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+	  </div>
 		<div class="row">
 			<div class="col-xs-12 less-padding-col exploreChart" >
 				<div class="row">		
@@ -57,8 +81,10 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="box timeline" >
+				    <div class="box timeline" >
+					<div class="timeline-chart table-responsive" id="timeline-chart">
 					</div>
+				    </div>
 				</div>
 			</div>
 		</div>
@@ -97,11 +123,40 @@ var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
+
+$(function () {
+     d = new Date();
+     $('#start-date').datetimepicker({
+	 useCurrent: false,
+	 defaultDate: new Date(d.getFullYear(),0,1).toISOString(),
+	 format: "DD/MM/YYYY"
+     }
+     );
+     $('#start-date').on('dp.change', function() {
+	 reDraw()
+     });
+     $('#end-date').datetimepicker({
+	 useCurrent: true,
+	 defaultDate: d.toISOString(),
+	 format: "DD/MM/YYYY"
+     });
+     $('#end-date').on('dp.change', function() {
+	 reDraw()
+     });
+     $('.xaxis .axis-selector option[value="age"]').attr('selected',true);
+     $('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
+     reDraw();
+});
+
+
 $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
 
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
 });
+
+
+
 
 //Draw axis category selectors.
 var axisSelector = "<select>"
@@ -113,20 +168,22 @@ axisSelector += "</select>";
 $('.axis-selector').html(axisSelector);
 
 //Set a default table.
-$('.xaxis .axis-selector option[value="age"]').attr('selected',true);
-$('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
-reDraw();
 
 //Add a listener to the axis selectors, update table upon change.
-$('.axis-selector').change( function(){
-	reDraw();
-});
+ $('.axis-selector').change( function(){
+     //If any of the axis change, we remove the timeline
+     $("#timeline-chart").html("");
+     timelineDrawn = false;
+     reDraw();
+     
+ });
+
+
 
 //The chart state is stored in the html page - specifically '.chart-option' elements.
 //Each of these elements should have a name and a value attribute.
 //This function draws a new chart based upon these attributes.
 function reDraw( ){
-
 	var options = {};
 
 	//Assemble correct options object from html elements.
@@ -137,8 +194,18 @@ function reDraw( ){
 	//Draw new chart
 	createCrossPlot( $('.xaxis .axis-selector select').val(), 
 	                 $('.yaxis .axis-selector select').val(), 
-	                 options );
-
+                         options,
+                         $('#start-date').data("DateTimePicker").date().toISOString(),
+                         $('#end-date').data("DateTimePicker").date().toISOString()
+        )
+	 //If the timeline has been drawn, we redraw it with new information
+	 if(timelineDrawn){
+	     createTimeline(timelineId,
+			    timelineCategory,
+			    $('#start-date').data("DateTimePicker").date().toISOString(),
+			    $('#end-date').data("DateTimePicker").date().toISOString()
+	     );
+	 }
 }
 
 //Function that updates the colour option value.
@@ -170,15 +237,42 @@ function callStrip(){
 //Function that transposes the data table.
 function callTranspose(){
 
-	var x = $('.xaxis .axis-selector select').val();
-	var y = $('.yaxis .axis-selector select').val();
+     var x = $('.xaxis .axis-selector select').val();
+     var y = $('.yaxis .axis-selector select').val();
 
-	$('.yaxis .axis-selector select').val(x);
-	$('.xaxis .axis-selector select').val(y);
+     $('.yaxis .axis-selector select').val(x);
+     $('.xaxis .axis-selector select').val(y);
 
-	reDraw();
+     reDraw();
 
-}
+ }
+
+
+ // Variables to keep track of if we have drawn a timeline and with what id and category
+ var timelineDrawn = False;
+ var timelineId = "";
+ var timelineCategory = "";
+ // Find category and draw timeline
+ function prepareExploreTimeline(id, axis){
+     if( axis == "x"){
+	 category = $('.yaxis .axis-selector select').val();
+     } else {
+	 category = $('.xaxis .axis-selector select').val();
+     }
+     createTimeline(id,
+		    category,
+                    $('#start-date').data("DateTimePicker").date().toISOString(),
+                    $('#end-date').data("DateTimePicker").date().toISOString()
+     );
+     timelineDrawn= true;
+     timelineId = id;
+     timelineCategory = category;
+     // Scrolls down to the timeline
+     $('html, body').animate({ scrollTop: $('#timeline-chart').offset().top }, 'slow');
+ }
+
+
+
 
 </script>
 

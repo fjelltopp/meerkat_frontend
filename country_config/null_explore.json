@@ -10,6 +10,14 @@
   "api_key": "test-api", 
 
   "flag":"ni.png",
+  "categories":[
+    ["cd_tab","Communicable Diseases"],
+    ["ncd_tab","Non-Communicable Diseases"],
+    ["mhgap", "Mental Health Issues"],
+    ["gender","Gender"],
+    ["age","Age"]
+  ],
+
 
   "footer":{
     "logos":{

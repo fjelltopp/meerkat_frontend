@@ -2,18 +2,26 @@
 //Takes two categories and collects data from the api.
 //It then turns the data turns it into a two dimensional array.
 //Any optional analysis (stripping records/colouring/graphing) can then be applied.
+// start_date and end_date are optional arguments
 //Details for this analysis are given in the options object.
 //Finally the table is drawn. 
-function createCrossPlot( catx, caty, options ){
-
+function createCrossPlot( catx, caty, options, start_date, end_date ){
 	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
 	var queryData, catxData, catyData;
 
-	//Assemble an array of AJAX calls 
-	var deferreds = [
-		$.getJSON( api_root + '/query_category/' + caty + '/' + catx + '?use_ids=1', function(data) {
+	//Assemble an array of AJAX calls
+
+	if( start_date !== undefined && end_date !== undefined){
+		main_query = $.getJSON( api_root + '/query_category/' + caty + '/' + catx + '/' + start_date + '/' + end_date + '?use_ids=1', function(data) {
 			queryData = data;
-		}),
+		});
+	}else{
+		main_query = $.getJSON( api_root + '/query_category/' + caty + '/' + catx + '?use_ids=1', function(data) {
+			queryData = data;
+		});
+	}
+	var deferreds = [
+		main_query,
 		$.getJSON( api_root + "/variables/" + catx, function(data) {
 			catxData = data;
 		}),
@@ -41,7 +49,7 @@ function createCrossPlot( catx, caty, options ){
 			//These names, preceeded by an empty box, form the top row of the table.
 			var xKeyNames = ["#Cases"];
 			for( var k in xKeys ){
-				xKeyNames.push( catxData[xKeys[k]].name );
+				xKeyNames.push( xKeys[k] );
 			}
 			var table = [ xKeyNames ];
 
@@ -51,7 +59,7 @@ function createCrossPlot( catx, caty, options ){
 				var yKey = yKeys[y];
 			
 				//Each row begins with the variable name.
-				var row = [catyData[yKey].name];
+				var row = [yKey];
 
 				//The rest of the row are the correctly ordered data points.
 				for( var x in xKeys ){
@@ -74,7 +82,7 @@ function createCrossPlot( catx, caty, options ){
 			}
 
 			//Draw!
-			drawCrossPlot( table );
+			drawCrossPlot( table, catxData, catyData  );
 		}
 	});
 }
@@ -104,26 +112,82 @@ function colour( jsTable ){
 
 }
 
-function drawCrossPlot( jsTable ){
+function timelineLink(id, name, axis){
+	//helper function to create links to activate the timeline
+	return '<a href="#" onclick="prepareExploreTimeline(&apos;' + id + '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + name + "</a>";
+}
+
+function createTimeline(id, category, start_date, end_date){
+	if( start_date !== undefined && end_date !== undefined){
+		main_query = $.getJSON( api_root + '/query_variable/' + id + '/' + category + '/' + start_date + '/' + end_date + '?use_ids=1', function(data) {
+			queryData = data;
+		});
+	}else{
+		main_query = $.getJSON( api_root + '/query_variable/' + id + '/' + category + '?use_ids=1', function(data) {
+			queryData = data;
+		});
+	}
+	var deferreds = [
+		main_query,
+		$.getJSON( api_root + "/variables/" +category ,  function(data) {
+			categories = data;
+		}),
+		$.getJSON( api_root + "/variable/" + id, function(data) {
+			variable = data;
+		})
+	];
+	//Run the AJAX reuqests asynchronously and act when they have all completed.
+	$.when.apply( $, deferreds ).then(function() {
+		drawTimeline(queryData, categories, variable);
+	});
+
+
+	
+}
+
+function drawTimeline (data, categories, variable){
+	// A timeline with weeks across the x-axis and categories down the y axis
+	var table = "<table class='table table-hover table-responsive'>";
+	var ycats = Object.keys(data);
+	var weeks = Object.keys(data[ycats[0]].weeks);
+	table += "<tr> <th> Cases with "+ variable.name + "</th>";
+	for (var week in weeks){
+		table += "<th> Week " + weeks[week] + "</th>";
+	}
+	table += '<th class="border-left"> Total </th> </tr>';
+	for(var c in ycats){
+		var cat = ycats[c];
+		table += '<tr> <td class="header">' + categories[cat].name + "</td>";
+
+		for(week  in weeks){
+			table += "<td>" + data[cat].weeks[weeks[week]] + "</td>";
+		}
+		
+		table += '<td class="border-left">' + data[cat].total +"</td></tr>";
+	}
+	$("#timeline-chart").html(table);
+}
+
+function drawCrossPlot( jsTable, catxData, catyData){
 
 	var table = "<table class='table table-hover'>";
-
+	console.log(jsTable);
 	//We draw html tables by rows, not columns, so begin by looping through y.
 	for( var y in jsTable ){
 
 		var row = jsTable[y];
 
-		//If first row, draw as headers.
+		//If first row, draw as headers. We want to add links to each header to show more detailed time line information
 		if( Number(y) === 0 ){
 			table += "<tr>";
 			for( var h in row ){
 				if( Number(h) === 0 ) table += "<th class='header'>" + row[h] + "</th>";
-				else table += "<th>" + row[h] + "</th>";
+				else table += "<th>" + timelineLink(row[h], catxData[row[h]].name, "x") + "</th>";
 			}
 			table += "</tr>";
 		}else{
 
-			table += "<tr><td class='header'>" + row[0] + "</td>";
+			table += "<tr><td class='header'>" + timelineLink(row[0], catyData[row[0]].name, "y") + "</td>";
 			//Loop through x, drawing a new cell for each data point.
 			for( var x=1; x<row.length; x++ ){
 				//If this is a three dimensional data set, use colour to indicate the third dimension.
