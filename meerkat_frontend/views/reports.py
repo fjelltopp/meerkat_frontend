@@ -222,7 +222,7 @@ def report(report=None, location=None, year=None, week=None):
 def pdf_report(report=None, location=None, year=None, week=None):
 
     report_list = current_app.config['REPORT_LIST']
-    client = pdfcrowd.Client("jsoppela", "632073174ee4b5c4b0055905be7c73c4")
+    client = pdfcrowd.Client("jsoppela", "632073174ee4b5c4b0055905be7c73c4") # TODO: fetch credentials from config file
     
     if report in report_list['reports']:
         ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
@@ -233,7 +233,8 @@ def pdf_report(report=None, location=None, year=None, week=None):
             extras=ret['extras'],
             address=ret['address']
             )
-        html=html.replace("/static/", "https://demo.aws.emro.info/static/")
+        if 1==1: # TODO: add check whether running on localhost
+            html=html.replace("/static/", "https://demo.aws.emro.info/static/")
         #html=html.replace("col-md-6","col-xs-6")
         client.usePrintMedia(True)
         #client.setPageWidth('1200pt')
