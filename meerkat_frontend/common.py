@@ -78,7 +78,7 @@ def hermes(url, method, data={}):
         r = requests.request( method, url, json=data, headers=headers)
     except requests.exceptions.RequestException as e:
         abort(500, "request")
-    return r
+    return r.json()
 
 def epi_week_to_date(epi_week, year=datetime.today().year):
     """Converts an epi_week (int) to a datetime object"""
