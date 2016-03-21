@@ -44,7 +44,7 @@ function loadTab( tabID, locID ){
 function loadDiseaseContent( diseaseID, locID ){
 
 	//Disease-specific changes depend on the page content being loaded.
-	$( '#page-content' ).load( '/static/files/technical_pages/disease.html',
+	$( '#page-content' ).load( '/static/files/pages/disease.html',
 	                           function(){ 
 	                           	drawDiseaseContent( diseaseID, locID );
 	                           	loadLocationContent( locID );
@@ -72,7 +72,7 @@ function loadDisease( diseaseID, locID ){
 function loadAlertContent( alertID ){
 	//Load the page content
 	//Alert-specific changes depend on the page content being loaded.
-	$( '#page-content' ).load( '/static/files/technical_pages/alert.html',
+	$( '#page-content' ).load( '/static/files/pages/alert.html',
 	                           function(){ 
 	                           	//This function is defined in the alert.html page file.
 	                           	//It collects data for the alertID and draws the alert page.
