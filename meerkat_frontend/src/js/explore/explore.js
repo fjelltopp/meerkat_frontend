@@ -2,26 +2,31 @@
 //Takes two categories and collects data from the api.
 //It then turns the data turns it into a two dimensional array.
 //Any optional analysis (stripping records/colouring/graphing) can then be applied.
-// start_date and end_date are optional arguments
 //Details for this analysis are given in the options object.
 //Finally the table is drawn.
-function createCrossPlot( catx, caty, options, start_date, end_date ){
+function createCrossPlot( catx, caty, options ){
+
 	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
 	var queryData, catxData, catyData;
 
-	//Assemble an array of AJAX calls
+	//Assemble the main query url according to the given options.
+	var main_query_url = api_root + '/query_category/' + caty + '/' + catx;
 
-	if( start_date !== undefined && end_date !== undefined){
-		main_query = $.getJSON( api_root + '/query_category/' + caty + '/' + catx + '/' + start_date + '/' + end_date + '?use_ids=1', function(data) {
-			queryData = data;
-		});
-	}else{
-		main_query = $.getJSON( api_root + '/query_category/' + caty + '/' + catx + '?use_ids=1', function(data) {
-			queryData = data;
-		});
+	if( options.start_date && options.end_date ){
+		main_query_url += '/' + options.start_date + '/' + options.end_date;
 	}
+
+	main_query_url += '?use_ids=1';
+
+	if( options.location ){
+		main_query_url += '&only_loc=' + options.location;
+	}
+
+	//Create the deffered objects to be executed simultaneously.
 	var deferreds = [
-		main_query,
+		$.getJSON( main_query_url, function(data) {
+			queryData = data;
+		}),
 		$.getJSON( api_root + "/variables/" + catx, function(data) {
 			catxData = data;
 		}),
@@ -35,11 +40,14 @@ function createCrossPlot( catx, caty, options, start_date, end_date ){
 		
 		//Sort out the data for the table
 		if( $.isEmptyObject(queryData) ){
+
 			console.log("Empty object");
-			$('.exploreChart .table-responsive').html( 
+			$('#cross-wrapper').html( 
 				"Unfortunately we can't plot that table.  Please try another combination of categories." 
 			);
+
 		}else{
+
 			//Store the variable id's for each category.
 			var yKeys = Object.keys(queryData);
 			var xKeys = Object.keys(queryData[yKeys[0]]);
@@ -58,6 +66,7 @@ function createCrossPlot( catx, caty, options, start_date, end_date ){
 			];
 			
 			var data = [];
+
 			//For each key in the y category, form the row from x category data.
 			for( var y in yKeys.sort() ){
 				var datum ={
@@ -71,6 +80,7 @@ function createCrossPlot( catx, caty, options, start_date, end_date ){
 				datum.total = total;
 				data.push( datum );		
 			}
+
 			//Now that we have the data in a form javascript can understand, we can do fancy stuff with it.
 			colour = false;
 			if( options ){
@@ -84,6 +94,7 @@ function createCrossPlot( catx, caty, options, start_date, end_date ){
 					colour = true;
 				}
 			}
+
 			// Add the rest of the columns when we know if we are colouring in the cells
 			for( var k in xKeys.sort() ){
 				var column ={
@@ -104,13 +115,19 @@ function createCrossPlot( catx, caty, options, start_date, end_date ){
 					sortable: true
 				}
 			);
+
 			//Draw the table
-			$("#cross-table").bootstrapTable("destroy");
+            var framework = "<div class='table-responsive' >" +
+                            "<table id='cross-table' data-toolbar='#toolbar' data-show-export='true'>" + 
+                            "</table></div>";
+
+            $("#cross-wrapper").html( framework );
 			$("#cross-table").bootstrapTable({
 				columns: columns,
 				data: data,
 				clickToSelect: true
 			});
+
 			console.log(columns);
 			console.log(data);
 		}
@@ -145,30 +162,43 @@ function max_min(data){
 
 function timelineLink(id, name, axis){
 	//helper function to create links to activate the timeline
-	return '<a href="#" onclick="prepareExploreTimeline(&apos;' + id + '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + name + "</a>";
+	return '<a href="#" onclick="prepareExploreTimeline(&apos;' + id +
+	       '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + name + "</a>";
 }
 
-function createTimeline(id, category, options, start_date, end_date){
-	if( start_date !== undefined && end_date !== undefined){
-		main_query = $.getJSON( api_root + '/query_variable/' + id + '/' + category + '/' + start_date + '/' + end_date + '?use_ids=1', function(data) {
-			queryData = data;
-		});
-	}else{
-		main_query = $.getJSON( api_root + '/query_variable/' + id + '/' + category + '?use_ids=1', function(data) {
-			queryData = data;
-		});
+function createTimeline(id, cat, options){
+
+	console.log( "Drawing timeline" );
+
+	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
+	var queryData, category, variable;
+
+	//Assemble the main query url according to the given options.
+	var main_query_url = api_root + '/query_variable/' + id + '/' + cat;
+	if( options.start_date && options.end_date ){
+		main_query_url += '/' + options.start_date + '/' + options.end_date;
 	}
+	main_query_url += '?use_ids=1';
+	if( options.location ){
+		main_query_url += '&only_loc=' + options.location;
+	}
+
+	//Execute multiple json requests simultaneously.
 	var deferreds = [
-		main_query,
-		$.getJSON( api_root + "/variables/" +category ,  function(data) {
-			categories = data;
+		$.getJSON( main_query_url, function(data) {
+			queryData = data;
+		}),
+		$.getJSON( api_root + "/variables/" + cat,  function(data) {
+			category = data;
 		}),
 		$.getJSON( api_root + "/variable/" + id, function(data) {
 			variable = data;
 		})
 	];
+
 	//Run the AJAX reuqests asynchronously and act when they have all completed.
 	$.when.apply( $, deferreds ).then(function() {
+
 		var yKeys = Object.keys(queryData);
 		var xKeys = Object.keys(queryData[yKeys[0]].weeks);
 		var columns = [
@@ -180,10 +210,12 @@ function createTimeline(id, category, options, start_date, end_date){
 			}
 		];
 		var data = [];
+
 		//For each key in the y category, form the row from x category data.
 		for( var y in yKeys.sort() ){
+            console.log( yKeys[y] );
 			var datum ={
-				"cases": categories[yKeys[y]].name
+				"cases": category[yKeys[y]].name
 			};
 			var total = 0;
 			for( var x in xKeys ){
@@ -226,16 +258,16 @@ function createTimeline(id, category, options, start_date, end_date){
 			}
 		);
 		//Draw!
-		$("#timeline-table").bootstrapTable("destroy");
+        var framework = "<div class='table-responsive' >" +
+                        "<table id='timeline-table'>" + 
+                        "</table></div>";
+        $("#timeline-wrapper").html( framework );
 		$("#timeline-table").bootstrapTable({
 			columns: columns,
 			data: data
 		});
 		
-	});
-
-
-	
+	});	
 }
 
 
@@ -256,7 +288,7 @@ function strip( columns, data, axis ){
 		//Store a list of rows to be removed.
 		var remove = [];
 		//For each row iterate through it's elements to seeif all are empty.
-		for( var y=1; y<data.length; y++ ){
+		for( var y=0; y<data.length; y++ ){
 			var row = data[y];
 			var empty = true;
 			for( var x in row ){

@@ -2,137 +2,153 @@
 
 {% block menu %}
 <ul class="nav navbar-nav">
-	<li><a href="/technical/" >Dashboard</a></li>
-	<li><a href="/reports/" >Reports</a></li>
-	<li><a href="/messaging/" >Notifications</a></li>
-	<li class="active"><a href="/explore/" >Explore Data</a></li>
-	<li><a href="/download/" >Download Data</a></li>
-	<li><a href="/" >Log out</a></li>
+    <li><a href="/technical/" >Dashboard</a></li>
+    <li><a href="/reports/" >Reports</a></li>
+    <li><a href="/messaging/" >Notifications</a></li>
+    <li class="active"><a href="/explore/" >Explore Data</a></li>
+    <li><a href="/download/" >Download Data</a></li>
+    <li><a href="/" >Log out</a></li>
 </ul>
 {% endblock %}
 
 {% block body %}
 <!-- CONTENT -->
 <div class="container page-content">
-	<div class="top-bar row">
-		<div class="tab-title less-padding-col">
-			Explore Data 
-		</div>
-		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-			Date not loaded.
-		</div>
-	</div>
-	<div id="page-content-wrapper">
-	  <div class="row">
-	    <div class='col-xs-6'>
-              <div class="form-group">
-		<label> Start Date: </label>
-                <div class='input-group date' id='start-date'>
-                  <input type='text' class="form-control "/>
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
-	    <div class='col-xs-6'>
-              <div class="form-group">
-		<label> End Date: </label> 
-                <div class='input-group date' id='end-date'>
-                  <input type='text' class="form-control explore-date" />
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
-	  </div>
-	  <div class="row">
-	      </table>
-			<div class="col-xs-12 less-padding-col exploreChart" >
-				<div class="row">		
-					<div class="box cornerBox" >
-						<span class="glyphicon glyphicon-transfer" id="transpose-button" 
-						      onclick="callTranspose();" title="Flip axis" >
-						</span>
-					</div>
 
-					<div class="box xaxis" >
-						<div class="axis-selector">
-						</div>
-						<div class="options">
-						    <span class="glyphicon glyphicon-minus chart-options" id="remove-selected"
-							  onClick="removeSelected();" title="Hide selected rows" 
-							  value="" name="remove-selected">
-						    </span>
-						    <span class="glyphicon glyphicon-remove-circle chart-options" id="remove-not-selected"
-							  onClick="removeNotSelected();" title="Hide all not selected rows" 
-							  value="" name="remove-not-selected">
-						    </span>
-						    <span class="glyphicon glyphicon-resize-small chart-option" id="strip-button"
-							  onClick="callStrip();" title="Hide/show empty records" 
-							  value="" name="strip">
-						    </span>
+    <div class="top-bar row">
+        <div id="location-option" class="location-box box cross-option" name="location" value="1">
+            <a href="#menu-toggle" id="menu-toggle">
+                <div class="location-box__label">
+                    <div>Location:</div>
+                    <div id="location-title">Not Loaded</div>
+                </div>
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="glyphicon glyphicon-chevron-left hidden"></span>
+            </a>
+        </div>
+        <div class="tab-title less-padding-col">
+            Explore Data 
+        </div>
+        <div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+            Date not loaded.
+        </div>
+    </div>
 
-						    <span class="glyphicon glyphicon-pencil chart-option" id="colour-button"
-							  onClick="callColour();" title="Colour the table" 
-							  value=true name="colour">
-						    </span>
-						    <span class="glyphicon glyphicon-save chart-option" id="save-csv"
-							  onClick='$("#cross-table").tableExport({"type":"xls", "fileName": "data"});' title="Download Excel" 
-							  value="" name="excel">
-						    </span>
-						</div>
-						<div id="toolbox">
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="box yaxis" >
-						<div class="axis-selector">
-						</div>
-					</div>
-					<div class="box chartBox" >
-					    <div class="table-responsive" >
-						<table id="cross-table" data-toolbar="#toolbar" data-show-export="true">
-						</table>
-					    </div>
-					</div>
-				</div>
-				<div class="row">
-				    <div class="box timeline" >
-					<div class="table-responsive" id="timeline-chart">
-					    <table id="timeline-table">
-					    </table>
-					</div>
-				    </div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="disease toggled" id="wrapper">
+
+        <div id="sidebar-wrapper" >
+            <div id="location-selector" class="location-selector">
+                Locations not loaded
+            </div>
+        </div>
+
+        <div id="page-content-wrapper">
+            <div class="row">
+                <div class='col-xs-6 less-padding-col'>
+                    <div class="form-group">
+                        <label> Start Date: </label>
+                        <div class='input-group date cross-option' id='start-date' name='start_date' value=''>
+                            <input type='text' class="form-control "/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-xs-6 less-padding-col'>
+                    <div class="form-group">
+                        <label> End Date: </label> 
+                        <div class='input-group date cross-option' id='end-date' name='end_date' value=''>
+                            <input type='text' class="form-control explore-date" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                </table>
+                <div class="col-xs-12 less-padding-col exploreChart" >
+                    <div class="row">        
+                        <div class="box cornerBox" >
+                            <span class="glyphicon glyphicon-transfer" id="transpose-button" 
+                                  onclick="callTranspose();" title="Flip axis" >
+                            </span>
+                        </div>
+                        <div class="box xaxis" >
+                            <div class="axis-selector">
+                            </div>
+                            <div class="options">
+                                <span class="glyphicon glyphicon-minus cross-options" 
+                                      id="remove-selected" onClick="removeSelected();" 
+                                      title="Hide selected rows" value="" name="remove-selected">
+                                </span>
+                                <span class="glyphicon glyphicon-remove-circle cross-options" 
+                                      id="remove-not-selected" onClick="removeNotSelected();" 
+                                      title="Hide all not selected rows" value="" name="remove-not-selected" >
+                                </span>
+                                <span class="glyphicon glyphicon-resize-small cross-option" id="strip-button"
+                                      onClick="callStrip();" title="Hide/show empty records" 
+                                      value="" name="strip">
+                                </span>
+                                <span class="glyphicon glyphicon-pencil cross-option" id="colour-button"
+                                      onClick="callColour();" title="Colour the table" 
+                                      value=true name="colour">
+                                </span>
+                                <span class="glyphicon glyphicon-save cross-option" id="save-csv"
+                                      onClick='$("#cross-table").tableExport({"type":"xls", "fileName": "data"});' 
+                                      title="Download Excel" value="" name="excel">
+                                </span>
+                            </div>
+                            <div id="toolbox">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="box yaxis" >
+                            <div class="axis-selector">
+                            </div>
+                        </div>
+                        <div id= "cross-wrapper" class="box chartBox " >
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="box timeline-toolbar" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="timeline-wrapper" class="box timeline" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock body %}
 
 {% block footer %}
 <div class="container">
-	<div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
-		<p class="footer__title">Meerkat Health Surveillance</p>
-		<p>Working with our partners:</p> 
-		<ul class="footer__supporters" >
-			{% for partner in content.footer.partners %}
-				<li>{{partner}}</li>
-			{% endfor %} 
-		</ul>
-		<p>For more information, please e-mail: {{content.footer.email|safe}} </p>
-	</div>
-	<div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
-		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
-		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}"
-				 id="countryLogo" ></img> 
-		{% for logo in content.footer.logos.partners %}
-			<img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
-		{% endfor %} 
-	</div>
+    <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
+        <p class="footer__title">Meerkat Health Surveillance</p>
+        <p>Working with our partners:</p> 
+        <ul class="footer__supporters" >
+            {% for partner in content.footer.partners %}
+                <li>{{partner}}</li>
+            {% endfor %} 
+        </ul>
+        <p>For more information, please e-mail: {{content.footer.email|safe}} </p>
+    </div>
+    <div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
+        <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+        <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}"
+                 id="countryLogo" ></img> 
+        {% for logo in content.footer.logos.partners %}
+            <img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
+        {% endfor %} 
+    </div>
 </div>
 {% endblock footer %}
 
@@ -143,148 +159,208 @@
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
+loadLocationTree({locID:{{loc}}});
 
-
-$(function () {
-     d = new Date();
-     $('#start-date').datetimepicker({
-	 useCurrent: false,
-	 defaultDate: new Date(d.getFullYear(),0,1).toISOString(),
-	 format: "DD/MM/YYYY"
-     }
-     );
-     $('#start-date').on('dp.change', function() {
-	 reDraw()
-     });
-     $('#end-date').datetimepicker({
-	 useCurrent: true,
-	 defaultDate: d.toISOString(),
-	 format: "DD/MM/YYYY"
-     });
-     $('#end-date').on('dp.change', function() {
-	 reDraw()
-     });
-     $('.xaxis .axis-selector option[value="age"]').attr('selected',true);
-     $('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
-     reDraw();
-});
-
-
-$("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
-
+//Add the api key to any ajax requests.
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
+    options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
 });
 
+$( function(){
 
+    //Add a listener to the location selector.
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        $(".location-box .glyphicon").toggleClass( "hidden" );
+    });
+    
+    //Load the date/week
+    $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
 
+    //Draw axis category selectors.
+    var axisSelector = "<select>"
+    for( var i in config.categories ){
+        var cat = config.categories[i];
+        axisSelector += "<option value='" + cat[0] + "'>" + cat[1] + "</option>";
+    }
+    axisSelector += "</select>";
+    $('.axis-selector').html(axisSelector);
 
-//Draw axis category selectors.
-var axisSelector = "<select>"
-for( var i in config.categories ){
-	var cat = config.categories[i];
-	axisSelector += "<option value='" + cat[0] + "'>" + cat[1] + "</option>";
+    //Draw date/time pickers.
+    d = new Date();
+    $('#start-date').datetimepicker({
+        useCurrent: false,
+        defaultDate: new Date(d.getFullYear(),0,1).toISOString(),
+        format: "DD/MM/YYYY"
+    });
+    $('#end-date').datetimepicker({
+        useCurrent: true,
+        defaultDate: d.toISOString(),
+        format: "DD/MM/YYYY"
+    });
+
+    //Add a listener to the axis selectors, update table upon change.
+    $('.axis-selector').change( function(){
+        //If any of the axis change, we remove the timeline
+        $("#timeline-wrapper").html("");
+        timelineDrawn = false;
+        reDraw();  
+    });
+
+    //Add listeners to update table when date/pickers change. Store the chart state in the DOM element.
+    $('#start-date').on('dp.change', function() {
+        var value = $('#start-date').data("DateTimePicker").date().toISOString();
+        $('#start-date').attr('value', value );
+        reDraw();
+    });
+    $('#end-date').on('dp.change', function() {
+        var value = $('#end-date').data("DateTimePicker").date().toISOString();
+        $('#end-date').attr('value', value );
+        reDraw();
+    });
+
+    //Draw a default table.
+    $('.xaxis .axis-selector option[value="age"]').attr('selected',true);
+    $('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
+    reDraw();
+
+});
+
+//This is called when a new location is loaded. 
+//It stores the desired location ID ready to be picked up by reDraw().
+function drawCharts( locID ){
+    $('#location-option').attr('value', locID );
+    reDraw();
 }
-axisSelector += "</select>";
-$('.axis-selector').html(axisSelector);
 
-//Set a default table.
 
-//Add a listener to the axis selectors, update table upon change.
- $('.axis-selector').change( function(){
-     //If any of the axis change, we remove the timeline
-     $("#timeline-chart").html("");
-     timelineDrawn = false;
-     reDraw();
+
+// Remove selected from table
+function removeSelected(){
+
+    names =  $.map($("#cross-table").bootstrapTable('getSelections'), function (row) {
+        return row.cases
+    });
      
- });
- function removeSelected(){
-     // Remove selected from table
-     console.log("Remove Selcted");
+    $("#cross-table").bootstrapTable('remove', {
+        field: 'cases',
+        values: names
+    });
+}
+
+function removeNotSelected(){
+
+     console.log("Remove Not Selected");
      names =  $.map($("#cross-table").bootstrapTable('getSelections'), function (row) {
          return row.cases
      });
-     
-     $("#cross-table").bootstrapTable('remove', {
-         field: 'cases',
-         values: names
-     });
 
- }
- function removeNotSelected(){
-     console.log("Remove Not Selcted");
-     names =  $.map($("#cross-table").bootstrapTable('getSelections'), function (row) {
-         return row.cases
-     });
-     if (names.length>0)
-     {
-	 
-	 all_names = $.map($("#cross-table").bootstrapTable('getData'), function (row) {
-             return row.cases
-	 });
-	 console.log(names);
-	 console.log(all_names)
-	 to_remove = [];
-	 for(i in all_names){
-	     if(!(i in names)) to_remove.push(all_names[i]);
-	 }
-	 console.log(to_remove)
-	 $("#cross-table").bootstrapTable('remove', {
-             field: 'cases',
-             values: to_remove
-	 });
-     }
- }
+     if (names.length>0){
+     
+         all_names = $.map($("#cross-table").bootstrapTable('getData'), function (row) {
+                 return row.cases
+         });
+
+         console.log(names);
+         console.log(all_names);
+         to_remove = [];
+
+         for(i in all_names){
+             if(!(i in names)) to_remove.push(all_names[i]);
+         }
+
+         console.log(to_remove);
+
+         $("#cross-table").bootstrapTable('remove', {
+            field: 'cases',
+            values: to_remove
+         });
+    }    
+}
+
+function showSpinners( show ){
+
+    if( typeof( show ) == "undefined" ) show = true;
+
+    if( show ){
+        $('#cross-wrapper').html( 
+            "<img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>" 
+        );
+
+        if(timelineDrawn){
+            $('#timeline-wrapper').html( 
+                "<img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>" 
+            );
+        }
+    }else{
+        $('.spinner').hide();
+    }
+
+}
+
  
-//The chart state is stored in the html page - specifically '.chart-option' elements.
+//The chart state is stored in the html page - specifically '.cross-option' elements.
 //Each of these elements should have a name and a value attribute.
 //This function draws a new chart based upon these attributes.
-function reDraw( ){
-	var options = {};
-	//Assemble correct options object from html elements.
-     $('.chart-option').each( function(){
-	 options[$(this).attr('name')] = $(this).attr('value');
-     });
+function reDraw(){
 
-	//Draw new chart
-	createCrossPlot( $('.xaxis .axis-selector select').val(), 
-	                 $('.yaxis .axis-selector select').val(), 
-                         options,
-                         $('#start-date').data("DateTimePicker").date().toISOString(),
-                         $('#end-date').data("DateTimePicker").date().toISOString()
-        )
-	 //If the timeline has been drawn, we redraw it with new information
-	 if(timelineDrawn){
-	     createTimeline(timelineId,
-			    timelineCategory,
-			    options,
-			    $('#start-date').data("DateTimePicker").date().toISOString(),
-			    $('#end-date').data("DateTimePicker").date().toISOString()
-	     );
-	 }
+    console.log( "showing spinners" );
+    showSpinners();
+
+    var crossOptions = {};
+    var timelineOptions = {};
+
+    //Assemble correct options object from html elements.
+    $('.cross-option').each( function(){
+        crossOptions[$(this).attr('name')] = $(this).attr('value');
+    });
+
+    //Assemble correct options object from html elements.
+    $('.timeline-option').each( function(){
+        timelineOptions[$(this).attr('name')] = $(this).attr('value');
+    });
+
+
+    console.log( crossOptions );
+    console.log( timelineOptions );
+
+    //Draw new chart
+    createCrossPlot( $('.xaxis .axis-selector select').val(), 
+                     $('.yaxis .axis-selector select').val(), 
+                     crossOptions );
+
+    //If the timeline has been drawn, we redraw it with new information
+    if(timelineDrawn){
+         createTimeline( timelineId,
+                         timelineCategory,
+                         timelineOptions );
+    }
 }
 
 //Function that updates the colour option value.
 function callColour(){
-	var value = $('#colour-button').attr("value");
-	$('#colour-button').attr("value", value=="true" ? "false" : "true" );
-	reDraw();
+    var value = $('#colour-button').attr("value");
+    $('#colour-button').attr("value", value=="true" ? "false" : "true" );
+    reDraw();
 }
 
 //Function that updates the strip-empty-records option value. 
 function callStrip(){
-	var value = $('#strip-button').attr("value");
-	if( value == "" ){
-		$('#strip-button').attr("value","xy");
-		$('#strip-button' ).addClass('glyphicon-resize-full');
-		$('#strip-button' ).removeClass('glyphicon-resize-small');
-	}else{
-		$('#strip-button').attr("value","");
-		$('#strip-button' ).addClass('glyphicon-resize-small');
-		$('#strip-button' ).removeClass('glyphicon-resize-full');
-	}
 
-	reDraw();
+    var value = $('#strip-button').attr("value");
+
+    if( value == "" ){
+        $('#strip-button').attr("value","xy");
+        $('#strip-button' ).addClass('glyphicon-resize-full');
+        $('#strip-button' ).removeClass('glyphicon-resize-small');
+    }else{
+        $('#strip-button').attr("value","");
+        $('#strip-button' ).addClass('glyphicon-resize-small');
+        $('#strip-button' ).removeClass('glyphicon-resize-full');
+    }
+
+    reDraw();
 
 }
 
@@ -309,17 +385,17 @@ function callTranspose(){
  // Find category and draw timeline
  function prepareExploreTimeline(id, axis){
      options = {};
-     $('.chart-option').each( function(){
-	 options[$(this).attr('name')] = $(this).attr('value');
+     $('.cross-option').each( function(){
+     options[$(this).attr('name')] = $(this).attr('value');
      });
      if( axis == "x"){
-	 category = $('.yaxis .axis-selector select').val();
+     category = $('.yaxis .axis-selector select').val();
      } else {
-	 category = $('.xaxis .axis-selector select').val();
+     category = $('.xaxis .axis-selector select').val();
      }
      createTimeline(id,
-		    category,
-		    options,
+            category,
+            options,
                     $('#start-date').data("DateTimePicker").date().toISOString(),
                     $('#end-date').data("DateTimePicker").date().toISOString()
      );
