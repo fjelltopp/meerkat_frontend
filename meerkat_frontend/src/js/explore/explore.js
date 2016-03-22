@@ -66,20 +66,35 @@ function createCrossPlot( catx, caty, options ){
 			];
 			
 			var data = [];
+            var colTotal = [];
+            for( var i in xKeys ) colTotal.push( 0 );
 
 			//For each key in the y category, form the row from x category data.
 			for( var y in yKeys.sort() ){
-				var datum ={
+				var row ={
 					"cases": timelineLink(yKeys[y],catyData[yKeys[y]].name,"y")
 				};
-				var total = 0;
+				var rowTotal = 0;
+
 				for( var x in xKeys ){
-					datum[xKeys[x]] = queryData[yKeys[y]][xKeys[x]];
-					total +=queryData[yKeys[y]][xKeys[x]];
+
+                    //The data point to be added...
+                    datum = queryData[yKeys[y]][xKeys[x]];
+
+                    colTotal[ x ] += datum;
+					rowTotal += datum;
+                    row[xKeys[x]] = datum;
 				}
-				datum.total = total;
-				data.push( datum );		
+
+				row.total = rowTotal;
+				data.push( row );		
 			}
+            
+            totalRow = { "cases":"Total" };
+            for( var col in xKeys ){
+                totalRow[xKeys[col]] = colTotal[col];
+            }
+            data.push( totalRow );
 
 			//Now that we have the data in a form javascript can understand, we can do fancy stuff with it.
 			colour = false;
@@ -112,6 +127,7 @@ function createCrossPlot( catx, caty, options ){
 				{
 					"field": "total",
 					"title": "Total",
+                    "class": "total-col",
 					sortable: true
 				}
 			);
@@ -137,9 +153,11 @@ function createCrossPlot( catx, caty, options ){
 function createColourCell(maxMin){
 	// Returns a function that colours in the cells according to their value
 	function cc(value, row, index){
-		console.log(row);
-		var perc = (value-maxMin[0])/(maxMin[1]-maxMin[0]);
-		return {css: {"background-color": "rgba(217, 105, 42, " + perc +")"}};
+        if(row.cases != "Total"){
+		    var perc = (value-maxMin[0])/(maxMin[1]-maxMin[0]);
+		    return {css: {"background-color": "rgba(217, 105, 42, " + perc +")"}};
+        }
+        return {classes: "total-row"};
 	}
 	return cc;
 }
@@ -150,7 +168,7 @@ function max_min(data){
 	for( var r=1; r<data.length; r++ ){
 		var row = data[r];
 		for(var x in row){
-			if( x!= "cases" && x!= "total"){
+			if( x != "cases" && x != "total" && row.cases != "Total"){
 				list.push(Number(row[x]));
 			}
 		}
