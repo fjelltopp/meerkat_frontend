@@ -137,6 +137,7 @@ function createCrossPlot( catx, caty, options ){
 function createColourCell(maxMin){
 	// Returns a function that colours in the cells according to their value
 	function cc(value, row, index){
+		console.log(row);
 		var perc = (value-maxMin[0])/(maxMin[1]-maxMin[0]);
 		return {css: {"background-color": "rgba(217, 105, 42, " + perc +")"}};
 	}
@@ -303,7 +304,24 @@ function strip( columns, data, axis ){
 		//Remove all empty rows (starting from the last to avoid screwing up indexes).
 		return data;
 	}
-
+	function stripColumns(columns, data){
+		console.log("Columns");
+		console.log(JSON.stringify(columns));
+		var columns_to_remove = [];
+		for(var c in columns){
+			remove = true;
+			for( var d in data){
+				if(c != "cases" && data[d][c.field] !== 0){
+					remove = false;
+					break;
+				}
+			}
+			if (remove) columns_to_remove.push(c);
+		}
+		for( var i = columns_to_remove.length-1; i>=0; i-- ) columns.splice( columns_to_remove[i], 1 );
+		console.log(columns.length);
+		return columns;
+	}
 
 	// if( axis.indexOf('y') != -1 || axis.indexOf('Y') != -1 ){
 	// 	table = stripRows( table );
@@ -313,6 +331,7 @@ function strip( columns, data, axis ){
 	// 	table = transpose( stripRows( transpose( table ) ) );
 	// }
 	data = stripRows(data);
+	columns = stripColumns(columns, data);
 	return [columns, data];
 
 }
