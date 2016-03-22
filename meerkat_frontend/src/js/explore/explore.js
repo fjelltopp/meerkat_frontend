@@ -37,7 +37,6 @@ function createCrossPlot( catx, caty, options ){
 
 	//Run the AJAX reuqests asynchronously and act when they have all completed.
 	$.when.apply( $, deferreds ).then(function() {
-		
 		//Sort out the data for the table
 		if( $.isEmptyObject(queryData) ){
 
@@ -52,6 +51,16 @@ function createCrossPlot( catx, caty, options ){
 			var yKeys = Object.keys(queryData);
 			var xKeys = Object.keys(queryData[yKeys[0]]);
 
+			var colour = false;
+			var strip = false;
+			if( options ){
+				if( options.strip ){
+					strip = true;
+				}
+				if( options.colour == "true" ){
+					colour = true;
+				}
+			}
 			var columns = [
 				{
 					"field": "state",
@@ -95,22 +104,13 @@ function createCrossPlot( catx, caty, options ){
                 totalRow[xKeys[col]] = colTotal[col];
             }
             data.push( totalRow );
-
 			//Now that we have the data in a form javascript can understand, we can do fancy stuff with it.
-			colour = false;
-			if( options ){
-				if( options.strip ){
-					var r = strip(columns, data, options.strip );
-					columns = r[0];
-					data = r[1];
-				}
-				if( options.colour == "true" ){
-					maxMin = max_min( data );
-					colour = true;
-				}
-			}
 
 			// Add the rest of the columns when we know if we are colouring in the cells
+			var maxMin = [];
+			if(colour){
+				maxMin = max_min(data);
+			}
 			for( var k in xKeys.sort() ){
 				var column ={
 					"field": xKeys[k],
@@ -131,7 +131,11 @@ function createCrossPlot( catx, caty, options ){
 					sortable: true
 				}
 			);
-
+			if(strip){
+				var r = stripData(columns, data, options.strip );
+				columns = r[0];
+				data = r[1];
+			}
 			//Draw the table
             var framework = "<div class='table-responsive' >" +
                             "<table id='cross-table' data-toolbar='#toolbar' data-show-export='true'>" + 
@@ -220,6 +224,18 @@ function createTimeline(id, cat, options){
 
 		var yKeys = Object.keys(queryData);
 		var xKeys = Object.keys(queryData[yKeys[0]].weeks);
+
+		var colour = false;
+		var strip = false;
+		if( options ){
+			if( options.strip ){
+				strip = true;
+			}
+			if( options.colour == "true" ){
+
+				colour = true;
+			}
+		}
 		var columns = [
 			{
 				"field": "cases",
@@ -229,7 +245,6 @@ function createTimeline(id, cat, options){
 			}
 		];
 		var data = [];
-
 		//For each key in the y category, form the row from x category data.
 		for( var y in yKeys.sort() ){
             console.log( yKeys[y] );
@@ -245,19 +260,11 @@ function createTimeline(id, cat, options){
 			data.push( datum );		
 		}
 		// Sort out options
-		colour = false;
-		if( options ){
-			if( options.strip ){
-				var r = strip(columns, data, options.strip );
-				columns = r[0];
-				data = r[1];
-			}
-			if( options.colour == "true" ){
-				maxMin = max_min( data );
-				colour = true;
-			}
-		}
 		// Add remaining columns
+		var maxMin = [];
+		if(colour){
+			maxMin = max_min( data );
+		}
 		for( var k in xKeys.sort(function(a, b){return a-b;}) ){
 			var column ={
 				"field": "week_"+ xKeys[k],
@@ -276,6 +283,11 @@ function createTimeline(id, cat, options){
 				sortable: true
 			}
 		);
+		if(strip){
+			var r = strip(columns, data, options.strip );
+			columns = r[0];
+			data = r[1];
+		}
 		//Draw!
         var framework = "<div class='table-responsive' >" +
                         "<table id='timeline-table'>" + 
@@ -300,10 +312,9 @@ function transpose( jsTable ){
 	return newTable;
 }
 
-function strip( columns, data, axis ){
+function stripData( columns, data, axis ){
 
 	function stripRows(data){
-		console.log("StripRows");
 		//Store a list of rows to be removed.
 		var remove = [];
 		//For each row iterate through it's elements to seeif all are empty.
@@ -323,13 +334,11 @@ function strip( columns, data, axis ){
 		return data;
 	}
 	function stripColumns(columns, data){
-		console.log("Columns");
-		console.log(JSON.stringify(columns));
 		var columns_to_remove = [];
 		for(var c in columns){
 			remove = true;
 			for( var d in data){
-				if(c != "cases" && data[d][c.field] !== 0){
+				if(c != "cases" && data[d][columns[c].field] !== 0){
 					remove = false;
 					break;
 				}
@@ -337,17 +346,10 @@ function strip( columns, data, axis ){
 			if (remove) columns_to_remove.push(c);
 		}
 		for( var i = columns_to_remove.length-1; i>=0; i-- ) columns.splice( columns_to_remove[i], 1 );
-		console.log(columns.length);
+
 		return columns;
 	}
 
-	// if( axis.indexOf('y') != -1 || axis.indexOf('Y') != -1 ){
-	// 	table = stripRows( table );
-	// }
-	
-	// if( axis.indexOf('x') != -1 || axis.indexOf('X') != -1 ){
-	// 	table = transpose( stripRows( transpose( table ) ) );
-	// }
 	data = stripRows(data);
 	columns = stripColumns(columns, data);
 	return [columns, data];

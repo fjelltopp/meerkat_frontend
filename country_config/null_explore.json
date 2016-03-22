@@ -15,7 +15,11 @@
     ["ncd_tab","Non-Communicable Diseases"],
     ["mhgap", "Mental Health Issues"],
     ["gender","Gender"],
-    ["age","Age"]
+    ["age","Age"],
+    ["age_gender", "Age and Gender"],
+    ["locations:region", "Regions"],
+      ["locations:district", "Districts"],
+      ["locations:clinic", "Clinics"]
   ],
 
 
