@@ -235,11 +235,16 @@ def pdf_report(report=None, location=None, year=None, week=None):
             )
         if 1==1: # TODO: add check whether running on localhost
             html=html.replace("/static/", "https://demo.aws.emro.info/static/")
+            headerUrl='https://demo.aws.emro.info/templates/reports/navbar.html'
+
+            #footerUrl=
         #html=html.replace("col-md-6","col-xs-6")
         client.usePrintMedia(True)
         #client.setPageWidth('1200pt')
         client.setPageWidth('1200pt');
         client.setPageHeight('1697pt');
+        #client.setFooterUrl();
+        client.setHeaderUrl(headerUrl);
         client.setHtmlZoom(400)
         #client.setPdfScalingFactor(1.4)
         pdf = client.convertHtml(html)

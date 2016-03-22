@@ -1,5 +1,27 @@
 @media print {
 
+	// NAVBAR
+	.navbar {
+		display: block;
+		background: #337ab7 !important;
+	}
+
+	.navbar .navbar-brand {
+		color: #fbfbfb !important;
+	}
+
+	.navbar-brand span {
+		color: #fbfbfb !important;
+	} 
+
+	.who-logo-white-no-text {
+		background: #337ab7 !important;
+		background-size: 100% auto !important;
+	    background-position: 50% !important;
+	    background-repeat: no-repeat !important;
+		background-image: url(../img/logo/who-logo-white-no-text.svg) !important;
+	}
+
 	// MAP
  	.leaflet-container img { 
  		max-width:none !important; 
