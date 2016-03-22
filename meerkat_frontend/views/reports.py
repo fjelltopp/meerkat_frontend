@@ -234,22 +234,17 @@ def pdf_report(report=None, location=None, year=None, week=None):
             address=ret['address']
             )
         if 1==1: # TODO: add check whether running on localhost
-            html=html.replace("/static/", "https://demo.aws.emro.info/static/")
-            headerUrl='https://demo.aws.emro.info/templates/reports/navbar.html'
+            html=html.replace("/static/", "https://s3-eu-west-1.amazonaws.com/test-meerkat/pdfcrowd-files/static/")
 
-            #footerUrl=
         #html=html.replace("col-md-6","col-xs-6")
         client.usePrintMedia(True)
-        #client.setPageWidth('1200pt')
-        client.setPageWidth('1200pt');
-        client.setPageHeight('1697pt');
-        #client.setFooterUrl();
-        client.setHeaderUrl(headerUrl);
+        client.setPageWidth('1200pt')
+        client.setPageHeight('1697pt')
+        client.setPageMargins('90pt','60pt','90pt','60pt')
         client.setHtmlZoom(400)
-        #client.setPdfScalingFactor(1.4)
+
         pdf = client.convertHtml(html)
         return Response(pdf, mimetype='application/pdf')
-        #return render_pdf(HTML(string=html))
 
     else:
         abort(501)

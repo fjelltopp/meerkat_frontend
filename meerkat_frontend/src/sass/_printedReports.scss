@@ -48,21 +48,21 @@
 
 	.row {
 		border-top: 1px solid #e2e2e2;
-		// page-break-inside: avoid;
+	 	page-break-inside: avoid;
 	}
 
 	// FLAG
 	.flag-icon {
-		// background: #000 !important;
-        // background-size: contain !important;
-        // background-position: 50% !important;
-        // background-repeat: no-repeat !important;
-        // position: relative !important;
-        // display: inline-block !important;
-        // width: 1.33333em !important;
-        // line-height: 1em !important;
+		background: #000 !important;
+        background-size: contain !important;
+        background-position: 50% !important;
+        background-repeat: no-repeat !important;
+        position: relative !important;
+        display: inline-block !important;
+        width: 1.33333em !important;
+        line-height: 1em !important;
 
-        display: none !important;
+        //display: none !important;
 	}
 
 	// CHARTS
