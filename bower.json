@@ -25,7 +25,9 @@
     "Leaflet.fullscreen": "Leaflet/Leaflet.fullscreen#~0.0.4",
     "leaflet-omnivore": "~0.3.2",
     "intl-tel-input":"~7.1.1",
-    "eonasdan-bootstrap-datetimepicker": "~4.17.37"
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37",
+    "bootstrap-table": "~1.10.1",
+    "tableExport.jquery.plugin": "~1.5.0"
   },
   "overrides": {
     "Leaflet.fullscreen": {
