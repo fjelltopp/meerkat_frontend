@@ -88,6 +88,10 @@
                                       id="remove-not-selected" onClick="removeNotSelected();" 
                                       title="Hide all not selected rows" value="" name="remove-not-selected" >
                                 </span>
+                                <span class="glyphicon glyphicon-check" 
+                                      id="remove-not-selected" onClick="removeNotSelected();" 
+                                      title="View/Hide Selected rows" value="" name="remove-not-selected" >
+                                </span>
                                 <span class="glyphicon glyphicon-resize-small cross-option" id="strip-button"
                                       onClick="callStrip();" title="Hide/show empty records" 
                                       value="" name="strip">
@@ -243,7 +247,7 @@ function removeSelected(){
         return row.cases
     });
      
-    $("#cross-table").bootstrapTable('remove', {
+    $("#cross-table").bootstrapTable('hideRow', {
         field: 'cases',
         values: names
     });
