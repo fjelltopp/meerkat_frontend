@@ -47,7 +47,7 @@
                 <div class='col-xs-6 less-padding-col'>
                     <div class="form-group">
                         <label> Start Date: </label>
-                        <div class='input-group date cross-option' id='start-date' name='start_date' value=''>
+                        <div class='input-group date cross-option timeline-option' id='start-date' name='start_date' value=''>
                             <input type='text' class="form-control "/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
@@ -58,7 +58,7 @@
                 <div class='col-xs-6 less-padding-col'>
                     <div class="form-group">
                         <label> End Date: </label> 
-                        <div class='input-group date cross-option' id='end-date' name='end_date' value=''>
+                        <div class='input-group date cross-option timeline-option' id='end-date' name='end_date' value=''>
                             <input type='text' class="form-control explore-date" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
@@ -224,6 +224,10 @@ $( function(){
         timelineDrawn = false;
         reDraw();  
     });
+     var value = $('#start-date').data("DateTimePicker").date().toISOString();
+     $('#start-date').attr('value', value );
+     var value = $('#end-date').data("DateTimePicker").date().toISOString();
+     $('#end-date').attr('value', value );
 
     //Add listeners to update table when date/pickers change. Store the chart state in the DOM element.
     $('#start-date').on('dp.change', function() {
@@ -383,9 +387,10 @@ var timelineCategory = "";
 // Find category and draw timeline
 function prepareExploreTimeline(id, axis){
     options = {};
-    $('.cross-option').each( function(){
+    $('.timeline-option').each( function(){
         options[$(this).attr('name')] = $(this).attr('value');
     });
+     console.log(options)
     if( axis == "x"){
         category = $('.yaxis .axis-selector select').val();
     } else {
@@ -394,9 +399,7 @@ function prepareExploreTimeline(id, axis){
     createTimeline(
         id,
         category,
-        options,
-        $('#start-date').data("DateTimePicker").date().toISOString(),
-        $('#end-date').data("DateTimePicker").date().toISOString()
+        options
     );
     timelineDrawn= true;
     timelineId = id;

@@ -17,9 +17,13 @@
     ["gender","Gender"],
     ["age","Age"],
     ["age_gender", "Age and Gender"],
+    ["nationality", "Nationality"],
+    ["status", "Status"],
+    ["pc", "Presenting Complaint"],
+    ["Chapter", "ICD 10 Chapters"],
     ["locations:region", "Regions"],
-      ["locations:district", "Districts"],
-      ["locations:clinic", "Clinics"]
+    ["locations:district", "Districts"],
+    ["locations:clinic", "Clinics"]
   ],
 
 
