@@ -141,7 +141,7 @@ telInput.blur(function() {
 telInput.on("keyup change", reset);
 
 //Draw the dynamic elements of the form.
-$.getJSON( api_root+"/variables/cd_tab", function( variables ){
+$.getJSON( api_root+"/variables/alert", function( variables ){
 	$.getJSON( api_root+"/locationtree", function( locations ){
 
 		//Draw the disease Selector
