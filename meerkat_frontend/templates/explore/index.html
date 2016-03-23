@@ -80,24 +80,16 @@
                             <div class="axis-selector">
                             </div>
                             <div class="options">
-                                <span class="glyphicon glyphicon-minus cross-options" 
-                                      id="remove-selected" onClick="removeSelected();" 
-                                      title="Hide selected rows" value="" name="remove-selected">
-                                </span>
-                                <span class="glyphicon glyphicon-remove-circle cross-options" 
-                                      id="remove-not-selected" onClick="removeNotSelected();" 
-                                      title="Hide all not selected rows" value="" name="remove-not-selected" >
-                                </span>
                                 <span class="glyphicon glyphicon-check" 
-                                      id="remove-not-selected" onClick="removeNotSelected();" 
-                                      title="View/Hide Selected rows" value="" name="remove-not-selected" >
+                                      id="toggle-selected" onClick="toggleSelected(this);" table="cross-table"
+                                      title="Hide selected rows/Show hidden rows" value="shown" >
                                 </span>
                                 <span class="glyphicon glyphicon-resize-small cross-option" id="strip-button"
-                                      onClick="callStrip();" title="Hide/show empty records" 
+                                      onClick="callStrip(this);" title="Hide/show empty records" table="cross-table"
                                       value="" name="strip">
                                 </span>
                                 <span class="glyphicon glyphicon-pencil cross-option" id="colour-button"
-                                      onClick="callColour();" title="Colour the table" 
+                                      onClick="callColour(this);" title="Colour the table" table="cross-table"
                                       value=true name="colour">
                                 </span>
                                 <span class="glyphicon glyphicon-save cross-option" id="save-csv"
@@ -118,12 +110,33 @@
 
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="box timeline-toolbar" >
+                    <div id="timeline">
+                        <div class="row">
+                            <div class="box timeline-toolbar" >
+                                <div class="options">
+                                    <span class="glyphicon glyphicon-check" 
+                                          id="toggle-selected" onClick="toggleSelected(this);" 
+                                          title="Hide selected rows/Show hidden rows" 
+                                          table="timeline-table" value="shown" >
+                                    </span>
+                                    <span class="glyphicon glyphicon-resize-small timeline-option" id="strip-button"
+                                          onClick="callStrip(this);" title="Hide/show empty records" 
+                                          table="timeline-table" value="" name="strip">
+                                    </span>
+                                    <span class="glyphicon glyphicon-pencil timeline-option" id="colour-button"
+                                          onClick="callColour(this);" title="Colour the table" 
+                                          table="timeline-table" value=true name="colour">
+                                    </span>
+                                    <span class="glyphicon glyphicon-save" id="save-csv"
+                                          onClick='$("#timeline-table").tableExport({"type":"xls", "fileName": "data"});' 
+                                          title="Download Excel" >
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div id="timeline-wrapper" class="box timeline" >
+                        <div class="row">
+                            <div id="timeline-wrapper" class="box timeline" >
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -238,50 +251,29 @@ function drawCharts( locID ){
     reDraw();
 }
 
+function toggleSelected(element){
 
+    var table = $(element).attr('table');
 
-// Remove selected from table
-function removeSelected(){
+    if( $(element).attr('value') == 'shown' ){ 
 
-    names =  $.map($("#cross-table").bootstrapTable('getSelections'), function (row) {
-        return row.cases
-    });
-     
-    $("#cross-table").bootstrapTable('hideRow', {
-        field: 'cases',
-        values: names
-    });
+        $(element).attr('value','hidden');
+
+        var indexes = [];  
+
+        $("#" + table + " input[name='btSelectItem']:checked").each( function(){
+            $("#" + table ).bootstrapTable('hideRow', {
+                index: $(this).attr('data-index')
+            });
+        });
+
+    }else{
+        $(element).attr('value','shown');
+        $("#" + table).bootstrapTable('getRowsHidden', true);
+    }
+
 }
 
-function removeNotSelected(){
-
-     console.log("Remove Not Selected");
-     names =  $.map($("#cross-table").bootstrapTable('getSelections'), function (row) {
-         return row.cases
-     });
-
-     if (names.length>0){
-     
-         all_names = $.map($("#cross-table").bootstrapTable('getData'), function (row) {
-                 return row.cases
-         });
-
-         console.log(names);
-         console.log(all_names);
-         to_remove = [];
-
-         for(i in all_names){
-             if(!(i in names)) to_remove.push(all_names[i]);
-         }
-
-         console.log(to_remove);
-
-         $("#cross-table").bootstrapTable('remove', {
-            field: 'cases',
-            values: to_remove
-         });
-    }    
-}
 
 function showSpinners( show ){
 
@@ -309,7 +301,6 @@ function showSpinners( show ){
 //This function draws a new chart based upon these attributes.
 function reDraw(){
 
-    console.log( "showing spinners" );
     showSpinners();
 
     var crossOptions = {};
@@ -339,29 +330,31 @@ function reDraw(){
          createTimeline( timelineId,
                          timelineCategory,
                          timelineOptions );
+    }else{
+        $('#timeline').hide();
     }
 }
 
 //Function that updates the colour option value.
-function callColour(){
-    var value = $('#colour-button').attr("value");
-    $('#colour-button').attr("value", value=="true" ? "false" : "true" );
+function callColour(element){
+    var value = $(element).attr("value");
+    $(element).attr("value", value=="true" ? "false" : "true" );
     reDraw();
 }
 
 //Function that updates the strip-empty-records option value. 
-function callStrip(){
+function callStrip(element){
 
-    var value = $('#strip-button').attr("value");
+    var value = $(element).attr("value");
 
     if( value == "" ){
-        $('#strip-button').attr("value","xy");
-        $('#strip-button' ).addClass('glyphicon-resize-full');
-        $('#strip-button' ).removeClass('glyphicon-resize-small');
+        $(element).attr("value","xy");
+        $(element).addClass('glyphicon-resize-full');
+        $(element).removeClass('glyphicon-resize-small');
     }else{
-        $('#strip-button').attr("value","");
-        $('#strip-button' ).addClass('glyphicon-resize-small');
-        $('#strip-button' ).removeClass('glyphicon-resize-full');
+        $(element).attr("value","");
+        $(element).addClass('glyphicon-resize-small');
+        $(element).removeClass('glyphicon-resize-full');
     }
 
     reDraw();
@@ -379,35 +372,38 @@ function callTranspose(){
 
      reDraw();
 
- }
+}
 
 
- // Variables to keep track of if we have drawn a timeline and with what id and category
- var timelineDrawn = false;
- var timelineId = "";
- var timelineCategory = "";
- // Find category and draw timeline
- function prepareExploreTimeline(id, axis){
-     options = {};
-     $('.cross-option').each( function(){
-     options[$(this).attr('name')] = $(this).attr('value');
-     });
-     if( axis == "x"){
-     category = $('.yaxis .axis-selector select').val();
-     } else {
-     category = $('.xaxis .axis-selector select').val();
-     }
-     createTimeline(id,
-            category,
-            options,
-                    $('#start-date').data("DateTimePicker").date().toISOString(),
-                    $('#end-date').data("DateTimePicker").date().toISOString()
-     );
-     timelineDrawn= true;
-     timelineId = id;
-     timelineCategory = category;
-     // Scrolls down to the timeline
-     $('html, body').animate({ scrollTop: $('#timeline-chart').offset().top }, 'slow');
+// Variables to keep track of if we have drawn a timeline and with what id and category
+var timelineDrawn = false;
+var timelineId = "";
+var timelineCategory = "";
+
+// Find category and draw timeline
+function prepareExploreTimeline(id, axis){
+    options = {};
+    $('.cross-option').each( function(){
+        options[$(this).attr('name')] = $(this).attr('value');
+    });
+    if( axis == "x"){
+        category = $('.yaxis .axis-selector select').val();
+    } else {
+        category = $('.xaxis .axis-selector select').val();
+    }
+    createTimeline(
+        id,
+        category,
+        options,
+        $('#start-date').data("DateTimePicker").date().toISOString(),
+        $('#end-date').data("DateTimePicker").date().toISOString()
+    );
+    timelineDrawn= true;
+    timelineId = id;
+    timelineCategory = category;
+    $('#timeline').show();
+    // Scrolls down to the timeline
+    $('html, body').animate({ scrollTop: $('#timeline').offset().top }, 'slow');
  }
 
 

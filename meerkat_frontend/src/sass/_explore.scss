@@ -34,14 +34,16 @@
 			float: left;
 		}
 	
-		.options{
-			float: right;
-			font-size: 20px;
-			margin-right: 10px;
+	}
 
-			span{
-				cursor: pointer;
-			}
+	.options{
+		float: right;
+		font-size: 20px;
+		margin-right: 10px;
+
+		span{
+			cursor: pointer;
+			width: 40px;
 		}
 	}
 
@@ -121,6 +123,10 @@
         margin-top: 50px;
     }
 
+}
+
+#timeline{
+    display: none;
 }
 
 .explore .total-row, 

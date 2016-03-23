@@ -12,7 +12,8 @@ function createCrossPlot( catx, caty, options ){
 	//Assemble the main query url according to the given options.
 	var main_query_url = api_root + '/query_category/' + caty + '/' + catx;
 
-	if( options.start_date && options.end_date ){
+	if( options.start_date ){
+        if( !options.end_date ) options.end_date = new Date().toISOString();
 		main_query_url += '/' + options.start_date + '/' + options.end_date;
 	}
 
@@ -76,7 +77,7 @@ function createCrossPlot( catx, caty, options ){
 			
 			var data = [];
             var colTotal = [];
-            for( var i in xKeys ) colTotal.push( 0 );
+            for( var i=0; i<= xKeys.length; i++ ) colTotal.push( 0 );
 
 			//For each key in the y category, form the row from x category data.
 			for( var y in yKeys.sort() ){
@@ -94,8 +95,8 @@ function createCrossPlot( catx, caty, options ){
 					rowTotal += datum;
                     row[xKeys[x]] = datum;
 				}
-
-				row.total = rowTotal;
+                row.total = rowTotal;
+                colTotal[xKeys.length] += rowTotal ;
 				data.push( row );		
 			}
             
@@ -103,8 +104,8 @@ function createCrossPlot( catx, caty, options ){
             for( var col in xKeys ){
                 totalRow[xKeys[col]] = colTotal[col];
             }
+            totalRow.total = colTotal[xKeys.length];
             data.push( totalRow );
-			//Now that we have the data in a form javascript can understand, we can do fancy stuff with it.
 
 			// Add the rest of the columns when we know if we are colouring in the cells
 			var maxMin = [];
@@ -136,20 +137,25 @@ function createCrossPlot( catx, caty, options ){
 				columns = r[0];
 				data = r[1];
 			}
-			//Draw the table
-            var framework = "<div class='table-responsive' >" +
-                            "<table id='cross-table' data-toolbar='#toolbar' data-show-export='true'>" + 
-                            "</table></div>";
+            if( colTotal[ colTotal.length-1 ] > 0 ){
 
-            $("#cross-wrapper").html( framework );
-			$("#cross-table").bootstrapTable({
-				columns: columns,
-				data: data,
-				clickToSelect: true
-			});
+			    //Draw the table
+                var framework = "<div class='table-responsive' >" +
+                                "<table id='cross-table' data-toolbar='#toolbar' data-show-export='true'>" + 
+                                "</table></div>";
 
-			console.log(columns);
-			console.log(data);
+                $("#cross-wrapper").html( framework );
+			    $("#cross-table").bootstrapTable({
+				    columns: columns,
+				    data: data,
+				    clickToSelect: true
+			    });
+            }else{
+                console.log("Empty object");
+			    $('#cross-wrapper').html( 
+				    "Unfortunately the table you requested has no data.  Please request a different table." 
+			    );
+            }    
 		}
 	});
 }
@@ -237,8 +243,11 @@ function createTimeline(id, cat, options){
 			}
 		}
 		var columns = [
-			{
-				"field": "cases",
+            {
+				"field": "state",
+				"checkbox": true
+			},{				
+                "field": "cases",
 				"title": "#Cases with "+ variable.name,
 				"align": "left",
 				"class": "header"
@@ -247,7 +256,7 @@ function createTimeline(id, cat, options){
 		var data = [];
 		//For each key in the y category, form the row from x category data.
 		for( var y in yKeys.sort() ){
-            console.log( yKeys[y] );
+
 			var datum ={
 				"cases": category[yKeys[y]].name
 			};
@@ -284,7 +293,7 @@ function createTimeline(id, cat, options){
 			}
 		);
 		if(strip){
-			var r = strip(columns, data, options.strip );
+			var r = stripData(columns, data, options.strip );
 			columns = r[0];
 			data = r[1];
 		}
@@ -295,9 +304,9 @@ function createTimeline(id, cat, options){
         $("#timeline-wrapper").html( framework );
 		$("#timeline-table").bootstrapTable({
 			columns: columns,
-			data: data
+			data: data,
+            clickToSelect: true
 		});
-		
 	});	
 }
 
@@ -329,7 +338,7 @@ function stripData( columns, data, axis ){
 			}
 		}
 		for( var i = remove.length-1; i>=0; i-- ) data.splice( remove[i], 1 );
-		console.log(data.length);
+
 		//Remove all empty rows (starting from the last to avoid screwing up indexes).
 		return data;
 	}
