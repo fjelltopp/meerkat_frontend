@@ -233,10 +233,10 @@ def pdf_report(report=None, location=None, year=None, week=None):
             extras=ret['extras'],
             address=ret['address']
             )
-        if 1==1: # TODO: add check whether running on localhost
+        # TODO: add check whether running on localhost, in which case fetch static files from s3
+        if 1==1: 
             html=html.replace("/static/", "https://s3-eu-west-1.amazonaws.com/test-meerkat/pdfcrowd-files/static/")
 
-        #html=html.replace("col-md-6","col-xs-6")
         client.usePrintMedia(True)
         client.setPageWidth('1200pt')
         client.setPageHeight('1697pt')
