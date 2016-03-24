@@ -10,6 +10,15 @@ function pieChart(series) {
     title: {
       text: null
     },
+	plotOptions: {
+      pie: {
+          allowPointSelect: true,
+          dataLabels: {
+               enabled: false
+           },
+          showInLegend: true
+	  }
+	},
     legend: {
       enabled: true,
       verticalAlign: 'bottom',

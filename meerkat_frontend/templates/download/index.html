@@ -2,10 +2,10 @@
 
 {% block menu %}
 <ul class="nav navbar-nav">
-	<li><a href="#" >Dashboard</a></li>
+	<li><a href="/technical/" >Dashboard</a></li>
 	<li><a href="/reports/" >Reports</a></li>
 	<li><a href="/messaging/" >Notifications</a></li>
-	<li><a href="#" >Explore Data</a></li>
+	<li><a href="/explore/" >Explore Data</a></li>
 	<li class="active"><a href="/download/" >Download Data</a></li>
 	<li><a href="/" >Log out</a></li>
 </ul>
@@ -23,24 +23,54 @@
 		</div>
 	</div>
 	<div id="page-content-wrapper">
-		<div class="row">
+	<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="box chartBox">
 					<div class="chartBox__heading">
-						Select the data you wish to download
+						Download Data Set
 					</div>
 					<div class="chartBox__content" >
+					  <div class="intro">
+					      								Choose prepared data set to download for analysis:
+							{# content.preparedIntro #}
+						</div>
+						<div class="breaker"></div>
+						<form id="prepared-data-download" 
+						      class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-8 col-md-6">
+							<div class="row">
+								<select id="prepared-selector" class="col-sm-offset-3 prepared-data">
+								{% for button in content.prepared %}
+									<option value="{{loop.index0}}">{{button.title}}</option>
+								{% endfor %} 
+								</select>
+							</div>
+							<div class="row">
+								<input type="submit" 
+									     class="submit btn btn-default btn-lg col-sm-offset-3" 
+									     value="Download">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="box hiddenChartBox" id="raw_data_box">
+					<div class="chartBox__heading">
+						<a href="#" onclick='$("#raw_download").toggleClass("hidden");$("#raw_data_box").toggleClass("hiddenChartBox");$("#raw_data_box").toggleClass("chartBox");'> Download Raw Data</a>
+					</div>
+					<div class="chartBox__content hidden" id="raw_download" >
 						<div class="intro">
-							{{content.intro}}
+						  {#content.rawIntro #}
+						  Choose raw data set to download for analysis:
 						</div>
 						<div class="breaker"></div>
 						<div class="row">
-							<form id="data-download" 
-							      class="col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-8 col-md-6">
+							<form id="raw-data-download" 
+							      class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-8 col-md-6">
 								<div class="row">
-									<label class="col-xs-12 no-padding-col">
-										Which form would you like to download?
-									</label>
 									<select class="col-sm-offset-3" id="form-selector"></select>
 								</div>
 								<div id="basic-selector" class="row box chartBox">
@@ -211,14 +241,11 @@ $.getJSON( api_root+"/export/forms", function( data ){
 			$('#show-fields').show();
 		}
 
-		console.log( "Listing basic fields" )
-
 		for( var j in basicFields ){
 			basicFieldsHtml += "<div class='check attribute col-xs-12 col-md-6' >"
 			basicFieldsHtml += "<input type='checkbox' name='attributes' ";
 			basicFieldsHtml += "onclick='checkSelected();' value='" + basicFields[j] + "' ";
 			basicFieldsHtml += "> <label>" + basicFields[j] + "</label></div>";
-      console.log( basicFields[j] )
 		}
 
 		for( var k in advancedFields ){
@@ -270,7 +297,7 @@ $.getJSON( api_root+"/export/forms", function( data ){
 
 	
 
-	$('#data-download').submit( function(event){
+	$('#raw-data-download').submit( function(event){
 		//Validate the form.
 		if( checkSelected() ){
 			//Assemble the appropriate API call.
@@ -285,6 +312,18 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		}else{
 			event.preventDefault();
 		}
+	});
+
+	$('#prepared-data-download').submit( function(event){
+		//Assemble the appropriate API call.
+	        var dataSet = config.prepared[$('#prepared-selector').val()];
+		if( "name_category" in dataSet){			      
+   	          var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
+		}else{
+		   var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields)
+		}			      
+		url += "&api_key=" + config.api_key;
+		window.open( url );
 	});
 
 });

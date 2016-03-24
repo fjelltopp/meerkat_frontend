@@ -5,7 +5,7 @@
   <li class="active"><a href="/technical/" >Dashboard</a></li>
   <li><a href="/reports/" >Reports</a></li>
   <li><a href="/messaging/" >Notifications</a></li>
-  <li><a href="#" >Explore Data</a></li>
+  <li><a href="/explore/" >Explore Data</a></li>
   <li><a href="/download/" >Download Data</a></li>
   <li><a href="/" >Log out</a></li>
 </ul>
@@ -14,7 +14,7 @@
 {% block body %}
   <div class="container">
     <div class="row">
-      <ul class="technical-tabs">
+      <ul class="tabs">
         {% for tab in content.tabs %}
         <li>
 	       <a href="" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}" page="{{tab.template}}" onclick="loadTab('{{tab.name|striptags|lower|trim|replace(' ','_')}}'); return false;">{{tab.name}}</a>
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="container tab-page" id="page-content"></div>
+  <div class="page-content container tab-page" id="page-content"></div>
 
 {% endblock body %}
 

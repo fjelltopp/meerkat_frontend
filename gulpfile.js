@@ -42,9 +42,10 @@ gulp.task('jshint', function() {
 // JAVASCRIPT TASKS
 gulp.task('vendorJS', function() {
 	return gulp.src( mainBowerFiles().concat([
-      'node_modules/tree-model/dist/TreeModel-min.js'
+		'node_modules/tree-model/dist/TreeModel-min.js',
+		'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js'
     ]))
-    .pipe(filter('*.js'))
+		.pipe(filter('*.js'))
  //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
  //   .pipe(sourcemaps.write())
@@ -92,7 +93,9 @@ gulp.task('mapbox-rename-css-to-scss', function() {
       'bower_components/mapbox.js/mapbox.uncompressed.css',
       'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
       'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
-      'bower_components/intl-tel-input/build/css/intltelInput.css'
+      'bower_components/intl-tel-input/build/css/intltelInput.css',
+	  'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
+ 	  'bower_components/bootstrap-table/src/bootstrap-table.css'
     ])
     .pipe(rename(function(path) {
       path.extname = ".scss"

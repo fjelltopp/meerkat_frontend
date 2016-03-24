@@ -1,4 +1,4 @@
-body.technical, body.messaging, body.download{
+body.technical, body.messaging, body.download, body.explore{
 	padding: 50px 0px 0px;
 	color: $textGrey;
 	background: $lightGrey;
@@ -13,7 +13,7 @@ body.technical, body.messaging, body.download{
 	}
 
 	.table{
-		margin: 0 0 10px;
+		margin: 0 0 0px;
 		border-top: white 2px solid;
 	}
 
@@ -22,7 +22,7 @@ body.technical, body.messaging, body.download{
 	}
 }
 
-.technical-tabs{
+.tabs{
 
 	list-style: none;
 	text-align: center;
@@ -120,6 +120,10 @@ button.header:hover{
 
 .chartBox{
 	min-height: 300px;
+	padding: 0px;
+}
+.hiddenChartBox{
+	min-height: 50px;
 	padding: 0px;
 }
 

@@ -4,13 +4,13 @@
 		"topic_prefix": "null-",
         "reports":[{
 				"name":"Public Health Profile",
-				"id":"ph"
+				"id":"public_health"
 			},{
 				"name":"Communicable Disease",
-				"id":"cd"
+				"id":"communicable_diseases"
 			},{
 				"name":"Non-communicable Disease",
-				"id":"ncd"
+				"id":"ncd_public_health"
 			}
 		]
 	},
