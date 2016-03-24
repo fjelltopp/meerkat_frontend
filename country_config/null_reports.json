@@ -46,6 +46,15 @@
 			"week":50
 		},
 		"number":3
+    },{
+      "name":"Non Communicable Disease Report",
+		"introduction":"This report tracks the spread of non-communicable diseases across the selected location.",
+	"url":"/reports/non_communicable_diseases",
+		"start_date":{
+			"year":2015,
+			"week":50
+		},
+		"number":3
     }
   ],
 

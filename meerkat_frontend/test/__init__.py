@@ -59,6 +59,10 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         rv = self.app.get('/reports/test/communicable_diseases/',headers=self.header)
         self.assertIn(rv.status_code, [200])
         self.assertIn(b"There were no new confirmed cases and 1 new suspected cases of Bloody diarrhoea this week.", rv.data)
+    def test_reports_ncd(self):
+        rv = self.app.get('/reports/test/non_communicable_diseases/',headers=self.header)
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b"Overweight (BMI &gt; 25)", rv.data)
         
     def test_technical(self):
         """Check the Technical page loads"""
@@ -84,7 +88,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
                                    "reports/test": {"USERNAME": "admin",
                                                "PASSWORD": "secret3"}
                                    }
-
+        mk.app.config["USE_BASIC_AUTH"] = 1
         cred1 = base64.b64encode(b"admin:secret").decode("utf-8")
         header1 = {"Authorization": "Basic {cred}".format(cred=cred1)}
         cred2 = base64.b64encode(b"admin:secret2").decode("utf-8")
