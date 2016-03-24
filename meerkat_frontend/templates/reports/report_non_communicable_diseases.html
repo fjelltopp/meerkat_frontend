@@ -1,0 +1,88 @@
+{% extends 'reports/base.html' %}
+
+{% macro table(data) %}
+{% set total=[] %}
+<table class="refugee centered table table-hover table-condensed"> 
+    <tr>
+	{% set counter=0 %}
+	{% for key in data.titles %}
+	{% if key =="Region" %}
+        <th class="key"> {{ key }} </th>
+	{% elif key == "Total" %}
+	<th class="total"> {{ key }} </th>
+	{% do total.append(counter) %}
+	{% else %}
+	<th> {{ key }} </th>
+	{% set counter = counter +1%}
+	{% endif %}
+	
+	{% endfor %}
+    </tr>
+    {% for row in data["data"] %}
+    <tr>
+	<td class="key"> {{ row.title  }}</td>
+	{% for i in range(row["values"]|length) %}
+	{% if total and i in total %}
+	<td class="total"> {{ row["values"][i] }} </td>
+	{% else %}
+	<td> {{ row["values"][i] }} </td>
+	{% endif %}
+	{% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{%- endmacro %}
+
+
+
+{% block title %}{{report.data.project_region|e}} &middot; Non Commuinicable Diseases Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+  <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> Non Communciable Diseases Report
+    <span class="report-week">
+        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+    </span>
+  </h2>
+</div>
+<div class="row">
+  <!-- Hypertension -->
+  <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">Hypertension</div>
+      <div class="table-title">Table 1: Number of hypertension patients by age group</div>
+      <div class="table-wrapper table-responsive">
+	  {{ table(report["hypertension"]["age"]) }}
+      </div>
+      <div class="table-title">Table 2: Distribution of hypertension patients</div>
+      <div class="table-wrapper table-responsive">
+	  {{ table(report["hypertension"]["complications"]) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Diabetes -->
+<div class="row">
+   <div class="cols-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">Diabetes</div>
+      <div class="table-title">Table 1: Number of diabetes patients by age group</div>
+      <div class="table-wrapper table-responsive">
+	  {{ table(report["diabetes"]["age"]) }}
+      </div>
+      <div class="table-title">Table 2: Distribution of diabetes patients </div>
+      <div class="table-wrapper table-responsive">
+	  {{ table(report["diabetes"]["complications"]) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+{% endblock extra_js %}
+{% block footer %}
+<p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
+{% endblock footer %}

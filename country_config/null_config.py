@@ -79,6 +79,12 @@ REPORT_LIST = {
             'template': 'reports/report_communicable_diseases.html',
             'api_name': 'cd_report',
             'test_json_payload': 'meerkat_frontend/apiData/reports_communicable_diseases.json'
+        },
+        'non_communicable_diseases': {
+            'title': 'Non Communicable Diseases Report',
+            'template': 'reports/report_non_communicable_diseases.html',
+            'api_name': 'ncd_report',
+            'test_json_payload': 'meerkat_frontend/apiData/reports_non_communicable_diseases.json'
         }
     }
 }
