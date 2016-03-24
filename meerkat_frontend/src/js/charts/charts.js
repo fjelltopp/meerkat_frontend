@@ -31,30 +31,7 @@ function pieChart(series) {
     series: [{
       colorByPoint: true,
       data: series
-    }],
-    plotOptions: {
-      series: {
-          dataLabels: {
-              enabled: true,
-              formatter: function() {
-                var words = this.key.split(' ');
-                var wrapped_key = '';
-                var row_len=0;
-                for (var i=0; i < words.length; i++){
-                  if (row_len + words[i].length > 20 && row_len > 0){
-                    wrapped_key = wrapped_key + '<br>' + words[i];
-                    row_len=0;
-                  } else {
-                    wrapped_key = wrapped_key + ' ' + words[i];
-                    row_len += words[i].length;
-                  }
-                }
-                return wrapped_key;
-              }
-          },
-          animation: false
-      }
-    } 
+    }]
   };
   return chart;
 }
