@@ -33,6 +33,12 @@ class Config(object):
     PASSWORD = "secret"
     EXTRA_PAGES = {}
     TEMPLATE_FOLDER = None
+    PDFCROWD_API_ACCOUNT = from_env('PDFCROWD_API_ACCOUNT','')
+    PDFCROWD_API_KEY = from_env('PDFCROWD_API_KEY','')
+    PDFCROWD_STATIC_FILE_URL = from_env('PDFCROWD_STATIC_FILE_URL','')
+    MAPBOX_MAP_ID = from_env('MAPBOX_MAP_ID','mapbox.dark')
+    MAPBOX_API_ACCESS_TOKEN = from_env('MAPBOX_API_ACCESS_TOKEN','')
+    MAPBOX_STATIC_MAP_API_URL = from_env('MAPBOX_STATIC_MAP_API_URL','')
     
 
 class Production(Config):

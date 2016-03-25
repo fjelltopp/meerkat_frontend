@@ -12,9 +12,9 @@ except ImportError:
 import dateutil.parser
 import requests
 from .. import common as c
+import string
 
 import pdfcrowd
-from flask_weasyprint import HTML, render_pdf
 
 reports = Blueprint('reports', __name__)
 
@@ -316,11 +316,26 @@ def create_report(config, report=None, location=None, year=None, week=None):
             extras['map_centre'] = report_list['reports'][report]["map_centre"]
             extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
                                  "/clinics/1")
+            extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
+                                current_app.config['MAPBOX_STATIC_MAP_API_URL'],
+                                current_app.config['MAPBOX_MAP_ID'],
+                                extras['map_centre'][0],
+                                extras['map_centre'][1],
+                                extras['map_centre'][2],
+                                current_app.config['MAPBOX_API_ACCESS_TOKEN'])
+
         elif report in ["refugee_public_health"]:
             extras = {}
             extras['map_centre'] = report_list['reports'][report]["map_centre"]
             extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
                                  "/clinics/1/Refugee")
+            extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
+                    current_app.config['MAPBOX_STATIC_MAP_API_URL'],
+                    current_app.config['MAPBOX_MAP_ID'],
+                    extras['map_centre'][0],
+                    extras['map_centre'][1],
+                    extras['map_centre'][2],
+                    current_app.config['MAPBOX_API_ACCESS_TOKEN'])
 
         else:
             extras = None
