@@ -1,3 +1,7 @@
+	#map-print {
+		display:none;
+	}
+
 @media print {
 
 	// NAVBAR
@@ -23,6 +27,14 @@
 	}
 
 	// MAP
+	#map {
+		display:none;
+	}
+
+	#map-print {
+		display:block;
+	}
+
  	.leaflet-container img { 
  		max-width:none !important; 
  	}
