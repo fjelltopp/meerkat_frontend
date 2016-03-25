@@ -20,7 +20,7 @@ from . import common as c
 
 # Create the Flask app
 app = Flask(__name__)
-
+app.jinja_options['extensions'].append('jinja2.ext.do')
 app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)

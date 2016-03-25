@@ -1,0 +1,167 @@
+{
+    "data": {
+        "epi_week_date": "2016-03-17T00:00:00",
+        "epi_week_num": 11,
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Demo"
+    },
+    "diabetes": {
+        "age": {
+            "data": [
+                {
+                    "title": "Region 1",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        2,
+                        1,
+                        3
+                    ]
+                },
+                {
+                    "title": "Region 2",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "titles": [
+                "Region",
+                "<5",
+                "5-9",
+                "10-14",
+                "15-19",
+                "20-59",
+                ">60",
+                "Total"
+            ]
+        },
+        "complications": {
+            "data": [
+                {
+                    "title": "Region 1",
+                    "values": [
+                        3,
+                        2,
+                        1,
+                        2,
+                        2,
+                        2,
+                        2
+                    ]
+                },
+                {
+                    "title": "Region 2",
+                    "values": [
+                        1,
+                        0,
+                        1,
+                        1,
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            ],
+            "titles": [
+                "Region",
+                "Total",
+                "Female",
+                "Male",
+                "Overweight (BMI > 25)",
+                "Obese (BMI > 30)",
+                "Fasting Glucose",
+                "HbA1c (%)"
+            ]
+        }
+    },
+    "hypertension": {
+        "age": {
+            "data": [
+                {
+                    "title": "Region 1",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        2,
+                        3,
+                        5
+                    ]
+                },
+                {
+                    "title": "Region 2",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        2,
+                        2
+                    ]
+                }
+            ],
+            "titles": [
+                "Region",
+                "<5",
+                "5-9",
+                "10-14",
+                "15-19",
+                "20-59",
+                ">60",
+                "Total"
+            ]
+        },
+        "complications": {
+            "data": [
+                {
+                    "title": "Region 1",
+                    "values": [
+                        5,
+                        2,
+                        3,
+                        3,
+                        2,
+                        0
+                    ]
+                },
+                {
+                    "title": "Region 2",
+                    "values": [
+                        2,
+                        0,
+                        2,
+                        2,
+                        1,
+                        0
+                    ]
+                }
+            ],
+            "titles": [
+                "Region",
+                "Total",
+                "Female",
+                "Male",
+                "Systolic BP < 140",
+                "Overweight (BMI > 25)",
+                "Obese (BMI > 30)"
+            ]
+        }
+    },
+    "meta": {
+        "generation_timestamp": "2016-03-24T13:11:50.668860",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "5d0a4a6f-e592-4261-b9ef-7ad75bc8077f"
+    }
+}

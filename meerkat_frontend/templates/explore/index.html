@@ -82,7 +82,7 @@
                             <div class="options">
                                 <span class="glyphicon glyphicon-check" 
                                       id="toggle-selected" onClick="toggleSelected(this);" table="cross-table"
-                                      title="Hide selected rows/Show hidden rows" value="shown" >
+                                      title="Hide not selected rows/Show hidden rows" value="shown" >
                                 </span>
                                 <span class="glyphicon glyphicon-resize-small cross-option" id="strip-button"
                                       onClick="callStrip(this);" title="Hide/show empty records" table="cross-table"
@@ -116,7 +116,7 @@
                                 <div class="options">
                                     <span class="glyphicon glyphicon-check" 
                                           id="toggle-selected" onClick="toggleSelected(this);" 
-                                          title="Hide selected rows/Show hidden rows" 
+                                          title="Hide not selected rows/Show hidden rows" 
                                           table="timeline-table" value="shown" >
                                     </span>
                                     <span class="glyphicon glyphicon-resize-small timeline-option" id="strip-button"
@@ -184,7 +184,7 @@ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 });
 
 $( function(){
-
+     moment().utc();
     //Add a listener to the location selector.
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
@@ -208,8 +208,8 @@ $( function(){
     d = new Date();
     $('#start-date').datetimepicker({
         useCurrent: false,
-        defaultDate: new Date(d.getFullYear(),0,1).toISOString(),
-        format: "DD/MM/YYYY"
+        defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
+        format: "DD/MM/YYYY",
     });
     $('#end-date').datetimepicker({
         useCurrent: true,
@@ -224,19 +224,19 @@ $( function(){
         timelineDrawn = false;
         reDraw();  
     });
-     var value = $('#start-date').data("DateTimePicker").date().toISOString();
+     var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").toISOString();
      $('#start-date').attr('value', value );
-     var value = $('#end-date').data("DateTimePicker").date().toISOString();
+     var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").toISOString();
      $('#end-date').attr('value', value );
 
     //Add listeners to update table when date/pickers change. Store the chart state in the DOM element.
     $('#start-date').on('dp.change', function() {
-        var value = $('#start-date').data("DateTimePicker").date().toISOString();
+        var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOSTring();
         $('#start-date').attr('value', value );
         reDraw();
     });
     $('#end-date').on('dp.change', function() {
-        var value = $('#end-date').data("DateTimePicker").date().toISOString();
+        var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOString();
         $('#end-date').attr('value', value );
         reDraw();
     });
@@ -265,7 +265,7 @@ function toggleSelected(element){
 
         var indexes = [];  
 
-        $("#" + table + " input[name='btSelectItem']:checked").each( function(){
+        $("#" + table + " input[name='btSelectItem']:not(:checked)").each( function(){
             $("#" + table ).bootstrapTable('hideRow', {
                 index: $(this).attr('data-index')
             });

@@ -35,8 +35,8 @@
       <div class="chart-title">{{ cd[0]|e }}</div>
       <div class="chart-stage">
         <div id="chart-{{ cd[0]|slugify }}"></div>
-        {% set susp_cases = cd[1].suspected|last|e %}
-        {% set conf_cases = cd[1].confirmed|last|e %}
+        {% set susp_cases = cd[1].suspected[report.data.epi_week_num-1]|e %}
+        {% set conf_cases = cd[1].confirmed[report.data.epi_week_num -1]|e %}
         <p>There were {% if conf_cases == '0' %}no{% else %}{{ conf_cases }}{% endif %} new confirmed cases and {% if susp_cases == '0' %}no{% else %}{{ susp_cases }}{% endif %} new suspected cases of {{ cd[0]|e }} this week.</p>
       </div>
     </div>
