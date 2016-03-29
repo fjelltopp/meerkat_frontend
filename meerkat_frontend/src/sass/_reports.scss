@@ -1,4 +1,4 @@
-body.reports{
+body.reports, body.htmlreport{
 
 	padding: 50px 0px 0px;
 	color: $textGrey;
@@ -107,4 +107,15 @@ table.refugee.small{
   margin: 15px 0px 0px 50px;
   font-weight: bold;
   font-size: 15px;
+}
+
+.htmlreport{ 
+
+    .navbar .container-fluid .navbar-brand{
+        margin: 0 10px;
+    }
+
+    .page-header{
+        margin: 40px 15px 20px;
+    }
 }

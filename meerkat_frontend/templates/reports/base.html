@@ -1,24 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% include 'includes/header.html' %}
-<body class="application">
-  {% include 'reports/navbar.html' %}
-  <div class="container-fluid">
-    {% block body %}{% endblock %}
-    <!-- FOOTER -->
-  </div>
-    <footer class="row">
-      <div class="col-sm-4">
-        {% block footer %}{% endblock %}
+<head>
+{% include 'includes/header.html' %}
+{% block head %} {% endblock %}
+</head>
+<body class="htmlreport" >
+  <nav class="navbar navbar-fixed-top">
+    <div class="container-fluid navmenu">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand scroll-top" href="#">
+          <img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> </img>
+          <span class="hidden-xs hidden-sm">{{content.titles.nav|safe}}</span>
+          <span class="visible-xs visible-sm">{{content.titles.mob_nav|safe}}</span>
+        </a>
       </div>
-      <div class="col-sm-4"></div>
-      <div class="col-sm-4">
-        <p class="text-right"><img class="who-logo-text-footer" src="{{ url_for('static', filename='img/logo/who-logo-white-no-text.svg') }}" alt="WHO logo with text"></p>
-      </div>
-    </footer>
 
-  {% include 'includes/js.html' %}
-  {% block extra_js %}{% endblock %}
+    </div>
+  </nav>
 
-  </body>
+<div class="container-fluid">
+{% block body %}{% endblock %}
+</div>
+
+<footer>
+<div class="container-fluid">
+    <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
+        <p class="footer__title">Meerkat Health Surveillance</p>
+        <p>Working with our partners:</p> 
+        <ul class="footer__supporters" >
+            {% for partner in content.footer.partners %}
+                <li>{{partner}}</li>
+            {% endfor %} 
+        </ul>
+        <p>For more information, please e-mail: {{content.footer.email|safe}} </p>
+    </div>
+    <div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
+        <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+        <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
+        {% for logo in content.footer.logos.partners %}
+            <img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
+        {% endfor %} 
+    </div>
+</div>
+</footer>
+</body>
 </html>
+{% include 'includes/js.html' %}
+{% block pageJS %}
+    {% block extra_js %}{% endblock %}
+{% endblock %}
+

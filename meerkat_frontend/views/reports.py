@@ -74,7 +74,8 @@ def test(report):
             report_list['reports'][report]['template'],
             report=data,
             extras=extras,
-            address=report_list["address"]
+            address=report_list["address"],
+            content=current_app.config['REPORTS_CONFIG']
         )
     else:
         abort(501)
@@ -178,7 +179,9 @@ def report(report=None, location=None, year=None, week=None):
             ret['template'],
             report=ret['report'],
             extras=ret['extras'],
-            address=ret['address']
+            address=ret['address'],
+            content=current_app.config['REPORTS_CONFIG']
+            
             )
 
     else:
@@ -208,6 +211,7 @@ def pdf_report(report=None, location=None, year=None, week=None):
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
             html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
         else:
+
             html=html.replace("/static/", "".join(current_app.config['ROOT_URL'], "/static/"))
 
         client.usePrintMedia(True)
