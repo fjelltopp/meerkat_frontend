@@ -4,7 +4,8 @@ function pieChart(series) {
   var chart = {
     chart: {
       type: 'pie',
-      animation: false
+      animation: false,
+      spacingBottom: 30
     },
     title: {
       text: null

@@ -1,0 +1,87 @@
+	#map-print {
+		display:none;
+	}
+
+@media print {
+
+	// NAVBAR
+	.navbar {
+		display: block;
+		background: #337ab7 !important;
+	}
+
+	.navbar .navbar-brand {
+		color: #fbfbfb !important;
+	}
+
+	.navbar-brand span {
+		color: #fbfbfb !important;
+	} 
+
+	.who-logo-white-no-text {
+		background: #337ab7 !important;
+		background-size: 100% auto !important;
+	    background-position: 50% !important;
+	    background-repeat: no-repeat !important;
+		background-image: url(../img/logo/who-logo-white-no-text.svg) !important;
+	}
+
+	// MAP
+	#map {
+		display:none;
+	}
+
+	#map-print {
+		display:block;
+	}
+
+ 	.leaflet-container img { 
+ 		max-width:none !important; 
+ 	}
+
+ 	.leaflet-control-fullscreen a {
+	    display: none;
+	}
+
+	#map .marker-cluster-small, #map .marker-cluster-medium, #map .marker-cluster-large {
+		color: rgba(181, 226, 140, 0.6) !important;
+    	background-color: #EA9E72 !important;
+	}
+
+	// COLUMNS
+	.col-sm-6 {
+  		width: 50%;
+	}
+
+	.chart-wrapper {
+	   // page-break-after: always;
+	   border-style: hidden;
+	}
+
+	.row {
+		border-top: 1px solid #e2e2e2;
+	 	page-break-inside: avoid;
+	}
+
+	// FLAG
+	.flag-icon {
+		background: transparent !important;
+        background-size: contain !important;
+        background-position: 50% !important;
+        background-repeat: no-repeat !important;
+        position: relative !important;
+        display: inline-block !important;
+        width: 1.33333em !important;
+        line-height: 1em !important;
+	}
+
+	// CHARTS
+	.ct-bar {
+	  stroke-width: 15px;
+	}
+
+	.ct-label {
+	  font-size: 0.6em;
+	}
+
+}

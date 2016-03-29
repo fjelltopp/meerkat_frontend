@@ -202,8 +202,8 @@ function drawCharts(locID, year, reports){
 				html += '<tr><td class="indent" >Week '+ week + '</td>';
 				html += '<td><a href="' + report.url + '/' + locID + '/' + year + '/' + week +
 				        '" target="_blank">HTML Report</a></td>';
-				html += '<td><a href="" onclick="alert(\'PDF report not available yet.\');' +
-				        'return false;">PDF Report</a></td></tr>';
+				html += '<td><a href="' + report.url + '_' + locID + '_' + year + '_' + week +
+				        '.pdf" target="_blank">PDF Report</a></td></tr>';
 			}
 		}
 
@@ -223,8 +223,8 @@ function drawCharts(locID, year, reports){
 			//Make the html link pick up the selected week from the selector.
 			html += '<td><a href="" onclick="window.open(\'' + url + '\' + $(\'#' + reportID + 
 				     '-week-selector\').val(), \'_blank\');return false;">HTML Report</a></td>';
-			html += '<td><a href="" onclick="alert(\'PDF report not available yet.\'); return false;">' +
-				     'PDF Report</a></td></tr>';
+			html += '<td><a href="' + report.url + '_' + locID + '_' + year + '_' + week +
+				        '.pdf" target="_blank">PDF Report</a></td></tr>';
 		}else{
 			html += '<tr><td colspan=3>No other reports have been generated for this year.</td></tr>';
 		}
