@@ -80,28 +80,6 @@
 </div>
 {% endblock body %}
 
-{% block footer %}
-<div class="container">
-	<div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
-		<p class="footer__title">Meerkat Health Surveillance</p>
-		<p>Working with our partners:</p> 
-		<ul class="footer__supporters" >
-			{% for partner in content.footer.partners %}
-				<li>{{partner}}</li>
-			{% endfor %} 
-		</ul>
-		<p>For more information, please e-mail: {{content.footer.email|safe}} </p>
-	</div>
-	<div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
-		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
-		<img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
-		{% for logo in content.footer.logos.partners %}
-			<img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
-		{% endfor %} 
-	</div>
-</div>
-{% endblock footer %}
-
 {% block pageJS %}
 <script src="{{ url_for('static', filename='js/intlTelInput.js') }}"></script>
 <script type="text/javascript" >
