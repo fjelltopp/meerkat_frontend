@@ -6,10 +6,10 @@
 				"name":"Public Health Profile",
 				"id":"public_health"
 			},{
-				"name":"Communicable Disease",
+				"name":"Communicable Disease Report",
 				"id":"communicable_diseases"
 			},{
-				"name":"Non-communicable Disease",
+				"name":"Non-communicable Disease Report",
 				"id":"ncd_public_health"
 			}
 		]
