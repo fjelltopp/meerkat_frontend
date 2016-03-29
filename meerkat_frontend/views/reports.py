@@ -204,9 +204,11 @@ def pdf_report(report=None, location=None, year=None, week=None):
             extras=ret['extras'],
             address=ret['address']
             )
-        # TODO: add check whether running on localhost, in which case fetch static files from s3
-        if 1==1: 
+        # Read env flag whether to tell pdfcrowd to read static files from an external source
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
             html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
+        else:
+            html=html.replace("/static/", "".join(current_app.config['ROOT_URL'], "/static/"))
 
         client.usePrintMedia(True)
         client.setPageWidth('1200pt')
