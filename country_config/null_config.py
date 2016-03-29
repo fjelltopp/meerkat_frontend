@@ -29,7 +29,7 @@ AUTHENTICATION = {
     }
 }
 
-HERMES_API_KEY='8309a761-1dab-4cfb-9614-61c239c951ec'
+HERMES_API_KEY='test-hermes'
 
 REPORT_LIST = {
     'default_location': 1,
