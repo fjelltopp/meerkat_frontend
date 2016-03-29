@@ -191,7 +191,9 @@ def report(report=None, location=None, year=None, week=None):
 def pdf_report(report=None, location=None, year=None, week=None):
 
     report_list = current_app.config['REPORT_LIST']
-    client = pdfcrowd.Client("jsoppela", "632073174ee4b5c4b0055905be7c73c4") # TODO: fetch credentials from config file
+    client = pdfcrowd.Client(
+        current_app.config['PDFCROWD_API_ACCOUNT'],
+        current_app.config['PDFCROWD_API_KEY'])
     
     if report in report_list['reports']:
         ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
@@ -204,7 +206,7 @@ def pdf_report(report=None, location=None, year=None, week=None):
             )
         # TODO: add check whether running on localhost, in which case fetch static files from s3
         if 1==1: 
-            html=html.replace("/static/", "https://s3-eu-west-1.amazonaws.com/test-meerkat/pdfcrowd-files/static/")
+            html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
 
         client.usePrintMedia(True)
         client.setPageWidth('1200pt')
