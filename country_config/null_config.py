@@ -29,8 +29,6 @@ AUTHENTICATION = {
     }
 }
 
-HERMES_API_KEY='test-hermes'
-
 REPORT_LIST = {
     'default_location': 1,
     'keys': {
