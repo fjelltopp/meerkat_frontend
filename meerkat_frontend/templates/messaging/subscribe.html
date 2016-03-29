@@ -9,7 +9,7 @@
 <div class="container page-content">
 	<div class="top-bar row">
 		<div class="tab-title less-padding-col">
-			Notifications Service
+			 Public Health Surveillance Notifications
 		</div>
 		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 			Date not loaded.
@@ -20,17 +20,17 @@
 			<div class="col-xs-12 less-padding-col">
 				<div class="box chartBox">
 					<div class="chartBox__heading">
-						Subscribe to our mailing lists...
+						Subscribe to Alerts and Reports
 					</div>
 					<div class="chartBox__content" >  
 						<div class="intro">
-						Use the form below to subscribe to our e-mail and SMS notification system.   You will receive alerts from the surveillance data that are tailored to your region and diseases of interest. You can also receive our monthly reports delivered straight to your inbox as soon as they are published. 
+						Use the form below to subscribe to E-mail and SMS notifications for Alerts and Reports.
 						</div>
 
 						<form class="subscribe row" id='subscribe-form' method='POST' action='subscribe/subscribed'>
 							<div class="left-part col-sm-12 col-md-6 more-padding-col">
 								<div class="personal">
-									<div class="title row">Please enter your personal details...</div>
+									<div class="title row">Enter personal details:</div>
 									<div class="row">
 										<label class="col-xs-12 col-sm-4" >First Name*</label>
 										<input class="col-xs-12 col-sm-8" type="text" name="first_name" required>
@@ -57,7 +57,7 @@
 								<div id="report-select" class="row"> </div>
 								<div class="row">
 									<div class="title" >
-										Choose which regions you want to receive alerts from...
+										Select which Regions to receive alerts from:
 									</div>
 									<div class="col-xs-0 col-sm-4"></div>
 									<div id="region-select"> </div>
@@ -145,7 +145,7 @@ $.getJSON( api_root+"/variables/alert", function( variables ){
 	$.getJSON( api_root+"/locationtree", function( locations ){
 
 		//Draw the disease Selector
-		var disSel ="<div class='title  row'>Choose which alerts you wish to receive...</div>";
+		var disSel ="<div class='title  row'>Select which Alerts to receive:</div>";
 
 		disSel += "";
 		disSel += "<div class='row'>";
@@ -175,7 +175,7 @@ $.getJSON( api_root+"/variables/alert", function( variables ){
 		$('#region-select').html(regSel);
 
 		//Draw the report selector
-		var repSel = "<div class='title'>Choose which reports you would like to receive... </div>";
+		var repSel = "<div class='title'>Select which Reports to receive: </div>";
 		repSel += "<div class='col-xs-0 col-sm-4'></div><div class='col-xs-12 col-sm-8 no-padding-col'>";
 		for( var j in config.subscribe.reports ){
 			repSel += "<div class='col-xs-12 col-sm-6 check'>";

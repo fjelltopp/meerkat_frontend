@@ -63,18 +63,13 @@ def subscribed():
     message = ( "Dear " + data['first_name'] + " " + data['last_name']+",\n\n"
                 "Thank you for subscribing to receive public health surveillance notifications from "
                 + current_app.config['MESSAGING_CONFIG']['messages']['country'] + ".\n\nPlease verify your "
-                "contact details by copying and pasting the following url into your address bar:\n" 
-                + url + "\n\nBest wishes,\nThe " +
-                current_app.config['MESSAGING_CONFIG']['messages']['country'] + 
-                " Public Health Surveillance team" )
+                "contact details by copying and pasting the following url into your address bar:\n" + url )
 
     html = ( "<p>Dear " + data['first_name'] + " " + data['last_name']+",</p>"
              "<p>Thank you for subscribing to receive public health surveillance notifications from "
              + current_app.config['MESSAGING_CONFIG']['messages']['country'] + ".</p><p>Please "
              "verify your contact details by <a href='" + url + "' target='_blank'>clicking here</a>." 
-             "</p><p>Best wishes,<br>The "
-             + current_app.config['MESSAGING_CONFIG']['messages']['country'] + 
-             " Public Health Surveillance team</p>" )
+             "</p>" )
 
     email = {
         'email': data['email'],
@@ -129,23 +124,17 @@ def verified(subscriber_id):
     message = ( "Dear " + subscriber['first_name'] + " " + subscriber['last_name']+",\n\n"
                 "Thank you for subscribing to receive public health surveillance notifications from "
                 + country + ".  We can confirm that your contact details have been "
-                "successfully verified.\n\nIn every e-mail we send you, we should provide a link that "
-                "will enable you to unsubscribe from receiving our notifications. If you wish to "
+                "successfully verified.\n\nYou can unsubscribe at any time by clicking on the " 
+                "relevant link in your e-mails.\n\n If you wish to "
                 "unsubscribe now copy and paste the following url into your address bar:\n"
-                + current_app.config['HERMES_ROOT'] + "/unsubscribe/" + subscriber_id +
-                "\n\nDo not hesitate to get in touch should you have any questions:"
-                + current_app.config['MESSAGING_CONFIG']['messages']['contact'] + "\n\nBest wishes,\n"
-                "The " + country + " Public Health Surveillance team" )
+                + current_app.config['HERMES_ROOT'] + "/unsubscribe/" + subscriber_id  )
 
     html = ( "<p>Dear " + subscriber['first_name'] + " " + subscriber['last_name'] + ",</p>"
              "<p>Thank you for subscribing to receive public health surveillance notifications from "
-             + country +  ".  We can confirm that your "
-             "contact details have been successfully verified.</p><p>In every e-mail we send you, we "
-             "should provide a link that will enable you to unsubscribe from receiving our notifications.  " 
+             + country +  ".  We can confirm that your contact details have been successfully verified."
+             "</p><p>You can unsubscribe at any time by clicking on the relevant link in your e-mails.</p><p> " 
              "If you wish to unsubscribe now <a href='" + current_app.config['HERMES_ROOT'] + "/unsubscribe/" 
-             + subscriber_id + "'>click here.</a></p><p>Do not hesitate to get in touch should you have "
-             "any questions: " + current_app.config['MESSAGING_CONFIG']['messages']['contact'] + 
-             "</p><p>Best wishes,<br>The " + country + " Public Health Surveillance team</p>" )
+             + subscriber_id + "'>click here.</a></p>" )
 
     email = {
         'email': subscriber['email'],
@@ -203,12 +192,13 @@ def check_code(subscriber_id, code):
 def set_code(subscriber_id, sms):
 
     code = round(random.random()*9999)
+    message = ( 'Your verification code for ' + current_app.config['MESSAGING_CONFIG']['messages']['country'] + 
+        ' public health surveillance notifications is: ' + str(code) + '. Please follow instructions'
+        ' in the email to verify your contact details.' )
+
     data = {
         'sms': sms,
-        'message': 'Thank you for subscribing to receive public health surveillance notifications from ' +
-			current_app.config['MESSAGING_CONFIG']['messages']['country'] + '. ' +
-            'Your verification code is: ' + str(code) + '. Please follow the instructions in the ' + 
-            'email we sent you to verify your contact details.'
+        'message': message
     }
     response = c.hermes('/verify', 'PUT', { 'subscriber_id':subscriber_id, 'code': code } )
     response = c.hermes( '/sms', 'PUT', data )
