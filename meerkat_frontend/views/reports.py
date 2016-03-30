@@ -65,6 +65,11 @@ def test(report):
             extras['map_centre'] = report_list['reports'][report]["map_centre"]
             extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                  "/clinics/1/Refugee")
+        elif report in ["pip"]:
+            extras = {}
+            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
+                                 "/clinics/1/SARI")
         else:
             extras = None
         return render_template(
@@ -212,6 +217,11 @@ def report(report=None, location=None, year=None, week=None):
             extras['map_centre'] = report_list['reports'][report]["map_centre"]
             extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                  "/clinics/1/Refugee")
+        elif report in ["pip"]:
+            extras = {}
+            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
+                                 "/clinics/1/SARI")
 
         else:
             extras = None
