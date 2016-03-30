@@ -205,14 +205,16 @@ def pdf_report(report=None, location=None, year=None, week=None):
             ret['template'],
             report=ret['report'],
             extras=ret['extras'],
-            address=ret['address']
+            address=ret['address'],
+            content=current_app.config['REPORTS_CONFIG']
             )
         # Read env flag whether to tell pdfcrowd to read static files from an external source
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
             html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
         else:
-
-            html=html.replace("/static/", "".join(current_app.config['ROOT_URL'], "/static/"))
+            html=html.replace("/static/", '{}{}'.format(
+                current_app.config['ROOT_URL'],
+                '/static/'))
 
         client.usePrintMedia(True)
         client.setPageWidth('1200pt')
