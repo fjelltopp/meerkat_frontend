@@ -187,6 +187,63 @@ function drawAlertAggTable( containerID, aggData, variables ){
 
 }
 
+// Function for drawing pip line list
+function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, link_def_id_return, link_variable){
+    
+	$.getJSON( api_root+"/locations", function( locations ){
+
+		//Create the table headers, using the central review flag from the cofiguration file.
+		//Central review is a third level of alert review requested by the Jordan MOH.
+		var table = '<table class="table table-hover table-condensed">' +
+		            '<tr><th>NAMRU-ID</th>' +
+		            '<th><span class="glossary capitalised" word="region">Region</span></th>' + 
+		            '<th>Clinic</th><th>Date Reported</th><th>Follow-up completed</th><th>Laboratory Results</th><th>Status</th>' +
+		            '</tr>';
+
+		$.getJSON( api_root+"/records/"+variable_id +"/" +location_id, function( case_dict ){
+			$.getJSON( api_root+"/links/"+link_def_id_labs, function( links_dict_labs ){
+				$.getJSON( api_root+"/links/"+link_def_id_return, function( links_dict_return ){
+					var cases = case_dict.records;
+					var labs = links_dict_labs.links;
+					var return_visits = links_dict_return.links;
+					cases.sort( function(a, b){
+						return new Date(b.date).valueOf()-new Date(a.date).valueOf();
+					});
+
+					for( var i in cases ){
+						c = cases[i];
+						if( link_variable in c.variables){
+							var link_id = c.variables[link_variable];
+							table += '<tr><td>' + link_id + '</td>' +
+								'<td>' + locations[c.region].name + '</td>' +
+								'<td>' + locations[c.clinic].name + '</td>' +
+								'<td>' + c.date.split("T")[0] + '</td> ';
+							if(link_id in return_visits){
+								table +=  '<td>' + return_visits[link_id].to_date.split("T")[0] + '</td>';
+							}else{
+								table += '<td> - </td>';
+							}
+							if(link_id in labs){
+								table += '<td>' + labs[link_id].to_date.split("T")[0] + '</td>' +
+									'<td>' +labs[link_id].data.status + '</td>';
+							}else{
+								table += '<td> - </td> <td> Pending</td>';
+							}
+							table += "</tr>";
+						}
+					}
+					
+					table+="</table>";
+					
+					$('#'+containerID).html(table);
+				});
+			});
+		});
+	});
+}
+
+
+
 function drawCompletenessAggTable( containerID ){
 
 	$.getJSON( api_root+"/completeness/reg_1/4", function( regionData ){
