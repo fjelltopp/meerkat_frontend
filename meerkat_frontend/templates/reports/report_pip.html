@@ -19,7 +19,7 @@
         <ul>
           <li>A total of <strong>{{ report.data.total_cases|commas }} </strong> enrolled patients.</li>
           <li><strong>{{ report.data.percent_cases_male|float|round(1) }}% male</strong> and <strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> </li>
-	  <li><strong>{{ report.data.cases_chronic}} ({{ report.data.percent_cases_chronic}}%) patients </strong>with chronic conditions.</strong></li>
+	  <li><strong>{{ report.data.cases_chronic}} ({{ report.data.percent_cases_chronic|float|round(1)}}%) patients </strong>with chronic conditions.</strong></li>
 	  <li><strong>{{ report.data.cases_pcr }} samples </strong> tested by PCR.</li>
         </table>
 

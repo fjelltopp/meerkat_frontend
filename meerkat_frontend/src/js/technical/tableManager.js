@@ -218,6 +218,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 								'<td>' + locations[c.region].name + '</td>' +
 								'<td>' + locations[c.clinic].name + '</td>' +
 								'<td>' + c.date.split("T")[0] + '</td> ';
+							link_id = link_id.toLowerCase();
 							if(link_id in return_visits){
 								table +=  '<td>' + return_visits[link_id].to_date.split("T")[0] + '</td>';
 							}else{
@@ -229,8 +230,16 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 							}else{
 								table += '<td> - </td> <td> Pending</td>';
 							}
-							table += "</tr>";
+
+						}else{
+							table += '<tr><td>-</td>' +
+								'<td>' + locations[c.region].name + '</td>' +
+								'<td>' + locations[c.clinic].name + '</td>' +
+								'<td>' + c.date.split("T")[0] + '</td> ' +
+								'<td> - </td> <td> - </td><td> Pending </td>';
 						}
+						table += "</tr>";
+
 					}
 					
 					table+="</table>";
