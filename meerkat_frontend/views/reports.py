@@ -187,16 +187,16 @@ def report(report=None, location=None, year=None, week=None):
         abort(501)
 
 @reports.route('/<report>.pdf')
-@reports.route('/<report>_<location>.pdf')
-@reports.route('/<report>_<location>_<int:year>.pdf')
-@reports.route('/<report>_<location>_<int:year>_<int:week>.pdf')
+@reports.route('/<report>-<location>.pdf')
+@reports.route('/<report>-<location>-<int:year>.pdf')
+@reports.route('/<report>-<location>-<int:year>-<int:week>.pdf')
 def pdf_report(report=None, location=None, year=None, week=None):
 
     report_list = current_app.config['REPORT_LIST']
     client = pdfcrowd.Client(
         current_app.config['PDFCROWD_API_ACCOUNT'],
         current_app.config['PDFCROWD_API_KEY'])
-    
+    current_app.logger.warning('Report: ' + report )
     if report in report_list['reports']:
         ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
 
@@ -220,6 +220,7 @@ def pdf_report(report=None, location=None, year=None, week=None):
         client.setPageHeight('1697pt')
         client.setPageMargins('90pt','60pt','90pt','60pt')
         client.setHtmlZoom(400)
+        client.setPdfScalingFactor(1.5)
 
         pdf = client.convertHtml(html)
         return Response(pdf, mimetype='application/pdf')

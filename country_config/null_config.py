@@ -1,6 +1,6 @@
 ROOT_URL = 'https://demo.emro.info'
 WEBMASTER_EMAIL = 'webmaster@emro.info'
-SITE_TITLE = 'Meerkat Health Surveillance'
+SITE_TITLE = 'Null Island Public Health Surveillance'
 
 # Homepage stuff
 HOMEPAGE_CONFIG = 'country_config/null_homepage.json'
