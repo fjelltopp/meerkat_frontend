@@ -181,8 +181,7 @@ def report(report=None, location=None, year=None, week=None):
             extras=ret['extras'],
             address=ret['address'],
             content=current_app.config['REPORTS_CONFIG']
-            
-            )
+        )
 
     else:
         abort(501)

@@ -1,38 +1,49 @@
+$printedBlue: #337ab7;
+
 	#map-print {
-		display:none;
+		display: none;
 	}
 
 @media print {
 
+	body.htmlreport{
+		margin-top: 0px;
+	}
+
 	// NAVBAR
 	.navbar {
+
 		display: block;
-		background: #337ab7 !important;
-	}
 
-	.navbar .navbar-brand {
-		color: #fbfbfb !important;
-	}
+		.navmenu{
+			background: $printedBlue !important;
+			padding: 0px;
+			margin: 20px 30px;
+			border-radius: 3px;
+		}
 
-	.navbar-brand span {
-		color: #fbfbfb !important;
-	} 
+		.navbar-brand span, 
+		.navbar-brand span b{
+		    color: #fff !important;
+		}
+	}
 
 	.who-logo-white-no-text {
 		background: #337ab7 !important;
 		background-size: 100% auto !important;
-	    background-position: 50% !important;
-	    background-repeat: no-repeat !important;
+		background-position: 50% !important;
+		background-repeat: no-repeat !important;
 		background-image: url(../img/logo/who-logo-white-no-text.svg) !important;
 	}
 
 	// MAP
 	#map {
-		display:none;
+		display: none;
 	}
 
 	#map-print {
-		display:block;
+		display: block;
+		margin: -10px;
 	}
 
  	.leaflet-container img { 
@@ -40,48 +51,97 @@
  	}
 
  	.leaflet-control-fullscreen a {
-	    display: none;
+		display: none;
 	}
 
 	#map .marker-cluster-small, #map .marker-cluster-medium, #map .marker-cluster-large {
 		color: rgba(181, 226, 140, 0.6) !important;
-    	background-color: #EA9E72 !important;
-	}
-
-	// COLUMNS
-	.col-sm-6 {
-  		width: 50%;
+		background-color: #EA9E72 !important;
 	}
 
 	.chart-wrapper {
-	   // page-break-after: always;
-	   border-style: hidden;
+
+		
+		border: none;
+
+		.chart-title{
+			background: $printedBlue !important;
+			color: #FFF !important;
+			border-radius: 3px 3px 0px 0px;
+			border: 1px solid $printedBlue;
+			padding: 7px 10px;
+		}
+		.chart-stage{
+			background: $lightGrey !important;
+			border-radius: 0px 0px 3px 3px;
+			border: 1px solid #e2e2e2;
+			border-top:none;
+			padding: 10px;
+		}
+				
 	}
 
 	.row {
-		border-top: 1px solid #e2e2e2;
+		margin-bottom:20px;
 	 	page-break-inside: avoid;
 	}
 
-	// FLAG
+	// HEADER
+
 	.flag-icon {
 		background: transparent !important;
-        background-size: contain !important;
-        background-position: 50% !important;
-        background-repeat: no-repeat !important;
-        position: relative !important;
-        display: inline-block !important;
-        width: 1.33333em !important;
-        line-height: 1em !important;
+		background-size: contain !important;
+		background-position: 50% !important;
+		background-repeat: no-repeat !important;
+		position: relative !important;
+		display: inline-block !important;
+		width: 1.33333em !important;
+		line-height: 1em !important;
+		padding: 5px 10px;
 	}
 
 	// CHARTS
 	.ct-bar {
-	  stroke-width: 15px;
+		stroke-width: 15px;
 	}
 
 	.ct-label {
-	  font-size: 0.6em;
+		font-size: 0.6em;
+	}
+
+	// FOOTER
+	footer{
+
+		padding: 0px 20px 20px;
+
+		.container-fluid{
+
+			background: $darkGrey !important;
+			border-radius: 3px;
+			padding: 15px 20px;
+			margin: 0px 10px;
+
+			div, p, li{
+				color: #FFF !important;
+			}
+		}
+	}
+
+	//TABLES
+	.table{ 
+
+		margin-bottom: 0px;
+
+		thead tr{
+		 	th{
+				border: 0;
+				background: #cacaca !important;
+			}
+			
+		}
+		td{
+			background: $lightGrey !important;
+		}
 	}
 
 }
