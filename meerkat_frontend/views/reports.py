@@ -353,7 +353,11 @@ def create_report(config, report=None, location=None, year=None, week=None):
                 extras['map_centre'][1],
                 extras['map_centre'][2],
                 current_app.config['MAPBOX_API_ACCESS_TOKEN'])
-
+    elif report in ["pip"]:
+        extras = {}
+        extras['map_centre'] = report_list['reports'][report]["map_centre"]
+        extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
+                                  "/clinics/1/SARI")
     else:
         extras = None
     # Render correct template for the report
