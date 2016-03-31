@@ -1,0 +1,353 @@
+{
+    "data": {
+        "cases_chronic": 0,
+        "cases_pcr": 202,
+        "demographics": [
+            {
+                "age": "<5",
+                "female": {
+                    "percent": 0.0,
+                    "quantity": 0
+                },
+                "male": {
+                    "percent": 100.0,
+                    "quantity": 1
+                }
+            },
+            {
+                "age": "5-9",
+                "female": {
+                    "percent": 50.0,
+                    "quantity": 2
+                },
+                "male": {
+                    "percent": 50.0,
+                    "quantity": 2
+                }
+            },
+            {
+                "age": "10-14",
+                "female": {
+                    "percent": 50.0,
+                    "quantity": 1
+                },
+                "male": {
+                    "percent": 50.0,
+                    "quantity": 1
+                }
+            },
+            {
+                "age": "15-19",
+                "female": {
+                    "percent": 33.33333333333333,
+                    "quantity": 3
+                },
+                "male": {
+                    "percent": 66.66666666666666,
+                    "quantity": 6
+                }
+            },
+            {
+                "age": "20-59",
+                "female": {
+                    "percent": 28.000000000000004,
+                    "quantity": 7
+                },
+                "male": {
+                    "percent": 72.0,
+                    "quantity": 18
+                }
+            },
+            {
+                "age": ">65",
+                "female": {
+                    "percent": 51.11111111111111,
+                    "quantity": 23
+                },
+                "male": {
+                    "percent": 48.888888888888886,
+                    "quantity": 22
+                }
+            }
+        ],
+        "epi_week_date": "2016-03-29T15:22:58.019583",
+        "epi_week_num": 13,
+        "flu_type": [
+            {
+                "percent": 4.444444444444445,
+                "quantity": 4,
+                "title": "Influenza A"
+            },
+            {
+                "percent": 5.555555555555555,
+                "quantity": 5,
+                "title": "Influenza B"
+            },
+            {
+                "percent": 13.333333333333334,
+                "quantity": 12,
+                "title": "H1"
+            },
+            {
+                "percent": 3.3333333333333335,
+                "quantity": 3,
+                "title": "H3"
+            },
+            {
+                "percent": 4.444444444444445,
+                "quantity": 4,
+                "title": "H1N1"
+            },
+            {
+                "percent": 193.33333333333334,
+                "quantity": 174,
+                "title": "Mixed"
+            }
+        ],
+        "gender": [
+            {
+                "percent": 40.0,
+                "quantity": 36,
+                "title": "Female"
+            },
+            {
+                "percent": 55.55555555555556,
+                "quantity": 50,
+                "title": "Male"
+            }
+        ],
+        "nationality": [
+            {
+                "percent": 53.48837209302325,
+                "quantity": 46,
+                "title": "Syria"
+            },
+            {
+                "percent": 46.51162790697674,
+                "quantity": 40,
+                "title": "Jordan"
+            }
+        ],
+        "num_clinic": 3,
+        "patient_status": [
+            {
+                "percent": 54.65116279069767,
+                "quantity": 47,
+                "title": "Jordanian"
+            },
+            {
+                "percent": 45.348837209302324,
+                "quantity": 39,
+                "title": "Refugee"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Other"
+            }
+        ],
+        "percent_cases_chronic": 0.0,
+        "percent_cases_female": 40.0,
+        "percent_cases_male": 55.55555555555556,
+        "pip_indicators": [
+            {
+                "percent": 100,
+                "quantity": 90,
+                "title": "Total Cases"
+            },
+            {
+                "percent": 61.111111111111114,
+                "quantity": 55,
+                "title": "Patients followed up"
+            },
+            {
+                "percent": 224.44444444444446,
+                "quantity": 202,
+                "title": "Laboratory results recorded"
+            },
+            {
+                "percent": 33.33333333333333,
+                "quantity": 30,
+                "title": "Patients admitted to ICU  "
+            },
+            {
+                "percent": 33.33333333333333,
+                "quantity": 30,
+                "title": "Patients ventilated"
+            },
+            {
+                "percent": 26.666666666666668,
+                "quantity": 24,
+                "title": "Mortality"
+            }
+        ],
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Jordan",
+        "reporting_sites": [
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Al-Karak Governmental Hospital SARI Sentinel Site"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Prince Hamza Hospital SARI Sentinel Site"
+            },
+            {
+                "percent": 1.1111111111111112,
+                "quantity": 1,
+                "title": "King Abdullah Moa'asses SARI Sentinel Site"
+            }
+        ],
+        "timeline": {
+            "confirmed": [
+                {
+                    "title": "Mixed",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        20,
+                        57,
+                        50,
+                        47
+                    ]
+                },
+                {
+                    "title": "H1",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        4,
+                        3,
+                        4
+                    ]
+                },
+                {
+                    "title": "Influenza B",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        2,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "title": "Influenza A",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        2,
+                        1,
+                        1,
+                        0
+                    ]
+                },
+                {
+                    "title": "H1N1",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        1,
+                        2
+                    ]
+                },
+                {
+                    "title": "H3",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "suspected": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                15,
+                28,
+                28,
+                15
+            ],
+            "weeks": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+            ]
+        },
+        "total_cases": 90
+    },
+    "meta": {
+        "generation_timestamp": "2016-03-30T15:22:58.020612",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "b1e20c70-3cef-447a-b8be-6a4ddf18a6fe"
+    }
+}

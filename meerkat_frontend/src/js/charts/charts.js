@@ -147,8 +147,69 @@ function communicableDiseasesBarChart(categories, series, labels) {
     }]
   };
 	return chart;
-	
 }
+
+function PipBarChart(weeks, suspected, confirmed, labels) {
+
+	var series = [];
+		series.push({
+      type: 'spline',
+      name: 'Suspected',
+		data: suspected
+		});
+	for(var serie in confirmed){
+		series.push( {
+			'type': 'column',
+			'name': confirmed[serie].title,
+			'data': confirmed[serie].values
+		});
+	}
+
+	var chart = {
+		chart: {
+			animation: false
+		},
+		title: {
+			text: null
+		},
+		legend: {
+			enabled: true,
+			style: {
+				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+			}
+		},
+		plotOptions: {
+			spline: {
+				marker: {
+					enabled: false
+				}
+			},
+			series: {
+                stacking: 'normal',
+				lineWidth: 5
+            }
+		},
+		xAxis: {
+			categories: weeks,
+			title: {
+				text: labels.xAxis.text,
+				align: 'middle'
+			}
+		},
+		yAxis: {
+			title: {
+				text: labels.yAxis.text,
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0
+		},
+		series: series
+	};
+	return chart;
+}
+
+
 function refugeeCommunicableDiseasesChart(categories, series, labels) {
   var chart = {
     chart: {

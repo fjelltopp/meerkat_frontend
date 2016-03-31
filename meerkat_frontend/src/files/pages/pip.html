@@ -1,0 +1,67 @@
+<div class="top-bar row">
+
+	<div class="location-box box">
+		<a href="#menu-toggle" id="menu-toggle">
+		<div class="location-box__label">
+			<div>Location:</div>
+			<div id="location-title">Not Loaded</div>
+		</div>
+		<span class="glyphicon glyphicon-chevron-right"></span>
+		<span class="glyphicon glyphicon-chevron-left hidden"></span>
+		</a>
+	</div>
+	<div class="tab-title hidden-xs col-sm-5 col-md-6">
+	    Pandemic Influenza Preparedness
+	</div>
+	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+		Date not loaded.
+	</div>
+
+</div>
+
+<div class="demographics toggled" id="wrapper">
+
+	<div id="sidebar-wrapper" >
+		<div id="location-selector" class="location-selector">
+			Locations not loaded
+		</div>
+	</div>
+
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+					    PIP Table
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('alert-table','alerts.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
+					</div>
+					<div class="chartBox__content">
+						<div id="pip-table" class="table" >
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+//This function is called every time a new location is loaded.
+//Any location-dependant content should be redrawn through this function.
+function drawCharts( locID ){
+	
+	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
+
+     drawPipTable("pip-table", locID, "pip_2", "pip","pip_followup", "pip_1"); 
+}
+
+</script>
