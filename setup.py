@@ -16,7 +16,8 @@ setup(
         'python-dateutil>=2.4.2',
         'requests>=2.8.1',
         'Werkzeug>=0.10.4',
-        'python-slugify>=1.1.4'
+        'python-slugify>=1.1.4',
+        'pdfcrowd3>=2.7'
     ],
     test_suite='meerkat_frontend.test'
 )
