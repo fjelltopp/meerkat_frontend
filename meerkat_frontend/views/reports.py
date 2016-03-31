@@ -3,7 +3,7 @@ reports.py
 
 A Flask Blueprint module for reports.
 """
-from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app
+from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
 from datetime import datetime, date
 try:
     import simplejson as json
@@ -12,6 +12,9 @@ except ImportError:
 import dateutil.parser
 import requests
 from .. import common as c
+import string
+
+import pdfcrowd
 
 reports = Blueprint('reports', __name__)
 
@@ -76,7 +79,8 @@ def test(report):
             report_list['reports'][report]['template'],
             report=data,
             extras=extras,
-            address=report_list["address"]
+            address=report_list["address"],
+            content=current_app.config['REPORTS_CONFIG']
         )
     else:
         abort(501)
@@ -173,69 +177,61 @@ def report(report=None, location=None, year=None, week=None):
     """Serves dynamic report for a location and date"""
     # Check that the requested project and report are valid
     report_list = current_app.config['REPORT_LIST']
+
     if report in report_list['reports']:
-        if not location:
-            location = report_list['default_location']
-        if week or year:
-            if week:
-                end_date = c.epi_week_to_date(week, year)
-            else:
-                end_date = c.epi_week_to_date(1, year)
-            api_request = '/reports/{report}/{loc}/{end}'.format(
-                report=report_list['reports'][report]['api_name'],
-                loc=location,
-                end=end_date.strftime('%Y-%m-%d')
-            )
-        else:
-            # Return most recent epiweek
-            api_request = '/reports/{report}/{loc}/{end}'.format(
-                report=report_list['reports'][report]['api_name'],
-                loc=location,
-                end=c.epi_week_to_date(
-                    c.date_to_epi_week() - 1
-                ).strftime('%Y-%m-%d')
-            )
-
-        data = c.api(api_request, api_key=True)
-        data["flag"] = current_app.config["FLAGG_ABR"]
-        if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
-            # Extra parsing for natural language bullet points
-            extras = {"patient_status": {}}
-            for item in data['data']['patient_status']:
-                title = item['title'].lower().replace(" ", "")
-                if title not in ["refugee", "other"]:
-                    title = "national"
-                extras["patient_status"][title] = {
-                    'percent': item['percent'],
-                    'quantity': item['quantity']
-                }
-            extras['map_centre'] = report_list['reports'][report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1")
-        elif report in ["refugee_public_health"]:
-            extras = {}
-            extras['map_centre'] = report_list['reports'][report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1/Refugee")
-        elif report in ["pip"]:
-            extras = {}
-            extras['map_centre'] = report_list['reports'][report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1/SARI")
-
-        else:
-            extras = None
-        # Render correct template for the report
+        ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
         return render_template(
-            report_list['reports'][report]['template'],
-            report=data,
-            extras=extras,
-            address=report_list["address"]
+            ret['template'],
+            report=ret['report'],
+            extras=ret['extras'],
+            address=ret['address'],
+            content=current_app.config['REPORTS_CONFIG']
         )
 
     else:
         abort(501)
 
+@reports.route('/<report>.pdf')
+@reports.route('/<report>-<location>.pdf')
+@reports.route('/<report>-<location>-<int:year>.pdf')
+@reports.route('/<report>-<location>-<int:year>-<int:week>.pdf')
+def pdf_report(report=None, location=None, year=None, week=None):
+
+    report_list = current_app.config['REPORT_LIST']
+    client = pdfcrowd.Client(
+        current_app.config['PDFCROWD_API_ACCOUNT'],
+        current_app.config['PDFCROWD_API_KEY'])
+    current_app.logger.warning('Report: ' + report )
+    if report in report_list['reports']:
+        ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
+
+        html = render_template(
+            ret['template'],
+            report=ret['report'],
+            extras=ret['extras'],
+            address=ret['address'],
+            content=current_app.config['REPORTS_CONFIG']
+            )
+        # Read env flag whether to tell pdfcrowd to read static files from an external source
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
+            html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
+        else:
+            html=html.replace("/static/", '{}{}'.format(
+                current_app.config['ROOT_URL'],
+                '/static/'))
+
+        client.usePrintMedia(True)
+        client.setPageWidth('1200pt')
+        client.setPageHeight('1697pt')
+        client.setPageMargins('90pt','60pt','90pt','60pt')
+        client.setHtmlZoom(400)
+        client.setPdfScalingFactor(1.5)
+
+        pdf = client.convertHtml(html)
+        return Response(pdf, mimetype='application/pdf')
+
+    else:
+        abort(501)
 
 @reports.route('/error/<int:error>/')
 def error_test(error):
@@ -290,3 +286,81 @@ def list_reports(region,
                  start=date(1970, 1, 1),
                  end=datetime.today()):
     """Returns a list of reports"""
+
+
+def create_report(config, report=None, location=None, year=None, week=None):
+    """Dynamically creates report"""
+    
+    try:
+        report_list = config['REPORT_LIST']
+        if not location:
+            location = report_list['default_location']
+        if week or year:
+            if week:
+                end_date = c.epi_week_to_date(week, year)
+            else:
+                end_date = c.epi_week_to_date(1, year)
+            api_request = '/reports/{report}/{loc}/{end}'.format(
+                report=report_list['reports'][report]['api_name'],
+                loc=location,
+                end=end_date.strftime('%Y-%m-%d')
+            )
+        else:
+            # Return most recent epiweek
+            api_request = '/reports/{report}/{loc}/{end}'.format(
+                report=report_list['reports'][report]['api_name'],
+                loc=location,
+                end=c.epi_week_to_date(
+                    c.date_to_epi_week() - 1
+                ).strftime('%Y-%m-%d')
+            )
+
+        data = c.api(api_request, api_key=True)
+        data["flag"] = config["FLAGG_ABR"]
+        if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
+            # Extra parsing for natural language bullet points
+            extras = {"patient_status": {}}
+            for item in data['data']['patient_status']:
+                title = item['title'].lower().replace(" ", "")
+                if title not in ["refugee", "other"]:
+                    title = "national"
+                extras["patient_status"][title] = {
+                    'percent': item['percent'],
+                    'quantity': item['quantity']
+                }
+            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
+                                 "/clinics/1")
+            extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
+                                current_app.config['MAPBOX_STATIC_MAP_API_URL'],
+                                current_app.config['MAPBOX_MAP_ID'],
+                                extras['map_centre'][0],
+                                extras['map_centre'][1],
+                                extras['map_centre'][2],
+                                current_app.config['MAPBOX_API_ACCESS_TOKEN'])
+
+        elif report in ["refugee_public_health"]:
+            extras = {}
+            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
+                                 "/clinics/1/Refugee")
+            extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
+                    current_app.config['MAPBOX_STATIC_MAP_API_URL'],
+                    current_app.config['MAPBOX_MAP_ID'],
+                    extras['map_centre'][0],
+                    extras['map_centre'][1],
+                    extras['map_centre'][2],
+                    current_app.config['MAPBOX_API_ACCESS_TOKEN'])
+
+        else:
+            extras = None
+        # Render correct template for the report
+
+        return {
+            'template':report_list['reports'][report]['template'],
+            'report':data,
+            'extras':extras,
+            'address':report_list["address"]
+            }
+    except Exception as e:
+        return 'Error while creating report: ' + e
