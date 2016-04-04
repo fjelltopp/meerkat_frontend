@@ -4,7 +4,7 @@
 //Any optional analysis (stripping records/colouring/graphing) can then be applied.
 //Details for this analysis are given in the options object.
 //Finally the table is drawn.
-function createCrossPlot( catx, caty, options ){
+function createCrossPlot( catx, caty, options, post_function ){
 
 	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
 	var queryData, catxData, catyData;
@@ -145,11 +145,21 @@ function createCrossPlot( catx, caty, options ){
                                 "</table></div>";
 
                 $("#cross-wrapper").html( framework );
+				if(post_function){
+					$("#cross-table").on("post-body.bs.table", function (){
+						post_function($("#cross-table"));
+					});
+
+						//post_function($("#cross-table")));
+				}
+				
 			    $("#cross-table").bootstrapTable({
 				    columns: columns,
 				    data: data,
-				    clickToSelect: true
+				    clickToSelect: true,
+					uniqueId: "cases"
 			    });
+				
             }else{
                 console.log("Empty object");
 			    $('#cross-wrapper').html( 

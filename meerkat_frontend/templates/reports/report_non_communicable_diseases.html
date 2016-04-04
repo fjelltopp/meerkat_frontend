@@ -6,7 +6,7 @@
     <tr>
 	{% set counter=0 %}
 	{% for key in data.titles %}
-	{% if key =="Region" %}
+	{% if key == "Region" %}
         <th class="key"> {{ key }} </th>
 	{% elif key == "Total" %}
 	<th class="total"> {{ key }} </th>
@@ -20,9 +20,13 @@
     </tr>
     {% for row in data["data"] %}
     <tr>
-	<td class="key"> {{ row.title  }}</td>
+	{% if row.title == "Total" %}
+	<td class="key total" style="text-align: center;"> {{ row.title  }}</td>
+	{% else %}
+	<td class="total"> {{ row.title  }}</td>
+	{% endif %}
 	{% for i in range(row["values"]|length) %}
-	{% if total and i in total %}
+	{% if (total and i in total) or row.title == "Total" %}
 	<td class="total"> {{ row["values"][i] }} </td>
 	{% else %}
 	<td> {{ row["values"][i] }} </td>
@@ -35,7 +39,7 @@
 
 
 
-{% block title %}{{report.data.project_region|e}} &middot; Non Commuinicable Diseases Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; Non-Commuinicable Diseases Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
