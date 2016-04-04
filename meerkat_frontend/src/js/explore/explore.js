@@ -68,7 +68,7 @@ function createCrossPlot( catx, caty, options, post_function ){
 					"checkbox": true
 				},{
 					"field": "cases",
-					"title": "#Cases",
+					"title": "# of Cases",
 					"align": "left",
 					"class": "header"
 				},
