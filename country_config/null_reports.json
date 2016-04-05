@@ -13,7 +13,7 @@
   "reports":[{
       "name":"Public Health Profile Report",
 		"introduction":"This report summarises the state of public health in the selected location.",
-      "url":"/reports/public_health",
+      "url":"public_health",
 		"start_date":{
 			"year":2015,
 			"week":50
@@ -22,7 +22,7 @@
   },{
       "name":"Communicable Disease Profile",
 		"introduction":"This report summarises the state of communicable disease public health in the selected location.",
-      "url":"/reports/cd_public_health",
+      "url":"cd_public_health",
 		"start_date":{
 			"year":2015,
 			"week":50
@@ -31,7 +31,7 @@
   },{
       "name":"Non-Communicable Disease Profile",
 		"introduction":"This report summarises the state of non-communicable disease public health in the selected location.",
-      "url":"/reports/ncd_public_health",
+      "url":"ncd_public_health",
 		"start_date":{
 			"year":2015,
 			"week":50
@@ -40,7 +40,7 @@
     },{
       "name":"Communicable Disease Report",
 		"introduction":"This report tracks the spread of communicable diseases across the selected location.",
-      "url":"/reports/communicable_diseases",
+      "url":"communicable_diseases",
 		"start_date":{
 			"year":2015,
 			"week":50
@@ -49,7 +49,7 @@
     },{
       "name":"Non Communicable Disease Report",
 		"introduction":"This report tracks the spread of non-communicable diseases across the selected location.",
-	"url":"/reports/non_communicable_diseases",
+		"url":"non_communicable_diseases",
 		"start_date":{
 			"year":2015,
 			"week":50

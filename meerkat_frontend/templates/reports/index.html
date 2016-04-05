@@ -47,92 +47,51 @@
 		<div id="page-content-wrapper">
 			<div class="row">
 				<div class="col-xs-12 less-padding-col">
-					<div class="box">
-						{{content.introduction}}
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 less-padding-col">
-					<div class="box chartBox">
-						<div class="chartBox__heading">Download the latest reports
-						</div>
-						<div class="chartBox__content reports-form" > 
-							<div class="row">
-								Download the latest reports published for your selected location: 
-								<span class="location-name"></span>.
-							</div>
-							<div class="breaker"></div>
-							{% for report in content.reports %}
-								<div class="row download-buttons">
-									<label class="col-xs-12 col-sm-5">{{report.name}}</label>
-									<input class="btn btn-default btn-lg col-xs-5 col-sm-3 pull-right" value="PDF">
-									<input class="btn btn-default btn-lg col-xs-5 col-sm-3 pull-right" value="HTML">
-								</div>
-							{% endfor %}
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 less-padding-col">
 					<div class="box chartBox">
 						<div class="chartBox__heading">Report Selector
 						</div>
-						<div class="chartBox__content " > 
-							<form class="reports-form">
+						<div class="chartBox__content " >
+							{{content.introduction}}
+							<form class="reports-form col-sm-offset-3">
 								<div class="title row">Choose which report to download:</div>
-								<div class="row"><div id="report-selector" class="col-sm-offset-2"></div></div>
+								<div class="row"><div id="report-selector" class="col-sm-offset-1"></div></div>
 								<div class="title row">Choose which time period:</div>
 								<div class="row">
-									<div class="col-sm-offset-2">
-										<label class="row"> End date: </label>
-										<div class='input-group date col-sm-8 row' 
-											 id='end-date' name='end_date' value=''>
-											<input type='text' class="form-control "/>
-											<span class="input-group-addon">
-												<span class="glyphicon glyphicon-calendar"></span>
-											</span>
-										</div>
-										<label class="row" > Start date: </label>
-										<div class=row>
-											<input type="radio" class="radio-button"/> 
-											<div class="radio-label" > 
-												Use all previously available data. 
+									<div class="col-sm-offset-1">
+										<div class="col-xs-12 col-sm-9 col-md-7 col-lg-6 no-padding-col">
+											<div class="col-xs-12 col-sm-5 no-padding-col">
+												<div class="row"> Start date: </div>
+												<div class='input-group date row' 
+													 id='start-date' name='start_date' value=''>
+													<input type='text' class="form-control "/>
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</span>
+												</div>												
 											</div>
-										</div>
-										<div class=row>
-											<input type="radio" class="radio-button" /> 
-											<div class="radio-label"> 
-												Only use data available after: 
-											</div>
-											<div class='input-group date col-sm-8 row' 
-												 id='start-date' name='start_date' value=''>
-												<input type='text' class="form-control "/>
-												<span class="input-group-addon">
-													<span class="glyphicon glyphicon-calendar"></span>
-												</span>
+											<div class="col-xs-12 col-sm-5 no-padding-col pull-right">
+												<div class="row" > End date: </div>
+												<div class='input-group date row' 
+													 id='end-date' name='end_date' value=''>
+													<input type='text' class="form-control "/>
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</span>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="title row">Choose which location:</div>
-
-								<div id="location" class="row">
-									<div class="col-sm-offset-2 location-box box">
-										<a href="#menu-toggle" id="menu-toggle" class="menu-toggle">
-										<div class="location-box__label">
-											<div>Location:</div>
-											<div id="location-title" class="location-title">Not Loaded</div>
-										</div>
-										<span class="glyphicon glyphicon-chevron-right"></span>
-										<span class="glyphicon glyphicon-chevron-left hidden"></span>
-										</a>
-									</div>
+								<div class="title row">
+									Click to download your selected report for
+									<a href="" class="menu-toggle location-name"></a>:
 								</div>
-								<div class="title row">Click to download your report:</div>
-								<div class="col-sm-offset-2 download-buttons">
-									<div class="col-sm-8 no-padding-col">
-										<input class="btn btn-default btn-lg col-sm-5" value="HTML">
-										<input class="btn btn-default btn-lg col-sm-5 pull-right" value="PDF">
+								<div class="col-sm-offset-1 download-buttons">
+									<div class="col-xs-12 col-sm-9 col-md-7 col-lg-6 no-padding-col">
+										<input class="btn btn-default btn-lg col-xs-12 col-sm-5" value="HTML"
+										       onclick="openReport('html');return false;" >
+										<input class="btn btn-default btn-lg col-xs-12 col-sm-5 pull-right"
+										       value="PDF" onclick="openReport('pdf');return false;">
 									</div>
 								</div>
 							</form>
@@ -155,18 +114,6 @@ $(".menu-toggle").click(function(e) {
 	$(".location-box .glyphicon").toggleClass( "hidden" );
 });
 
-//Draw date/time pickers.
-d = new Date();
-$('#start-date').datetimepicker({
-    useCurrent: false,
-    defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
-    format: "DD/MM/YYYY",
-});
-$('#end-date').datetimepicker({
-    useCurrent: true,
-    defaultDate: d.toISOString(),
-    format: "DD/MM/YYYY"
-});
 
 
 var config = {{content|tojson|safe}};
@@ -177,10 +124,33 @@ loadLocationTree({locID:{{loc}}});
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 drawReportSelect();
 
+//Draw date/time pickers.
+d = new Date();
+$('#start-date').datetimepicker({
+    useCurrent: false,
+    defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
+    format: "DD/MM/YYYY",
+	maxDate: d.toISOString(),
+});
+
+$('#end-date').datetimepicker({
+    useCurrent: true,
+    defaultDate: d.toISOString(),
+    format: "DD/MM/YYYY",
+	maxDate: d.toISOString(),
+});
+
+$("#end-date").on("dp.change", function (e) {
+    $('#start-date').data("DateTimePicker").maxDate(e.date);
+});
+
+$("#start-date").on("dp.change", function (e) {
+    $('#end-date').data("DateTimePicker").minDate(e.date);
+});
 
 function drawReportSelect(){
 
-	var html = "<select class='report col-sm-8 no-padding-col'>";
+	var html = "<select class='report col-xs-12 col-sm-9 col-md-7 col-lg-6 no-padding-col'>";
 
 	for( var i in config.reports ){
 
@@ -196,28 +166,30 @@ function drawReportSelect(){
 	
 }
 
-function selectYear(year, reportID){
+function openReport( type ){
 
-	var html = "";
+	var report = $('#report-selector select').val();
+	var startDate = $('#start-date').data("DateTimePicker")
+	                  .date().add( moment().utcOffset(), "minutes" )
+                      .toISOString();
+	var endDate = $('#end-date').data("DateTimePicker")
+	                  .date().add( moment().utcOffset(), "minutes" )
+                      .toISOString();
+	var location = history.state.locID;
 
-	if( year == config.start_dates[reportID].year ){
+	var url = '/reports/';
 
-		for( var k = config.start_dates[reportID].week; k < 52-report.number ; k++ ){
-			html += '<option value=' + k + '>Week ' + k + '</option>';
-		}
+	switch( type ){
+		case 'pdf':
+			url += report + "-" + location + "-" + startDate + "-" + endDate + ".pdf";
+			break;
 
-	}else if( year == new Date().getFullYear() ){
-		//report.number specifies how many reports to include quick links for each year.
-		for( var k = get_epi_week()-report.number-1; k > 0; k-- ){
-			html += '<option value=' + k + '>Week ' + k + '</option>';
-		}
-	}else{
-		for( var k = 1; k <52-report.number; k++ ){
-			html += '<option value=' + k + '>Week ' + k + '</option>';
-		}
+		case 'html':  
+			url += report + "/" + location + "/" + startDate + "/" + endDate;
+			break;
 	}
-	
-	$( '#' + reportID + '-week-selector' ).html(html);
+
+	console.log( url );
 
 }
 
@@ -235,91 +207,8 @@ function drawCharts(locID, year, reports){
 	//Load the location data from the locations tree.
 	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===locID; });
 
-	console.log( node );
+	$('.location-name').html( node.model.text );
 
-	$('.location-name').html(node.model.text);
-
-	if( typeof reports == 'undefined' ){
-		reports = [];
-		for( var j=0; j<config.reports.length; j++ ) reports[j] = j;
-	}else if( typeof reports == 'number' ){
-		reports = [reports];
-	}
-
-	//Draw the report selection table for all desired reports.
-	for( var i=0; i<reports.length; i++ ){
-
-		var report = config.reports[reports[i]];
-		var reportID = report.name.toLowerCase().split(' ').join('_');
-
-		//Specify variables that characterise when reports are available from and to.
-		var currentYear = new Date().getFullYear();
-		var startYear = report.start_date.year;
-		var year = year ? year : new Date().getFullYear();
-
-		var currentWeek = get_epi_week()-1;
-		var firstWeek = (year == startYear) ? report.start_date.week : 1;
-		var lastWeek = (year == currentYear) ? currentWeek : 52;
-
-		//Draw the year selector.
-		var yearHtml = '<div class="pull-right">Year: <select id="' + reportID + '-year-selector">';
-		for( var j =startYear; j<=currentYear; j++ ){
-			yearHtml  += '<option value="' + j +'" ';
-			if( j == year ) yearHtml += 'selected="selected"';
-			yearHtml  += 'onclick="drawCharts(undefined,' + j + ',\'' + reports[i] + '\')">'+j+'</option>';
-		}
-		yearHtml  += '</select></div>';
-
-		var html = '<table class="table table-hover table-condensed">';
-		html += '<tr><th colspan="3">Location: ' + node.model.text + ' '+yearHtml+'</th></tr>';
-
-		//If the week selection box has only one option, we don't want it to be shown as a selection box.
-		//In this case increase the number of quick linked reports so that the final report is a quick link.
-		//This will also automatically result in the week selection box not being drawn.
-		if( lastWeek-firstWeek == report.number ) report.number++; 
-
-		//Create a number of auto links for the previous n weeks (specified in the config file.
-		for( var j=0; j<report.number; j++ ){
-			
-			var week = lastWeek - j;
-
-			if( week > 0 ){
-				html += '<tr><td class="indent" >Week '+ week + '</td>';
-				html += '<td><a href="' + report.url + '/' + locID + '/' + year + '/' + week +
-						'" target="_blank">HTML Report</a></td>';
-				html += '<td><a href="' + report.url + '-' + locID + '-' + year + '-' + week +
-						'.pdf" target="_blank">PDF Report</a></td></tr>';
-			}
-		}
-
-		if( lastWeek-report.number >= firstWeek ){
-
-			//Then create a selector that allows you to select any week you like. 
-			html += '<tr><td><select id="' + reportID + '-week-selector">';
-			//report.number specifies how many reports to include quick links for each year.
-			for( var k = lastWeek-report.number; k >= firstWeek; k-- ){
-				html += '<option value=' + k + '>Week ' + k + '</option>';
-			}
-
-			html += '</select></td>';
-		
-			var url = report.url + '/' + locID + '/' + year + '/';
-
-			//Make the html link pick up the selected week from the selector.
-			html += '<td><a href="" onclick="window.open(\'' + url + '\' + $(\'#' + reportID + 
-					 '-week-selector\').val(), \'_blank\');return false;">HTML Report</a></td>';
-			html += '<td><a href="' + report.url + '_' + locID + '_' + year + '_' + week +
-						'.pdf" target="_blank">PDF Report</a></td></tr>';
-		}else{
-			html += '<tr><td colspan=3>No other reports have been generated for this year.</td></tr>';
-		}
-
-		html += '</table>';
-
-		//DRAW the week selector table!
-		$( '#' + reportID + "-table" ).html( html );
-
-	}
 }
 
 </script>

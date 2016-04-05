@@ -183,6 +183,13 @@ button.header:hover{
 	text-align: center;
 }
 
+@media screen and (max-width: 767px){
+
+	#epi-week-title{
+		margin-top: 10px;
+	}
+}
+
 .tab-title{ 
 	display: inline-block;
 	font-size: 24px;
