@@ -28,6 +28,64 @@ body.reports, body.htmlreport{
   text-align: center;
 }
 
+.reports-form{
+
+   margin: 0px 0px 20px;
+
+	label{
+		text-align: left;
+      padding: 5px 10px;
+	}
+
+   .row{
+		margin: 10px 0;
+	}
+
+	label.row{
+		margin: 10px 0 0;
+
+	}
+
+	.download-buttons input{
+		display: inline-block;
+		padding: 10px 15px;
+		border: #0090ca 1px solid;
+		background: #0090ca;
+		color: #fff;
+		margin: 0 0 10px 10px;
+	}
+
+	.title{
+		max-width: 100%;
+		margin-bottom: 5px;
+		font-weight: bold;
+		margin-top: 20px;
+	}
+
+   .check{
+		padding: 0px 20px;
+		position:relative;
+
+		input{
+			position: absolute;
+			left: 0px;			
+		}
+
+	}
+
+	.radio-button{
+		display: inline-block;
+	}
+
+	.radio-label{
+		display: inline-block;
+		margin-left: 20px;
+	}
+}
+
+form.reports-form .download-buttons input{
+	margin: 20px 0px;
+}
 
 .refugee th{
   background: $lightGrey;

@@ -2,12 +2,12 @@
 
 {% block menu %}
 <ul class="nav navbar-nav">
-  <li><a href="/technical/" >Dashboard</a></li>
-  <li class="active"><a href="/reports/" >Reports</a></li>
-  <li><a href="/messaging/" >Notifications</a></li>
-  <li><a href="/explore/" >Explore Data</a></li>
-  <li><a href="/download/" >Download Data</a></li>
-  <li><a href="/" >Log out</a></li>
+	<li><a href="/technical/" >Dashboard</a></li>
+	<li class="active"><a href="/reports/" >Reports</a></li>
+	<li><a href="/messaging/" >Notifications</a></li>
+	<li><a href="/explore/" >Explore Data</a></li>
+	<li><a href="/download/" >Download Data</a></li>
+	<li><a href="/" >Log out</a></li>
 </ul>
 {% endblock %}
 
@@ -19,10 +19,10 @@
 	<div class="breaker"> </div>
 	<div class="top-bar row">
 		<div class="location-box box">
-			<a href="#menu-toggle" id="menu-toggle">
+			<a href="#menu-toggle" id="menu-toggle" class="menu-toggle">
 			<div class="location-box__label">
 				<div>Location:</div>
-				<div id="location-title">Not Loaded</div>
+				<div id="location-title" class="location-title" >Not Loaded</div>
 			</div>
 			<span class="glyphicon glyphicon-chevron-right"></span>
 			<span class="glyphicon glyphicon-chevron-left hidden"></span>
@@ -53,21 +53,92 @@
 				</div>
 			</div>
 			<div class="row">
-			{% for report in content.reports %}
-				<div class="col-xs-12 col-md-6 less-padding-col">
-					<div class="chartBox box">
-						<div class="chartBox__heading">
-							{{report.name}}
+				<div class="col-xs-12 col-sm-6 less-padding-col">
+					<div class="box chartBox">
+						<div class="chartBox__heading">Download the latest reports
 						</div>
-						<div class="chartBox__content">
-							<p>{{report.introduction}}</p>
-							<p>Here are the latest {{report.name}}s for your selected location:</p>
-							<div id="{{report.name|striptags|lower|trim|replace(' ','_')}}-table" class="reports-table">
+						<div class="chartBox__content reports-form" > 
+							<div class="row">
+								Download the latest reports published for your selected location: 
+								<span class="location-name"></span>.
 							</div>
+							<div class="breaker"></div>
+							{% for report in content.reports %}
+								<div class="row download-buttons">
+									<label class="col-xs-12 col-sm-5">{{report.name}}</label>
+									<input class="btn btn-default btn-lg col-xs-5 col-sm-3 pull-right" value="PDF">
+									<input class="btn btn-default btn-lg col-xs-5 col-sm-3 pull-right" value="HTML">
+								</div>
+							{% endfor %}
 						</div>
 					</div>
 				</div>
-			{% endfor %}
+				<div class="col-xs-12 col-sm-6 less-padding-col">
+					<div class="box chartBox">
+						<div class="chartBox__heading">Report Selector
+						</div>
+						<div class="chartBox__content " > 
+							<form class="reports-form">
+								<div class="title row">Choose which report to download:</div>
+								<div class="row"><div id="report-selector" class="col-sm-offset-2"></div></div>
+								<div class="title row">Choose which time period:</div>
+								<div class="row">
+									<div class="col-sm-offset-2">
+										<label class="row"> End date: </label>
+										<div class='input-group date col-sm-8 row' 
+											 id='end-date' name='end_date' value=''>
+											<input type='text' class="form-control "/>
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+										<label class="row" > Start date: </label>
+										<div class=row>
+											<input type="radio" class="radio-button"/> 
+											<div class="radio-label" > 
+												Use all previously available data. 
+											</div>
+										</div>
+										<div class=row>
+											<input type="radio" class="radio-button" /> 
+											<div class="radio-label"> 
+												Only use data available after: 
+											</div>
+											<div class='input-group date col-sm-8 row' 
+												 id='start-date' name='start_date' value=''>
+												<input type='text' class="form-control "/>
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="title row">Choose which location:</div>
+
+								<div id="location" class="row">
+									<div class="col-sm-offset-2 location-box box">
+										<a href="#menu-toggle" id="menu-toggle" class="menu-toggle">
+										<div class="location-box__label">
+											<div>Location:</div>
+											<div id="location-title" class="location-title">Not Loaded</div>
+										</div>
+										<span class="glyphicon glyphicon-chevron-right"></span>
+										<span class="glyphicon glyphicon-chevron-left hidden"></span>
+										</a>
+									</div>
+								</div>
+								<div class="title row">Click to download your report:</div>
+								<div class="col-sm-offset-2 download-buttons">
+									<div class="col-sm-8 no-padding-col">
+										<input class="btn btn-default btn-lg col-sm-5" value="HTML">
+										<input class="btn btn-default btn-lg col-sm-5 pull-right" value="PDF">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -78,12 +149,24 @@
 
 <script type="text/javascript" >
   
-$("#menu-toggle").click(function(e) {
+$(".menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
 });
 
+//Draw date/time pickers.
+d = new Date();
+$('#start-date').datetimepicker({
+    useCurrent: false,
+    defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
+    format: "DD/MM/YYYY",
+});
+$('#end-date').datetimepicker({
+    useCurrent: true,
+    defaultDate: d.toISOString(),
+    format: "DD/MM/YYYY"
+});
 
 
 var config = {{content|tojson|safe}};
@@ -92,6 +175,26 @@ var week = {{week.epi_week}};
 loadLocationTree({locID:{{loc}}});
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+drawReportSelect();
+
+
+function drawReportSelect(){
+
+	var html = "<select class='report col-sm-8 no-padding-col'>";
+
+	for( var i in config.reports ){
+
+		var report = config.reports[i];
+
+		html += "<option value='" + report.url + "'>" + report.name +"</option>"
+
+	}
+
+	html += "</select>";
+
+	$('#report-selector').html( html );
+	
+}
 
 function selectYear(year, reportID){
 
@@ -131,6 +234,10 @@ function drawCharts(locID, year, reports){
 
 	//Load the location data from the locations tree.
 	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===locID; });
+
+	console.log( node );
+
+	$('.location-name').html(node.model.text);
 
 	if( typeof reports == 'undefined' ){
 		reports = [];
@@ -179,9 +286,9 @@ function drawCharts(locID, year, reports){
 			if( week > 0 ){
 				html += '<tr><td class="indent" >Week '+ week + '</td>';
 				html += '<td><a href="' + report.url + '/' + locID + '/' + year + '/' + week +
-				        '" target="_blank">HTML Report</a></td>';
+						'" target="_blank">HTML Report</a></td>';
 				html += '<td><a href="' + report.url + '-' + locID + '-' + year + '-' + week +
-				        '.pdf" target="_blank">PDF Report</a></td></tr>';
+						'.pdf" target="_blank">PDF Report</a></td></tr>';
 			}
 		}
 
@@ -200,9 +307,9 @@ function drawCharts(locID, year, reports){
 
 			//Make the html link pick up the selected week from the selector.
 			html += '<td><a href="" onclick="window.open(\'' + url + '\' + $(\'#' + reportID + 
-				     '-week-selector\').val(), \'_blank\');return false;">HTML Report</a></td>';
+					 '-week-selector\').val(), \'_blank\');return false;">HTML Report</a></td>';
 			html += '<td><a href="' + report.url + '_' + locID + '_' + year + '_' + week +
-				        '.pdf" target="_blank">PDF Report</a></td></tr>';
+						'.pdf" target="_blank">PDF Report</a></td></tr>';
 		}else{
 			html += '<tr><td colspan=3>No other reports have been generated for this year.</td></tr>';
 		}
