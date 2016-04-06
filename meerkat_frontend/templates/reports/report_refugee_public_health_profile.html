@@ -11,7 +11,7 @@
   </span> 
   <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> North Eastern Border Public Health Profile
     <span class="report-week">
-        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+        Week {{ report.data.epi_week_num }} &middot; {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
   </h2>
 </div>

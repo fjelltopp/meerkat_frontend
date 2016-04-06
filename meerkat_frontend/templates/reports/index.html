@@ -89,9 +89,9 @@
 								<div class="col-sm-offset-1 download-buttons">
 									<div class="col-xs-12 col-sm-9 col-md-7 col-lg-6 no-padding-col">
 										<input class="btn btn-default btn-lg col-xs-12 col-sm-5" value="HTML"
-										       onclick="openReport('html');return false;" >
+											   onclick="openReport('html');return false;" >
 										<input class="btn btn-default btn-lg col-xs-12 col-sm-5 pull-right"
-										       value="PDF" onclick="openReport('pdf');return false;">
+											   value="PDF" onclick="openReport('pdf');return false;">
 									</div>
 								</div>
 							</form>
@@ -114,8 +114,6 @@ $(".menu-toggle").click(function(e) {
 	$(".location-box .glyphicon").toggleClass( "hidden" );
 });
 
-
-
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
@@ -126,71 +124,129 @@ drawReportSelect();
 
 //Draw date/time pickers.
 d = new Date();
+console.log($('#report-selector select :selected').attr('startdate' ));
 $('#start-date').datetimepicker({
-    useCurrent: false,
-    defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
-    format: "DD/MM/YYYY",
+	useCurrent: false,
+	defaultDate: $('#report-selector select :selected').attr('startdate' ),
+	format: "DD/MM/YYYY",
 	maxDate: d.toISOString(),
+	minDate: $('#report-selector select :selected').attr('startdate' )
 });
 
 $('#end-date').datetimepicker({
-    useCurrent: true,
-    defaultDate: d.toISOString(),
-    format: "DD/MM/YYYY",
+	useCurrent: true,
+	defaultDate: d.toISOString(),
+	format: "DD/MM/YYYY",
 	maxDate: d.toISOString(),
+	minDate: $('#report-selector select :selected').attr('startdate')
+
 });
 
+
+//The start date depends upon the report selected.
+$("#report-selector select").on("change", function(element){
+	var startDate = new Date( $(this).find(':selected').attr('startdate' ) );
+	$('#start-date').data("DateTimePicker").minDate( dateToString(startDate) );
+	$('#start-date').data("DateTimePicker").date( dateToString(startDate) );
+
+	var defaultDate = new Date( $(this).find(':selected').attr('startdate' ) )
+	//$('#end-date').data("DateTimePicker").minDate( dateToString(startDate)  );
+	setDefaultPeriod( $(this).find(':selected').attr('period' ));
+});
+
+function setDefaultPeriod( period ){
+
+	var now = new Date();
+	
+	var start_date = false;
+	var end_date = now;
+
+	switch( period ){
+
+		case 'week':
+			console.log( "Week" );
+			var weekDay = now.getDay(); // Subtract epi-week change over day.
+			start_date = new Date( now.getFullYear(), now.getMonth(), now.getDate()-7-weekDay );
+			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate()-weekDay );		
+			break;
+
+		case 'month':
+			console.log( "Month" );
+			start_date = new Date( now.getFullYear(), now.getMonth()-1, 1 ); //The first of prev month
+			end_date = new Date( now.getFullYear(), now.getMonth(),  0 ); //The last of prev month
+			break;
+	
+		case 'year':
+			start_date = new Date( now.getFullYear(), 0, 1 )
+			end_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() );
+			break;
+
+	}
+
+	$('#start-date').data("DateTimePicker").date( dateToString(start_date) );
+	$('#end-date').data("DateTimePicker").date( dateToString(end_date) );	
+
+}
+
+//Link the date pickers so you can't select a start date after the end date.
 $("#end-date").on("dp.change", function (e) {
-    $('#start-date').data("DateTimePicker").maxDate(e.date);
+	$('#start-date').data("DateTimePicker").maxDate(e.date);
 });
-
+//And you can't select an end date before the start date.
 $("#start-date").on("dp.change", function (e) {
-    $('#end-date').data("DateTimePicker").minDate(e.date);
+	$('#end-date').data("DateTimePicker").minDate(e.date);
 });
 
+function dateToString( date ){
+
+	return date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() ;
+
+}
+
+//Draw the selector that determines which report the user wants to view.
 function drawReportSelect(){
 
 	var html = "<select class='report col-xs-12 col-sm-9 col-md-7 col-lg-6 no-padding-col'>";
 
 	for( var i in config.reports ){
-
 		var report = config.reports[i];
-
-		html += "<option value='" + report.url + "'>" + report.name +"</option>"
-
+		html += "<option value='" + report.url + "'" +
+				"startdate='" + report.start_date + "'" +
+				"period='" + report.period + "'>" + 
+				report.name + "</option>";
 	}
 
 	html += "</select>";
 
 	$('#report-selector').html( html );
-	
+	$("#report-selector select").val(config.reports[2].url);
 }
 
+//This method is called upon clicking either the "PDF" button or the "HTML" button.
+//It assembles the url for the desired report and opens it in a new window.
 function openReport( type ){
 
-	var report = $('#report-selector select').val();
-	var startDate = $('#start-date').data("DateTimePicker")
-	                  .date().add( moment().utcOffset(), "minutes" )
-                      .toISOString();
-	var endDate = $('#end-date').data("DateTimePicker")
-	                  .date().add( moment().utcOffset(), "minutes" )
-                      .toISOString();
-	var location = history.state.locID;
-
 	var url = '/reports/';
+	var report = $('#report-selector select').val();
+	var location = history.state.locID;
+	var startDate = $('#start-date').data("DateTimePicker")
+					  .date().add( moment().utcOffset(), "minutes" )
+					  .toISOString();
+	var endDate = $('#end-date').data("DateTimePicker")
+					  .date().add( moment().utcOffset(), "minutes" )
+					  .toISOString();
 
 	switch( type ){
 		case 'pdf':
-			url += report + "-" + location + "-" + startDate + "-" + endDate + ".pdf";
+			url += report + "~" + location + "~" + endDate + "~" + startDate + ".pdf";
 			break;
 
 		case 'html':  
-			url += report + "/" + location + "/" + startDate + "/" + endDate;
+			url += report + "/" + location + "/" + endDate + "/" + startDate;
 			break;
 	}
-
+	window.open(url);
 	console.log( url );
-
 }
 
 //This method updates aspects of the page based upon the users input.

@@ -171,16 +171,22 @@ def send_email_report(report):
 
 @reports.route('/<report>/')
 @reports.route('/<report>/<location>/')
-@reports.route('/<report>/<location>/<int:year>/')
-@reports.route('/<report>/<location>/<int:year>/<int:week>/')
-def report(report=None, location=None, year=None, week=None):
+@reports.route('/<report>/<location>/<end_date>/')
+@reports.route('/<report>/<location>/<end_date>/<start_date>/')
+def report(report=None, location=None, end_date=None, start_date=None):
     """Serves dynamic report for a location and date"""
     # Check that the requested project and report are valid
     report_list = current_app.config['REPORT_LIST']
 
     if report in report_list['reports']:
 
-        ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
+        ret = create_report(
+            config=current_app.config, 
+            report=report, 
+            location=location, 
+            end_date=end_date, 
+            start_date=start_date
+        )
 
         return render_template(
             ret['template'],
@@ -194,10 +200,10 @@ def report(report=None, location=None, year=None, week=None):
         abort(501)
 
 @reports.route('/<report>.pdf')
-@reports.route('/<report>-<location>.pdf')
-@reports.route('/<report>-<location>-<int:year>.pdf')
-@reports.route('/<report>-<location>-<int:year>-<int:week>.pdf')
-def pdf_report(report=None, location=None, year=None, week=None):
+@reports.route('/<report>~<location>.pdf')
+@reports.route('/<report>~<location>~<end_date>.pdf')
+@reports.route('/<report>~<location>~<end_date>~<start_date>.pdf')
+def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
     report_list = current_app.config['REPORT_LIST']
     client = pdfcrowd.Client(
@@ -205,7 +211,13 @@ def pdf_report(report=None, location=None, year=None, week=None):
         current_app.config['PDFCROWD_API_KEY'])
     current_app.logger.warning('Report: ' + report )
     if report in report_list['reports']:
-        ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
+        ret = create_report(
+            config=current_app.config, 
+            report=report, 
+            location=location, 
+            end_date=end_date, 
+            start_date=start_date
+        )
 
         html = render_template(
             ret['template'],
@@ -290,35 +302,24 @@ def list_reports(region,
     """Returns a list of reports"""
 
 
-def create_report(config, report=None, location=None, year=None, week=None):
+def create_report(config, report=None, location=None, end_date=None, start_date=None):
     """Dynamically creates report"""
-    
+
     #try:
     report_list = config['REPORT_LIST']
+
     if not location:
         location = report_list['default_location']
-    if week or year:
-        if week:
-            end_date = c.epi_week_to_date(week, year)
-        else:
-            end_date = c.epi_week_to_date(1, year)
-        api_request = '/reports/{report}/{loc}/{end}'.format(
-            report=report_list['reports'][report]['api_name'],
-            loc=location,
-            end=end_date.strftime('%Y-%m-%d')
-        )
-    else:
-        # Return most recent epiweek
-        api_request = '/reports/{report}/{loc}/{end}'.format(
-            report=report_list['reports'][report]['api_name'],
-            loc=location,
-            end=c.epi_week_to_date(
-                c.date_to_epi_week() - 1
-            ).strftime('%Y-%m-%d')
-        )
+
+    api_request = '/reports'
+    api_request += '/' + report_list['reports'][report]['api_name'] 
+    if( location != None ): api_request += '/' + location 
+    if( end_date != None ): api_request += '/' + end_date
+    if( start_date != None ): api_request += '/' + start_date
 
     data = c.api(api_request, api_key=True)
     data["flag"] = config["FLAGG_ABR"]
+
     if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
         # Extra parsing for natural language bullet points
         extras = {"patient_status": {}}

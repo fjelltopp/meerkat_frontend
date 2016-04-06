@@ -5,7 +5,7 @@
 <div class="page-header">
     <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Pandemic Influenza Preparedness (PIP) Profile
     <span class="report-week">
-        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+        Week {{ report.data.epi_week_num }} &middot; {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
   </h2>
 </div>
@@ -15,7 +15,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">Key findings</div>
       <div class="chart-stage">
-          <p>nformation reported in this pandemic influenza preparedness (PIP) profile represents cumulative cases reported from {{ report.data.num_clinic }} sentinel sites in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+          <p>nformation reported in this pandemic influenza preparedness (PIP) profile represents cumulative cases reported from {{ report.data.num_clinic }} sentinel sites in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
         <ul>
           <li>A total of <strong>{{ report.data.total_cases|commas }} </strong> enrolled patients.</li>
           <li><strong>{{ report.data.percent_cases_male|float|round(1) }}% male</strong> and <strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> </li>
