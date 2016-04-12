@@ -313,7 +313,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     api_request = '/reports'
     api_request += '/' + report_list['reports'][report]['api_name'] 
-    if( location != None ): api_request += '/' + location 
+    if( location != None ): api_request += '/' + str(location)
     if( end_date != None ): api_request += '/' + end_date
     if( start_date != None ): api_request += '/' + start_date
 
