@@ -16,7 +16,7 @@
 <div class="container page-content">
 
     <div class="top-bar row">
-        <div id="location-option" class="location-box box cross-option" name="location" value="1">
+        <div id="location-option" class="location-box box cross-option timeline-option" name="location" value="1">
             <a href="#menu-toggle" id="menu-toggle">
                 <div class="location-box__label">
                     <div>Location:</div>
@@ -86,7 +86,7 @@
                                 </span>
                                 <span class="glyphicon glyphicon-resize-small cross-option" id="strip-button"
                                       onClick="callStrip(this);" title="Hide/show empty records" table="cross-table"
-                                      value="" name="strip">
+                                      value=true name="strip">
                                 </span>
                                 <span class="glyphicon glyphicon-pencil cross-option" id="colour-button"
                                       onClick="callColour(this);" title="Colour the table" table="cross-table"
@@ -121,7 +121,7 @@
                                     </span>
                                     <span class="glyphicon glyphicon-resize-small timeline-option" id="strip-button"
                                           onClick="callStrip(this);" title="Hide/show empty records" 
-                                          table="timeline-table" value="" name="strip">
+                                          table="timeline-table" value=true name="strip">
                                     </span>
                                     <span class="glyphicon glyphicon-pencil timeline-option" id="colour-button"
                                           onClick="callColour(this);" title="Colour the table" 
@@ -198,8 +198,11 @@ $( function(){
     $('.axis-selector').change( function(){
         //If any of the axis change, we remove the timeline
         $("#timeline-wrapper").html("");
-        timelineDrawn = false;
-        reDraw();  
+	timelineDrawn = false;
+	if($(this).parent().attr('class').indexOf("xaxis") > -1){
+	    keep_checked = true;
+	}
+	reDraw();
     });
      var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").toISOString();
      $('#start-date').attr('value', value );
@@ -208,13 +211,15 @@ $( function(){
 
     //Add listeners to update table when date/pickers change. Store the chart state in the DOM element.
     $('#start-date').on('dp.change', function() {
-        var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOSTring();
+        var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOString();
         $('#start-date').attr('value', value );
+	keep_checked = true;
         reDraw();
     });
     $('#end-date').on('dp.change', function() {
         var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOString();
         $('#end-date').attr('value', value );
+	keep_checked = true;
         reDraw();
     });
 
@@ -222,28 +227,63 @@ $( function(){
     $('.xaxis .axis-selector option[value="age"]').attr('selected',true);
     $('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
     reDraw();
-
 });
 
 //This is called when a new location is loaded. 
 //It stores the desired location ID ready to be picked up by reDraw().
 function drawCharts( locID ){
-    $('#location-option').attr('value', locID );
+     $('#location-option').attr('value', locID );
+     keep_checked = true;
     reDraw();
 }
 
-function toggleSelected(element){
 
-    var table = $(element).attr('table');
+ function createKeepRemoved(){
+     
+     indices = []
+	 selections = $("#cross-table").bootstrapTable('getSelections');
+	 console.log("Selections", selections);
+     if(selections.length > 0){
+		 function checkRemove (table){
+			 console.log("checkRemoved")
+				 to_check = []
+			 for (var i in selections){
+				 to_check.push(selections[i]["cases"]);
+			 }
+			 setTimeout(function () {
+				 table.bootstrapTable("checkBy", {
+					 field: "cases",
+					 values: to_check
+				 });
+			 },50);
+			 if(removed){
+				 setTimeout(function (){
+					 new_selections = $("#cross-table").bootstrapTable('getSelections');
+					 $("#toggle-selected[table='cross-table']").each(function (){
+						 $(this).attr("value", "shown");
+						 toggleSelected($(this));
+					 });},100);
+			 }
+		 }
+     }else{
+	 checkRemove = undefined;
+	 }
+     return checkRemove
+ }
 
-    if( $(element).attr('value') == 'shown' ){ 
 
+
+     
+ var removed = false;
+ function toggleSelected(element){
+     console.log("toggle")
+     var table = $(element).attr('table');
+     if( $(element).attr('value') == 'shown' ){ 
         $(element).attr('value','hidden');
-
-        var indexes = [];  
-
-        $("#" + table + " input[name='btSelectItem']:not(:checked)").each( function(){
-            $("#" + table ).bootstrapTable('hideRow', {
+	 removed = true;
+         var indexes = [];  
+         $("#" + table + " input[name='btSelectItem']:not(:checked)").each( function(){
+             $("#" + table ).bootstrapTable('hideRow', {
                 index: $(this).attr('data-index')
             });
         });
@@ -251,6 +291,7 @@ function toggleSelected(element){
     }else{
         $(element).attr('value','shown');
         $("#" + table).bootstrapTable('getRowsHidden', true);
+		removed = false;
     }
 
 }
@@ -275,13 +316,16 @@ function showSpinners( show ){
     }
 
 }
-
- 
+indices = undefined;
+ keep_checked = true;
 //The chart state is stored in the html page - specifically '.cross-option' elements.
 //Each of these elements should have a name and a value attribute.
 //This function draws a new chart based upon these attributes.
 function reDraw(){
 
+     if (keep_checked){
+	 check_function = createKeepRemoved();
+	 }
     showSpinners();
 
     var crossOptions = {};
@@ -297,15 +341,23 @@ function reDraw(){
         timelineOptions[$(this).attr('name')] = $(this).attr('value');
     });
 
-
+     
     console.log( crossOptions );
-    console.log( timelineOptions );
+     console.log( timelineOptions );
+     
+     if (keep_checked){
+	 //Draw new chart
+	 createCrossPlot( $('.xaxis .axis-selector select').val(), 
+			  $('.yaxis .axis-selector select').val(), 
+			  crossOptions, check_function);
+	 keep_checked = false;
+     }else{
+	 createCrossPlot( $('.xaxis .axis-selector select').val(), 
+			  $('.yaxis .axis-selector select').val(),
+			  crossOptions)
+     }
 
-    //Draw new chart
-    createCrossPlot( $('.xaxis .axis-selector select').val(), 
-                     $('.yaxis .axis-selector select').val(), 
-                     crossOptions );
-
+			  
     //If the timeline has been drawn, we redraw it with new information
     if(timelineDrawn){
          createTimeline( timelineId,

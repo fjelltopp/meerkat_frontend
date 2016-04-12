@@ -13,7 +13,8 @@
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
-  </h2>
+    </h2>
+    
 </div>
 <div class="row">
   <!-- KEY FINDINGS -->
@@ -21,6 +22,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">Key findings</div>
       <div class="chart-stage">
+
           <p>Information reported in this pandemic influenza preparedness (PIP) profile represents cumulative cases reported from {{ report.data.num_clinic }} sentinel sites between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
         <ul>
           <li>A total of <strong>{{ report.data.total_cases|commas }} </strong> enrolled patients.</li>

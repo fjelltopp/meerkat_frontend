@@ -33,7 +33,6 @@ if app.config["TEMPLATE_FOLDER"]:
     app.jinja_loader = my_loader
 
 
-
 #Load settings saved in config files.
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
 app.config['HOMEPAGE_CONFIG'] = json.loads( open(path).read())

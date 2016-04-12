@@ -100,7 +100,7 @@ def send_email_report(report):
         api_request = '/reports/{report}/{loc}/{end}'.format(
             report=report_list['reports'][report]['api_name'],
             loc=location,
-            end=end.strftime('%Y-%m-%d')
+            end=end.isoformat()
             )
         data = c.api(api_request, api_key=True)
         epi_week = data['data']['epi_week_num']
@@ -337,8 +337,8 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
                             current_app.config['MAPBOX_STATIC_MAP_API_URL'],
                             current_app.config['MAPBOX_MAP_ID'],
-                            extras['map_centre'][0],
                             extras['map_centre'][1],
+                            extras['map_centre'][0],
                             extras['map_centre'][2],
                             current_app.config['MAPBOX_API_ACCESS_TOKEN'])
 
@@ -350,11 +350,15 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
                 current_app.config['MAPBOX_STATIC_MAP_API_URL'],
                 current_app.config['MAPBOX_MAP_ID'],
-                extras['map_centre'][0],
                 extras['map_centre'][1],
+                extras['map_centre'][0],
                 extras['map_centre'][2],
                 current_app.config['MAPBOX_API_ACCESS_TOKEN'])
-
+    elif report in ["pip"]:
+        extras = {}
+        extras['map_centre'] = report_list['reports'][report]["map_centre"]
+        extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
+                                  "/clinics/1/SARI")
     else:
         extras = None
     # Render correct template for the report

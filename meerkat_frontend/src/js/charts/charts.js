@@ -29,8 +29,9 @@ function pieChart(series) {
       }
     },
     series: [{
-      colorByPoint: true,
-      data: series
+		colorByPoint: true,
+		data: series,
+		name: "Count"
     }]
   };
   return chart;
@@ -42,6 +43,10 @@ function sitesBarChart(categories, series, labels) {
       type: 'bar',
       animation: false
     },
+	  tooltip: {
+		  valueDecimals: 1,
+		  valueSuffix: '%'
+	  },
     title: {
       text: null
     },
@@ -56,7 +61,7 @@ function sitesBarChart(categories, series, labels) {
       },
       labels: {
         formatter: function() {
-          return Math.abs(this.value) + '%';
+			return Math.round(Math.abs(this.value),1) + '%';
         }
       }
     },

@@ -4,7 +4,7 @@
 //Any optional analysis (stripping records/colouring/graphing) can then be applied.
 //Details for this analysis are given in the options object.
 //Finally the table is drawn.
-function createCrossPlot( catx, caty, options ){
+function createCrossPlot( catx, caty, options, post_function ){
 
 	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
 	var queryData, catxData, catyData;
@@ -68,7 +68,7 @@ function createCrossPlot( catx, caty, options ){
 					"checkbox": true
 				},{
 					"field": "cases",
-					"title": "#Cases",
+					"title": "# of Cases",
 					"align": "left",
 					"class": "header"
 				},
@@ -80,7 +80,7 @@ function createCrossPlot( catx, caty, options ){
             for( var i=0; i<= xKeys.length; i++ ) colTotal.push( 0 );
 
 			//For each key in the y category, form the row from x category data.
-			for( var y in yKeys.sort() ){
+			for( var y in yKeys.sort()){
 				var row ={
 					"cases": timelineLink(yKeys[y],catyData[yKeys[y]].name,"y")
 				};
@@ -112,7 +112,9 @@ function createCrossPlot( catx, caty, options ){
 			if(colour){
 				maxMin = max_min(data);
 			}
-			for( var k in xKeys.sort() ){
+			for( var k in xKeys.sort(function(a,b) {
+				return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]); })
+			   ){
 				var column ={
 					"field": xKeys[k],
 					"title": timelineLink(xKeys[k],catxData[xKeys[k]].name,"x"),
@@ -145,11 +147,21 @@ function createCrossPlot( catx, caty, options ){
                                 "</table></div>";
 
                 $("#cross-wrapper").html( framework );
+				if(post_function){
+					$("#cross-table").on("post-body.bs.table", function (){
+						post_function($("#cross-table"));
+					});
+
+						//post_function($("#cross-table")));
+				}
+				
 			    $("#cross-table").bootstrapTable({
 				    columns: columns,
 				    data: data,
-				    clickToSelect: true
+				    clickToSelect: true,
+					uniqueId: "cases"
 			    });
+				
             }else{
                 console.log("Empty object");
 			    $('#cross-wrapper').html( 
@@ -255,7 +267,9 @@ function createTimeline(id, cat, options){
 		];
 		var data = [];
 		//For each key in the y category, form the row from x category data.
-		for( var y in yKeys.sort() ){
+		for( var y in yKeys.sort(function(a,b){
+			return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]); })
+		   ){
 
 			var datum ={
 				"cases": category[yKeys[y]].name
