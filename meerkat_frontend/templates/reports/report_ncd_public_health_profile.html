@@ -22,7 +22,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">Key findings</div>
       <div class="chart-stage">
-        ￼ <p>Information reported in this public health profile represents cases reported from {{ report.data.clinic_num }} reporting sites in {{ report.data.project_region|e }} between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
+          <p>Information reported in this public health profile represents cases reported from {{ report.data.clinic_num }} reporting sites in {{ report.data.project_region|e }} between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
         <ul>
           <li>A total of <strong>{{ report.data.total_cases|commas }} cases</strong> reported from {{ report.data.clinic_num|commas }} health facilities.</li>
           <li><strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> and <strong>{{ report.data.percent_cases_lt_5yo|float|round(1) }}% under five years</strong> of age.</li>

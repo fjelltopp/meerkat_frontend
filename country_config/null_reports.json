@@ -21,13 +21,13 @@
 		"introduction":"This report summarises the state of communicable disease public health in the selected location.",
       "url":"cd_public_health",
 		"start_date":"2015-12-17T00:00:00.000Z",
-		"period":"week"
+		"period":"year"
   },{
       "name":"Non-Communicable Disease Profile",
 		"introduction":"This report summarises the state of non-communicable disease public health in the selected location.",
       "url":"ncd_public_health",
 		"start_date":"2016-02-01T00:00:00.000Z",
-		"period":"month"
+		"period":"year"
     },{
       "name":"Communicable Disease Report",
 		"introduction":"This report tracks the spread of communicable diseases across the selected location.",
@@ -39,7 +39,7 @@
 		"introduction":"This report tracks the spread of non-communicable diseases across the selected location.",
 		"url":"non_communicable_diseases",
 		"start_date":"2015-12-17T00:00:00.000Z",
-		"period":"year"
+		"period":"month"
     }
   ],
 
