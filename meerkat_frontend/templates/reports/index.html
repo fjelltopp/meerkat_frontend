@@ -230,11 +230,11 @@ function openReport( type ){
 	var report = $('#report-selector select').val();
 	var location = history.state.locID;
 	var startDate = $('#start-date').data("DateTimePicker")
-					  .date().add( moment().utcOffset(), "minutes" )
-					  .toISOString();
+					.date().add( moment().utcOffset(), "minutes" )
+					.toISOString();
 	var endDate = $('#end-date').data("DateTimePicker")
-					  .date().add( moment().utcOffset(), "minutes" )
-					  .toISOString();
+					.date().add( moment().utcOffset(), "minutes" )
+					.add(1,'days').toISOString(); //Add day because date selector should be inclusive.
 
 	switch( type ){
 		case 'pdf':
