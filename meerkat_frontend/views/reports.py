@@ -100,7 +100,7 @@ def send_email_report(report):
         api_request = '/reports/{report}/{loc}/{end}'.format(
             report=report_list['reports'][report]['api_name'],
             loc=location,
-            end=end.strftime('%Y-%m-%d')
+            end=end.isoformat()
             )
         data = c.api(api_request, api_key=True)
         epi_week = data['data']['epi_week_num']
@@ -305,7 +305,7 @@ def create_report(config, report=None, location=None, year=None, week=None):
         api_request = '/reports/{report}/{loc}/{end}'.format(
             report=report_list['reports'][report]['api_name'],
             loc=location,
-            end=end_date.strftime('%Y-%m-%d')
+            end=end_date.isoformat()
         )
     else:
         # Return most recent epiweek
@@ -314,7 +314,7 @@ def create_report(config, report=None, location=None, year=None, week=None):
             loc=location,
             end=c.epi_week_to_date(
                 c.date_to_epi_week() - 1
-            ).strftime('%Y-%m-%d')
+            ).isoformat()
         )
 
     data = c.api(api_request, api_key=True)
