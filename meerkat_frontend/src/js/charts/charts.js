@@ -107,6 +107,7 @@ function genderBarChart(categories, series, labels) {
 }
 
 function communicableDiseasesBarChart(categories, series, labels) {
+
   var chart = {
     chart: {
       animation: false

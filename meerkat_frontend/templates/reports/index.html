@@ -116,7 +116,8 @@ $(".menu-toggle").click(function(e) {
 
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
-var week = {{week.epi_week}};
+ var week = {{week.epi_week}};
+ var offset = {{week.offset}};
 loadLocationTree({locID:{{loc}}});
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
@@ -124,7 +125,7 @@ drawReportSelect();
 
 //Draw date/time pickers.
 d = new Date();
-console.log($('#report-selector select :selected').attr('startdate' ));
+console.log($('#report-selector select :selected').attr('startdate'));
 $('#start-date').datetimepicker({
 	useCurrent: false,
 	defaultDate: $('#report-selector select :selected').attr('startdate' ),
@@ -141,7 +142,7 @@ $('#end-date').datetimepicker({
 	minDate: $('#report-selector select :selected').attr('startdate')
 
 });
-
+setDefaultPeriod( $("#report-selector").find(':selected').attr('period' ));
 
 //The start date depends upon the report selected.
 $("#report-selector select").on("change", function(element){
@@ -151,7 +152,7 @@ $("#report-selector select").on("change", function(element){
 
 	var defaultDate = new Date( $(this).find(':selected').attr('startdate' ) )
 	//$('#end-date').data("DateTimePicker").minDate( dateToString(startDate)  );
-	setDefaultPeriod( $(this).find(':selected').attr('period' ));
+	 setDefaultPeriod( $(this).find(':selected').attr('period' ));
 });
 
 function setDefaultPeriod( period ){
@@ -160,14 +161,13 @@ function setDefaultPeriod( period ){
 	
 	var start_date = false;
 	var end_date = now;
-
 	switch( period ){
 
 		case 'week':
 			console.log( "Week" );
-			var weekDay = now.getDay(); // Subtract epi-week change over day.
-			start_date = new Date( now.getFullYear(), now.getMonth(), now.getDate()-7-weekDay );
-			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate()-weekDay );		
+		        var weekDay = - now.getDay() - ( 7- offset); // Subtract epi-week change over day.
+			start_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() - 6 + weekDay );
+			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate() + weekDay );		
 			break;
 
 		case 'month':
@@ -219,7 +219,8 @@ function drawReportSelect(){
 	html += "</select>";
 
 	$('#report-selector').html( html );
-	$("#report-selector select").val(config.reports[2].url);
+     $("#report-selector select").val(config.reports[2].url);
+
 }
 
 //This method is called upon clicking either the "PDF" button or the "HTML" button.

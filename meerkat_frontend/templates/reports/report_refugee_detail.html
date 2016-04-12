@@ -55,7 +55,7 @@
      {% endfor %}
      <td> {{ value.total|commas }} </td>
      {% if age_total and percent %}
-       <td class="highlight"> {{ (value.total / ages.values()|sum * 100)|round(1) }}%</td>
+       <td class="highlight"> {{ (value.total / ( ages.values()|sum  if ages.values()|sum > 0 else 1)* 100)|round(1) }}%</td>
      {% endif %}
    </tr>
    {% endfor %}
@@ -83,7 +83,7 @@
      <td class="key highlight"> % by age group </td>
      {% for age in age_group %}
        <td> </td> <td> </td>
-       <td class="total highlight"> {{ (ages[age] / total * 100)|round(0)|int }}% </td>
+       <td class="total highlight"> {{ (ages[age] / (total if total != 0 else 1) * 100)|round(0)|int }}% </td>
        {% if age_total and u5_percent and age=="1-4"%}
          <td></td>
        {% endif %}

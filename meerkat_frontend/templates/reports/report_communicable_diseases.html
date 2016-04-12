@@ -78,7 +78,7 @@ $(function() {
   // {{ k }}
   $('#chart-{{ k|slugify }}').highcharts(
     communicableDiseasesBarChart(
-      {{ v.weeks }},
+      {{ v.weeks|safe }},
       [{{ v.confirmed }}, {{ v.suspected }}],
       { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
     )

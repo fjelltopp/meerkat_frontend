@@ -275,7 +275,7 @@ $(function() {
 	     
      $('#chart-epi').highcharts(
 	 PipBarChart(
-	     {{ report.data.timeline.weeks }},
+	     {{ report.data.timeline.weeks|safe }},
 	      {{ report.data.timeline.suspected }}, series ,
 	     { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
 	 ));
