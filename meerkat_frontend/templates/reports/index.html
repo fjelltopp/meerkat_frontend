@@ -51,18 +51,31 @@
 						<div class="chartBox__heading">Report Selector
 						</div>
 						<div class="chartBox__content " >
-							{{content.introduction}}
-							<form class="reports-form col-sm-offset-3">
-								<div class="title row">Choose which report to download:</div>
-								<div class="row"><div id="report-selector" class="col-sm-offset-1"></div></div>
-								<div class="title row">Choose which time period:</div>
-								<div class="row">
-									<div class="col-sm-offset-1">
-										<div class="col-xs-12 col-sm-9 col-md-7 col-lg-6 no-padding-col">
+							<div class="row">
+								{{content.introduction}}
+							</div>
+							<div class="row">
+								<form class="reports-form col-sm-offset-3 col-xs-12 col-sm-8 col-md-6 col-lg-5 no-padding-col">
+									<div class="title row">Choose which report to download:</div>
+									<div class="row">
+										<div id="report-selector" class="col-sm-offset-1 col-sm-11 no-padding-col"></div>
+									</div>
+									<div class="title row">
+										<div class="col-sm-6 no-padding-col">Choose which time period:</div>
+										<div class="default-period col-sm-6 no-padding-col" > 
+											(Default period: 
+											<a class="period" 
+												 onclick="setDefaultPeriod( $('#report-selector select').find(':selected').attr('period' ));
+												         return false;" >
+											</a>) 
+										</div>
+									</div>	
+									<div class="row">
+										<div class="col-sm-offset-1 col-sm-11 no-padding-col">
 											<div class="col-xs-12 col-sm-5 no-padding-col">
 												<div class="row"> Start date: </div>
 												<div class='input-group date row' 
-													 id='start-date' name='start_date' value=''>
+													   id='start-date' name='start_date' value=''>
 													<input type='text' class="form-control "/>
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
@@ -81,20 +94,18 @@
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="title row">
-									Click to download your selected report for
-									<a href="" class="menu-toggle location-name"></a>:
-								</div>
-								<div class="col-sm-offset-1 download-buttons">
-									<div class="col-xs-12 col-sm-9 col-md-7 col-lg-6 no-padding-col">
-										<input class="btn btn-default btn-lg col-xs-12 col-sm-5" value="HTML"
-											   onclick="openReport('html');return false;" >
-										<input class="btn btn-default btn-lg col-xs-12 col-sm-5 pull-right"
-											   value="PDF" onclick="openReport('pdf');return false;">
+									<div class="title row">
+										Click to download your selected report for
+										<a href="" class="menu-toggle location-name"></a>:
 									</div>
-								</div>
-							</form>
+									<div class="col-sm-offset-1 col-sm-11 no-padding-col download-buttons">
+											<input class="btn btn-default btn-lg col-xs-12 col-sm-5" value="HTML"
+												     onclick="openReport('html');return false;" >
+											<input class="btn btn-default btn-lg col-xs-12 col-sm-5 pull-right"
+												     value="PDF" onclick="openReport('pdf');return false;">
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -116,8 +127,8 @@ $(".menu-toggle").click(function(e) {
 
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
- var week = {{week.epi_week}};
- var offset = {{week.offset}};
+var week = {{week.epi_week}};
+var offset = {{week.offset}};
 loadLocationTree({locID:{{loc}}});
 
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
@@ -144,41 +155,41 @@ $('#end-date').datetimepicker({
 });
 setDefaultPeriod( $("#report-selector").find(':selected').attr('period' ));
 
-//The start date depends upon the report selected.
+//The change form details based upon the report selected.
 $("#report-selector select").on("change", function(element){
 	var startDate = new Date( $(this).find(':selected').attr('startdate' ) );
 	$('#start-date').data("DateTimePicker").minDate( dateToString(startDate) );
 	$('#start-date').data("DateTimePicker").date( dateToString(startDate) );
-
-	var defaultDate = new Date( $(this).find(':selected').attr('startdate' ) )
-	//$('#end-date').data("DateTimePicker").minDate( dateToString(startDate)  );
-	 setDefaultPeriod( $(this).find(':selected').attr('period' ));
+	setDefaultPeriod( $(this).find(':selected').attr('period' ));
 });
 
 function setDefaultPeriod( period ){
 
 	var now = new Date();
-	
 	var start_date = false;
 	var end_date = now;
+
 	switch( period ){
 
 		case 'week':
 			console.log( "Week" );
-		        var weekDay = - now.getDay() - ( 7- offset); // Subtract epi-week change over day.
+			var weekDay = - now.getDay() - ( 7- offset); // Subtract epi-week change over day.
 			start_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() - 6 + weekDay );
-			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate() + weekDay );		
+			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate() + weekDay );	
+			$('.period').html('last epi-week');	
 			break;
 
 		case 'month':
 			console.log( "Month" );
 			start_date = new Date( now.getFullYear(), now.getMonth()-1, 1 ); //The first of prev month
 			end_date = new Date( now.getFullYear(), now.getMonth(),  0 ); //The last of prev month
+			$('.period').html('last month');
 			break;
 	
 		case 'year':
 			start_date = new Date( now.getFullYear(), 0, 1 )
 			end_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() );
+			$('.period').html('current year');
 			break;
 
 	}
@@ -186,12 +197,14 @@ function setDefaultPeriod( period ){
 	$('#start-date').data("DateTimePicker").date( dateToString(start_date) );
 	$('#end-date').data("DateTimePicker").date( dateToString(end_date) );	
 
+
 }
 
 //Link the date pickers so you can't select a start date after the end date.
 $("#end-date").on("dp.change", function (e) {
 	$('#start-date').data("DateTimePicker").maxDate(e.date);
 });
+
 //And you can't select an end date before the start date.
 $("#start-date").on("dp.change", function (e) {
 	$('#end-date').data("DateTimePicker").minDate(e.date);
@@ -206,14 +219,14 @@ function dateToString( date ){
 //Draw the selector that determines which report the user wants to view.
 function drawReportSelect(){
 
-	var html = "<select class='report col-xs-12 col-sm-9 col-md-7 col-lg-6 no-padding-col'>";
+	var html = "<select class='report col-xs-12 no-padding-col'>";
 
 	for( var i in config.reports ){
 		var report = config.reports[i];
 		html += "<option value='" + report.url + "'" +
-				"startdate='" + report.start_date + "'" +
-				"period='" + report.period + "'>" + 
-				report.name + "</option>";
+		        "startdate='" + report.start_date + "'" +
+		        "period='" + report.period + "'>" + 
+		        report.name + "</option>";
 	}
 
 	html += "</select>";
