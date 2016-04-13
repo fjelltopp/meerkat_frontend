@@ -4,7 +4,7 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 try:
     import simplejson as json
 except ImportError:
@@ -314,6 +314,28 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     api_request = '/reports'
     api_request += '/' + report_list['reports'][report]['api_name'] 
     if( location != None ): api_request += '/' + str(location)
+    if start_date is None and end_date is None:
+        if "default_period" in report_list["reports"][report].keys():
+            period = report_list["reports"][report]["default_period"]
+
+            today = datetime.today()
+            if period == "week":
+                epi_week = c.api('/epi_week')
+                offset = today.weekday() + (7 - epi_week["offset"])
+
+                start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 6)
+                end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset)
+                current_app.logger.info(start_date)
+                current_app.logger.info(end_date)
+            elif period == "month":
+                start_date = datetime(today.year, today.month - 1, 1)
+                end_date = datetime(today.year, today.month - 1, 31)
+            elif period == "year":
+                start_date = datetime(today.year, 1, 1)
+                end_date = datetime(today.year, today.month, today.day)
+            if start_date and end_date:
+                start_date = start_date.isoformat()
+                end_date = (end_date + timedelta(days=1)).isoformat() # To include the the end date
     if( end_date != None ): api_request += '/' + end_date
     if( start_date != None ): api_request += '/' + start_date
 
