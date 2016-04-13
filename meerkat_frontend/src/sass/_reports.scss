@@ -17,6 +17,10 @@ body.reports, body.htmlreport{
 		padding: 5px 12px;
 	}
 
+	.reports-form{
+		min-height: 450px;
+	}
+
 }
 
 .page-content{
@@ -32,7 +36,6 @@ body.reports, body.htmlreport{
 
 	margin-top: 40px;
 	margin-bottom: 20px;	
-	min-height: 450px;
 
 	label{
 		text-align: left;
@@ -184,4 +187,10 @@ table.refugee.small{
 	cursor: pointer;
 	font-style: italic;
 	font-weight: normal;
+}
+
+.reports-form-wrapper{
+	padding: 30px;
+	border: solid 1px $lightGrey;
+	border-radius: 3px;
 }

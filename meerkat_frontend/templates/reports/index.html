@@ -118,50 +118,66 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
-  
-$(".menu-toggle").click(function(e) {
-	e.preventDefault();
-	$("#wrapper").toggleClass("toggled");
-	$(".location-box .glyphicon").toggleClass( "hidden" );
-});
 
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 var offset = {{week.offset}};
-loadLocationTree({locID:{{loc}}});
-
+ 
+$(".menu-toggle").click(function(e) {
+	e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+	$(".location-box .glyphicon").toggleClass( "hidden" );
+});
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
-drawReportSelect();
 
-//Draw date/time pickers.
-d = new Date();
-console.log($('#report-selector select :selected').attr('startdate'));
-$('#start-date').datetimepicker({
-	useCurrent: false,
-	defaultDate: $('#report-selector select :selected').attr('startdate' ),
-	format: "DD/MM/YYYY",
-	maxDate: d.toISOString(),
-	minDate: $('#report-selector select :selected').attr('startdate' )
-});
+loadLocationTree({locID:{{loc}}});
+setUpReportForm();
 
-$('#end-date').datetimepicker({
-	useCurrent: true,
-	defaultDate: d.toISOString(),
-	format: "DD/MM/YYYY",
-	maxDate: d.toISOString(),
-	minDate: $('#report-selector select :selected').attr('startdate')
+function setUpReportForm(){
 
-});
-setDefaultPeriod( $("#report-selector").find(':selected').attr('period' ));
+	drawReportSelect();
 
-//The change form details based upon the report selected.
-$("#report-selector select").on("change", function(element){
-	var startDate = new Date( $(this).find(':selected').attr('startdate' ) );
-	$('#start-date').data("DateTimePicker").minDate( dateToString(startDate) );
-	$('#start-date').data("DateTimePicker").date( dateToString(startDate) );
-	setDefaultPeriod( $(this).find(':selected').attr('period' ));
-});
+	//Draw date/time pickers.
+	d = new Date();
+	console.log($('#report-selector select :selected').attr('startdate'));
+	$('#start-date').datetimepicker({
+		useCurrent: false,
+		defaultDate: $('#report-selector select :selected').attr('startdate' ),
+		format: "DD/MM/YYYY",
+		maxDate: d.toISOString(),
+		minDate: $('#report-selector select :selected').attr('startdate' )
+	});
+
+	$('#end-date').datetimepicker({
+		useCurrent: true,
+		defaultDate: d.toISOString(),
+		format: "DD/MM/YYYY",
+		maxDate: d.toISOString(),
+		minDate: $('#report-selector select :selected').attr('startdate')
+
+	});
+	setDefaultPeriod( $("#report-selector").find(':selected').attr('period' ));
+
+	//The change form details based upon the report selected.
+	$("#report-selector select").on("change", function(element){
+		var startDate = new Date( $(this).find(':selected').attr('startdate' ) );
+		$('#start-date').data("DateTimePicker").minDate( dateToString(startDate) );
+		$('#start-date').data("DateTimePicker").date( dateToString(startDate) );
+		setDefaultPeriod( $(this).find(':selected').attr('period' ));
+	});
+
+	//Link the date pickers so you can't select a start date after the end date.
+	$("#end-date").on("dp.change", function (e) {
+		$('#start-date').data("DateTimePicker").maxDate(e.date);
+	});
+
+	//And you can't select an end date before the start date.
+	$("#start-date").on("dp.change", function (e) {
+		$('#end-date').data("DateTimePicker").minDate(e.date);
+	});
+
+}
 
 function setDefaultPeriod( period ){
 
@@ -200,15 +216,6 @@ function setDefaultPeriod( period ){
 
 }
 
-//Link the date pickers so you can't select a start date after the end date.
-$("#end-date").on("dp.change", function (e) {
-	$('#start-date').data("DateTimePicker").maxDate(e.date);
-});
-
-//And you can't select an end date before the start date.
-$("#start-date").on("dp.change", function (e) {
-	$('#end-date').data("DateTimePicker").minDate(e.date);
-});
 
 function dateToString( date ){
 
