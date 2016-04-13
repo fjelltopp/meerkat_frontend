@@ -322,7 +322,6 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             if period == "week":
                 epi_week = c.api('/epi_week')
                 offset = today.weekday() + 1 + (7 - epi_week["offset"])
-
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 6)
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset)
                 current_app.logger.info(start_date)
