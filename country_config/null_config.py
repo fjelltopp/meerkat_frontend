@@ -56,6 +56,7 @@ REPORT_LIST = {
             'email_from_name': 'MOH Demo',
             'email_from_address': 'demo@emro.info',
             'map_centre': [0, 0, 7],
+            'default_period': "week",
             'test_json_payload': 'meerkat_frontend/apiData/reports_public_health.json',
         },
         'cd_public_health': {
@@ -63,6 +64,7 @@ REPORT_LIST = {
             'template': 'reports/report_cd_public_health_profile.html',
             'api_name': 'cd_public_health',
             'map_centre': [0, 0, 7],
+            'default_period': "week",
             'test_json_payload': 'meerkat_frontend/apiData/reports_cd_public_health.json',
         },
        'ncd_public_health': {
@@ -70,18 +72,21 @@ REPORT_LIST = {
             'template': 'reports/report_ncd_public_health_profile.html',
             'api_name': 'ncd_public_health',
             'map_centre': [0, 0, 7],
+           'default_period': "month",
             'test_json_payload': 'meerkat_frontend/apiData/reports_ncd_public_health.json',
         },
         'communicable_diseases': {
             'title': 'Communicable Diseases Report',
             'template': 'reports/report_communicable_diseases.html',
             'api_name': 'cd_report',
+            'default_period': "year",
             'test_json_payload': 'meerkat_frontend/apiData/reports_communicable_diseases.json'
         },
         'non_communicable_diseases': {
             'title': 'Non Communicable Diseases Report',
             'template': 'reports/report_non_communicable_diseases.html',
             'api_name': 'ncd_report',
+            'default_period': "month",
             'test_json_payload': 'meerkat_frontend/apiData/reports_non_communicable_diseases.json'
         }
     }
