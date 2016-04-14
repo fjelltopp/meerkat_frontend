@@ -180,6 +180,16 @@ table.refugee.small{
     .page-header{
         margin: 40px 15px 20px;
     }
+	
+		.time-stamp{
+			margin-top: 20px;
+		}
+
+		@media screen and (min-width: 768px) {
+			.time-stamp{
+				text-align: right;
+			}
+		}
 }
 
 .default-period{

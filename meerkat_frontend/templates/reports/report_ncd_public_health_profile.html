@@ -316,6 +316,3 @@ draw_public_health_map("{{ extras.map_api_call}}", {{extras.map_centre }})
 
 </script>
 {% endblock extra_js %}
-{% block footer %}
-<p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
-{% endblock footer %}

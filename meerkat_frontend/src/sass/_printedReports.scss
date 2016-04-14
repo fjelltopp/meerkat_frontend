@@ -120,10 +120,14 @@ $printedBlue: #337ab7;
 				padding: 15px 20px;
 				margin: 0px 10px;
 
-				div, p, li{
+				div, p, li, b{
 					color: #FFF !important;
 				}
 			}
+			.time-stamp{
+				text-align: right;
+			}
+
 		}
 
 		//TABLES
