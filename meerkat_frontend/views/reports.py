@@ -235,8 +235,14 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                 '/static/'))
 
         client.usePrintMedia(True)
-        client.setPageWidth('1200pt')
-        client.setPageHeight('1697pt')
+				#Allow reports to be set as portrait or landscape in the config files.
+        if( report_list['reports'][report].get( 'landscape', False ) ):
+            client.setPageWidth('1697pt')
+            client.setPageHeight('1200pt')
+        else:
+            client.setPageWidth('1200pt')
+            client.setPageHeight('1697pt')
+
         client.setPageMargins('90pt','60pt','90pt','60pt')
         client.setHtmlZoom(400)
         client.setPdfScalingFactor(1.5)

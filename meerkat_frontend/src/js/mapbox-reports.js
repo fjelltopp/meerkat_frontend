@@ -2,7 +2,7 @@
 
 function draw_public_health_map(api_call, map_centre){
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map('map', 'mrjb.k60d95kl', {
+    var map = L.mapbox.map('map', 'mrjb.143811c9', {
 	zoomControl: false,
 	fullscreenControl: true // Display fullscreen toggle button
     })
