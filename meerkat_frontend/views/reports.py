@@ -4,7 +4,7 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 try:
     import simplejson as json
 except ImportError:
@@ -100,7 +100,7 @@ def send_email_report(report):
         api_request = '/reports/{report}/{loc}/{end}'.format(
             report=report_list['reports'][report]['api_name'],
             loc=location,
-            end=end.strftime('%Y-%m-%d')
+            end=end.isoformat()
             )
         data = c.api(api_request, api_key=True)
         epi_week = data['data']['epi_week_num']
@@ -171,16 +171,22 @@ def send_email_report(report):
 
 @reports.route('/<report>/')
 @reports.route('/<report>/<location>/')
-@reports.route('/<report>/<location>/<int:year>/')
-@reports.route('/<report>/<location>/<int:year>/<int:week>/')
-def report(report=None, location=None, year=None, week=None):
+@reports.route('/<report>/<location>/<end_date>/')
+@reports.route('/<report>/<location>/<end_date>/<start_date>/')
+def report(report=None, location=None, end_date=None, start_date=None):
     """Serves dynamic report for a location and date"""
     # Check that the requested project and report are valid
     report_list = current_app.config['REPORT_LIST']
 
     if report in report_list['reports']:
 
-        ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
+        ret = create_report(
+            config=current_app.config, 
+            report=report, 
+            location=location, 
+            end_date=end_date, 
+            start_date=start_date
+        )
 
         return render_template(
             ret['template'],
@@ -194,10 +200,10 @@ def report(report=None, location=None, year=None, week=None):
         abort(501)
 
 @reports.route('/<report>.pdf')
-@reports.route('/<report>-<location>.pdf')
-@reports.route('/<report>-<location>-<int:year>.pdf')
-@reports.route('/<report>-<location>-<int:year>-<int:week>.pdf')
-def pdf_report(report=None, location=None, year=None, week=None):
+@reports.route('/<report>~<location>.pdf')
+@reports.route('/<report>~<location>~<end_date>.pdf')
+@reports.route('/<report>~<location>~<end_date>~<start_date>.pdf')
+def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
     report_list = current_app.config['REPORT_LIST']
     client = pdfcrowd.Client(
@@ -205,7 +211,13 @@ def pdf_report(report=None, location=None, year=None, week=None):
         current_app.config['PDFCROWD_API_KEY'])
     current_app.logger.warning('Report: ' + report )
     if report in report_list['reports']:
-        ret = create_report(config=current_app.config, report=report, location=location, year=year, week=week)
+        ret = create_report(
+            config=current_app.config, 
+            report=report, 
+            location=location, 
+            end_date=end_date, 
+            start_date=start_date
+        )
 
         html = render_template(
             ret['template'],
@@ -223,8 +235,14 @@ def pdf_report(report=None, location=None, year=None, week=None):
                 '/static/'))
 
         client.usePrintMedia(True)
-        client.setPageWidth('1200pt')
-        client.setPageHeight('1697pt')
+				#Allow reports to be set as portrait or landscape in the config files.
+        if( report_list['reports'][report].get( 'landscape', False ) ):
+            client.setPageWidth('1697pt')
+            client.setPageHeight('1200pt')
+        else:
+            client.setPageWidth('1200pt')
+            client.setPageHeight('1697pt')
+
         client.setPageMargins('90pt','60pt','90pt','60pt')
         client.setHtmlZoom(400)
         client.setPdfScalingFactor(1.5)
@@ -290,35 +308,45 @@ def list_reports(region,
     """Returns a list of reports"""
 
 
-def create_report(config, report=None, location=None, year=None, week=None):
+def create_report(config, report=None, location=None, end_date=None, start_date=None):
     """Dynamically creates report"""
-    
+
     #try:
     report_list = config['REPORT_LIST']
+
     if not location:
         location = report_list['default_location']
-    if week or year:
-        if week:
-            end_date = c.epi_week_to_date(week, year)
-        else:
-            end_date = c.epi_week_to_date(1, year)
-        api_request = '/reports/{report}/{loc}/{end}'.format(
-            report=report_list['reports'][report]['api_name'],
-            loc=location,
-            end=end_date.strftime('%Y-%m-%d')
-        )
-    else:
-        # Return most recent epiweek
-        api_request = '/reports/{report}/{loc}/{end}'.format(
-            report=report_list['reports'][report]['api_name'],
-            loc=location,
-            end=c.epi_week_to_date(
-                c.date_to_epi_week() - 1
-            ).strftime('%Y-%m-%d')
-        )
+
+    api_request = '/reports'
+    api_request += '/' + report_list['reports'][report]['api_name'] 
+    if( location != None ): api_request += '/' + str(location)
+    if start_date is None and end_date is None:
+        if "default_period" in report_list["reports"][report].keys():
+            period = report_list["reports"][report]["default_period"]
+
+            today = datetime.today()
+            if period == "week":
+                epi_week = c.api('/epi_week')
+                offset = today.weekday() + 1 + (7 - epi_week["offset"])
+                start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 6)
+                end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset)
+                current_app.logger.info(start_date)
+                current_app.logger.info(end_date)
+            elif period == "month":
+                start_date = datetime(today.year, today.month - 1, 1)
+                end_date = datetime(today.year, today.month - 1, 31)
+            elif period == "year":
+                start_date = datetime(today.year, 1, 1)
+                end_date = datetime(today.year, today.month, today.day)
+            if start_date and end_date:
+                start_date = start_date.isoformat()
+                end_date = (end_date + timedelta(days=1)).isoformat() # To include the the end date
+    if( end_date != None ): api_request += '/' + end_date
+    if( start_date != None ): api_request += '/' + start_date
 
     data = c.api(api_request, api_key=True)
     data["flag"] = config["FLAGG_ABR"]
+
     if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
         # Extra parsing for natural language bullet points
         extras = {"patient_status": {}}
@@ -358,6 +386,14 @@ def create_report(config, report=None, location=None, year=None, week=None):
         extras['map_centre'] = report_list['reports'][report]["map_centre"]
         extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                   "/clinics/1/SARI")
+        extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
+            current_app.config['MAPBOX_STATIC_MAP_API_URL'],
+            current_app.config['MAPBOX_MAP_ID'],
+            extras['map_centre'][1],
+            extras['map_centre'][0],
+            extras['map_centre'][2],
+            current_app.config['MAPBOX_API_ACCESS_TOKEN'])
+
     else:
         extras = None
     # Render correct template for the report

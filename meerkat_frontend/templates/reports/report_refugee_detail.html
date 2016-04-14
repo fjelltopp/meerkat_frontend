@@ -55,7 +55,7 @@
      {% endfor %}
      <td> {{ value.total|commas }} </td>
      {% if age_total and percent %}
-       <td class="highlight"> {{ (value.total / ages.values()|sum * 100)|round(1) }}%</td>
+       <td class="highlight"> {{ (value.total / ( ages.values()|sum  if ages.values()|sum > 0 else 1)* 100)|round(1) }}%</td>
      {% endif %}
    </tr>
    {% endfor %}
@@ -83,7 +83,7 @@
      <td class="key highlight"> % by age group </td>
      {% for age in age_group %}
        <td> </td> <td> </td>
-       <td class="total highlight"> {{ (ages[age] / total * 100)|round(0)|int }}% </td>
+       <td class="total highlight"> {{ (ages[age] / (total if total != 0 else 1) * 100)|round(0)|int }}% </td>
        {% if age_total and u5_percent and age=="1-4"%}
          <td></td>
        {% endif %}
@@ -119,63 +119,69 @@
     </span> 
     <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> North Eastern Border Detailed Report
     <span class="report-week">
-        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+        {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
   </h2>
 </div>
 <div class="row">
   <!-- 1. Population -->
-  <div class="cols-sm-12">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">1. Population</div>
-      <div class="table-wrapper">
-          {{ table(report.data.population, age_total=False, age_percentage=False) }}
-      </div>
+			<div class="chart-stage">
+		    <div class="table-wrapper">
+		        {{ table(report.data.population, age_total=False, age_percentage=False) }}
+		    </div>
+			</div>
     </div>
   </div>
 </div>
 <div class="row">
   <!-- 2. Mortality -->
-  <div class="cols-sm-12">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">2. Mortality</div>
-      <div class="table-title">2.1 Mortality Data</div>
-      <div class="table-wrapper table-responsive">
-        {{ table(report.data.mortality_breakdown.diseases, age_gender=report.data.mortality_breakdown.age_gender, ages=report.data.mortality_breakdown.age,u5_percent=True) }}
-      </div>
-      <div class="table-title">2.2 Mortality Indicators</div>
-      <div class="small-table-wrapper">
-        {{ simple_table(report.data.mortality) }}
-      </div>
+			<div class="chart-stage">
+		    <div class="table-title">2.1 Mortality Data</div>
+		    <div class="table-wrapper table-responsive">
+		      {{ table(report.data.mortality_breakdown.diseases, age_gender=report.data.mortality_breakdown.age_gender, ages=report.data.mortality_breakdown.age,u5_percent=True) }}
+		    </div>
+		    <div class="table-title">2.2 Mortality Indicators</div>
+		    <div class="small-table-wrapper">
+		      {{ simple_table(report.data.mortality) }}
+		    </div>
+			</div>
     </div>
   </div>
 </div>
 
 <!-- 3. Morbidity -->
 <div class="row">
-   <div class="cols-sm-12">
+   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">3. Morbidity</div>
-      <div class="table-title">3.1 Staffing and Service Availability</div>
-      <div class="small-table-wrapper table-responsive">
-        {{ simple_table(report.data.staffing) }}
-      </div>
-      <div class="table-title">3.2 Acute Health Conditions</div>
-      <div class="table-wrapper table-responsive"> 
-        {{ table(report.data.communicable_diseases.diseases, age_gender=report.data.communicable_diseases.age_gender, ages=report.data.communicable_diseases.age,u5_percent=True) }}
-      </div>
-      <div class="table-title">3.3 Chronic Health Conditions</div>
-      <div class="table-wrapper table-responsive">
-        {{ table(report.data.non_communicable_diseases.diseases, age_gender=report.data.non_communicable_diseases.age_gender, ages=report.data.non_communicable_diseases.age) }}
-      </div>
-      <div class="table-title">3.4 Mental Health</div>
-      <div class="table-wrapper table-responsive">
-        {{ table(report.data.mental_health.diseases, age_gender=report.data.mental_health.age_gender, ages=report.data.mental_health.age) }}
-      </div>
-      <div class="table-title">3.5 Injuries </div>
-      <div class="table-wrapper table-responsive">
-        {{ table(report.data.injury.diseases, age_gender=report.data.injury.age_gender, ages=report.data.injury.age) }}
-      </div>
+      <div class="chart-title">3. Morbidity</div>	
+			<div class="chart-stage">
+		    <div class="table-title">3.1 Staffing and Service Availability</div>
+		    <div class="small-table-wrapper table-responsive">
+		      {{ simple_table(report.data.staffing) }}
+		    </div>
+		    <div class="table-title">3.2 Acute Health Conditions</div>
+		    <div class="table-wrapper table-responsive"> 
+		      {{ table(report.data.communicable_diseases.diseases, age_gender=report.data.communicable_diseases.age_gender, ages=report.data.communicable_diseases.age,u5_percent=True) }}
+		    </div>
+		    <div class="table-title">3.3 Chronic Health Conditions</div>
+		    <div class="table-wrapper table-responsive">
+		      {{ table(report.data.non_communicable_diseases.diseases, age_gender=report.data.non_communicable_diseases.age_gender, ages=report.data.non_communicable_diseases.age) }}
+		    </div>
+		    <div class="table-title">3.4 Mental Health</div>
+		    <div class="table-wrapper table-responsive">
+		      {{ table(report.data.mental_health.diseases, age_gender=report.data.mental_health.age_gender, ages=report.data.mental_health.age) }}
+		    </div>
+		    <div class="table-title">3.5 Injuries </div>
+		    <div class="table-wrapper table-responsive">
+		      {{ table(report.data.injury.diseases, age_gender=report.data.injury.age_gender, ages=report.data.injury.age) }}
+		    </div>
+			</div>
     </div>
   </div>
 </div>
@@ -184,12 +190,14 @@
 
 <!-- 5. Referrals -->
 <div class="row">
-   <div class="cols-sm-12">
+   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">4. Referrals</div>
-      <div class="small-table-wrapper table-responsive">
-        {{ simple_table(report.data.referrals) }}
-      </div>
+				<div class="chart-stage">
+				  <div class="small-table-wrapper table-responsive">
+				    {{ simple_table(report.data.referrals) }}
+				  </div>
+				</div>
     </div>
   </div>
 </div>

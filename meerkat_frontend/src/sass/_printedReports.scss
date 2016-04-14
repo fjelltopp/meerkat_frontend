@@ -62,7 +62,6 @@ $printedBlue: #337ab7;
 
 		.chart-wrapper {
 
-		
 			border: none;
 
 			.chart-title{
@@ -131,7 +130,11 @@ $printedBlue: #337ab7;
 		.table{ 
 
 			margin-bottom: 0px;
-
+			tbody td.highlight {
+					background: #d9692a !important;
+					color: #FFF !important;
+					border: #d9692a;
+			}
 			thead tr{
 			 	th{
 					border: 0;
@@ -142,6 +145,15 @@ $printedBlue: #337ab7;
 			td{
 				background: $lightGrey !important;
 			}
+			.total {
+					border-right: 2px solid #cacaca !important;
+					border-left: 2px solid #cacaca !important;
+					background: #cacaca !important;
+			}
 		}
+		.table-wrapper, .small-table-wrapper{
+			border-radius: 0;
+		}
+
 	}
 }

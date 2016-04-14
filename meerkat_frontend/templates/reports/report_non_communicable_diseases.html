@@ -45,7 +45,7 @@
 <div class="page-header">
   <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> Non Communciable Diseases Report
     <span class="report-week">
-        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+        {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
   </h2>
 </div>

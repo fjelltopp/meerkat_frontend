@@ -80,7 +80,7 @@ function createCrossPlot( catx, caty, options, post_function ){
             for( var i=0; i<= xKeys.length; i++ ) colTotal.push( 0 );
 
 			//For each key in the y category, form the row from x category data.
-			for( var y in yKeys.sort() ){
+			for( var y in yKeys.sort()){
 				var row ={
 					"cases": timelineLink(yKeys[y],catyData[yKeys[y]].name,"y")
 				};
@@ -112,7 +112,7 @@ function createCrossPlot( catx, caty, options, post_function ){
 			if(colour){
 				maxMin = max_min(data);
 			}
-			for( var k in xKeys.sort() ){
+			for( var k in xKeys.sort(idSort) ){
 				var column ={
 					"field": xKeys[k],
 					"title": timelineLink(xKeys[k],catxData[xKeys[k]].name,"x"),
@@ -205,6 +205,10 @@ function timelineLink(id, name, axis){
 	       '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + name + "</a>";
 }
 
+function idSort(a,b){
+			return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]); 
+}
+
 function createTimeline(id, cat, options){
 
 	console.log( "Drawing timeline" );
@@ -264,8 +268,9 @@ function createTimeline(id, cat, options){
 			}
 		];
 		var data = [];
+
 		//For each key in the y category, form the row from x category data.
-		for( var y in yKeys.sort() ){
+		for( var y in yKeys.sort(idSort) ){
 
 			var datum ={
 				"cases": category[yKeys[y]].name

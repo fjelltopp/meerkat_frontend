@@ -106,7 +106,6 @@ button.header:hover{
 .location-box{
 	
 	display: inline-block;
-	margin: 0px 0px 10px;
 	float: left;
 	
 	div {
@@ -182,6 +181,13 @@ button.header:hover{
 
 #epi-week-title{
 	text-align: center;
+}
+
+@media screen and (max-width: 767px){
+
+	#epi-week-title{
+		margin-top: 10px;
+	}
 }
 
 .tab-title{ 

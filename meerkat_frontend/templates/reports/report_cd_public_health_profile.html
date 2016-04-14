@@ -11,7 +11,7 @@
     </span> 
     <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Communicable Disease Profile 
     <span class="report-week">
-        Week {{ report.data.epi_week_num }} &middot; {{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}
+	{{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
   </h2>
 </div>
@@ -21,7 +21,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">Key findings</div>
       <div class="chart-stage">
-        ￼ <p>Information reported in this public health profile represents cumulative cases reported from {{ report.data.clinic_num }} outpatient clinics in {{ report.data.project_region|e }} up until end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+	  <p>Information reported in this public health profile represents cases reported from {{ report.data.clinic_num }} reporting sites in {{ report.data.project_region|e }} between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
         <ul>
           <li>A total of <strong>{{ report.data.total_cases|commas }} cases</strong> reported from {{ report.data.clinic_num|commas }} health facilities.</li>
           <li><strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> and <strong>{{ report.data.percent_cases_lt_5yo|float|round(1) }}% under five years</strong> of age.</li>
@@ -35,9 +35,9 @@
         </ul>
         <h4>Alerts</h4>
         {% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
-        <p>A total of {{ report.data.alerts_total|commas }} alerts have been generated up to the end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+        <p>A total of {{ report.data.alerts_total|commas }} alerts have been generated up to the end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
         {% else %}
-        <p>No alerts were generated up to the end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+        <p>No alerts were generated up to the end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
         {% endif %}
       </div>
     </div>

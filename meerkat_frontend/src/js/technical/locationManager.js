@@ -89,8 +89,8 @@ function loadLocationContent( nodeID ){
 	}
 
 	//Draw the location selector and update the location title.
-	$("#location-selector").html(html);
-	$("#location-title").text( node.model.text );
+	$(".location-selector").html( html );
+	$(".location-title").text( node.model.text );
 
 	//Update any country specific phrasing in the page.
 	glossary();

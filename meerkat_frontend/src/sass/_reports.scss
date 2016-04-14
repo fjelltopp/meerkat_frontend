@@ -17,6 +17,10 @@ body.reports, body.htmlreport{
 		padding: 5px 12px;
 	}
 
+	.reports-form{
+		min-height: 450px;
+	}
+
 }
 
 .page-content{
@@ -28,6 +32,64 @@ body.reports, body.htmlreport{
   text-align: center;
 }
 
+.reports-form{
+
+	margin-top: 40px;
+	margin-bottom: 20px;	
+
+	label{
+		text-align: left;
+    	padding: 5px 10px;
+	}
+
+   .row{
+		margin: 10px 0;
+	}
+
+	label.row{
+		margin: 10px 0 0;
+	}
+
+	.download-buttons input{
+		display: inline-block;
+		padding: 10px 15px;
+		border: #0090ca 1px solid;
+		background: #0090ca;
+		color: #fff;
+		margin: 0 0 10px 10px;
+	}
+
+	.title{
+		max-width: 100%;
+		margin-bottom: 5px;
+		font-weight: bold;
+		margin-top: 20px;
+	}
+
+   .check{
+		padding: 0px 20px;
+		position: relative;
+
+		input{
+			position: absolute;
+			left: 0px;			
+		}
+
+	}
+
+	.radio-button{
+		display: inline-block;
+	}
+
+	.radio-label{
+		display: inline-block;
+		margin-left: 20px;
+	}
+}
+
+form.reports-form .download-buttons input{
+	margin: 20px 0px;
+}
 
 .refugee th{
   background: $lightGrey;
@@ -118,4 +180,17 @@ table.refugee.small{
     .page-header{
         margin: 40px 15px 20px;
     }
+}
+
+.default-period{
+	text-align: right;
+	cursor: pointer;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.reports-form-wrapper{
+	padding: 30px;
+	border: solid 1px $lightGrey;
+	border-radius: 3px;
 }

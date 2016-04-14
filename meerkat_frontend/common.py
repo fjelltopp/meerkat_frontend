@@ -15,7 +15,12 @@ def check_auth(username, password):
     """This function is called to check if a username / password combination is valid."""
     if not current_app.config["USE_BASIC_AUTH"]:
         return True
-    requested_object = request.path.strip("/").split("/")
+    if "~" in request.path:
+        request_path = request.path.split("~")[0]
+    else:
+        request_path = request.path
+    requested_object = request_path.strip("/").split("/")
+
     if len(requested_object) > 1 and "/".join(requested_object[:2]) in current_app.config["AUTH"]:
         current_app.logger.info("Found AUTH for level 2")
         auth_object = current_app.config["AUTH"]["/".join(requested_object[:2])]
