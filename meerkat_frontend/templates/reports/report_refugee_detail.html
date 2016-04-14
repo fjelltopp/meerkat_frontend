@@ -225,9 +225,10 @@
 </div>
 
 {% endblock body %}
+{% block footer %}
+
+{% endblock footer %}
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 {% endblock extra_js %}
-{% block footer %}
-<p class="small text-muted">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
-{% endblock footer %}
+
