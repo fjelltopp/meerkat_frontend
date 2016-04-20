@@ -3,15 +3,19 @@
 <!-- CONTENT -->
 
   <div class="page-content container tab-page" id="page-content">
-		<div class="box">
-			<h2><b>Error {{error.code}} {{error.name}}</b></h2>
-		  <p class="lead">{{ error.description }}</p>
-		  <p>Sorry about that. If this error persists, please <a href="mailto:{{ webmaster_email|e }}?subject=[Reports Website] Error {{ error.code|e }}&amp;body=Hi,%0D%0A%0D%0AI've had the following error:%0D%0A%0D%0AError: {{ error.code|e }}%0D%0ABody: {{ error.description|e }}%0D%0ATraceback:%0D%0A{{ error.traceback|e }}%0D%0A%0D%0A">let us know</a>.</p>
-		  <p><a href="/">Head back home</a> to try finding it again.</p>
-		  {% if error.traceback %}
-		  <h4>Debug Traceback</h4>
-		  <pre><code>{{ error.traceback }}<code></pre>
-		  {% endif %}
+		<div class="box chartBox">
+			<div class="chartBox__heading">
+				Error {{error.code}} {{error.name}}
+			</div>
+			<div class="chartBox__content" >    
+				<p><b>{{ error.description }}</b></p>
+				<p>Sorry about that. If this error persists, please <a href="mailto:{{ webmaster_email|e }}?subject=[Reports Website] Error {{ error.code|e }}&amp;body=Hi,%0D%0A%0D%0AI've had the following error:%0D%0A%0D%0AError: {{ error.code|e }}%0D%0ABody: {{ error.description|e }}%0D%0ATraceback:%0D%0A{{ error.traceback|e }}%0D%0A%0D%0A">let us know</a>.</p>
+				<p><a href="/">Head back home</a> to try finding it again.</p>
+				{% if error.traceback %}
+				<h4>Debug Traceback</h4>
+				<pre><code>{{ error.traceback }}<code></pre>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 

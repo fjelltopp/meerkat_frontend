@@ -8,7 +8,7 @@ different services such as the API and Reports.
 """
 import json, os
 from slugify import slugify
-from flask import Flask, send_file, render_template, request, current_app, abort
+from flask import Flask, send_file, render_template, request, current_app, abort, flash
 import jinja2
 from .views.homepage import homepage
 from .views.technical import technical
@@ -96,12 +96,13 @@ def error_test(error):
 @app.errorhandler(404)
 @app.errorhandler(500)
 @app.errorhandler(501)
+@app.errorhandler(502)
 @app.errorhandler(403)
 @app.errorhandler(410)
 @app.errorhandler(418)
 def error500(error):
     """Serves page for generic error"""
-    current_app.logger.warning( "Error thrown" )
+    flash("Sorry, something appears to have gone wrong.", "error")
     return render_template('error.html', error=error, content=current_app.config['TECHNICAL_CONFIG']), error.code
 
 # Main
