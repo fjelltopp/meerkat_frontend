@@ -8,7 +8,7 @@ different services such as the API and Reports.
 """
 import json, os
 from slugify import slugify
-from flask import Flask, send_file, render_template, request
+from flask import Flask, send_file, render_template, request, current_app, abort
 import jinja2
 from .views.homepage import homepage
 from .views.technical import technical
@@ -87,17 +87,22 @@ def slug(s):
     """Creates a slugify filter for Jinja templates"""
     return slugify(s)
 
-# Logging to syslog
-# if not app.debug:
-#     import logging
-#     from logging.handlers import SysLogHandler
-#     syslog = SysLogHandler(address=app.config['SYSLOG_PATH'])
-#     syslog.setLevel(logging.WARNING)
-#     syslog.setFormatter(logging.Formatter(
-#         '%(asctime)s %(levelname)s: %(message)s '
-#         '[in %(pathname)s:%(lineno)d]'
-#     ))
-#     app.logger.addHandler(syslog)
+# ERROR HANDLING
+@app.route('/error/<int:error>/')
+def error_test(error):
+    """Serves requested error page for testing"""
+    abort(error)
+
+@app.errorhandler(404)
+@app.errorhandler(500)
+@app.errorhandler(501)
+@app.errorhandler(403)
+@app.errorhandler(410)
+@app.errorhandler(418)
+def error500(error):
+    """Serves page for generic error"""
+    current_app.logger.warning( "Error thrown" )
+    return render_template('error.html', error=error, content=current_app.config['TECHNICAL_CONFIG']), error.code
 
 # Main
 if __name__ == "__main__":

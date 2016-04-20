@@ -13,7 +13,6 @@ import dateutil.parser
 import requests
 from .. import common as c
 import string
-
 import pdfcrowd
 
 reports = Blueprint('reports', __name__)
@@ -264,22 +263,6 @@ def error_test(error):
 def serve_static(filepath):
     """Serves static assets (js, css, img etc)"""
     return send_file(filepath)
-
-
-# UTILITY ROUTES
-@reports.errorhandler(404)
-def error404(error):
-    """Serves page for Error 404"""
-    error.body += ". We’ve misplaced that page or it doesn’t exist."
-    return render_template('reports/error.html', error=error), 404
-
-
-# @reports.errorhandler(500)
-@reports.errorhandler(501)
-@reports.errorhandler(418)
-def error500(error):
-    """Serves page for generic error"""
-    return render_template('reports/error.html', error=error), error
 
 
 # FILTERS
