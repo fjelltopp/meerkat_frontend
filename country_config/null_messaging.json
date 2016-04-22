@@ -26,23 +26,17 @@
 	},
 	"application":"messaging",
 	"flag":"ni.png",
-	"logos":{
-		"who":"who.png",
-		"country_partner":"ni.png",
-		"partners":[]
-	},
 	"footer":{
 		"logos":{
-			"who":"who-logo-white-no-text.svg",
+			"who":"transparent.png",
 			"country_partner":"ni.png",
 			"partners":[]
 		},
 
 		"partners":[
-			"The World Health Organisation",
 			"The Ministry of Health, Null Island"
 		],
 
-		"email":"emwrojor@who.int"
+		"email":"nullisland@moh.int"
 	}
 }

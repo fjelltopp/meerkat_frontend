@@ -7,7 +7,7 @@
   },
   "flag":"ni.png",
   "logos":{
-    "who":"who.png",
+    "who":"transparent.png",
     "country_partner":"ni.png",
     "partners":[]
   },
@@ -25,8 +25,8 @@
     "reg_title":"Region"
   },
   "footer":{
-    "address":"World Health Organization<br>Meerkat Road<br>Null Capital<br>Null Island",
-    "email":"nullIsland@who.int"
+    "address":"MOH Null Island<br>Meerkat Road<br>Null Capital<br>Null Island",
+    "email":"nullisland@moh.int"
   },
   "sections":[
     {
