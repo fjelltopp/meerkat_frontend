@@ -13,7 +13,7 @@
   "categories":[
     ["cd_tab","Communicable Diseases"],
     ["ncd_tab","Non-Communicable Diseases"],
-    ["mhgap", "Mental Health Issues"],
+    ["mhgap", "Mental Health"],
     ["gender","Gender"],
     ["age","Age"],
     ["age_gender", "Age and Gender"],
