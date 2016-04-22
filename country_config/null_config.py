@@ -20,7 +20,7 @@ DOWNLOAD_CONFIG = 'country_config/null_download.json'
 # Explore Data specfic stuff
 EXPLORE_CONFIG = 'country_config/null_explore.json'
 
-FLAGG_ABR = "no"
+FLAGG_ABR = "null"
 
 AUTHENTICATION = {
     'basic_auth':{
