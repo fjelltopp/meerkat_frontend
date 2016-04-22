@@ -135,7 +135,7 @@ gulp.task('copyMapMarkers', function() {
 gulp.task('img', function() {
   gulp.start('copyFlags', 'copyMapMarkers');
   return gulp.src([
-    'meerkat_frontend/src/img/**/*.{gif,jpg,png,svg}',
+    'meerkat_frontend/src/img/**/*.{gif,jpg,png}',
     'bower_components/Leaflet.fullscreen/src/*.png',
     'bower_components/intl-tel-input/build/img/*.png'
   ])
