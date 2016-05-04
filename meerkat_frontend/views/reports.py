@@ -317,7 +317,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 current_app.logger.info(end_date)
             elif period == "month":
                 start_date = datetime(today.year, today.month - 1, 1)
-                end_date = datetime(today.year, today.month - 1, 31)
+                end_date = datetime(today.year, today.month, 1) - timedelta(days=1)
             elif period == "year":
                 start_date = datetime(today.year, 1, 1)
                 end_date = datetime(today.year, today.month, today.day)
