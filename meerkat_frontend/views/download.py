@@ -8,6 +8,14 @@ import json
 from .. import common as c
 
 download = Blueprint('download', __name__)
+@download.before_request
+def requires_auth():
+    """Checks that the user has authenticated before returning any page from the technical site."""
+    auth = request.authorization
+    if not auth or not c.check_auth(auth.username, auth.password):
+        return c.authenticate()
+
+
 
 @download.route('/')
 def index():
