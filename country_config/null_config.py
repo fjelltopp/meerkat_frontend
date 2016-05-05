@@ -1,25 +1,6 @@
 ROOT_URL = 'https://demo.emro.info'
 WEBMASTER_EMAIL = 'webmaster@emro.info'
 SITE_TITLE = 'Null Island Public Health Surveillance'
-
-# Homepage stuff
-HOMEPAGE_CONFIG = 'country_config/null_homepage.json'
-
-#Technical Site Stuff
-TECHNICAL_CONFIG = 'country_config/null_technical.json'
-
-# Reports specfic stuff
-REPORTS_CONFIG = 'country_config/null_reports.json'
-
-# Messaging specfic stuff
-MESSAGING_CONFIG = 'country_config/null_messaging.json'
-
-# Download Data specfic stuff
-DOWNLOAD_CONFIG = 'country_config/null_download.json'
-
-# Explore Data specfic stuff
-EXPLORE_CONFIG = 'country_config/null_explore.json'
-
 FLAGG_ABR = "null"
 
 AUTHENTICATION = {
@@ -27,6 +8,63 @@ AUTHENTICATION = {
         'username': '',
         'password': ''
     }
+}
+
+
+COMPONENT_CONFIGS = {
+    # Homepage stuff
+    'HOMEPAGE_CONFIG': 'country_config/null_homepage.json',
+
+    #Technical Site Stuff
+    'TECHNICAL_CONFIG': 'country_config/null_technical.json',
+
+    # Reports specfic stuff
+    'REPORTS_CONFIG': 'country_config/null_reports.json',
+
+    # Messaging specfic stuff
+    'MESSAGING_CONFIG': 'country_config/null_messaging.json',
+
+    # Download Data specfic stuff
+    'DOWNLOAD_CONFIG': 'country_config/null_download.json',
+
+    # Explore Data specfic stuff
+    'EXPLORE_CONFIG': 'country_config/null_explore.json'
+}
+
+# Configuration fields that are shared across all the above components.
+# Any fields in the above files labelled with the same key override this file.
+SHARED_CONFIG = {
+
+    "country":"Null Island",
+
+    "titles":{
+        "full":"Null Island <br> Public Health Surveillance",
+        "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
+        "mob_nav":"Health Surveillance"
+    },
+
+    "flag":"null.svg",
+
+    "footer":{
+        "logos":{
+	        "who":"transparent.png",
+	        "country_partner":"ni.png",
+	        "partners":[]
+        },
+
+        "partners":[
+            "The Ministry of Health, Null Island"
+        ],
+
+        "email":"nullisland@moh.int"
+    },
+
+    "glossary":{
+        "region":"kingdom"
+    },
+
+    "api_key": "test-api"
+
 }
 
 REPORT_LIST = {
@@ -91,4 +129,5 @@ REPORT_LIST = {
         }
     }
 }
+
 

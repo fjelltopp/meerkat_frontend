@@ -1,12 +1,5 @@
 {
   "application":"reports",
-  "country":"Null Island",
-
-  "titles":{
-    "full":"Null Island <br> Public Health Surveillance",
-    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
-    "mob_nav":"Health Surveillance"
-  },
 
   "introduction":"Here you can download summary reports drawn from the epidiemological data. ",
 
@@ -41,25 +34,5 @@
 		"start_date":"2015-12-17T00:00:00.000Z",
 		"period":"month"
     }
-  ],
-
-  "flag":"ni.png",
-
-  "footer":{
-    "logos":{
-		 "who":"transparent.png",
-		 "country_partner":"ni.png",
-		 "partners":[]
-    },
-
-    "partners":[
-			"The Ministry of Health, Null Island"
-    ],
-
-    "email":"nullisland@moh.int"
-  },
-
-  "glossary":{
-    "region":"kingdom"
-  }
+  ]
 }

@@ -1,15 +1,6 @@
 {
   "application":"explore",
 
-  "titles":{
-    "full":"Null Island <br> Public Health Surveillance",
-    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
-    "mob_nav":"Health Surveillance"
-  },
-
-  "api_key": "test-api", 
-
-  "flag":"ni.png",
   "categories":[
     ["cd_tab","Communicable Diseases"],
     ["ncd_tab","Non-Communicable Diseases"],
@@ -24,21 +15,6 @@
     ["locations:region", "Regions"],
     ["locations:district", "Districts"],
     ["locations:clinic", "Clinics"]
-  ],
-
-
-  "footer":{
-    "logos":{
-      "who":"transparent.png",
-      "country_partner":"ni.png",
-      "partners":[]
-    },
-
-    "partners":[
-      "The Ministry of Health, Null Island"
-    ],
-
-    "email":"nullisland@moh.int"
-  }
+  ]
 }
 

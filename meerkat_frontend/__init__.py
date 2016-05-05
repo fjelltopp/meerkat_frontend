@@ -1,7 +1,7 @@
 """
 meerkat_frontend.py
 
-Root Flask app for the Meerkat frontend.
+Root Flask app for the Meerkat Frontend.
 
 This module runs as the root Flask app and mounts component Flask apps for
 different services such as the API and Reports.
@@ -33,6 +33,8 @@ if app.config["TEMPLATE_FOLDER"]:
     app.jinja_loader = my_loader
 
 
+"""
+
 #Load settings saved in config files.
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
 app.config['HOMEPAGE_CONFIG'] = json.loads( open(path).read())
@@ -51,6 +53,43 @@ app.config['DOWNLOAD_CONFIG'] = json.loads( open(path).read())
 
 path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['EXPLORE_CONFIG']
 app.config['EXPLORE_CONFIG'] = json.loads( open(path).read())
+
+
+
+#Get a value for a given array of nested dictionary keys.
+def getFromDict(dataDict, mapList):
+    return reduce(lambda d, k: d[k], mapList, dataDict)
+
+#Check if the given array of nested dictionary keys is a valid path.
+def pathExists( dataDict, mapList):
+    if len(mapList) == 1: 
+        return mapList[0] in dataDict
+    else:
+        return pathExists( dataDict[mapList[0]], mapList[1:] ) 
+
+#Place item at the path specified by the given array of nested dictionary keys.
+def placeItem( dataDict, mapList, item ):
+    if len(mapList) == 1:   
+        dataDict[mapList[0]] = item
+        return dataDict
+    else:
+        return placeItem( dataDict[mapList[0]], mapList[1:], item ) 
+
+#Prepare the config files with the shared configuration values.
+def shareItem(keyList, value):   
+    if isinstance(value, dict):
+        for k, v in value.iteritems():
+            keyList.append(k)
+            shareItem(keyList, v)              
+    else:
+        print( keyList )
+"""
+
+for k,v in app.config['COMPONENT_CONFIGS'].items():
+    path = os.path.dirname(os.path.realpath(__file__)) + "/../" + v
+    config = json.loads( open(path).read() ) 
+    app.config[k] = {**app.config['SHARED_CONFIG'], **config}           
+        
 
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')
@@ -90,18 +129,26 @@ def slug(s):
 # ERROR HANDLING
 @app.route('/error/<int:error>/')
 def error_test(error):
-    """Serves requested error page for testing"""
+    """Serves requested error page for testing, by calling the ```abort()``` function.
+
+       Args:
+           error (int): The error code for the requested error.
+    """
     abort(error)
 
+@app.errorhandler(403)
 @app.errorhandler(404)
+@app.errorhandler(410)
+@app.errorhandler(418)
 @app.errorhandler(500)
 @app.errorhandler(501)
 @app.errorhandler(502)
-@app.errorhandler(403)
-@app.errorhandler(410)
-@app.errorhandler(418)
 def error500(error):
-    """Serves page for generic error"""
+    """Serves page for generic error.
+    
+       Args:
+           error (int): The error code given by the error handler.
+    """
     flash("Sorry, something appears to have gone wrong.", "error")
     return render_template('error.html', error=error, content=current_app.config['TECHNICAL_CONFIG']), error.code
 
