@@ -25,6 +25,7 @@ app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
+
 if app.config["TEMPLATE_FOLDER"]:
     my_loader = jinja2.ChoiceLoader([
         app.jinja_loader,
@@ -32,64 +33,11 @@ if app.config["TEMPLATE_FOLDER"]:
     ])
     app.jinja_loader = my_loader
 
-
-"""
-
-#Load settings saved in config files.
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
-app.config['HOMEPAGE_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['TECHNICAL_CONFIG']
-app.config['TECHNICAL_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['REPORTS_CONFIG']
-app.config['REPORTS_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['MESSAGING_CONFIG']
-app.config['MESSAGING_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['DOWNLOAD_CONFIG']
-app.config['DOWNLOAD_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['EXPLORE_CONFIG']
-app.config['EXPLORE_CONFIG'] = json.loads( open(path).read())
-
-
-
-#Get a value for a given array of nested dictionary keys.
-def getFromDict(dataDict, mapList):
-    return reduce(lambda d, k: d[k], mapList, dataDict)
-
-#Check if the given array of nested dictionary keys is a valid path.
-def pathExists( dataDict, mapList):
-    if len(mapList) == 1: 
-        return mapList[0] in dataDict
-    else:
-        return pathExists( dataDict[mapList[0]], mapList[1:] ) 
-
-#Place item at the path specified by the given array of nested dictionary keys.
-def placeItem( dataDict, mapList, item ):
-    if len(mapList) == 1:   
-        dataDict[mapList[0]] = item
-        return dataDict
-    else:
-        return placeItem( dataDict[mapList[0]], mapList[1:], item ) 
-
-#Prepare the config files with the shared configuration values.
-def shareItem(keyList, value):   
-    if isinstance(value, dict):
-        for k, v in value.iteritems():
-            keyList.append(k)
-            shareItem(keyList, v)              
-    else:
-        print( keyList )
-"""
-
+# Set up the config files.
 for k,v in app.config['COMPONENT_CONFIGS'].items():
     path = os.path.dirname(os.path.realpath(__file__)) + "/../" + v
     config = json.loads( open(path).read() ) 
     app.config[k] = {**app.config['SHARED_CONFIG'], **config}           
-        
 
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')
@@ -109,6 +57,7 @@ def prepare_function(template, config, authentication=False):
         return render_template(template, content=config, week=c.api('/epi_week'))
     return function
 
+# Add any extra country specific pages.
 for url, value in app.config["EXTRA_PAGES"].items():
     path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
     if "authenticate" in value and value["authenticate"]:
