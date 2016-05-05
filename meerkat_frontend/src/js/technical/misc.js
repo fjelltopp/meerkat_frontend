@@ -1,11 +1,26 @@
 
-//Get the epi week from the current date.
-//The epi week is the week number counted from the begining of Jan 2015.
+/**:get_epi_week()
+
+    Returns the current epi week. This value was initially calulated client-side, but now simply
+    returns the value of a global variable that is set by data passed to the Jinja2 template from
+    the server. The epi week is served by Meerkat API as it is calulated differently for each country.
+    Keeping the function means that any referencing code didn’t have to be re-written.
+
+    :returns:
+        (number) The current epi week.
+
+*/
 function get_epi_week(){
 	return week;
 }
 
-//Get the current date in text format.
+/**:get_date()
+
+    Get the current date in text format.
+
+    :returns:
+        (string) the current date in text format: "DD Month YYYY".
+*/  
 function get_date(){
 
     date=new Date();
@@ -17,7 +32,8 @@ function get_date(){
     return date.getDate()+" "+monthNames[date.getMonth()]+" "+date.getFullYear();
 }
 
-//Format a number with commas for the thousands.
+ 
+//Format a number with commas separating the thousands.
 function format(number){
 
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -49,7 +65,7 @@ function calc_percent_dist( array ){
 	return ret;
 }
 
-//Returns the vlue if the key exists in vari, returns zero if it doesn't. 
+//Returns the value if the key exists in vari, returns zero if it doesn't. 
 function if_exists(vari,key){
 
 	if ($.inArray(key,Object.keys(vari)) != -1 || $.inArray(key.toString(),Object.keys(vari)) != -1 ){
@@ -60,6 +76,7 @@ function if_exists(vari,key){
 
 }
 
+//For the sliding location selector...
 //Select the webkit event to listen for when determining when the side bar has transitioned.
 function whichTransitionEvent(){
 
@@ -79,13 +96,24 @@ function whichTransitionEvent(){
     }
 }
 
-//Utility function to capitalise the first character of a string.
+
+//Capitalises the first character of a string.
 function capitalise( string ){
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-//Gets the last n week numbers in an array, taking into account the change over between years. 
-//The array is formed as such: [week, week-1, week-2, ..., week-n]
+/**:lastWeeks( week, n )
+    
+    Gets the last n week numbers in an array, taking into account the change over between years. 
+
+    :param number week:
+        The week from which to calulate previous weeks.
+    :param number n:
+        The number of previous week numbers to get, including the specified week number.
+
+    :returns:
+        An array of week numbers formed as such: [week, week-1, week-2, ..., week-n]
+*/
 function lastWeeks( week, n ){
 
 	var weeks = [];
@@ -98,9 +126,50 @@ function lastWeeks( week, n ){
 	return weeks;
 }
 
-/* This function takes the response from a category aggregation and turns it into a data object
- * for sending to one of the draw-chart/draw-table functions. It allows multiple charts and tables
- * sharing the same data, to share the same api calls.  */
+/**:makeDataObject( aggregation, variables, week, title, percent )
+    
+    This function takes data structure churned out by Meerkat API and turns it into a structure
+    that is recognised by multiple chart drawing and table drawing functions in the technical component
+    Javascript. It allows multiple charts and tables that share the same data, to share the same api calls. 
+
+    :param object aggregation:
+        The aggregation data returned by Meerkat API upon calling `/aggregate_category`.
+    :param object variables:
+        The variables object returned by Meerkat API upon calling `/variables` Used to get details for
+        variable IDs used in the aggregation object.
+    :param number week:
+        The week for which the data object should be made.  Data is stored in the data object for this
+        given week and the previous two weeks as well as the current yearly total. 
+    :param string title:
+        The title that should be given to the data.  Used when constructing tables and charts. 
+    :param object percent:
+        An object giving the denominators to be used in calculating the percentages. The object should 
+        include the following properties:
+
+        * **year** - the denominator used to calulate the percentage for the year total.
+        * **weeks** - an array specifying the denominators to be used for calulating each week's percentage.
+          The 0th element is the current week and the 2nd element is the previous-but-one week. 
+
+        **Can also be boolean:** if true, percentages are auto- calculated from the category distribution. 
+
+    :returns:
+        The structured data object with the following properties:
+
+        * **title** (string) - The title given to the data.
+        * **labels** ([string]) - An array of the "names" or "labels" associated with each variable ID.
+        * **ids** ([string]) - An array of the variable IDs.
+        * **year** ([number]) - An array of yearly totals for each variable.
+        * **week** ([number]) - An array of the totals for each variable during the specified week.
+        * **week1** ([number]) - An array of the totals for each variable during the previous week.
+        * **week2** ([number]) - An array of the totals for each variable during the previous-but-one week.
+        
+        And optionally:
+
+        * **percYear** ([number]) - An array of yearly percentages for each variable. 
+        * **percWeek** ([number]) - An array of percentages for each variable during the specified week.
+        * **percWeek1** ([number]) - An array of percentages for each variable during the previous week.
+        * **percWeek2** ([number]) - An array of percentages for each variable during the previous-but-one week.
+ */
 function makeDataObject( aggregation, variables, week, title, percent ){
 
 	var bins = Object.keys(aggregation);
@@ -166,12 +235,39 @@ function makeDataObject( aggregation, variables, week, title, percent ){
 
 }
 
-/* This function factorises out repeated code when drawing tables and charts for category aggregations.
- * It also helps to share data from AJAX calls where possible, rather than making multiple replicated
- * AJAX calls for tables, bar charts and pie charts. The function manages the turn over
- * of years, by combining data from the previous year into the current year if necessary. In general,
- * when aggregating over a category, you should display the results using this function. All the 
- * parameters are specified in a details object. */
+/**:categorySummation( details )
+
+    This function factorises out repeated code when drawing tables and charts for category aggregations.
+    It also helps to share data from AJAX calls where possible, rather than making multiple replicated
+    AJAX calls for tables, bar charts and pie charts. The function manages the turn over
+    of years, by combining data from the previous year into the current year if necessary. In general,
+    when aggregating over a category, you should display the results using this function. All the 
+    parameters are specified in a details object. 
+
+    :param object details:
+        The details object can have the following properties:
+        
+        * **category** - (String) The ID (from Meerkat Abacus) of the category to be summarised.
+        * **locID** - (String) The ID of the location by which to filter the day.
+        * **week** - (number) The epi week for which the summary should take place.
+        * **percent** - (boolean OR string) If true, percentages are shown in the chart and table.
+          If this is a string, each datum percentage will represent the percentage of a yearly 
+          total, rather than the category total.  The denominator used to calulate the percentage
+          will be taken as the yearly total of the variable specified by the string.  
+        * **strip** - (boolean) If true, remove all empty records from the summary (i.e. all rows
+          that have just 0 for each column). 
+        * **title** - (string) The title for the table/chart.
+        * **barID** - (string) The ID for the HTML element that will hold the bar chart.  If empty, 
+          no bar chart is drawn.
+        * **pieID** - (string) The ID for the HTML element that will hold the pie charts.  If empty, 
+          no pie charts are drawn.
+        * **tableID** - (string) The ID for the HTML element that will hold the table. If empty, 
+          no table will be drawn.  
+        * **no_total** - (boolean) If true, no total row will be drawn in the table.
+        * **link_function** - The function name to be added "onclick" to each table row header. See 
+          the docs for `drawTable()` from the file *tableManager.js* for more information.  
+
+*/
 function categorySummation( details ){ 
 
 	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
@@ -278,6 +374,20 @@ function categorySummation( details ){
 	});
 }
 
+/**:exportTableToCSV(tableID, filename, link)
+
+    Exports a html table to CSV format.  Used to create the download table buttons in the
+    technical dashboard. 
+
+    :param string tableID:
+        The ID of the HTML table element to be exported.
+    :param string filename:
+        The file name of the CSV file to be downloaded.
+    :param string link:
+        The HTML link element which, upon a click, should make the table available to download.
+        This function is usually called from within the HTML link element using "onclick=" so 
+        "this" will usually suffice here. 
+*/
 function exportTableToCSV(tableID, filename, link) {
 
 	var rows = $('#'+tableID).find('tr');
@@ -345,5 +455,59 @@ function getDifference( arr1, arr2 ){
 	});
 }
   
+
+/**:stripEmptyRecords( dataObject )
+
+    Strips records from a data object that are empy - i.e. rows that are zero in all columns.
+    
+    :param object dataObject:
+        A data object as built by the **misc.js** function `makeDataObject()`.
+
+    :returns:
+        The dataObject stripped of its empty records.
+ */
+function stripEmptyRecords( dataObject ){
+
+	var dataFields = Object.keys( dataObject );
+	var stripped = [];
+	var newData = {};
+
+	//Find the indicies of records to be retained. 
+	//I.E. NOT THE ONES TO BE STRIPPED, but the ones AFTER stripping.
+	for( var i in dataObject.year ){
+		if( dataObject.year[i] !== 0 ){
+			stripped.push( i );
+		}	
+	}
+
+	//Clone the data object structure.
+	for( var k in dataFields ){
+
+		var field = dataFields[k];
+
+		if( dataObject[field].constructor === Array ){
+			newData[field] = [];
+		}else{
+			newData[field] = dataObject[field];
+		}
+	}
+
+	//For each index to be retained, push the data object's record to the new data object.
+	for( var j in stripped ){
+
+		var index = stripped[j];
+		for( var l in dataFields){
+
+			var label = dataFields[l];
+			if( dataObject[label].constructor === Array ){
+				var value = dataObject[ label ][ index ]; 
+				newData[ label ].push( value );
+			}
+		}
+	}
+
+	return newData;
+}
+
 
 

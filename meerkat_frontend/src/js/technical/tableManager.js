@@ -1,8 +1,24 @@
-/* Creates epi tables with data from: current week, last two weeks and the year.
- * Takes the same data object as the chart drawing functions.
- * If linkFunction is defined we add the given function "onclick" to each table row.
- * If no_total is positive we do not add total
- */
+/**:drawTable(containerID, data, no_total, linkFunction)
+
+    Creates epi tables with data from: current week, last two weeks and the year.
+    Takes the same data object as the chart drawing functions. Rather than loading JSON
+    data inside the method, it is passed as arguments to the method so that JSON requests
+    can be shared across multiple drawings. This is the most generic table drawing function
+    called primarily from the misc.js function `categorySummation()`.
+
+    :param string containerID: 
+        The ID of the html element to hold the table.
+    :param object data: 
+        The data to be tabulated, built by the misc.js function `buildDataObject()`.
+    :param boolean no_total: 
+        Set to true if no total row should be included.
+    :param string linkfunction: 
+        The function name to be added "onclick" to each table row header.
+        The linkfunction is given the row's variable ID as an argument (such as "gender_1"). 
+        e.g. We write a function `uslessAlert( varID ){ alert(varID); }`, and set the 
+        linkFunction argument to "uselessAlert" to create a link in each row header that flashes
+        up the variable ID in a javascript alert dialouge.       
+*/
 function drawTable( containerID, data, no_total, linkFunction ){
 	
 	//We want to work with a clone of the data, not the data itself.
@@ -73,8 +89,20 @@ function drawTable( containerID, data, no_total, linkFunction ){
 	return table;
 }
 
-/* Draws the table of alerts used on the Alerts tab. Lists each alert according to date
- * and provides links to the individual Alert Investigation reports. 
+/**:drawAlertsTable(containerID, alerts, variables)
+
+    Draws the table of alerts used on the Alerts tab. Lists each alert according to date
+    and provides links to the individual Alert Investigation reports. Rather than loading JSON
+    data inside the method, it is passed as arguments to the method so that JSON requests
+    can be shared across multiple drawings. 
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param [object] alerts:
+        An array of alert objects as returned by Meerkat API `/alerts`.
+    :param object variables:
+        An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
+        Specifically used to print the variable name instead of ID. 
  */
 function drawAlertsTable(containerID, alerts, variables){
     
@@ -91,8 +119,8 @@ function drawAlertsTable(containerID, alerts, variables){
 			table = '<table class="table table-hover table-condensed">' +
 		            '<tr><th>Alert ID</th><th>Alert</th>' +
 		            '<th><span class="glossary capitalised" word="region">Region</span></th>' + 
-		            '<th>Clinic</th><th>Date Reported</th><th>Date Investigated</th><th>Central Review</th><th>Status</th>' +
-		            '</tr>';
+		            '<th>Clinic</th><th>Date Reported</th><th>Date Investigated</th>' +
+                    '<th>Central Review</th><th>Status</th></tr>';
 
 		}
 		//For each alert in the given array of alerts create the html for a row of the table.
@@ -139,9 +167,21 @@ function drawAlertsTable(containerID, alerts, variables){
 	});
 }
 
-/* Draws the table of alert aggregation used on the Alerts tab. Lists the number of
- * alerts for each cause (e.g. Viral Meningitis) and provides links that filter the 
- * alerts table (as specified by dratAlertsTable() ) by cause.
+/**:drawAlertAggTable(containerID, aggData, variables)
+
+    Draws the table of alert aggregation used on the Alerts tab. Lists the number of
+    alerts for each cause (e.g. Viral Meningitis) and provides links that filter the 
+    alerts table (as specified by drawAlertsTable() ) by cause. Rather than loading JSON
+    data inside the method, it is passed as arguments to the method so that JSON requests
+    can be shared across multiple drawings. 
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param object aggData:
+        An alert aggregation data object as returned by Meerkat API `/aggregate_alerts`.
+    :param object variables:
+        An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
+        Specifically used to print the variable name instead of ID. 
  */
 function drawAlertAggTable( containerID, aggData, variables ){
 
@@ -187,7 +227,23 @@ function drawAlertAggTable( containerID, aggData, variables ){
 
 }
 
-// Function for drawing pip line list
+/**:drawPipTable(containerID, aggData, variables)
+
+    ??
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+    :param string variable_id:
+        ??
+    :param string link_def_id_labs:
+        ??
+    :param string link_def_id_return:
+        ??
+    :param string links_variable:
+        ??
+ */
 function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, link_def_id_return, link_variable){
     
 	$.getJSON( api_root+"/locations", function( locations ){
@@ -200,9 +256,9 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 		            '<th>Clinic</th><th>Date Reported</th><th>Follow-up completed</th><th>Laboratory Results</th><th>Status</th>' +
 		            '</tr>';
 
-		$.getJSON( api_root+"/records/"+variable_id +"/" +location_id, function( case_dict ){
-			$.getJSON( api_root+"/links/"+link_def_id_labs, function( links_dict_labs ){
-				$.getJSON( api_root+"/links/"+link_def_id_return, function( links_dict_return ){
+		$.getJSON( api_root + "/records/" + variable_id + "/" + location_id, function( case_dict ){
+			$.getJSON( api_root + "/links/" + link_def_id_labs, function( links_dict_labs ){
+				$.getJSON( api_root + "/links/" + link_def_id_return, function( links_dict_return ){
 					var cases = case_dict.records;
 					var labs = links_dict_labs.links;
 					var return_visits = links_dict_return.links;
@@ -251,8 +307,14 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 	});
 }
 
+/**:drawCompletenessAggTable(containerID)
 
+    Draws the completeness table, showing the percentage of daily registers submitted
+    by clinics in each region over different time periods.
 
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+ */
 function drawCompletenessAggTable( containerID ){
 
 	$.getJSON( api_root+"/completeness/reg_1/4", function( regionData ){
@@ -292,6 +354,16 @@ function drawCompletenessAggTable( containerID ){
 	});
 }
 
+/**:drawCompletenessTable(containerID, regionID)
+
+    Draws the completeness table, showing the number of case reports and daily
+    registers submitted by each clinic over different time periods.
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param string regionID:
+        The ID of the region by which to filter the completeness data.
+ */
 function drawCompletenessTable( containerID, regionID ){
 
 	$.getJSON( api_root+"/completeness/reg_1/4", function( registerData ){

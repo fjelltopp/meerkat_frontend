@@ -29,6 +29,14 @@ def requires_auth():
 @reports.route('/')
 @reports.route('/loc_<int:locID>')
 def index(locID=1):
+    """Render the reports splash page (index.html).
+       The reports splash page provides a form enabling user to select which report to view.
+
+       Args:
+           locID (int): The location ID of a location to be automatically loaded into the 
+               location selector. 
+    """
+
     return render_template('reports/index.html',
                            content=current_app.config['REPORTS_CONFIG'],
                            loc=locID,
@@ -37,7 +45,12 @@ def index(locID=1):
 
 @reports.route('/test/<report>/')
 def test(report):
-    """Serves a test report page using a static JSON file."""
+    """Serves a test report page using a static JSON file.
+        
+       Args:
+           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+    """
+
     report_list = current_app.config['REPORT_LIST']
     if report in report_list['reports']:
         try:
@@ -87,7 +100,11 @@ def test(report):
 
 @reports.route('/email/<report>/', methods=['POST'])
 def send_email_report(report):
-    """Sends an email via Hermes with the latest report"""
+    """Sends an email via Hermes with the latest report.
+
+       Args:
+           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+    """
 
     report_list = current_app.config['REPORT_LIST']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
@@ -173,7 +190,15 @@ def send_email_report(report):
 @reports.route('/<report>/<location>/<end_date>/')
 @reports.route('/<report>/<location>/<end_date>/<start_date>/')
 def report(report=None, location=None, end_date=None, start_date=None):
-    """Serves dynamic report for a location and date"""
+    """Serves dynamic report for a location and date.
+   
+       Args:
+           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+           location (int): The location ID for the location used to filter the report's data.
+           end_date (str): The end_data used to filter the report's data, in ISO format.
+           start_date (str): The start_date used to filter the report's data, in ISO format.
+        
+    """
     # Check that the requested project and report are valid
     report_list = current_app.config['REPORT_LIST']
 
@@ -203,7 +228,15 @@ def report(report=None, location=None, end_date=None, start_date=None):
 @reports.route('/<report>~<location>~<end_date>.pdf')
 @reports.route('/<report>~<location>~<end_date>~<start_date>.pdf')
 def pdf_report(report=None, location=None, end_date=None, start_date=None):
+    """Serves a PDF report, by printing the HTML report (with @media print CSS) to PDF using PDF crowd.
+       Tildes are used because underscores are already used in the report ID and hyphens in the ISO dates.
 
+       Args:
+           report (str): The report ID, from the REPORTS_LIST configuration file parameter.\n
+           location (int): The location ID for the location used to filter the report's data.\n
+           end_date (str): The end_data used to filter the report's data, in ISO format.\n
+           start_date (str): The start_date used to filter the report's data, in ISO format.
+    """
     report_list = current_app.config['REPORT_LIST']
     client = pdfcrowd.Client(
         current_app.config['PDFCROWD_API_ACCOUNT'],
@@ -234,7 +267,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                 '/static/'))
 
         client.usePrintMedia(True)
-				#Allow reports to be set as portrait or landscape in the config files.
+        #Allow reports to be set as portrait or landscape in the config files.
         if( report_list['reports'][report].get( 'landscape', False ) ):
             client.setPageWidth('1697pt')
             client.setPageHeight('1200pt')
@@ -252,35 +285,42 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
     else:
         abort(501)
 
-@reports.route('/error/<int:error>/')
-def error_test(error):
-    """Serves requested error page for testing"""
-    abort(error)
-
 
 # STATIC ROUTES
 @reports.route('/assets/<path:filepath>/')
 def serve_static(filepath):
-    """Serves static assets (js, css, img etc)"""
+    """Serves static assets (js, css, img etc).
+
+       Args:
+           filepath (str): The file path of the desired asset. 
+    """
     return send_file(filepath)
 
 
 # FILTERS
 @reports.app_template_filter('datetime')
 def format_datetime(value, format='%H:%M %d-%m-%Y'):
-    """Returns formatted timestamp"""
+    """Returns formatted timestamp.
+    
+       Args:
+           value (date): the date to be converted to a string.
+           format (optional str): the format of the new string. Defaults to '%H:%M %d-%m-%Y'. 
+
+       Returns:
+           The formatted timestamp string.
+    """
     return value.strftime(format)
 
 
 @reports.app_template_filter('datetime_from_json')
 def datetime_from_json(value):
-    """Returns Python datetime object from JSON timestamp in ISO8601 format"""
+    """Returns Python datetime object from JSON timestamp in ISO8601 format."""
     return dateutil.parser.parse(value)
 
 
 @reports.app_template_filter('commas')
 def format_thousands(value):
-    """Adds thousands separator to values"""
+    """Adds thousands separator to value."""
     return "{:,}".format(int(value))
 
 
@@ -292,7 +332,25 @@ def list_reports(region,
 
 
 def create_report(config, report=None, location=None, end_date=None, start_date=None):
-    """Dynamically creates report"""
+    """Dynamically creates report, that can then be served either in HTML or PDF format.
+
+       Args:
+           config (dict): The current app config object. 
+           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+           location (int): The location ID for the location used to filter the report's data.
+           end_date (str): The end_data used to filter the report's data, in ISO format.
+           start_date (str): The start_date used to filter the report's data, in ISO format.
+
+       Returns:
+           dict: The report details
+           ::
+               {
+                   'template' (str): the template file specified in the REPORTS_LIST config property,
+                   'report' (dict): the data collected form the Meerkat API,
+                   'extras' (dict): any extra data calulated from API data needed to create the report,
+                   'address' (str): the contact address to be printed in the report
+               }
+    """
 
     #try:
     report_list = config['REPORT_LIST']
@@ -379,8 +437,8 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     else:
         extras = None
-    # Render correct template for the report
 
+    # Render correct template for the report
     return {
         'template':report_list['reports'][report]['template'],
         'report':data,
@@ -388,5 +446,3 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         'address':report_list["address"]
         }
 
-    #except Exception as e:
-    #    return 'Error while creating report: ' + str(e)

@@ -232,15 +232,15 @@ $( function(){
 //This is called when a new location is loaded. 
 //It stores the desired location ID ready to be picked up by reDraw().
 function drawCharts( locID ){
-     $('#location-option').attr('value', locID );
-     keep_checked = true;
+    $('#location-option').attr('value', locID );
+    keep_checked = true;
     reDraw();
 }
 
 
- function createKeepRemoved(){
+function createKeepRemoved(){
      
-     indices = []
+   indices = []
 	 selections = $("#cross-table").bootstrapTable('getSelections');
 	 console.log("Selections", selections);
      if(selections.length > 0){
@@ -318,14 +318,16 @@ function showSpinners( show ){
 }
 indices = undefined;
  keep_checked = true;
+
+
 //The chart state is stored in the html page - specifically '.cross-option' elements.
 //Each of these elements should have a name and a value attribute.
 //This function draws a new chart based upon these attributes.
 function reDraw(){
 
-     if (keep_checked){
-	 check_function = createKeepRemoved();
-	 }
+    if (keep_checked){
+        check_function = createKeepRemoved();
+	 	}
     showSpinners();
 
     var crossOptions = {};
@@ -343,14 +345,15 @@ function reDraw(){
 
      
     console.log( crossOptions );
-     console.log( timelineOptions );
+    console.log( timelineOptions );
      
-     if (keep_checked){
-	 //Draw new chart
-	 createCrossPlot( $('.xaxis .axis-selector select').val(), 
+    if (keep_checked){
+	  //Draw new chart
+	  createCrossPlot( $('.xaxis .axis-selector select').val(), 
 			  $('.yaxis .axis-selector select').val(), 
-			  crossOptions, check_function);
-	 keep_checked = false;
+			  crossOptions, check_function 
+    );
+	  keep_checked = false;
      }else{
 	 createCrossPlot( $('.xaxis .axis-selector select').val(), 
 			  $('.yaxis .axis-selector select').val(),

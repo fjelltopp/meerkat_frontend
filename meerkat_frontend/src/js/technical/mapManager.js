@@ -1,8 +1,21 @@
-/* This map visualises the number of reported cases for the given variable ID at
- * each clinic. The numbers of cases at each clinic shown using a colour gradient.
+/* This 
  */
 map = null;
+
+/**:drawMap(varID, containerID, location)
+
+    Draws a map that visualises the number of reported cases for the given variable ID at
+    each clinic. The numbers of cases at each clinic shown using a colour gradient.
+
+    :param string varID: 
+        The ID of the variable to be mapped.
+    :param string containerID: 
+        The ID of the html element to hold the map.
+    :param int location:
+        The location ID to filter data by.        
+*/
 function drawMap( varID, containerID, location ){
+
 	location = location || 1 ;
 	
 	$.getJSON( api_root+'/map/'+varID+'/'+location, function( data ){

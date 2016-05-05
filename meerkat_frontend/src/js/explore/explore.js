@@ -1,9 +1,27 @@
 
-//Takes two categories and collects data from the api.
-//It then turns the data turns it into a two dimensional array.
-//Any optional analysis (stripping records/colouring/graphing) can then be applied.
-//Details for this analysis are given in the options object.
-//Finally the table is drawn.
+/**:createCrossPlot( catx, caty, options, post_function )
+
+    Cross-tabulates the two given categories in a bootstrap table with options to strip records,
+    colour cells and manipulate data in other ways.
+
+    :param string catx:
+        The category to tabulated across the columns
+    :param string caty:
+        The category to be tabulated down the rows. 
+    :param object options:
+        The options object detailing how the table should be put together. 
+        Can have the following properties:
+        
+        * **start_date** (string) - The start date by which to filter data (in ISO format).
+        * **end_date** (string) - The end date by which to filter data (in ISO format).
+        * **location** (number) - The location ID by which to filter the data. 
+        * **strip** (boolean) - Strip empty rows from the table.
+        * **colour** (boolean) - Colour the cells with a shade of the highlight colour.
+          according to the proportion of the range that the value represents.
+    :param string post_function:
+        ??
+*/
+
 function createCrossPlot( catx, caty, options, post_function ){
 
 	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
@@ -76,36 +94,41 @@ function createCrossPlot( catx, caty, options, post_function ){
 			];
 			
 			var data = [];
-            var colTotal = [];
-            for( var i=0; i<= xKeys.length; i++ ) colTotal.push( 0 );
+			var colTotal = [];
+			for( var i=0; i<= xKeys.length; i++ ) colTotal.push( 0 );
 
 			//For each key in the y category, form the row from x category data.
 			for( var y in yKeys.sort()){
+
 				var row ={
 					"cases": timelineLink(yKeys[y],catyData[yKeys[y]].name,"y")
 				};
+
 				var rowTotal = 0;
 
 				for( var x in xKeys ){
 
-                    //The data point to be added...
-                    datum = queryData[yKeys[y]][xKeys[x]];
+          //The data point to be added...
+          datum = queryData[yKeys[y]][xKeys[x]];
 
-                    colTotal[ x ] += datum;
+					colTotal[ x ] += datum;
 					rowTotal += datum;
-                    row[xKeys[x]] = datum;
+					row[xKeys[x]] = datum;
+
 				}
-                row.total = rowTotal;
-                colTotal[xKeys.length] += rowTotal ;
+
+				row.total = rowTotal;
+				colTotal[xKeys.length] += rowTotal ;
 				data.push( row );		
+
 			}
             
-            totalRow = { "cases":"Total" };
-            for( var col in xKeys ){
-                totalRow[xKeys[col]] = colTotal[col];
-            }
-            totalRow.total = colTotal[xKeys.length];
-            data.push( totalRow );
+      totalRow = { "cases":"Total" };
+      for( var col in xKeys ){
+				totalRow[xKeys[col]] = colTotal[col];
+      }
+      totalRow.total = colTotal[xKeys.length];
+      data.push( totalRow );
 
 			// Add the rest of the columns when we know if we are colouring in the cells
 			var maxMin = [];
@@ -132,40 +155,41 @@ function createCrossPlot( catx, caty, options, post_function ){
 					sortable: true
 				}
 			);
+
 			if(strip){
 				var r = stripData(columns, data, options.strip );
 				columns = r[0];
 				data = r[1];
 			}
-            if( colTotal[ colTotal.length-1 ] > 0 ){
 
-			    //Draw the table
-                var framework = "<div class='table-responsive' >" +
-                                "<table id='cross-table' data-toolbar='#toolbar' data-show-export='true'>" + 
-                                "</table></div>";
+			if( colTotal[ colTotal.length-1 ] > 0 ){
 
-                $("#cross-wrapper").html( framework );
+				//Draw the table
+				var framework = "<div class='table-responsive' >" +
+				                "<table id='cross-table' data-toolbar='#toolbar' data-show-export='true'>" + 
+				                "</table></div>";
+
+				$("#cross-wrapper").html( framework );
+
 				if(post_function){
 					$("#cross-table").on("post-body.bs.table", function (){
 						post_function($("#cross-table"));
 					});
-
-						//post_function($("#cross-table")));
 				}
 				
-			    $("#cross-table").bootstrapTable({
-				    columns: columns,
-				    data: data,
-				    clickToSelect: true,
+				$("#cross-table").bootstrapTable({
+					columns: columns,
+					data: data,
+					clickToSelect: true,
 					uniqueId: "cases"
-			    });
-				
-            }else{
-                console.log("Empty object");
-			    $('#cross-wrapper').html( 
-				    "Unfortunately the table you requested has no data.  Please request a different table." 
-			    );
-            }    
+				});
+
+			}else{
+				console.log("Empty object");
+				$('#cross-wrapper').html( 
+					"Unfortunately the table you requested has no data.  Please request a different table." 
+				);
+			}    
 		}
 	});
 }
@@ -173,17 +197,18 @@ function createCrossPlot( catx, caty, options, post_function ){
 function createColourCell(maxMin){
 	// Returns a function that colours in the cells according to their value
 	function cc(value, row, index){
-        if(row.cases != "Total"){
-		    var perc = (value-maxMin[0])/(maxMin[1]-maxMin[0]);
-		    return {css: {"background-color": "rgba(217, 105, 42, " + perc +")"}};
-        }
-        return {classes: "total-row"};
+		if(row.cases != "Total"){
+			var perc = (value-maxMin[0])/(maxMin[1]-maxMin[0]);
+			return {css: {"background-color": "rgba(217, 105, 42, " + perc +")"}};
+		}
+		return {classes: "total-row"};
 	}
 	return cc;
 }
 
 function max_min(data){
 	// Returns max and min of all numbers in table
+	// Used to correctly colour the table. 
 	var list = [];
 	for( var r=1; r<data.length; r++ ){
 		var row = data[r];
@@ -209,6 +234,26 @@ function idSort(a,b){
 			return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]); 
 }
 
+/**:createTimeline(id, cat, options)
+
+    Tabulates the number of cases satisfying the given variable in each week, against 
+    the number of cases satisfying each variable in the given category. 
+
+    :param string id:
+        The given variable ID.
+    :param string cat:
+        The given category ID.
+    :param object options:
+        The options object detailing how the table should be put together. 
+        Can have the following properties:
+        
+        * **start_date** (string) - The start date by which to filter data (in ISO format).
+        * **end_date** (string) - The end date by which to filter data (in ISO format).
+        * **location** (number) - The location ID by which to filter the data. 
+        * **strip** (boolean) - Strip empty rows from the table.
+        * **colour** (boolean) - Colour the cells with a shade of the highlight colour.
+          according to the proportion of the range that the value represents.
+*/
 function createTimeline(id, cat, options){
 
 	console.log( "Drawing timeline" );
@@ -324,8 +369,6 @@ function createTimeline(id, cat, options){
 		});
 	});	
 }
-
-
 
 function transpose( jsTable ){
 	var newTable = jsTable[0].map(function(col, i) { 

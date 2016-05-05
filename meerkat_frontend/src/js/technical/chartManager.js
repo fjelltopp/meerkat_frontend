@@ -1,14 +1,36 @@
-/* This method hides div elements inside the container that don't have a class with the given type.
- * Requires a container element with ID 'containerID' holding divs with class 'chart'.
- * These divs with class 'chart' also have a class that determines type, e.g. 'bar' or 'pie'
- * This method is practically used to switch between bar and pie charts. */
+/**:showChartType( type, containerID )
+
+    Hides div elements inside the container that don't have a class with the given type.
+    Requires a container element with ID 'containerID' holding divs with class 'chart'.
+    These divs with class 'chart' also have a class that determines type, e.g. 'bar' or 'pie'
+    This function is practically used to switch between bar and pie charts. 
+
+    :param string type:
+        The class of the HTML element holding the chart to be shown. 
+        The HTML element must also have a class of chart.
+    :param string containerID:
+        The ID of the HTML holding the different charts. 
+        Each element holding a chart in the container must have a class of both "chart" 
+        and an identifying type e.g. "bar" or "pie". 
+
+*/
 function showChartType( type, containerID ){
 	$('#'+containerID+' .chart').not('.'+type).addClass('hidden');
 	$('#'+containerID+' .'+type).removeClass('hidden');
 }
 
-/* This method draws a bar chart in the DOM element with the given containerID using the
- * data in the given data object. If percent is set to true, we use percentage rather than numbers.
+/**:drawBarChart( containerID, data, percent )
+
+    Draws a bar chart in the DOM element with the given containerID using the
+    data in the given data object. If percent is set to true, we use percentage rather than numbers.
+
+    :param string containerID:
+        The ID of the HTML element to hold the chart.
+    :param object data:
+        The data object as built by the misc.js function `makeDataObject()`.
+    :param boolean percent:
+        If true, data will be first converted to percentages, where each datum become the its
+        percentage of the total data set: (datum value/total value)*100.
  */
 function drawBarChart( containerID, data, percent ){
 
@@ -72,9 +94,20 @@ function drawBarChart( containerID, data, percent ){
 
 }
 
-/* This method draws two pie charts in the container with the given containerID using the
- * data in the given data object.  One pie chart provides a data sumamry for the last week
- * the other pie chart provides a data summary for the year to date. 
+/**:drawPieCharts( containerID, data, percent )
+
+    Draws pie charts in the DOM element with the given containerID using the
+    data in the given data object. If percent is set to true, we use percentage rather than numbers.
+    Two pie charts are drawn, one for the previous week, and one for the cumulative total during the
+    current year.
+
+    :param string containerID:
+        The ID of the HTML element to hold the chart.
+    :param object data:
+        The data object as built by the misc.js function `makeDataObject()`.
+    :param boolean percent:
+        If true, data will first be converted to percentages, where each datum become the its
+        percentage of the total data set: (datum value/total value)*100.
  */
 function drawPieCharts( containerID, data, percent ){
 	
@@ -153,6 +186,17 @@ function drawPieCharts( containerID, data, percent ){
 
 }
 
+/**:drawTimeCharts( varID, locID, containerID )
+
+    Draws a timeline bar chart showing the number of cases in each epi week this current year.
+
+    :param string varID:
+        The ID of the variable to be plotted (taken from Meerkat Abacus).
+    :param string locID:
+        The ID of the location by which to filter the data.
+    :param string containerID:
+        The ID of the HTML element to hold the chart.
+ */
 function drawTimeChart( varID, locID, containerID ){
 
 	$.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
@@ -216,70 +260,22 @@ function drawTimeChart( varID, locID, containerID ){
 
 }
 
-/* This function strips empty records from a data object.  This is useful if the category
- * you are visualising has many 'bins' (for instance communicable diseases, or ICD-10 ).
- * If you strip the empty records before drawing the table and graphs, the size of the drawings
- * can be significantly smaller and easier to comprhend.
- */
-function stripEmptyRecords( dataObject ){
-
-	var dataFields = Object.keys( dataObject );
-	var stripped = [];
-	var newData = {};
-
-	//Find the indicies of records to be retained. 
-	//I.E. NOT THE ONES TO BE STRIPPED, but the ones AFTER stripping.
-	for( var i in dataObject.year ){
-		if( dataObject.year[i] !== 0 ){
-			stripped.push( i );
-		}	
+Highcharts.setOptions({
+	colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
+		      "#CDEDF6", "#690500", "#77477B", "#40476D","#042A2B" ],
+	chart: {
+		backgroundColor: null,
+		style: {
+			fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+		}
+	},
+	credits: {
+		enabled: false
+	},
+	exporting: {
+		enabled: false
 	}
 
-	//Clone the data object structure.
-	for( var k in dataFields ){
-
-		var field = dataFields[k];
-
-		if( dataObject[field].constructor === Array ){
-			newData[field] = [];
-		}else{
-			newData[field] = dataObject[field];
-		}
-	}
-
-	//For each index to be retained, push the data object's record to the new data object.
-	for( var j in stripped ){
-
-		var index = stripped[j];
-		for( var l in dataFields){
-
-			var label = dataFields[l];
-			if( dataObject[label].constructor === Array ){
-				var value = dataObject[ label ][ index ]; 
-				newData[ label ].push( value );
-			}
-		}
-	}
-
-	return newData;
-}
-
-	Highcharts.setOptions({
-		colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
-			      "#CDEDF6", "#690500", "#77477B", "#40476D","#042A2B" ],
-		chart: {
-			backgroundColor: null,
-			style: {
-				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
-			}
-		},
-		credits: {
-			enabled: false
-		},
-		exporting: {
-			enabled: false
-		}
-
-	});
+});
 
 

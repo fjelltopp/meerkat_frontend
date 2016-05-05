@@ -1,3 +1,64 @@
+/**:loadPage( pageState, logHistory )
+
+    Loads any page summarised by a "Page State" object. Page state objects have three properties:
+
+    * **type** - the type of page being loaded. Different types have different ways of assembling
+      the corresponding URL and drawing the page content. The current ypes in use are: 'tab', 
+      'alert' or 'disease'. 
+    * **dataID** - a string identifying which page of the specified type should be loaded. E.g. for
+      the type 'tab' a tab ID such as 'demographics', for the type 'alert' an alert ID such as
+      '252627' and for type 'disease' a variable ID from Meerkat Abacus such as 'cmd_1'.
+    * **locID** - the location ID (taken from the location tree in *locationManager.js*) used to
+      filter data. This is an optional field as not all pages requiring filtering by locations.
+
+    If pageState does not include a type, this functions loads the locID location into the currently
+    rendered template by calling `loadLocation()` from the *locationManager.js* file.
+
+    :param object pageState:
+        The page state summarising the page to be loaded. See details above for the object specifications.
+    :param boolean logHistory:
+        If true, the page state will be pushed into the browser history before loading content.
+        If false, the page content will be updated appropiately, but the URL and browser history
+        won't be updated. 
+ */
+function loadPage( pageState, logHistory ){
+
+	if( typeof(pageState.type) != 'undefined'){
+
+        //Each page type should have a `load<type>()` and `load<type>Content()` function.
+        //The first sorts out the browser history and URL, the latter the page content.
+        //Separating the the two allows us to update the page without logging it in the history.
+		switch( pageState.type ){
+
+			case 'tab' :
+				if( logHistory ) loadTab( pageState.dataID, pageState.locID ); 
+				else loadTabContent( pageState.dataID, pageState.locID ); 
+				break;
+
+			case 'alert' :
+				if( logHistory ) loadAlert( pageState.dataID ); 
+				else loadAlertContent( pageState.dataID ); 
+	 			break;
+
+			case 'disease' : 
+				if( logHistory ) loadDisease( pageState.dataID, pageState.locID ); 
+				else loadDiseaseContent( pageState.dataID, pageState.locID ); 
+				break;
+		}
+
+	}else{
+
+		if( typeof(pageState.locID) != 'undefined'){
+			if( logHistory ) loadLocation( pageState.locID );
+			else loadLocationContent( pageState.locID );
+
+		}else{
+			console.error( 'No information provided in the pageState' );
+		}
+
+	}
+}
+
 //Loads the page content for a given a tab and handles the active tab styling.
 function loadTabContent( tabID, locID ){
 
@@ -74,10 +135,10 @@ function loadAlertContent( alertID ){
 	//Alert-specific changes depend on the page content being loaded.
 	$( '#page-content' ).load( '/static/files/pages/alert.html',
 	                           function(){ 
-	                           	//This function is defined in the alert.html page file.
-	                           	//It collects data for the alertID and draws the alert page.
-	                           	drawAlertContent( alertID );
-	                           	glossary(); 
+	                               	//This function is defined in the alert.html page file.
+	                               	//It collects data for the alertID and draws the alert page.
+	                               	drawAlertContent( alertID );
+	                               	glossary(); 
 	                           }); 
 }
 
@@ -98,61 +159,14 @@ function loadAlert( alertID ){
 	loadAlertContent( alertID );
 }
 
-/* Loads any page summarised by the 'State' object.
- *
- * Page state objects include:
- * - 'type' ('tab', 'alert' or 'disease')
- * - 'dataID' (identifying data dependant on type, eg. tab-element ID, disease ID or alert ID)
- * - 'locID' (location ID, not used for all types)
- *
- * If object does not include type, it simply loads the locID location into the currently rendered template.
- * 
- * If logHistory == true, a page state will be pushed into the broswer history before loading content.
- */
-function loadPage( pageState, logHistory ){
+/**:glossary()
 
-	if( typeof(pageState.type) != 'undefined'){
-
-		switch( pageState.type ){
-
-			case 'tab' :
-				if( logHistory ) loadTab( pageState.dataID, pageState.locID ); 
-				else loadTabContent( pageState.dataID, pageState.locID ); 
-				break;
-
-			case 'alert' :
-				if( logHistory ) loadAlert( pageState.dataID ); 
-				else loadAlertContent( pageState.dataID ); 
-	 			break;
-
-			case 'disease' : 
-				if( logHistory ) loadDisease( pageState.dataID, pageState.locID ); 
-				else loadDiseaseContent( pageState.dataID, pageState.locID ); 
-				break;
-
-		}
-
-	}else{
-
-		if( typeof(pageState.locID) != 'undefined'){
-			if( logHistory ) loadLocation( pageState.locID );
-			else loadLocationContent( pageState.locID );
-
-		}else{
-			console.error( 'No information provided in the pageState' );
-		}
-
-	}
-}
-
-/* This function inserts words from the config file glossary object. 
- * It inserts into <span> elements with class "glossary" and attribute "word".
- * Practically it is used to allow country specific words for concepts such as
- * "Region" (known as "Governorate" in Jordan). It is called upon loading a location
- * and upon loading an alert investigation report (as these are the only pages that
- * don't depend upon investigation.
- * 
- * You can capitalise the word by adding the class "capitalised" to the <span>.
+    This function inserts words from the config file glossary object. 
+    It inserts into <span> elements with class "glossary" and attribute "word".
+    Practically it is used to allow country specific words for concepts such as
+    "Region" (known as "Governorate" in Jordan). 
+ 
+    You can capitalise the word by adding the class "capitalised" to the <span>.
  */
 function glossary(){
 

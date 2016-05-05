@@ -15,7 +15,15 @@ from .. import common as c
 messaging = Blueprint('messaging', __name__)
 
 def check_auth(username, password):
-    """This function is called to check if a username / password combination is valid."""
+    """This function is called to check if a username / password combination is valid.
+
+       Args:
+           username (str): The given username
+           password (str): The given password
+
+       Returns:
+           bool: True if username/password combination is valid, false otherwise.
+    """
     return username == current_app.config["USERNAME"] and password == current_app.config["PASSWORD"]
 
 def authenticate():
@@ -33,9 +41,10 @@ def requires_auth():
         return authenticate()
 
 # THE SUBSCRIBING PROCESS
-# Stage 1: Fill out a subscription form.
+#Stage1: Fill out a subscription form.
 @messaging.route('/')
 def subscribe():
+    """Subscription Process Stage 1: Render the page with the subscription form"""
     return render_template('messaging/subscribe.html',
                            content=current_app.config['MESSAGING_CONFIG'],
                            week=c.api('/epi_week'))
@@ -43,7 +52,12 @@ def subscribe():
 # Stage 2: Confirm subscription request and inform user of verification process.
 @messaging.route('/subscribe/subscribed', methods=['POST'])
 def subscribed(): 
-    
+    """Subscription Process Stage 2: Confirms successful subscription request and informs the 
+       user of the verification process. This method assembles the HTML form data into a strcture
+       that Meerkat Hermes understands and then uses the MeerkatHermes "subscribe" resource to create 
+       the subscriber. It further assembles the email and SMS verification messages and uses the 
+       Meerkat Hermes to send it out. """
+
     #Convert form immutabledict to dict.
     data = {}
     for key in request.form.keys():
@@ -95,6 +109,17 @@ def subscribed():
 @messaging.route('/subscribe/verify/<string:subscriber_id>')
 def verify(subscriber_id):
 
+    """Subscription Process Stage 3: Verfies contact details for the subscriber ID specified in
+       the URL. If no SMS number is provided, then just landing on this page is enough to verify
+       the users email address (assuming the ID is not guessable). In this case we do a redirect to 
+       Stage 4. If the user has already been verified, then we also redirect to stage four with a
+       flash message to remind them that they have already verified. In all other cases we show
+       the SMS verification form.
+
+       Args:
+           subscriber_id (str):  The UUID that is assigned to the subscriber upon creation by Meerkat Hermes. 
+    """
+
     #Get the subscriber
     subscriber = c.hermes( '/subscribe/'+subscriber_id, 'GET' )
 
@@ -114,6 +139,13 @@ def verify(subscriber_id):
 # Stage 4: Confirm details have been verified.
 @messaging.route('/subscribe/verified/<string:subscriber_id>')
 def verified(subscriber_id):
+
+    """Subscription Process Stage 4: Confirms that the users details has been verified, and sends
+       out a confirmation email as well. 
+
+       Args:
+           subscriber_id (str):  The UUID that is assigned to the subscriber upon creation by Meerkat Hermes.
+    """
 
     #Get the subscriber
     subscriber = c.hermes( '/subscribe/'+subscriber_id, 'GET' )['Item']
@@ -155,10 +187,21 @@ def verified(subscriber_id):
 @messaging.route('/subscribe/sms_code/<string:subscriber_id>', methods=['get', 'post'])
 def sms_code(subscriber_id):
 
+    """Chooses, sets and checks SMS verification codes for the subscriber corresponding
+       to the ID given in the URL. If a POST request is made to this URL it checks whether the
+       code supplied in the POST request form data matches the code sent to the phone. If it does,
+       it redirects to Stage 4, if it doesn't it redirects to stage 3 again with a flash
+       informing the user they got the wrong code. If a GET request is made to this URL, the function
+       selects a new code and sends the code out to the phone. It then redirects to Stage 3 with a
+       flash message informing the user whether the new code has been succesffully sent.
+
+       Args:
+           subscriber_id (str):  The UUID that is assigned to the subscriber upon creation by Meerkat Hermes. """
+
     current_app.logger.warning("Method is: " + request.method )
 
     if request.method == 'POST':
-        if check_code( subscriber_id, request.form['code'] ):
+        if __check_code( subscriber_id, request.form['code'] ):
             c.hermes('/verify/'+subscriber_id, 'GET')
             return redirect("/messaging/subscribe/verified/"+subscriber_id, code=302)
         else:
@@ -166,8 +209,9 @@ def sms_code(subscriber_id):
             return redirect("/messaging/subscribe/verify/"+subscriber_id, code=302) 
     else:
         subscriber = c.hermes( '/subscribe/'+subscriber_id, 'GET' )
-        response = set_code(subscriber_id, subscriber['Item']['sms'])
+        response = __set_code(subscriber_id, subscriber['Item']['sms'])
 
+		#Check that the new code was succesfully sent.
         success = True
         for r in response['messages']:
 
@@ -184,13 +228,32 @@ def sms_code(subscriber_id):
             return redirect("/messaging/subscribe/verify/"+subscriber_id, code=302)
 
 # Utility function to check a code
-def check_code(subscriber_id, code):
+def __check_code(subscriber_id, code):
+    """Checks if the given code for the given subscriber ID is the correct SMS verification code.
+
+       Args:
+           subscriber_id (str):  The UUID that is assigned to the subscriber upon creation by Meerkat Hermes.
+           code (str): The code to be checked.
+
+       Returns:
+           bool: True if there is a match, False otherwise. 
+           
+    """
     response = c.hermes('/verify', 'POST', {'subscriber_id':subscriber_id, 'code': code} )
     return bool(response['matched'])
 
 # Utility function to set a new sms code.
-def set_code(subscriber_id, sms):
+def __set_code(subscriber_id, sms):
+    """Sets a new sms verification code for the given subscriber ID.
 
+       Args:
+           subscriber_id (str):  The UUID that is assigned to the subscriber upon creation by Meerkat Hermes.
+           sms (int): The SMS number to which the new code should be sent.
+
+       Returns:
+           The Meerkat Hermes response object.
+           
+    """
     code = round(random.random()*9999)
     message = ( 'Your verification code for ' + current_app.config['MESSAGING_CONFIG']['messages']['country'] + 
         ' public health surveillance notifications is: ' + str(code) + '. Please follow instructions'
