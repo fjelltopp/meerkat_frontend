@@ -60,12 +60,13 @@ def prepare_function(template, config, authentication=False):
 # Add any extra country specific pages.
 for url, value in app.config["EXTRA_PAGES"].items():
     path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
+    config = json.loads( open(path).read() )
     if "authenticate" in value and value["authenticate"]:
         authenticate = True
     else:
         authenticate = False
     function = prepare_function(value['template'],
-                                json.loads( open(path).read()),
+                                {**app.config['SHARED_CONFIG'], **config},
                                 authentication=authenticate)
     app.add_url_rule('/{}'.format(url), url, function)
     
