@@ -41,7 +41,7 @@
     "template":"map.html"
   }],
   "central_review": 0,
-  "flag":"ni.png",
+  "flag":"null.svg",
 
   "footer":{
     "logos":{

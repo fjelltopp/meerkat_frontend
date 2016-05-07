@@ -1,7 +1,7 @@
 """
 meerkat_frontend.py
 
-Root Flask app for the Meerkat frontend.
+Root Flask app for the Meerkat Frontend.
 
 This module runs as the root Flask app and mounts component Flask apps for
 different services such as the API and Reports.
@@ -25,6 +25,7 @@ app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
+
 if "TEMPLATE_FOLDER" in app.config:
     my_loader = jinja2.ChoiceLoader([
         app.jinja_loader,
@@ -32,25 +33,11 @@ if "TEMPLATE_FOLDER" in app.config:
     ])
     app.jinja_loader = my_loader
 
-
-#Load settings saved in config files.
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['HOMEPAGE_CONFIG']
-app.config['HOMEPAGE_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['TECHNICAL_CONFIG']
-app.config['TECHNICAL_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['REPORTS_CONFIG']
-app.config['REPORTS_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['MESSAGING_CONFIG']
-app.config['MESSAGING_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['DOWNLOAD_CONFIG']
-app.config['DOWNLOAD_CONFIG'] = json.loads( open(path).read())
-
-path = os.path.dirname(os.path.realpath(__file__))+"/../"+app.config['EXPLORE_CONFIG']
-app.config['EXPLORE_CONFIG'] = json.loads( open(path).read())
+# Set up the config files.
+for k,v in app.config['COMPONENT_CONFIGS'].items():
+    path = os.path.dirname(os.path.realpath(__file__)) + "/../" + v
+    config = json.loads( open(path).read() ) 
+    app.config[k] = {**app.config['SHARED_CONFIG'], **config}           
 
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')
@@ -70,6 +57,7 @@ def prepare_function(template, config, authentication=False):
         return render_template(template, content=config, week=c.api('/epi_week'))
     return function
 
+# Add any extra country specific pages.
 if "EXTRA_PAGES" in app.config:
   for url, value in app.config["EXTRA_PAGES"].items():
       path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
@@ -81,7 +69,6 @@ if "EXTRA_PAGES" in app.config:
                                   json.loads( open(path).read()),
                                   authentication=authenticate)
       app.add_url_rule('/{}'.format(url), url, function)
-    
 
 @app.template_filter('slugify')
 def slug(s):
@@ -91,18 +78,26 @@ def slug(s):
 # ERROR HANDLING
 @app.route('/error/<int:error>/')
 def error_test(error):
-    """Serves requested error page for testing"""
+    """Serves requested error page for testing, by calling the ```abort()``` function.
+
+       Args:
+           error (int): The error code for the requested error.
+    """
     abort(error)
 
+@app.errorhandler(403)
 @app.errorhandler(404)
+@app.errorhandler(410)
+@app.errorhandler(418)
 @app.errorhandler(500)
 @app.errorhandler(501)
 @app.errorhandler(502)
-@app.errorhandler(403)
-@app.errorhandler(410)
-@app.errorhandler(418)
 def error500(error):
-    """Serves page for generic error"""
+    """Serves page for generic error.
+    
+       Args:
+           error (int): The error code given by the error handler.
+    """
     flash("Sorry, something appears to have gone wrong.", "error")
     return render_template('error.html', error=error, content=current_app.config['TECHNICAL_CONFIG']), error.code
 

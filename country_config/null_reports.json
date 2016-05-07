@@ -1,65 +1,88 @@
 {
-  "application":"reports",
-  "country":"Null Island",
+    "application":"reports",
 
-  "titles":{
-    "full":"Null Island <br> Public Health Surveillance",
-    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
-    "mob_nav":"Health Surveillance"
-  },
+    "introduction":"Here you can download summary reports drawn from the epidiemological data. ",
 
-  "introduction":"Here you can download summary reports drawn from the epidiemological data. ",
-
-  "reports":[{
-      "name":"Public Health Profile Report",
-		"introduction":"This report summarises the state of public health in the selected location.",
-      "url":"public_health",
-		"start_date":"2015-12-17T00:00:00.000Z",
-		"period":"week"
-  },{
-      "name":"Communicable Disease Profile",
-		"introduction":"This report summarises the state of communicable disease public health in the selected location.",
-      "url":"cd_public_health",
-		"start_date":"2015-12-17T00:00:00.000Z",
-		"period":"week"
-  },{
-      "name":"Non-Communicable Disease Profile",
-		"introduction":"This report summarises the state of non-communicable disease public health in the selected location.",
-      "url":"ncd_public_health",
-		"start_date":"2016-02-01T00:00:00.000Z",
-		"period":"month"
+    "reports":[{
+        "name":"Public Health Profile Report",
+        "introduction":"This report summarises the state of public health in the selected location.",
+        "url":"public_health",
+        "start_date":"2015-12-17T00:00:00.000Z",
+        "period":"week"
     },{
-      "name":"Communicable Disease Report",
-		"introduction":"This report tracks the spread of communicable diseases across the selected location.",
-      "url":"communicable_diseases",
-		"start_date":"2015-12-17T00:00:00.000Z",
-		"period":"year"
+        "name":"Communicable Disease Profile",
+        "introduction":"This report summarises the state of communicable disease public health in the selected location.",
+        "url":"cd_public_health",
+        "start_date":"2015-12-17T00:00:00.000Z",
+        "period":"week"
     },{
-      "name":"Non Communicable Disease Report",
-		"introduction":"This report tracks the spread of non-communicable diseases across the selected location.",
-		"url":"non_communicable_diseases",
-		"start_date":"2015-12-17T00:00:00.000Z",
-		"period":"month"
-    }
-  ],
+        "name":"Non-Communicable Disease Profile",
+        "introduction":"This report summarises the state of non-communicable disease public health in the selected location.",
+        "url":"ncd_public_health",
+        "start_date":"2016-02-01T00:00:00.000Z",
+        "period":"month"
+    },{
+        "name":"Communicable Disease Report",
+        "introduction":"This report tracks the spread of communicable diseases across the selected location.",
+        "url":"communicable_diseases",
+        "start_date":"2015-12-17T00:00:00.000Z",
+        "period":"year"
+    },{
+        "name":"Non Communicable Disease Report",
+        "introduction":"This report tracks the spread of non-communicable diseases across the selected location.",
+        "url":"non_communicable_diseases",
+        "start_date":"2015-12-17T00:00:00.000Z",
+        "period":"month"
+    }],
 
-  "flag":"ni.png",
-
-  "footer":{
-    "logos":{
-		 "who":"transparent.png",
-		 "country_partner":"ni.png",
-		 "partners":[]
+    "report_list": {
+        "public_health": {
+            "title": "Public Health Profile",
+            "template": "reports/report_public_health_profile.html",
+            "template_email_html": "reports/email_public_health_profile.html",
+            "template_email_plain": "reports/email_public_health_profile.txt",
+            "api_name": "public_health",
+            "mailchimp_list_id": "",
+            "mailchimp_dir_id": "7989",
+            "email_from_name": "MOH Demo",
+            "email_from_address": "demo@emro.info",
+            "map_centre": [0, 0, 7],
+            "default_period": "week",
+            "test_json_payload": "meerkat_frontend/apiData/reports_public_health.json"
+        },
+        "cd_public_health": {
+            "title": "Communicable Disease Profile Report",
+            "template": "reports/report_cd_public_health_profile.html",
+            "api_name": "cd_public_health",
+            "map_centre": [0, 0, 7],
+            "default_period": "week",
+            "test_json_payload": "meerkat_frontend/apiData/reports_cd_public_health.json"
+        },
+       "ncd_public_health": {
+            "title": "Non-Communicable Disease Profile Report",
+            "template": "reports/report_ncd_public_health_profile.html",
+            "api_name": "ncd_public_health",
+            "map_centre": [0, 0, 7],
+            "default_period": "month",
+            "test_json_payload": "meerkat_frontend/apiData/reports_ncd_public_health.json"
+        },
+        "communicable_diseases": {
+            "title": "Communicable Diseases Report",
+            "template": "reports/report_communicable_diseases.html",
+            "api_name": "cd_report",
+            "default_period": "year",
+            "test_json_payload": "meerkat_frontend/apiData/reports_communicable_diseases.json"
+        },
+        "non_communicable_diseases": {
+            "title": "Non Communicable Diseases Report",
+            "template": "reports/report_non_communicable_diseases.html",
+            "api_name": "ncd_report",
+            "default_period": "month",
+            "test_json_payload": "meerkat_frontend/apiData/reports_non_communicable_diseases.json"
+        }
     },
 
-    "partners":[
-			"The Ministry of Health, Null Island"
-    ],
+    "address": "<strong>Ministry of Health</strong><br>Null Island Street 3<br>Null Island City 433<br>Null Island<br><abbr title='Website'>W:</abbr> <a href='https://demo.aws.emro.info'>https://demo.aws.emro.info</a>",
 
-    "email":"nullisland@moh.int"
-  },
-
-  "glossary":{
-    "region":"kingdom"
-  }
+    "default_location": 1
 }

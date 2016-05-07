@@ -52,9 +52,10 @@ def test(report):
     """
 
     report_list = current_app.config['REPORT_LIST']
-    if report in report_list['reports']:
+
+    if report in report_list:
         try:
-            with open(report_list['reports'][report]['test_json_payload'])as json_blob:
+            with open(report_list[report]['test_json_payload'])as json_blob:
                 data = json.load(json_blob)
         except IOError:
             abort(500)
@@ -72,26 +73,26 @@ def test(report):
                     'percent': item['percent'],
                     'quantity': item['quantity']
                 }
-            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras['map_centre'] = report_list[report]["map_centre"]
             extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                  "/clinics/1")
         elif report in ["refugee_public_health"]:
             extras = {}
-            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras['map_centre'] = report_list[report]["map_centre"]
             extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                  "/clinics/1/Refugee")
         elif report in ["pip"]:
             extras = {}
-            extras['map_centre'] = report_list['reports'][report]["map_centre"]
+            extras['map_centre'] = report_list[report]["map_centre"]
             extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                  "/clinics/1/SARI")
         else:
             extras = None
         return render_template(
-            report_list['reports'][report]['template'],
+            report_list[report]['template'],
             report=data,
             extras=extras,
-            address=report_list["address"],
+            address=current_app.config['REPORTS_CONFIG']["address"],
             content=current_app.config['REPORTS_CONFIG']
         )
     else:
@@ -106,15 +107,15 @@ def send_email_report(report):
            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
 
-    report_list = current_app.config['REPORT_LIST']
+    report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
-    if report in report_list['reports']:
+    if report in report_list:
 
-        location = report_list['default_location']
+        location = current_app.config['REPORTS_CONFIG']['default_location']
         end = c.epi_week_to_date(c.date_to_epi_week() - 1)
         api_request = '/reports/{report}/{loc}/{end}'.format(
-            report=report_list['reports'][report]['api_name'],
+            report=report_list[report]['api_name'],
             loc=location,
             end=end.isoformat()
             )
@@ -145,20 +146,20 @@ def send_email_report(report):
             }
 
         html_email_body = render_template(
-            report_list['reports'][report]['template_email_html'],
+            report_list[report]['template_email_html'],
             email=data,
             extras=extras,
             report_url=report_url
         )
         plain_email_body = render_template(
-            report_list['reports'][report]['template_email_plain'],
+            report_list[report]['template_email_plain'],
             email=data,
             extras=extras,
             report_url=report_url
         )
         subject = (
             '{} | {} Epi Week {} ({})'
-            .format(country, report_list['reports'][report]['title'], epi_week, epi_date)
+            .format(country, report_list[report]['title'], epi_week, epi_date)
         )
         topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
         
@@ -200,9 +201,9 @@ def report(report=None, location=None, end_date=None, start_date=None):
         
     """
     # Check that the requested project and report are valid
-    report_list = current_app.config['REPORT_LIST']
+    report_list = current_app.config['REPORTS_CONFIG']['report_list']
 
-    if report in report_list['reports']:
+    if report in report_list:
 
         ret = create_report(
             config=current_app.config, 
@@ -242,7 +243,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         current_app.config['PDFCROWD_API_ACCOUNT'],
         current_app.config['PDFCROWD_API_KEY'])
     current_app.logger.warning('Report: ' + report )
-    if report in report_list['reports']:
+    if report in report_list:
         ret = create_report(
             config=current_app.config, 
             report=report, 
@@ -267,8 +268,8 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                 '/static/'))
 
         client.usePrintMedia(True)
-        #Allow reports to be set as portrait or landscape in the config files.
-        if( report_list['reports'][report].get( 'landscape', False ) ):
+				#Allow reports to be set as portrait or landscape in the config files.
+        if( report_list[report].get( 'landscape', False ) ):
             client.setPageWidth('1697pt')
             client.setPageHeight('1200pt')
         else:
@@ -353,13 +354,13 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     """
 
     #try:
-    report_list = config['REPORT_LIST']
+    report_list = current_app.config['REPORTS_CONFIG']['report_list']
 
     if not location:
-        location = report_list['default_location']
+        location = current_app.config['REPORTS_CONFIG']['default_location']
 
     api_request = '/reports'
-    api_request += '/' + report_list['reports'][report]['api_name'] 
+    api_request += '/' + report_list[report]['api_name'] 
     if( location != None ): api_request += '/' + str(location)
     if start_date is None and end_date is None:
         if "default_period" in report_list["reports"][report].keys():
@@ -399,7 +400,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 'percent': item['percent'],
                 'quantity': item['quantity']
             }
-        extras['map_centre'] = report_list['reports'][report]["map_centre"]
+        extras['map_centre'] = report_list[report]["map_centre"]
         extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
                              "/clinics/1")
         extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
@@ -412,7 +413,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     elif report in ["refugee_public_health"]:
         extras = {}
-        extras['map_centre'] = report_list['reports'][report]["map_centre"]
+        extras['map_centre'] = report_list[report]["map_centre"]
         extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
                              "/clinics/1/Refugee")
         extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
@@ -424,7 +425,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 current_app.config['MAPBOX_API_ACCESS_TOKEN'])
     elif report in ["pip"]:
         extras = {}
-        extras['map_centre'] = report_list['reports'][report]["map_centre"]
+        extras['map_centre'] = report_list[report]["map_centre"]
         extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                   "/clinics/1/SARI")
         extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
@@ -440,9 +441,9 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     # Render correct template for the report
     return {
-        'template':report_list['reports'][report]['template'],
+        'template':report_list[report]['template'],
         'report':data,
         'extras':extras,
-        'address':report_list["address"]
+        'address':current_app.config["REPORTS_CONFIG"]["address"]
         }
 

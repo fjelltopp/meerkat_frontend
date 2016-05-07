@@ -12,7 +12,15 @@ import json, os
 from requests.auth import HTTPBasicAuth
 
 def check_auth(username, password):
-    """This function is called to check if a username / password combination is valid."""
+    """This function is called to check if a username / password combination is valid.
+
+       Args:
+           username (str): The given username
+           password (str): The given password
+
+       Returns:
+           bool: True if username/password combination is valid, false otherwise."""
+
     if not current_app.config["USE_BASIC_AUTH"]:
         return True
     if "~" in request.path:
@@ -40,7 +48,14 @@ def authenticate():
 
 
 def api(url, api_key=False):
-    """Returns JSON data from API request"""
+    """Returns JSON data from API request.
+
+       Args:
+           url (str): The Meerkat API url from which data is requested
+           api_key (optional bool): Whethe or not we should include the api key. Defaults to False.
+       Returns:
+           dict: A python dictionary formed from the API reponse json string.
+    """
     if( current_app.config['TESTING'] ):
         path = os.path.dirname(os.path.realpath(__file__))+"/apiData"+url
         with open(path+'.json') as data_file:    
@@ -66,7 +81,16 @@ def api(url, api_key=False):
         return output
 
 def hermes(url, method, data={}):
-    """Makes a Hermes API request"""
+    """Makes a Hermes API request.
+       
+       Args:
+           url (str): The Meerkat Hermes url for the desired function.
+           method (str):  The desired HTML function: GET, POST or PUT.
+           data (optional dict): The data to be sent to the url. Defaults to ```{}```.
+
+       Returns:
+           dict: a dictionary formed from the json data in the response.
+    """
 
     #Add the API key and turn into JSON.
     data["api_key"] = current_app.config['HERMES_API_KEY']
@@ -85,14 +109,29 @@ def hermes(url, method, data={}):
     return r.json()
 
 def epi_week_to_date(epi_week, year=datetime.today().year):
-    """Converts an epi_week (int) to a datetime object"""
+    """Converts an epi_week to a datetime object.
+    
+       Args:
+           epi_week (int): The epi week to convert.
+           year (optional int): The year of the epi-week to convert. Defaults to current year.
+
+       Returns:
+           datetime: a datetime object for the given epiweek."""
     api_request = "/epi_week_start/{}/{}".format(year, epi_week)
     data = api(api_request)
     return parse(data["start_date"]) + timedelta(days=7)
 
 
 def date_to_epi_week(day=datetime.today()):
-    """Converts a datetime object to an epi_week (int)"""
+    """Converts a datetime object to an epi_week.
+ 
+       Args:
+           day (optional datetime): The date for which to find the corressponding epi week. 
+               Defaults to today.
+        
+       Returns:
+           int: the epi week number for the week that contains the given date.
+    """
     api_request = "/epi_week/{}".format(day.isoformat())
     data = api(api_request)
     return data["epi_week"]

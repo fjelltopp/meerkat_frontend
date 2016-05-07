@@ -1,15 +1,8 @@
 {
   "application":"download",
 
-  "titles":{
-    "full":"Null Island <br> Public Health Surveillance",
-    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
-    "mob_nav":"Health Surveillance"
-  },
-
-  "api_key": "test-api", 
-
   "preparedIntro":"Use this form to download files that contain prepared data sets for use in your own analysis.",
+
   "rawIntro":"Use this form to download raw data for use in your own analysis. Select which form's data you would like to download, and optionally further select which attributes you would like to download. ",
 
   "prepared":[{
@@ -412,22 +405,6 @@
         "region"
       ]
     }
-  },
-
-  "flag":"ni.png",
-
-  "footer":{
-    "logos":{
-      "who":"transparent.png",
-      "country_partner":"ni.png",
-      "partners":[]
-    },
-
-    "partners":[
-      "The Ministry of Health, Null Island"
-    ],
-
-    "email":"nullisland@moh.int"
   }
 }
 
