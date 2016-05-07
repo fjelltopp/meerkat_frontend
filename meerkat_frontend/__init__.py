@@ -25,7 +25,7 @@ app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
-if app.config["TEMPLATE_FOLDER"]:
+if "TEMPLATE_FOLDER" in app.config:
     my_loader = jinja2.ChoiceLoader([
         app.jinja_loader,
         jinja2.FileSystemLoader(app.config["TEMPLATE_FOLDER"]),
@@ -70,16 +70,17 @@ def prepare_function(template, config, authentication=False):
         return render_template(template, content=config, week=c.api('/epi_week'))
     return function
 
-for url, value in app.config["EXTRA_PAGES"].items():
-    path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
-    if "authenticate" in value and value["authenticate"]:
-        authenticate = True
-    else:
-        authenticate = False
-    function = prepare_function(value['template'],
-                                json.loads( open(path).read()),
-                                authentication=authenticate)
-    app.add_url_rule('/{}'.format(url), url, function)
+if "EXTRA_PAGES" in app.config:
+  for url, value in app.config["EXTRA_PAGES"].items():
+      path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
+      if "authenticate" in value and value["authenticate"]:
+          authenticate = True
+      else:
+          authenticate = False
+      function = prepare_function(value['template'],
+                                  json.loads( open(path).read()),
+                                  authentication=authenticate)
+      app.add_url_rule('/{}'.format(url), url, function)
     
 
 @app.template_filter('slugify')
