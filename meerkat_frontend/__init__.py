@@ -26,7 +26,7 @@ app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
 
-if "TEMPLATE_FOLDER" in app.config:
+if app.config.get( 'TEMPLATE_FOLDER', None ):
     my_loader = jinja2.ChoiceLoader([
         app.jinja_loader,
         jinja2.FileSystemLoader(app.config["TEMPLATE_FOLDER"]),
