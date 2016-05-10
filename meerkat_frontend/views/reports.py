@@ -51,7 +51,7 @@ def test(report):
            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
 
-    report_list = current_app.config['REPORT_LIST']
+    report_list = current_app.config["REPORTS_CONFIG"]['report_list']
 
     if report in report_list:
         try:
