@@ -29,10 +29,20 @@
     "readable-stream": "^2.0.2",
     "xtend": "^4.0.0",
     "inherits": "^2.0.1"
+
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+      "karma-phantomjs-launcher": "^1.0.0",
+      "karma-chrome-launcher": "^1.0.1",
+      "karma": "^0.13.22",
+      "karma-jasmine": "^1.0.2",
+      "karma-spec-reporter": "^0.0.22",
+      "protractor": "^2.5.1"
+      
+  }
 }

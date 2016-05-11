@@ -131,7 +131,13 @@ $(".menu-toggle").click(function(e) {
 });
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 
-loadLocationTree({locID:{{loc}}});
+ loadLocationTree({locID:{{loc}}});
+ //Respond to the user pressing forward or back by loading the correct page content.
+ window.onpopstate = function(event) {
+     loadPage( event.state, false );
+ };
+
+ 
 setUpReportForm();
 
 function setUpReportForm(){
