@@ -38,11 +38,10 @@
   "license": "ISC",
   "devDependencies": {
       "karma-phantomjs-launcher": "^1.0.0",
+      "phantomjs": "^2.1.7",
       "karma-chrome-launcher": "^1.0.1",
       "karma": "^0.13.22",
       "karma-jasmine": "^1.0.2",
-      "karma-spec-reporter": "^0.0.22",
-      "protractor": "^2.5.1"
-      
+      "karma-spec-reporter": "^0.0.22"
   }
 }

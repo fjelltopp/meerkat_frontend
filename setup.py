@@ -17,7 +17,8 @@ setup(
         'requests>=2.8.1',
         'Werkzeug>=0.10.4',
         'python-slugify>=1.1.4',
-        'pdfcrowd3>=2.7'
+        'pdfcrowd3>=2.7',
+        'selenium>=2.53.2'
     ],
     test_suite='meerkat_frontend.test'
 )

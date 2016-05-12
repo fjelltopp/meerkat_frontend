@@ -25,7 +25,7 @@ module.exports = function(config) {
 		
 		'meerkat_frontend/static/js/*.js',
 		
-		'meerkat_frontend/src/js/tests/*.js'
+		'meerkat_frontend/src/js/tests/unittests/*.js'
     ],
 
 
