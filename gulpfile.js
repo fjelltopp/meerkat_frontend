@@ -29,11 +29,6 @@ var optipng = require('imagemin-optipng');
 var jpegoptim = require('imagemin-jpegoptim');
 
 
-// ** JS testing ** //
-var Server = require('karma').Server;
-var protractor = require("gulp-protractor").protractor;
-
-
 
 // ** SETTINGS ** //
 var production = !!(argv.production);
@@ -196,16 +191,6 @@ gulp.task('clean', function() {
     'meerkat_frontend/static/fonts/**/*',
     'meerkat_frontend/static/img/**/*.{gif,jpg,png,svg}',
   ]);
-});
-
-
-// TESTING TASKS
-
-gulp.task('unit', function (done) {
-	new Server({
-		configFile: __dirname + '/karma.conf.js',
-		singleRun: true
-	}, done).start();
 });
 
 
