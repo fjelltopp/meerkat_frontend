@@ -38,7 +38,7 @@
   "license": "ISC",
   "devDependencies": {
       "karma-phantomjs-launcher": "^1.0.0",
-      "phantomjs": "^2.1.7",
+      "phantomjs-prebuilt": "^2.1.7",
       "karma-chrome-launcher": "^1.0.1",
       "karma": "^0.13.22",
       "karma-jasmine": "^1.0.2",
