@@ -70,6 +70,19 @@ if "EXTRA_PAGES" in app.config:
                                   authentication=authenticate)
       app.add_url_rule('/{}'.format(url), url, function)
 
+
+# from_api function
+
+@app.route('/from_api', defaults={'path': ''})
+@app.route('/from_api/<path:path>')
+@c.requires_auth
+def from_api(path):
+    params = {}
+    if len(request.args) > 0:
+        params = dict(request.args)
+    return json.dumps(c.api(path, params=params))
+
+      
 @app.template_filter('slugify')
 def slug(s):
     """Creates a slugify filter for Jinja templates"""

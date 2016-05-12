@@ -5,7 +5,7 @@ Shared functions for meerkat_frontend.
 """
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-
+from functools import wraps
 from flask import current_app, abort, send_file, Response, request
 import requests
 import json, os
@@ -47,37 +47,43 @@ def authenticate():
     {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 
-def api(url, api_key=False):
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+    return decorated
+
+def api(url, params=dict()):
     """Returns JSON data from API request.
+
+    If we are in the testing envrionment we return json from files in apiData.
 
        Args:
            url (str): The Meerkat API url from which data is requested
-           api_key (optional bool): Whethe or not we should include the api key. Defaults to False.
+           params (dict): Dictionary with url parameters
        Returns:
            dict: A python dictionary formed from the API reponse json string.
     """
     if( current_app.config['TESTING'] ):
-        path = os.path.dirname(os.path.realpath(__file__))+"/apiData"+url
+        path = os.path.dirname(os.path.realpath(__file__))+"/apiData/"+url[1:].replace("/", "_")
         with open(path+'.json') as data_file:    
             return json.load(data_file)
     else:
-        api_request = ''.join([current_app.config['INTERNAL_API_ROOT'], url])
+        api_request = '/'.join([current_app.config['INTERNAL_API_ROOT'], url])
+        params["api_key"] = current_app.config["TECHNICAL_CONFIG"]["api_key"]
         try:
-            if api_key:
-                r = requests.get(
-                    api_request,
-                    params={"api_key": current_app.config["TECHNICAL_CONFIG"]["api_key"]}
-                )
-            else:
-                r = requests.get(
-                    api_request
-                )
+            r = requests.get(
+                api_request,
+                params=params)
         except requests.exceptions.RequestException as e:
             abort(500, e)
         try:
             output = r.json()
         except Exception as e:
-            abort(500, r )
+            abort(500, e)
         return output
 
 def hermes(url, method, data={}):
@@ -116,7 +122,7 @@ def epi_week_to_date(epi_week, year=datetime.today().year):
            year (optional int): The year of the epi-week to convert. Defaults to current year.
 
        Returns:
-           datetime: a datetime object for the given epiweek."""
+           datetime: a datetime object for the end of the given epiweek."""
     api_request = "/epi_week_start/{}/{}".format(year, epi_week)
     data = api(api_request)
     return parse(data["start_date"]) + timedelta(days=7)

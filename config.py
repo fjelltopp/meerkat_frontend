@@ -24,7 +24,7 @@ class Config(object):
     TESTING = False
 
     INTERNAL_API_ROOT = from_env("INTERNAL_API_ROOT", 'http://dev_nginx_1/api')
-    EXTERNAL_API_ROOT = '/api'
+    EXTERNAL_API_ROOT = '/from_api'
     HERMES_ROOT = 'https://hermes.aws.emro.info'
     HERMES_API_KEY = from_env('HERMES_API_KEY', 'test-hermes' )
     USE_BASIC_AUTH = int(from_env('USE_BASIC_AUTH', True))

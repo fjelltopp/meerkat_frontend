@@ -9,8 +9,6 @@ from .. import common as c
 
 technical = Blueprint('technical', __name__)
 
-
-
 @technical.before_request
 def requires_auth():
     """Checks that the user has authenticated before returning any page from the technical site."""

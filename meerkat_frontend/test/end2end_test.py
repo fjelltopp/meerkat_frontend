@@ -21,14 +21,13 @@ class MeerkatFrontendEnd2End(LiveServerTestCase):
         return app
         
     def tearDown(self):
-        pass
-
+        self.browser.close()
+        
     def test_index(self):
         self.browser.get(self.get_server_url())
         time.sleep(5)
-        
         self.assertIn("Public Health Surveillance", self.browser.title)
-    
+
 
 if __name__ == '__main__':
     unittest.main()
