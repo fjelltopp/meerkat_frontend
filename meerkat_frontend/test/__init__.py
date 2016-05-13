@@ -37,25 +37,6 @@ class MeerkatFrontendTestCase(unittest.TestCase):
                 rv = self.app.get(view, headers=self.header)
             self.assertEqual(rv.status_code, 200)
     
-        
-    def test_technical(self):
-        """Check the Technical page loads"""
-        rv = self.app.get('/technical/')
-        #Due to basic auth
-        self.assertEqual(rv.status_code, 401)
-        rv2 = self.app.get('/technical/', headers=self.header)
-        self.assertEqual(rv2.status_code, 200)
-
-    #HOMEPAGE testing
-    def test_index(self):
-        """Ensure the config file is loading correctly"""
-        rv = self.app.get('/')
-        self.assertIn(b'Null Island', rv.data)
-
-    def test_index(self):
-        """Ensure the API data is successfully picked up and displayed."""
-        #TODO Write function that waits for javascript to load api data, and then checks it has loaded.
-
     def test_multi_basic_auth(self):
         mk.app.config["AUTH"] = {"reports": {"USERNAME": "admin",
                                                "PASSWORD": "secret2"},

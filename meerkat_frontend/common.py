@@ -29,11 +29,11 @@ def check_auth(username, password):
         request_path = request.path
     requested_object = request_path.strip("/").split("/")
     if len(requested_object) > 1 and "/".join(requested_object[:2]) in current_app.config["AUTH"]:
-        current_app.logger.info("Found AUTH for level 2")
+#        current_app.logger.info("Found AUTH for level 2")
         auth_object = current_app.config["AUTH"]["/".join(requested_object[:2])]
         return username == auth_object["USERNAME"] and password == auth_object["PASSWORD"]
     elif requested_object[0] in current_app.config["AUTH"]:
-        current_app.logger.info("Found AUTH for level 1")        
+ #       current_app.logger.info("Found AUTH for level 1")        
         auth_object = current_app.config["AUTH"][requested_object[0]]
         return username == auth_object["USERNAME"] and password == auth_object["PASSWORD"]
     else:
@@ -128,7 +128,7 @@ def epi_week_to_date(epi_week, year=datetime.today().year):
 
        Returns:
            datetime: a datetime object for the end of the given epiweek."""
-    api_request = "/epi_week_start/{}/{}".format(year, epi_week)
+    api_request = "epi_week_start/{}/{}".format(year, epi_week)
     data = api(api_request)
     return parse(data["start_date"]) + timedelta(days=7)
 
@@ -143,6 +143,6 @@ def date_to_epi_week(day=datetime.today()):
        Returns:
            int: the epi week number for the week that contains the given date.
     """
-    api_request = "/epi_week/{}".format(day.isoformat())
+    api_request = "epi_week/{}".format(day.isoformat())
     data = api(api_request)
     return data["epi_week"]

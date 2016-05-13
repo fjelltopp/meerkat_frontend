@@ -2,7 +2,7 @@
 """
 Meerkat Frontend Tests
 
-Unit tests for the Meerkat frontend
+Unit tests for the Reports in Meerkat frontend
 """
 import meerkat_frontend as mk
 import unittest
@@ -155,7 +155,6 @@ class MeerkatFrontendReportsTestCase(unittest.TestCase):
         rv = self.app.get('/reports/refugee_detail/1/{}/{}/'.format(end, start),headers=self.header)
         self.assertIn(rv.status_code, [200])
 
-
     def test_reports_refugee_cd(self):
         """ Basic test of cd report """
         start = datetime(2015, 1, 1).isoformat()
@@ -163,3 +162,21 @@ class MeerkatFrontendReportsTestCase(unittest.TestCase):
         rv = self.app.get('/reports/refugee_cd/1/{}/{}/'.format(end, start),headers=self.header)
         self.assertIn(rv.status_code, [200])
 
+    def test_filters(self):
+        """ Test report jinja filters"""
+        date = datetime(2015, 6, 7, 23, 7)
+        formatted_data = mk.views.reports.format_datetime(date)
+        self.assertEqual(formatted_data, "23:07 07-06-2015")
+
+        date_from_json = mk.views.reports.datetime_from_json(date.isoformat())
+        self.assertEqual(date_from_json, date)
+
+        self.assertEqual(mk.views.reports.format_thousands(1000),
+                         "1,000")
+        self.assertEqual(mk.views.reports.format_thousands(3400),
+                         "3,400")
+        self.assertEqual(mk.views.reports.format_thousands(100),
+                         "100")
+        self.assertEqual(mk.views.reports.format_thousands(987654321),
+                         "987,654,321")
+        

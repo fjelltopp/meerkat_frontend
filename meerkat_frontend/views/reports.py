@@ -43,62 +43,6 @@ def index(locID=1):
                            week=c.api('/epi_week'))
     
 
-@reports.route('/test/<report>/')
-def test(report):
-    """Serves a test report page using a static JSON file.
-        
-       Args:
-           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
-    """
-
-    report_list = current_app.config["REPORTS_CONFIG"]['report_list']
-
-    if report in report_list:
-        try:
-            with open(report_list[report]['test_json_payload'])as json_blob:
-                data = json.load(json_blob)
-        except IOError:
-            abort(500)
-        except json.JSONDecodeError:
-            abort(500)
-        data["flag"] = current_app.config["FLAGG_ABR"]
-        if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
-            # Extra parsing for natural language bullet points
-            extras = {"patient_status": {}}
-            for item in data['data']['patient_status']:
-                title = item['title'].lower().replace(" ", "")
-                if title not in ["refugee", "other"]:
-                    title = "national"
-                extras["patient_status"][title] = {
-                    'percent': item['percent'],
-                    'quantity': item['quantity']
-                }
-            extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1")
-        elif report in ["refugee_public_health"]:
-            extras = {}
-            extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1/Refugee")
-        elif report in ["pip"]:
-            extras = {}
-            extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1/SARI")
-        else:
-            extras = None
-        return render_template(
-            report_list[report]['template'],
-            report=data,
-            extras=extras,
-            address=current_app.config['REPORTS_CONFIG']["address"],
-            content=current_app.config['REPORTS_CONFIG']
-        )
-    else:
-        abort(501)
-
-
 @reports.route('/email/<report>/', methods=['POST'])
 def send_email_report(report):
     """Sends an email via Hermes with the latest report.
@@ -287,17 +231,6 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         abort(501)
 
 
-# STATIC ROUTES
-@reports.route('/assets/<path:filepath>/')
-def serve_static(filepath):
-    """Serves static assets (js, css, img etc).
-
-       Args:
-           filepath (str): The file path of the desired asset. 
-    """
-    return send_file(filepath)
-
-
 # FILTERS
 @reports.app_template_filter('datetime')
 def format_datetime(value, format='%H:%M %d-%m-%Y'):
@@ -324,12 +257,6 @@ def format_thousands(value):
     """Adds thousands separator to value."""
     return "{:,}".format(int(value))
 
-
-# FUNCTIONS
-def list_reports(region,
-                 start=date(1970, 1, 1),
-                 end=datetime.today()):
-    """Returns a list of reports"""
 
 
 def create_report(config, report=None, location=None, end_date=None, start_date=None):

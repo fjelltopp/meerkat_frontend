@@ -10,8 +10,6 @@ import time
 from selenium import webdriver
 from wsgi_liveserver import LiveServerTestCase
 import signal
-import logging
-from logging import Formatter, FileHandler
 
 class MeerkatFrontendEnd2End(LiveServerTestCase):
     def create_app(self):
@@ -28,12 +26,11 @@ class MeerkatFrontendEnd2End(LiveServerTestCase):
         # Work around so that we are not left with a lot of phantomjs process
         self.browser.service.process.send_signal(signal.SIGTERM)
         self.browser.quit()
-
-        
         
     def test_index(self):
         self.browser.get(self.url_base())
         time.sleep(3)
         self.assertIn("Public Health Surveillance", self.browser.title)
+
 if __name__ == '__main__':
     unittest.main()
