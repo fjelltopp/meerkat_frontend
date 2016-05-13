@@ -47,10 +47,13 @@ def authenticate():
     {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 
-def requires_auth(f):
+def requires_api_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         auth = request.authorization
+        non_proteced = ["key_indicators", "tot_map", "consultation_map", "num_alerts"]
+        if "path" in kwargs and kwargs["path"] in non_proteced:
+            return f(*args, **kwargs)
         if not auth or not check_auth(auth.username, auth.password):
             return authenticate()
         return f(*args, **kwargs)
@@ -68,7 +71,9 @@ def api(url, params=dict()):
            dict: A python dictionary formed from the API reponse json string.
     """
     if( current_app.config['TESTING'] ):
-        path = os.path.dirname(os.path.realpath(__file__))+"/apiData/"+url[1:].replace("/", "_")
+        if url[0] == "/":
+            url = url[1:]
+        path = os.path.dirname(os.path.realpath(__file__))+"/apiData/"+url.replace("/", "_")
         with open(path+'.json') as data_file:    
             return json.load(data_file)
     else:

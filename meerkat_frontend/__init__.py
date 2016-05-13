@@ -75,7 +75,7 @@ if "EXTRA_PAGES" in app.config:
 
 @app.route('/from_api', defaults={'path': ''})
 @app.route('/from_api/<path:path>')
-@c.requires_auth
+@c.requires_api_auth
 def from_api(path):
     params = {}
     if len(request.args) > 0:

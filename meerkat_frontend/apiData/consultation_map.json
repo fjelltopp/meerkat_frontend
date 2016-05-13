@@ -1,0 +1,34 @@
+{
+    "7": {
+        "clinic": "Clinic 1",
+        "geolocation": [
+            "0.1",
+            "0.1"
+        ],
+        "value": 2972
+    },
+    "8": {
+        "clinic": "Clinic 2",
+        "geolocation": [
+            "0.2",
+            "0.2"
+        ],
+        "value": 1583
+    },
+    "10": {
+        "clinic": "Clinic 4",
+        "geolocation": [
+            "0.3",
+            "0.2"
+        ],
+        "value": 1601
+    },
+    "11": {
+        "clinic": "Clinic 5",
+        "geolocation": [
+            "-0.1",
+            "0.4"
+        ],
+        "value": 1349
+    }
+}

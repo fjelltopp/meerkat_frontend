@@ -21,7 +21,7 @@ def from_env(env_var, default):
 
 class Config(object):
     DEBUG = False
-    TESTING = False
+    TESTING = bool(from_env("MEERKAT_TESTING", False))
 
     INTERNAL_API_ROOT = from_env("INTERNAL_API_ROOT", 'http://dev_nginx_1/api')
     EXTERNAL_API_ROOT = '/from_api'

@@ -8,7 +8,7 @@ env:
     MEERKAT_FRONTEND_SETTINGS="/home/travis/build/meerkat-code/meerkat_frontend/country_config/null_config.py"
 install:
 - pip install .
-- pip install -r .travis-requirements.txt
+- pip install -r requirements.txt
 # As per http://austinpray.com/ops/2015/09/20/change-travis-node-version.html
 - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
 - npm install
