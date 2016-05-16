@@ -5,6 +5,7 @@ Meerkat Frontend Tests
 Unit tests for the Reports in Meerkat frontend
 """
 import meerkat_frontend as mk
+from meerkat_frontend.test import check_authentication
 import unittest
 from datetime import datetime
 from werkzeug.datastructures import Headers
@@ -90,6 +91,14 @@ class MeerkatFrontendReportsTestCase(unittest.TestCase):
         
     def tearDown(self):
         pass
+
+    def test_reports_authentication(self):
+        reports = mk.app.config["REPORTS_CONFIG"]["report_list"].keys()
+        
+        start = datetime(2015, 1, 1).isoformat()
+        end = datetime(2015, 6, 1).isoformat()
+        for report in reports:
+            check_authentication(self, '/reports/public_health/1/{}/{}/'.format(end, start), True)
     
     def test_reports_public_health(self):
         """ Basic test of public health report"""
