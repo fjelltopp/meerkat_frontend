@@ -67,9 +67,11 @@ def subscribed():
         else: 
             data[key] = key_list[0]
 
+    #current_app.logger.warning( str(data) )
+
     #Call hermes subscribe method.
     subscribe_response = c.hermes('/subscribe', 'PUT', data)
-    current_app.logger.warning('Response is: ' + str(subscribe_response))
+    #current_app.logger.warning('Response is: ' + str(subscribe_response))
 
     #Assemble and send verification email.
     url = request.url_root + "messaging/subscribe/verify/"+subscribe_response['subscriber_id'];
@@ -94,11 +96,11 @@ def subscribed():
     }
 
     email_response = c.hermes('/email', 'PUT', email)
-    current_app.logger.warning('Response is: ' + str(email_response))
+    #current_app.logger.warning('Response is: ' + str(email_response))
 
     #Set and send sms verification code.
     if 'sms' in data:
-       set_code(subscribe_response['subscriber_id'], data['sms'])
+       __set_code(subscribe_response['subscriber_id'], data['sms'])
 
     return render_template('messaging/subscribed.html',
                            content=current_app.config['MESSAGING_CONFIG'],
@@ -125,9 +127,8 @@ def verify(subscriber_id):
 
     if subscriber['Item']['verified'] == True:
         flash( 'You have already verified your account.')
-        return redirect('/messaging/subscribe/verified/' + subscriber_id, code=302)
+        return redirect('/messaging/subscribe/verified/' + subscriber_id)
     elif 'sms' not in subscriber['Item']:
-        current_app.logger.warning(str(subscriber['Item']))
         c.hermes('/verify/'+subscriber_id, 'GET')
         return redirect('messaging/subscribe/verified/' + subscriber_id)
     else:
@@ -146,7 +147,7 @@ def verified(subscriber_id):
        Args:
            subscriber_id (str):  The UUID that is assigned to the subscriber upon creation by Meerkat Hermes.
     """
-
+    current_app.logger.warning( "Called verfied with headers: " + str(request.headers) ) 
     #Get the subscriber
     subscriber = c.hermes( '/subscribe/'+subscriber_id, 'GET' )['Item']
 
@@ -177,7 +178,7 @@ def verified(subscriber_id):
     }
 
     email_response = c.hermes('/email', 'PUT', email)
-    current_app.logger.warning('Response is: ' + str(email_response))
+    #current_app.logger.warning('Response is: ' + str(email_response))
 
     return render_template('messaging/verified.html',
                            content=current_app.config['MESSAGING_CONFIG'],
@@ -198,7 +199,7 @@ def sms_code(subscriber_id):
        Args:
            subscriber_id (str):  The UUID that is assigned to the subscriber upon creation by Meerkat Hermes. """
 
-    current_app.logger.warning("Method is: " + request.method )
+    #current_app.logger.warning("Method is: " + request.method )
 
     if request.method == 'POST':
         if __check_code( subscriber_id, request.form['code'] ):
@@ -215,10 +216,10 @@ def sms_code(subscriber_id):
         success = True
         for r in response['messages']:
 
-            current_app.logger.warning( "Status: "+str(r['status'])+"\nStatement: " + str(not r['status'] == '0') )
+            #current_app.logger.warning( "Status: "+str(r['status'])+"\nStatement: " + str(not r['status'] == '0') )
             if not r['status'] == '0': 
                 success = False
-                current_app.logger.warning( "Success: " + str(success) )
+                #current_app.logger.warning( "Success: " + str(success) )
 
         if success==True: 
             flash('A new code has been sent to your phone.')

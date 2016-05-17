@@ -110,7 +110,7 @@ def hermes(url, method, data={}):
     url = current_app.config['HERMES_ROOT']+url #+"?api_key="+current_app.config['HERMES_API_KEY']
     headers = {'content-type' : 'application/json'}
 
-    current_app.logger.warning( "Sending json data:" + json.dumps(data) +"\nTo url: " + url )
+    #current_app.logger.warning( "Sending json data:" + json.dumps(data) +"\nTo url: " + url )
     
     #Make the request and handle the response.
     try:

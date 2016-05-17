@@ -126,6 +126,7 @@ class MeerkatFrontendReportsTestCase(unittest.TestCase):
         self.assertIn(rv.status_code, [200])
         self.assertIn(b"64 cases", rv.data)
         self.assertIn(b"Other disorders of glucose regulation and pancreatic internal secretion", rv.data)
+
     def test_reports_cd(self):
         """ Basic test of cd report """
         start = datetime(2015, 1, 1).isoformat()
@@ -157,6 +158,7 @@ class MeerkatFrontendReportsTestCase(unittest.TestCase):
         rv = self.app.get('/reports/refugee_public_health/1/{}/{}/'.format(end, start),headers=self.header)
         self.assertIn(rv.status_code, [200])
         self.assertIn(b"A total of <strong>0 consultations</strong>  and <strong>43 cases</strong> reported", rv.data)
+
     def test_reports_refugee_detail(self):
         """ Basic test of refugee detail report"""
         start = datetime(2015, 1, 1).isoformat()

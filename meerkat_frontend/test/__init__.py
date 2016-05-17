@@ -25,7 +25,9 @@ def check_authentication(test_class, url, has_authentication):
         rv = test_class.app.get(url, headers=test_class.header)
     test_class.assertEqual(rv.status_code, 200)
         
-  
+from meerkat_frontend.test.test_reports import * 
+from meerkat_frontend.test.test_common import * 
+from meerkat_frontend.test.test_messaging import * 
 
 class MeerkatFrontendTestCase(unittest.TestCase):
 
