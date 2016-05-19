@@ -108,3 +108,100 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         self.assertIn(b'verify your contact details', rv.data)
         self.assertIn(b'+441234567890', rv.data)
 
+    @mock.patch('meerkat_frontend.common.hermes')
+    def test_verified( self, mock_hermes ):
+        """Test that the verified step responds correctly."""
+
+        #Create the correct mocked responses.
+        subscriber_id = 'TESTSUBCRIBERID'
+        mock_hermes.return_value = {
+            'Item':{
+                'id': subscriber_id,
+                'first_name': 'Testy',
+                'last_name': 'McTestface', 
+                'sms': '+441234567890', 
+                'email': 'success@amazonses.simulator.com', 
+                'country': 'Null Island', 
+                'topics': ['null-public_health', 'null-1-allDis'],
+                'verified': True
+            }
+        }
+
+        #Check the page shows correctly
+        rv = self.app.get('/messaging/subscribe/verified/' + subscriber_id, headers=self.header)
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b'successfully verified', rv.data)
+
+        #Check hermes has been called correctly
+        mock_hermes.assert_any_call( '/subscribe/' + subscriber_id, 'GET' )
+        self.assertTrue( mock_hermes.call_args_list[1][0][0:2] == ('/email', 'PUT') )
+
+        #Check for a redirect if a user tries to access this page for an unverified account.
+        mock_hermes.return_value['Item']['verified'] = False
+        rv = self.app.get('/messaging/subscribe/verified/' + subscriber_id, headers=self.header)
+        self.assertIn(rv.status_code, [302])
+        self.assertEqual(urlparse(rv.location).path, '/messaging/subscribe/verify/' + subscriber_id)
+    
+    @mock.patch('random.random')
+    @mock.patch('meerkat_frontend.common.hermes')
+    def test_sms_code( self, mock_hermes, mock_random ):  
+        """Test that the function that sets and checks sms codes."""
+
+        #Create the correct mocked responses.
+        subscriber_id = 'TESTSUBCRIBERID'
+        subscribe_get_response = {
+            'Item':{
+                'id': subscriber_id,
+                'first_name': 'Testy',
+                'last_name': 'McTestface', 
+                'sms': '+441234567890', 
+                'email': 'success@amazonses.simulator.com', 
+                'country': 'Null Island', 
+                'topics': ['null-public_health', 'null-1-allDis'],
+                'verified': True
+            }
+        }
+        verify_get_response = { "message": "Subscriber verified" } 
+        verify_post_response_correct = { "matched": True } 
+        verify_post_response_incorrect = { "matched": False } 
+        sms_put_response = { "messages": [{"status": 0}] }
+
+        #Test the GET method.
+        mock_hermes.side_effect = [subscribe_get_response, {}, sms_put_response ] 
+        mock_random.return_value = 0
+        rv = self.app.get('/messaging/subscribe/sms_code/' + subscriber_id, headers=self.header)
+        self.assertIn(rv.status_code, [302])
+        self.assertEqual(urlparse(rv.location).path, '/messaging/subscribe/verify/' + subscriber_id)
+        mock_hermes.assert_any_call( '/subscribe/' + subscriber_id, 'GET' )
+        mock_hermes.assert_any_call( '/verify', 'PUT', { 'subscriber_id':subscriber_id, 'code': 0 } )
+        self.assertTrue( mock_hermes.call_args_list[2][0][0:2] == ('/sms', 'PUT') )
+
+        #Test the POST method for the incorrect code.
+        mock_hermes.reset_mock()
+        mock_hermes.side_effect = [verify_post_response_incorrect] 
+        rv = self.app.post(
+            '/messaging/subscribe/sms_code/' + subscriber_id, 
+            headers=self.header,
+            data={'code':0}
+        )
+        self.assertIn(rv.status_code, [302])
+        self.assertEqual(urlparse(rv.location).path, '/messaging/subscribe/verify/' + subscriber_id)
+        mock_hermes.assert_called_with( '/verify', 'POST', {'subscriber_id': subscriber_id, 'code': '0'} )
+
+        #Test the POST method for the correct code.
+        mock_hermes.reset_mock()
+        mock_hermes.side_effect = [verify_post_response_correct, verify_get_response] 
+        rv = self.app.post(
+            '/messaging/subscribe/sms_code/' + subscriber_id, 
+            headers=self.header,
+            data={'code':0}
+        )
+        self.assertIn(rv.status_code, [302])
+        self.assertEqual(urlparse(rv.location).path, '/messaging/subscribe/verified/' + subscriber_id)
+        print( mock_hermes.call_args_list )
+        self.assertTrue( mock_hermes.call_args_list[0][0] == (
+            '/verify', 'POST', {'subscriber_id': subscriber_id, 'code': '0'} 
+        ))
+        self.assertTrue( mock_hermes.call_args_list[1][0] == ('/verify/' + subscriber_id, 'GET'))
+            
+        

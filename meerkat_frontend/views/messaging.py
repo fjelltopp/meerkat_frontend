@@ -147,42 +147,46 @@ def verified(subscriber_id):
        Args:
            subscriber_id (str):  The UUID that is assigned to the subscriber upon creation by Meerkat Hermes.
     """
-    current_app.logger.warning( "Called verfied with headers: " + str(request.headers) ) 
+
     #Get the subscriber
     subscriber = c.hermes( '/subscribe/'+subscriber_id, 'GET' )['Item']
+    
+    if subscriber['verified']:
+        country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
-    country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+        # Send a confirmation e-mail with the unsubscribe link.
+        message = ( "Dear " + subscriber['first_name'] + " " + subscriber['last_name']+",\n\n"
+                    "Thank you for subscribing to receive public health surveillance notifications from "
+                    + country + ".  We can confirm that your contact details have been "
+                    "successfully verified.\n\nYou can unsubscribe at any time by clicking on the " 
+                    "relevant link in your e-mails.\n\n If you wish to "
+                    "unsubscribe now copy and paste the following url into your address bar:\n"
+                    + current_app.config['HERMES_ROOT'] + "/unsubscribe/" + subscriber_id  )
 
-    # Send a confirmation e-mail with the unsubscribe link.
-    message = ( "Dear " + subscriber['first_name'] + " " + subscriber['last_name']+",\n\n"
-                "Thank you for subscribing to receive public health surveillance notifications from "
-                + country + ".  We can confirm that your contact details have been "
-                "successfully verified.\n\nYou can unsubscribe at any time by clicking on the " 
-                "relevant link in your e-mails.\n\n If you wish to "
-                "unsubscribe now copy and paste the following url into your address bar:\n"
-                + current_app.config['HERMES_ROOT'] + "/unsubscribe/" + subscriber_id  )
+        html = ( "<p>Dear " + subscriber['first_name'] + " " + subscriber['last_name'] + ",</p>"
+                 "<p>Thank you for subscribing to receive public health surveillance notifications from "
+                 + country +  ".  We can confirm that your contact details have been successfully verified."
+                 "</p><p>You can unsubscribe at any time by clicking on the relevant link in your e-mails.</p><p> " 
+                 "If you wish to unsubscribe now <a href='" + current_app.config['HERMES_ROOT'] + "/unsubscribe/" 
+                 + subscriber_id + "'>click here.</a></p>" )
 
-    html = ( "<p>Dear " + subscriber['first_name'] + " " + subscriber['last_name'] + ",</p>"
-             "<p>Thank you for subscribing to receive public health surveillance notifications from "
-             + country +  ".  We can confirm that your contact details have been successfully verified."
-             "</p><p>You can unsubscribe at any time by clicking on the relevant link in your e-mails.</p><p> " 
-             "If you wish to unsubscribe now <a href='" + current_app.config['HERMES_ROOT'] + "/unsubscribe/" 
-             + subscriber_id + "'>click here.</a></p>" )
+        email = {
+            'email': subscriber['email'],
+            'subject': "Your subscription has been successful",
+            'message': message,
+            'html': html,
+            'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
+        }
 
-    email = {
-        'email': subscriber['email'],
-        'subject': "Your subscription has been successful",
-        'message': message,
-        'html': html,
-        'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
-    }
+        email_response = c.hermes('/email', 'PUT', email)
+        #current_app.logger.warning('Response is: ' + str(email_response))
 
-    email_response = c.hermes('/email', 'PUT', email)
-    #current_app.logger.warning('Response is: ' + str(email_response))
-
-    return render_template('messaging/verified.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
-                           week=c.api('/epi_week'))
+        return render_template('messaging/verified.html',
+                               content=current_app.config['MESSAGING_CONFIG'],
+                               week=c.api('/epi_week'))
+    else:
+        flash( "You havn't verified your contact details yet." )
+        return redirect( 'messaging/subscribe/verify/' + subscriber_id ) 
 
 # Choose, set and check SMS verification codes. 
 @messaging.route('/subscribe/sms_code/<string:subscriber_id>', methods=['get', 'post'])
@@ -223,10 +227,10 @@ def sms_code(subscriber_id):
 
         if success==True: 
             flash('A new code has been sent to your phone.')
-            return redirect("/messaging/subscribe/verify/"+subscriber_id, code=302)
+            return redirect( "/messaging/subscribe/verify/" + subscriber_id, code=302 )
         else:
             flash('Error: Try again later, or contact administrator.', 'error')
-            return redirect("/messaging/subscribe/verify/"+subscriber_id, code=302)
+            return redirect( "/messaging/subscribe/verify/" + subscriber_id, code=302 )
 
 # Utility function to check a code
 def __check_code(subscriber_id, code):
@@ -264,7 +268,7 @@ def __set_code(subscriber_id, sms):
         'sms': sms,
         'message': message
     }
-    response = c.hermes('/verify', 'PUT', { 'subscriber_id':subscriber_id, 'code': code } )
+    c.hermes('/verify', 'PUT', { 'subscriber_id':subscriber_id, 'code': code } )
     response = c.hermes( '/sms', 'PUT', data )
     return response
     
