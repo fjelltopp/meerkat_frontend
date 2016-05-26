@@ -24,7 +24,7 @@
         <div class="key">
 			 <img src="{{url_for('static', filename='img/homepage/marker-icon-2x.png')}}"></img>
           <div class="keyText"> Surveillance Sites 
-             <div class="keyBody clickable"> Click here to explore </div>
+             <div class="keyBody clickable"> {{ _('Click here to explore') }} </div>
           </div>
         </div>  
       </div> 
@@ -50,7 +50,7 @@
         <div class="techSiteBtn">
 			  <a type="button" class="btn btn-lg btn-default"  href="/technical" target="_blank" >
 		       Log in to the <br> 
-		       <H2>Technical Site</H2> 
+		       <H2>{{ _('Technical Site') }}</H2> 
 		     </a>  
         </div> 
       </div>

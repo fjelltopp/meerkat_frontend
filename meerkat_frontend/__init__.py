@@ -10,6 +10,7 @@ import json, os
 from slugify import slugify
 from flask import Flask, send_file, render_template, request, current_app, abort, flash
 import jinja2
+from flask.ext.babel import Babel, gettext, ngettext, get_translations, get_locale, support
 from .views.homepage import homepage
 from .views.technical import technical
 from .views.reports import reports
@@ -20,6 +21,7 @@ from . import common as c
 
 # Create the Flask app
 app = Flask(__name__)
+babel = Babel(app)
 app.jinja_options['extensions'].append('jinja2.ext.do')
 app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
@@ -39,6 +41,18 @@ for k,v in app.config['COMPONENT_CONFIGS'].items():
     config = json.loads( open(path).read() ) 
     app.config[k] = {**app.config['SHARED_CONFIG'], **config}           
 
+# Internationalisation
+
+@babel.localeselector
+def get_locale():
+    return "fr" #request.accept_languages.best_match(['fr'])
+
+
+@app.route("/language_test")
+def language_test():
+    return gettext("Hello, World!")
+
+    
 # Register the Blueprint modules
 app.register_blueprint(homepage, url_prefix='/')
 app.register_blueprint(technical, url_prefix='/technical')
