@@ -93,12 +93,12 @@ drawTable3();
  *so this function will restore the "data.mortality.mor_1" as "data.mortality.icd_17".  This makes data
  *much easier to tabulate. */
 function prepareMortData(){
-
-  var mort_keys = Object.keys(content.mortality);
+  
+  var mort_keys = Object.keys(content.deaths);
   for( var i=0; i< mort_keys.length; i++ ){
     var new_key = content.variables[mort_keys[i]].name.replace("Deaths ", "");
-    content.mortality[new_key] = content.mortality[mort_keys[i]];
-    delete content.mortality[mort_keys[i]];
+    content.deaths[new_key] = content.deaths[mort_keys[i]];
+    delete content.deaths[mort_keys[i]];
   }
 }
 
@@ -194,7 +194,7 @@ function drawTable23(){
 
 //Draw table 3
 function drawTable3(){
-  console.log( content.alerts );
+
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
     "<thead><th class='border-right'></th><th>Cases</th></thead>" +
     "<tr><td class='total'>Number of alerts generated</td><td>" + content.alerts.total + "</td></tr>" +
@@ -240,7 +240,7 @@ function drawFromStruct( struct ){
     //If the "highlight" option is sepcified in the third array element.
     }else if( struct[i][2] == "highlight" ){
 
-      var deaths = content.mortality[struct[i][1]];
+      var deaths = content.deaths[struct[i][1]];
       var cases = content.epi_monitoring[struct[i][1]];
       var total = deaths + cases;
 
@@ -252,7 +252,7 @@ function drawFromStruct( struct ){
     //Otherwise, just draw a standard table row using the first two elements of the array.
     }else{
 
-      var deaths = content.mortality[struct[i][1]];
+      var deaths = content.deaths[struct[i][1]];
       var cases = content.epi_monitoring[struct[i][1]];
       var total = deaths + cases;
 
