@@ -98,7 +98,7 @@ def subscribed():
 
     #Set and send sms verification code.
     if 'sms' in data:
-       set_code(subscribe_response['subscriber_id'], data['sms'])
+       __set_code(subscribe_response['subscriber_id'], data['sms'])
 
     return render_template('messaging/subscribed.html',
                            content=current_app.config['MESSAGING_CONFIG'],
@@ -240,6 +240,7 @@ def __check_code(subscriber_id, code):
            
     """
     response = c.hermes('/verify', 'POST', {'subscriber_id':subscriber_id, 'code': code} )
+    current_app.logger.warning( str(response ) )
     return bool(response['matched'])
 
 # Utility function to set a new sms code.
