@@ -73,9 +73,12 @@
 
 
 {% block extra_js %}
-<!-- JAVASCRIPT DATA FOR CHARTS -->
+
 <script>
+//Store the report content from the server.
 var content = {{report|tojson|safe}};
+
+//Draw the content using the functions below.
 prepareMortData();
 drawTable1();
 drawTable21();
@@ -83,12 +86,17 @@ drawTable22();
 drawTable23();
 drawTable3();
 
+/*The mortality data value is the number of deaths for a given code.
+ *The name of each mortality code is "Deaths [code ID]". We need to match mortality data to
+ *code data so this function extracts the corresponding codeID from the name and stores its the data 
+ *value under that ID rather than the mortality ID. For example code "mor_1" has name "Deaths icd_17"
+ *so this function will restore the "data.mortality.mor_1" as "data.mortality.icd_17".  This makes data
+ *much easier to tabulate. */
 function prepareMortData(){
 
   var mort_keys = Object.keys(content.mortality);
-
   for( var i=0; i< mort_keys.length; i++ ){
-    var new_key = mort_keys[i].replace("Deaths ", "");
+    var new_key = content.variables[mort_keys[i]].name.replace("Deaths ", "");
     content.mortality[new_key] = content.mortality[mort_keys[i]];
     delete content.mortality[mort_keys[i]];
   }
@@ -96,6 +104,7 @@ function prepareMortData(){
   console.log( content );
 }
 
+//Draw table 1
 function drawTable1(){
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
@@ -103,7 +112,7 @@ function drawTable1(){
 
   mort_keys = Object.keys(content.tot_mortality);
   for( var i=1; i<mort_keys.length; i++ ){
-    varTitle = content.variables.tot_mortality[mort_keys[i]].name;
+    varTitle = content.variables[mort_keys[i]].name;
     html += "<th>" + varTitle.replace("Deaths ", "") + "</th>";
   }
 
@@ -130,6 +139,7 @@ function drawTable1(){
   $('.table1-wrapper').html(html);
 }
 
+//Draw table 2.1
 function drawTable21(){
   
   var struct = [
@@ -151,6 +161,7 @@ function drawTable21(){
   $('.table21-wrapper').html( drawFromStruct(struct) );
 }
 
+//Draw table 2.2
 function drawTable22(){
   
   var struct = [
@@ -164,6 +175,7 @@ function drawTable22(){
   $('.table22-wrapper').html( drawFromStruct(struct) );
 }
 
+//Draw table 2.3
 function drawTable23(){
 
   var struct = [
@@ -182,6 +194,7 @@ function drawTable23(){
   $('.table23-wrapper').html( drawFromStruct(struct) );
 }
 
+//Draw table 3
 function drawTable3(){
   console.log( content.alerts );
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
@@ -192,7 +205,12 @@ function drawTable3(){
   $('.table3-wrapper').html( html );
 }
 
-
+/*Refactorisation: draw table from a two dimensional array.
+ *Takes an array of two or three element arrays, where:
+ *    1st element - is the textual label or key for the row.
+ *    2nd element - is the agg code for the row (both cases and deaths are shown)
+ *    3rd element (optional) - is a string containing display options.
+ *The resulting table is a three column table of key, cases and deaths. */
 function drawFromStruct( struct ){
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
@@ -201,6 +219,7 @@ function drawFromStruct( struct ){
 
   for( var i=0; i<struct.length; i++ ){
 
+    //If the "highlight no_deaths" option is sepcified in the third array element.
     if( struct[i][2] == "highlight no_deaths" ){
 
       var cases = content.epi_monitoring[struct[i][1]];
@@ -209,6 +228,8 @@ function drawFromStruct( struct ){
         "<td class='highlight' >" + cases + "</td>" +
         "<td class='highlight' > NA </td>" +
         "<td class='total highlight border-left'>" + cases + "</td></tr>"
+
+    //If the "no_deaths" option is sepcified in the third array element.
     }else if( struct[i][2] == "no_deaths" ){
 
       var cases = content.epi_monitoring[struct[i][1]];
@@ -217,6 +238,8 @@ function drawFromStruct( struct ){
         "<td>" + cases + "</td>" +
         "<td>NA</td>" +
         "<td class='total'>" + cases + "</td></tr>"
+
+    //If the "highlight" option is sepcified in the third array element.
     }else if( struct[i][2] == "highlight" ){
 
       var deaths = content.mortality[struct[i][1]];
@@ -227,6 +250,8 @@ function drawFromStruct( struct ){
         "<td class='highlight' >" + cases + "</td>" +
         "<td class='highlight' >" + deaths + "</td>" +
         "<td class='total highlight border-left'>" + total + "</td></tr>"
+
+    //Otherwise, just draw a standard table row using the first two elements of the array.
     }else{
 
       var deaths = content.mortality[struct[i][1]];
