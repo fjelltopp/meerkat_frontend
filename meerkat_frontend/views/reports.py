@@ -363,8 +363,8 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     api_request += '/' + report_list[report]['api_name'] 
     if( location != None ): api_request += '/' + str(location)
     if start_date is None and end_date is None:
-        if "default_period" in report_list["reports"][report].keys():
-            period = report_list["reports"][report]["default_period"]
+        if "default_period" in report_list[report].keys():
+            period = report_list[report]["default_period"]
 
             today = datetime.today()
             if period == "week":
