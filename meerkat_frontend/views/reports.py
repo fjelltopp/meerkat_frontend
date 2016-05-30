@@ -15,7 +15,7 @@ from .. import common as c
 import string
 import pdfcrowd
 
-reports = Blueprint('reports', __name__)
+reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 @reports.before_request
 def requires_auth():

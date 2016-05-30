@@ -1,14 +1,16 @@
+
 {% extends 'base.html' %}
 
 {% block menu %}
 <ul class="nav navbar-nav">
-  <li class="active"><a href="/technical/" >Dashboard</a></li>
-  <li><a href="/reports/" >Reports</a></li>
-  <li><a href="/messaging/" >Notifications</a></li>
-  <li><a href="/explore/" >Explore Data</a></li>
-  <li><a href="/download/" >Download Data</a></li>
-  <li><a href="/" >Log out</a></li>
+    <li class="active"><a href="/{{g.get('language')}}/technical/" >{{ _('Dashboard') }}</a></li>
+  <li><a href="/{{g.get('language')}}/reports/" >{{ _('Reports') }}</a></li>
+  <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
+  <li><a href="/{{g.get('language')}}/explore/" >{{ _('Explore Data') }}</a></li>
+  <li><a href="/{{g.get('language')}}/download/" >{{ _('Download Data') }}</a></li>
+  <li><a href="/"{{g.get("language")}} >{{ _('Log out') }}</a></li>
 </ul>
+{{common.language_chooser()}}
 {% endblock %}
 
 {% block body %}
@@ -20,7 +22,8 @@
 	       <a href="" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}" page="{{tab.template}}" onclick="loadTab('{{tab.name|striptags|lower|trim|replace(' ','_')}}'); return false;">{{tab.name}}</a>
 	     </li>
         {% endfor %}
-	   </ul>
+	  </ul>
+
       <div class="breaker"></div>
     </div>
   </div>
@@ -35,7 +38,8 @@
 <script type="text/javascript" >
 
 	var api_root = "{{config['EXTERNAL_API_ROOT']}}";
-	var config = {{config['TECHNICAL_CONFIG']|tojson|safe}};
+        var config = {{config['TECHNICAL_CONFIG']|tojson|safe}};
+        var language = {{g.get("language")|tojson|safe}};
 	var week = {{week.epi_week|safe}};
 	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 

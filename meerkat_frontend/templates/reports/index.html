@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
+
 {% block menu %}
 <ul class="nav navbar-nav">
-	<li><a href="/technical/" >Dashboard</a></li>
-	<li class="active"><a href="/reports/" >Reports</a></li>
-	<li><a href="/messaging/" >Notifications</a></li>
-	<li><a href="/explore/" >Explore Data</a></li>
-	<li><a href="/download/" >Download Data</a></li>
-	<li><a href="/" >Log out</a></li>
+  <li><a href="/{{g.get('language')}}/technical/" >{{ _('Dashboard') }}</a></li>
+  <li class="active"><a href="{{g.get('language')}}/reports/" >{{ _('Reports') }}</a></li>
+  <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
+  <li><a href="/{{g.get('language')}}/explore/" >{{ _('Explore Data') }}</a></li>
+  <li><a href="/{{g.get('language')}}/download/" >{{ _('Download Data') }}</a></li>
+  <li><a href="/"{{g.get("language")}} >{{ _('Log out') }}</a></li>
 </ul>
+{{common.language_chooser()}}
 {% endblock %}
 
 {% block body %}
@@ -21,7 +23,7 @@
 		<div class="location-box box">
 			<a href="#menu-toggle" id="menu-toggle" class="menu-toggle">
 			<div class="location-box__label">
-				<div>Location:</div>
+				<div>{{ _('Location') }}:</div>
 				<div id="location-title" class="location-title" >Not Loaded</div>
 			</div>
 			<span class="glyphicon glyphicon-chevron-right"></span>
@@ -29,10 +31,10 @@
 			</a>
 		</div>
 		<div class="tab-title less-padding-col">
-			Reports 
+			{{ _('Reports') }}
 		</div>
 		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-			Date not loaded.
+			{{ _('Date not loaded.') }}
 		</div>
 	</div>
 
@@ -40,7 +42,7 @@
 
 		<div id="sidebar-wrapper" >
 			<div id="location-selector" class="location-selector">
-				Locations not loaded
+				{{ _('Locations not loaded') }}
 			</div>
 		</div>
 
@@ -56,14 +58,14 @@
 							</div>
 							<div class="row">
 								<form class="reports-form col-sm-offset-3 col-xs-12 col-sm-8 col-md-6 col-lg-5 no-padding-col">
-									<div class="title row">Choose which report to download:</div>
+									<div class="title row">{{ _('Choose which report to download:') }}</div>
 									<div class="row">
 										<div id="report-selector" class="col-sm-offset-1 col-sm-11 no-padding-col"></div>
 									</div>
 									<div class="title row">
-										<div class="col-sm-6 no-padding-col">Choose which time period:</div>
+										<div class="col-sm-6 no-padding-col">{{ _('Choose which time period:') }}</div>
 										<div class="default-period col-sm-6 no-padding-col" > 
-											(Default period: 
+											( {{ _('Default period') }}: 
 											<a class="period" 
 												 onclick="setDefaultPeriod( $('#report-selector select').find(':selected').attr('period' ));
 												         return false;" >
@@ -73,7 +75,7 @@
 									<div class="row">
 										<div class="col-sm-offset-1 col-sm-11 no-padding-col">
 											<div class="col-xs-12 col-sm-5 no-padding-col">
-												<div class="row"> Start date: </div>
+												<div class="row"> {{ _('Start date:') }} </div>
 												<div class='input-group date row' 
 													   id='start-date' name='start_date' value=''>
 													<input type='text' class="form-control "/>
@@ -83,7 +85,7 @@
 												</div>												
 											</div>
 											<div class="col-xs-12 col-sm-5 no-padding-col pull-right">
-												<div class="row" > End date: </div>
+												<div class="row" > {{ _('End date:') }} </div>
 												<div class='input-group date row' 
 													 id='end-date' name='end_date' value=''>
 													<input type='text' class="form-control "/>
@@ -95,7 +97,7 @@
 										</div>
 									</div>
 									<div class="title row">
-										Click to download your selected report for
+										{{ _('Click to download your selected report for') }}
 										<a href="" class="menu-toggle location-name"></a>:
 									</div>
 									<div class="col-sm-offset-1 col-sm-11 no-padding-col download-buttons">

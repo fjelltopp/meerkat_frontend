@@ -8,7 +8,7 @@ different services such as the API and Reports.
 """
 import json, os
 from slugify import slugify
-from flask import Flask, send_file, render_template, request, current_app, abort, flash
+from flask import Flask, send_file, render_template, request, current_app, abort, flash, g, redirect, url_for
 import jinja2
 from flask.ext.babel import Babel, gettext, ngettext, get_translations, get_locale, support
 from .views.homepage import homepage
@@ -45,21 +45,53 @@ for k,v in app.config['COMPONENT_CONFIGS'].items():
 
 @babel.localeselector
 def get_locale():
-    return "fr" #request.accept_languages.best_match(['fr'])
+#    app.logger.info(g.get("language", app.config["DEFAULT_LANGUAGE"]))
+    return g.get("language", 'en')
 
 
-@app.route("/language_test")
-def language_test():
+@app.route("/<language>/language_test")
+def language_test(language):
+    g.language = language
     return gettext("Hello, World!")
 
-    
+
+@messaging.url_value_preprocessor
+@reports.url_value_preprocessor
+@download.url_value_preprocessor
+@explore.url_value_preprocessor
+@technical.url_value_preprocessor
+@homepage.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    app.logger.info("__init__")
+    language = values.pop('language')
+    if language not in app.config["SUPPORTED_LANGUAGES"]:
+        abort(404, "Language not supported")
+    g.language = language
+
+
+@messaging.url_defaults
+@reports.url_defaults
+@download.url_defaults
+@explore.url_defaults
+@homepage.url_defaults
+@technical.url_defaults
+def add_language_code(endpoint, values):
+    values.setdefault('language', app.config["DEFAULT_LANGUAGE"])
+
+
 # Register the Blueprint modules
-app.register_blueprint(homepage, url_prefix='/')
-app.register_blueprint(technical, url_prefix='/technical')
-app.register_blueprint(reports, url_prefix='/reports')
-app.register_blueprint(messaging, url_prefix='/messaging')
-app.register_blueprint(download, url_prefix='/download')
-app.register_blueprint(explore, url_prefix='/explore')
+app.register_blueprint(homepage, url_prefix='/<language>')
+app.register_blueprint(technical, url_prefix='/<language>/technical')
+app.register_blueprint(reports, url_prefix='/<language>/reports')
+app.register_blueprint(messaging, url_prefix='/<language>/messaging')
+app.register_blueprint(download, url_prefix='/<language>/download')
+app.register_blueprint(explore, url_prefix='/<language>/explore')
+
+
+@app.route("/")
+def root():
+    return redirect("/" + app.config["DEFAULT_LANGUAGE"])
+
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):

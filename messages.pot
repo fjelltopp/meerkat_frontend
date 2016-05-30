@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-05-25 11:28+0000\n"
+"POT-Creation-Date: 2016-05-30 12:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: meerkat_frontend/__init__.py:53
+#: meerkat_frontend/__init__.py:55
 msgid "Hello, World!"
 msgstr ""
 
-#: meerkat_frontend/templates/homepage/index.html:27
+#: meerkat_frontend/src/files/pages/demographics.html:129
+msgid "Demographics"
+msgstr ""
+
+#: meerkat_frontend/templates/homepage/index.html:28
 msgid "Click here to explore"
 msgstr ""
 
-#: meerkat_frontend/templates/homepage/index.html:53
+#: meerkat_frontend/templates/homepage/index.html:54
 msgid "Technical Site"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:6
+#: meerkat_frontend/templates/technical/index.html:6
+msgid "Dashboard"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:7
+#: meerkat_frontend/templates/reports/index.html:34
+#: meerkat_frontend/templates/technical/index.html:7
+msgid "Reports"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:8
+#: meerkat_frontend/templates/technical/index.html:8
+msgid "Notifications"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:9
+#: meerkat_frontend/templates/technical/index.html:9
+msgid "Explore Data"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:10
+#: meerkat_frontend/templates/technical/index.html:10
+msgid "Download Data"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:11
+#: meerkat_frontend/templates/technical/index.html:11
+msgid "Log out"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:26
+msgid "Location"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:37
+msgid "Date not loaded."
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:45
+msgid "Locations not loaded"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:61
+msgid "Choose which report to download:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:66
+msgid "Choose which time period:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:68
+msgid "Default period"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:78
+msgid "Start date:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:88
+msgid "End date:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/index.html:100
+msgid "Click to download your selected report for"
 msgstr ""
 

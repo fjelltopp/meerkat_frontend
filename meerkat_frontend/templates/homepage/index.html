@@ -6,6 +6,7 @@
   <li><a href="#{{menu_item.title|lower|trim|replace(' ','_')}}" class="scroll-link" data-id="{{menu_item.title|lower|trim|replace(' ','_')}}">{{menu_item.title}}</a></li>
 {% endfor %}
 </ul>
+{{ common.language_chooser() }}
 {% endblock %}
 
 {% block body %}
@@ -48,7 +49,7 @@
           </div>
         </div>
         <div class="techSiteBtn">
-			  <a type="button" class="btn btn-lg btn-default"  href="/technical" target="_blank" >
+			  <a type="button" class="btn btn-lg btn-default"  href="technical" target="_blank" >
 		       Log in to the <br> 
 		       <H2>{{ _('Technical Site') }}</H2> 
 		     </a>  

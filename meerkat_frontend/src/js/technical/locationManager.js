@@ -55,7 +55,6 @@ function loadLocation( locID ){
 	//Start by getting the current URL then remove the host domain name.
 	var url = window.location.href;
 	url = url.substring( url.indexOf( window.location.host ) + window.location.host.length );
-
 	//Next see if a location is already defined at the end of the URL
 	var index = url.indexOf('/loc_');
 

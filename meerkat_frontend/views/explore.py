@@ -8,7 +8,7 @@ import json
 from .. import common as c
 
 
-explore = Blueprint('explore', __name__)
+explore = Blueprint('explore', __name__, url_prefix="/<language>")
 
 @explore.before_request
 def requires_auth():
