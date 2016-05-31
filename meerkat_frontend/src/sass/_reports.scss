@@ -113,7 +113,8 @@ form.reports-form .download-buttons input{
   background: $lightGrey;
 }
 
-.table tbody td.highlight{
+.table tbody td.highlight,
+.table th.highlight{
   background: $highlight;
   color: #FFF;
 }
@@ -122,24 +123,32 @@ form.reports-form .download-buttons input{
   border: $highlight;
 }
 
-.table th.highlight{
-  background: $highlight;
-  color: #FFF;
+
+.table th.lowlight,
+.table tbody td.lowlight{
+  background: #FAFAFA;
+  color: $textGrey;
+  border-bottom: none;
+  border-top: none;
 }
 
-.border-left{
+.table tbody tr td{
+  border-bottom: 1px solid #ddd;
+} 
+
+.table tbody td.border-left{
   border-left: 2px solid #ddd;
 }
 
-.border-top{
+.table tbody td.border-top{
   border-top: 2px solid #ddd;
 }
 
-.border-right{
+.table tbody td.border-right{
   border-right: 2px solid #ddd;
 }
 
-.border-bottom{
+.table tbody td.border-bottom{
   border-bottom: 2px solid #ddd;
 }
 

@@ -145,11 +145,11 @@ function drawTable21(){
     ["Influenza-like illness", "icd_4183"],
     ["Arboviruses", "icd_461"],
     ["Meningitis", "icd_421"],
-    ["Plague", "icd_113"],
-    ["RDT positive", "epi_4", "highlight no_deaths"],
-    ["Bubonic plague", "epi_5", "highlight no_deaths"],
-    ["Pulmonary plague", "epi_6", "highlight no_deaths"],
-    ["Food Poisoning", "icd_35"],
+    ["Plague", "icd_113", "", "border-top"],
+    ["RDT positive", "epi_4", "lowlight no_deaths"],
+    ["Bubonic plague", "epi_5", "lowlight no_deaths"],
+    ["Pulmonary plague", "epi_6", "lowlight no_deaths"],
+    ["Food Poisoning", "icd_35", "", "border-top"],
     ["Seafood poisoning", "icd_9643"],
     ["Acute Jaundice Syndrome", "icd_530"],
     ["Animal Bite", "icd_9225"],
@@ -180,9 +180,9 @@ function drawTable23(){
     ["Fever Cases (T > 37.5 &#176;C)", "reg_4", "no_deaths"],
     ["Malaria confirmed by rapid test or slide", "epi_1"],
     ["Acute Respiratory Tract Infection", "icd_4177"],
-    ["Acute watery diarrhoea", "icd_1"],
-    ["Acute watery diarrhoea among those over five years of age", "epi_7", "highlight"],
-    ["Sexually Transmitted Diseases other than HIV", "icd_321"],
+    ["Acute watery diarrhoea", "icd_1", "", "border-top"],
+    ["Acute watery diarrhoea among those over five years of age", "epi_7", "lowlight"],
+    ["Sexually Transmitted Diseases other than HIV", "icd_321", "", "border-top"],
     ["Tuberculosis", "icd_91"],
     ["Moderate malnutrition", "cmd_43"],
     ["Severe malnutrition", "icd_2189"],
@@ -218,14 +218,14 @@ function drawFromStruct( struct ){
   for( var i=0; i<struct.length; i++ ){
 
     //If the "highlight no_deaths" option is sepcified in the third array element.
-    if( struct[i][2] == "highlight no_deaths" ){
+    if( struct[i][2] == "lowlight no_deaths" ){
 
       var cases = content.epi_monitoring[struct[i][1]];
 
-      html += "<tr><td class='highlight total right-align border-right'>" + struct[i][0] + "</td>" +
-        "<td class='highlight' >" + cases + "</td>" +
-        "<td class='highlight' > NA </td>" +
-        "<td class='total highlight border-left'>" + cases + "</td></tr>"
+      html += "<tr><td class='lowlight total right-align border-right'>" + struct[i][0] + "</td>" +
+        "<td class='lowlight' >" + cases + "</td>" +
+        "<td class='lowlight' > NA </td>" +
+        "<td class='total lowlight border-left'>" + cases + "</td></tr>"
 
     //If the "no_deaths" option is sepcified in the third array element.
     }else if( struct[i][2] == "no_deaths" ){
@@ -238,28 +238,30 @@ function drawFromStruct( struct ){
         "<td class='total'>" + cases + "</td></tr>"
 
     //If the "highlight" option is sepcified in the third array element.
-    }else if( struct[i][2] == "highlight" ){
+    }else if( struct[i][2] == "lowlight" ){
 
       var deaths = content.deaths[struct[i][1]];
       var cases = content.epi_monitoring[struct[i][1]];
       var total = deaths + cases;
 
-      html += "<tr><td class='highlight total right-align border-right'>" + struct[i][0] + "</td>" +
-        "<td class='highlight' >" + cases + "</td>" +
-        "<td class='highlight' >" + deaths + "</td>" +
-        "<td class='total highlight border-left'>" + total + "</td></tr>"
+      html += "<tr><td class='lowlight total right-align border-right'>" + struct[i][0] + "</td>" +
+        "<td class='lowlight' >" + cases + "</td>" +
+        "<td class='lowlight' >" + deaths + "</td>" +
+        "<td class='total lowlight border-left'>" + total + "</td></tr>"
 
     //Otherwise, just draw a standard table row using the first two elements of the array.
+    //For extra customisation allow DOMClasses to be specified in the fourth array element.
     }else{
 
       var deaths = content.deaths[struct[i][1]];
       var cases = content.epi_monitoring[struct[i][1]];
       var total = deaths + cases;
+      var domClass = struct[i][3];
 
-      html += "<tr><td class='total key'>" + struct[i][0] + "</td>" +
-        "<td>" + cases + "</td>" +
-        "<td>" + deaths + "</td>" +
-        "<td class='total'>" + total + "</td></tr>"
+      html += "<tr><td class='total key " + domClass + "'>" + struct[i][0] + "</td>" +
+        "<td class='" + domClass + "'>" + cases + "</td>" +
+        "<td class='" + domClass + "'>" + deaths + "</td>" +
+        "<td class='total " + domClass + "'>" + total + "</td></tr>"
     } 
   }
     
