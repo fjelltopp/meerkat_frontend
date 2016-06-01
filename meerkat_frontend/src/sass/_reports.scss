@@ -91,7 +91,7 @@ form.reports-form .download-buttons input{
 	margin: 20px 0px;
 }
 
-.refugee th{
+.reports-table th, .refugee th{
   background: $lightGrey;
 }
 
@@ -99,6 +99,7 @@ form.reports-form .download-buttons input{
   text-align: left;
   border-right: 2px solid #ddd;
 }
+
 
 .total{
   border-right: 2px solid #ddd;
@@ -112,31 +113,43 @@ form.reports-form .download-buttons input{
   background: $lightGrey;
 }
 
-.border-left{
-  border-left: 2px solid #ddd;
-}
-
-.border-top{
-  border-top: 2px solid #ddd;
-}
-
-.border-right{
-  border-right: 2px solid #ddd;
-}
-
-.border-bottom{
-  border-bottom: 2px solid #ddd;
-}
-
-.table tbody td.highlight{
-  background: $highlight;
-  color: #FFF;
-  border: $highlight;
-}
-
+.table tbody td.highlight,
 .table th.highlight{
   background: $highlight;
   color: #FFF;
+}
+
+.highlight{
+  border: $highlight;
+}
+
+
+.table th.lowlight,
+.table tbody td.lowlight{
+  background: #FAFAFA;
+  color: $textGrey;
+  border-bottom: none;
+  border-top: none;
+}
+
+.table tbody tr td{
+  border-bottom: 1px solid #ddd;
+} 
+
+.table tbody td.border-left{
+  border-left: 2px solid #ddd;
+}
+
+.table tbody td.border-top{
+  border-top: 2px solid #ddd;
+}
+
+.table tbody td.border-right{
+  border-right: 2px solid #ddd;
+}
+
+.table tbody td.border-bottom{
+  border-bottom: 2px solid #ddd;
 }
 
 .dark{
@@ -156,7 +169,8 @@ form.reports-form .download-buttons input{
   display: inline-block;
 }
 
-table.refugee.table{
+table.refugee.table,
+table.reports-table.table{
   margin-bottom: 0px;
 } 
 
@@ -169,6 +183,10 @@ table.refugee.small{
   margin: 15px 0px 0px 50px;
   font-weight: bold;
   font-size: 15px;
+}
+
+.right-align{
+  text-align: right;
 }
 
 .htmlreport{ 

@@ -238,7 +238,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
            end_date (str): The end_data used to filter the report's data, in ISO format.\n
            start_date (str): The start_date used to filter the report's data, in ISO format.
     """
-    report_list = current_app.config['REPORT_LIST']
+    report_list = current_app.config['REPORTS_CONFIG']['report_list']
     client = pdfcrowd.Client(
         current_app.config['PDFCROWD_API_ACCOUNT'],
         current_app.config['PDFCROWD_API_KEY'])
@@ -363,8 +363,8 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     api_request += '/' + report_list[report]['api_name'] 
     if( location != None ): api_request += '/' + str(location)
     if start_date is None and end_date is None:
-        if "default_period" in report_list["reports"][report].keys():
-            period = report_list["reports"][report]["default_period"]
+        if "default_period" in report_list[report].keys():
+            period = report_list[report]["default_period"]
 
             today = datetime.today()
             if period == "week":
@@ -387,6 +387,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     if( start_date != None ): api_request += '/' + start_date
 
     data = c.api(api_request, api_key=True)
+    
     data["flag"] = config["FLAGG_ABR"]
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
