@@ -238,7 +238,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
            end_date (str): The end_data used to filter the report's data, in ISO format.\n
            start_date (str): The start_date used to filter the report's data, in ISO format.
     """
-    report_list = current_app.config['REPORT_LIST']
+    report_list = current_app.config['REPORTS_CONFIG']['report_list']
     client = pdfcrowd.Client(
         current_app.config['PDFCROWD_API_ACCOUNT'],
         current_app.config['PDFCROWD_API_KEY'])
