@@ -44,7 +44,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 			         "<a href='' onclick='" + linkFunction + "(\""+ data.ids[i] +
 			         "\");return false;' >" + data.labels[i]+'</a></td>';
 		}else{
-			table+='<tr><td>'+data.labels[i]+'</td>';
+			table+='<tr><td>'+i18n.gettext(data.labels[i])+'</td>';
 		}
 
 		if(data.yearPerc){

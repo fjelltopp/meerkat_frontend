@@ -3,6 +3,7 @@ messaging.py
 
 A Flask Blueprint module for Meerkat messaging services.
 """
+from flask.ext.babel import gettext
 from flask import Blueprint, render_template, abort, redirect, flash, request, send_file, current_app, Response
 import time, random
 try:
@@ -221,10 +222,10 @@ def sms_code(subscriber_id):
                 current_app.logger.warning( "Success: " + str(success) )
 
         if success==True: 
-            flash('A new code has been sent to your phone.')
+            flash(gettext('A new code has been sent to your phone.'))
             return redirect("/messaging/subscribe/verify/"+subscriber_id, code=302)
         else:
-            flash('Error: Try again later, or contact administrator.', 'error')
+            flash(gettext('Error: Try again later, or contact administrator.'), 'error')
             return redirect("/messaging/subscribe/verify/"+subscriber_id, code=302)
 
 # Utility function to check a code

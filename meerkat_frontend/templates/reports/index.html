@@ -50,11 +50,11 @@
 			<div class="row">
 				<div class="col-xs-12 less-padding-col">
 					<div class="box chartBox">
-						<div class="chartBox__heading">Report Selector
+						<div class="chartBox__heading">{{ _('Report Selector') }}
 						</div>
 						<div class="chartBox__content " >
 							<div class="row">
-								{{content.introduction}}
+								{{_(content.introduction)}}
 							</div>
 							<div class="row">
 								<form class="reports-form col-sm-offset-3 col-xs-12 col-sm-8 col-md-6 col-lg-5 no-padding-col">
@@ -235,7 +235,7 @@ function drawReportSelect(){
 		html += "<option value='" + report.url + "'" +
 		        "startdate='" + report.start_date + "'" +
 		        "period='" + report.period + "'>" + 
-		        report.name + "</option>";
+		        i18n.gettext(report.name) + "</option>";
 	}
 
 	html += "</select>";
@@ -261,11 +261,11 @@ function openReport( type ){
 
 	switch( type ){
 		case 'pdf':
-			url += report + "~" + location + "~" + endDate + "~" + startDate + ".pdf";
+			url += language + "/" + report + "~" + location + "~" + endDate + "~" + startDate + ".pdf";
 			break;
 
 		case 'html':  
-			url += report + "/" + location + "/" + endDate + "/" + startDate;
+			url += language + "/" + report + "/" + location + "/" + endDate + "/" + startDate;
 			break;
 	}
 	window.open(url);

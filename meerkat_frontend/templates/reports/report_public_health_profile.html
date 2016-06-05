@@ -1,5 +1,5 @@
 {% extends 'reports/base.html' %}
-{% block title %}{{report.data.project_region|e}} &middot; Public Health Profile &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{_(report.data.project_region)|e}} &middot; {{_('Public Health Profile') }} &middot; {{_('Week')}} {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
@@ -9,7 +9,7 @@
 	  style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
       </span> 
-    <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Public Health Profile
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{_('Public Health Profile')}}
     <span class="report-week">
 	{{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
     </span>
@@ -19,9 +19,10 @@
   <!-- KEY FINDINGS -->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Key findings</div>
+      <div class="chart-title">{{ _('Key findings') }}</div>
       <div class="chart-stage">
-         <p>Information reported in this public health profile represents cases reported from {{ report.data.clinic_num }} reporting sites in {{ report.data.project_region|e }} between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
+	  {%trans report.data.clinic_num %}
+         <p>Information reported in this public health profile represents cases reported from {{ report.data.clinic_num }}{%endtrans%} reporting sites in {{ _(report.data.project_region)|e }} between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
         <ul>
           <li>A total of <strong>{{ report.data.total_consultations|commas }} consultations</strong> and <strong>{{ report.data.total_cases|commas }} cases</strong> reported from {{ report.data.clinic_num|commas }} health facilities.</li>
           <li><strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> and <strong>{{ report.data.percent_cases_lt_5yo|float|round(1) }}% under five years</strong> of age.</li>
@@ -36,6 +37,7 @@
         {% else %}
         <p>No alerts were generated up to the end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
         {% endif %}
+
       </div>
     </div>
   </div>

@@ -204,7 +204,7 @@ function makeDataObject( aggregation, variables, week, title, percent ){
 		
 		var label = bins[i];
 
-		data.labels.push( variables[label].name );
+		data.labels.push( i18n.gettext(variables[label].name) );
 		data.ids.push( label );
 		data.year.push( aggregation[label].year );
 		data.week.push( if_exists( aggregation[label].weeks, weeks[0].toString() ) );

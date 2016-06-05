@@ -34,3 +34,4 @@ function get_translator(){
 	console.log(translator);
 	return translator;
 }
+var i18n = get_translator();

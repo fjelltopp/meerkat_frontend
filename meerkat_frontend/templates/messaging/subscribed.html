@@ -7,10 +7,10 @@
 <div class="container page-content">
 	<div class="top-bar row">
 		<div class="tab-title less-padding-col">
-			Public Health Surveillance Notifications
+			{{ _('Public Health Surveillance Notifications') }}
 		</div>
 		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-			Date not loaded.
+			{{ _('Date not loaded.') }}
 		</div>
 	</div>
 	<div id="page-content-wrapper">
@@ -21,7 +21,8 @@
 						Please verify your contact details
 					</div>
 					<div class="chartBox__content" >    
-						<div class="intro">
+					    <div class="intro">
+						{% trans %}
 							<p>Hello {{data['first_name']}} {{data['last_name']}},</p>
 							<p>Thank you for subscribing to receive our public health surveillance notifications.</p>
 							<p><b>
@@ -31,6 +32,7 @@
 							To do this, please follow the instructions in the e-mail we have sent to your address: 
 							{{data['email']}}.
 							</p>	
+        					{% endtrans %}
 						</div>
 					</div>
 				</div>

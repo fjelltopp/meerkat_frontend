@@ -49,12 +49,6 @@ def get_locale():
     return g.get("language", 'en')
 
 
-@app.route("/<language>/language_test")
-def language_test(language):
-    g.language = language
-    return gettext("Hello, World!")
-
-
 @messaging.url_value_preprocessor
 @reports.url_value_preprocessor
 @download.url_value_preprocessor
@@ -62,7 +56,6 @@ def language_test(language):
 @technical.url_value_preprocessor
 @homepage.url_value_preprocessor
 def pull_lang_code(endpoint, values):
-    app.logger.info("__init__")
     language = values.pop('language')
     if language not in app.config["SUPPORTED_LANGUAGES"]:
         abort(404, "Language not supported")

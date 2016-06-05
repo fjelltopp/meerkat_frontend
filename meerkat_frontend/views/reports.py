@@ -288,14 +288,14 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
 
 # STATIC ROUTES
-@reports.route('/assets/<path:filepath>/')
-def serve_static(filepath):
-    """Serves static assets (js, css, img etc).
+# @reports.route('/assets/<path:filepath>/')
+# def serve_static(filepath):
+#     """Serves static assets (js, css, img etc).
 
-       Args:
-           filepath (str): The file path of the desired asset. 
-    """
-    return send_file(filepath)
+#        Args:
+#            filepath (str): The file path of the desired asset. 
+#     """
+#     return send_file(filepath)
 
 
 # FILTERS
