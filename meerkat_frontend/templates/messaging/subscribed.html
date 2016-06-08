@@ -22,17 +22,15 @@
 					</div>
 					<div class="chartBox__content" >    
 					    <div class="intro">
-						{% trans %}
-							<p>Hello {{data['first_name']}} {{data['last_name']}},</p>
+						{{ _('<p>Hello %(firstname)s %(lastname)s,</p>
 							<p>Thank you for subscribing to receive our public health surveillance notifications.</p>
 							<p><b>
 							Before we can activate your subscription, we need to verify your contact details.
 							</b></p>
 							<p>
 							To do this, please follow the instructions in the e-mail we have sent to your address: 
-							{{data['email']}}.
-							</p>	
-        					{% endtrans %}
+							%(email)s
+							</p>')|format(firstname=data['first_name'], lastname=data['last_name'], email=data['email']) }}
 						</div>
 					</div>
 				</div>

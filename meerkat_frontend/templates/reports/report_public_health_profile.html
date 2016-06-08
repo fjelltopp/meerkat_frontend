@@ -21,30 +21,30 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Key findings') }}</div>
       <div class="chart-stage">
-	  {%trans report.data.clinic_num %}
-         <p>Information reported in this public health profile represents cases reported from {{ report.data.clinic_num }}{%endtrans%} reporting sites in {{ _(report.data.project_region)|e }} between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
-        <ul>
-          <li>A total of <strong>{{ report.data.total_consultations|commas }} consultations</strong> and <strong>{{ report.data.total_cases|commas }} cases</strong> reported from {{ report.data.clinic_num|commas }} health facilities.</li>
-          <li><strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> and <strong>{{ report.data.percent_cases_lt_5yo|float|round(1) }}% under five years</strong> of age.</li>
-          <li><strong>{{ extras.patient_status.national.percent|float|round(1) }}% {{ extras.bullet_nationality_display }} nationals</strong> and <strong>{{ extras.patient_status.refugee.percent|float|round(1) }}% refugee status</strong>.</li>
-          <li><strong>{{ report.data.percent_morbidity_communicable|float|round(1) }}% morbidity due to communicable disease</strong>, including {% for disease in report.data.morbidity_communicable_tab %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
-          <li><strong>{{ report.data.percent_morbidity_non_communicable|float|round(1) }}% morbidity due to non-communicable disease</strong>, including {% for disease in report.data.morbidity_non_communicable_tab %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
-          <li><strong>{{ report.data.percent_morbidity_mental_health|float|round(1) }}% morbidity due to mental health conditions</strong>, including {% for disease in report.data.mental_health %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
+          {{ _(' <p>Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.</p>' )|format(clinic_num=report.data.clinic_num, project_region=data.project_region, start_date=report.data.start_date|datetime_from_json|datetime('%-d %B %Y')), end_date=report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}) }}
+          
+          <ul>
+              <li> {{ _(' A total of <strong> %(total_consultations) consultations</strong> and <strong> %(total_cases)s cases</strong> reported from %(num_ health facilities)s.')|format(total_consultations= report.data.total_consultations|commas, total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}</li>
+          <li>{{ _('<strong> %(percent_female)s % female</strong> and <strong> %(percent_lt_5yo)s % five years</strong> of age.')|format(percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=percent_cases_lt_5yo|float|round(1)) }}</li>
+          <li>{{ _('<strong>%(percent_national) % %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s % refugee status</strong>.')|format(national_percent=extras.patient_status.national.percent|float|round(1), national_dispay=extras.bullet_nationality_display, refugee_percent=extras.patient_status.refugee.percent|float|round(1)) }}</li>
+          <li><strong>{{_(' %(percent_cd) % morbidity due to communicable disease</strong>, including ')|format('percent_cd=report.data.percent_morbidity_communicable|float|round(1)) }}{% for disease in report.data.morbidity_communicable_tab %}{% if loop.last and not loop.first %} {{_('and') {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
+          <li><strong>{{ _(' %(percent_ncd)s % morbidity due to non-communicable disease</strong>, including')|format(percent_ncd=report.data.percent_morbidity_non_communicable|float|round(1)) }} {% for disease in report.data.morbidity_non_communicable_tab %}{% if loop.last and not loop.first %} {{_('and') }} {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
+          <li><strong>{{ _('%(percent_mh)s % morbidity due to mental health conditions</strong>, including')|format(percent_mh= report.data.percent_morbidity_mental_health|float|round(1))}} {% for disease in report.data.mental_health %}{% if loop.last and not loop.first %}{{ _('and') }} {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
         </ul>
-        <h4>Alerts</h4>
+        <h4>{{ _('Alerts') }}</h4>
         {% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
-        <p>A total of {{ report.data.alerts_total|commas }} alerts have been generated up to the end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+        <p>{{ _('A total of %(alerts_total)s alerts have been generated up to the end of Epidemiological Week %(epi_week)s (%(end_date)s).')|format(alerts_total = report.data.alerts_total|commas, epi_week=report.data.epi_week_num, end_date=report.data.end_date|datetime_from_json|datetime('%-d %B %Y')) }}</p>
         {% else %}
-        <p>No alerts were generated up to the end of Epidemiological Week {{ report.data.epi_week_num }} ({{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}).</p>
+        <p>{{ _('No alerts were generated up to the end of Epidemiological Week %(epi_week)s (%(end_date)s')|format( epi_week=report.data.epi_week_num, end_date=report.data.end_date|datetime_from_json|datetime('%-d %B %Y')) }}.</p>
         {% endif %}
-
+      
       </div>
     </div>
   </div>
   <!-- OVERVIEW MAP -->
   <div class="col-xs-12 col-sm-6" id="mapbox-panel">
     <div class="chart-wrapper">
-      <div class="chart-title">Map</div>
+      <div class="chart-title">{{_('Map') }}</div>
       <div class="chart-stage">
           <div id="map"></div>
           <div id="map-print">
@@ -59,7 +59,7 @@
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">
-        Public Health Indicators
+       {{ _('Public Health Indicators') }}
       </div>
       <div class="chart-stage">
         <table class="table table-striped">
@@ -74,7 +74,7 @@
           {% for indicator in report.data.public_health_indicators %}
           <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ indicator.title|e }}</td>
+            <td>{{ {{ _(indicator.title|e) }} }}</td>
             <td>{{ indicator.percent|float|round(1) }}%</td>
             <td>{{ indicator.quantity|commas }}</td>
           </tr>
@@ -86,7 +86,7 @@
   <!-- REPORTING SITES -->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Reporting Sites</div>
+      <div class="chart-title">{{ _('Reporting Sites') }}</div>
       <div class="chart-stage">
         <div id="chart-reporting-sites"></div>
       </div>
@@ -98,7 +98,7 @@
   <!-- DEMOGRAPHICS -->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Demographics</div>
+      <div class="chart-title">{{ _('Demographics') }}</div>
       <div class="chart-stage">
         <div id="chart-demographics"></div>
       </div>
@@ -107,22 +107,22 @@
   <!-- PRESENTING COMPLAINT-->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Presenting Complaint</div>
+      <div class="chart-title">{{ _('Presenting Complaint') }}</div>
       <div class="chart-stage">
         <table class="table table-striped">
           <thead>
             <tr>
               <th></th>
               <th></th>
-              <th>% morbidity</th>
-              <th># of cases</th>
+              <th>{{ _('% morbidity') }}</th>
+              <th>{{ _('# of cases') }}</th>
             </tr>
           </thead>
           {% for complaint in report.data.presenting_complaints %}
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ complaint.title|e }}</td>
-            <td>{{ complaint.percent|float|round(1) }}%</td>
+            <td>{{  _(complaint.percent|float|round(1)) }}%</td>
             <td>{{ complaint.quantity|commas }}</td>
           </tr>
           {% endfor %}
@@ -135,7 +135,7 @@
   <!-- NATIONALITY -->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Nationality</div>
+      <div class="chart-title">{{ _('Nationality') }}</div>
       <div class="chart-stage">
         <div id="chart-nationality"></div>
         <table class="table table-striped">
@@ -151,7 +151,7 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ item.title|e }}</td>
-            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ _('item.percent|float|round(1)') }}%</td>
             <td>{{ item.quantity|commas }}</td>
           </tr>
           {% endfor %}
@@ -162,7 +162,7 @@
   <!-- STATUS -->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Status</div>
+      <div class="chart-title">{{ _('Status') }}</div>
       <div class="chart-stage">
         <div id="chart-status"></div>
         <table class="table table-striped">
@@ -178,7 +178,7 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ item.title|e }}</td>
-            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ _('item.percent|float|round(1)') }}%</td>
             <td>{{ item.quantity|commas }}</td>
           </tr>
           {% endfor %}
@@ -191,7 +191,7 @@
   <!-- MORBIDITY COMMUNICABLE DISEASE -->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Communicable Disease</div>
+      <div class="chart-title">{{ _('Communicable Disease') }}</div>
       <div class="chart-stage">
         <div id="chart-mor-communicable-disease"></div>
         <table class="table table-striped">
@@ -199,15 +199,15 @@
             <tr>
               <th></th>
               <th></th>
-              <th>% morbidity</th>
-              <th># of cases</th>
+              <th>{{ _('% morbidity') }}</th>
+              <th>{{ _('# of cases') }}</th>
             </tr>
           </thead>
           {% for disease in report.data.morbidity_communicable %}
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ disease.title|e }}</td>
-            <td>{{ disease.percent|float|round(1) }}%</td>
+            <td>{{ _('disease.percent|float|round(1)') }}%</td>
             <td>{{ disease.quantity|commas }}</td>
           </tr>
           {% endfor %}
@@ -218,7 +218,7 @@
   <!-- MORBIDITY NON-COMMUNICABLE DISEASE -->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Non-Communicable Disease</div>
+      <div class="chart-title">{{ _('Non-Communicable Disease') }}</div>
       <div class="chart-stage">
         <div id="chart-mor-non-communicable-disease"></div>
         <table class="table table-striped">

@@ -1,17 +1,18 @@
-# Translations template for PROJECT.
+# French translations for PROJECT.
 # Copyright (C) 2016 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-06-05 07:54+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -333,4 +334,166 @@ msgstr ""
 #: meerkat_frontend/views/messaging.py:228
 msgid "Error: Try again later, or contact administrator."
 msgstr ""
+
+#~ msgid "Technical Site"
+#~ msgstr ""
+
+#~ msgid "Hello, World!"
+#~ msgstr ""
+
+#~ msgid "Demographics"
+#~ msgstr ""
+
+#~ msgid "Dashboard"
+#~ msgstr ""
+
+#~ msgid "Reports"
+#~ msgstr ""
+
+#~ msgid "Notifications"
+#~ msgstr ""
+
+#~ msgid "Explore Data"
+#~ msgstr ""
+
+#~ msgid "Download Data"
+#~ msgstr ""
+
+#~ msgid "Log out"
+#~ msgstr ""
+
+#~ msgid "Date not loaded."
+#~ msgstr ""
+
+#~ msgid "Download Data Set"
+#~ msgstr ""
+
+#~ msgid "Choose prepared data set to download for analysis:"
+#~ msgstr ""
+
+#~ msgid "Download Raw Data"
+#~ msgstr ""
+
+#~ msgid "Choose raw data set to download for analysis:"
+#~ msgstr ""
+
+#~ msgid "Data Fields"
+#~ msgstr ""
+
+#~ msgid "All"
+#~ msgstr ""
+
+#~ msgid "None"
+#~ msgstr ""
+
+#~ msgid "View advanced fields"
+#~ msgstr ""
+
+#~ msgid "Advanced Fields"
+#~ msgstr ""
+
+#~ msgid "You must tick at least one checkbox."
+#~ msgstr ""
+
+#~ msgid "Locations not loaded"
+#~ msgstr ""
+
+#~ msgid "Start Date:"
+#~ msgstr ""
+
+#~ msgid "End Date:"
+#~ msgstr ""
+
+#~ msgid "Hide not selected rows/Show hidden rows"
+#~ msgstr ""
+
+#~ msgid "Hide/show empty records"
+#~ msgstr ""
+
+#~ msgid "Colour the table"
+#~ msgstr ""
+
+#~ msgid "Download Excel"
+#~ msgstr ""
+
+#~ msgid "Surveillance Sites"
+#~ msgstr ""
+
+#~ msgid "Click here to explore"
+#~ msgstr ""
+
+#~ msgid "Information Panel"
+#~ msgstr ""
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid "consultations in total"
+#~ msgstr ""
+
+#~ msgid "cases reported"
+#~ msgstr ""
+
+#~ msgid "alerts generated"
+#~ msgstr ""
+
+#~ msgid "facilities"
+#~ msgstr ""
+
+#~ msgid "Location"
+#~ msgstr ""
+
+#~ msgid "Choose which report to download:"
+#~ msgstr ""
+
+#~ msgid "Choose which time period:"
+#~ msgstr ""
+
+#~ msgid "Default period"
+#~ msgstr ""
+
+#~ msgid "Start date:"
+#~ msgstr ""
+
+#~ msgid "End date:"
+#~ msgstr ""
+
+#~ msgid "Click to download your selected report for"
+#~ msgstr ""
+
+#~ msgid "Public Health Profile"
+#~ msgstr ""
+
+#~ msgid "Week"
+#~ msgstr ""
+
+#~ msgid "Key findings"
+#~ msgstr ""
+
+#~ msgid "Communicable disease"
+#~ msgstr ""
+
+#~ msgid "Non-communicable disease"
+#~ msgstr ""
+
+#~ msgid "Mental Health"
+#~ msgstr ""
+
+#~ msgid "Mental Health (mhGAP) algorithm followed"
+#~ msgstr ""
+
+#~ msgid "Child Health (IMCI) algorithm followed"
+#~ msgstr ""
+
+#~ msgid "Reproductive Health screening"
+#~ msgstr ""
+
+#~ msgid "Laboratory results recorded"
+#~ msgstr ""
+
+#~ msgid "Prescribing practice recorded"
+#~ msgstr ""
+
+#~ msgid "Smoking prevalence (current)"
+#~ msgstr ""
 
