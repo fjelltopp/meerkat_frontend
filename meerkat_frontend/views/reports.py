@@ -382,7 +382,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 end_date = datetime(today.year, today.month, today.day)
             if start_date and end_date:
                 start_date = start_date.isoformat()
-                end_date = (end_date + timedelta(days=1)).isoformat() # To include the the end date
+                end_date = end_date.isoformat() # To include the the end date
     if( end_date != None ): api_request += '/' + end_date
     if( start_date != None ): api_request += '/' + start_date
 

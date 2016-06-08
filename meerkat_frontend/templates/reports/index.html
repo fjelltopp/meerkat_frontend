@@ -255,7 +255,7 @@ function openReport( type ){
 					.toISOString();
 	var endDate = $('#end-date').data("DateTimePicker")
 					.date().add( moment().utcOffset(), "minutes" )
-					.add(1,'days').toISOString(); //Add day because date selector should be inclusive.
+					.toISOString(); //Add day because date selector should be inclusive.
 
 	switch( type ){
 		case 'pdf':
