@@ -6,8 +6,20 @@
 
 {% block body %}
 <!-- CONTENT -->
+
 <div class="container page-content">
+	<div class="breaker"> </div>
 	<div class="top-bar row">
+		<div class="location-box box">
+			<a href="#menu-toggle" id="menu-toggle" class="menu-toggle">
+			<div class="location-box__label">
+				<div>Location:</div>
+				<div id="location-title" class="location-title" >Not Loaded</div>
+			</div>
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<span class="glyphicon glyphicon-chevron-left hidden"></span>
+			</a>
+		</div>
 		<div class="tab-title less-padding-col">
 			 Public Health Surveillance Notifications
 		</div>
@@ -15,67 +27,77 @@
 			Date not loaded.
 		</div>
 	</div>
-	<div id="page-content-wrapper">
-		<div class="row">
-			<div class="col-xs-12 less-padding-col">
-				<div class="box chartBox">
-					<div class="chartBox__heading">
-						Subscribe to Alerts and Reports
-					</div>
-					<div class="chartBox__content" >  
-						<div class="intro">
-						Use the form below to subscribe to E-mail and SMS notifications for Alerts and Reports.
-						</div>
 
-						<form class="subscribe row" id='subscribe-form' method='POST' action='subscribe/subscribed'>
-							<div class="left-part col-sm-12 col-md-6 more-padding-col">
-								<div class="personal">
-									<div class="title row">Enter personal details:</div>
-									<div class="row">
-										<label class="col-xs-12 col-sm-4" >First Name*</label>
-										<input class="col-xs-12 col-sm-8" type="text" name="first_name" required>
-									</div>
-									<div class="row">
-										<label class="col-xs-12 col-sm-4" >Last Name*</label>
-										<input class="col-xs-12 col-sm-8" type="text" name="last_name" required>
-									</div>
-									<div class="row">
-										<label class="col-xs-12 col-sm-4" >E-mail*</label>
-										<input id='email' class="col-xs-12 col-sm-8" type="email" name="email"
-										       required oninput='checkEqual()'>
-									</div>
-									<div class="row">
-									   <label class="col-xs-12 col-sm-4" >Re-type E-mail*</label>
-										<input class ="col-xs-12 col-sm-8" type="email" id="email2"
-										       required oninput='checkEqual()'>
-									</div>
-									<div class="row">
-									   <label class="col-xs-12 col-sm-4" >SMS Number</label>
-										<input id="sms-number" class="col-xs-12 col-sm-8" value="" type="tel" name="sms" optional>
-									</div>
-								</div>
-								<div id="report-select" class="row"> </div>
-								<div class="row">
-									<div class="title" >
-										Select which Regions to receive alerts from:
-									</div>
-									<div class="col-xs-0 col-sm-4"></div>
-									<div id="region-select"> </div>
-								</div>
-							</div>
-							<input type="hidden" name="country" value="{{content.messages.country}}">
-							<div class="right-part col-sm-12 col-md-6 more-padding-col">
-								<div id="disease-select"> </div>
-								<div class="centered row">
-									<input class="submit btn btn-default btn-lg" type='submit' value="Subscribe" >
-								</div>
-							</div>
+	<div class="toggled" id="wrapper">
 
-						</form>
-					</div>
-				</div>
+		<div id="sidebar-wrapper" >
+			<div id="location-selector" class="location-selector">
+				Locations not loaded
 			</div>
 		</div>
+
+	  <div id="page-content-wrapper">
+		  <div class="row">
+			  <div class="col-xs-12 less-padding-col">
+				  <div class="box chartBox">
+					  <div class="chartBox__heading">
+						  Subscribe to Alerts and Reports
+					  </div>
+					  <div class="chartBox__content" >  
+						  <div class="intro">
+						  Use the form below to subscribe to E-mail and SMS notifications for Alerts and Reports.
+						  </div>
+
+						  <form class="subscribe row" id='subscribe-form' method='POST' action='subscribe/subscribed'>
+							  <div class="left-part col-sm-12 col-md-6 more-padding-col">
+								  <div class="personal">
+									  <div class="title row">Enter personal details:</div>
+									  <div class="row">
+										  <label class="col-xs-12 col-sm-4" >First Name*</label>
+										  <input class="col-xs-12 col-sm-8" type="text" name="first_name" required>
+									  </div>
+									  <div class="row">
+										  <label class="col-xs-12 col-sm-4" >Last Name*</label>
+										  <input class="col-xs-12 col-sm-8" type="text" name="last_name" required>
+									  </div>
+									  <div class="row">
+										  <label class="col-xs-12 col-sm-4" >E-mail*</label>
+										  <input id='email' class="col-xs-12 col-sm-8" type="email" name="email"
+										         required oninput='checkEqual()'>
+									  </div>
+									  <div class="row">
+									     <label class="col-xs-12 col-sm-4" >Re-type E-mail*</label>
+										  <input class ="col-xs-12 col-sm-8" type="email" id="email2"
+										         required oninput='checkEqual()'>
+									  </div>
+									  <div class="row">
+									     <label class="col-xs-12 col-sm-4" >SMS Number</label>
+										  <input id="sms-number" class="col-xs-12 col-sm-8" value="" type="tel" name="sms" optional>
+									  </div>
+								  </div>
+								  <div id="report-select" class="row"> </div>
+								  <div class="row">
+									  <div class="col-xs-12 no-padding-col title" >
+										  Select which location to receive Alerts from:
+									  </div>
+									  <div class="col-xs-0 col-sm-4"></div>
+									  <a href="" class="col-xs-12 col-sm-8 no-padding-col menu-toggle location-name"></a>
+								  </div>
+							  </div>
+							  <input type="hidden" name="country" value="{{content.messages.country}}">
+							  <div class="right-part col-sm-12 col-md-6 more-padding-col">
+								  <div id="disease-select"> </div>
+								  <div class="centered row">
+									  <input class="submit btn btn-default btn-lg" type='submit' value="Subscribe" >
+								  </div>
+							  </div>
+
+						  </form>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+    </div>
 	</div>
 </div>
 {% endblock body %}
@@ -88,7 +110,31 @@ var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
+$(".menu-toggle").click(function(e) {
+	e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+	$(".location-box .glyphicon").toggleClass( "hidden" );
+});
+loadLocationTree({ locID:{{loc}} });
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+
+//This method updates aspects of the page based upon the users input.
+//All three arguments can be left undefined if necessary - all reports will update with current locID and year.
+function drawCharts(locID, year, reports){
+
+	//locID (the id of the location) is an optional argument.  
+	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
+	if( typeof locID == 'undefined' ){
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		else locID = history.state.locID;
+	}
+
+	//Load the location data from the locations tree.
+	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===locID; });
+
+	$('.location-name').html( node.model.text );
+
+}
 
 //Configure the telephone input field.
 var telInput = $('#sms-number');
@@ -146,7 +192,7 @@ $.getJSON( api_root+"/variables/alert", function( variables ){
 		             "selected='selected'>";
       regSel += "All Regions </option>"  
       for( var k in locations.nodes ){
-			regSel += "<option name='regions' value='" +
+			  regSel += "<option name='regions' value='" +
                    locations.nodes[k].id + "' >" + locations.nodes[k].text + "</option>"; 
 		}
       regSel += "</select>";
@@ -236,7 +282,7 @@ $("#subscribe-form").submit(function(event) {
 		//Assemble the topic IDs
 		var prefix = '{{content.subscribe.topic_prefix}}';
 		//Get the region		   
-		var reg = $('#region-selector').val()
+		var reg = history.state.locID
 
 		$( 'input[name=topics]:checked' ).each( function(){
 
@@ -256,7 +302,8 @@ $("#subscribe-form").submit(function(event) {
 
 		});
 
-		return;
+    return;
+		
 	}
 
 	event.preventDefault();
