@@ -4,6 +4,7 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
+from flask.ext.babel import format_datetime
 from datetime import datetime, date, timedelta
 try:
     import simplejson as json
@@ -300,7 +301,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
 # FILTERS
 @reports.app_template_filter('datetime')
-def format_datetime(value, format='%H:%M %d-%m-%Y'):
+def format_datetime_with_lang(value, format='%H:%M %d-%m-%Y'):
     """Returns formatted timestamp.
     
        Args:
@@ -310,7 +311,8 @@ def format_datetime(value, format='%H:%M %d-%m-%Y'):
        Returns:
            The formatted timestamp string.
     """
-    return value.strftime(format)
+    return format_datetime(value, format)
+
 
 
 @reports.app_template_filter('datetime_from_json')

@@ -249,7 +249,7 @@ function drawReportSelect(){
 //It assembles the url for the desired report and opens it in a new window.
 function openReport( type ){
 
-	var url = '/reports/';
+	var url = "/" + language + '/reports/';
 	var report = $('#report-selector select').val();
 	var location = history.state.locID;
 	var startDate = $('#start-date').data("DateTimePicker")
@@ -261,15 +261,15 @@ function openReport( type ){
 
 	switch( type ){
 		case 'pdf':
-			url += language + "/" + report + "~" + location + "~" + endDate + "~" + startDate + ".pdf";
+			url +=  report + "~" + location + "~" + endDate + "~" + startDate + ".pdf";
 			break;
 
 		case 'html':  
-			url += language + "/" + report + "/" + location + "/" + endDate + "/" + startDate;
+			url +=  report + "/" + location + "/" + endDate + "/" + startDate;
 			break;
 	}
-	window.open(url);
-	console.log( url );
+     window.open(url);
+     console.log( url );
 }
 
 //This method updates aspects of the page based upon the users input.
