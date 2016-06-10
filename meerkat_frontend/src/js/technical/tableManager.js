@@ -316,7 +316,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
         The ID attribute of the html element to hold the table.
  */
 function drawCompletenessAggTable( containerID ){
-
+ 
 	$.getJSON( api_root+"/completeness/reg_1/4", function( regionData ){
 		$.getJSON( api_root+"/locations", function( locations ){	
 
@@ -324,9 +324,9 @@ function drawCompletenessAggTable( containerID ){
 
 			var table = '<table class="table table-hover table-condensed">' +
 							'<tr><th>' + capitalise(config.glossary.region) + '</th>' + 
-							'<th>Daily register for last 24 hours</th>' +
-							'<th>Daily register for last week</th>' +
-							'<th>Daily register for last year</th></tr>';
+						//	'<th>Daily register for last 24 hours</th>' +
+					'<th>Daily register for last week</th></tr>' ;
+						//	'<th>Daily register for last year</th></tr>';
 
 			var regions = Object.keys(regionData);
 
@@ -335,16 +335,16 @@ function drawCompletenessAggTable( containerID ){
 				if( region != 1 ){
 					table += '<tr><td><a href="" onclick="drawCompletenessTables(' + region + 
 								'); return false;">' + locations[region].name + '</a></td>' +
-								'<td>' + Math.round(regionData[region].last_day) + '%</td>' +
-								'<td>' + Math.round(regionData[region].last_week) + '%</td>' + 
-								'<td>' + Math.round(regionData[region].last_year) + '%</td></tr>'; 
+							//	'<td>' + Math.round(regionData[region].last_day) + '%</td>' +
+						'<td>' + Math.round(regionData[region].last_week) + '%</td></tr>' ;
+							//	'<td>' + Math.round(regionData[region].last_year) + '%</td></tr>'; 
 				}
 			}
 			table += '<tr class="info" ><td><a href="" onclick="drawCompletenessTables(1);' + 
 								'return false;">' + locations[1].name + '</a></td>' +
-								'<td>' + Math.round(regionData[1].last_day) + '%</td>' +
-								'<td>' + Math.round(regionData[1].last_week) + '%</td>' + 
-								'<td>' + Math.round(regionData[1].last_year) + '%</td></tr>';  
+							//	'<td>' + Math.round(regionData[1].last_day) + '%</td>' +
+				'<td>' + Math.round(regionData[1].last_week) + '%</td></tr>' ;
+							//	'<td>' + Math.round(regionData[1].last_year) + '%</td></tr>';  
 
 			table += '</table>';
 
@@ -376,12 +376,12 @@ function drawCompletenessTable( containerID, regionID ){
 				var clinics = Object.keys(registerData);
 				var table = '<table class="table table-hover table-condensed">' +
 								'<tr><th> Clinic </th>' + 
-			 	            '<th class="fit" >Case reports<br>for last 24 hours</th>' +
-								'<th class="fit">Case reports<br>for last week</th>' +
-								'<th class="fit">Case reports<br>for last year</th>' +
-								'<th class="fit">Daily register<br>for last 24 hours</th>' +
-								'<th class="fit">Daily register<br>for last week</th>' +
-								'<th class="fit">Daily register<br>for last year</th></tr>';
+			 	            // '<th class="fit" >Case reports<br>for last 24 hours</th>' +
+							// 	'<th class="fit">Case reports<br>for last week</th>' +
+							// 	'<th class="fit">Case reports<br>for last year</th>' +
+						// '<th class="fit">Daily register<br>for last 24 hours</th>' +
+						'<th>Daily registers last week</th></tr>' ;
+								// '<th class="fit">Daily register<br>for last year</th></tr>';
 
 				for( var i in clinics ){
 
@@ -393,12 +393,12 @@ function drawCompletenessTable( containerID, regionID ){
 					caseData[clinic].year = 0;
 				    }
 					table += '<tr><td>' + locations[clinic].name + '</td>' +
-								'<td>' + Math.round(caseData[clinic].day) + '</td>' +
-								'<td>' + Math.round(caseData[clinic].week) + '</td>' + 
-								'<td>' + Math.round(caseData[clinic].year) + '</td>' +
-								'<td>' + Math.round(registerData[clinic].day) + '</td>' +
-								'<td>' + Math.round(registerData[clinic].week) + '</td>' + 
-								'<td>' + Math.round(registerData[clinic].year) + '</td></tr>'; 
+								// '<td>' + Math.round(caseData[clinic].day) + '</td>' +
+								// '<td>' + Math.round(caseData[clinic].week) + '</td>' + 
+								// '<td>' + Math.round(caseData[clinic].year) + '</td>' +
+           						//'<td>' + Math.round(registerData[clinic].day) + '</td>' +
+         						'<td>' + Math.round(registerData[clinic].week) + '</td></tr>' ;
+								// '<td>' + Math.round(registerData[clinic].year) + '</td></tr>'; 
 		
 				}
 	

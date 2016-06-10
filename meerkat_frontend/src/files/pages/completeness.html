@@ -61,15 +61,14 @@ $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 //Every tab needs a draw charts function that is called when loading a new location.
 //It's also called upon the first load of the page. 
 function drawCharts( locID ){
+     drawCompletenessAggTable( 'completeness-agg-table' );
 
-	drawCompletenessTables( 1 );
-
-}
-
-function drawCompletenessTables( regionID ){
+ }
+     
+ function drawCompletenessTables( regionID ){
 				
-	drawCompletenessAggTable( 'completeness-agg-table' );
-	drawCompletenessTable( 'completeness-table', regionID );
+     drawCompletenessAggTable( 'completeness-agg-table' );
+     drawCompletenessTable( 'completeness-table', regionID );
 
 }
 
