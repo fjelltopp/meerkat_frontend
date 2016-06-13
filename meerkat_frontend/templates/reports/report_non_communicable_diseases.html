@@ -1,18 +1,22 @@
 {% extends 'reports/base.html' %}
 
-{% macro table(data) %}
+{% macro table(data, percent=False) %}
 {% set total=[] %}
 <table class="refugee centered table table-hover table-condensed"> 
     <tr>
 	{% set counter=0 %}
 	{% for key in data.titles %}
-	{% if key == "Region" %}
+	{% if key == "Governorate" %}
         <th class="key"> {{ key }} </th>
 	{% elif key == "Total" %}
 	<th class="total"> {{ key }} </th>
 	{% do total.append(counter) %}
 	{% else %}
+        {% if percent %}
+	<th> {{ key }} (%)</th>
+        {% else %}
 	<th> {{ key }} </th>
+        {% endif %}
 	{% set counter = counter +1%}
 	{% endif %}
 	
@@ -27,9 +31,17 @@
 	{% endif %}
 	{% for i in range(row["values"]|length) %}
 	{% if (total and i in total) or row.title == "Total" %}
-	<td class="total"> {{ row["values"][i] }} </td>
+        {% if percent %}
+	<td class="total"> {{ row["values"][i]|float|round(1) if row["values"][i] % 1 else row["values"][i]|float|int}} </td>
+        {% else %}
+        <td class="total"> {{ row["values"][i] }} </td>
+        {% endif %}
 	{% else %}
+        {% if percent %}
+	<td> {{ row["values"][i]|float|round(1) }} </td>
+        {% else %}
 	<td> {{ row["values"][i] }} </td>
+        {% endif %}
 	{% endif %}
 	{% endfor %}
     </tr>
@@ -60,7 +72,7 @@
       </div>
       <div class="table-title">Table 2: Distribution of hypertension patients</div>
       <div class="table-wrapper table-responsive">
-	  {{ table(report["hypertension"]["complications"]) }}
+	  {{ table(report["hypertension"]["complications"], percent=True) }}
       </div>
     </div>
   </div>
@@ -77,7 +89,7 @@
       </div>
       <div class="table-title">Table 2: Distribution of diabetes patients </div>
       <div class="table-wrapper table-responsive">
-	  {{ table(report["diabetes"]["complications"]) }}
+	  {{ table(report["diabetes"]["complications"], percent=True) }}
       </div>
     </div>
   </div>
