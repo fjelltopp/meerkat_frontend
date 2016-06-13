@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-13 13:17+0000\n"
+"POT-Creation-Date: 2016-06-13 13:30+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -30,8 +30,8 @@ msgstr ""
 #: meerkat_frontend/src/js/explore/explore.js:351
 #: meerkat_frontend/src/js/technical/tableManager.js:77
 #: meerkat_frontend/src/js/technical/tableManager.js:190
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:118
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:217
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:120
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:219
 msgid "Total"
 msgstr ""
 
@@ -213,7 +213,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/services.html:88
 #: meerkat_frontend/templates/download/index.html:25
 #: meerkat_frontend/templates/explore/index.html:33
-#: meerkat_frontend/templates/messaging/subscribe.html:15
+#: meerkat_frontend/templates/messaging/subscribe.html:27
 #: meerkat_frontend/templates/messaging/subscribed.html:13
 #: meerkat_frontend/templates/messaging/verified.html:13
 #: meerkat_frontend/templates/reports/index.html:37
@@ -297,6 +297,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/pip.html:54
 #: meerkat_frontend/src/files/pages/services.html:86
 #: meerkat_frontend/templates/explore/index.html:23
+#: meerkat_frontend/templates/messaging/subscribe.html:17
 msgid "Not Loaded"
 msgstr ""
 
@@ -311,6 +312,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/pip.html:57
 #: meerkat_frontend/src/files/pages/services.html:89
 #: meerkat_frontend/templates/explore/index.html:41
+#: meerkat_frontend/templates/messaging/subscribe.html:36
 #: meerkat_frontend/templates/reports/index.html:45
 msgid "Locations not loaded"
 msgstr ""
@@ -782,8 +784,8 @@ msgid "Advanced Fields"
 msgstr ""
 
 #: meerkat_frontend/templates/download/index.html:148
-#: meerkat_frontend/templates/messaging/subscribe.html:201
-#: meerkat_frontend/templates/messaging/subscribe.html:219
+#: meerkat_frontend/templates/messaging/subscribe.html:248
+#: meerkat_frontend/templates/messaging/subscribe.html:266
 msgid "You must tick at least one checkbox."
 msgstr ""
 
@@ -856,63 +858,63 @@ msgstr ""
 msgid "If you would like to find out more about the project, please contact us:"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:12
+#: meerkat_frontend/templates/messaging/subscribe.html:24
 #: meerkat_frontend/templates/messaging/subscribed.html:10
 #: meerkat_frontend/templates/messaging/verified.html:10
 msgid "Public Health Surveillance Notifications"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:23
+#: meerkat_frontend/templates/messaging/subscribe.html:45
 msgid "Subscribe to Alerts and Reports"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:27
+#: meerkat_frontend/templates/messaging/subscribe.html:49
 msgid ""
 "Use the form below to subscribe to E-mail and SMS notifications for "
 "Alerts and Reports."
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:33
-msgid "Enter personal details:"
+#: meerkat_frontend/templates/messaging/subscribe.html:55
+msgid "Enter personal details"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:35
-msgid "First Name"
+#: meerkat_frontend/templates/messaging/subscribe.html:57
+msgid "First Name*"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:39
-msgid "Last Name"
+#: meerkat_frontend/templates/messaging/subscribe.html:61
+msgid "Last Name*"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:43
-msgid "E-mail"
+#: meerkat_frontend/templates/messaging/subscribe.html:65
+msgid "E-mail*"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:48
-msgid "Re-type E-mail"
+#: meerkat_frontend/templates/messaging/subscribe.html:70
+msgid "Re-type E-mail*"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:53
+#: meerkat_frontend/templates/messaging/subscribe.html:75
 msgid "SMS Number"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:60
-msgid "Select which Regions to receive alerts from:"
+#: meerkat_frontend/templates/messaging/subscribe.html:82
+msgid " Select which location to receive Alerts from:"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:114
+#: meerkat_frontend/templates/messaging/subscribe.html:161
 msgid "Not a valid phone number for this country."
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:126
+#: meerkat_frontend/templates/messaging/subscribe.html:173
 msgid "Select which Alerts to receive:"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:156
+#: meerkat_frontend/templates/messaging/subscribe.html:203
 msgid "Select which Reports to receive:"
 msgstr ""
 
-#: meerkat_frontend/templates/messaging/subscribe.html:187
+#: meerkat_frontend/templates/messaging/subscribe.html:234
 msgid "Emails Must be Matching."
 msgstr ""
 
@@ -1176,139 +1178,147 @@ msgstr ""
 msgid "Table 3: Notifiable Diseases"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:119
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:121
 msgid "Number of deaths"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:127
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:129
 msgid "Number of maternal death"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:145
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:147
 msgid "Dysentery and bloody diarrhoea"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:146
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:148
 msgid "Influenza-like illness"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:147
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:149
 msgid "Arboviruses"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:148
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:150
 msgid "Meningitis"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:149
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:151
 msgid "Plague"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:150
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:152
 msgid "RDT positive"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:151
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:153
 msgid "Bubonic plague"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:152
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:154
 msgid "Pulmonary plague"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:153
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:155
 msgid "Food Poisoning"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:154
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:156
 msgid "Seafood poisoning"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:155
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:157
 msgid "Acute Jaundice Syndrome"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:156
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:158
 msgid "Animal Bite"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:157
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:159
 msgid "Rabies"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:167
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:169
 msgid "Acute flaccid paralysis"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:168
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:170
 msgid "Neonatal tetanu"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:169
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:171
 msgid "Measles"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:170
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:172
 msgid "Leprosy"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:171
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:173
 msgid "Lymphatic filariasis"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:181
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:183
 msgid "Fever Cases (T > 37.5 &#176;C)"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:182
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:184
 msgid "Malaria confirmed by rapid test or slide"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:183
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:185
 msgid "Acute Respiratory Tract Infection"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:184
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:186
 msgid "Acute watery diarrhoea"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:185
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:187
 msgid "Acute watery diarrhoea among those over five years of age"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:186
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:188
 msgid "Sexually Transmitted Diseases other than HIV"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:187
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:189
 msgid "Tuberculosis"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:188
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:190
 msgid "Moderate malnutrition"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:189
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:191
 msgid "Severe malnutrition"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:190
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:192
 msgid "Other diseases of public health importance"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:201
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:203
 msgid "Number of alerts generated"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:202
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:204
 msgid "Number of alerts investigated"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:228
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:218
+msgid "Cases"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:218
+msgid "Deaths"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:230
 msgid " NA"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:238
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:240
 msgid "NA"
 msgstr ""
 
@@ -1377,11 +1387,11 @@ msgstr ""
 msgid "Child Health Conditions"
 msgstr ""
 
-#: meerkat_frontend/views/messaging.py:225
+#: meerkat_frontend/views/messaging.py:233
 msgid "A new code has been sent to your phone."
 msgstr ""
 
-#: meerkat_frontend/views/messaging.py:228
+#: meerkat_frontend/views/messaging.py:236
 msgid "Error: Try again later, or contact administrator."
 msgstr ""
 
