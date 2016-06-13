@@ -44,11 +44,19 @@ def requires_auth():
 # THE SUBSCRIBING PROCESS
 #Stage1: Fill out a subscription form.
 @messaging.route('/')
-def subscribe():
-    """Subscription Process Stage 1: Render the page with the subscription form"""
+@messaging.route('/loc_<int:locID>')
+def subscribe(locID=1):
+    """Subscription Process Stage 1: Render the page with the subscription form.
+
+       Args:
+           locID (int): The location ID of a location to be automatically loaded into the 
+               location selector. 
+    """
     return render_template('messaging/subscribe.html',
                            content=current_app.config['MESSAGING_CONFIG'],
+                           loc=locID,
                            week=c.api('/epi_week'))
+
 
 # Stage 2: Confirm subscription request and inform user of verification process.
 @messaging.route('/subscribe/subscribed', methods=['POST'])

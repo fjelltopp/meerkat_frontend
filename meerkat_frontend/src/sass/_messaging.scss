@@ -72,6 +72,12 @@ form.subscribe{
 	.submit.row{
 		text-align: center;
 	}
+  .location-name{
+    border: 1px solid $darkGrey;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 5px 10px;
+  }
 }
 
 .no-padding-col{

@@ -61,9 +61,11 @@
    <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 3: Notifiable Diseases') }}</div>  
+      <div class="chart-stage">
         <div class="small-table-wrapper  table-responsive table3-wrapper">
-          <!-- TODO: Build Table -->
+          
         </div>
+      </div>
     </div>
   </div>
 </div>
@@ -213,7 +215,7 @@ function drawTable3(){
 function drawFromStruct( struct ){
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
-    "<thead><th class='border-right'></th><th>Cases</th><th>Deaths</th>" +
+    "<thead><th class='border-right'></th><th>{{ _('Cases') }}</th><th>{{ _('Deaths') }}</th>" +
     "<th class='total'>{{ _('Total') }}</th></thead>";
 
   for( var i=0; i<struct.length; i++ ){
@@ -223,7 +225,7 @@ function drawFromStruct( struct ){
 
       var cases = content.epi_monitoring[struct[i][1]];
 
-      html += "<tr><td class='lowlight total right-align border-right'>" + struct[i][0] + "</td>" +
+      html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
         "<td class='lowlight' >" + cases + "</td>" +
         "<td class='lowlight' >{{ _(' NA') }} </td>" +
         "<td class='total lowlight border-left'>" + cases + "</td></tr>"
@@ -245,7 +247,7 @@ function drawFromStruct( struct ){
       var cases = content.epi_monitoring[struct[i][1]];
       var total = deaths + cases;
 
-      html += "<tr><td class='lowlight total right-align border-right'>" + struct[i][0] + "</td>" +
+      html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
         "<td class='lowlight' >" + cases + "</td>" +
         "<td class='lowlight' >" + deaths + "</td>" +
         "<td class='total lowlight border-left'>" + total + "</td></tr>"
@@ -259,7 +261,7 @@ function drawFromStruct( struct ){
       var total = deaths + cases;
       var domClass = struct[i][3];
 
-      html += "<tr><td class='total key " + domClass + "'>" + struct[i][0] + "</td>" +
+      html += "<tr><td class='total key " + domClass + "'>" + i18n.gettext(struct[i][0]) + "</td>" +
         "<td class='" + domClass + "'>" + cases + "</td>" +
         "<td class='" + domClass + "'>" + deaths + "</td>" +
         "<td class='total " + domClass + "'>" + total + "</td></tr>"
