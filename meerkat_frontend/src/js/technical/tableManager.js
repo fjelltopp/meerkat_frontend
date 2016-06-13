@@ -31,9 +31,9 @@ function drawTable( containerID, data, no_total, linkFunction ){
 	
 	//Table headers.
 	table = '<table class="table table-hover table-condensed"><tr>' +
-	        '<th>' + data.title + '</th><th>Week ' + weeks[0] + '</th>' +
-	        '<th>Week ' + weeks[1] + '</th><th>Week ' + weeks[2] + '</th>' + 
-	        '<th>This Year</th></tr>';
+	    '<th>' + data.title + '</th><th>' +i18n.gettext('Week') +' '+ weeks[0] + '</th>' +
+	    '<th>Week ' + weeks[1] + '</th><th>' +i18n.gettext('Week') +' '+ weeks[2] + '</th>' + 
+	    '<th>' + i18n.gettext('This Year') +'</th></tr>';
 
 	//For each data category, assemble a html string listing data for the three weeks and the year.
 	for (var i =0; i< data.labels.length;i++){
@@ -74,7 +74,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 
 	if(!no_total){
 
-		table+='</tr><tr class="info"><td>Total</td>';
+		table+='</tr><tr class="info"><td>'+ i18n.gettext('Total') + '</td>';
 
 		for (var j=0; j<sum.length; j++){
 			table+="<td>"+sum[j]+"</td>";
@@ -111,16 +111,16 @@ function drawAlertsTable(containerID, alerts, variables){
 		//Create the table headers, using the central review flag from the cofiguration file.
 		//Central review is a third level of alert review requested by the Jordan MOH.
 		var table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>Alert ID</th><th>Alert</th>' +
-		            '<th><span class="glossary capitalised" word="region">Region</span></th>' + 
-		            '<th>Clinic</th><th>Date Reported</th><th>Date Investigated</th><th>Status</th>' +
+		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th>' +
+		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') +' </span></th>' + 
+		            '<th>Clinic</th><th>' + i18n.gettext('Date Reported') + '</th><th>' + i18n.gettext('Date Investigated') + '</th><th>' +i18n.gettext('Status') + '</th>' +
 		            '</tr>';
 		if(config.central_review){
 			table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>Alert ID</th><th>Alert</th>' +
-		            '<th><span class="glossary capitalised" word="region">Region</span></th>' + 
-		            '<th>Clinic</th><th>Date Reported</th><th>Date Investigated</th>' +
-                    '<th>Central Review</th><th>Status</th></tr>';
+		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') + '</th>' +
+		            '<th><span class="glossary capitalised" word="region">'+ i18n.gettext('Region') + '</span></th>' + 
+		            '<th>Clinic</th><th>'+i18n.gettext('Date Reported')+'</th><th>'+ i18n.gettext('Date Investigated') + '</th>' +
+                    '<th>'+ i18n.gettext('Central Review')+'</th><th>'+i18n.gettext('Status')+'</th></tr>';
 
 		}
 		//For each alert in the given array of alerts create the html for a row of the table.
@@ -129,9 +129,9 @@ function drawAlertsTable(containerID, alerts, variables){
 			var alert = alerts[i].alerts;
 
 			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.id + '\'); return false;">' + 
-			         alert.id + '</a></td><td>' + variables[ alert.reason ].name + '</td>' +
-			         '<td>' + locations[locations[alert.clinic].parent_location].name + '</td>' +
-			         '<td>' + locations[alert.clinic].name + '</td>' +
+			         alert.id + '</a></td><td>' + i18n.gettext(variables[ alert.reason ].name) + '</td>' +
+			         '<td>' + i18n.gettext(locations[locations[alert.clinic].parent_location].name) + '</td>' +
+			         '<td>' + i18n.gettext(locations[alert.clinic].name) + '</td>' +
 			         '<td>' + alert.date.split("T")[0] + '</td>'; 
 
 			//Some countries(Jordan) has a central review in addition to alert_investigation
@@ -139,23 +139,23 @@ function drawAlertsTable(containerID, alerts, variables){
 			if(config.central_review){
 				if( "links" in alerts[i] && "alert_investigation" in alerts[i].links ){
 					var investigation = alerts[i].links.alert_investigation;
-					status = investigation.data.status;
-					central_review_date = "-";
+					var status = investigation.data.status;
+					var central_review_date = "-";
 					if ("central_review" in alerts[i].links){
 						status = alerts[i].links.central_review.data.status;
 						central_review_date = alerts[i].links.central_review.to_date.split("T")[0] ;
 					}
-					table += '<td>' + investigation.to_date.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
+					table += '<td>' + investigation.to_date.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + i18n.gettext(status) + '</td></tr>';
 				}else{
-					table += '<td>-</td><td>-</td><td>Pending</td></tr>';
+					table += '<td>-</td><td>-</td><td>'+i18n.gettext('Pending') +'</td></tr>';
 				}
 			
 			}else{
 				if( "links" in alerts[i] && "alert_investigation" in alerts[i].links ){
 					var link = alerts[i].links.alert_investigation;
-					table += '<td>' + link.to_date.split("T")[0] + '</td><td>' + link.data.status + '</td></tr>';
+					table += '<td>' + link.to_date.split("T")[0] + '</td><td>' + i18n.gettext(link.data.status) + '</td></tr>';
 				}else{
-					table += '<td>-</td><td>Pending</td></tr>';
+					table += '<td>-</td><td>'+i18n.gettext('Pending')+'</td></tr>';
 				}
 			}
 		}
@@ -186,8 +186,8 @@ function drawAlertsTable(containerID, alerts, variables){
 function drawAlertAggTable( containerID, aggData, variables ){
 
 	var table = '<table class="table table-hover table-condensed">' +
-	            '<tr><th>Reason</th><th>Pending</th><th>Ongoing</th><th>Confirmed</th>' + 
-	            '<th>Disregarded</th><th>Total</th></tr>';
+	            '<tr><th>'+i18n.gettext('Reason') + '</th><th>' + i18n.gettext('Pending') + '</th><th>' + i18n.gettext('Ongoing') +
+                '</th><th>'+i18n.gettext('Confirmed') +'</th><th>' + i18n.gettext('Disregarded') + '</th><th>'+ i18n.gettext('Total') + '</th></tr>';
 
 	//Get a list of the aggData keys without 'total'
 	var reasons = Object.keys( aggData );
@@ -204,7 +204,7 @@ function drawAlertAggTable( containerID, aggData, variables ){
 		var total = 0;		
 										
 		table += '<tr><td><a href="" onclick="loadAlertTables(\'' + reason + '\');return false;">' + 
-		         variables[reason].name + '</a></td>';
+		         i18n.gettext(variables[reason].name) + '</a></td>';
 
 		for( var j in statusList ){
 
@@ -251,9 +251,9 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 		//Create the table headers, using the central review flag from the cofiguration file.
 		//Central review is a third level of alert review requested by the Jordan MOH.
 		var table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>NAMRU-ID</th>' +
-		            '<th><span class="glossary capitalised" word="region">Region</span></th>' + 
-		            '<th>Clinic</th><th>Date Reported</th><th>Follow-up completed</th><th>Laboratory Results</th><th>Status</th>' +
+		            '<tr><th>' + i18n.gettext('NAMRU-ID') + '</th>' +
+		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') + '</span></th>' + 
+		            '<th>' + i18n.gettext('Clinic') + '</th><th>' +i18n.gettext('Date Reported') +'</th><th>' + i18n.gettext('Follow-up completed') +'</th><th>' + i18n.gettext('Laboratory Results') + '</th><th>' + i18n.gettext('Status') +'</th>' +
 		            '</tr>';
 
 		$.getJSON( api_root + "/records/" + variable_id + "/" + location_id, function( case_dict ){
@@ -271,8 +271,8 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 						if( link_variable in c.variables){
 							var link_id = c.variables[link_variable];
 							table += '<tr><td>' + link_id + '</td>' +
-								'<td>' + locations[c.region].name + '</td>' +
-								'<td>' + locations[c.clinic].name + '</td>' +
+								'<td>' + i18n.gettext(locations[c.region].name) + '</td>' +
+								'<td>' + i18n.gettext(locations[c.clinic].name) + '</td>' +
 								'<td>' + c.date.split("T")[0] + '</td> ';
 							link_id = link_id.toLowerCase();
 							if(link_id in return_visits){
@@ -282,17 +282,17 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 							}
 							if(link_id in labs){
 								table += '<td>' + labs[link_id].to_date.split("T")[0] + '</td>' +
-									'<td>' +labs[link_id].data.status + '</td>';
+									'<td>' +i18n.gettext(labs[link_id].data.status) + '</td>';
 							}else{
-								table += '<td> - </td> <td> Pending</td>';
+								table += '<td> - </td> <td>'+ i18n.gettext('Pending') + '</td>';
 							}
 
 						}else{
 							table += '<tr><td>-</td>' +
-								'<td>' + locations[c.region].name + '</td>' +
-								'<td>' + locations[c.clinic].name + '</td>' +
+								'<td>' + i18n.gettext(locations[c.region].name) + '</td>' +
+								'<td>' + i18n.gettext(locations[c.clinic].name) + '</td>' +
 								'<td>' + c.date.split("T")[0] + '</td> ' +
-								'<td> - </td> <td> - </td><td> Pending </td>';
+								'<td> - </td> <td> - </td><td>' +i18n.gettext('Pending') +'</td>';
 						}
 						table += "</tr>";
 
@@ -323,9 +323,9 @@ function drawCompletenessAggTable( containerID ){
 			regionData = regionData.regions;
 
 			var table = '<table class="table table-hover table-condensed">' +
-							'<tr><th>' + capitalise(config.glossary.region) + '</th>' + 
+							'<tr><th>' + i18n.gettext(capitalise(config.glossary.region)) + '</th>' + 
 						//	'<th>Daily register for last 24 hours</th>' +
-					'<th>Daily register for last week</th></tr>' ;
+					'<th>'+ i18n.gettext('Daily register for last week') + '</th></tr>' ;
 						//	'<th>Daily register for last year</th></tr>';
 
 			var regions = Object.keys(regionData);
@@ -333,15 +333,15 @@ function drawCompletenessAggTable( containerID ){
 			for( var i in regions ){
 				var region = regions[i];
 				if( region != 1 ){
-					table += '<tr><td><a href="" onclick="drawCompletenessTables(' + region + 
-								'); return false;">' + locations[region].name + '</a></td>' +
+					table += '<tr><td><a href="" onclick="drawCompletenessTables(' + i18n.gettext(region) + 
+								'); return false;">' + i18n.gettext(locations[region].name) + '</a></td>' +
 							//	'<td>' + Math.round(regionData[region].last_day) + '%</td>' +
 						'<td>' + Math.round(regionData[region].last_week) + '%</td></tr>' ;
 							//	'<td>' + Math.round(regionData[region].last_year) + '%</td></tr>'; 
 				}
 			}
 			table += '<tr class="info" ><td><a href="" onclick="drawCompletenessTables(1);' + 
-								'return false;">' + locations[1].name + '</a></td>' +
+								'return false;">' + i18n.gettext(locations[1].name) + '</a></td>' +
 							//	'<td>' + Math.round(regionData[1].last_day) + '%</td>' +
 				'<td>' + Math.round(regionData[1].last_week) + '%</td></tr>' ;
 							//	'<td>' + Math.round(regionData[1].last_year) + '%</td></tr>';  
@@ -380,7 +380,7 @@ function drawCompletenessTable( containerID, regionID ){
 							// 	'<th class="fit">Case reports<br>for last week</th>' +
 							// 	'<th class="fit">Case reports<br>for last year</th>' +
 						// '<th class="fit">Daily register<br>for last 24 hours</th>' +
-						'<th>Daily registers last week</th></tr>' ;
+						'<th>'+i18n.gettext('Daily registers last week')+'</th></tr>' ;
 								// '<th class="fit">Daily register<br>for last year</th></tr>';
 
 				for( var i in clinics ){
@@ -392,7 +392,7 @@ function drawCompletenessTable( containerID, regionID ){
 					caseData[clinic].week = 0;
 					caseData[clinic].year = 0;
 				    }
-					table += '<tr><td>' + locations[clinic].name + '</td>' +
+					table += '<tr><td>' + i18n.gettext(locations[clinic].name) + '</td>' +
 								// '<td>' + Math.round(caseData[clinic].day) + '</td>' +
 								// '<td>' + Math.round(caseData[clinic].week) + '</td>' + 
 								// '<td>' + Math.round(caseData[clinic].year) + '</td>' +

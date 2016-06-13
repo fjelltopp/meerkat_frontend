@@ -2,7 +2,6 @@
 
 
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-		Date not loaded.
 	</div>
 
 </div>
@@ -13,8 +12,7 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Map
+					<div class="chartBox__heading" id="box_heading">
 					</div>
 					<div id="total-map" class="chartBox__content map">
 
@@ -26,6 +24,8 @@
 </div>
 <div class="breaker"></div>
 <script>
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
-drawMap( 'tot_1', "total-map" );
+ $("#box_heading").html(i18n.gettext('Map'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+ drawMap( 'tot_1', "total-map" );
 </script>

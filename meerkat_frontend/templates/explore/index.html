@@ -176,7 +176,7 @@ $( function(){
     var axisSelector = "<select>"
     for( var i in config.categories ){
         var cat = config.categories[i];
-        axisSelector += "<option value='" + cat[0] + "'>" + cat[1] + "</option>";
+        axisSelector += "<option value='" + cat[0] + "'>" + i18n.gettext(cat[1]) + "</option>";
     }
     axisSelector += "</select>";
     $('.axis-selector').html(axisSelector);

@@ -2,19 +2,17 @@
 
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
-		<div class="location-box__label">
-			<div>Location:</div>
-			<div id="location-title" class="location-title">Not Loaded</div>
-		</div>
-		<span class="glyphicon glyphicon-chevron-right"></span>
-		<span class="glyphicon glyphicon-chevron-left hidden"></span>
+			<div class="location-box__label">
+				<div id="location_box"></div>
+				<div id="location-title" class="location-title"></div>
+			</div>
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-6">
-		<span id="diseaseTitle">Not loaded</span>
+	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="diseaseTitle">
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-		Date not loaded.
 	</div>
 </div>
 
@@ -22,7 +20,6 @@
 
 	<div id="sidebar-wrapper" >
 		<div id="location-selector" class="location-selector">
-			Locations not loaded
 		</div>
 	</div>
 
@@ -30,8 +27,7 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Information
+					<div class="chartBox__heading" id="box_heading">
 					</div>
 					<div id="diseaseInfo" class="chartBox__content diseaseInfo">
 					</div>
@@ -44,8 +40,7 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Time of reports
+					<div class="chartBox__heading" id="box_2_heading">
 					</div>
 					<div class="chartBox__content">
 						<div id="time-chart" class="chart">
@@ -58,8 +53,7 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Location of reports
+					<div class="chartBox__heading" id="box_3_heading">
 					</div>
 					<div id="disease-map" class="chartBox__content map">
 						
@@ -74,7 +68,15 @@
 
 <!-- Menu Toggle Script -->
 <script>
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#location-selector").html(i18n.gettext('Locations not loaded'));
+ $("#box_heading").html(i18n.gettext('Information'));
+ $("#box_2_heading").html(i18n.gettext('Time of reports'));
+ $("#box_3_heading").html(i18n.gettext('Location of reports'));
 
+ 
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -122,15 +124,15 @@ function drawDiseaseContent( varID, locID ){
 
 	$.getJSON( api_root + '/variable/' + varID, function( data ){
 
-		$('#diseaseTitle').text( data.name );
+		$('#diseaseTitle').text( i18n.gettext(data.name));
 
-		buildHTML( 'Classification', data.classification_casedef, 'classification', 4 ); 
-		buildHTML( 'Source', data.source, 'source', 4 );
-		buildHTML( 'Alerts', data.alert_desc, 'diseaseAlerts', 4 );
-		buildHTML( 'Case Definition', data.case_def, 'caseDefinition' );
-		buildHTML( 'Risk Factor(s)', data.risk_factors, 'riskFactors' );
-		buildHTML( 'Sign(s)/Symptom(s)', data.symptoms, 'signsSymptoms' );
-		buildHTML( 'Labs/Diagnostics', data.labs_diagnostics, 'signsSymptoms' );
+		buildHTML( i18n.gettext('Classification'), data.classification_casedef, 'classification', 4 ); 
+		buildHTML( i18n.gettext('Source'), i18n.gettext(data.source), 'source', 4 );
+		buildHTML( i18n.gettext('Alerts'), i18n.gettext(data.alert_desc), 'diseaseAlerts', 4 );
+		buildHTML( i18n.gettext('Case Definition'), i18n.gettext(data.case_def), 'caseDefinition' );
+		buildHTML( i18n.gettext('Risk Factor(s)'), i18n.gettext(data.risk_factors), 'riskFactors' );
+		buildHTML( i18n.gettext('Sign(s)/Symptom(s)'), i18n.gettext(data.symptoms), 'signsSymptoms' );
+		buildHTML( i18n.gettext('Labs/Diagnostics'), i18n.gettext(data.labs_diagnostics), 'signsSymptoms' );
 		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
 		drawDiseaseTable( varID, locID );
 	});

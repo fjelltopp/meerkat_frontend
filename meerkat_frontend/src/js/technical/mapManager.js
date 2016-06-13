@@ -95,7 +95,7 @@ function drawMap( varID, containerID, location ){
 				color: colour 
 			});
 
-			marker.bindPopup( "<b>" + data[i].clinic + "</b><br/>" + data[i].value + " cases" );
+			marker.bindPopup( "<b>" + i18n.gettext(data[i].clinic) + "</b><br/>" + data[i].value + " "+ i18n.gettext('cases'));
 			marker.addTo( map );
 			markers[markers.length] = marker;
 		}

@@ -51,7 +51,7 @@ function drawBarChart( containerID, data, percent ){
 	if( percent ){
 		data.week = calc_percent_dist(data.week);
 		data.year = calc_percent_dist(data.year);
-		units='Percent %';
+		units=i18n.gettext('Percent %');
 		tooltipSuffix = '%';
 	}
 
@@ -81,10 +81,10 @@ function drawBarChart( containerID, data, percent ){
 			}
 		},			
 		series: [{
-			name: 'This Year',
+			name: i18n.gettext('This Year'),
 			data:  data.year
 		},{
-			name: 'This Week',
+			name: i18n.gettext('This Week'),
 			data:  data.week
 		}],
 	});
@@ -128,7 +128,7 @@ function drawPieCharts( containerID, data, percent ){
 	if( percent ){
 		data.week = calc_percent_dist(data.week);
 		data.year = calc_percent_dist(data.year);
-		units='Percent %';
+		units=i18n.gettext('Percent %');
 		tooltipSuffix = '%';
 	}
 
@@ -163,7 +163,7 @@ function drawPieCharts( containerID, data, percent ){
 			}
 		},
 		series: [{
-			name: 'This Week',
+			name: i18n.gettext('This Week'),
 			center: ['20%','50%'],
 			size: "70%",
 			colorByPoint: true,
@@ -171,7 +171,7 @@ function drawPieCharts( containerID, data, percent ){
 			title: { text: '<b>Week</b>', verticalAlign: 'top', y: -40 },
 			data: restructured.week
 		},{
-			name: 'This Year',
+			name: i18n.gettext('This Year'),
 			center: ['80%','50%'],
 			size: "70%",
 			colorByPoint: true,
@@ -234,14 +234,14 @@ function drawTimeChart( varID, locID, containerID ){
 		xAxis: {
 			categories: labels,
 			title: {
-				text: 'Epidemiological Week'
+				text: i18n.gettext('Epidemiological Week')
 			}
 		},
 		legend:{ enabled:false },
 		yAxis: {
 			min: 0,
 			title: {
-				text: 'Number of Reported Cases',
+				text: i18n.gettext('Number of Reported Cases'),
 				align: 'high'
 			},
 			labels: {

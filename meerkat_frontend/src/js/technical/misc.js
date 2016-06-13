@@ -25,9 +25,9 @@ function get_date(){
 
     date=new Date();
     date=new Date(date.getTime()-3600*24*1000);
-    var monthNames = [ "January", "February", "March", "April", 
-	                    "May", "June", "July", "August", "September", 
-	                    "October", "November", "December" ];
+    var monthNames = [ i18n.gettext("January"), i18n.gettext("February"), i18n.gettext("March"), i18n.gettext("April"), 
+	                   i18n.gettext("May"), i18n.gettext("June"), i18n.gettext("July"), i18n.gettext("August"), i18n.gettext("September"), 
+	                   i18n.gettext("October"), i18n.gettext("November"), i18n.gettext("December") ];
 
     return date.getDate()+" "+monthNames[date.getMonth()]+" "+date.getFullYear();
 }
@@ -177,7 +177,7 @@ function makeDataObject( aggregation, variables, week, title, percent ){
 	//Create an array of everything we have to collate over each data bin.
 	//E.g. For gender labels we create a list made up of 'Male' and 'Female'.
 	var data = { 	
-		title: title,
+		title: i18n.gettext(title),
 		labels: [], 
 		ids: [], 
 		year: [], 

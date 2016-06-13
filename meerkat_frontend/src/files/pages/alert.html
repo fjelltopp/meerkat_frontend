@@ -2,14 +2,14 @@
 	<div class="location-box box">
 		<a href="" onclick="loadTab('alerts'); return false;">
 			<span class="glyphicon glyphicon-chevron-left"></span>
-			<div>Alerts</div>
+			<div id="title"></div>
 		</a>
 	</div>
 	<div class="tab-title hidden-xs col-sm-5 col-md-6">
-		Alert #<span id="alertTitle"></span>
+		<div id="subtitle"></div><span id="alertTitle"></span>
 	</div>
-	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-		Date not loaded.
+	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box " >
+
 	</div>
 
 </div>
@@ -20,48 +20,48 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Alert Investigation Report
+					<div class="chartBox__heading" id="box_heading">
+
 					</div>
 					<div class="chartBox__content">
 						<table class="alert col-sm-6 col-xs-12">
 							<tr>
-								<td align="right" class="fit" ><b>Alert:</b></td> 
-								<td><span id="alertID" class="alertInfo" >No data loaded</span> </td>
+								<td align="right" class="fit" ><b id="alert"></b></td> 
+								<td><span id="alertID" class="alertInfo" ></span> </td>
 							</tr>
 							<tr>
-								<td align="right" class="fit" ><b>Case:</b></td>
-								<td><span id="reason" class="alertInfo" >No data loaded</span> </td>
+								<td align="right" class="fit" ><b id="case"></b></td>
+								<td><span id="reason" class="alertInfo" ></span> </td>
 							</tr>
 							<tr>
-								<td align="right" class="fit" ><b>Date:</b></td>
-								<td><span id="date" class="alertInfo" >No data loaded</span> </td>
+								<td align="right" class="fit" ><b id="date_title"></b></td>
+								<td><span id="date" class="alertInfo" ></span> </td>
 							</tr>
 							<tr>
-								<td align="right" class="fit" ><b>Clinic:</b></td>
-								<td><span id="clinic" class="alertInfo" >No data loaded</span> </td>
+								<td align="right" class="fit" ><b id="clinic_title"></b></td>
+								<td><span id="clinic" class="alertInfo" ></span> </td>
 							</tr>
 							<tr class="spaceUnder">
 								<td align="right" class="fit" >
-									<b><span class="glossary capitalised" word="region">Region</span>:</b>
+									<b><span class="glossary capitalised" word="region" id="region_title"></span>:</b>
 								</td>
-								<td><span id="region" class="alertInfo" >No data loaded</span> </td>
+								<td><span id="region" class="alertInfo" ></span> </td>
 							</tr>
 							<tr>
-								<td align="right" class="fit" ><b>Patient ID:</b></td>
-								<td><span id="patientID" class="alertInfo" >No data loaded</span> </td>
+								<td align="right" class="fit" ><b id="patient_title"></b></td>
+								<td><span id="patientID" class="alertInfo" ></span> </td>
 							</tr>
 							<tr>
-								<td align="right" class="fit" ><b>Patient Age:</b></td>
-								<td><span id="patientAge" class="alertInfo" >No data loaded</span> </td>
+								<td align="right" class="fit" ><b id="patient_age_title"></b></td>
+								<td><span id="patientAge" class="alertInfo" ></span> </td>
 							</tr>
 							<tr class="spaceUnder">
-								<td align="right" class="fit" ><b>Patient Gender:</b></td>
-								<td><span id="patientGender" class="alertInfo" >No data loaded</span> </td>
+								<td align="right" class="fit" ><b id="patien_gender_title"</b></td>
+								<td><span id="patientGender" class="alertInfo" ></span> </td>
 							</tr>
 						</table>
 						<div class="col-sm-6 col-xs-12" >
-							<p><b>Alert Investigation</b></p>
+							<p><b id="investigation_title"></b></p>
 							<div id="checklist"></div>
 						</div>
 					</div>
@@ -78,6 +78,24 @@ $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 
 function drawAlertContent( alertID ){
 
+	 $("#title").html(i18n.gettext('Alerts'));
+	 $("#sub_title").html(i18n.gettext('Alert #'));
+	 $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+	 $("#box_heading").html(i18n.gettext('Alert Investigation Report'));
+	 $("#alert").html(i18n.gettext('Alert:'));
+	 $("#case").html(i18n.gettext('Case:'));
+	 $("#date_title").html(i18n.gettext('Date:'));
+	 $("#clinic_title").html(i18n.gettext('Clinic:'));
+	 $("#region_title").html(i18n.gettext('Region:'));
+	 $("#patient_title").html(i18n.gettext('Patient ID:'));
+	 $("#patient_age_title").html(i18n.gettext('Patient Age:'));
+	 $("#patient_gender_title").html(i18n.gettext('Patient Gender:'));
+	 $("#investigation_title").html(i18n.gettext('Alert Investigation:'));
+	 $(".alertInfo").each(function(){
+		 $(this).html(i18n.gettext('No data loaded'));
+	 }
+	 );
+	 
 	$.getJSON( api_root+"/alert/"+alertID, function( alert ){
             $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		//Load the location info for the given location ID from the location tree.
@@ -93,12 +111,12 @@ function drawAlertContent( alertID ){
 
 			var stage = stages[i];
 
-			table += "<tr><td align='right' class='fit' ><b>" + stage + "</b></td>";
+			table += "<tr><td align='right' class='fit' ><b>" + i18n.gettext(stage) + "</b></td>";
 
 			if( alert.links != undefined && alert.links.data.checklist.indexOf( stage ) >= 0 ){
-				table += "<td> Completed </td>";
+				table += "<td>"+ i18n.gettext('Completed') +" </td>";
 			}else{
-				table += "<td> Not Completed </td></tr>";
+				table += "<td>"+ i18n.gettext('Not Completed') + "</td></tr>";
 			}			
 		}
 

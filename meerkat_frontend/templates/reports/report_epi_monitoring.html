@@ -1,6 +1,6 @@
 {% extends 'reports/base.html' %}
 
-{% block title %}{{report.data.project_region|e}} &middot; Weekly Epidemiological Surveillance Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('Weekly Epidemiological Surveillance Report') }}  &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-content">
@@ -11,10 +11,10 @@
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
     </span> 
-    <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>
-    <span> Weekly Epidemiological Surveillance Report </span>
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
+    <span> {{ _('Weekly Epidemiological Surveillance Report') }} </span>
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
     </span>
   </h2>
 </div>
@@ -24,7 +24,7 @@
   <!-- Table 1 -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">Table 1: Summary of Deaths  </div>
+      <div class="chart-title">{{ _('Table 1: Summary of Deaths') }}  </div>
       <div class="chart-stage">
         <div class="table-wrapper table-responsive table1-wrapper"></div>
       </div>
@@ -37,18 +37,18 @@
   <!-- 2. Mortality -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">Table 2: Diseases, conditions and events under surveillance</div>
+      <div class="chart-title">{{ _('Table 2: Diseases, conditions and events under surveillance') }}</div>
       <div class="chart-stage">
         <div class="col-xs-12 col-md-6 no-padding-col">
-          <div class="table-title">2.1 Diseases of epidemic potential</div>
+          <div class="table-title">{{ _('2.1 Diseases of epidemic potential') }}</div>
           <div class="table-wrapper table-responsive table21-wrapper"></div>
         </div>
         <div class="col-xs-12 col-md-6">
-          <div class="table-title">2.2 Diseases for eradication and elimination</div>
+          <div class="table-title">{{ _('2.2 Diseases for eradication and elimination') }}</div>
           <div class="table-wrapper table-responsive table22-wrapper"></div>
         </div>
         <div class="col-xs-12 col-md-6">
-          <div class="table-title">2.3 Other diseases and events of public health importance</div>
+          <div class="table-title">{{ _('2.3 Other diseases and events of public health importance') }}</div>
           <div class="table-wrapper table-responsive table23-wrapper"> </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
 <div class="row">
    <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">Table 3: Notifiable Diseases</div>  
+      <div class="chart-title">{{ _('Table 3: Notifiable Diseases') }}</div>  
         <div class="small-table-wrapper  table-responsive table3-wrapper">
           <!-- TODO: Build Table -->
         </div>
@@ -112,11 +112,11 @@ function drawTable1(){
   mort_keys = Object.keys(content.tot_mortality);
   for( var i=1; i<mort_keys.length; i++ ){
     varTitle = content.variables[mort_keys[i]].name;
-    html += "<th>" + varTitle.replace("Deaths ", "") + "</th>";
+    html += "<th>" + i18n.gettext(varTitle) + "</th>";
   }
 
-  html += "<th class='total'>Total</th></thead>" +
-    "<tr><td class='border-right key'>Number of deaths</td>";
+  html += "<th class='total'>{{ _('Total') }}</th></thead>" +
+    "<tr><td class='border-right key'>{{ _('Number of deaths') }}</td>";
 
   for( var i=1; i<mort_keys.length; i++ ){
     datum = content.tot_mortality[ mort_keys[i] ]; 
@@ -124,7 +124,7 @@ function drawTable1(){
   }  
 
   html += "<td class='total'>" + content.tot_mortality[ mort_keys[0] ] + "</td></tr>";    
-  html += "<tr><td class='border-right key'>Number of maternal deaths</td>";
+  html += "<tr><td class='border-right key'>{{ _('Number of maternal death') }}s</td>";
 
   mat_keys = Object.keys(content.mat_mortality);
   for( var i=1; i<mat_keys.length; i++ ){
@@ -142,19 +142,19 @@ function drawTable1(){
 function drawTable21(){
   
   var struct = [
-    ["Dysentery and bloody diarrhoea", "icd_17"],
-    ["Influenza-like illness", "icd_4183"],
-    ["Arboviruses", "icd_461"],
-    ["Meningitis", "icd_421"],
-    ["Plague", "icd_113", "", "border-top"],
-    ["RDT positive", "epi_4", "lowlight no_deaths"],
-    ["Bubonic plague", "epi_5", "lowlight no_deaths"],
-    ["Pulmonary plague", "epi_6", "lowlight no_deaths"],
-    ["Food Poisoning", "icd_35", "", "border-top"],
-    ["Seafood poisoning", "icd_9643"],
-    ["Acute Jaundice Syndrome", "icd_530"],
-    ["Animal Bite", "icd_9225"],
-    ["Rabies", "icd_391"]
+    ["{{ _('Dysentery and bloody diarrhoea') }}", "icd_17"],
+    ["{{ _('Influenza-like illness') }}", "icd_4183"],
+    ["{{ _('Arboviruses') }}", "icd_461"],
+    ["{{ _('Meningitis') }}", "icd_421"],
+    ["{{ _('Plague') }}", "icd_113", "", "border-top"],
+    ["{{ _('RDT positive') }}", "epi_4", "lowlight no_deaths"],
+    ["{{ _('Bubonic plague') }}", "epi_5", "lowlight no_deaths"],
+    ["{{ _('Pulmonary plague') }}", "epi_6", "lowlight no_deaths"],
+    ["{{ _('Food Poisoning') }}", "icd_35", "", "border-top"],
+    ["{{ _('Seafood poisoning') }}", "icd_9643"],
+    ["{{ _('Acute Jaundice Syndrome') }}", "icd_530"],
+    ["{{ _('Animal Bite') }}", "icd_9225"],
+    ["{{ _('Rabies') }}", "icd_391"]
   ]
 
   $('.table21-wrapper').html( drawFromStruct(struct) );
@@ -164,11 +164,11 @@ function drawTable21(){
 function drawTable22(){
   
   var struct = [
-    ["Acute flaccid paralysis", "icd_380"],
-    ["Neonatal tetanus", "icd_188"],
-    ["Measles", "icd_488"],
-    ["Leprosy", "icd_168"],
-    ["Lymphatic filariasis", "icd_804"],
+    ["{{ _('Acute flaccid paralysis') }}", "icd_380"],
+    ["{{ _('Neonatal tetanu') }}s", "icd_188"],
+    ["{{ _('Measles') }}", "icd_488"],
+    ["{{ _('Leprosy') }}", "icd_168"],
+    ["{{ _('Lymphatic filariasis') }}", "icd_804"],
   ]
 
   $('.table22-wrapper').html( drawFromStruct(struct) );
@@ -178,16 +178,16 @@ function drawTable22(){
 function drawTable23(){
 
   var struct = [
-    ["Fever Cases (T > 37.5 &#176;C)", "reg_4", "no_deaths"],
-    ["Malaria confirmed by rapid test or slide", "epi_1"],
-    ["Acute Respiratory Tract Infection", "icd_4177"],
-    ["Acute watery diarrhoea", "icd_1", "", "border-top"],
-    ["Acute watery diarrhoea among those over five years of age", "epi_7", "lowlight"],
-    ["Sexually Transmitted Diseases other than HIV", "icd_321", "", "border-top"],
-    ["Tuberculosis", "icd_91"],
-    ["Moderate malnutrition", "cmd_43"],
-    ["Severe malnutrition", "icd_2189"],
-    ["Other diseases of public health importance", "cmd_48"],
+    ["{{ _('Fever Cases (T > 37.5 &#176;C)') }}", "reg_4", "no_deaths"],
+    ["{{ _('Malaria confirmed by rapid test or slide') }}", "epi_1"],
+    ["{{ _('Acute Respiratory Tract Infection') }}", "icd_4177"],
+    ["{{ _('Acute watery diarrhoea') }}", "icd_1", "", "border-top"],
+    ["{{ _('Acute watery diarrhoea among those over five years of age') }}", "epi_7", "lowlight"],
+    ["{{ _('Sexually Transmitted Diseases other than HIV') }}", "icd_321", "", "border-top"],
+    ["{{ _('Tuberculosis') }}", "icd_91"],
+    ["{{ _('Moderate malnutrition') }}", "cmd_43"],
+    ["{{ _('Severe malnutrition') }}", "icd_2189"],
+    ["{{ _('Other diseases of public health importance') }}", "cmd_48"],
   ]
 
   $('.table23-wrapper').html( drawFromStruct(struct) );
@@ -198,8 +198,8 @@ function drawTable3(){
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
     "<thead><th class='border-right'></th><th>Cases</th></thead>" +
-    "<tr><td class='total'>Number of alerts generated</td><td>" + content.alerts.total + "</td></tr>" +
-    "<tr><td class='total'>Number of alerts investigated</td><td>" + content.alerts.investigated + 
+    "<tr><td class='total'>{{ _('Number of alerts generated') }}</td><td>" + content.alerts.total + "</td></tr>" +
+    "<tr><td class='total'>{{ _('Number of alerts investigated') }}</td><td>" + content.alerts.investigated + 
     "</td></tr></table>";  
   $('.table3-wrapper').html( html );
 }
@@ -214,7 +214,7 @@ function drawFromStruct( struct ){
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
     "<thead><th class='border-right'></th><th>Cases</th><th>Deaths</th>" +
-    "<th class='total'>Total</th></thead>";
+    "<th class='total'>{{ _('Total') }}</th></thead>";
 
   for( var i=0; i<struct.length; i++ ){
 
@@ -225,7 +225,7 @@ function drawFromStruct( struct ){
 
       html += "<tr><td class='lowlight total right-align border-right'>" + struct[i][0] + "</td>" +
         "<td class='lowlight' >" + cases + "</td>" +
-        "<td class='lowlight' > NA </td>" +
+        "<td class='lowlight' >{{ _(' NA') }} </td>" +
         "<td class='total lowlight border-left'>" + cases + "</td></tr>"
 
     //If the "no_deaths" option is sepcified in the third array element.
@@ -235,7 +235,7 @@ function drawFromStruct( struct ){
 
       html += "<tr><td class='total key'>" + struct[i][0] + "</td>" +
         "<td>" + cases + "</td>" +
-        "<td>NA</td>" +
+        "<td>{{ _('NA') }}</td>" +
         "<td class='total'>" + cases + "</td></tr>"
 
     //If the "highlight" option is sepcified in the third array element.

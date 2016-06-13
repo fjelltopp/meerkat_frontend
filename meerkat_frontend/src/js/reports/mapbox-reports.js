@@ -23,7 +23,7 @@ function draw_public_health_map(api_call, map_centre){
   $.getJSON(api_call, function(data) {
     var geoJsonLayer = L.geoJson(data, {
       onEachFeature: function(feature, layer) {
-        layer.bindPopup(feature.properties.name);
+          layer.bindPopup(i18n.gettext(feature.properties.name));
       }
     });
     var markers = new L.MarkerClusterGroup({

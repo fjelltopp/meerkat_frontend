@@ -2,19 +2,17 @@
 
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
-		<div class="location-box__label">
-			<div>Location:</div>
-			<div id="location-title" class="location-title">Not Loaded</div>
-		</div>
-		<span class="glyphicon glyphicon-chevron-right"></span>
-		<span class="glyphicon glyphicon-chevron-left hidden"></span>
+			<div class="location-box__label">
+				<div id="location_box"></div>
+				<div id="location-title" class="location-title"></div>
+			</div>
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-6">
-		Health Services
+	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-		Date not loaded.
 	</div>
 
 </div>
@@ -23,7 +21,6 @@
 
 	<div id="sidebar-wrapper" >
 		<div id="location-selector" class="location-selector">
-			Locations not loaded
 		</div>
 	</div>
 
@@ -31,11 +28,10 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
+					<div class="chartBox__heading" id="box_heading">
 						Childhood Vaccinations
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="exportTableToCSV('epi-table','vaccinations.csv', this);" class="csv"> 
-								Excel 
 							</a> 
 						</div>
 					</div>
@@ -51,11 +47,9 @@
 		<div class="row">
 			<div class="col-xs-12 col-md-6 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Health Utilisation
+					<div class="chartBox__heading" id="box_2_heading">
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="exportTableToCSV('use-table','use.csv', this);" class="csv"> 
-								Excel 
 							</a> 
 						</div>
 					</div>
@@ -67,11 +61,9 @@
 			</div>
 			<div class="col-xs-12 col-md-6 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Visit Type
+					<div class="chartBox__heading" id="box_3_heading">
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="exportTableToCSV('visit-table','visit.csv', this);" class="csv"> 
-								Excel 
 							</a> 
 						</div>
 					</div>
@@ -89,6 +81,18 @@
 
 <!-- Menu Toggle Script -->
 <script>
+
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#title").html(i18n.gettext('Health Services'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#location-selector").html(i18n.gettext('Locations not loaded'));
+ $("#box_heading").html(i18n.gettext('Childhood Vaccinations'));
+ $("#box_2_heading").html(i18n.gettext('Health Utilisation'));
+ $("#box_3_heading").html(i18n.gettext('Visit Type'));
+ $(".csv").each(function(){
+	 $(this).html(i18n.gettext('Excel'));
+ });
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -131,7 +135,7 @@ function drawCharts( locID ){
 	                    tableID: 'epi-table', 
 	                    no_total: true,
 	                    linkFunction: 'loadDisease',
-	                    title: 'Vaccination',
+	                    title: i18n.gettext('Vaccination'),
 	                    percent: 'vac_1'
 	                   });
 
@@ -140,7 +144,8 @@ function drawCharts( locID ){
 	                    week: week, 
 	                    tableID: 'use-table',
 	                    no_total: true, 
-	                    linkFunction: 'loadDisease'
+	                    linkFunction: 'loadDisease',
+						title: i18n.gettext('Health Utilisation')
 	                   });
 
 	categorySummation({ category: 'visit', 
@@ -148,7 +153,8 @@ function drawCharts( locID ){
 	                    week: week, 
 	                    tableID: 'visit-table', 
 	                    percent: true,
-	                    linkFunction: 'loadDisease'
+	                    linkFunction: 'loadDisease',
+						title: i18n.gettext('Visit Type')
 	                   });
 
 }
