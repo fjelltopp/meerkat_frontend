@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-14 07:12+0000\n"
+"POT-Creation-Date: 2016-06-14 10:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,6 +694,18 @@ msgstr ""
 msgid "Daily registers last week"
 msgstr ""
 
+#: meerkat_frontend/templates/base.html:16
+msgid "Toggle navigation"
+msgstr ""
+
+#: meerkat_frontend/templates/base.html:59
+msgid ">Working with our partners:"
+msgstr ""
+
+#: meerkat_frontend/templates/base.html:65
+msgid "For more information, please e-mail:"
+msgstr ""
+
 #: meerkat_frontend/templates/download/index.html:5
 #: meerkat_frontend/templates/explore/index.html:4
 #: meerkat_frontend/templates/messaging/base.html:4
@@ -840,23 +852,23 @@ msgid ""
 "\t\t       <H2> Technical Site"
 msgstr ""
 
-#: meerkat_frontend/templates/homepage/index.html:91
+#: meerkat_frontend/templates/homepage/index.html:93
 msgid "consultations in total"
 msgstr ""
 
-#: meerkat_frontend/templates/homepage/index.html:95
+#: meerkat_frontend/templates/homepage/index.html:97
 msgid "cases reported"
 msgstr ""
 
-#: meerkat_frontend/templates/homepage/index.html:101
+#: meerkat_frontend/templates/homepage/index.html:103
 msgid "alerts generated"
 msgstr ""
 
-#: meerkat_frontend/templates/homepage/index.html:105
+#: meerkat_frontend/templates/homepage/index.html:107
 msgid "facilities"
 msgstr ""
 
-#: meerkat_frontend/templates/homepage/index.html:155
+#: meerkat_frontend/templates/homepage/index.html:157
 msgid "If you would like to find out more about the project, please contact us:"
 msgstr ""
 

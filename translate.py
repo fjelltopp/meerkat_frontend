@@ -16,6 +16,7 @@ import os
 import shutil
 import datetime
 from babel.messages.pofile import read_po, write_po
+from babel.messages.catalog import Catalog, Message
 from babel._compat import BytesIO
 
 parser = argparse.ArgumentParser()
@@ -34,33 +35,18 @@ def create_pot_file_csv(in_file, out_file):
     """
     Create a .po file from csv
     """
-    with open(out_file, "w") as out: 
+    with open(out_file, "wb") as out: 
+        catalog = Catalog(project="Meerkat",
+                          version="0.1",
+                          copyright_holder="Meerkat Developers", 
+                          charset="utf-8")
 
-        out.write("""
-# Translations template for Meerkat.
-# Copyright (C) 2016 ORGANIZATION
-# This file is distributed under the same license as the Meerkat project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: Meerkat VERSION\\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
-"Language-Team: LANGUAGE <LL@li.org>\\n"
-"MIME-Version: 1.0\\n"
-"Content-Type: text/plain; charset=utf-8\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-""")
         with open(in_file, "r") as csv_file:
             csv = DictReader(csv_file)
             for line in csv:
-                out.write("# {}\n".format(line["source"]))
-                out.write('msgid "{}"\n'.format(line["text"]))
-                out.write('msgstr ""\n\n')
-
+                message = line["text"] #Message(line["text"])
+                catalog.add(message, None, [(line["source"], 1)], context=None)
+        write_po(out, catalog)
 
 def find_languages(folders):
     """ Find the languages in the translations folders.
