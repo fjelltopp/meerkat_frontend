@@ -254,7 +254,7 @@
 <script>
 // Reporting Sites
 var reportingSites = {
-  categories: [{% for site in report.data.reporting_sites %}"{{ site.title }}"{% if not loop.last %},{% endif %}{% endfor %}],
+  categories: [{% for site in report.data.reporting_sites %}"{{ site.title|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
   series: [{name: 'Clinics', data: [{% for site in report.data.reporting_sites %}{{ site.percent }}{% if not loop.last %},{% endif %}{% endfor %}]}],
   labels: { yAxis: { text: null } } };
 // Demographics
