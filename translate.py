@@ -131,7 +131,7 @@ if __name__ == "__main__":
             print("Need to specify a two letter language code")
     elif args.action == "initialise":
         if args.l and len(args.l) == 2:
-            os.system("pybabel init -i messages.pot -d translations -l {}".format(args.l))
+            #os.system("pybabel init -i messages.pot -d translations -l {}".format(args.l))
             os.system("pybabel init -i messages.pot -d {}/translations -l {}".format(implementation_dir,args.l))
         else:
             print("Need to specify a two letter language code")

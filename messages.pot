@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-13 13:30+0000\n"
+"POT-Creation-Date: 2016-06-14 07:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: meerkat_frontend/reports.py:378
-#: meerkat_frontend/src/js/technical/tableManager.js:115
-#: meerkat_frontend/src/js/technical/tableManager.js:121
-#: meerkat_frontend/src/js/technical/tableManager.js:255
-msgid "Region"
+#: meerkat_frontend/reports.py:373 meerkat_frontend/reports.py:378
+msgid "Governorate"
 msgstr ""
 
 #: meerkat_frontend/reports.py:379 meerkat_frontend/reports.py:401
@@ -34,154 +31,154 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: meerkat_frontend/reports.py:380 meerkat_frontend/reports.py:614
+#: meerkat_frontend/reports.py:380 meerkat_frontend/reports.py:617
 msgid "Female"
 msgstr ""
 
-#: meerkat_frontend/reports.py:381 meerkat_frontend/reports.py:617
+#: meerkat_frontend/reports.py:381 meerkat_frontend/reports.py:620
 msgid "Male"
 msgstr ""
 
-#: meerkat_frontend/reports.py:609
+#: meerkat_frontend/reports.py:612
 msgid "Total Cases"
 msgstr ""
 
-#: meerkat_frontend/reports.py:648 meerkat_frontend/reports.py:664
+#: meerkat_frontend/reports.py:651 meerkat_frontend/reports.py:667
 msgid "Influenza A"
 msgstr ""
 
-#: meerkat_frontend/reports.py:649 meerkat_frontend/reports.py:665
+#: meerkat_frontend/reports.py:652 meerkat_frontend/reports.py:668
 msgid "Influenza B"
 msgstr ""
 
-#: meerkat_frontend/reports.py:650 meerkat_frontend/reports.py:666
+#: meerkat_frontend/reports.py:653 meerkat_frontend/reports.py:669
 msgid "H1"
 msgstr ""
 
-#: meerkat_frontend/reports.py:651 meerkat_frontend/reports.py:667
+#: meerkat_frontend/reports.py:654 meerkat_frontend/reports.py:670
 msgid "H3"
 msgstr ""
 
-#: meerkat_frontend/reports.py:652 meerkat_frontend/reports.py:668
+#: meerkat_frontend/reports.py:655 meerkat_frontend/reports.py:671
 msgid "H1N1"
 msgstr ""
 
-#: meerkat_frontend/reports.py:653 meerkat_frontend/reports.py:669
+#: meerkat_frontend/reports.py:656 meerkat_frontend/reports.py:672
 msgid "Mixed"
 msgstr ""
 
-#: meerkat_frontend/reports.py:713
+#: meerkat_frontend/reports.py:716
 msgid "Patients followed up"
 msgstr ""
 
-#: meerkat_frontend/reports.py:715 meerkat_frontend/reports.py:892
-#: meerkat_frontend/reports.py:1333
+#: meerkat_frontend/reports.py:718 meerkat_frontend/reports.py:895
+#: meerkat_frontend/reports.py:1125 meerkat_frontend/reports.py:1336
 msgid "Laboratory results recorded"
 msgstr ""
 
-#: meerkat_frontend/reports.py:717
+#: meerkat_frontend/reports.py:720
 msgid "Patients admitted to ICU"
 msgstr ""
 
-#: meerkat_frontend/reports.py:719
+#: meerkat_frontend/reports.py:722
 msgid "Patients ventilated"
 msgstr ""
 
-#: meerkat_frontend/reports.py:721
+#: meerkat_frontend/reports.py:724
 msgid "Mortality"
 msgstr ""
 
-#: meerkat_frontend/reports.py:880
+#: meerkat_frontend/reports.py:883
 msgid "Mental Health (mhGAP) algorithm followed"
 msgstr ""
 
-#: meerkat_frontend/reports.py:884
+#: meerkat_frontend/reports.py:887
 msgid "Child Health (IMCI) algorithm followed"
 msgstr ""
 
-#: meerkat_frontend/reports.py:888
+#: meerkat_frontend/reports.py:891
 msgid "Reproductive Health screening"
 msgstr ""
 
-#: meerkat_frontend/reports.py:896 meerkat_frontend/reports.py:1126
-#: meerkat_frontend/reports.py:1337
+#: meerkat_frontend/reports.py:899 meerkat_frontend/reports.py:1129
+#: meerkat_frontend/reports.py:1340
 msgid "Prescribing practice recorded"
 msgstr ""
 
-#: meerkat_frontend/reports.py:906
+#: meerkat_frontend/reports.py:909
 msgid "Smoking prevalence (current)"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1082
+#: meerkat_frontend/reports.py:1085
 msgid "Cases Reported"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1556 meerkat_frontend/reports.py:1746
+#: meerkat_frontend/reports.py:1559 meerkat_frontend/reports.py:1749
 msgid "Health Utilisation Rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1558 meerkat_frontend/reports.py:1748
+#: meerkat_frontend/reports.py:1561 meerkat_frontend/reports.py:1751
 msgid "Number of consultations per clinician per day"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1562 meerkat_frontend/reports.py:1777
+#: meerkat_frontend/reports.py:1565 meerkat_frontend/reports.py:1780
 msgid "Hospitalisation rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1566 meerkat_frontend/reports.py:1781
+#: meerkat_frontend/reports.py:1569 meerkat_frontend/reports.py:1784
 msgid "Referral rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1570
+#: meerkat_frontend/reports.py:1573
 msgid "Crude Mortality Rate (CMR)"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1574
+#: meerkat_frontend/reports.py:1577
 msgid "Under-five Mortality Rate (U5MR)"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1615
+#: meerkat_frontend/reports.py:1618
 #: meerkat_frontend/src/files/pages/diseases.html:87
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:201
 msgid "Communicable Disease"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1616
+#: meerkat_frontend/reports.py:1619
 #: meerkat_frontend/src/files/pages/nc_diseases.html:89
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:204
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:228
 msgid "Non-Communicable Disease"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1617
+#: meerkat_frontend/reports.py:1620
 msgid "Mental Health"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1618
+#: meerkat_frontend/reports.py:1621
 msgid "Injury"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1722
+#: meerkat_frontend/reports.py:1725
 msgid "Crude Mortality Rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1725
+#: meerkat_frontend/reports.py:1728
 msgid "Under five crude mortality rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1734
+#: meerkat_frontend/reports.py:1737
 msgid "Total Consultations"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1737
+#: meerkat_frontend/reports.py:1740
 msgid "Number of Clinicians"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1771
+#: meerkat_frontend/reports.py:1774
 msgid "Hospital Referrals"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1774
+#: meerkat_frontend/reports.py:1777
 msgid "Other Referrals"
 msgstr ""
 
@@ -630,6 +627,12 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/tableManager.js:114
 #: meerkat_frontend/src/js/technical/tableManager.js:120
 msgid "Alert"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/tableManager.js:115
+#: meerkat_frontend/src/js/technical/tableManager.js:121
+#: meerkat_frontend/src/js/technical/tableManager.js:255
+msgid "Region"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/tableManager.js:116
