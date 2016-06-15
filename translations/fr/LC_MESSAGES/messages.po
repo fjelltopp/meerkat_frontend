@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-15 08:18+0000\n"
+"POT-Creation-Date: 2016-06-15 11:10+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -33,10 +33,18 @@ msgid "Total"
 msgstr "Total"
 
 #: meerkat_frontend/reports.py:380 meerkat_frontend/reports.py:617
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:270
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:214
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:267
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:346
 msgid "Female"
 msgstr "Femelle"
 
 #: meerkat_frontend/reports.py:381 meerkat_frontend/reports.py:620
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:267
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:211
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:264
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:343
 msgid "Male"
 msgstr "Mâle"
 
@@ -420,6 +428,9 @@ msgstr "Nationalité"
 
 #: meerkat_frontend/src/files/pages/demographics.html:123
 #: meerkat_frontend/src/files/pages/demographics_mad.html:85
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:273
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:217
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:349
 msgid "Age"
 msgstr "Âge"
 
@@ -1087,6 +1098,7 @@ msgstr "Profil de la Maladie Transmissible"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:22
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:22
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:23
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:22
 msgid "Key findings"
 msgstr "Principales Conclusions"
@@ -1483,6 +1495,10 @@ msgstr " morbidity par"
 msgid " Public Health Indicators"
 msgstr " Indicateurs de la Santé Publique"
 
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:270
+msgid " Age"
+msgstr ""
+
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:12
 msgid "Public Health Profile"
@@ -1638,19 +1654,5 @@ msgstr ""
 #~ msgstr "> Travailler avec nos partenaires:"
 
 #~ msgid ""
-#~ "\n"
-#~ "\t\t\t\t\t\t\t<p>Your contact details have "
-#~ "been successfully verified.</p>\n"
-#~ "\t\t\t\t\t\t\t<p>You can unsubscribe at "
-#~ "any time by clicking on the "
-#~ "relevant link in your e-mails.</p>e\n"
-#~ "\t\t\t\t\t\t   "
 #~ msgstr ""
-#~ "\n"
-#~ "\t\t\t\t\t\t\t<p>Vos coordonnées ont été vérifiées avec succès.</p>\n"
-#~ "\t\t\t\t\t\t\t<p>Vous pouvez vous désabonner"
-#~ " à tout moment en cliquant sur "
-#~ "le lien correspondant dans vos "
-#~ "e-mails.</p>e\n"
-#~ "\t\t\t\t\t\t   "
 

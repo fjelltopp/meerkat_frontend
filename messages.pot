@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-15 08:18+0000\n"
+"POT-Creation-Date: 2016-06-15 11:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,10 +32,18 @@ msgid "Total"
 msgstr ""
 
 #: meerkat_frontend/reports.py:380 meerkat_frontend/reports.py:617
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:270
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:214
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:267
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:346
 msgid "Female"
 msgstr ""
 
 #: meerkat_frontend/reports.py:381 meerkat_frontend/reports.py:620
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:267
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:211
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:264
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:343
 msgid "Male"
 msgstr ""
 
@@ -419,6 +427,9 @@ msgstr ""
 
 #: meerkat_frontend/src/files/pages/demographics.html:123
 #: meerkat_frontend/src/files/pages/demographics_mad.html:85
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:273
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:217
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:349
 msgid "Age"
 msgstr ""
 
@@ -1066,6 +1077,7 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:22
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:22
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:23
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:22
 msgid "Key findings"
 msgstr ""
@@ -1432,6 +1444,10 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:62
 msgid " Public Health Indicators"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:270
+msgid " Age"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:2
