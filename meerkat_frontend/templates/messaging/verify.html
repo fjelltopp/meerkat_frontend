@@ -21,14 +21,12 @@
 					</div>
 					<div class="chartBox__content"    
 						<div class="intro">
-                  			{% if data['sms'] %}
-						    {% trans }
-						    We need to be sure that you have given the correct phone number: {{data['sms']}}.<br>
-						    To check this we have just sent you a text with a verification code. Please submit the code below.
-						    {% endtrans %}
+                  			            {% if data['sms'] %}
+                                                    {{ _('We need to be sure that you have given the correct phone number: %(number)s.<br>
+						    To check this we have just sent you a text with a verification code. Please submit the code below.', number=data['sms']) }}
 							<div class="breaker"></div>
 							<form id="verify-sms" class="verify" method="POST" 
-                           action="/messaging/subscribe/sms_code/{{data['id']}}">
+                           action="/{{g.get('language')}}/messaging/subscribe/sms_code/{{data['id']}}">
 								<div class="left-part col-sm-12 col-md-6 more-padding-col">
 									<div class="row">
 										<label class="col-xs-12 col-sm-6" >{{ _('SMS Verification Code') }}*</label>
@@ -37,18 +35,18 @@
 									<div class="breaker"></div>
 									<div class="row">
 										<div class="col-xs-12 col-sm-6" >
-											<input class="submit btn btn-primary" type='submit' value="Submit Code" >	
+											<input class="submit btn btn-primary" type='submit' value={{ _('"Submit Code"') }} >	
 										</div>
 										<div class="col-xs-12 col-sm-6 no-padding-col" >
 											<a class="btn btn-default" 
-											   href="/messaging/subscribe/sms_code/{{data['id']}}" >
+											   href="/{{g.get('language')}}/messaging/subscribe/sms_code/{{data['id']}}" >
 												{{ _('Send New Code')}}
 											</a>
 										</div>
 									</div>
 								</div>
 							</form>
-                  			{% endif %}
+                  			                {% endif %}
 						</div>
 					</div>
 				</div>

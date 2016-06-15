@@ -21,8 +21,8 @@ from . import common as c
 
 # Create the Flask app
 app = Flask(__name__)
-babel = Babel(app)
 app.jinja_options['extensions'].append('jinja2.ext.do')
+babel = Babel(app)
 app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
@@ -34,6 +34,7 @@ if app.config.get( 'TEMPLATE_FOLDER', None ):
         jinja2.FileSystemLoader(app.config["TEMPLATE_FOLDER"]),
     ])
     app.jinja_loader = my_loader
+    
 
 # Set up the config files.
 for k,v in app.config['COMPONENT_CONFIGS'].items():
@@ -45,8 +46,7 @@ for k,v in app.config['COMPONENT_CONFIGS'].items():
 
 @babel.localeselector
 def get_locale():
-#    app.logger.info(g.get("language", app.config["DEFAULT_LANGUAGE"]))
-    return g.get("language", 'en')
+    return g.get("language", app.config["DEFAULT_LANGUAGE"])
 
 
 @messaging.url_value_preprocessor

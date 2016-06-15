@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-14 10:42+0000\n"
+"POT-Creation-Date: 2016-06-15 08:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,6 +139,7 @@ msgstr ""
 
 #: meerkat_frontend/reports.py:1618
 #: meerkat_frontend/src/files/pages/diseases.html:87
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:151
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:201
 msgid "Communicable Disease"
 msgstr ""
@@ -185,7 +186,8 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/alert.html:81
 #: meerkat_frontend/src/files/pages/alerts.html:84
 #: meerkat_frontend/src/files/pages/disease.html:131
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:39
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:38
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:38
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:41
 msgid "Alerts"
 msgstr ""
@@ -212,6 +214,7 @@ msgstr ""
 #: meerkat_frontend/templates/messaging/subscribe.html:27
 #: meerkat_frontend/templates/messaging/subscribed.html:13
 #: meerkat_frontend/templates/messaging/verified.html:13
+#: meerkat_frontend/templates/messaging/verify.html:12
 #: meerkat_frontend/templates/reports/index.html:37
 msgid "Date not loaded."
 msgstr ""
@@ -279,6 +282,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/pip.html:53
 #: meerkat_frontend/src/files/pages/services.html:85
 #: meerkat_frontend/templates/explore/index.html:22
+#: meerkat_frontend/templates/messaging/subscribe.html:16
 msgid "Location:"
 msgstr ""
 
@@ -332,6 +336,29 @@ msgstr ""
 msgid "Excel"
 msgstr ""
 
+#: meerkat_frontend/src/files/pages/alerts.html:92
+#: meerkat_frontend/src/files/pages/complaint.html:102
+#: meerkat_frontend/src/files/pages/completeness.html:65
+#: meerkat_frontend/src/files/pages/demographics.html:149
+#: meerkat_frontend/src/files/pages/demographics_mad.html:108
+#: meerkat_frontend/src/files/pages/disease.html:92
+#: meerkat_frontend/src/files/pages/diseases.html:70
+#: meerkat_frontend/src/files/pages/map.html:29
+#: meerkat_frontend/src/files/pages/nc_diseases.html:72
+#: meerkat_frontend/src/files/pages/pip.html:59
+#: meerkat_frontend/src/files/pages/services.html:108
+#: meerkat_frontend/src/js/explore/explore.js:340
+#: meerkat_frontend/src/js/technical/tableManager.js:34
+#: meerkat_frontend/src/js/technical/tableManager.js:35
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:2
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:2
+msgid "Week"
+msgstr ""
+
 #: meerkat_frontend/src/files/pages/complaint.html:93
 #: meerkat_frontend/src/files/pages/complaint.html:97
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:117
@@ -368,7 +395,8 @@ msgstr ""
 
 #: meerkat_frontend/src/files/pages/demographics.html:118
 #: meerkat_frontend/src/files/pages/demographics_mad.html:81
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:105
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:104
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:104
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:101
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:108
 msgid "Demographics"
@@ -376,13 +404,14 @@ msgstr ""
 
 #: meerkat_frontend/src/files/pages/demographics.html:121
 #: meerkat_frontend/src/files/pages/demographics_mad.html:84
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:114
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:113
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:113
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:110
 msgid "Gender"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/demographics.html:122
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:125
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:124
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:121
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:145
 msgid "Nationality"
@@ -397,7 +426,7 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/tableManager.js:116
 #: meerkat_frontend/src/js/technical/tableManager.js:123
 #: meerkat_frontend/src/js/technical/tableManager.js:256
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:152
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:151
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:148
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:172
 msgid "Status"
@@ -454,7 +483,8 @@ msgid "Communicable Diseases"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/map.html:27
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:51
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:50
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:50
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:47
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:54
 msgid "Map"
@@ -507,17 +537,6 @@ msgstr ""
 
 #: meerkat_frontend/src/js/explore/explore.js:310
 msgid "#Cases with "
-msgstr ""
-
-#: meerkat_frontend/src/js/explore/explore.js:340
-#: meerkat_frontend/src/js/technical/tableManager.js:34
-#: meerkat_frontend/src/js/technical/tableManager.js:35
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
-#: meerkat_frontend/templates/reports/report_communicable_diseases.html:2
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
-#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:2
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:2
-msgid "Week"
 msgstr ""
 
 #: meerkat_frontend/src/js/reports/charts.js:34
@@ -699,7 +718,8 @@ msgid "Toggle navigation"
 msgstr ""
 
 #: meerkat_frontend/templates/base.html:59
-msgid ">Working with our partners:"
+#: meerkat_frontend/templates/reports/base.html:33
+msgid "Working with our partners:"
 msgstr ""
 
 #: meerkat_frontend/templates/base.html:65
@@ -717,6 +737,7 @@ msgstr ""
 #: meerkat_frontend/templates/download/index.html:6
 #: meerkat_frontend/templates/explore/index.html:5
 #: meerkat_frontend/templates/messaging/base.html:5
+#: meerkat_frontend/templates/reports/base.html:14
 #: meerkat_frontend/templates/reports/index.html:7
 #: meerkat_frontend/templates/reports/index.html:34
 #: meerkat_frontend/templates/technical/index.html:7
@@ -740,6 +761,7 @@ msgid "Explore"
 msgstr ""
 
 #: meerkat_frontend/templates/download/index.html:9
+#: meerkat_frontend/templates/download/index.html:53
 #: meerkat_frontend/templates/explore/index.html:8
 #: meerkat_frontend/templates/messaging/base.html:8
 #: meerkat_frontend/templates/reports/index.html:10
@@ -875,6 +897,7 @@ msgstr ""
 #: meerkat_frontend/templates/messaging/subscribe.html:24
 #: meerkat_frontend/templates/messaging/subscribed.html:10
 #: meerkat_frontend/templates/messaging/verified.html:10
+#: meerkat_frontend/templates/messaging/verify.html:9
 msgid "Public Health Surveillance Notifications"
 msgstr ""
 
@@ -924,12 +947,21 @@ msgstr ""
 msgid "Select which Alerts to receive:"
 msgstr ""
 
+#: meerkat_frontend/templates/messaging/subscribe.html:179
+msgid "All Alerts"
+msgstr ""
+
 #: meerkat_frontend/templates/messaging/subscribe.html:203
 msgid "Select which Reports to receive:"
 msgstr ""
 
 #: meerkat_frontend/templates/messaging/subscribe.html:234
 msgid "Emails Must be Matching."
+msgstr ""
+
+#: meerkat_frontend/templates/messaging/subscribed.html:21
+#: meerkat_frontend/views/messaging.py:108
+msgid "Please verify your contact details"
 msgstr ""
 
 #: meerkat_frontend/templates/messaging/subscribed.html:25
@@ -955,12 +987,42 @@ msgstr ""
 
 #: meerkat_frontend/templates/messaging/verified.html:26
 msgid ""
-"\n"
-"\t\t\t\t\t\t\t<p>Your contact details have been successfully "
-"verified.</p>\n"
-"\t\t\t\t\t\t\t<p>You can unsubscribe at any time by clicking on the "
-"relevant link in your e-mails.</p>e\n"
-"\t\t\t\t\t\t   "
+"<p>Your contact details have been successfully verified.</p>\n"
+"\t\t\t\t\t\t    <p>You can unsubscribe at any time by clicking on the "
+"relevant link in your e-mails.</p>"
+msgstr ""
+
+#: meerkat_frontend/templates/messaging/verify.html:20
+msgid "Please verify your contact details..."
+msgstr ""
+
+#: meerkat_frontend/templates/messaging/verify.html:25
+#, python-format
+msgid ""
+"We need to be sure that you have given the correct phone number: "
+"%(number)s.<br>\n"
+"\t\t\t\t\t\t    To check this we have just sent you a text with a "
+"verification code. Please submit the code below."
+msgstr ""
+
+#: meerkat_frontend/templates/messaging/verify.html:32
+msgid "SMS Verification Code"
+msgstr ""
+
+#: meerkat_frontend/templates/messaging/verify.html:38
+msgid "\"Submit Code\""
+msgstr ""
+
+#: meerkat_frontend/templates/messaging/verify.html:43
+msgid "Send New Code"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/base.html:39
+msgid "For more information, please e-mail"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/base.html:49
+msgid "This report was generated at"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/index.html:26
@@ -997,15 +1059,19 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:12
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:12
 msgid "Communicable Disease Profile"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:22
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:22
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:22
 msgid "Key findings"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:24
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:24
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:25
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:24
 #, python-format
@@ -1016,6 +1082,7 @@ msgid ""
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:26
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:27
 #, python-format
 msgid ""
@@ -1024,6 +1091,7 @@ msgid ""
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:28
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:28
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:29
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:29
 #, python-format
@@ -1033,6 +1101,7 @@ msgid ""
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:30
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:30
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:31
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:31
 #, python-format
@@ -1041,11 +1110,13 @@ msgid ""
 "and <strong>%(percent_refugee)s %% refugee status</strong>."
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:33
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:32
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:32
 msgid "morbidity due to"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:41
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:40
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:40
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:43
 #, python-format
 msgid ""
@@ -1053,7 +1124,8 @@ msgid ""
 "Epidemiological Week %(epi_week)s (%(end_date)s)."
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:43
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:42
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:42
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:45
 #, python-format
 msgid ""
@@ -1061,24 +1133,29 @@ msgid ""
 "%(epi_week)s (%(end_date)s) "
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:66
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:65
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:65
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:69
 msgid "Public Health Indicators"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:93
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:92
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:92
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:89
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:96
 msgid "Reporting Sites"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:181
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:180
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:124
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:177
 msgid "ICD-10 Classification"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:189
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:216
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:188
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:215
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:132
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:159
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:185
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:212
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:124
@@ -1090,8 +1167,10 @@ msgstr ""
 msgid "%% morbidity"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:190
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:217
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:189
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:216
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:133
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:160
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:186
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:213
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:125
@@ -1102,18 +1181,19 @@ msgstr ""
 msgid "# of cases"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:208
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:207
 msgid "Communicable Disease<"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:237
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:236
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:59
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:233
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:312
 msgid "More Information"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:239
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:238
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:182
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:61
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:235
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:314
@@ -1132,11 +1212,16 @@ msgid ""
 " and support for mapping and reporting.</p>"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:246
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:245
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:189
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:68
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:242
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:321
 msgid "Contact Information"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:180
+msgid ">More Information"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:2
@@ -1401,11 +1486,71 @@ msgstr ""
 msgid "Child Health Conditions"
 msgstr ""
 
-#: meerkat_frontend/views/messaging.py:233
+#: meerkat_frontend/views/messaging.py:86
+msgid ""
+"Dear {first_name} {last_name} ,\n"
+"\n"
+"Thank you for subscribing to receive public health surveillance "
+"notifications from {country}.\n"
+"\n"
+"Please verify your contact details by copying and pasting the following "
+"url into your address bar: {url}\n"
+msgstr ""
+
+#: meerkat_frontend/views/messaging.py:96
+msgid ""
+"<p>Dear {first_name} {last_name},</p><p>Thank you for subscribing to "
+"receive public health surveillance notifications from "
+"{country}.</p><p>Please verify your contact details by <a href='{url}' "
+"target='_blank'>clicking here</a>.</p>"
+msgstr ""
+
+#: meerkat_frontend/views/messaging.py:145
+msgid "You have already verified your account."
+msgstr ""
+
+#: meerkat_frontend/views/messaging.py:174
+msgid ""
+"Dear {first_name} {last_name},\n"
+"\n"
+"Thank you for subscribing to receive public health surveillance "
+"notifications from {country}.  We can confirm that your contact details "
+"have been successfully verified.\n"
+"\n"
+"You can unsubscribe at any time by clicking on the relevant link in your "
+"e-mails.\n"
+"\n"
+" If you wish to unsubscribe now copy and paste the following url into "
+"your address bar:\n"
+"{url}/unsubscribe/{subscriber_id}"
+msgstr ""
+
+#: meerkat_frontend/views/messaging.py:187
+msgid ""
+"<p>Dear {first_name} {last_name},</p><p>Thank you for subscribing to "
+"receive public health surveillance notifications from {country}.  We can "
+"confirm that your contact details have been successfully "
+"verified.</p><p>You can unsubscribe at any time by clicking on the "
+"relevant link in your e-mails.</p><p> If you wish to unsubscribe now <a "
+"href='{url}/unsubscribe/{subscriber_id}'>click here.</a></p>"
+msgstr ""
+
+#: meerkat_frontend/views/messaging.py:199
+msgid "Your subscription has been successful"
+msgstr ""
+
+#: meerkat_frontend/views/messaging.py:250
 msgid "A new code has been sent to your phone."
 msgstr ""
 
-#: meerkat_frontend/views/messaging.py:236
+#: meerkat_frontend/views/messaging.py:253
 msgid "Error: Try again later, or contact administrator."
+msgstr ""
+
+#: meerkat_frontend/views/messaging.py:285
+msgid ""
+"Your verification code for {country} public health surveillance "
+"notifications is: {code}. Please follow instructions in the email to "
+"verify your contact details."
 msgstr ""
 

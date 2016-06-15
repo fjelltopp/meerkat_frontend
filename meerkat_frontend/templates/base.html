@@ -55,11 +55,11 @@
       {% block footer %}
       <div class="container">
 	      <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
-		      <p class="footer__title">{{content.titles.nav|safe}}</p>
-		      <p{{ _('>Working with our partners:') }}</p> 
+		      <p class="footer__title">{{_(content.titles.nav)|safe}}</p>
+		      <p>{{ _('Working with our partners:') }}</p> 
 		      <ul class="footer__supporters" >
 			      {% for partner in content.footer.partners %}
-				      <li>{{partner}}</li>
+				      <li>{{_(partner)}}</li>
 			      {% endfor %} 
 		      </ul>
 		      <p>{{ _('For more information, please e-mail:') }} {{content.footer.email|safe}} </p>

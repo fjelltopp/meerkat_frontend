@@ -89,7 +89,7 @@ $("#menu-toggle").click(function(e) {
  $(".csv").each(function(){
 	 $(this).html(i18n.gettext('Excel'));
  });
- $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+ $("#epi-week-title").html( i18n.gettext("Week") + " " +get_epi_week() + " · " + get_date() );
 
 
 //This function is called every time a new location is loaded.

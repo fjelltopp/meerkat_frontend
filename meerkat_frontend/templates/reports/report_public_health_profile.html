@@ -340,13 +340,13 @@ var reportingSites = {
 var demographicsAges = {
   categories: [{% for item in report.data.demographics %}"{{ item.age }}"{% if not loop.last %},{% endif %}{% endfor %}],
   series: [{
-    name: 'Male',
+    name: "{{ _('Male') }}",
     data: [{% for item in report.data.demographics %}{{ item.male.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }, {
-    name: 'Female',
+    name: "{{ _('Female') }}",
     data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
-  labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
+  labels: { xAxis: { text: "{{ _('Age') }}" }, yAxis: { text: null } }
 };
 
 // Nationality

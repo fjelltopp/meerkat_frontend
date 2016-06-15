@@ -69,7 +69,7 @@ $("#menu-toggle").click(function(e) {
 		$(window).resize();
 	});
 });
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){

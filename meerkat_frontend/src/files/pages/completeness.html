@@ -62,7 +62,7 @@
 	 $(this).html(i18n.gettext('Excel'));
  });
 
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( i18n.gettext("Week") + " "+get_epi_week() + " · " + get_date() );
 
 //Every tab needs a draw charts function that is called when loading a new location.
 //It's also called upon the first load of the page. 

@@ -89,7 +89,7 @@ $("#menu-toggle").click(function(e) {
 	});
 });
 
-$("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( i18n.gettext("Week")+ " " + get_epi_week() + " · " + get_date() );
 
 var disease = 1;
 
@@ -126,7 +126,7 @@ function drawDiseaseContent( varID, locID ){
 
 		$('#diseaseTitle').text( i18n.gettext(data.name));
 
-		buildHTML( i18n.gettext('Classification'), data.classification_casedef, 'classification', 4 ); 
+		buildHTML( i18n.gettext('Classification'), i18n.gettext(data.classification_casedef), 'classification', 4 ); 
 		buildHTML( i18n.gettext('Source'), i18n.gettext(data.source), 'source', 4 );
 		buildHTML( i18n.gettext('Alerts'), i18n.gettext(data.alert_desc), 'diseaseAlerts', 4 );
 		buildHTML( i18n.gettext('Case Definition'), i18n.gettext(data.case_def), 'caseDefinition' );

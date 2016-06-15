@@ -43,14 +43,14 @@
 							<div class="row">
 								<select id="prepared-selector" class="col-sm-offset-3 prepared-data">
 								{% for button in content.prepared %}
-									<option value="{{loop.index0}}">{{button.title}}</option>
+									<option value="{{loop.index0}}">{{_(button.title)}}</option>
 								{% endfor %} 
 								</select>
 							</div>
 							<div class="row">
 								<input type="submit" 
 									     class="submit btn btn-default btn-lg col-sm-offset-3" 
-									     value="Download">
+									     value="{{ _('Download') }}">
 							</div>
 						</form>
 					</div>
@@ -130,7 +130,7 @@ var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
@@ -297,6 +297,9 @@ $.getJSON( api_root+"/export/forms", function( data ){
 	$('#prepared-data-download').submit( function(event){
 		//Assemble the appropriate API call.
 	        var dataSet = config.prepared[$('#prepared-selector').val()];
+                for (key in dataSet.fields){
+                    dataSet.fields[key][1] = i18n.gettext(dataSet.fields[key][1]);
+                }
 		if( "name_category" in dataSet){			      
    	          var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
 		}else{

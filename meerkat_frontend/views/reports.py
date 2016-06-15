@@ -395,6 +395,14 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
         # Extra parsing for natural language bullet points
         extras = {"patient_status": {}}
+        extras["patient_status"]["national"] = {
+                'percent': 0,
+                'quantity': 0
+            }
+        extras["patient_status"]["refugee"] = {
+                'percent': 0,
+                'quantity': 0
+            }
         for item in data['data']['patient_status']:
             title = item['title'].lower().replace(" ", "")
             if title not in ["refugee", "other"]:
@@ -403,6 +411,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 'percent': item['percent'],
                 'quantity': item['quantity']
             }
+
         extras['map_centre'] = report_list[report]["map_centre"]
         extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
                              "/clinics/1")

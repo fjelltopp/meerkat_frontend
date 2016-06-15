@@ -11,8 +11,8 @@
         <a class="navbar-brand scroll-top" href="#">
           <!--<img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> 
               </img> -->
-          <span class="hidden-xs">{{content.titles.nav|safe}} Reports</span>
-          <span class="visible-xs">{{content.titles.mob_nav|safe}}</span>
+          <span class="hidden-xs">{{_(content.titles.nav)|safe}} {{ _('Reports') }}</span>
+          <span class="visible-xs">{{_(content.titles.mob_nav)|safe}}</span>
         </a>
       </div>
 
@@ -29,14 +29,14 @@
   <div class="container-fluid">
 		<div class="row">
 		  <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
-		    <p class="footer__title">{{content.titles.nav|safe}}</p>
-		    <p>Working with our partners:</p> 
+		    <p class="footer__title">{{_(content.titles.nav)|safe}}</p>
+		    <p>{{ _('Working with our partners:') }}</p> 
 		    <ul class="footer__supporters" >
 			    {% for partner in content.footer.partners %}
-				    <li>{{partner}}</li>
+				    <li>{{_(partner)}}</li>
 			    {% endfor %} 
 		    </ul>
-		    <p>For more information, please e-mail: {{content.footer.email|safe}} </p>
+		    <p>{{ _('For more information, please e-mail') }}: {{content.footer.email|safe}} </p>
 		  </div>
 		  <div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
 		    <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
@@ -46,7 +46,7 @@
 			    <img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
 		    {% endfor %} 
 		  </div>
-			<p class="small time-stamp pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">This report was generated at {{ report.meta.generation_timestamp|datetime_from_json|datetime() }}.</p>
+			<p class="small time-stamp pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">{{ _('This report was generated at') }} {{ report.meta.generation_timestamp|datetime_from_json|datetime("dd MMMM YYYY") }}.</p>
 		</div>
   </div>
 </footer>

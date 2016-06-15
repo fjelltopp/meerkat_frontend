@@ -187,11 +187,13 @@ $( function(){
         useCurrent: false,
         defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
         format: "DD/MM/YYYY",
+        locale: language
     });
     $('#end-date').datetimepicker({
         useCurrent: true,
         defaultDate: d.toISOString(),
-        format: "DD/MM/YYYY"
+        format: "DD/MM/YYYY",
+        locale: language
     });
 
     //Add a listener to the axis selectors, update table upon change.

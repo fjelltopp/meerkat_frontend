@@ -45,7 +45,8 @@ gulp.task('vendorJS', function() {
 	return gulp.src( mainBowerFiles().concat([
 		'node_modules/tree-model/dist/TreeModel-min.js',
 		'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
-		'bower_components/jed/jed.js'
+		'bower_components/jed/jed.js',
+
     ]))
 		.pipe(filter('*.js'))
  //   .pipe(sourcemaps.init())
@@ -53,6 +54,19 @@ gulp.task('vendorJS', function() {
  //   .pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/js'));
 });
+// JAVASCRIPT TASKS
+gulp.task('locales', function() {
+	return gulp.src([
+		'bower_components/moment/locale/fr.js'
+    ])
+		.pipe(filter('*.js'))
+ //   .pipe(sourcemaps.init())
+    .pipe(gulpif(production, uglify()))
+ //   .pipe(sourcemaps.write())
+    .pipe(gulp.dest('meerkat_frontend/static/js/locale'));
+});
+
+
 
 gulp.task('appJS', ['jshint'], function() {
   return gulp.src([
@@ -206,5 +220,5 @@ gulp.task('clean', function() {
 
 // DEFAULT TASK
 gulp.task('default', ['clean'], function() {
-	gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json');
+	gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales');
 });

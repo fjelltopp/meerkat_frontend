@@ -13,7 +13,7 @@
 		<div class="location-box box">
 			<a href="#menu-toggle" id="menu-toggle" class="menu-toggle">
 			<div class="location-box__label">
-				<div>Location:</div>
+				<div>{{ _('Location:') }}</div>
 				<div id="location-title" class="location-title" >{{ _('Not Loaded') }}</div>
 			</div>
 			<span class="glyphicon glyphicon-chevron-right"></span>
@@ -176,7 +176,7 @@ $.getJSON( api_root+"/variables/alert", function( variables ){
 		disSel += "<div class='row'>";
 		disSel += "<div class='col-xs-12 col-sm-6 col-md-4 check'>";
 		disSel += "<input id='all-diseases' type='checkbox' value='allDis' name='topics'";
-		disSel += "onclick='toggleAll(this); checkSelected(this);'>All Alerts</div> ";
+		disSel += "onclick='toggleAll(this); checkSelected(this);'>{{ _('All Alerts') }}</div> ";
 		var keys = Object.keys(variables);
 
 		for( var i in keys ){
@@ -206,7 +206,7 @@ $.getJSON( api_root+"/variables/alert", function( variables ){
 			repSel += "<div class='col-xs-12 col-sm-6 check'>";
 			repSel += "<input type='checkbox' onclick='checkSelected(this);' class='reports'";
 			repSel += "name='topics' value='" + config.subscribe.reports[j].id + "'>";
-			repSel += config.subscribe.reports[j].name + "</div>";
+			repSel += i18n.gettext(config.subscribe.reports[j].name) + "</div>";
 		}
 		repSel += "</div>";
 		$('#report-select').html(repSel);		

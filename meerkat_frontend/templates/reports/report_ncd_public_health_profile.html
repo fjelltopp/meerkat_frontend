@@ -20,7 +20,7 @@
   <!-- KEY FINDINGS -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Key findings</div>
+      <div class="chart-title">{{ _('Key findings') }}</div>
       <div class="chart-stage">
           {{ gettext('<p>Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.</p>', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
           <ul>
@@ -261,13 +261,13 @@ var reportingSites = {
 var demographicsAges = {
   categories: [{% for item in report.data.demographics %}"{{ item.age }}"{% if not loop.last %},{% endif %}{% endfor %}],
   series: [{
-    name: 'Male',
+    name: "{{ _('Male') }}",
     data: [{% for item in report.data.demographics %}{{ item.male.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }, {
-    name: 'Female',
+    name: "{{ _('Female') }}",
     data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
-  labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
+  labels: { xAxis: { text:"{{ _(' Age') }}" }, yAxis: { text: null } }
 };
 // Gender
 var gender = [{% for item in report.data.gender %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];

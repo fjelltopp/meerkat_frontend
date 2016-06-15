@@ -56,7 +56,7 @@
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('PIP Table'));
- $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+ $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.

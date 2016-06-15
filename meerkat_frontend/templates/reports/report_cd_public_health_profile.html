@@ -11,7 +11,7 @@
     </span> 
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Communicable Disease Profile') }} 
     <span class="report-week">
-	{{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
+	{{ report.data.start_date|datetime_from_json|datetime("dd MMMM YYYY") }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
   </h2>
 </div>
@@ -21,14 +21,13 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Key findings') }}</div>
       <div class="chart-stage">
-                    {{ gettext('<p>Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.</p>', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+                    {{ _('<p>Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.</p>', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
           <ul>
               <li> {{ _('A total of <strong>  %(total_cases)s cases</strong> reported from %(clinic_num)s health facilities.', total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}</li>
 
               <li>{{ _('<strong> %(percent_female)s %% female</strong> and <strong> %(percent_lt_5yo)s %% five years</strong> of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}</li>
-          
+			  
               <li>{{ _('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1)) }}</li>
-              
           {% for disease in report.data.morbidity_communicable_cd_tab %}
 	  <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
           {% endfor %}
@@ -265,13 +264,13 @@ var reportingSites = {
 var demographicsAges = {
   categories: [{% for item in report.data.demographics %}"{{ item.age }}"{% if not loop.last %},{% endif %}{% endfor %}],
   series: [{
-    name: 'Male',
+    name: "{{ _('Male') }}",
     data: [{% for item in report.data.demographics %}{{ item.male.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }, {
-    name: 'Female',
+    name: "{{ _('Female') }}",
     data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
-  labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
+  labels: { xAxis: { text: "{{ _('Age') }}" }, yAxis: { text: null } }
 };
 // Gender
 var gender = [{% for item in report.data.gender %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];

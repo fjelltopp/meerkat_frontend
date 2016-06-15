@@ -22,12 +22,9 @@
 					</div>
 					<div class="chartBox__content" >    
 						<div class="intro">
-						    {{ message }}
-						    {% trans %}
-							<p>Your contact details have been successfully verified.</p>
-							<p>You can unsubscribe at any time by clicking on the relevant link in your e-mails.</p>e
-						   {% endtrans %}
-						</div>
+						    {{ _(message) }}
+                                                    {{ _('<p>Your contact details have been successfully verified.</p>
+						    <p>You can unsubscribe at any time by clicking on the relevant link in your e-mails.</p>') }}						</div>
 					</div>
 				</div>
 			</div>

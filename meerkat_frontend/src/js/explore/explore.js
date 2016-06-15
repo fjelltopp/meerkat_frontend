@@ -227,7 +227,7 @@ function max_min(data){
 function timelineLink(id, name, axis){
 	//helper function to create links to activate the timeline
 	return '<a href="#" onclick="prepareExploreTimeline(&apos;' + id +
-	       '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + name + "</a>";
+	    '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + i18n.gettext(name) + "</a>";
 }
 
 function idSort(a,b){
