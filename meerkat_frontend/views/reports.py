@@ -403,6 +403,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 'percent': 0,
                 'quantity': 0
             }
+
         for item in data['data']['patient_status']:
             title = item['title'].lower().replace(" ", "")
             if title not in ["refugee", "other"]:
