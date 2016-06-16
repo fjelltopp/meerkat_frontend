@@ -42,7 +42,8 @@ class Config(object):
     MAPBOX_STATIC_MAP_API_URL = from_env('MAPBOX_STATIC_MAP_API_URL','')
     
     DEFAULT_LANGUAGE = "en"
-    SUPPORTED_LANGUAGES = ["en"]#, "fr"]
+    SUPPORTED_LANGUAGES = ["en"]
+    SUPPORTED_LANGAUGES_FLAGS = ["gb"]
 
 
 class Production(Config):

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% include 'includes/header.html' %}
-{% import 'includes/common.html' as common %}	
-    {% block head %} {% endblock %}
-
+  {% include 'includes/header.html' %}
+  {% block head %} {% endblock %}
 </head>
 <body class="{{content.application}}" {{ 'data-spy="scroll" data-target=".navmenu"' if content.application == "homepage" }} >
 
@@ -26,6 +24,8 @@
       </div>
       <div class="collapse navbar-collapse" id="menu-collapse" >
         {% block menu %}{% endblock %}
+        <div class="lang-sel" title=>
+        </div>
       </div>
     </div>
   </nav>

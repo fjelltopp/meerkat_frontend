@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-02 11:15+0000\n"
+"POT-Creation-Date: 2016-06-15 11:10+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -18,392 +18,1821 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: meerkat_frontend/__init__.py:55
-msgid "Hello, World!"
-msgstr ""
+#: meerkat_frontend/reports.py:373 meerkat_frontend/reports.py:378
+msgid "Governorate"
+msgstr "Région"
 
-#: meerkat_frontend/src/files/pages/demographics.html:129
+#: meerkat_frontend/reports.py:379 meerkat_frontend/reports.py:401
+#: meerkat_frontend/src/js/explore/explore.js:153
+#: meerkat_frontend/src/js/explore/explore.js:351
+#: meerkat_frontend/src/js/technical/tableManager.js:77
+#: meerkat_frontend/src/js/technical/tableManager.js:190
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:120
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:219
+msgid "Total"
+msgstr "Total"
+
+#: meerkat_frontend/reports.py:380 meerkat_frontend/reports.py:617
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:270
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:214
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:267
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:346
+msgid "Female"
+msgstr "Femelle"
+
+#: meerkat_frontend/reports.py:381 meerkat_frontend/reports.py:620
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:267
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:211
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:264
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:343
+msgid "Male"
+msgstr "Mâle"
+
+#: meerkat_frontend/reports.py:612
+msgid "Total Cases"
+msgstr "Nombre total de cas"
+
+#: meerkat_frontend/reports.py:651 meerkat_frontend/reports.py:667
+msgid "Influenza A"
+msgstr "La grippe A"
+
+#: meerkat_frontend/reports.py:652 meerkat_frontend/reports.py:668
+msgid "Influenza B"
+msgstr "La grippe B"
+
+#: meerkat_frontend/reports.py:653 meerkat_frontend/reports.py:669
+msgid "H1"
+msgstr "H1"
+
+#: meerkat_frontend/reports.py:654 meerkat_frontend/reports.py:670
+msgid "H3"
+msgstr "H3"
+
+#: meerkat_frontend/reports.py:655 meerkat_frontend/reports.py:671
+msgid "H1N1"
+msgstr "H1N1"
+
+#: meerkat_frontend/reports.py:656 meerkat_frontend/reports.py:672
+msgid "Mixed"
+msgstr "Mixte"
+
+#: meerkat_frontend/reports.py:716
+msgid "Patients followed up"
+msgstr "Les patients suivis"
+
+#: meerkat_frontend/reports.py:718 meerkat_frontend/reports.py:895
+#: meerkat_frontend/reports.py:1125 meerkat_frontend/reports.py:1336
+msgid "Laboratory results recorded"
+msgstr "Les résultats de laboratoire enregistrés"
+
+#: meerkat_frontend/reports.py:720
+msgid "Patients admitted to ICU"
+msgstr "Les patients admis aux soins intensifs"
+
+#: meerkat_frontend/reports.py:722
+msgid "Patients ventilated"
+msgstr "Les patients ventilés"
+
+#: meerkat_frontend/reports.py:724
+msgid "Mortality"
+msgstr "Mortalité"
+
+#: meerkat_frontend/reports.py:883
+msgid "Mental Health (mhGAP) algorithm followed"
+msgstr "Santé mentale (mhGAP) algorithme suivi"
+
+#: meerkat_frontend/reports.py:887
+msgid "Child Health (IMCI) algorithm followed"
+msgstr "La prise en charge intégrée des maladies de l’enfant (PCIME) suivi"
+
+#: meerkat_frontend/reports.py:891
+msgid "Reproductive Health screening"
+msgstr "Suivi de la Santé Reproductive"
+
+#: meerkat_frontend/reports.py:899 meerkat_frontend/reports.py:1129
+#: meerkat_frontend/reports.py:1340
+msgid "Prescribing practice recorded"
+msgstr "La pratique de prescription enregistrée"
+
+#: meerkat_frontend/reports.py:909
+msgid "Smoking prevalence (current)"
+msgstr "La prévalence du tabagisme (courant)"
+
+#: meerkat_frontend/reports.py:1085
+msgid "Cases Reported"
+msgstr "Cas déclarés"
+
+#: meerkat_frontend/reports.py:1559 meerkat_frontend/reports.py:1749
+msgid "Health Utilisation Rate"
+msgstr "Santé Taux d'utilisation"
+
+#: meerkat_frontend/reports.py:1561 meerkat_frontend/reports.py:1751
+msgid "Number of consultations per clinician per day"
+msgstr "Nombre de consultations par clinicien par jour"
+
+#: meerkat_frontend/reports.py:1565 meerkat_frontend/reports.py:1780
+msgid "Hospitalisation rate"
+msgstr "Taux d'hospitalisation"
+
+#: meerkat_frontend/reports.py:1569 meerkat_frontend/reports.py:1784
+msgid "Referral rate"
+msgstr "Taux de référence"
+
+#: meerkat_frontend/reports.py:1573
+msgid "Crude Mortality Rate (CMR)"
+msgstr "Taux brut de mortalité (CMR)"
+
+#: meerkat_frontend/reports.py:1577
+msgid "Under-five Mortality Rate (U5MR)"
+msgstr "Taux de mortalité moins de cinq ans (TMM5)"
+
+#: meerkat_frontend/reports.py:1618
+#: meerkat_frontend/src/files/pages/diseases.html:87
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:151
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:201
+msgid "Communicable Disease"
+msgstr "Maladie transmissible"
+
+#: meerkat_frontend/reports.py:1619
+#: meerkat_frontend/src/files/pages/nc_diseases.html:89
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:204
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:228
+msgid "Non-Communicable Disease"
+msgstr "Maladie non transmissible"
+
+#: meerkat_frontend/reports.py:1620
+msgid "Mental Health"
+msgstr "Santé mentale"
+
+#: meerkat_frontend/reports.py:1621
+msgid "Injury"
+msgstr "Blessure"
+
+#: meerkat_frontend/reports.py:1725
+msgid "Crude Mortality Rate"
+msgstr "Taux brut de mortalité"
+
+#: meerkat_frontend/reports.py:1728
+msgid "Under five crude mortality rate"
+msgstr "Taux brut de mortalité moins de cinq ans"
+
+#: meerkat_frontend/reports.py:1737
+msgid "Total Consultations"
+msgstr "Nombre de consultations"
+
+#: meerkat_frontend/reports.py:1740
+msgid "Number of Clinicians"
+msgstr "Nombre de cliniciens"
+
+#: meerkat_frontend/reports.py:1774
+msgid "Hospital Referrals"
+msgstr "Références vers l'hospital"
+
+#: meerkat_frontend/reports.py:1777
+msgid "Other Referrals"
+msgstr "Autres Références"
+
+#: meerkat_frontend/src/files/pages/alert.html:81
+#: meerkat_frontend/src/files/pages/alerts.html:84
+#: meerkat_frontend/src/files/pages/disease.html:131
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:38
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:38
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:41
+msgid "Alerts"
+msgstr "Alertes"
+
+#: meerkat_frontend/src/files/pages/alert.html:82
+#: meerkat_frontend/src/js/technical/pageManager.js:157
+msgid "Alert #"
+msgstr "Alerte #"
+
+#: meerkat_frontend/src/files/pages/alert.html:83
+#: meerkat_frontend/src/files/pages/alerts.html:85
+#: meerkat_frontend/src/files/pages/complaint.html:94
+#: meerkat_frontend/src/files/pages/completeness.html:57
+#: meerkat_frontend/src/files/pages/demographics.html:119
+#: meerkat_frontend/src/files/pages/demographics_mad.html:82
+#: meerkat_frontend/src/files/pages/disease.html:73
+#: meerkat_frontend/src/files/pages/diseases.html:54
+#: meerkat_frontend/src/files/pages/map.html:28
+#: meerkat_frontend/src/files/pages/nc_diseases.html:55
+#: meerkat_frontend/src/files/pages/pip.html:56
+#: meerkat_frontend/src/files/pages/services.html:88
+#: meerkat_frontend/templates/download/index.html:25
+#: meerkat_frontend/templates/explore/index.html:33
+#: meerkat_frontend/templates/messaging/subscribe.html:27
+#: meerkat_frontend/templates/messaging/subscribed.html:13
+#: meerkat_frontend/templates/messaging/verified.html:13
+#: meerkat_frontend/templates/messaging/verify.html:12
+#: meerkat_frontend/templates/reports/index.html:37
+msgid "Date not loaded."
+msgstr "Date non chargé."
+
+#: meerkat_frontend/src/files/pages/alert.html:84
+msgid "Alert Investigation Report"
+msgstr " Rapport d'Investigation Alerte"
+
+#: meerkat_frontend/src/files/pages/alert.html:85
+msgid "Alert:"
+msgstr "Alerte:"
+
+#: meerkat_frontend/src/files/pages/alert.html:86
+msgid "Case:"
+msgstr "Cas:"
+
+#: meerkat_frontend/src/files/pages/alert.html:87
+msgid "Date:"
+msgstr "Date:"
+
+#: meerkat_frontend/src/files/pages/alert.html:88
+msgid "Clinic:"
+msgstr "Clinique:"
+
+#: meerkat_frontend/src/files/pages/alert.html:89
+msgid "Region:"
+msgstr "Région:"
+
+#: meerkat_frontend/src/files/pages/alert.html:90
+msgid "Patient ID:"
+msgstr "Patient ID:"
+
+#: meerkat_frontend/src/files/pages/alert.html:91
+msgid "Patient Age:"
+msgstr "Âge du patient:"
+
+#: meerkat_frontend/src/files/pages/alert.html:92
+msgid "Patient Gender:"
+msgstr "Patient Sexe:"
+
+#: meerkat_frontend/src/files/pages/alert.html:93
+msgid "Alert Investigation:"
+msgstr "Investigation Alert:"
+
+#: meerkat_frontend/src/files/pages/alert.html:95
+msgid "No data loaded"
+msgstr "Aucune donnée chargées"
+
+#: meerkat_frontend/src/files/pages/alert.html:117
+msgid "Completed"
+msgstr "Achevée"
+
+#: meerkat_frontend/src/files/pages/alert.html:119
+msgid "Not Completed"
+msgstr "Pas achevé"
+
+#: meerkat_frontend/src/files/pages/alerts.html:82
+#: meerkat_frontend/src/files/pages/complaint.html:91
+#: meerkat_frontend/src/files/pages/completeness.html:54
+#: meerkat_frontend/src/files/pages/demographics.html:116
+#: meerkat_frontend/src/files/pages/demographics_mad.html:79
+#: meerkat_frontend/src/files/pages/disease.html:71
+#: meerkat_frontend/src/files/pages/diseases.html:51
+#: meerkat_frontend/src/files/pages/nc_diseases.html:52
+#: meerkat_frontend/src/files/pages/pip.html:53
+#: meerkat_frontend/src/files/pages/services.html:85
+#: meerkat_frontend/templates/explore/index.html:22
+#: meerkat_frontend/templates/messaging/subscribe.html:16
+msgid "Location:"
+msgstr "Emplacement:"
+
+#: meerkat_frontend/src/files/pages/alerts.html:83
+#: meerkat_frontend/src/files/pages/complaint.html:92
+#: meerkat_frontend/src/files/pages/completeness.html:55
+#: meerkat_frontend/src/files/pages/demographics.html:117
+#: meerkat_frontend/src/files/pages/demographics_mad.html:80
+#: meerkat_frontend/src/files/pages/disease.html:72
+#: meerkat_frontend/src/files/pages/diseases.html:52
+#: meerkat_frontend/src/files/pages/nc_diseases.html:53
+#: meerkat_frontend/src/files/pages/pip.html:54
+#: meerkat_frontend/src/files/pages/services.html:86
+#: meerkat_frontend/templates/explore/index.html:23
+#: meerkat_frontend/templates/messaging/subscribe.html:17
+msgid "Not Loaded"
+msgstr "Pas chargé"
+
+#: meerkat_frontend/src/files/pages/alerts.html:86
+#: meerkat_frontend/src/files/pages/complaint.html:95
+#: meerkat_frontend/src/files/pages/completeness.html:58
+#: meerkat_frontend/src/files/pages/demographics.html:120
+#: meerkat_frontend/src/files/pages/demographics_mad.html:83
+#: meerkat_frontend/src/files/pages/disease.html:74
+#: meerkat_frontend/src/files/pages/diseases.html:55
+#: meerkat_frontend/src/files/pages/nc_diseases.html:56
+#: meerkat_frontend/src/files/pages/pip.html:57
+#: meerkat_frontend/src/files/pages/services.html:89
+#: meerkat_frontend/templates/explore/index.html:41
+#: meerkat_frontend/templates/messaging/subscribe.html:36
+#: meerkat_frontend/templates/reports/index.html:45
+msgid "Locations not loaded"
+msgstr "Emplacements non chargés"
+
+#: meerkat_frontend/src/files/pages/alerts.html:87
+msgid "Selection Table"
+msgstr "Tableau de sélection"
+
+#: meerkat_frontend/src/files/pages/alerts.html:88
+msgid "Info Table"
+msgstr "Table d'Information"
+
+#: meerkat_frontend/src/files/pages/alerts.html:90
+#: meerkat_frontend/src/files/pages/complaint.html:99
+#: meerkat_frontend/src/files/pages/completeness.html:62
+#: meerkat_frontend/src/files/pages/demographics.html:127
+#: meerkat_frontend/src/files/pages/demographics_mad.html:87
+#: meerkat_frontend/src/files/pages/diseases.html:57
+#: meerkat_frontend/src/files/pages/nc_diseases.html:59
+#: meerkat_frontend/src/files/pages/services.html:94
+msgid "Excel"
+msgstr "Excel"
+
+#: meerkat_frontend/src/files/pages/alerts.html:92
+#: meerkat_frontend/src/files/pages/complaint.html:102
+#: meerkat_frontend/src/files/pages/completeness.html:65
+#: meerkat_frontend/src/files/pages/demographics.html:149
+#: meerkat_frontend/src/files/pages/demographics_mad.html:108
+#: meerkat_frontend/src/files/pages/disease.html:92
+#: meerkat_frontend/src/files/pages/diseases.html:70
+#: meerkat_frontend/src/files/pages/map.html:29
+#: meerkat_frontend/src/files/pages/nc_diseases.html:72
+#: meerkat_frontend/src/files/pages/pip.html:59
+#: meerkat_frontend/src/files/pages/services.html:108
+#: meerkat_frontend/src/js/explore/explore.js:340
+#: meerkat_frontend/src/js/technical/tableManager.js:34
+#: meerkat_frontend/src/js/technical/tableManager.js:35
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:2
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:2
+msgid "Week"
+msgstr "Semaine"
+
+#: meerkat_frontend/src/files/pages/complaint.html:93
+#: meerkat_frontend/src/files/pages/complaint.html:97
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:117
+msgid "Presenting Complaint"
+msgstr "Plainte Présenter"
+
+#: meerkat_frontend/src/files/pages/complaint.html:96
+msgid "ICD-10 Chart"
+msgstr "CIM-10 Graphique"
+
+#: meerkat_frontend/src/files/pages/complaint.html:101
+msgid "ICD-10 Table"
+msgstr "CIM-10 Table"
+
+#: meerkat_frontend/src/files/pages/complaint.html:119
+msgid "Category"
+msgstr "Catégorie"
+
+#: meerkat_frontend/src/files/pages/complaint.html:130
+msgid "ICD10 Chapter"
+msgstr "CIM-10 Chapter"
+
+#: meerkat_frontend/src/files/pages/completeness.html:56
+msgid "Completeness"
+msgstr "Complétude"
+
+#: meerkat_frontend/src/files/pages/completeness.html:59
+msgid "Regions"
+msgstr "Régions"
+
+#: meerkat_frontend/src/files/pages/completeness.html:60
+msgid "Clinics"
+msgstr "Cliniques"
+
+#: meerkat_frontend/src/files/pages/demographics.html:118
+#: meerkat_frontend/src/files/pages/demographics_mad.html:81
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:104
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:104
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:101
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:108
 msgid "Demographics"
-msgstr ""
+msgstr "Démographie"
 
-#: meerkat_frontend/templates/download/index.html:4
+#: meerkat_frontend/src/files/pages/demographics.html:121
+#: meerkat_frontend/src/files/pages/demographics_mad.html:84
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:113
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:113
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:110
+msgid "Gender"
+msgstr "Sexe"
+
+#: meerkat_frontend/src/files/pages/demographics.html:122
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:124
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:121
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:145
+msgid "Nationality"
+msgstr "Nationalité"
+
+#: meerkat_frontend/src/files/pages/demographics.html:123
+#: meerkat_frontend/src/files/pages/demographics_mad.html:85
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:273
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:217
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:349
+msgid "Age"
+msgstr "Âge"
+
+#: meerkat_frontend/src/files/pages/demographics.html:124
+#: meerkat_frontend/src/js/technical/tableManager.js:116
+#: meerkat_frontend/src/js/technical/tableManager.js:123
+#: meerkat_frontend/src/js/technical/tableManager.js:256
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:151
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:148
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:172
+msgid "Status"
+msgstr "Statut"
+
+#: meerkat_frontend/src/files/pages/demographics.html:130
+#: meerkat_frontend/src/files/pages/demographics_mad.html:90
+msgid "Bar"
+msgstr "Bar"
+
+#: meerkat_frontend/src/files/pages/demographics.html:133
+#: meerkat_frontend/src/files/pages/demographics_mad.html:93
+msgid "Pie"
+msgstr "Pie"
+
+#: meerkat_frontend/src/files/pages/disease.html:75
+msgid "Information"
+msgstr "Information"
+
+#: meerkat_frontend/src/files/pages/disease.html:76
+msgid "Time of reports"
+msgstr "Temps de rapports"
+
+#: meerkat_frontend/src/files/pages/disease.html:77
+msgid "Location of reports"
+msgstr "Localisation des rapports"
+
+#: meerkat_frontend/src/files/pages/disease.html:129
+msgid "Classification"
+msgstr "Classification"
+
+#: meerkat_frontend/src/files/pages/disease.html:130
+msgid "Source"
+msgstr "Source"
+
+#: meerkat_frontend/src/files/pages/disease.html:132
+msgid "Case Definition"
+msgstr "Définition de cas"
+
+#: meerkat_frontend/src/files/pages/disease.html:133
+msgid "Risk Factor(s)"
+msgstr "Facteurs de risque"
+
+#: meerkat_frontend/src/files/pages/disease.html:134
+msgid "Sign(s)/Symptom(s)"
+msgstr "Signe (s) / Symptôme (s)"
+
+#: meerkat_frontend/src/files/pages/disease.html:135
+msgid "Labs/Diagnostics"
+msgstr "Confirmation en laboratoire"
+
+#: meerkat_frontend/src/files/pages/diseases.html:53
+msgid "Communicable Diseases"
+msgstr "Maladies transmissibles"
+
+#: meerkat_frontend/src/files/pages/map.html:27
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:50
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:50
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:47
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:54
+msgid "Map"
+msgstr "Carte"
+
+#: meerkat_frontend/src/files/pages/nc_diseases.html:54
+#: meerkat_frontend/src/files/pages/nc_diseases.html:57
+msgid "Non-Communicable Diseases"
+msgstr "Les maladies non transmissibles"
+
+#: meerkat_frontend/src/files/pages/pip.html:55
+msgid "Pandemic Influenza Preparedness"
+msgstr "Cas de grippe pandémique"
+
+#: meerkat_frontend/src/files/pages/pip.html:58
+msgid "PIP Table"
+msgstr "Tableau PIP"
+
+#: meerkat_frontend/src/files/pages/services.html:87
+msgid "Health Services"
+msgstr "Services de santé"
+
+#: meerkat_frontend/src/files/pages/services.html:90
+msgid "Childhood Vaccinations"
+msgstr "Vaccinations enfance"
+
+#: meerkat_frontend/src/files/pages/services.html:91
+#: meerkat_frontend/src/files/pages/services.html:148
+msgid "Health Utilisation"
+msgstr "Santé Utilisation"
+
+#: meerkat_frontend/src/files/pages/services.html:92
+#: meerkat_frontend/src/files/pages/services.html:157
+msgid "Visit Type"
+msgstr "Type de visite"
+
+#: meerkat_frontend/src/files/pages/services.html:138
+msgid "Vaccination"
+msgstr "Vaccination"
+
+#: meerkat_frontend/src/js/explore/explore.js:89
+msgid "# of Cases"
+msgstr "Nombre de cas"
+
+#: meerkat_frontend/src/js/explore/explore.js:190
+msgid ""
+"Unfortunately the table you requested has no data.  Please request a "
+"different table."
+msgstr ""
+"Malheureusement, le tableau que vous avez demandé n'a pas de données. S'il "
+"vous plaît demander une autre table."
+
+#: meerkat_frontend/src/js/explore/explore.js:310
+msgid "#Cases with "
+msgstr "# Cases avec "
+
+#: meerkat_frontend/src/js/reports/charts.js:34
+msgid "Count"
+msgstr "Compte"
+
+#: meerkat_frontend/src/js/reports/charts.js:148
+#: meerkat_frontend/src/js/technical/tableManager.js:190
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#: meerkat_frontend/src/js/reports/charts.js:152
+#: meerkat_frontend/src/js/reports/charts.js:164
+#: meerkat_frontend/src/js/reports/charts.js:264
+msgid "Suspected"
+msgstr "Suspect"
+
+#: meerkat_frontend/src/js/technical/chartManager.js:54
+#: meerkat_frontend/src/js/technical/chartManager.js:131
+msgid "Percent %"
+msgstr "Pourcent %"
+
+#: meerkat_frontend/src/js/technical/chartManager.js:84
+#: meerkat_frontend/src/js/technical/chartManager.js:174
+#: meerkat_frontend/src/js/technical/tableManager.js:36
+msgid "This Year"
+msgstr "Cette année"
+
+#: meerkat_frontend/src/js/technical/chartManager.js:87
+#: meerkat_frontend/src/js/technical/chartManager.js:166
+msgid "This Week"
+msgstr "Cette semaine"
+
+#: meerkat_frontend/src/js/technical/chartManager.js:237
+msgid "Epidemiological Week"
+msgstr "Semaine épidémiologique"
+
+#: meerkat_frontend/src/js/technical/chartManager.js:244
+msgid "Number of Reported Cases"
+msgstr "Nombre de cas déclarés"
+
+#: meerkat_frontend/src/js/technical/locationManager.js:111
+msgid "Parent Locations"
+msgstr "Emplacements parents"
+
+#: meerkat_frontend/src/js/technical/mapManager.js:98
+msgid "cases"
+msgstr "Les cas"
+
+#: meerkat_frontend/src/js/technical/misc.js:28
+msgid "January"
+msgstr "Janvier"
+
+#: meerkat_frontend/src/js/technical/misc.js:28
+msgid "February"
+msgstr "Février"
+
+#: meerkat_frontend/src/js/technical/misc.js:28
+msgid "March"
+msgstr "Mars"
+
+#: meerkat_frontend/src/js/technical/misc.js:28
+msgid "April"
+msgstr "Avril"
+
+#: meerkat_frontend/src/js/technical/misc.js:29
+msgid "May"
+msgstr "Mai"
+
+#: meerkat_frontend/src/js/technical/misc.js:29
+msgid "June"
+msgstr "Juin"
+
+#: meerkat_frontend/src/js/technical/misc.js:29
+msgid "July"
+msgstr "Juillet"
+
+#: meerkat_frontend/src/js/technical/misc.js:29
+msgid "August"
+msgstr "Août"
+
+#: meerkat_frontend/src/js/technical/misc.js:29
+msgid "September"
+msgstr "Septembre"
+
+#: meerkat_frontend/src/js/technical/misc.js:30
+msgid "October"
+msgstr "Octobre"
+
+#: meerkat_frontend/src/js/technical/misc.js:30
+msgid "November"
+msgstr "Novembre"
+
+#: meerkat_frontend/src/js/technical/misc.js:30
+msgid "December"
+msgstr "Décembre"
+
+#: meerkat_frontend/src/js/technical/pageManager.js:128
+msgid "Disease #"
+msgstr "Maladie #"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:114
+#: meerkat_frontend/src/js/technical/tableManager.js:120
+msgid "Alert ID"
+msgstr "ID d'alerte"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:114
+#: meerkat_frontend/src/js/technical/tableManager.js:120
+msgid "Alert"
+msgstr "Alerte"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:115
+#: meerkat_frontend/src/js/technical/tableManager.js:121
+#: meerkat_frontend/src/js/technical/tableManager.js:255
+msgid "Region"
+msgstr "Région"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:116
+#: meerkat_frontend/src/js/technical/tableManager.js:122
+#: meerkat_frontend/src/js/technical/tableManager.js:256
+msgid "Date Reported"
+msgstr "Date du rapport"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:116
+#: meerkat_frontend/src/js/technical/tableManager.js:122
+msgid "Date Investigated"
+msgstr "Date de investigation"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:123
+msgid "Central Review"
+msgstr "Review Central"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:150
+#: meerkat_frontend/src/js/technical/tableManager.js:158
+#: meerkat_frontend/src/js/technical/tableManager.js:189
+#: meerkat_frontend/src/js/technical/tableManager.js:287
+#: meerkat_frontend/src/js/technical/tableManager.js:295
+msgid "Pending"
+msgstr "En attendant"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:189
+msgid "Reason"
+msgstr "Raison"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:189
+msgid "Ongoing"
+msgstr "En cours"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:190
+msgid "Disregarded"
+msgstr "Ignorée"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:254
+msgid "NAMRU-ID"
+msgstr "NAMRU-ID"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:256
+msgid "Clinic"
+msgstr "Clinique"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:256
+msgid "Follow-up completed"
+msgstr "Suivi terminé"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:256
+msgid "Laboratory Results"
+msgstr "Les résultats de laboratoire"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:328
+msgid "Daily register for last week"
+msgstr "Registre quotidien pour la semaine dernière"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:383
+msgid "Daily registers last week"
+msgstr "Registres quotidiens de la semaine dernière"
+
+#: meerkat_frontend/templates/base.html:16
+msgid "Toggle navigation"
+msgstr "Basculer la navigation"
+
+#: meerkat_frontend/templates/base.html:59
+#: meerkat_frontend/templates/reports/base.html:33
+msgid "Working with our partners:"
+msgstr "En collaboration avec nos partenaires:"
+
+#: meerkat_frontend/templates/base.html:65
+msgid "For more information, please e-mail:"
+msgstr "Pour plus d'informations, s'il vous plaît e-mail:"
+
+#: meerkat_frontend/templates/download/index.html:5
 #: meerkat_frontend/templates/explore/index.html:4
 #: meerkat_frontend/templates/messaging/base.html:4
 #: meerkat_frontend/templates/reports/index.html:6
 #: meerkat_frontend/templates/technical/index.html:6
 msgid "Dashboard"
-msgstr ""
+msgstr "Tableau de bord"
 
-# null_homepage.json
+#: meerkat_frontend/templates/download/index.html:6
+#: meerkat_frontend/templates/explore/index.html:5
+#: meerkat_frontend/templates/messaging/base.html:5
+#: meerkat_frontend/templates/reports/base.html:14
+#: meerkat_frontend/templates/reports/index.html:7
+#: meerkat_frontend/templates/reports/index.html:34
+#: meerkat_frontend/templates/technical/index.html:7
 msgid "Reports"
 msgstr "Rapports"
 
-#: meerkat_frontend/templates/download/index.html:6
+#: meerkat_frontend/templates/download/index.html:7
 #: meerkat_frontend/templates/explore/index.html:6
 #: meerkat_frontend/templates/messaging/base.html:6
 #: meerkat_frontend/templates/reports/index.html:8
 #: meerkat_frontend/templates/technical/index.html:8
 msgid "Notifications"
-msgstr ""
+msgstr "Notifications"
 
-#: meerkat_frontend/templates/download/index.html:7
+#: meerkat_frontend/templates/download/index.html:8
 #: meerkat_frontend/templates/explore/index.html:7
-#: meerkat_frontend/templates/explore/index.html:30
 #: meerkat_frontend/templates/messaging/base.html:7
 #: meerkat_frontend/templates/reports/index.html:9
 #: meerkat_frontend/templates/technical/index.html:9
-msgid "Explore Data"
-msgstr ""
+msgid "Explore"
+msgstr "Explorer"
 
-#: meerkat_frontend/templates/download/index.html:8
-#: meerkat_frontend/templates/download/index.html:20
+#: meerkat_frontend/templates/download/index.html:9
+#: meerkat_frontend/templates/download/index.html:53
 #: meerkat_frontend/templates/explore/index.html:8
 #: meerkat_frontend/templates/messaging/base.html:8
 #: meerkat_frontend/templates/reports/index.html:10
 #: meerkat_frontend/templates/technical/index.html:10
-msgid "Download Data"
-msgstr ""
+msgid "Download"
+msgstr "Télécharger"
 
-#: meerkat_frontend/templates/download/index.html:9
+#: meerkat_frontend/templates/download/index.html:10
 #: meerkat_frontend/templates/explore/index.html:9
 #: meerkat_frontend/templates/messaging/base.html:9
 #: meerkat_frontend/templates/reports/index.html:11
 #: meerkat_frontend/templates/technical/index.html:11
 msgid "Log out"
-msgstr ""
+msgstr "Se déconnecter"
 
-#: meerkat_frontend/templates/download/index.html:23
-#: meerkat_frontend/templates/explore/index.html:33
-#: meerkat_frontend/templates/reports/index.html:37
-msgid "Date not loaded."
-msgstr ""
+#: meerkat_frontend/templates/download/index.html:22
+msgid "Download Data"
+msgstr "Télécharger des données"
 
-#: meerkat_frontend/templates/download/index.html:31
+#: meerkat_frontend/templates/download/index.html:33
 msgid "Download Data Set"
-msgstr ""
+msgstr "Télécharger des données"
 
-#: meerkat_frontend/templates/download/index.html:35
+#: meerkat_frontend/templates/download/index.html:37
 msgid "Choose prepared data set to download for analysis:"
-msgstr ""
+msgstr "Choisissez mis à télécharger pour l'analyse des données préparées:"
 
-#: meerkat_frontend/templates/download/index.html:63
+#: meerkat_frontend/templates/download/index.html:65
 msgid "Download Raw Data"
-msgstr ""
+msgstr "Télécharger des données brutes"
 
-#: meerkat_frontend/templates/download/index.html:68
+#: meerkat_frontend/templates/download/index.html:70
 msgid "Choose raw data set to download for analysis:"
-msgstr ""
+msgstr "Choisissez mis à télécharger pour l'analyse des données brutes:"
 
-#: meerkat_frontend/templates/download/index.html:79
+#: meerkat_frontend/templates/download/index.html:81
 msgid "Data Fields"
-msgstr ""
+msgstr "Champs de données"
 
-#: meerkat_frontend/templates/download/index.html:82
-#: meerkat_frontend/templates/download/index.html:99
+#: meerkat_frontend/templates/download/index.html:84
+#: meerkat_frontend/templates/download/index.html:101
 msgid "All"
-msgstr ""
+msgstr "Tout"
 
-#: meerkat_frontend/templates/download/index.html:85
-#: meerkat_frontend/templates/download/index.html:102
+#: meerkat_frontend/templates/download/index.html:87
+#: meerkat_frontend/templates/download/index.html:104
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
-#: meerkat_frontend/templates/download/index.html:92
+#: meerkat_frontend/templates/download/index.html:94
 msgid "View advanced fields"
-msgstr ""
+msgstr "Afficher les champs avancés"
 
-#: meerkat_frontend/templates/download/index.html:96
+#: meerkat_frontend/templates/download/index.html:98
 msgid "Advanced Fields"
-msgstr ""
+msgstr "Fields avancée"
 
-#: meerkat_frontend/templates/download/index.html:146
+#: meerkat_frontend/templates/download/index.html:148
+#: meerkat_frontend/templates/messaging/subscribe.html:248
+#: meerkat_frontend/templates/messaging/subscribe.html:266
 msgid "You must tick at least one checkbox."
-msgstr ""
+msgstr "Vous devez cocher au moins une case à cocher."
 
-#: meerkat_frontend/templates/explore/index.html:41
-#: meerkat_frontend/templates/reports/index.html:45
-msgid "Locations not loaded"
-msgstr ""
+#: meerkat_frontend/templates/explore/index.html:30
+msgid "Explore Data"
+msgstr "Explorer les données"
 
 #: meerkat_frontend/templates/explore/index.html:49
 msgid "Start Date:"
-msgstr ""
+msgstr "Date de début:"
 
 #: meerkat_frontend/templates/explore/index.html:60
 msgid "End Date:"
-msgstr ""
+msgstr "Date de fin:"
 
 #: meerkat_frontend/templates/explore/index.html:85
 msgid "Hide not selected rows/Show hidden rows"
-msgstr ""
+msgstr "Masquer non sélectionnés lignes / Afficher les lignes cachées"
 
 #: meerkat_frontend/templates/explore/index.html:88
 #: meerkat_frontend/templates/explore/index.html:123
 msgid "Hide/show empty records"
-msgstr ""
+msgstr "Masquer / Afficher enregistrements vides "
 
 #: meerkat_frontend/templates/explore/index.html:92
 #: meerkat_frontend/templates/explore/index.html:127
 msgid "Colour the table"
-msgstr ""
+msgstr "Couleur de la table"
 
 #: meerkat_frontend/templates/explore/index.html:97
 #: meerkat_frontend/templates/explore/index.html:132
 msgid "Download Excel"
-msgstr ""
+msgstr "Télécharger Excel"
 
 #: meerkat_frontend/templates/homepage/index.html:27
 msgid "Surveillance Sites"
-msgstr ""
+msgstr "Sites de surveillance"
 
 #: meerkat_frontend/templates/homepage/index.html:28
 msgid "Click here to explore"
-msgstr ""
+msgstr "Cliquez ici pour explorer"
 
 #: meerkat_frontend/templates/homepage/index.html:44
 msgid "Information Panel"
-msgstr ""
+msgstr "Panneau d'information"
 
 #: meerkat_frontend/templates/homepage/index.html:53
 msgid ""
 "Log in to the <br> \n"
 "\t\t       <H2> Technical Site"
 msgstr ""
+"Connectez-vous au  <br> \n"
+"\t\t       <H2> Site technique"
 
-#: meerkat_frontend/templates/homepage/index.html:91
+#: meerkat_frontend/templates/homepage/index.html:93
 msgid "consultations in total"
-msgstr ""
+msgstr "Consultations au total"
 
-#: meerkat_frontend/templates/homepage/index.html:95
+#: meerkat_frontend/templates/homepage/index.html:97
 msgid "cases reported"
-msgstr ""
+msgstr "Cas signalés"
 
-#: meerkat_frontend/templates/homepage/index.html:101
+#: meerkat_frontend/templates/homepage/index.html:103
 msgid "alerts generated"
-msgstr ""
+msgstr "Alertes générées"
 
-#: meerkat_frontend/templates/homepage/index.html:105
+#: meerkat_frontend/templates/homepage/index.html:107
 msgid "facilities"
-msgstr ""
+msgstr "établissements"
 
-#: meerkat_frontend/templates/homepage/index.html:155
+#: meerkat_frontend/templates/homepage/index.html:157
 msgid ""
 "If you would like to find out more about the project, please contact us:"
 msgstr ""
+"Si vous souhaitez en savoir plus sur le projet, s'il vous plaît nous "
+"contacter:"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:24
+#: meerkat_frontend/templates/messaging/subscribed.html:10
+#: meerkat_frontend/templates/messaging/verified.html:10
+#: meerkat_frontend/templates/messaging/verify.html:9
+msgid "Public Health Surveillance Notifications"
+msgstr "Notifications de Surveillance de la Santé Publique"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:45
+msgid "Subscribe to Alerts and Reports"
+msgstr "Abonnez-vous aux Alertes et Rapports"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:49
+msgid ""
+"Use the form below to subscribe to E-mail and SMS notifications for Alerts "
+"and Reports."
+msgstr ""
+"Utilisez le formulaire ci-dessous pour vous abonner à E-mail et SMS "
+"notifications pour les Alertes et Rapports."
+
+#: meerkat_frontend/templates/messaging/subscribe.html:55
+msgid "Enter personal details"
+msgstr "Entrez les détails personnels"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:57
+msgid "First Name*"
+msgstr "Prénom*"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:61
+msgid "Last Name*"
+msgstr "Nom de famille*"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:65
+msgid "E-mail*"
+msgstr "Email*"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:70
+msgid "Re-type E-mail*"
+msgstr "E-mail*"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:75
+msgid "SMS Number"
+msgstr "Nombre de SMS"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:82
+msgid " Select which location to receive Alerts from:"
+msgstr " Sélectionnez quel emplacement pour recevoir des alertes:"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:161
+msgid "Not a valid phone number for this country."
+msgstr "Pas un numéro de téléphone valide pour ce pays."
+
+#: meerkat_frontend/templates/messaging/subscribe.html:173
+msgid "Select which Alerts to receive:"
+msgstr "Sélectionnez les Alertes pour recevoir:"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:179
+msgid "All Alerts"
+msgstr "Toutes les alertes"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:203
+msgid "Select which Reports to receive:"
+msgstr "Select which Reports to receive:"
+
+#: meerkat_frontend/templates/messaging/subscribe.html:234
+msgid "Emails Must be Matching."
+msgstr "Emails doit être le même."
+
+#: meerkat_frontend/templates/messaging/subscribed.html:21
+#: meerkat_frontend/views/messaging.py:108
+msgid "Please verify your contact details"
+msgstr "S'il vous plaît vérifier vos coordonnées"
+
+#: meerkat_frontend/templates/messaging/subscribed.html:25
+#, python-format
+msgid ""
+"<p>Hello %(firstname)s %(lastname)s,</p>\n"
+"\t\t\t\t\t\t\t<p>Thank you for subscribing to receive our public health "
+"surveillance notifications.</p>\n"
+"\t\t\t\t\t\t\t<p><b>\n"
+"\t\t\t\t\t\t\tBefore we can activate your subscription, we need to verify "
+"your contact details.\n"
+"\t\t\t\t\t\t\t</b></p>\n"
+"\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\tTo do this, please follow the instructions in the e-mail we "
+"have sent to your address: \n"
+"\t\t\t\t\t\t\t%(email)s\n"
+"\t\t\t\t\t\t\t</p>"
+msgstr ""
+"<p> Bonjour %(firstname)s %(lastname)s,,</p>\n"
+"\t\t\t\t\t\t\t<p>Merci de votre inscription pour recevoir nos notifications "
+"de surveillance de la santé publique.</p>\n"
+"\t\t\t\t\t\t\t<p><b>\n"
+"\t\t\t\t\t\t\tAvant nous pouvons activer votre abonnement, nous devons "
+"vérifier vos coordonnées.\n"
+"\t\t\t\t\t\t\t</b></p>\n"
+"\t\t\t\t\t\t\t<p>\n"
+"\t\t\t\t\t\t\tPour faire, s&#39;il vous plaît suivez les instructions dans "
+"l&#39;e-mail que nous avons envoyés à votre adresse: \n"
+"\t\t\t\t\t\t\t%(email)s\n"
+"\t\t\t\t\t\t\t</p>"
+
+#: meerkat_frontend/templates/messaging/verified.html:21
+msgid "Verification Successful"
+msgstr "Vérification réussie"
+
+#: meerkat_frontend/templates/messaging/verified.html:26
+msgid ""
+"<p>Your contact details have been successfully verified.</p>\n"
+"\t\t\t\t\t\t    <p>You can unsubscribe at any time by clicking on the "
+"relevant link in your e-mails.</p>"
+msgstr ""
+"<p>Vos coordonnées ont été vérifiées avec succès.</p>\n"
+"\t\t\t\t\t\t    <p>Vous pouvez vous désabonner à tout moment en cliquant sur "
+"le lien correspondant dans vos e-mails.</p>"
+
+#: meerkat_frontend/templates/messaging/verify.html:20
+msgid "Please verify your contact details..."
+msgstr "S'il vous plaît vérifier vos coordonnées..."
+
+#: meerkat_frontend/templates/messaging/verify.html:25
+#, python-format
+msgid ""
+"We need to be sure that you have given the correct phone number: %(number)s."
+"<br>\n"
+"\t\t\t\t\t\t    To check this we have just sent you a text with a "
+"verification code. Please submit the code below."
+msgstr ""
+"Nous devons être sûrs que vous avez donné le bon numéro de téléphone: "
+"%(number)s.<br>\n"
+"\t\t\t\t\t\t    Pour vérifier cela, nous venons de vous envoyer un texte "
+"avec une vérification code. S'il vous plaît soumettre le code ci-dessous."
+
+#: meerkat_frontend/templates/messaging/verify.html:32
+msgid "SMS Verification Code"
+msgstr "Code de vérification SMS"
+
+#: meerkat_frontend/templates/messaging/verify.html:38
+msgid "\"Submit Code\""
+msgstr "\"Soumettre code\""
+
+#: meerkat_frontend/templates/messaging/verify.html:43
+msgid "Send New Code"
+msgstr "Envoyer un nouveau code"
+
+#: meerkat_frontend/templates/reports/base.html:39
+msgid "For more information, please e-mail"
+msgstr "Pour plus d'informations, s'il vous plaît e-mail:"
+
+#: meerkat_frontend/templates/reports/base.html:49
+msgid "This report was generated at"
+msgstr "Ce rapport a été généré à"
 
 #: meerkat_frontend/templates/reports/index.html:26
 msgid "Location"
-msgstr ""
+msgstr "Emplacement"
+
+#: meerkat_frontend/templates/reports/index.html:53
+msgid "Report Selector"
+msgstr "Sélecteur de rapport"
 
 #: meerkat_frontend/templates/reports/index.html:61
 msgid "Choose which report to download:"
-msgstr ""
+msgstr "Choisissez le rapport à télécharger:"
 
 #: meerkat_frontend/templates/reports/index.html:66
 msgid "Choose which time period:"
-msgstr ""
+msgstr "Choisissez quelle période:"
 
 #: meerkat_frontend/templates/reports/index.html:68
 msgid "Default period"
-msgstr ""
+msgstr "Période par défaut"
 
 #: meerkat_frontend/templates/reports/index.html:78
 msgid "Start date:"
-msgstr ""
+msgstr "Date de début:"
 
 #: meerkat_frontend/templates/reports/index.html:88
 msgid "End date:"
-msgstr ""
+msgstr "Date de fin:"
 
 #: meerkat_frontend/templates/reports/index.html:100
 msgid "Click to download your selected report for"
-msgstr ""
+msgstr "Cliquer pour télécharger le rapport sélectionné pour"
 
-# null_config.py
-msgid "Null Island <br> Public Health Surveillance"
-msgstr "Surveillance de la santé publique de l'Île Null"
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:12
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:12
+msgid "Communicable Disease Profile"
+msgstr "Profil de la Maladie Transmissible"
 
-# null_config.py
-msgid "<b>Null Island </b> &middot; Public Health Surveillance"
-msgstr "<B> Île Null </ b> & middot; Surveillance de la santé publique"
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:22
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:22
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:23
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:22
+msgid "Key findings"
+msgstr "Principales Conclusions"
 
-# null_config.py
-msgid "Health Surveillance"
-msgstr "Surveillance de la santé"
-
-# null_config.py
-msgid "The Ministry of Health, Null Island"
-msgstr "Le ministère de la Santé, Île Null"
-
-# null_config.py
-msgid "kingdom"
-msgstr "Uni"
-
-# null_homepage.json
-msgid "Overview"
-msgstr "Vue d'ensemble"
-
-# null_homepage.json
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:24
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:24
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:25
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:24
+#, python-format
 msgid ""
-"<p>A national program of public health surveillance is being implemented in "
-"various sites across Null Island.</p><p>The project introduces case-based, "
-"integrated disease surveillance that is coded according to the International "
-"Classification of Disease (ICD-10).</p><p>The clinician uses the system "
-"within the consultation, which introduces clinical-decision support, as well "
-"as best practice prescribing guidance and and real-time reporting of "
-"information. </p><p>Information is made available within one hour via an "
-"online framework with automated generation of SMS and email alerts and "
-"support for mapping and reporting, that is accessed at all levels of the "
-"Ministry of Health.</p><p>You can sign up to receive weekly epidemiological "
-"reports and updates.</p>"
+"<p>Information reported in this public health profile represents cases "
+"reported from %(clinic_num)s reporting sites in %(project_region)s between "
+"%(start_date)s and %(end_date)s.</p>"
 msgstr ""
-"<P> Un programme national de surveillance de la santé publique est mise en "
-"œuvre dans divers sites à travers l'île Null. </ P> <p> Le projet introduit, "
-"la surveillance intégrée de la maladie à partir de cas qui est codé selon la "
-"Classification internationale des maladies (CIM 10). </ p> <p> le clinicien "
-"utilise le système au sein de la consultation, qui introduit un soutien "
-"clinique de décision, ainsi que la meilleure orientation de prescription de "
-"la pratique et et des rapports en temps réel des informations. </ P> <p> "
-"L'information est mise à disposition dans l'heure par l'intermédiaire d'un "
-"cadre en ligne avec la génération automatique des alertes SMS et e-mail et "
-"le soutien pour la cartographie et l'information, qui est accessible à tous "
-"les niveaux du ministère de la Santé. </ P> < p> Vous pouvez vous inscrire "
-"pour recevoir des rapports et mises à jour épidémiologiques hebdomadaires. "
-"</ p>"
+"<p>Les informations communiquées dans ce profil de santé publique représente "
+"les cas déclarés de %(clinic_num)s établissements de santé en "
+"%(project_region)s entre% %(start_date)s et %(end_date)s.</p>"
 
-# null_homepage.json
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:26
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:27
+#, python-format
+msgid ""
+"A total of <strong>  %(total_cases)s cases</strong> reported from "
+"%(clinic_num)s health facilities."
+msgstr ""
+"Au total <strong>  %(total_cases)s cas</strong> signalés par %(clinic_num)s "
+"des établissements de santé."
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:28
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:28
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:29
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:29
+#, python-format
+msgid ""
+"<strong> %(percent_female)s %% female</strong> and <strong> "
+"%(percent_lt_5yo)s %% five years</strong> of age."
+msgstr ""
+"<strong> %(percent_female)s %% femelle</strong> and <strong> "
+"%(percent_lt_5yo)s %% cinq ans</strong>."
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:30
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:30
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:31
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:31
+#, python-format
+msgid ""
+"<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and "
+"<strong>%(percent_refugee)s %% refugee status</strong>."
+msgstr ""
+"<strong>%(percent_national)s %% %(display_nationals)s nationales</strong> "
+"and <strong>%(percent_refugee)s %% statut de réfugié</strong>."
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:32
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:32
+msgid "morbidity due to"
+msgstr "morbidité due à la"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:40
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:40
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:43
+#, python-format
+msgid ""
+"A total of %(alerts_total)s alerts have been generated up to the end of "
+"Epidemiological Week %(epi_week)s (%(end_date)s)."
+msgstr ""
+"Un total de %(alerts_total)s alertes ont été générés jusqu'à la fin de la "
+"semaine épidémiologique %(epi_week)s (%(end_date)s)."
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:42
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:42
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:45
+#, python-format
+msgid ""
+"No alerts were generated up to the end of Epidemiological Week %(epi_week)s "
+"(%(end_date)s) "
+msgstr ""
+"Aucune alerte ont été générés jusqu'à la fin de la semaine épidémiologique "
+"%(epi_week)s (%(end_date)s) "
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:65
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:65
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:69
+msgid "Public Health Indicators"
+msgstr "Indicateurs de la santé publique"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:92
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:92
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:89
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:96
+msgid "Reporting Sites"
+msgstr "Sites de surveillance"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:180
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:124
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:177
+msgid "ICD-10 Classification"
+msgstr "CIM-10 Classification"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:188
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:215
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:132
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:159
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:185
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:212
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:124
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:209
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:236
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:265
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:292
+#, python-format
+msgid "%% morbidity"
+msgstr "%% morbidité"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:189
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:216
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:133
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:160
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:186
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:213
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:125
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:210
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:237
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:266
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:293
+msgid "# of cases"
+msgstr "# de cas"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:207
+msgid "Communicable Disease<"
+msgstr "Maladies transmissibles<"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:236
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:59
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:233
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:312
+msgid "More Information"
+msgstr "Plus d'information"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:238
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:182
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:61
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:235
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:314
+#, python-format
+msgid ""
+"<p>A program of public health surveillance is being implemented in "
+"%(clinic_num)s outpatient clinics in %(project_region)s, in partnership with "
+"WHO and Ministry of Health. The project introduces case-based, integrated "
+"disease surveillance of mental health, non-communicable disease and "
+"communicable disease.</p>\n"
+"          <p>The clinician uses the system within the consultation, which "
+"introduces clinical-decision support for child health and mental health, as "
+"well as best practice prescribing guidance and and real-time reporting of "
+"information. Information is made available within one hour via an online "
+"framework with automated generation of SMS and email alerts and support for "
+"mapping and reporting.</p>"
+msgstr ""
+"<p>Un programme de surveillance de la santé publique est mise en œuvre en "
+"%(project_region)s, en partenariat avec l'OMS et le Ministère de la Santé. "
+"Le projet introduit la surveillance intégrée de la maladies.</p>\n"
+"          <p>Le clinicien utilise le système dans la consultation, qui "
+"introduit un soutien clinique de décision pour la santé des enfants, ainsi "
+"que la meilleure orientation pratique de prescription et des rapports en "
+"temps réel des informations. L'information est mise à disposition dans "
+"l'heure par l'intermédiaire d'un cadre en ligne avec la génération "
+"automatique des alertes SMS et e-mail et le soutien pour la cartographie et "
+"l'information.</p>"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:245
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:189
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:68
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:242
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:321
+msgid "Contact Information"
+msgstr "Coordonnées"
+
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:180
+msgid ">More Information"
+msgstr "> Plus d'informations"
+
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:2
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:12
+msgid "Communicable Diseases Report"
+msgstr "Rapport de Maladies Transmissibles"
+
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:22
+msgid "Highlights"
+msgstr "Points forts"
+
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:24
+#, python-format
+msgid ""
+"Information reported in this communicable diseases report represents cases "
+"reported from %(clinic_num)s reporting sites in %(project_region)s between "
+"%(start_date)s and %(end_date)s."
+msgstr ""
+"Les informations communiquées dans le présent rapport des maladies "
+"transmissibles représente les cas déclarés de %(clinic_num)s sites de "
+"surveillance en %(project_region)s entre %(start_date)s et %(end_date)s."
+
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:47
+#, python-format
+msgid ""
+"There were %(conf_cases)s new confirmed cases and %(susp_cases)s new "
+"suspected cases of %(disease)s this week."
+msgstr ""
+"Il y avait %(conf_cases)s nouveaux cas confirmé et %(susp_cases)s nouveaux "
+"cas suspects de %(disease)s cette semaine."
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:15
+msgid "Weekly Epidemiological Surveillance Report"
+msgstr "Rapport de Surveillance Épidémiologique Hebdomadaire"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:27
+msgid "Table 1: Summary of Deaths"
+msgstr "Tableau 1: Récapitulation de décès "
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:40
+msgid "Table 2: Diseases, conditions and events under surveillance"
+msgstr "Tableau 2: Symptômes, Maladies et Evènements à Surveiller"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:43
+msgid "2.1 Diseases of epidemic potential"
+msgstr "2.1 Maladies potentiellement épidémiques"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:47
+msgid "2.2 Diseases for eradication and elimination"
+msgstr "2.2 Maladies objet de programme d’élimination ou d’éradication"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:51
+msgid "2.3 Other diseases and events of public health importance"
+msgstr "2.3 Autres maladies ou evènements d’importance à la santé publique"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:63
+msgid "Table 3: Notifiable Diseases"
+msgstr "Tableau 3: Alerts de cas de maladie"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:121
+msgid "Number of deaths"
+msgstr "Nombre de décès"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:129
+msgid "Number of maternal death"
+msgstr "Nombre de décès maternels"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:147
+msgid "Dysentery and bloody diarrhoea"
+msgstr "Dysenterie et diarrhée sanglante"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:148
+msgid "Influenza-like illness"
+msgstr "Nombre de cas de grippe"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:149
+msgid "Arboviruses"
+msgstr "Suspicion cas d’arboviroses"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:150
+msgid "Meningitis"
+msgstr "Suspicion cas de méningite"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:151
+msgid "Plague"
+msgstr "Suspicion cas de peste "
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:152
+msgid "RDT positive"
+msgstr "Bandelette peste positif"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:153
+msgid "Bubonic plague"
+msgstr "Peste bubonique"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:154
+msgid "Pulmonary plague"
+msgstr "Peste pulmonaire"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:155
+msgid "Food Poisoning"
+msgstr "Episode de Toxi Infection Alimentaire collective (TIAC)"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:156
+msgid "Seafood poisoning"
+msgstr "Episode d’Intoxication collective due aux animaux marins (ICAM)"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:157
+msgid "Acute Jaundice Syndrome"
+msgstr "Ictère"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:158
+msgid "Animal Bite"
+msgstr "Morsure ou griffure (animal à sang chaud)"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:159
+msgid "Rabies"
+msgstr "Suspicion cas de rage humaine"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:169
+msgid "Acute flaccid paralysis"
+msgstr "Paralysie Flasque Aigüe"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:170
+msgid "Neonatal tetanu"
+msgstr "Tétanos néonatal"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:171
+msgid "Measles"
+msgstr "Tétanos néonatal"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:172
+msgid "Leprosy"
+msgstr "Lèpre"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:173
+msgid "Lymphatic filariasis"
+msgstr "Filariose lymphatique"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:183
+msgid "Fever Cases (T > 37.5 &#176;C)"
+msgstr "Nombre de cas de fièvre (T > 37.5 oC)"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:184
+msgid "Malaria confirmed by rapid test or slide"
+msgstr "Paludisme confirmé par test rapide ou Goutte Epaisse"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:185
+msgid "Acute Respiratory Tract Infection"
+msgstr "Nombre de cas d’IRA"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:186
+msgid "Acute watery diarrhoea"
+msgstr "Nombre total de cas de diarrhée"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:187
+msgid "Acute watery diarrhoea among those over five years of age"
+msgstr "Diarrhée chez les > 5 ans"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:188
+msgid "Sexually Transmitted Diseases other than HIV"
+msgstr "Infections Sexuellement Transmissibles (IST) autres que VIH"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:189
+msgid "Tuberculosis"
+msgstr "Toux chronique suspect de Tuberculose"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:190
+msgid "Moderate malnutrition"
+msgstr "Malnutrition modérée ou insuffisance pondérale"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:191
+msgid "Severe malnutrition"
+msgstr "Malnutrition sévère"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:192
+msgid "Other diseases of public health importance"
+msgstr "Autre maladies d’importance en santé publique"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:203
+msgid "Number of alerts generated"
+msgstr "Nombre d'alertes générées"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:204
+msgid "Number of alerts investigated"
+msgstr "Nombre d'alertes d'une enquête"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:218
+msgid "Cases"
+msgstr "Les cas"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:218
+msgid "Deaths"
+msgstr "Nombre de décès"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:230
+msgid " NA"
+msgstr " NA"
+
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:240
+msgid "NA"
+msgstr "NA"
+
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:13
+msgid "Non-Communicable Disease Profile"
+msgstr "Profil de la Maladie Non Transmissible"
+
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:35
+msgid " morbidity due to"
+msgstr " morbidity par"
+
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:62
+msgid " Public Health Indicators"
+msgstr " Indicateurs de la Santé Publique"
+
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:270
+msgid " Age"
+msgstr " Âge"
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:12
+msgid "Public Health Profile"
+msgstr "Profil de la Santé Publique"
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:27
+#, python-format
+msgid ""
+"A total of <strong> %(total_consultations)s consultations</strong> and "
+"<strong> %(total_cases)s cases</strong> reported from %(clinic_num)s health "
+"facilities."
+msgstr ""
+"Un total de <strong> %(total_consultations)s consultations</strong> et "
+"<strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s "
+"établissements de santé."
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:33
+#, python-format
+msgid ""
+"<strong> %(percent_cd)s %% morbidity due to communicable disease</strong>, "
+"including "
+msgstr ""
+"<strong> %(percent_cd)s %% morbidité à cause des maladies transmissibles</"
+"strong>, y compris "
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:33
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:36
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:38
+msgid "and"
+msgstr "et"
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:36
+#, python-format
+msgid ""
+"<strong> %(percent_ncd)s %% morbidity due to non-communicable disease</"
+"strong>, including"
+msgstr ""
+"<strong> %(percent_ncd)s %% morbidité à cause de la maladie non-"
+"transmissible</strong>, y compris"
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:38
+#, python-format
+msgid ""
+"%(percent_mh)s %% morbidity due to mental health conditions</strong>, "
+"including"
+msgstr ""
+"%(percent_mh)s %% morbidité à cause des conditions de santé mentale</"
+"strong>, y compris"
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:217
+msgid "disease.percent|float|round(1)"
+msgstr "disease.percent|float|round(1)"
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:257
+msgid "Mental Health Conditions"
+msgstr "Problèmes de Santé Mentale"
+
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:284
+msgid "Child Health Conditions"
+msgstr "Conditions de Santé des Enfants"
+
+#: meerkat_frontend/views/messaging.py:86
+msgid ""
+"Dear {first_name} {last_name} ,\n"
+"\n"
+"Thank you for subscribing to receive public health surveillance "
+"notifications from {country}.\n"
+"\n"
+"Please verify your contact details by copying and pasting the following url "
+"into your address bar: {url}\n"
+msgstr ""
+"Cher {first_name} {last_name} ,\n"
+"\n"
+"Merci pour vous abonner pour recevoir des notifications de surveillance de "
+"la santé publique du {country}.\n"
+"\n"
+"Veuillez vérifier vos coordonnées en copiant et collant l'URL suivante dans "
+"votre barre d'adresse: {url}\n"
+
+#: meerkat_frontend/views/messaging.py:96
+msgid ""
+"<p>Dear {first_name} {last_name},</p><p>Thank you for subscribing to receive "
+"public health surveillance notifications from {country}.</p><p>Please verify "
+"your contact details by <a href='{url}' target='_blank'>clicking here</a>.</"
+"p>"
+msgstr ""
+"<p>Cher {first_name} {last_name},</p><p>Merci de votre inscription pour "
+"recevoir des notifications de surveillance de la santé publique du {country}."
+"</p><p>S'il vous plaît vérifier vos coordonnées par <a href='{url}' "
+"target='_blank'>cliquant ici</a>.</p>"
+
+#: meerkat_frontend/views/messaging.py:145
+msgid "You have already verified your account."
+msgstr "Vous avez déjà vérifié votre compte."
+
+#: meerkat_frontend/views/messaging.py:174
+msgid ""
+"Dear {first_name} {last_name},\n"
+"\n"
+"Thank you for subscribing to receive public health surveillance "
+"notifications from {country}.  We can confirm that your contact details have "
+"been successfully verified.\n"
+"\n"
+"You can unsubscribe at any time by clicking on the relevant link in your e-"
+"mails.\n"
+"\n"
+" If you wish to unsubscribe now copy and paste the following url into your "
+"address bar:\n"
+"{url}/unsubscribe/{subscriber_id}"
+msgstr ""
+"Cher  {first_name} {last_name},\n"
+"\n"
+"Merci pour vous abonner pour recevoir des notifications de surveillance de "
+"la santé publique de {country}. Nous pouvons confirmer que vos coordonnées "
+"ont été vérifiées avec succès. \n"
+"\n"
+"Vous pouvez vous désinscrire à tout moment en cliquant sur le lien "
+"correspondant dans vos e-mails.\n"
+"\n"
+" Si vous souhaitez vous désinscrire maintenant copier et coller l'adresse "
+"suivante dans votre barre d'adresse: \n"
+"{url}/unsubscribe/{subscriber_id}"
+
+#: meerkat_frontend/views/messaging.py:187
+msgid ""
+"<p>Dear {first_name} {last_name},</p><p>Thank you for subscribing to receive "
+"public health surveillance notifications from {country}.  We can confirm "
+"that your contact details have been successfully verified.</p><p>You can "
+"unsubscribe at any time by clicking on the relevant link in your e-mails.</"
+"p><p> If you wish to unsubscribe now <a href='{url}/unsubscribe/"
+"{subscriber_id}'>click here.</a></p>"
+msgstr ""
+"<p>Cher {first_name} {last_name},</p><p>Merci de votre inscription pour "
+"recevoir des notifications de surveillance de la santé publique de "
+"{country}. Nous pouvons confirmer que vos coordonnées ont été vérifiées avec "
+"succès.</p><p> Vous pouvez vous désabonner à tout moment en cliquant sur le "
+"lien correspondant dans vos e-mails.</p><p> Si vous souhaitez vous "
+"désabonner maintenant <a href='{url}/unsubscribe/{subscriber_id}'>cliquez "
+"ici.</a></p>"
+
+#: meerkat_frontend/views/messaging.py:199
+msgid "Your subscription has been successful"
+msgstr "Votre abonnement a été un succès"
+
+#: meerkat_frontend/views/messaging.py:250
+msgid "A new code has been sent to your phone."
+msgstr "Un nouveau code a été envoyé à votre téléphone."
+
+#: meerkat_frontend/views/messaging.py:253
+msgid "Error: Try again later, or contact administrator."
+msgstr "Erreur: Veuillez réessayer plus tard, ou contacter l'administrateur."
+
+#: meerkat_frontend/views/messaging.py:285
+msgid ""
+"Your verification code for {country} public health surveillance "
+"notifications is: {code}. Please follow instructions in the email to verify "
+"your contact details."
+msgstr ""
+"Votre code de vérification pour les notifications de surveillance de la "
+"santé publique {country} est: {code}. S'il vous plaît suivre les "
+"instructions dans l'e-mail pour vérifier vos coordonnées."
+
+#: mad_config.py:1
+msgid "Madagascar <br> Public Health Surveillance"
+msgstr "Madagascar <br> Surveillance de la Santé Publique"
+
+#: mad_config.py:1
+msgid "<b>Madagascar </b> &middot; Public Health Surveillance"
+msgstr "<b>Madagascar </b> &middot; Surveillance de la Santé Publique"
+
+#: mad_config.py:1
+msgid "Madagascar Public Health Surveillance"
+msgstr "Madagascar Surveillance de la Santé Publique"
+
+#: mad_config.py:1
+msgid "Public Health Surveillance"
+msgstr "Surveillance de la Santé Publique"
+
+#: mad_config.py:1
+msgid "The World Health Organisation"
+msgstr "Organisation Mondiale de la Santé"
+
+#: mad_config.py:1
+msgid "The Ministry of Health, Madagascar"
+msgstr "Ministère de la Santé, Madagascar"
+
+#: mad_config.py:1
+msgid "Direction of Health Monitoring and Disease Surveillance (DVSSE)"
+msgstr ""
+"Direction de la Veille Sanitaire et de la Surveillance Epidémiologique "
+"(DVSSE)"
+
+#: mad_technical.json:1
+msgid "Map View"
+msgstr "Vue de la carte"
+
+#: mad_reports.json:1
+msgid ""
+"<strong>Directorate of Health Monitoring and Surveillance</strong><br /"
+">Ministry of Health<br /> Antananarivo<br />Madagascar<br /><abbr "
+"title='Website'>W:</abbr> <a href='https://dvsse.sante.gov.mg'>https://dvsse."
+"sante.gov.mg</a>"
+msgstr ""
+"<strong>Direction de la Veille Sanitaire et de la Surveillance "
+"Epidémiologique (DVSSE)</strong><br />Ministère de la Santé Publique<br /> "
+"Antananarivo<br />Madagascar<br /><abbr title='Website'>W:</abbr> <a "
+"href='https://dvsse.sante.gov.mg'>https://dvsse.sante.gov.mg</a>"
+
+#: mad_reports.json:1
+msgid "Public Health Profile Report"
+msgstr "Profil de la Santé publique"
+
+#: mad_reports.json:1
+msgid "Communicable Disease Report"
+msgstr "Rapport des Maladies Transmissibles"
+
+#: mad_reports.json:1
+msgid "Weekly Epidemiological Monitoring Report"
+msgstr "Rapport de Surveillance Epidémiologique Hebdomadaire"
+
+#: mad_homepage.json:1
+msgid "Overview"
+msgstr "Overview"
+
+#: mad_homepage.json:1
+msgid ""
+"<p>Madagascar is implementing an integrated, electronic public health "
+"surveillance system. The system is case-based and integrated and employs "
+"mobile information technology to aid collection of real-time, standardised "
+"data to inform and improve decision-making at different levels of the health "
+"system.<p>Information is made available within one hour via an online "
+"framework with automated generation of SMS and email alerts and support for "
+"mapping and reporting, that is accessed at all levels of the Ministry of "
+"Health.</p>"
+msgstr ""
+"<p>Madagascar met en œuvre un système électronique intégré de la santé "
+"publique surveillance. Le système est intégré et basé sur des cas et emploie "
+"la technologie mobile de l'information pour faciliter la collecte en temps "
+"réel, des données normalisées pour informer et améliorer la prise de "
+"décision à différents niveaux du système de santé.<p>L'information est mise "
+"à disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la "
+"génération automatique des alertes SMS et e-mail et le soutien pour la "
+"cartographie et l'information, qui est accessible à tous les niveaux du "
+"ministère de la Santé.</p>"
+
+#: mad_homepage.json:1
 msgid "Indicators"
 msgstr "Indicateurs"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid ""
-"<p>The following indicators monitor the status and functioning of the health "
-"system in Null Island and are automatically updated from health facilities:</"
-"p>"
-msgstr ""
-"<P> Les indicateurs suivants surveillent l'état et le fonctionnement du "
-"système de santé dans l'île Null et sont automatiquement mis à jour des "
-"établissements de santé: </ p>"
-
-# null_homepage.json
-msgid ""
-"<p>Weekly epidemiological public reports are published online and "
-"distributed via e-mail.  Access the most recent report for Null Island here: "
-"</p><p class='reports-button'><a type='button' class='btn btn-lg btn-default "
-"' href='reports/public_health' target='_blank'> Public Health<br>Profile</"
-"a><a type='button' class='btn btn-lg btn-default ' href='reports/"
-"cd_public_health' target='_blank'>Communicable Disease<br />Profile </a><a "
+"<p class='reports-button'><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/public_health' target='_blank'>Public Health<br/>Profile</a><a "
 "type='button' class='btn btn-lg btn-default ' href='reports/"
-"ncd_public_health' target='_blank'> Non-Communicable<br />Disease Profile </"
-"a><a type='button' class='btn btn-lg btn-default ' href='reports/"
-"communicable_diseases' target='_blank'>Communicable Disease<br>Report</a><a "
-"type='button' class='btn btn-lg btn-default ' href='reports/"
-"non_communicable_diseases' target='_blank'>Non-Communicable <br />Disease "
-"Report</a></p></p>"
+"communicable_diseases' target='_blank'>Communicable Disease<br/>Report</a><a "
+"type='button' class='btn btn-lg btn-default ' href='reports/epi_monitoring' "
+"target='_blank'>Epidemiological<br/>Monitoring Report</a></p>"
 msgstr ""
-"<P> hebdomadaires rapports publics épidémiologiques sont publiés en ligne et "
-"distribués par e-mail. Accéder au dernier rapport pour l'île Null ici: </ p> "
-"<p class = 'rapports bouton'> <type = class 'bouton' = 'btn btn-lg btn-"
-"default' 'rapports / public_health' target = href = '_ blank'> Santé "
-"publique <br> Profil <a type='button' class='btn btn-lg btn-default "
-"'href='reports/cd_public_health' target='_blank'> maladies transmissibles "
-"<br /> profil <a type='button' class='btn btn-lg btn-default 'href='reports/"
-"ncd_public_health' target='_blank'> non transmissibles <br /> profil de la "
-"maladie </ a > <a type='button' class='btn btn-lg btn-default 'href='reports/"
-"communicable_diseases' target='_blank'> <un type = </a> maladies "
-"transmissibles <br> Rapport' 'classe bouton = 'btn btn-lg btn-default' "
-"'rapports / non_communicable_diseases' = href target = '_ blank'> <br /> non-"
-"Communicable Disease Report </a> </ p> </ p>"
+"<p class='reports-button'><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/public_health' target='_blank'>Profil de la <br> Santé "
+"publique</a><a type='button' class='btn btn-lg btn-default ' href='reports/"
+"communicable_diseases' target='_blank'>Rapport des Maladies<br> "
+"Transmissibles</a><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/epi_monitoring' target='_blank'>Rapport de Surveillance<br> "
+"Epidémiologique Hebdomadaire</a></p>"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid "Principles"
-msgstr "==Principes=="
+msgstr "Principes"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid ""
 "<p>The project has the following principles of implementation (click to "
 "expand):</p>"
 msgstr ""
-"<P> Le projet comporte les principes suivants de mise en œuvre (cliquez pour "
-"agrandir): </ p>"
+"<p>Le projet comporte les principes suivants de mise en œuvre (cliquez pour "
+"agrandir):</p>"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid "1. Routine surveillance"
-msgstr "1. La surveillance de routine"
+msgstr "1. Surveillance de routine"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid ""
 "The project supports routine surveillance to ensure the national health "
 "system is strengthened and the capacity of the Ministry of Health is "
 "developed for long-term ownership and response."
 msgstr ""
-"Le projet prend en charge la surveillance de routine pour assurer le système "
-"national de santé est renforcée et la capacité du ministère de la Santé est "
-"mis au point pour la propriété à long terme et la réponse."
+"Le projet va renforcer la surveillance de routine pour assurer que le "
+"système de santé national est renforcé sur sa capacité de développer la "
+"réponse et l’appropriation à long terme."
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid "2. Integrated, case based disease surveillance"
-msgstr "2. intégrée, la surveillance des maladies de cas basée"
+msgstr "2. Surveillance intégrée des maladies"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid ""
 "The project builds on existing national and international surveillance "
 "standards, guidelines and case definitions. Diseases, conditions and events "
 "are coded according to the International Classification of Disease (ICD-10)."
 msgstr ""
-"Le projet se fonde sur les normes de surveillance nationales et "
-"internationales existantes, des lignes directrices et des définitions de "
-"cas. Les maladies, les conditions et les événements sont codés selon la "
-"Classification internationale des maladies (CIM-10)."
+"Le projet est développé à partir du guide de surveillance international "
+"standard de de l’OMS et de la définition de cas pour les maladies qui sont "
+"codées selon la Classification International des maladies (ICD10)."
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid "3. Clinical-decision support"
-msgstr "une aide cruciale à la décision clinique,"
+msgstr "3. Support à la décision clinique"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid ""
 "The system includes evidence-based clinical algorithms for integrated "
 "management of childhood illness (IMCI) for child health to support and "
 "improve the provision of clinical care."
 msgstr ""
-"Le système comprend des algorithmes cliniques fondées sur des données "
-"probantes pour la gestion intégrée des maladies de l'enfance (PCIME) pour la "
-"santé des enfants pour soutenir et améliorer la prestation des soins "
-"cliniques."
+"Le système a des algorithmes basé sur l’évidence permettant de standardiser "
+"la définition des cas, qui aide à la décision clinique pour chaque maladie "
+"avec les signes et symptômes, les facteurs de risque, les diagnostics et des "
+"conseils en matière de laboratoire."
 
-# null_homepage.json
-msgid "4. Best practice prescribing"
-msgstr "4. Meilleure prescription de la pratique"
+#: mad_homepage.json:1
+msgid "4. Alerts and notifications"
+msgstr "4. Notifications et alertes"
 
-# null_homepage.json
-msgid ""
-"The system includes the WHO essential medicines list that the clinician can "
-"use to prescribe against using best practice guidelines. Information is also "
-"collected as to whether the medicine is available for prescribing."
-msgstr ""
-"Le système comprend la liste des médicaments essentiels de l'OMS que le "
-"clinicien peut utiliser à prescrire contre l'utilisation de guides de bonnes "
-"pratiques. Des informations sont également recueillies pour savoir si le "
-"médicament est disponible pour la prescription."
-
-# null_homepage.json
-msgid "5. Public health screening and advice"
-msgstr "5. dépistage de la santé publique et des conseils"
-
-# null_homepage.json
-msgid ""
-"Patients are screened and advice is provided for vaccination status, "
-"nutrition, mosquito net ownership and use, maternal care and contraception."
-msgstr ""
-"Les patients sont examinés et des conseils sont fournis pour le statut de "
-"vaccination, la nutrition, les moustiques participation nette et "
-"l'utilisation, les soins maternels et la contraception."
-
-# null_homepage.json
-msgid "6. Alerts and notifications"
-msgstr "6. Alertes et notifications"
-
-# null_homepage.json
+#: mad_homepage.json:1
 msgid ""
 "Automated real-time notifications and alerts are generated for 20 notifiable "
 "communicable diseases, by SMS and email, within one hour of reporting to "
@@ -411,83 +1840,3345 @@ msgid ""
 "decision-making. A line list of alerts is automatically generated via the "
 "online framework which links subsequent alert investigation and outcomes."
 msgstr ""
-"notifications et des alertes en temps réel automatisés sont générés pour 20 "
-"notifiables maladies transmissibles, par SMS et e-mail, dans un délai d'une "
-"heure de rapports pour informer enquête sur l'éclosion et la réponse au "
-"niveau approprié de prise de décision. Une liste de ligne d'alertes est "
-"généré automatiquement par le biais du cadre en ligne qui relie l'enquête et "
-"les résultats d'alerte ultérieure."
+"Des alertes et notifications automatiques en temps réels sont envoyées par "
+"SMS et par email, dans un délai d’une heure après l’envoi pour informer puis "
+"pour déclencher l’investigation et la réponse du Ministère de la santé avec "
+"une prise de décision du niveau concerné.  "
 
-# null_homepage.json
-msgid "7. Real-time analysis and reporting"
-msgstr "7. en temps réel analyse et de reporting"
+#: mad_homepage.json:1
+msgid "5. Real-time analysis and reporting"
+msgstr "5. Collection et gestion des données"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid ""
 "The system shares structured, anonymised data via an online framework for "
 "geospatial data visualisation, generation of alerts, and automated "
 "generation of reports."
 msgstr ""
-"Les actions de système structuré, les données anonymisées par un cadre en "
-"ligne pour la visualisation de données géospatiales, génération d'alertes et "
-"la génération automatique de rapports."
+"Le système partage des données anonymes et structurées par un système en "
+"ligne avec une représentation géospatial des données, donner des alertes et "
+"élaborer des rapports de façon automatique."
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid "Acknowledgements"
-msgstr "Remarques"
+msgstr "Remerciements"
 
-# null_homepage.json
+#: mad_homepage.json:1
 msgid ""
 "We gratefully acknowledge the support of <br> our partners in the "
 "development of this project."
 msgstr ""
 "Nous tenons à remercier le soutien de <br> nos partenaires dans le "
-"développement de ce projet."
+"développement de ce projet "
 
-# demo_codes.csv
-msgid "Total"
-msgstr "Total"
+#: mad_explore.json:1
+msgid "Age and Gender"
+msgstr "Âge et le sexe"
 
-# demo_codes.csv
-msgid "Male"
-msgstr "Masculin"
+#: mad_explore.json:1
+msgid "Districts"
+msgstr "District"
 
-# demo_codes.csv
-msgid "Female"
-msgstr "Femme"
+#: mad_download.json:1
+msgid "Nutrition"
+msgstr "Nutrition"
 
-# demo_codes.csv
-msgid "Null Island"
-msgstr "Null Island"
+#: mad_download.json:1
+msgid "Public Health"
+msgstr "Santé publique"
 
-# demo_codes.csv
-msgid "Demo"
-msgstr "Démo"
+#: mad_download.json:1
+msgid "Case Report"
+msgstr "Reporting de cas"
 
-# demo_codes.csv
+#: mad_download.json:1
+msgid "Register"
+msgstr "Consultations Journaliers"
+
+#: mad_download.json:1
+msgid "Visit Date"
+msgstr "Date de visite"
+
+#: mad_download.json:1
+msgid "District"
+msgstr "District"
+
+#: mad_download.json:1
+msgid "Age (Years)"
+msgstr "Age (Années)"
+
+#: mad_download.json:1
+msgid "Age (Months)"
+msgstr "Age (mois)"
+
+#: mad_download.json:1
+msgid "Name"
+msgstr "Nom"
+
+#: mad_download.json:1
+msgid "ICD 10 Code"
+msgstr "CIM 10 Code"
+
+#: mad_download.json:1
+msgid "Alert Investigation Steps"
+msgstr "Alerte étapes d'enquête"
+
+#: mad_download.json:1
+msgid "Signal Events"
+msgstr "Signal Events"
+
+#: mad_download.json:1
+msgid "Check if the patient has any of the following symptoms"
+msgstr "Vérifiez si le patient présente l'un des symptômes suivants"
+
+#: mad_download.json:1
+msgid "Check if the patient has any of the following risk factors"
+msgstr "Vérifiez si le patient présente l'un des facteurs de risque suivants"
+
+#: mad_download.json:1
+msgid "Onset Date"
+msgstr "Date début"
+
+#: mad_download.json:1
+msgid "Previously Vaccinated"
+msgstr "Deja vaccinés"
+
+#: mad_download.json:1
+msgid "Date of onset of AFP paralysis"
+msgstr "Date de début de la paralysie PFA"
+
+#: mad_download.json:1
+msgid "Date of polio first dose"
+msgstr "Date de la première dose polio"
+
+#: mad_download.json:1
+msgid "Date of polio second dose"
+msgstr "Date de la deuxième dose polio"
+
+#: mad_download.json:1
+msgid "Date of AFP notification"
+msgstr "Date de notification PFA"
+
+#: mad_download.json:1
+msgid "Date of AFP investigation"
+msgstr "Date de l'enquête PFA"
+
+#: mad_download.json:1
+msgid "Date of previous measles vaccination"
+msgstr "Date de précédente vaccination contre la rougeole"
+
+#: mad_download.json:1
+msgid "Date of measles sample collection"
+msgstr "Date de la rougeole collecte d'échantillons"
+
+#: mad_download.json:1
+msgid "Malaria patient has fever"
+msgstr "Paludisme Patient a de la fièvre"
+
+#: mad_download.json:1
+msgid "Malaria RDT result"
+msgstr "Résultat paludisme TDR"
+
+#: mad_download.json:1
+msgid "Malaria Slide result"
+msgstr "Résultat de la goutte epaisse du paludisme"
+
+#: mad_download.json:1
+msgid "Plague RDT result"
+msgstr "Résultat Plague TDR"
+
+#: mad_download.json:1
+msgid "Type of plague"
+msgstr "Type de peste"
+
+#: mad_download.json:1
+msgid "Did the patient receive HIV counselling and testing?"
+msgstr "Est-ce que le patient at-il reçu des conseils et dépistage du VIH?"
+
+#: mad_download.json:1
+msgid "What is the HIV status of the patient?"
+msgstr "Quel est le statut VIH du patient?"
+
+#: mad_download.json:1
+msgid "Number of medicines prescribed"
+msgstr "Nombre de médicaments prescrits"
+
+#: mad_download.json:1
+msgid "Name of Medicine 1 prescribed"
+msgstr "Nom de médecine 1 prescrit"
+
+#: mad_download.json:1
+msgid "Dose of Medicine 1 prescribed"
+msgstr "Dose de médecine 1 prescrite"
+
+#: mad_download.json:1
+msgid "Availability of Medicine 1 prescribed"
+msgstr "Disponibilité de médecine 1 prescrit"
+
+#: mad_download.json:1
+msgid "Name of Medicine 2 prescribed"
+msgstr "Nom de médecine 2 prescrit"
+
+#: mad_download.json:1
+msgid "Dose of Medicine 2 prescribed"
+msgstr "Dose de médecine 2 prescrite"
+
+#: mad_download.json:1
+msgid "Availability of Medicine 2 prescribed"
+msgstr "Disponibilité de médecine 2 prescrit"
+
+#: mad_download.json:1
+msgid "Name of Medicine 3 prescribed"
+msgstr "Nom de médecine 3 prescrit"
+
+#: mad_download.json:1
+msgid "Dose of Medicine 3 prescribed"
+msgstr "Dose de médecine 3 prescrite"
+
+#: mad_download.json:1
+msgid "Availability of Medicine 3 prescribed"
+msgstr "Disponibilité de médecine 3 prescrit"
+
+#: mad_download.json:1
+msgid "Name of Medicine 4 prescribed"
+msgstr "Nom de médecine 4 prescrit"
+
+#: mad_download.json:1
+msgid "Dose of Medicine 4 prescribed"
+msgstr "Dose de médecine 4 prescrite"
+
+#: mad_download.json:1
+msgid "Availability of Medicine 4 prescribed"
+msgstr "Disponibilité de médecine 4 prescrit"
+
+#: mad_download.json:1
+msgid "Name of Medicine 5 prescribed"
+msgstr "Nom de médecine 5 prescrit"
+
+#: mad_download.json:1
+msgid "Dose of Medicine 5 prescribed"
+msgstr "Dose de médecine 5 prescrite"
+
+#: mad_download.json:1
+msgid "Availability of Medicine 5 prescribed"
+msgstr "Disponibilité de médecine 5 prescrit"
+
+#: mad_download.json:1
+msgid "Epi Week"
+msgstr "Epi semaine"
+
+#: mad_download.json:1
+msgid "Month"
+msgstr "Mois"
+
+#: mad_download.json:1
+msgid "Year"
+msgstr "An"
+
+#: mad_download.json:1
+msgid "Disease"
+msgstr "Maladie"
+
+#: mad_download.json:1
+msgid "ASK: Does the mother breastfeed the child?"
+msgstr "Est-ce que la mère allaite l'enfant?"
+
+#: mad_download.json:1
+msgid "ASK: Does the mother exclusively breastfeed the child?"
+msgstr "Est-ce que la mère exclusivement allaiter l'enfant?"
+
+#: mad_download.json:1
+msgid "ASK: Why not?"
+msgstr "Pourquoi pas?"
+
+#: mad_download.json:1
+msgid "ASK: Is the mother providing an infant formula?"
+msgstr "Est-ce que la mère fournit une préparation pour nourrissons?"
+
+#: mad_download.json:1
+msgid "ASK: What type of formula is the baby using?"
+msgstr "Quel type de formule est le bébé utilise?"
+
+#: mad_download.json:1
+msgid "ASK: Has the child ever been vaccinated?"
+msgstr "Est-ce que l'enfant a déjà été vacciné?"
+
+#: mad_download.json:1
+msgid "ASK: What vaccinations has the child received?"
+msgstr "Quels vaccins a reçu l'enfant?"
+
+#: mad_download.json:1
+msgid "Ever smoked?"
+msgstr "Déjà fumé?"
+
+#: mad_download.json:1
+msgid "Smoke now?"
+msgstr "Fume maintenant?"
+
+#: mad_codes.csv:1 mad_links.py:1
+msgid "Referral"
+msgstr "Cas reféré"
+
+#: mad_links.py:1
+msgid "Case Managment"
+msgstr "Case Managment"
+
+#: mad_links.py:1
+msgid "Contact Tracing"
+msgstr "Recherche de contacts"
+
+#: mad_links.py:1
+msgid "Laboratory Diagnosis"
+msgstr "Diagnostic en laboratoire"
+
+#: mad_codes.csv:1
+msgid "Madagascar"
+msgstr "Madagascar"
+
+#: mad_codes.csv:1
+msgid "Kenya"
+msgstr "Kenya"
+
+#: mad_codes.csv:1
 msgid "Other Nationality"
-msgstr "Autre Nationalité"
+msgstr "Autre"
 
-# demo_codes.csv
+#: mad_codes.csv:1
 msgid "<5"
 msgstr "<5"
 
-# demo_codes.csv
+#: mad_codes.csv:1
 msgid "5-9"
 msgstr "5-9"
 
-# demo_codes.csv
+#: mad_codes.csv:1
 msgid "10-14"
 msgstr "10-14"
 
-# demo_codes.csv
+#: mad_codes.csv:1
 msgid "15-19"
 msgstr "15-19"
 
-# demo_codes.csv
+#: mad_codes.csv:1
 msgid "20-59"
 msgstr "20-59"
 
-# demo_codes.csv
+#: mad_codes.csv:1
 msgid ">60"
 msgstr ">60"
+
+#: mad_codes.csv:1
+msgid "Female <5"
+msgstr "Femelle <5"
+
+#: mad_codes.csv:1
+msgid "Female 5-9"
+msgstr "Femelle 5-9"
+
+#: mad_codes.csv:1
+msgid "Female 10-14"
+msgstr "Femelle 10-14"
+
+#: mad_codes.csv:1
+msgid "Female 15-19"
+msgstr "Femelle 15-19"
+
+#: mad_codes.csv:1
+msgid "Female 20-59"
+msgstr "Femelle 20-59"
+
+#: mad_codes.csv:1
+msgid "Female >60"
+msgstr "Femelle >60"
+
+#: mad_codes.csv:1
+msgid "Male <5"
+msgstr "Mâle <5"
+
+#: mad_codes.csv:1
+msgid "Male 5-9"
+msgstr "Mâle 5-9"
+
+#: mad_codes.csv:1
+msgid "Male 10-14"
+msgstr "Mâle 10-14"
+
+#: mad_codes.csv:1
+msgid "Male 15-19"
+msgstr "Mâle 15-19"
+
+#: mad_codes.csv:1
+msgid "Male 20-59"
+msgstr "Mâle 20-59"
+
+#: mad_codes.csv:1
+msgid "Male >60"
+msgstr "Mâle >60"
+
+#: mad_codes.csv:1
+msgid "Child under 24 months"
+msgstr "Enfant moins de 24 mois"
+
+#: mad_codes.csv:1
+msgid "Communicable disease"
+msgstr "Maladie transmissible"
+
+#: mad_codes.csv:1
+msgid "Non-communicable disease"
+msgstr "Maladie non transmissible"
+
+#: mad_codes.csv:1
+msgid "Reproductive Health"
+msgstr "La santé reproductive"
+
+#: mad_codes.csv:1
+msgid "Other"
+msgstr "Autre"
+
+#: mad_codes.csv:1
+msgid "Acute Watery Diarrhoea"
+msgstr "Diarrhée aiguë aqueuse"
+
+#: mad_codes.csv:1
+msgid "Typhoid Fever"
+msgstr "Fièvre typhoïde"
+
+#: mad_codes.csv:1
+msgid "Bloody Diarrhoea"
+msgstr "Diarrhée sanglante"
+
+#: mad_codes.csv:1
+msgid "Neonatal Tetanus"
+msgstr "Tétanos néonatal"
+
+#: mad_codes.csv:1
+msgid "Acute Flaccid Paralysis"
+msgstr "Acute Flaccid Paralysis"
+
+#: mad_codes.csv:1
+msgid "Arbovirus"
+msgstr "Arbovirose suspecte"
+
+#: mad_codes.csv:1
+msgid "Acute Haemorrhagic Fever"
+msgstr "Fièvre hémorragique aiguë"
+
+#: mad_codes.csv:1
+msgid "Measles / Rubella"
+msgstr "Rougeole / Rubéole"
+
+#: mad_codes.csv:1
+msgid "Malaria"
+msgstr "Paludisme"
+
+#: mad_codes.csv:1
+msgid "Influenza-like illness "
+msgstr "Syndrome grippal"
+
+#: mad_codes.csv:1
+msgid "Seafood Poisoning"
+msgstr "Episode d’Intoxication par consommation d’animaux marins (ICAM)"
+
+#: mad_codes.csv:1
+msgid "Sexually Transmitted Infection"
+msgstr "Infection sexuellement transmissible (IST) "
+
+#: mad_codes.csv:1
+msgid "Maternal Death"
+msgstr "Décès maternel"
+
+#: mad_codes.csv:1
+msgid "Neonatal Death"
+msgstr "Décès néonatal"
+
+#: mad_codes.csv:1
+msgid "Lymphatic Filariasis"
+msgstr "Filariose lymphatique"
+
+#: mad_codes.csv:1
+msgid "Other / Alert"
+msgstr "Autre évènement inhabituel nécessitant une alerte"
+
+#: mad_codes.csv:1
+msgid "Vaccinated"
+msgstr "Vacciné"
+
+#: mad_codes.csv:1
+msgid "BCG"
+msgstr "BCG"
+
+#: mad_codes.csv:1
+msgid "Hepatitis B"
+msgstr "Hépatite B"
+
+#: mad_codes.csv:1
+msgid "Diptheria"
+msgstr "Diphtérie"
+
+#: mad_codes.csv:1
+msgid "Tetanus"
+msgstr "Tétanos"
+
+#: mad_codes.csv:1
+msgid "Pertussis"
+msgstr "Coqueluche"
+
+#: mad_codes.csv:1
+msgid "Polio"
+msgstr "Polio"
+
+#: mad_codes.csv:1
+msgid "Haemophilus influenzae type B (HiB)"
+msgstr "Haemophilus influenzae de type B (Hib)"
+
+#: mad_codes.csv:1
+msgid "Mumps"
+msgstr "Oreillons"
+
+#: mad_codes.csv:1
+msgid "Rubella"
+msgstr "Rubéole"
+
+#: mad_codes.csv:1
+msgid "Mental Health (mhGAP)"
+msgstr "Santé mentale (mhGAP)"
+
+#: mad_codes.csv:1
+msgid "Child Health (IMCI)"
+msgstr "La santé des enfants (PCIME )"
+
+#: mad_codes.csv:1
+msgid "Prescribing"
+msgstr "Prescrire"
+
+#: mad_codes.csv:1
+msgid "Pregnant women"
+msgstr "Femmes enceintes"
+
+#: mad_codes.csv:1
+msgid "Complications in pregnancy"
+msgstr "Complications de la grossesse"
+
+#: mad_codes.csv:1
+msgid "Child is breastfed"
+msgstr "L'enfant est allaité"
+
+#: mad_codes.csv:1
+msgid "Child is exclusively breastfed"
+msgstr "L'enfant est allaité exclusivement"
+
+#: mad_codes.csv:1
+msgid "Child is provided an infant formula"
+msgstr "L'enfant est fourni une préparation pour nourrissons"
+
+#: mad_codes.csv:1
+msgid "New Visit"
+msgstr "Nouvelle consultation"
+
+#: mad_codes.csv:1
+msgid "Return Visit"
+msgstr "Consultation de suivi"
+
+#: mad_codes.csv:1
+msgid "Daily Forms"
+msgstr "Formulaires quotidiens"
+
+#: mad_codes.csv:1
+msgid "Refugee Consultations"
+msgstr "Consultations des réfugiés"
+
+#: mad_codes.csv:1
+msgid "Active Surveillence Fever"
+msgstr "Fièvre surveillence active"
+
+#: mad_codes.csv:1
+msgid "<29 days"
+msgstr "<29 jours"
+
+#: mad_codes.csv:1
+msgid "29 days-12 months"
+msgstr "29 jours-12 mois"
+
+#: mad_codes.csv:1
+msgid "1-4 years"
+msgstr "1-4 ans"
+
+#: mad_codes.csv:1
+msgid "5-9 years"
+msgstr "5-9 ans"
+
+#: mad_codes.csv:1
+msgid "10-14 years"
+msgstr "10-14 ans"
+
+#: mad_codes.csv:1
+msgid "15-24 years"
+msgstr "15-24 ans"
+
+#: mad_codes.csv:1
+msgid "25-49 years"
+msgstr "25-49 ans"
+
+#: mad_codes.csv:1
+msgid "50-59 years"
+msgstr "50-59 ans"
+
+#: mad_codes.csv:1
+msgid ">60 years"
+msgstr ">60 ans"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths"
+msgstr "Décès maternel"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths <29 days"
+msgstr "Décès maternel <29 days"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 29 days-12 months"
+msgstr "Décès maternel 29 days-12 months"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 1-4 years"
+msgstr "Décès maternel 1-4 years"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 5-9 years"
+msgstr "Décès maternel 5-9 years"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 10-14 years"
+msgstr "Décès maternel 10-14 years"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 15-24 years"
+msgstr "Décès maternel 15-24 years"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 25-49 years"
+msgstr "Décès maternel 25-49 years"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 50-59 years"
+msgstr "Décès maternel 50-59 years"
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths >60 years"
+msgstr "Décès maternel >60 years"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_17"
+msgstr "Décès icd_17"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_4183"
+msgstr "Décès icd_4183"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_461"
+msgstr "Décès icd_461"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_421"
+msgstr "Décès icd_421"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_113"
+msgstr "Décès icd_113"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_35"
+msgstr "Décès icd_35"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_9643"
+msgstr "Décès icd_9643"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_530"
+msgstr "Décès icd_530"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_9225"
+msgstr "Décès icd_9225"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_391"
+msgstr "Décès icd_391"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_380"
+msgstr "Décès icd_380"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_488"
+msgstr "Décès icd_488"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_804"
+msgstr "Décès icd_804"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_68"
+msgstr "Décès icd_68"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_321"
+msgstr "Décès icd_321"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_91"
+msgstr "Décès icd_91"
+
+#: mad_codes.csv:1
+msgid "Deaths cmd_43"
+msgstr "Décès cmd_43"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_2194"
+msgstr "Décès icd_2194"
+
+#: mad_codes.csv:1
+msgid "Deaths cmd_48"
+msgstr "Décès cmd_48"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_168"
+msgstr "Décès icd_168"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_188"
+msgstr "Décès icd_188"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_4177"
+msgstr "Décès icd_4177"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_2189"
+msgstr "Décès icd_2189"
+
+#: mad_codes.csv:1
+msgid "Deaths epi_1"
+msgstr "Décès epi_1"
+
+#: mad_codes.csv:1
+msgid "Deaths icd_1"
+msgstr "Décès icd_1"
+
+#: mad_codes.csv:1
+msgid "Deaths epi_7"
+msgstr "Décès epi_7"
+
+#: mad_codes.csv:1
+msgid "Malaria RDT"
+msgstr "Paludisme TDR"
+
+#: mad_codes.csv:1
+msgid "Malaria Slide"
+msgstr "Paludisme Slide"
+
+#: mad_codes.csv:1
+msgid "Plague RDT"
+msgstr "Peste TDR"
+
+#: mad_codes.csv:1
+msgid "Plague Type ICD A20.0"
+msgstr "Type de Peste ICD A20.0"
+
+#: mad_codes.csv:1
+msgid "Plague Type ICD A20.2"
+msgstr "Type de Peste ICD A20.2"
+
+#: mad_codes.csv:1
+msgid "Cholera >5 years"
+msgstr "Choléra >5 years"
+
+#: mad_codes.csv:1
+msgid "01. Certain infectious and parasitic diseases"
+msgstr "01. Certaines maladies infectieuses et parasitaires"
+
+#: mad_codes.csv:1
+msgid "02. Neoplasms"
+msgstr "02. Tumeurs"
+
+#: mad_codes.csv:1
+msgid ""
+"03. Diseases of the blood and blood-forming organs and certain disorders "
+"involving the immune mechanism"
+msgstr ""
+"03. Maladies du sang et des organes hématopoïétiques et certains troubles du "
+"système immunitaire"
+
+#: mad_codes.csv:1
+msgid "04. Endocrine, nutritional and metabolic diseases"
+msgstr "04. Maladies endocriniennes, nutritionnelles et métaboliques"
+
+#: mad_codes.csv:1
+msgid "05. Mental and behavioural disorders"
+msgstr "05. Troubles mentaux et du comportement"
+
+#: mad_codes.csv:1
+msgid "06. Diseases of the nervous system"
+msgstr "06. Maladies du système nerveux"
+
+#: mad_codes.csv:1
+msgid "07. Diseases of the eye and adnexa"
+msgstr "07. Maladies de l'oeil et de ses annexes"
+
+#: mad_codes.csv:1
+msgid "08. Diseases of the ear and mastoid process"
+msgstr "08. Maladies du processus d'oreille et mastoïde"
+
+#: mad_codes.csv:1
+msgid "09. Diseases of the circulatory system"
+msgstr "09. Maladies de l'appareil circulatoire"
+
+#: mad_codes.csv:1
+msgid "10. Diseases of the respiratory system"
+msgstr "10. Maladies de l'appareil respiratoire"
+
+#: mad_codes.csv:1
+msgid "11. Diseases of the digestive system"
+msgstr "11. Maladies du système digestif"
+
+#: mad_codes.csv:1
+msgid "12. Diseases of the skin and subcutaneous tissue"
+msgstr "12. Maladies de la peau et du tissu sous-cutané"
+
+#: mad_codes.csv:1
+msgid "13. Diseases of the musculoskeletal system and connective tissue"
+msgstr "13. Maladies du système musculo-squelettique et du tissu conjonctif"
+
+#: mad_codes.csv:1
+msgid "14. Diseases of the genitourinary system"
+msgstr "14. Maladies du système génito-urinaire"
+
+#: mad_codes.csv:1
+msgid "15. Pregnancy, childbirth and the puerperium"
+msgstr "15. La grossesse, l'accouchement et la puerpéralité"
+
+#: mad_codes.csv:1
+msgid "16. Certain conditions originating in the perinatal period"
+msgstr "16. Certaines conditions originaires de la période périnatale"
+
+#: mad_codes.csv:1
+msgid "17. Congenital malformations,deformations and chromosomal abnormalities"
+msgstr "17. Les malformations congénitales et anomalies chromosomiques"
+
+#: mad_codes.csv:1
+msgid ""
+"18. Symptoms, signs and abnormal clinical and laboratory findings, not "
+"elsewhere classified"
+msgstr ""
+"18. Les symptômes, signes et résultats cliniques et de laboratoire anormaux, "
+"non classés ailleurs"
+
+#: mad_codes.csv:1
+msgid "19. Injury, poisoning and certain other consequences of external causes"
+msgstr ""
+"19. Lésions, intoxications et certaines autres conséquences de causes "
+"externes"
+
+#: mad_codes.csv:1
+msgid "20. External causes of morbidity and mortality"
+msgstr "20. provoque externe de la morbidité et de la mortalité"
+
+#: mad_codes.csv:1
+msgid "21. Factors influencing health status and contact with health services"
+msgstr ""
+"21. Facteurs influant sur l'état de santé et de contact avec les services de "
+"santé"
+
+#: mad_codes.csv:1
+msgid "22. Codes for special purposes"
+msgstr "22. Codes à des fins spéciales"
+
+#: mad_codes.csv:1
+msgid "23. Other (not ICD-10 coded)"
+msgstr "23. Autre (non CIM-10 codé)"
+
+#: mad_codes.csv:1
+msgid "Intestinal infectious diseases"
+msgstr "Les maladies infectieuses intestinales"
+
+#: mad_codes.csv:1
+msgid "Certain zoonotic bacterial diseases"
+msgstr "Certaines maladies bactériennes zoonotiques"
+
+#: mad_codes.csv:1
+msgid "Other bacterial diseases"
+msgstr "Autres maladies bactériennes"
+
+#: mad_codes.csv:1
+msgid "Infections with a predominantly sexual mode of transmission"
+msgstr "Les infections par un mode essentiellement sexuel de transmission"
+
+#: mad_codes.csv:1
+msgid "Other spirochaetal diseases"
+msgstr "Autres maladies à spirochètes"
+
+#: mad_codes.csv:1
+msgid "Other diseases caused by chlamydiae"
+msgstr "D'autres maladies causées par Chlamydia"
+
+#: mad_codes.csv:1
+msgid "Rickettsioses"
+msgstr "Rickettsioses"
+
+#: mad_codes.csv:1
+msgid "Viral infections of the central nervous system"
+msgstr "Les infections virales du système nerveux central"
+
+#: mad_codes.csv:1
+msgid "Arthropod-borne viral fevers and viral haemorrhagic fevers"
+msgstr "Arthropodes fièvres virales et les fièvres hémorragiques virales"
+
+#: mad_codes.csv:1
+msgid "Viral infections characterized by skin and mucous membrane lesions"
+msgstr "Les infections virales caractérisées par des lésions cutanéo-muqueuses"
+
+#: mad_codes.csv:1
+msgid "Viral hepatitis"
+msgstr "Hépatite virale"
+
+#: mad_codes.csv:1
+msgid "Human immunodeficiency virus [HIV] disease"
+msgstr "Virus de l'immunodéficience humaine [VIH]"
+
+#: mad_codes.csv:1
+msgid "Other viral diseases"
+msgstr "Autres maladies virales"
+
+#: mad_codes.csv:1
+msgid "Mycoses"
+msgstr "Mycoses"
+
+#: mad_codes.csv:1
+msgid "Protozoal diseases"
+msgstr "Maladies protozoaires"
+
+#: mad_codes.csv:1
+msgid "Helminthiases"
+msgstr "Helminthiases"
+
+#: mad_codes.csv:1
+msgid "Pediculosis,acariasis and other infestations"
+msgstr "Pédiculose, acariase et d'autres infestations"
+
+#: mad_codes.csv:1
+msgid "Sequelae of infectious and parasitic diseases"
+msgstr "Séquelles de maladies infectieuses et parasitaires"
+
+#: mad_codes.csv:1
+msgid "Bacterial,viral and other infectious agents"
+msgstr "les agents infectieux bactériens, viraux et d'autres"
+
+#: mad_codes.csv:1
+msgid "Other infectious diseases"
+msgstr "Autres maladies infectieuses"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of lip,oral cavity and pharynx"
+msgstr "Tumeurs malignes de la lèvre, de la cavité buccale et du pharynx"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of digestive organs"
+msgstr "Tumeurs malignes des organes digestifs"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of respiratory and intrathoracic organs"
+msgstr "Tumeurs malignes des voies respiratoires et intrathoraciques organes"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of bone and articular cartilage"
+msgstr "Tumeurs malignes de l'os et du cartilage articulaire"
+
+#: mad_codes.csv:1
+msgid "Melanoma and other malignant neoplasms of skin"
+msgstr "Le mélanome et d'autres tumeurs malignes de la peau"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of mesothelial and soft tissue"
+msgstr "Tumeurs malignes de mésothéliales et des tissus mous"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasm of breast"
+msgstr "Tumeur maligne du sein"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of female genital organs"
+msgstr "Tumeurs malignes des organes génitaux féminins"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of male genital organs"
+msgstr "Tumeurs malignes des organes génitaux masculins"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of urinary tract"
+msgstr "Tumeurs malignes des voies urinaires"
+
+#: mad_codes.csv:1
+msgid ""
+"Malignant neoplasms of eye,brain and other parts of central nervous system"
+msgstr ""
+"Tumeurs malignes de l'œil, le cerveau et d'autres parties du système nerveux "
+"central"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of thyroid and other endocrine glands"
+msgstr "Tumeurs malignes de la thyroïde et d'autres glandes endocrines"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of ill-defined,secondary and unspecified sites"
+msgstr "Tumeurs malignes de sièges mal définis, secondaires et non précisés"
+
+#: mad_codes.csv:1
+msgid ""
+"Malignant neoplasms,stated or presumed to be primary,of lymphoid, "
+"haematopoietic and related tissue"
+msgstr ""
+"Tumeurs malignes, indiquées ou présumées primitives, des lymphoïde, "
+"hématopoïétique et des tissus connexes"
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of independent (primary) multiple sites"
+msgstr "Tumeurs malignes des indépendants (primaire) sièges multiples"
+
+#: mad_codes.csv:1
+msgid "In situ neoplasms"
+msgstr "Dans néoplasmes in situ"
+
+#: mad_codes.csv:1
+msgid "Benign neoplasms"
+msgstr "Tumeurs bénignes"
+
+#: mad_codes.csv:1
+msgid "Neoplasms of uncertain or unknown behaviour"
+msgstr "Tumeurs du comportement incertain ou inconnu"
+
+#: mad_codes.csv:1
+msgid "Nutritional anaemias"
+msgstr "Anémies nutritionnelles"
+
+#: mad_codes.csv:1
+msgid "Haemolytic anaemias"
+msgstr "Anémies hémolytiques"
+
+#: mad_codes.csv:1
+msgid "Aplastic and other anaemias"
+msgstr "Aplasique et d'autres anémies"
+
+#: mad_codes.csv:1
+msgid "Coagulation defects, purpura and other haemorrhagic conditions"
+msgstr ""
+"Anomalies de la coagulation, purpura et autres affections hémorragiques"
+
+#: mad_codes.csv:1
+msgid "Other diseases of blood and blood-forming organs"
+msgstr "Autres maladies du sang et des organes hématopoïétiques"
+
+#: mad_codes.csv:1
+msgid "Certain disorders involving the immune mechanism"
+msgstr "Certains troubles du système immunitaire"
+
+#: mad_codes.csv:1
+msgid "Disorders of thyroid gland"
+msgstr "Les troubles de la glande thyroïde"
+
+#: mad_codes.csv:1
+msgid "Diabetes mellitus"
+msgstr "Le diabète sucré"
+
+#: mad_codes.csv:1
+msgid "Other disorders of glucose regulation and pancreatic internal secretion"
+msgstr ""
+"D'autres troubles de la régulation du glucose et de la sécrétion "
+"pancréatique interne"
+
+#: mad_codes.csv:1
+msgid "Disorders of other endocrine glands"
+msgstr "Maladies des autres glandes endocrines"
+
+#: mad_codes.csv:1
+msgid "Malnutrition"
+msgstr "Malnutrition"
+
+#: mad_codes.csv:1
+msgid "Other nutritional deficiencies"
+msgstr "D'autres carences nutritionnelles"
+
+#: mad_codes.csv:1
+msgid "Obesity and other hyperalimentation"
+msgstr "Obésité et autres excès"
+
+#: mad_codes.csv:1
+msgid "Metabolic disorders"
+msgstr "Troubles métaboliques"
+
+#: mad_codes.csv:1
+msgid "Organic,including symptomatic, mental disorders"
+msgstr "Organiques, y compris les troubles mentaux symptomatiques"
+
+#: mad_codes.csv:1
+msgid "Mental and behavioural disorders due to psychoactive substance use"
+msgstr ""
+"Les troubles mentaux et du comportement liés à l'utilisation de substances "
+"psychoactives"
+
+#: mad_codes.csv:1
+msgid "Schizophrenia, schizotypal and delusional disorders"
+msgstr "Schizophrénie, schizotypique et troubles délirants"
+
+#: mad_codes.csv:1
+msgid "Mood [affective] disorders"
+msgstr "L'humeur [affectifs]"
+
+#: mad_codes.csv:1
+msgid "Neurotic,stress-related and somatoform disorders"
+msgstr "Névrotiques, troubles liés au stress et somatoformes"
+
+#: mad_codes.csv:1
+msgid ""
+"Behavioural syndromes associated with physiological disturbances and "
+"physical factors"
+msgstr ""
+"Syndromes comportementaux associés à des perturbations physiologiques et "
+"facteurs physiques"
+
+#: mad_codes.csv:1
+msgid "Disorders of adult personality and behaviour"
+msgstr "Les troubles de la personnalité et le comportement des adultes"
+
+#: mad_codes.csv:1
+msgid "Mental retardation"
+msgstr "Retard mental"
+
+#: mad_codes.csv:1
+msgid "Disorders of psychological development"
+msgstr "Troubles du développement psychologique"
+
+#: mad_codes.csv:1
+msgid ""
+"Behavioural and emotional disorders with onset usually occurring in "
+"childhood and adolescence"
+msgstr ""
+"Troubles comportementaux et émotionnels apparaissant habituellement dans "
+"l'enfance et de l'adolescence"
+
+#: mad_codes.csv:1
+msgid "Unspecified mental disorder"
+msgstr "Trouble mental non spécifié"
+
+#: mad_codes.csv:1
+msgid "Inflammatory diseases of the central nervous system"
+msgstr "Les maladies inflammatoires du système nerveux central"
+
+#: mad_codes.csv:1
+msgid "Systemic atrophies primarily affecting the central nervous system"
+msgstr ""
+"atrophies systémiques affectant principalement le système nerveux central"
+
+#: mad_codes.csv:1
+msgid "Extrapyramidal and movement disorders"
+msgstr "Extrapyramidaux et troubles"
+
+#: mad_codes.csv:1
+msgid "Other degenerative diseases of the nervous system"
+msgstr "D'autres maladies dégénératives du système nerveux"
+
+#: mad_codes.csv:1
+msgid "Demyelinating diseases of the central nervous system"
+msgstr "Des maladies démyélinisantes du système nerveux central"
+
+#: mad_codes.csv:1
+msgid "Episodic and paroxysmal disorders"
+msgstr "troubles épisodiques et paroxystiques"
+
+#: mad_codes.csv:1
+msgid "Nerve,nerve root and plexus disorders"
+msgstr "Nerveuses, la racine nerveuse et plexus nerveux"
+
+#: mad_codes.csv:1
+msgid "Polyneuropathies and other disorders of the peripheral nervous system"
+msgstr "Polyneuropathies et d'autres troubles du système nerveux périphérique"
+
+#: mad_codes.csv:1
+msgid "Diseases of myoneural junction and muscle"
+msgstr "Maladies de la jonction neuromusculaire et du muscle"
+
+#: mad_codes.csv:1
+msgid "Cerebral palsy and other paralytic syndromes"
+msgstr "La paralysie cérébrale et d'autres syndromes paralytiques"
+
+#: mad_codes.csv:1
+msgid "Other disorders of the nervous system"
+msgstr "D'autres troubles du système nerveux"
+
+#: mad_codes.csv:1
+msgid "Disorders of eyelid,lacrimal system and orbit"
+msgstr "Affections de la paupière, système lacrymal et de l'orbite"
+
+#: mad_codes.csv:1
+msgid "Disorders of conjunctiva"
+msgstr "Affections de la conjonctive"
+
+#: mad_codes.csv:1
+msgid "Disorders of sclera,cornea,iris and ciliary body"
+msgstr ""
+"Affections de la sclérotique, de la cornée, l'iris et du corps ciliaire"
+
+#: mad_codes.csv:1
+msgid "Disorders of lens"
+msgstr "Les troubles de la lentille"
+
+#: mad_codes.csv:1
+msgid "Disorders of choroid and retina"
+msgstr "Affections de la choroïde et de la rétine"
+
+#: mad_codes.csv:1
+msgid "Glaucoma"
+msgstr "Glaucome"
+
+#: mad_codes.csv:1
+msgid "Disorders of vitreous body and globe"
+msgstr "Affections du corps vitré et du globe"
+
+#: mad_codes.csv:1
+msgid "Disorders of optic nerve and visual pathways"
+msgstr "Affections du nerf et des voies optiques"
+
+#: mad_codes.csv:1
+msgid ""
+"Disorders of ocular muscles,binocular movement,accommodation and refraction"
+msgstr ""
+"Troubles des muscles oculaires, des mouvements binoculaires, l'hébergement "
+"et la réfraction"
+
+#: mad_codes.csv:1
+msgid "Visual disturbances and blindness"
+msgstr "Les troubles visuels et la cécité"
+
+#: mad_codes.csv:1
+msgid "Other disorders of eye and adnexa"
+msgstr "Autres affections de l'oeil et de ses annexes"
+
+#: mad_codes.csv:1
+msgid "Diseases of external ear"
+msgstr "Les maladies de l'oreille externe"
+
+#: mad_codes.csv:1
+msgid "Diseases of middle ear and mastoid"
+msgstr "Maladies de l'oreille moyenne et mastoïde"
+
+#: mad_codes.csv:1
+msgid "Diseases of inner ear"
+msgstr "Maladies de l'oreille interne"
+
+#: mad_codes.csv:1
+msgid "Other disorders of ear"
+msgstr "Autres affections de l'oreille"
+
+#: mad_codes.csv:1
+msgid "Acute rheumatic fever"
+msgstr "Le rhumatisme articulaire aigu"
+
+#: mad_codes.csv:1
+msgid "Chronic rheumatic heart diseases"
+msgstr "Maladies cardiaques rhumatismales chroniques"
+
+#: mad_codes.csv:1
+msgid "Hypertensive diseases"
+msgstr "Maladies hypertensives"
+
+#: mad_codes.csv:1
+msgid "Ischaemic heart diseases"
+msgstr "Cardiopathies ischémiques"
+
+#: mad_codes.csv:1
+msgid "Pulmonary heart disease and diseases of pulmonary circulation"
+msgstr ""
+"La maladie et les maladies de la circulation pulmonaire cardiaque pulmonaire"
+
+#: mad_codes.csv:1
+msgid "Other forms of heart disease"
+msgstr "D'autres formes de maladies du cœur"
+
+#: mad_codes.csv:1
+msgid "Cerebrovascular diseases"
+msgstr "Maladies cérébrovasculaires"
+
+#: mad_codes.csv:1
+msgid "Diseases of arteries,arterioles and capillaries"
+msgstr "Maladies des artères, artérioles et capillaires"
+
+#: mad_codes.csv:1
+msgid ""
+"Diseases of veins, lymphatic vessels and lymph nodes,not elsewhere classified"
+msgstr ""
+"Maladies des veines, des vaisseaux lymphatiques et des ganglions "
+"lymphatiques, non classés ailleurs"
+
+#: mad_codes.csv:1
+msgid "Other and unspecified disorders of the circulatory system"
+msgstr "Autres et sans précision des troubles de l'appareil circulatoire"
+
+#: mad_codes.csv:1
+msgid "Acute upper respiratory infections"
+msgstr "Infections des voies respiratoires supérieures aiguës"
+
+#: mad_codes.csv:1
+msgid "Influenza and pneumonia"
+msgstr "La grippe et la pneumonie"
+
+#: mad_codes.csv:1
+msgid "Other acute lower respiratory infections"
+msgstr "Autres infections respiratoires aiguës basses"
+
+#: mad_codes.csv:1
+msgid "Other diseases of upper respiratory tract"
+msgstr "Autres maladies des voies respiratoires supérieures"
+
+#: mad_codes.csv:1
+msgid "Chronic lower respiratory diseases"
+msgstr "Maladies des voies respiratoires inférieures chroniques"
+
+#: mad_codes.csv:1
+msgid "Lung diseases due to external agents"
+msgstr "Les maladies pulmonaires dues à des agents externes"
+
+#: mad_codes.csv:1
+msgid "Other respiratory diseases principally affecting the interstitium"
+msgstr "Autres maladies respiratoires affectant principalement l'interstitium"
+
+#: mad_codes.csv:1
+msgid "Suppurative and necrotic conditions of lower respiratory tract"
+msgstr ""
+"Conditions suppurées et nécrotiques des voies respiratoires inférieures"
+
+#: mad_codes.csv:1
+msgid "Other diseases of pleura"
+msgstr "Autres maladies de la plèvre"
+
+#: mad_codes.csv:1
+msgid "Other diseases of the respiratory system"
+msgstr "D'autres maladies des voies respiratoires"
+
+#: mad_codes.csv:1
+msgid "Diseases of oral cavity,salivary glands and jaws"
+msgstr ""
+"Les maladies de la cavité buccale, des glandes salivaires et les mâchoires"
+
+#: mad_codes.csv:1
+msgid "Diseases of oesophagus,stomach and duodenum"
+msgstr "Maladies de l'oesophage, de l'estomac et du duodénum"
+
+#: mad_codes.csv:1
+msgid "Diseases of appendix"
+msgstr "Maladies de l'appendice"
+
+#: mad_codes.csv:1
+msgid "Hernia"
+msgstr "Hernie"
+
+#: mad_codes.csv:1
+msgid "Noninfective enteritis and colitis"
+msgstr "Entérites non infectieuses et de la colite"
+
+#: mad_codes.csv:1
+msgid "Other diseases of intestines"
+msgstr "D'autres maladies de l'intestin"
+
+#: mad_codes.csv:1
+msgid "Diseases of peritoneum"
+msgstr "Les maladies du péritoine"
+
+#: mad_codes.csv:1
+msgid "Diseases of liver"
+msgstr "Maladies du foie"
+
+#: mad_codes.csv:1
+msgid "Disorders of gallbladder, biliary tract and pancreas"
+msgstr ""
+"Les troubles de la vésicule biliaire, des voies biliaires et du pancréas"
+
+#: mad_codes.csv:1
+msgid "Other diseases of the digestive system"
+msgstr "D'autres maladies de l'appareil digestif"
+
+#: mad_codes.csv:1
+msgid "Infections of the skin and subcutaneous tissue"
+msgstr "Les infections de la peau et du tissu sous-cutané"
+
+#: mad_codes.csv:1
+msgid "Bullous disorders"
+msgstr "Troubles bulleuses"
+
+#: mad_codes.csv:1
+msgid "Dermatitis and eczema"
+msgstr "Dermatite et eczéma"
+
+#: mad_codes.csv:1
+msgid "Papulosquamous disorders"
+msgstr "Troubles papulosquameuses"
+
+#: mad_codes.csv:1
+msgid "Urticaria and erythema"
+msgstr "L'urticaire et érythème"
+
+#: mad_codes.csv:1
+msgid "Radiation-related disorders of the skin and subcutaneous tissue"
+msgstr "Troubles liés aux rayonnements de la peau et du tissu sous-cutané"
+
+#: mad_codes.csv:1
+msgid "Disorders of skin appendages"
+msgstr "Troubles de phanères"
+
+#: mad_codes.csv:1
+msgid "Other disorders of the skin and subcutaneous tissue"
+msgstr "Autres affections de la peau et du tissu sous-cutané"
+
+#: mad_codes.csv:1
+msgid "Infectious arthropathies"
+msgstr "arthropathies infectieuses"
+
+#: mad_codes.csv:1
+msgid "Inflammatory polyarthropathies"
+msgstr "polyarthropathies inflammatoires"
+
+#: mad_codes.csv:1
+msgid "Arthrosis"
+msgstr "arthrose"
+
+#: mad_codes.csv:1
+msgid "Other joint disorders"
+msgstr "Autres troubles de l'articulation"
+
+#: mad_codes.csv:1
+msgid "Systemic connective tissue disorders"
+msgstr "Troubles du tissu conjonctif systémiques"
+
+#: mad_codes.csv:1
+msgid "Deforming dorsopathies"
+msgstr "Déformation dorsopathies"
+
+#: mad_codes.csv:1
+msgid "Spondylopathies"
+msgstr "Spondylopathies"
+
+#: mad_codes.csv:1
+msgid "Other dorsopathies"
+msgstr "Autres dorsopathies"
+
+#: mad_codes.csv:1
+msgid "Disorders of muscles"
+msgstr "Troubles de muscles"
+
+#: mad_codes.csv:1
+msgid "Disorders of synovium and tendon"
+msgstr "Troubles de la synoviale et du tendon"
+
+#: mad_codes.csv:1
+msgid "Other soft tissue disorders"
+msgstr "Autres affections des tissus mous"
+
+#: mad_codes.csv:1
+msgid "Disorders of bone density and structure"
+msgstr "Les troubles de la densité osseuse et la structure"
+
+#: mad_codes.csv:1
+msgid "Other osteopathies"
+msgstr "Autres ostéopathies"
+
+#: mad_codes.csv:1
+msgid "Chondropathies"
+msgstr "Chondropathies"
+
+#: mad_codes.csv:1
+msgid "Other disorders of the musculoskeletal system and connective tissue"
+msgstr "Autres troubles du système musculo-squelettique et du tissu conjonctif"
+
+#: mad_codes.csv:1
+msgid "Glomerular diseases"
+msgstr "Maladies glomérulaires"
+
+#: mad_codes.csv:1
+msgid "Renal tubulo-interstitial diseases"
+msgstr "Des maladies rénales tubulo-interstitielles"
+
+#: mad_codes.csv:1
+msgid "Renal failure"
+msgstr "Insuffisance rénale"
+
+#: mad_codes.csv:1
+msgid "Urolithiasis"
+msgstr "Urolithiase"
+
+#: mad_codes.csv:1
+msgid "Other disorders of kidney and ureter"
+msgstr "Autres affections du rein et de l'uretère"
+
+#: mad_codes.csv:1
+msgid "Other diseases of urinary system"
+msgstr "Autres maladies du système urinaire"
+
+#: mad_codes.csv:1
+msgid "Diseases of male genital organs"
+msgstr "Maladies des organes génitaux masculins"
+
+#: mad_codes.csv:1
+msgid "Disorders of breast"
+msgstr "Troubles du sein"
+
+#: mad_codes.csv:1
+msgid "Inflammatory diseases of female pelvic organs"
+msgstr "Les maladies inflammatoires des organes pelviens de la femme"
+
+#: mad_codes.csv:1
+msgid "Noninflammatory disorders of female genital tract"
+msgstr "Affections non inflammatoires de l'appareil génital féminin"
+
+#: mad_codes.csv:1
+msgid "Other disorders of the genitourinary system"
+msgstr "Autres troubles du système génito-urinaire"
+
+#: mad_codes.csv:1
+msgid "Pregnancy with abortive outcome"
+msgstr "Grossesse avec le résultat abortive"
+
+#: mad_codes.csv:1
+msgid ""
+"Oedema, proteinuria and hypertensive disorders in pregnancy,childbirth and "
+"the puerperium"
+msgstr ""
+"Œdème, protéinurie et hypertendus troubles de la grossesse, l'accouchement "
+"et la puerpéralité"
+
+#: mad_codes.csv:1
+msgid "Other maternal disorders predominantly related to pregnancy"
+msgstr "Autres affections maternelles liées principalement à la grossesse"
+
+#: mad_codes.csv:1
+msgid ""
+"Maternal care related to the fetus and amniotic cavity and possible delivery "
+"problems"
+msgstr ""
+"Soins maternels liés au foetus et à la cavité amniotique et problèmes de "
+"livraison"
+
+#: mad_codes.csv:1
+msgid "Complications of labour and delivery"
+msgstr "Complications du travail et l'accouchement"
+
+#: mad_codes.csv:1
+msgid "Delivery"
+msgstr "Livraison"
+
+#: mad_codes.csv:1
+msgid "Complications predominantly related to the puerperium"
+msgstr "Complications principalement liées à la puerpéralité"
+
+#: mad_codes.csv:1
+msgid "Other obstetric conditions,not elsewhere classified"
+msgstr "Autres conditions obstétricales, non classés ailleurs"
+
+#: mad_codes.csv:1
+msgid ""
+"Fetus and newborn affected by maternal factors and by complications of "
+"pregnancy,labour and delivery"
+msgstr ""
+"Foetus et nouveau-né affectés par des facteurs maternels et par des "
+"complications de la grossesse et de l'accouchement"
+
+#: mad_codes.csv:1
+msgid "Disorders related to length of gestation and fetal growth"
+msgstr "Les troubles liés à la durée de la gestation et la croissance du fœtus"
+
+#: mad_codes.csv:1
+msgid "Birth trauma"
+msgstr "Naissance trauma"
+
+#: mad_codes.csv:1
+msgid ""
+"Respiratory and cardiovascular disorders specific to the perinatal period"
+msgstr ""
+"Les troubles respiratoires et cardio-vasculaires spécifiques à la période "
+"périnatale"
+
+#: mad_codes.csv:1
+msgid "Infections specific to the perinatal period"
+msgstr "Infections spécifiques de la période périnatale"
+
+#: mad_codes.csv:1
+msgid "Haemorrhagic and haematological disorders of fetus and newborn"
+msgstr "Hémorragiques et hématologiques troubles du foetus et du nouveau-né"
+
+#: mad_codes.csv:1
+msgid ""
+"Transitory endocrine and metabolic disorders specific to fetus and newborn"
+msgstr ""
+"Endocrinien transitoire et les troubles métaboliques spécifiques au foetus "
+"et du nouveau-né"
+
+#: mad_codes.csv:1
+msgid "Digestive system disorders of fetus and newborn"
+msgstr "Troubles du système digestif du foetus et du nouveau-né"
+
+#: mad_codes.csv:1
+msgid ""
+"Conditions involving the integument and temperature regulation of fetus and "
+"newborn"
+msgstr ""
+"Conditions portant sur la réglementation de tégument et de la température du "
+"foetus et du nouveau-né"
+
+#: mad_codes.csv:1
+msgid "Other disorders originating in the perinatal period"
+msgstr "D'autres troubles survenant pendant la période périnatale"
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of the nervous system"
+msgstr "Les malformations congénitales du système nerveux"
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of eye,ear,face and neck"
+msgstr ""
+"Les malformations congénitales de l'œil, l'oreille, le visage et le cou"
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of the circulatory system"
+msgstr "Les malformations congénitales de l'appareil circulatoire"
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of the respiratory system"
+msgstr "Les malformations congénitales de l'appareil respiratoire"
+
+#: mad_codes.csv:1
+msgid "Cleft lip and cleft palate"
+msgstr "Fente labiale et la fente palatine"
+
+#: mad_codes.csv:1
+msgid "Other congenital malformations of the digestive system"
+msgstr "Autres malformations congénitales de l'appareil digestif"
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of genital organs"
+msgstr "Les malformations congénitales des organes génitaux"
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of the urinary system"
+msgstr "Les malformations congénitales de l'appareil urinaire"
+
+#: mad_codes.csv:1
+msgid "Congenital malformations and deformations of the musculoskeletal system"
+msgstr ""
+"malformations et déformations du système musculo-squelettique congénitale"
+
+#: mad_codes.csv:1
+msgid "Other congenital malformations"
+msgstr "Autres malformations congénitales"
+
+#: mad_codes.csv:1
+msgid "Chromosomal abnormalities,not elsewhere classified"
+msgstr "Les anomalies chromosomiques, non classés ailleurs"
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the circulatory and respiratory systems"
+msgstr ""
+"Les symptômes et signes relatifs aux systèmes circulatoire et respiratoire"
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the digestive system and abdomen"
+msgstr "Les symptômes et signes relatifs à l'appareil digestif et de l'abdomen"
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the skin and subcutaneous tissue"
+msgstr "Les symptômes et signes relatifs à la peau et du tissu sous-cutané"
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the nervous and musculoskeletal systems"
+msgstr ""
+"Les symptômes et signes relatifs aux systèmes nerveux et musculo-"
+"squelettiques"
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the urinary system"
+msgstr "Les symptômes et signes relatifs à l'appareil urinaire"
+
+#: mad_codes.csv:1
+msgid ""
+"Symptoms and signs involving cognition, perception, emotional state and "
+"behaviour"
+msgstr ""
+"Les symptômes et les signes relatifs à la connaissance, la perception, "
+"l'état émotionnel et le comportement"
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving speech and voice"
+msgstr "Les symptômes et signes relatifs à la parole et de la voix"
+
+#: mad_codes.csv:1
+msgid "General symptoms and signs"
+msgstr "Symptômes et signes généraux"
+
+#: mad_codes.csv:1
+msgid "Abnormal findings on examination of blood,without diagnosis"
+msgstr "Résultats anormaux d'examen du sang, sans diagnostic"
+
+#: mad_codes.csv:1
+msgid "Abnormal findings on examination of urine,without diagnosis"
+msgstr "Résultats anormaux de l'examen d'urine, sans diagnostic"
+
+#: mad_codes.csv:1
+msgid ""
+"Abnormal findings on examination of other body fluids, substances and "
+"tissues, without diagnosis"
+msgstr ""
+"Résultats anormaux d'examen d'autres fluides corporels, substances et "
+"tissus, sans diagnostic"
+
+#: mad_codes.csv:1
+msgid ""
+"Abnormal findings on diagnostic imaging and in function studies, without "
+"diagnosis"
+msgstr ""
+"Résultats anormaux d'imagerie diagnostique et dans les études "
+"fonctionnelles, sans diagnostic"
+
+#: mad_codes.csv:1
+msgid "Ill-defined and unknown causes of mortality"
+msgstr "Mal définies et des causes inconnues de mortalité"
+
+#: mad_codes.csv:1
+msgid "Injuries to the head"
+msgstr "Les blessures à la tête"
+
+#: mad_codes.csv:1
+msgid "Injuries to the neck"
+msgstr "Blessures au cou"
+
+#: mad_codes.csv:1
+msgid "Injuries to the thorax"
+msgstr "Les blessures au thorax"
+
+#: mad_codes.csv:1
+msgid "Injuries to the abdomen, lower back, lumbar spine and pelvis"
+msgstr ""
+"Les blessures à l'abdomen, le bas du dos, la colonne vertébrale lombaire et "
+"du bassin"
+
+#: mad_codes.csv:1
+msgid "Injuries to the shoulder and upper arm"
+msgstr "Les blessures à l'épaule et du bras"
+
+#: mad_codes.csv:1
+msgid "Injuries to the elbow and forearm"
+msgstr "Les blessures au coude et avant-bras"
+
+#: mad_codes.csv:1
+msgid "Injuries to the wrist and hand"
+msgstr "Les blessures au poignet et la main"
+
+#: mad_codes.csv:1
+msgid "Injuries to the hip and thigh"
+msgstr "Les blessures à la hanche et de la cuisse"
+
+#: mad_codes.csv:1
+msgid "Injuries to the knee and lower leg"
+msgstr "Les blessures au genou et de la jambe"
+
+#: mad_codes.csv:1
+msgid "Injuries to the ankle and foot"
+msgstr "Les blessures à la cheville et du pied"
+
+#: mad_codes.csv:1
+msgid "Injuries involving multiple body regions"
+msgstr "Les blessures impliquant plusieurs parties du corps"
+
+#: mad_codes.csv:1
+msgid "Injuries to unspecified part of trunk, limb or body region"
+msgstr ""
+"Les blessures à une partie quelconque de tronc, membre ou région du corps"
+
+#: mad_codes.csv:1
+msgid "Effects of foreign body entering through natural orifice"
+msgstr "Effets du corps étranger pénétrant par un orifice naturel"
+
+#: mad_codes.csv:1
+msgid "Burns and corrosions of external body surface,specified by site"
+msgstr ""
+"Brûlures et corrosions de la surface externe du corps, spécifiées par site"
+
+#: mad_codes.csv:1
+msgid "Burns and corrosions confined to eye and internal organs"
+msgstr "Brûlures et corrosions confinés dans les yeux et les organes internes"
+
+#: mad_codes.csv:1
+msgid "Burns and corrosions of multiple and unspecified body regions"
+msgstr "Brûlures et corrosions de multiples et régions du corps non précisées"
+
+#: mad_codes.csv:1
+msgid "Frostbite"
+msgstr "Gelure"
+
+#: mad_codes.csv:1
+msgid "Poisoning by drugs,medicaments and biological substances"
+msgstr "Intoxication par des médicaments et des substances biologiques"
+
+#: mad_codes.csv:1
+msgid "Toxic effects of substances chiefly nonmedicinal as to source"
+msgstr ""
+"Les effets toxiques des substances d'origine essentiellement non médicinale"
+
+#: mad_codes.csv:1
+msgid "Other and unspecified effects of external causes"
+msgstr "Autres et sans précision des effets de causes externes"
+
+#: mad_codes.csv:1
+msgid "Certain early complications of trauma"
+msgstr "Certaines complications précoces des traumatismes"
+
+#: mad_codes.csv:1
+msgid "Complications of surgical and medical care, not elsewhere classified"
+msgstr "Complications de soins chirurgicaux et médicaux, non classés ailleurs"
+
+#: mad_codes.csv:1
+msgid ""
+"Sequelae of injuries,of poisoning and of other consequences of external "
+"causes"
+msgstr ""
+"Séquelles de lésions traumatiques, d'empoisonnement et d'autres conséquences "
+"de causes externes"
+
+#: mad_codes.csv:1
+msgid "Pedestrian injured in transport accident"
+msgstr "Piéton blessé dans un accident de transport"
+
+#: mad_codes.csv:1
+msgid "Pedal cyclist injured in transport accident"
+msgstr "Cycliste blessé dans un accident de transport"
+
+#: mad_codes.csv:1
+msgid "Motorcycle rider injured in transport accident"
+msgstr "Motocycliste blessé dans un accident de transport"
+
+#: mad_codes.csv:1
+msgid "Occupant of three-wheeled motor vehicle injured in transport accident"
+msgstr ""
+"Occupant d'un véhicule à moteur à trois roues blessé dans un accident de "
+"transport"
+
+#: mad_codes.csv:1
+msgid "Car occupant injured in transport accident"
+msgstr "Occupant d'une automobile blessé dans un accident de transport"
+
+#: mad_codes.csv:1
+msgid "Occupant of pick-up truck or van injured in transport accident"
+msgstr ""
+"Occupant d'une camionnette pick-up blessé dans un accident de transport"
+
+#: mad_codes.csv:1
+msgid "Occupant of heavy transport vehicle injured in transport accident"
+msgstr "Occupant d'un véhicule lourd blessé dans un accident de transport"
+
+#: mad_codes.csv:1
+msgid "Bus occupant injured in transport accident"
+msgstr "Occupant d'un autobus blessé dans un accident de transport"
+
+#: mad_codes.csv:1
+msgid "Other land transport accidents"
+msgstr "Autres accidents de transport terrestre"
+
+#: mad_codes.csv:1
+msgid "Water transport accidents"
+msgstr "Accidents de transport de l'eau"
+
+#: mad_codes.csv:1
+msgid "Air and space transport accidents"
+msgstr "Accidents de transport aérien et de l'espace"
+
+#: mad_codes.csv:1
+msgid "Other and unspecified transport accidents"
+msgstr "Autres et sans précision accidents de transport"
+
+#: mad_codes.csv:1
+msgid "Falls"
+msgstr "Chutes"
+
+#: mad_codes.csv:1
+msgid "Exposure to inanimate mechanical forces"
+msgstr "L'exposition à des forces mécaniques inanimées"
+
+#: mad_codes.csv:1
+msgid "Exposure to animate mechanical forces"
+msgstr "L'exposition à des forces animées"
+
+#: mad_codes.csv:1
+msgid "Accidental drowning and submersion"
+msgstr "Noyade et submersion accidentelles"
+
+#: mad_codes.csv:1
+msgid "Other accidental threats to breathing"
+msgstr "Autres menaces accidentelles à la respiration"
+
+#: mad_codes.csv:1
+msgid ""
+"Exposure to electric current,radiation and extreme ambient air temperature "
+"and pressure"
+msgstr ""
+"L'exposition au courant électrique, le rayonnement et la température de "
+"l'air extrême ambiante et pression"
+
+#: mad_codes.csv:1
+msgid "Exposure to smoke,fire and flames"
+msgstr "L'exposition à la fumée, le feu et les flammes"
+
+#: mad_codes.csv:1
+msgid "Contact with heat and hot substances"
+msgstr "Contact avec des substances à la chaleur et à chaud"
+
+#: mad_codes.csv:1
+msgid "Contact with venomous animals and plants"
+msgstr "Le contact avec des animaux venimeux et des plantes"
+
+#: mad_codes.csv:1
+msgid "Exposure to forces of nature"
+msgstr "L'exposition aux forces de la nature"
+
+#: mad_codes.csv:1
+msgid "Accidental poisoning by and exposure to noxious substances"
+msgstr "Intoxication accidentelle par l'exposition à des substances nocives"
+
+#: mad_codes.csv:1
+msgid "Overexertion,travel and privation"
+msgstr "Surmenage, Voyage et privations"
+
+#: mad_codes.csv:1
+msgid "Accidental exposure to other and unspecified factors"
+msgstr "Une exposition accidentelle à d'autres facteurs et non précisés"
+
+#: mad_codes.csv:1
+msgid "Intentional self-harm"
+msgstr "Lésion auto-infligée"
+
+#: mad_codes.csv:1
+msgid "Assault"
+msgstr "Agression"
+
+#: mad_codes.csv:1
+msgid "Event of undetermined intent"
+msgstr "Événement d'intention indéterminée"
+
+#: mad_codes.csv:1
+msgid "Legal intervention and operations of war"
+msgstr "intervention juridique et des opérations de guerre"
+
+#: mad_codes.csv:1
+msgid ""
+"Drugs,medicaments and biological substances causing adverse effects in "
+"therapeutic use"
+msgstr ""
+"Médicaments et substances biologiques ayant provoqué des effets indésirables "
+"en usage thérapeutique"
+
+#: mad_codes.csv:1
+msgid "Misadventures to patients during surgical and medical care"
+msgstr "Mésaventures aux patients pendant les soins chirurgicaux et médicaux"
+
+#: mad_codes.csv:1
+msgid ""
+"Medical devices associated with adverse incidents in diagnostic and "
+"therapeutic use"
+msgstr ""
+"Dispositifs médicaux associés à des accidents à usage diagnostique et "
+"thérapeutique"
+
+#: mad_codes.csv:1
+msgid ""
+"Surgical and other medical procedures as the cause of abnormal reaction of "
+"the patient, or of later complication, without mention of misadventure at "
+"the time of the procedure"
+msgstr ""
+"Procédures médicales chirurgicales et d'autres comme la cause de réactions "
+"anormales du patient ou de complications ultérieures, sans mention "
+"d'accident au moment de la procédure"
+
+#: mad_codes.csv:1
+msgid "Sequelae of external causes of morbidity and mortality"
+msgstr "Séquelles de causes externes de morbidité et de mortalité"
+
+#: mad_codes.csv:1
+msgid ""
+"Supplementary factors related to causes of morbidity and mortality "
+"classified elsewhere"
+msgstr ""
+"Facteurs supplémentaires se rapportant aux causes de morbidité et de "
+"mortalité classées ailleurs"
+
+#: mad_codes.csv:1
+msgid "Persons encountering health services for examination and investigation"
+msgstr "Les personnes aux services de santé pour examen et enquête"
+
+#: mad_codes.csv:1
+msgid "Persons with potential health hazards related to communicable diseases"
+msgstr ""
+"Les personnes présentant des risques potentiels pour la santé liés aux "
+"maladies transmissibles"
+
+#: mad_codes.csv:1
+msgid ""
+"Persons encountering health services in circumstances related to reproduction"
+msgstr ""
+"Les personnes aux services de santé dans des circonstances liées à la "
+"reproduction"
+
+#: mad_codes.csv:1
+msgid ""
+"Persons encountering health services for specific procedures and health care"
+msgstr ""
+"Les personnes aux services de santé pour les procédures spécifiques et des "
+"soins de santé"
+
+#: mad_codes.csv:1
+msgid ""
+"Persons with potential health hazards related to socioeconomic and "
+"psychosocial circumstances"
+msgstr ""
+"Les personnes présentant des risques potentiels pour la santé liés aux "
+"conditions socio-économiques et psychosociaux"
+
+#: mad_codes.csv:1
+msgid "Persons encountering health services in other circumstances"
+msgstr "Les personnes aux services de santé dans d'autres circonstances"
+
+#: mad_codes.csv:1
+msgid ""
+"Persons with potential health hazards related to family and personal history "
+"and certain conditions influencing health status"
+msgstr ""
+"Les personnes présentant des risques potentiels pour la santé liés à la "
+"famille et de l'histoire personnelle et certaines conditions influant sur "
+"l'état de santé"
+
+#: mad_codes.csv:1
+msgid "Provisional assignment of new diseases of uncertain etiology"
+msgstr "Affectation provisoire de nouvelles maladies d'étiologie incertaine"
+
+#: mad_codes.csv:1
+msgid "Bacterial agents resistant to antibiotics"
+msgstr "Des agents bactériens résistants aux antibiotiques"
+
+#: mad_codes.csv:1
+msgid "Other (Not categorised)"
+msgstr "Autre (Non classé)"
+
+#: mad_codes.csv:1
+msgid "International Classification of Disease (ICD-10)"
+msgstr "Classification internationale des maladies (CIM-10)"
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A disease characterized by acute painless watery diarrhea with or without "
+"vomiting or dehydration.\n"
+"\n"
+"Probable case\n"
+"Anyone of 5 years or more with severe dehydration or death from acute "
+"diarrhea (3 or more abnormally loose or watery stools in the last 24 hours). "
+"Any person 2 years or older with acute diarrhea (3 or more abnormally loose "
+"or watery stools in the last 24 hours) with or without dehydration in an "
+"area where there is a cholera epidemic.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness and fills the laboratory test."
+msgstr ""
+"Cas suspect\n"
+"Une maladie qui se caractérise par une diarrhée aqueuse indolore aiguë avec "
+"ou sans vomissements ou déshydratation. \n"
+"\n"
+"Cas probable \n"
+"Toute personne de 5 ans ou plus souffrant de déshydratation grave ou de "
+"décès causés par la diarrhée aiguë (3 ou plus anormalement selles molles ou "
+"liquides dans les dernières 24 heures). Toute personne de 2 ans ou plus "
+"souffrant de diarrhée aiguë (3 ou plus anormalement, selles molles ou "
+"liquides dans les dernières 24 heures), avec ou sans déshydratation dans une "
+"zone où il y a une épidémie de choléra.\n"
+"\n"
+"Cas confirmé \n"
+"Une maladie cliniquement compatible  et remplit le critère de laboratoire. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A disease characterized by the insidious onset of persistent fever, "
+"headache, malaise, cough, bradycardia, splenomegaly or pink stain on the "
+"trunk with or without gastrointestinal symptoms.\n"
+"  \n"
+"Probable case\n"
+"A clinically compatible case BE\n"
+"• Following Salmonella Typhi title Widal O antibody test of 200 or more, or\n"
+"• Epidemiological link to a Confirmed case\n"
+"\n"
+"Confirmed case\n"
+"A clinical compatible case with Laboratory confirmation."
+msgstr ""
+"Cas suspect\n"
+"Une maladie caractérisée par l'apparition insidieuse de fièvre persistante, "
+"des maux de tête, malaise, toux, une bradycardie, une splénomégalie ou tâche "
+"rose sur  le tronc avec ou sans symptômes gastro-intestinaux.\n"
+"  \n"
+"Cas probable  \n"
+"Un cas clinique compatible soit  \n"
+"•A la suite de test de Widal de titre de Salmonella Typhi O anticorps de 200 "
+"ou plus, ou  \n"
+"•Lien épidémiologique avec un cas confirmé\n"
+"\n"
+"Cas confirmé\n"
+"Un cas clinique compatible avec la confirmation en laboratoire. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A disease characterized by the insidious onset of persistent fever, "
+"headache, malaise, cough, bradycardia, splenomegaly or pink stain on the "
+"trunk with or without gastrointestinal symptoms.\n"
+"  \n"
+"Probable case\n"
+"A clinically compatible case BE\n"
+"• Following Salmonella Typhi title Widal O antibody test of 200 or more, or\n"
+"• Epidemiological link to a Confirmed case\n"
+"\n"
+"Confirmed case\n"
+"A clinical compatible case with Laboratory confirmation.\n"
+msgstr ""
+"Cas suspect\n"
+"Toute personne souffrant de diarrhée (apparue depuis moins de 15 jours) avec "
+"présence de sang visible dans les selles, associée ou non à des glaires ou "
+"des douleurs abdominales, avec ou sans signes de déshydratation. \n"
+"\n"
+"Cas probable \n"
+"Un cas clinique compatible sans confirmation en laboratoire, mais un lien "
+"épidémiologique avec un cas confirmé.\n"
+"\n"
+"Cas confirmé \n"
+"Un cas clinique compatible avec la confirmation en laboratoire. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Anyone suffering from diarrhea (appeared for less than 15 days) with visible "
+"blood in the stool, with or without mucus or abdominal pain, with or without "
+"signs of dehydration.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible case without Laboratory confirmation, but "
+"epidemiologically linked to a Confirmed case.\n"
+"\n"
+"Confirmed case\n"
+"A clinical compatible case with Laboratory confirmation.\n"
+msgstr ""
+"Cas suspect \n"
+"Survenue de symptômes cliniques variés au décours d’un repas, touchant au "
+"moins 02  personnes ayant partagé le même repas.\n"
+"\n"
+"Epidémie probable \n"
+"Une maladie cliniquement et épidémiologiquement compatible sans confirmation "
+"en laboratoire.\n"
+"\n"
+"Cas confirmé \n"
+"Une maladie cliniquement et épidémiologiquement compatible avec SOIT \n"
+"•Critères de laboratoire de l'agent causal; OU \n"
+"•lien épidémiologique à un autre foyer confirmé"
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Anyone coughing for at least 3 weeks.\n"
+"\n"
+"Confirmed case\n"
+"Direct examination of sputum or GeneXpert cases confirmed by radiography, "
+"culture for extrapulmonary."
+msgstr ""
+"Cas suspect \n"
+"Toute personne toussant depuis au moins 3 semaines.\n"
+"\n"
+"Cas confirmé \n"
+"Examen direct de cachat ou par GeneXpert Cas confirmé par la radiographie, "
+"la culture pour les extrapulmonaires."
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Anyone with a high fever of sudden onset, with chills, headache, malaise "
+"importantly, prostration and very painful swelling of lymph nodes, or cough "
+"with blood-stained sputum, chest pain, and difficulty breathing.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible illness with the results of TDR positive.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness with laboratory results to confirm."
+msgstr ""
+"Cas suspect\n"
+"Toute personne présentant une forte fièvre d’apparition brutale, accompagnée "
+"de frissons, céphalées, malaise important, prostration et gonflement très "
+"douloureux des ganglions lymphatiques, ou toux avec crachats teintés de "
+"sang, douleurs thoraciques, et difficulté à respirer.\n"
+"\n"
+"Cas probable\n"
+"Une maladie cliniquement compatible avec les résultats de TDR positif.\n"
+"\n"
+"Cas confirmé\n"
+"Une maladie cliniquement compatible avec les résultats de laboratoire pour "
+"confirmation."
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"People with the cardinal signs of leprosy (depigmented patches with or "
+"without sensory disturbances, or nodules or enlarged nerve trunks) and have "
+"not yet taken the treatment with multidrug therapy (MDT).\n"
+"\n"
+"Confirmed case\n"
+"A person with at least two of the cardinal signs.\n"
+"Leprosy Pucibacillaire (PB) if the number of spots is less than 5\n"
+"Leprosy Multibacillary (MB) if the number of spots is greater than 5 or "
+"nodules.de laboratory and confirmed."
+msgstr ""
+"Cas suspect\n"
+"Personne présentantune ou plusieurs taches claires que la peau normale, non "
+"prurigineuses, non squameuses, ou des nodules (souvent sur la figure, les "
+"oreilles….)\n"
+"\n"
+"Nouveau cas probable \n"
+"Personnes présentant les signes cardinaux de la lèpre (taches hypochromiques "
+"avec ou sans troubles de sensibilité, ou nodules ou hypertrophie des troncs "
+"nerveux) et n’ayant pas encore pris le traitement par la polychimiothérapie "
+"(PCT).\n"
+"\n"
+"Cas confirmé \n"
+"Une personne avec au moins deux des signes cardinaux.\n"
+"Lèpre Pucibacillaire (PB) si le nombre de taches est inférieur à 5 \n"
+"Lèpre Multibacillaire (MB) si le nombre de taches est supérieur à 5 ou "
+"nodules.de laboratoire et confirmée. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Every newborn normally able to suck or cry over the first two days after "
+"birth and between 3 to 28 days loses this ability and / or suffers from "
+"convulsions.\n"
+"\n"
+"Probable case\n"
+"A person with at least one of the following: the inability to open the mouth "
+"or prolonged spasm of the facial muscles; OR painful muscle contractions.\n"
+"Tetanus requires an injury or a wound, but patients may be unable to recall "
+"a specific event."
+msgstr ""
+"Cas suspect \n"
+"Tout nouveau-né normalement capable de téter ou crier au cours des deux "
+"premiers jours suivant la naissance et qui, entre 3 à 28 jours, perd cette "
+"capacité et/ou est atteint de convulsions. \n"
+"\n"
+"Cas probable \n"
+"Une personne ayant au moins un des signes suivants: l'impossibilité d'ouvrir "
+"la bouche ou le spasme prolongée des muscles faciaux; OU contractions "
+"musculaires douloureuses. \n"
+"Tétanos exige une blessure ou une plaie, mais les patients peuvent être "
+"incapables de se rappeler un événement spécifique. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Acute flaccid paralysis (AFP) is a syndrome characterized by paralysis "
+"(weakness, decrease or loss of movement) which is flange (loss of muscle "
+"tone, soft or flaccid member, not spasmadique) and acute (sudden onset). "
+"Paralysis of one or more members suddenly occurring in children of senior "
+"age 15 or case diagnosed as such by the clinician.\n"
+"\n"
+"Probable case\n"
+"Any child <15 years of age with acute flaccid paralysis, including Guillain-"
+"Barré syndrome or any paralytic illness in a person of any age or a person "
+"of any age in whom the clinician suspects polio."
+msgstr ""
+"Cas suspect\n"
+"La paralysie flasque aiguë (PFA) est un syndrome caracterisé par une "
+"paralysie (faiblesse, diminution ou perte de mouvement) qui est flasque "
+"(perte du tonus musculaire, membre mou ou flaccide, non spasmadique) et "
+"aiguë (debut soudain). Paralysie d’un ou de plusieurs membres survenant "
+"subitement chez un enfant de agee de moins de 15 ans ou tout cas "
+"diagnostiqué comme tel par le clinicien.\n"
+"\n"
+"Cas probable \n"
+"Tout enfant <15 ans atteints de paralysie flasque aiguë, y compris le "
+"syndrome de Guillain-Barré ou de toute maladie paralytique chez une personne "
+"de tout âge ou une personne de tout âge chez qui le médecin soupçonne une "
+"poliomyélite. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Anyone who has been bitten or licked by an animal to wild or domestic hot "
+"blood, with respiratory gene with hydrophobic or Aerophobia spasm or "
+"paralysis.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible illness, plus the history of contact with a "
+"suspected rabid animal or epidemiologically linked to a Confirmed case.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness that is laboratory confirmed."
+msgstr ""
+"Cas suspect\n"
+"Toute personne ayant été mordue ou léchée par un animal à sang chaud "
+"domestique ou sauvage, présentant un gène respiratoire avec spasme "
+"hydrophobique ou aérophobie ou paralysie.\n"
+"\n"
+"Cas probable\n"
+"Une maladie cliniquement compatible, plus l'histoire de contact avec un "
+"animal suspect de rage ou épidémiologiquement liés à un cas confirmé.\n"
+"\n"
+"Cas confirmé\n"
+"Une maladie cliniquement compatible qui est confirmé en laboratoire."
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"An acute illness characterized by sudden onset of fever (> 38.0 ° C axillary "
+"or> 38.5 ° C rectal) and one of the following signs: neck stiffness; altered "
+"consciousness or other meningeal signs. In children <1 year, meningitis is "
+"suspected when fever is accompanied by a bulging fontanelle.\n"
+" \n"
+"Probable case\n"
+"A clinically compatible illness with Gram negative diplococci identified in "
+"sterile liquids such as CSF.\n"
+"\n"
+"Confirmed case\n"
+"A compatible clinical laboratory Confirmed case"
+msgstr ""
+"Cas suspect\n"
+"Une maladie aiguë, caractérisée par l'apparition brutale de fièvre (>38,0 ° "
+"C axillaire ou> 38,5 degrés Celsius rectaux) et l'un des signes suivants: "
+"raideur de la nuque; altération de la conscience, ou d'autres signes "
+"méningés. Chez les enfants de <1 an, la méningite est suspectée lorsque la "
+"fièvre est accompagnée par un bombement de la fontanelle.\n"
+" \n"
+"Cas probable \n"
+"Une maladie cliniquement compatible avec diplocoques Gram négatif identifié "
+"dans des liquides stériles comme CSF. \n"
+"\n"
+"Cas confirmé \n"
+"Un cas clinique compatible confirmé en laboratoire "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Fever and at least 2 of the following signs: headache, myalgia, arthralgia, "
+"rash, retro orbital pain, hemorrhagic manifestations.\n"
+msgstr ""
+"Cas suspect\n"
+"Fièvre et au moins 2 des signes suivants: céphalées, myalgie, arthralgie, "
+"éruption cutanée, douleurs retro orbitaire, manifestations hémorragiques."
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Viral haemorrhagic fever (VHF) refers to a systemic mild group to "
+"potentially fatal viral infection often complicated by bleeding disorders. "
+"Early symptoms include marked fever, malaise, dizziness, myalgia, loss of "
+"strength, and exhaustion. Severe cases may show signs of bleeding under the "
+"skin, in internal organs, or from body orifices like the mouth, eyes or "
+"ears. Some cases may even show shock, nervous system dysfunction, coma, "
+"delirium, and convulsions.\n"
+"\n"
+"Probable case\n"
+"A clinical case compatible with any of the epidemiological evidence that:\n"
+"• Travel History in an endemic / epidemic region in the incubation period of "
+"disease onset, or\n"
+"• Making contact with a Confirmed case, or\n"
+"• Exposure to viral haemorrhagic fever infected blood or tissues\n"
+"\n"
+"Confirmed case\n"
+"A laboratory Confirmed case. "
+msgstr ""
+"Cas suspect\n"
+"La fièvre hémorragique virale (FHV) fait référence à un groupe de doux "
+"systémique à l'infection virale potentiellement mortelle souvent compliquée "
+"par les syndromes hémorragiques. Les premiers symptômes comprennent la "
+"fièvre marquée, malaise, des étourdissements, des myalgies, perte de force, "
+"et l'épuisement. Les cas graves peuvent montrer des signes de saignements "
+"sous la peau, dans les organes internes, ou d'orifices du corps comme la "
+"bouche, les yeux ou les oreilles. Certains cas peuvent même montrer un choc, "
+"un dysfonctionnement du système nerveux, coma, délire, et des convulsions.\n"
+"\n"
+"Cas probable\n"
+"Un cas clinique compatible avec l'un quelconque des éléments de preuve "
+"épidémiologique qui suit:\n"
+"• Histoire du Voyage dans une région endémique / épidémique dans le délai "
+"d'incubation de début de la maladie, ou\n"
+"• Le contact avec un cas confirmé, ou\n"
+"• L'exposition à la fièvre hémorragique virale du sang infecté ou des "
+"tissus\n"
+"\n"
+"Cas confirmé\n"
+"Un cas confirmé en laboratoire. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A disease characterized by all of the following:\n"
+"• generalized rash lasting 3 days\n"
+"• temperature and a ≥38.3oC\n"
+"• cough, coryza or conjunctivitis\n"
+"\n"
+"Probable case\n"
+"Anyone presenting a rash maculopapular generalized with fever and one of the "
+"following: cough or coryza (runny nose) or conjunctivitis (red eyes); or any "
+"person in whom the clinician suspects measles. A measles deaths is deaths "
+"occurring within 30 days of onset of the rash.\n"
+"\n"
+"Confirmed case\n"
+"• A laboratory-Confirmed case. A laboratory-Confirmed case does not need to "
+"meet the clinical case definition; OR\n"
+"• A clinically compatible case that is epidemiologically linked to a "
+"confirmed case"
+msgstr ""
+"Cas suspect\n"
+"Une maladie caractérisée par tout ce qui suit: \n"
+"•une éruption cutanée généralisée durant plus de 3 jours \n"
+"•une température ≥38.3oC et \n"
+"•toux, rhinite ou conjonctivite \n"
+"\n"
+"Cas probable\n"
+"Toute personne presentant une eruption cutanee maculo-papuleuse generalisee "
+"avec de la fievre et un des signes suivants: toux ou coryza (nez qui coule) "
+"ou une conjonctivite (yeux rouges); ou toute personne chez qui le clinicien "
+"suspecte la rougeole. Un décès par rougeole est un décès survenant dans les "
+"30 jours suivant l'apparition de l'éruption cutanée.\n"
+"\n"
+"Cas confirmé\n"
+"• Un cas confirmé en laboratoire. Un cas confirmé en laboratoire n'a pas "
+"besoin de répondre à la définition du cas clinique; OU\n"
+"• Un cas clinique compatible qui est un lien épidémiologique avec un cas "
+"confirmé "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Viral hepatitis is characterized by features of an acute infectious "
+"hepatitis including fever, malaise, anorexia, nausea, abdominal discomfort, "
+"dark urine, and jaundice. \n"
+" \n"
+"Probable case\n"
+"Any person with acute onset of jaundice (yellowing of whites of eyes or skin "
+"or dark/brown urine) AND severe illness with or without fever AND the "
+"absence of any known precipitating factors. Acute hepatitis often presents "
+"as acute jaundice syndrome.\n"
+"\n"
+"Confirmed case \n"
+"A clinically compatible illness with laboratory confirmation"
+msgstr ""
+"Cas suspect \n"
+"Une maladie virale transmise par les moustiques caractérisée par "
+"l'apparition soudaine des symptômes constitutionnels suivis par une brève "
+"rémission et la récurrence de la fièvre, de l'hépatite, d’albuminurie, et "
+"dans certains cas, d'insuffisance rénale, de choc, et d’hémorragies "
+"généralisées. \n"
+"\n"
+"Cas probable \n"
+"Une maladie cliniquement compatible avec la sérologie de soutien. (Stable "
+"élevée titre d'anticorps au virus de la fièvre jaune, ou un résultat IgM "
+"positif. Réactions sérologiques Croisées à d'autres flavivirus doit être "
+"exclue, et il doit y avoir aucun antécédent de vaccination contre la fièvre "
+"jaune.) \n"
+"\n"
+"Cas confirmé \n"
+"Une maladie cliniquement compatible confirmée en laboratoire. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Fever without signs of other diseases. Other common symptoms include "
+"headache, back pain, chills, sweat, myalgia, nausea, vomiting.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness with a rapid diagnostic test for malaria or "
+"laboratory confirmation by smear positive blood\n"
+msgstr ""
+"Cas suspect \n"
+"Fièvre sans signe d’autres maladies . D'autres symptômes communs incluent "
+"des maux de tête, maux de dos, des frissons, de la sueur, des myalgies, "
+"nausées, vomissements. \n"
+"\n"
+"Cas confirmé \n"
+"Une maladie cliniquement compatible avec un test de diagnostic rapide du "
+"paludisme ou\n"
+" la confirmation du laboratoire par frottis de sang positif  \n"
+" \n"
+"Facteurs de risque \n"
+"L'exposition à des zones où le moustique vecteur est présent, les sources "
+"d'eau stagnante, Mouvement vers / depuis zones d'endémie palustre, enfants, "
+"femme enceinte, personnes immunodéprimées, la malnutrition, autres "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A person with an acute respiratory infection with:\n"
+"• measured fever> = 38 ° C; and\n"
+"•Cough; with\n"
+"• Appearance in the last 10 days.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible illness in the context epidemiologist.\n"
+"\n"
+"Confirmed case\n"
+"A compatible clinical laboratory Confirmed case"
+msgstr ""
+"Cas suspect\n"
+"Une personne avec une infection respiratoire aiguë avec: \n"
+"•fièvre mesurée> = 38 ° C; et \n"
+"•La toux; avec \n"
+"•Apparition dans les 10 derniers jours. \n"
+"\n"
+"Cas probable \n"
+"Une maladie cliniquement compatible dans la context epidemiologue. \n"
+"\n"
+"Cas confirmé \n"
+"Un cas clinique compatible confirmé en laboratoire "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A person ingests food or other agents that cause an infectious order reached "
+"or toxic mainly the gastrointestinal tract but may be of interest to other "
+"systems (eg, neurological, immunological). Some Probable cases have typical "
+"clinical symptoms of the disease without Laboratory confirmation. By against "
+"some suspected cases are under clinical or atypical symptoms.\n"
+"\n"
+"Differential diagnosis: acute watery diarrhea (suspected cholera), bloody "
+"diarrhea (suspected shigellosis), acute jaundice syndrome (suspected "
+"hepatitis)\n"
+"\n"
+"Probable case\n"
+"Occurrence of clinical symptoms varied with the waning of the consumption of "
+"a marine animal, usually affecting at least 2 people who consumed this "
+"animal.\n"
+msgstr ""
+"Cas suspect\n"
+"Une personne qui ingère des aliments ou d'autres agents qui provoque une "
+"atteinte d’ordre infectieuse ou toxique principalement du tractus gastro-"
+"intestinal, mais peut intéresser d'autres systèmes (par exemple, "
+"neurologiques, immunologiques). Certains cas probables ont des symptômes "
+"cliniques typiques de la maladie même sans confirmation de laboratoire. Par "
+"contre certains cas suspects ont moins de symptômes cliniques ou "
+"atypiques. \n"
+"\n"
+"Diagnostic différentiel : la diarrhée aqueuse aiguë (soupçonné de choléra), "
+"une diarrhée sanglante (suspecté de shigellose), le syndrome de jaunisse "
+"aiguë (soupçonné d’hépatite) \n"
+"\n"
+"Cas probable \n"
+"Survenue de symptômes cliniques variés au décours de la consommation d’un "
+"animal marin, touchant habituellement au moins 2 personnes ayant consommé "
+"cet animal.\n"
+"\n"
+"Cas confirmé \n"
+"Une maladie cliniquement et épidémiologiquement compatible avec SOIT \n"
+"• Critères de laboratoire de l'agent causal; OU \n"
+"• Lien épidémiologique à un autre foyer confirmé"
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Any man with an ulcer of the penis, scrotum or rectum, with or without "
+"lymphadenopathy or inguinal and genital discharge, or any woman with an "
+"ulcer lips, vagina or rectum, with or without inguinal lymphadenopathy.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible illness\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness that is laboratory confirmed.\n"
+msgstr ""
+"Cas suspect\n"
+"Tout homme présentant un ulcère de la verge, du scrotum ou du rectum, avec "
+"ou sans adénopathie et ou écoulement génital inguinal, ou toute femme "
+"présentant un ulcère des lèvres, du vagin ou du rectum, avec ou sans "
+"adénopathie inguinale.\n"
+"\n"
+"Cas probable\n"
+"Une maladie cliniquement compatible\n"
+"\n"
+"Cas confirmé \n"
+"Une maladie cliniquement compatible qui est confirmé en laboratoire..   "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Death of a woman while pregnancy or within 42 days of his term, whatever the "
+"duration or location, from any cause related to or aggravated by pregnancy "
+"or its management but not from accidental or incidental causes."
+msgstr ""
+"Cas suspect\n"
+"Décès d’une femme survenu au cours de la grossesse ou dans un délai de 42 "
+"jours après son terme, quelle qu’en soit\n"
+"la durée ou la localisation, pour une cause quelconque déterminée ou "
+"aggravée par la grossesse ou sa prise en charge, mais ni accidentelle, ni "
+"fortuite.\n"
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Death of a newborn from 0 to 28 days."
+msgstr ""
+"Cas suspect\n"
+"Décès d’un nouveau-né de 0 à 28 jours.\n"
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Children aged under 5 years with weight for height (P / T) between -2 and -3 "
+"Z-scores below the median or MUAC (PB) from 115 to 125mm."
+msgstr ""
+"Cas suspect\n"
+"Enfant âgé de moins de 5 ans ayant un poids pour taille (P/T) entre -2 et -3 "
+"Z scores au-dessous de la médiane, ou un périmètre brachial (PB) de 115 à "
+"125mm. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Children aged under 5 years with weight on size below the -3 Z-score line "
+"scores or presence of edema of both feet or arm circumference (PB) is less "
+"than 115 mm."
+msgstr ""
+"Cas suspect\n"
+"Enfant âgé de moins de 5 ans ayant un poids sur taille au-dessous de la "
+"courbe de valeur du -3 Z scores ou présence d’œdème au niveau des deux pieds "
+"ou périmètre brachial (PB) est inférieur à 115 mm.\n"
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Cough and colds with increased respiratory rate and fever.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness and fulfils the laboratory test."
+msgstr ""
+"Cas suspect\n"
+"Toux avec rhume et augmentation de la fréquence respiratoire et fièvre.\n"
+"\n"
+"Cas confirmé \n"
+"Une maladie cliniquement compatible  et remplit le critère de laboratoire. "
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Person with clinical signs of hydrocele or lymphedema, and lives in an area\n"
+"endemic, after exclusion of other causes.\n"
+"\n"
+"Confirmed case\n"
+"Person with a diagnosis of positive laboratory: microfilaria in blood smear, "
+"wired antigens or positive ultrasound."
+msgstr ""
+"Cas suspect \n"
+"Personne présentant des signes cliniques d’hydrocèle ou de lymphoedème, et "
+"résidant dans une zone\n"
+"d’endémie, après exclusion de toute autre cause.\n"
+"\n"
+"Cas confirmé \n"
+"Personne avec un diagnostic de laboratoire positif : microfilarémie sur un "
+"frottis sanguin, antigènes filaires ou échographie positive."
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Any case of scratch, bite or lick on any part of the body inflicted by a "
+"warm-blooded animal (dog, cat, monkey, ...)."
+msgstr ""
+"Cas suspect\n"
+"Tout cas de griffure, morsure, voire léchage, sur une quelconque partie du "
+"corps infligé par un animal à sang chaud (chien, chat, singes, …).\n"
+
+#: mad_codes.csv:1
+msgid ""
+"The description\n"
+"A case or group of cases that could indicate the emergence of a serious "
+"public health event or epidemic, including:\n"
+"• A case of unusual disease\n"
+"• A sudden increase in the number of cases of a disease or condition.\n"
+"• A cluster of cases\n"
+"• A change in the presentation of a known disease"
+msgstr ""
+"La Description\n"
+"Il s’agit d’un cas ou d’un groupe de cas qui pourrait indiquer l'émergence "
+"d'un événement grave de santé publique ou d'une épidémie, y compris:\n"
+"• Un cas de maladie inhabituel \n"
+"• Une augmentation soudaine du nombre de cas d’une maladie ou affection.\n"
+" Un cluster de cas)\n"
+"• Un changement dans la présentation d'une maladie connue\n"
+"\n"
+"L’événement devrait « Trigger »déclencher ou motiver une réaction ou "
+"réponse.\n"
+"\n"
+"Facteurs de risque \n"
+"Histoire d’un voyage dans les zones où il y a circulation d'un nouvel agent "
+"pathogène pouvant avoir un impact grave de santé publique (par exemple "
+"grippe aviaire, choléra, …), une maladie chez un travailleur de la santé qui "
+"prend soin des patients atteints de maladies respiratoires, une maladie chez "
+"une personne travaillant dans un abattoir, agriculteur ou une personne en "
+"contact étroit avec des animaux d’élevage (par exemple des poulets), Le "
+"patient étant admis en soins intensifs, histoire de la maladie dans la "
+"famille ou chez un contact étroit.\n"
+"\n"
+"Signes / symptôme (s) \n"
+"Présentation clinique inhabituelle ; Changement dans la réponse au "
+"traitement\n"
+"\n"
+"Questions supplémentaires\n"
+"• Date d'apparition des symptomes\n"
+"• Vérifiez si l'une des conditions ci-dessus est notée sur ce patient"
+
+#: mad_codes.csv:1
+msgid ""
+"Contaminated water sources, Contaminated food sources, Cholera outbreak, Low "
+"environmental sanitation, Other, None of the above"
+msgstr ""
+"Sources d'eau contaminés, Sources de la nourriture contaminée, L'épidémie de "
+"choléra, Une faible assainissement de l'environnement, Autre, Aucune de ces "
+"réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Work in or travel to areas where typhoid fever is endemic, Close contact "
+"with someone who is infected or has recently been infected with typhoid "
+"fever, Drink water contaminated by sewage that contains S. typhi, Other, "
+"None of the above"
+msgstr ""
+"Travail ou Voyage dans les zones où la fièvre typhoïde est endémique, En "
+"contact étroit avec une personne infectée ou a récemment été infectés par la "
+"fièvre typhoïde, Boire de l'eau contaminée par les eaux usées qui "
+"contiennent S. typhi  , Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Contaminated water, Contaminated food, Malnourished, Age (under 5, older "
+"adults), Children who have had measles in the past 6 weeks, Shigellosis "
+"outbreak, Other, None of the above"
+msgstr ""
+"L'eau contaminée, Des aliments contaminés, Souffrent de malnutrition, l'âge "
+"(enfants de moins de 5, les personnes âgées), Les enfants qui ont eu la "
+"rougeole au cours des 6 semaines, Flambée de shigellose, Autre, Aucune de "
+"ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Consumption of contaminated food, Consumption of contaminated water, Other, "
+"None of the above"
+msgstr ""
+"La consommation d'aliments contaminés, La consommation d'eau contaminée, "
+"Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Promiscuity, Exposure to known case of TB, HIV positive, Lack of hygiene, "
+"Malnutrition, Other, None of the above"
+msgstr ""
+"La promiscuité, l'exposition à une personne atteinte de tuberculose connue, "
+"Le VIH-positif, Le manque d’hygiène, La malnutrition, Autre, Aucune de ces "
+"réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Location (endemic rural areas and in urban areas characterized by "
+"overcrowding, Poor hygiene and a high rat population, Occupation "
+"(veterinarians), Other, None of the above"
+msgstr ""
+"Séjour enones rurales endémiques et dans les zones urbaines caractérisées "
+"par le surpeuplement, Le manque d'hygiène et une forte population de rat, "
+"Profession (vétérinaires, forestiers, …), Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Close contact with someone with leprosy, Displacement, Overcrowded "
+"conditions, Other, None of the above"
+msgstr ""
+"Un contact étroit avec un cas de lèpre bacillifère, Déplacement, Conditions "
+"de surpeuplement, Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Injury or wound, Cutting the umbilical cord in a non-sterile manner "
+"(pregnant women during childbirth), Other, None of the above"
+msgstr ""
+"Blessure ou plaie, Coupe de cordon ombilical non stérile potentielle (les "
+"femmes enceintes lors de l'accouchement) , Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Age (children under 5), Source of contaminated water, Another case of AFP "
+"reported in the same area, Other, None of the above"
+msgstr ""
+"L'âge (enfants de moins de 5), Sources d'eau contaminées, Un autre cas de "
+"PFA signalés dans la même zone , Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Exposure to rabies-carrying vectors (e.g. bats, etc.), Other, None of the "
+"above"
+msgstr ""
+"Exposition au vecteur de la rage portant (par exemple les chauves-souris, "
+"etc.), Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Close and prolonged contact with individual suspected of having meningitis, "
+"High rates of acute respiratory infection (ARI), Overcrowding conditions, "
+"Other, None of the above"
+msgstr ""
+"Contact étroit et prolongé avec individu suspecté d'avoir la méningite, Des "
+"taux élevés d'infections respiratoires aiguës (IRA), la surpopulation, "
+"Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"People living or traveling in tropical regions, A prior infection with "
+"dengue virus, Other, None of the above"
+msgstr ""
+"Personnes qui vivent ou voyagent dans les régions tropicales, Une infection "
+"antérieure par un virus de la dengue, Autre, Aucune de ces réponse"
+
+#: mad_codes.csv:1
+msgid ""
+"Reside in or move to an endemic area, Exposure to vectors (ticks, rodents, "
+"livestock, mosquitoes, camels, horses etc.), Other, None of the above"
+msgstr ""
+"Résider ou se déplacer vers une zone d'endémie, L'exposition aux vecteurs "
+"(tiques, rongeurs, bétail, les moustiques, les chameaux, chevaux, etc.) , "
+"Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+#, python-format
+msgid ""
+"Age (children between 9 months and 5 years), Overcrowding conditions, "
+"Measles immunization coverage rate known to be <80% in area of origin/"
+"residence, Malnutrition, Other, None of the above"
+msgstr ""
+"Âge (enfants âgés de 9 mois à 5 ans), Les conditions de surpeuplement, Le "
+"taux de couverture vaccinale connus pour être <80% dans la région "
+"d'origine / de résidence, La malnutrition, Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Endemic Hepatitis A, Contaminated water sources, Contaminated food sources, "
+"Presence of other known cases, Other, None of the above"
+msgstr ""
+"Endémique de l'hépatite A, Sources d'eau contaminées, Sources alimentaires "
+"contaminées, Présence d'autres cas connus, Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Exposure to areas where mosquito vector is present, Stagnant water sources, "
+"Movement to/from malaria endemic areas, Children, Pregnant woman, Immune "
+"compromised individuals, Malnutrition, Other, None of the above"
+msgstr ""
+"L'exposition à des zones où le moustique vecteur est présent, Les sources "
+"d'eau stagnante, Mouvement de / vers les zones d'endémie palustre, Enfants, "
+"Femme enceinte, Les personnes immunodéprimées, La malnutrition, Autre, "
+"Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Person living with HIV, Person with active TB, Person with other chronic "
+"illness, Influenza outbreak/seasonal influenza, Other, None of the above"
+msgstr ""
+"Personne vivant avec le VIH, Personne atteinte de tuberculose active, "
+"Personne atteint par d’autre maladie chronique, Epidémie de grippe / la "
+"grippe saisonnière, Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid "Unprotected vaginal and/or anal intercourse, Other, None of the above"
+msgstr ""
+"La pénétration vaginale et / ou anale non protégée, Autre, Aucune de ces "
+"réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Inadequate food availability at household level, Children's diseases, Other, "
+"None of the above"
+msgstr ""
+"Insuffisance de disponibilité alimentaire au niveau du ménage, Les maladies "
+"de l’enfant, Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Inadequate food availability at household level, Lack of appetite, Small "
+"birth weight, Low educational level of mothers, Other, None of the above"
+msgstr ""
+"Insuffisance de disponibilité alimentaire au niveau du ménage, Manque "
+"d’appétit, Petit poids à la naissance, Mère de niveau éducatif faible, "
+"Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid ""
+"Long exposure to mosquito bites transmitting the parasite in endemic areas."
+msgstr ""
+"Exposition longue à des piqures de moustiques transmettant le parasite dans "
+"les zones d’endémie."
+
+#: mad_codes.csv:1
+msgid ""
+"Travel History in areas where there is circulating a new pathogen that can "
+"have a serious impact on public health (eg avian influenza, cholera , …), "
+"Illness in a health care worker who takes care of patients with respiratory "
+"disease, Illness in a person working in a slaughterhouse, farmer or a person "
+"in close contact with livestock ( eg chickens ), Patient is admitted to ICU, "
+"History of illness in the family or close contact"
+msgstr ""
+"Histoire d’un voyage dans les zones où il y a circulation d'un nouvel agent "
+"pathogène pouvant avoir un impact grave de santé publique (par exemple "
+"grippe aviaire, choléra, …), Une maladie chez un travailleur de la santé qui "
+"prend soin des patients atteints de maladies respiratoires, Une maladie chez "
+"une personne travaillant dans un abattoir, agriculteur ou une personne en "
+"contact étroit avec des animaux d’élevage (par exemple des poulets), Le "
+"patient étant admis en soins intensifs, Histoire de la maladie dans la "
+"famille ou chez un contact étroit"
+
+#: mad_codes.csv:1
+msgid ""
+"Watery diarrhoea (3 or more abnormally loose or fluid stools in the past 24 "
+"hours, Rice stools with or without vommitting, Severe dehydration (including "
+"any of the following loss of skin turgor, malaise, tachypnoea, hypotension), "
+"Fever (more common in children), Other, None of the above"
+msgstr ""
+"Diarrhée aqueuse (3 ou plus de selles anormalement molles ou liquides dans "
+"les dernières 24 heures, les selles \"eau de riz» avec ou sans "
+"vomissements), une déshydratation sévère (avec une perte d'élasticité de la "
+"peau, de malaise, de tachypnée, d’hypotension), la fièvre (plus fréquente "
+"chez les enfants) "
+
+#: mad_codes.csv:1
+msgid ""
+"Fever, Headache, Malaise, Cough, Bradycardia, Splenomegaly, Rose spot on the "
+"trunk, Gastrointestinal symptoms, Other, None of the above"
+msgstr ""
+"Fièvre, maux de tête, malaise, toux, une bradycardie, une splénomégalie, "
+"Tâches roses sur le tronc, les symptômes gastro-intestinaux"
+
+#: mad_codes.csv:1
+msgid ""
+"Malnourished, Bloody diarrhoea (3 or more abnormally loose or fluid stools "
+"in past 24 hours with visible blood), Fever, Abdominal cramps, Rectal pain, "
+"Seizures, Sepsis, Rectal prolapsed, Toxic megacolon, Hemolytic uraemic "
+"syndrome, Other, None of the above"
+msgstr ""
+"Selles sanglantes (3 ou plus de selles anormalement molles ou liquides au "
+"cours des dernières 24 heures avec du sang visible), de la fièvre, des "
+"crampes abdominales, des douleurs rectales, des convulsions, la septicémie, "
+"rectale prolapsus, mégacôlon toxique, syndrome hémolytique et urémique "
+
+#: mad_codes.csv:1
+msgid ""
+"Nausea, Vomiting, Mucoid diarrhoea (fatty stools), Other diarrhoea (non-"
+"watery and non-bloody type), Abdominal pain, Headache, Dizziness, Loss of "
+"consciousness, Coma, Thirst, Dehydration, Dyspnoea, Weakness, Malaise, Sore "
+"throat, Fever, Chills, Gastroenteritis, Blurred vision, Twitching/"
+"convulsions, Tingling/numbness, Dilated pupils, Constricted pupils, "
+"Difficulty swallowing/speaking/breathing, Rash, Itching of skin, Other, None "
+"of the above"
+msgstr ""
+"Nausées, vomissements, diarrhée mucoïde (selles gras), d'autres diarrhées "
+"(type non-aqueux et non-sanglante), des douleurs abdominales, des maux de "
+"tête, des étourdissements, perte de conscience, coma, la soif, la "
+"déshydratation, la dyspnée, faiblesse, malaise, maux de gorge, fièvre, des "
+"frissons, la gastro-entérite, une vision \n"
+"floue, des contractions musculaires / convulsions, des picotements / "
+"engourdissements, les pupilles dilatées, contraction des pupilles, "
+"difficulté à avaler / parler / respiration, éruptions cutanées, des "
+"démangeaisons de la peau "
+
+#: mad_codes.csv:1
+msgid ""
+"Cough of long duration (>2 weeks), Coughing blood , Chest pain, Shortness of "
+"breath, Fever/night sweats, Tiredness, Loss of appetite, Weight loss, Other, "
+"None of the above"
+msgstr ""
+"Toux de longue durée (> 2 semaines),  des douleurs thoraciques, "
+"essoufflement, fièvre / sueurs nocturnes, fatigue, perte d'appétit, perte de "
+"poids."
+
+#: mad_codes.csv:1
+msgid ""
+"High fever, Painful inflammation and suppuration in the lymph nodes in the "
+"area of the bite, Headache, Vomiting, Delirium, Shortness of breath, Cough, "
+"Bloody sputum, Other, None of the above"
+msgstr ""
+"Une forte fièvre, une inflammation douloureuse et la suppuration dans les "
+"ganglions lymphatiques dans la zone de la morsure, maux de tête, des "
+"vomissements, le délire, l'essoufflement, la toux, des expectorations "
+"sanglantes."
+
+#: mad_codes.csv:1
+msgid "Cutaneous lesions, Nodules, Nerve issues, Other, None of the above"
+msgstr "Lésions cutanées, nodules, troubles nerveux."
+
+#: mad_codes.csv:1
+msgid ""
+"Inability to open the mouth ( \"lockjaw\"), spasm sustained facial muscles, "
+"including the jaw, painful muscle contractions, inability to breastfeed "
+"(newborn), stiff body or arc (newborn ), inability to breathe"
+msgstr ""
+"Incapacité à ouvrir la bouche («trismus»), le spasme soutenu des muscles du "
+"visage, y compris la mâchoire, des contractions musculaires douloureuses, "
+"l'incapacité d'allaiter (nouveau-né), le corps raide ou arc (nouveau-né), "
+"incapacité à respirer "
+
+#: mad_codes.csv:1
+msgid ""
+"Asymptomatic, Rapid onset (weeks), Loss of muscle tone (floppy), Muscle "
+"weakness (paralysis), One or more limbs involved, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Spasms in response to tactile, auditory, visual or olfactory stimuli, "
+"paralysis or Guillain-Barré-like syndrome, myoedema on percussion sites, "
+"encephalitis\n"
+msgstr ""
+"Spasmes en réponse à tactile, auditive, visuelle ou stimuli olfactifs, la "
+"paralysie ou le syndrome de Guillain-Barré-like, myoedema sur les sites de "
+"percussion, l'encéphalite"
+
+#: mad_codes.csv:1
+msgid ""
+"Sudden onset of intense headache, Suddepn onset of fever, Sudden onset of "
+"nausea, Sudden onset of vomiting, Sudden onset of photophobia, Sudden onset "
+"of stiff neck, Lethargy, Delirium, Coma, Purpura, Shock symptoms, Other"
+msgstr ""
+"Apparition soudaine de maux de tête intenses, apparition soudaine de fièvre, "
+"l'apparition soudaine de nausées, l'apparition soudaine de vomissements, "
+"apparition soudaine d'une photophobie, apparition soudaine d'une raideur de "
+"la nuque, de la léthargie, délire, coma, purpura, les symptômes dechoc. "
+
+#: mad_codes.csv:1
+msgid ""
+"Headache, retro-orbital pain, myalgia, arthralgia, rash, haemorrhagic "
+"manifestations, leukopenia or thrombocytopenia"
+msgstr ""
+"Maux de tête, douleurs rétro-orbitaires, myalgies, arthralgies, éruptions "
+"cutanées, des manifestations hémorragiques, leucopénie ou thrombopénie. "
+
+#: mad_codes.csv:1
+msgid ""
+"High fever, rash, runny nose, cough, conjunctivitis, Koplik spots (small "
+"white spots on buccal mucosa), red maculopapular (blotchy) rash 3 to 7 days "
+"after onset starting behind the ears and hairline"
+msgstr ""
+"Une forte fièvre, des éruptions cutanées, un écoulement nasal, toux, "
+"conjonctivite, taches de Koplik (petites taches blanches sur la muqueuse "
+"buccale), maculo-rouge (tâché), éruption de 3 à 7 jours après et commmence "
+"derrière les oreilles et la racine des cheveux. "
+
+#: mad_codes.csv:1
+msgid "Fever, hepatitis, albuminuria, renal failure, shock, haemorrhage"
+msgstr ""
+"La fièvre, l'hépatite, albuminurie, l'insuffisance rénale, choc, hémorragie"
+
+#: mad_codes.csv:1
+msgid ""
+"Fever with or without chills, headaches, widespread pain in the back and "
+"joints, nausea or vomiting, increased spleen and liver, anemia"
+msgstr ""
+"Fièvre avec ou sans frissons, maux de tête, douleur généralisée dans le dos "
+"et les articulations, nausées ou des vomissements, augmentation de volume de "
+"la rate ou du foie, anémie"
+
+#: mad_codes.csv:1
+msgid ""
+"Fever, cough, sore throat, runny/stuffy nose, body ache, headache, fatigue, "
+"vomiting, diarrhea"
+msgstr ""
+"Fièvre, toux, maux de gorge, nez qui coule / bouché, courbatures, maux de "
+"tête, de la fatigue, des vomissements, de la diarrhée "
+
+#: mad_codes.csv:1
+msgid ""
+"Nausea, Vomiting, Mucoid diarrhoea (fatty stools), Other diarrhoea (non-"
+"watery and non-bloody type), Abdominal pain, Headache, Dizziness, Loss of "
+"consciousness, Coma, Thirst, Dehydration, Dyspnoea, Weakness, Malaise, Sore "
+"throat, Fever, Chills, Gastroenteritis, Blurred vision, Twitching/"
+"convulsions, Tingling/numbness, Dilated pupils, Constricted pupils, "
+"Difficulty swallowing/speaking/breathing, Rash, Itching of skin"
+msgstr ""
+"Nausées, vomissements, diarrhée mucoïde (selles gras), autres diarrhées "
+"(type non-aqueux et non-sanglante), douleurs abdominales, maux de tête, "
+"étourdissements, perte de conscience, coma, soif, déshydratation, dyspnée, "
+"faiblesse, malaise, maux de gorge, fièvre, frissons, gastro-entérite, vision "
+"floue, contractions musculaires / convulsions, picotements / "
+"engourdissements, pupilles dilatées ou au contraire contractées, difficulté "
+"à avaler / parler / respirer, éruptions cutanées, démangeaisons de la peau "
+
+#: mad_codes.csv:1
+msgid "Fever, lymphadenopathy, genital discharge"
+msgstr "Fièvre, Lymphadénopathie, Ecoulement génital"
+
+#: mad_codes.csv:1
+msgid "Small relative to size."
+msgstr "Maigre par rapport à sa taille."
+
+#: mad_codes.csv:1
+msgid ""
+"Presence of oedema in both feet, marasmus (visible weight loss and severe), "
+"combination of the two forms"
+msgstr ""
+"Présence d’œdème au niveau des deux pieds, Marasme (amaigrissement visible "
+"et severe), association des deux forms"
+
+#: mad_codes.csv:1
+msgid "Runny nose, cough, fever, Other, None of the above"
+msgstr "Nez qui coule, La toux, Fièvre, Autre, Aucune de ces réponses"
+
+#: mad_codes.csv:1
+msgid "Lymphedema (elephantiasis) and chronic form acute attack, hydrocele"
+msgstr "Lymphoedème (éléphantiasis) forme chronique et accès aigu, Hydrocèle"
+
+#: mad_codes.csv:1
+msgid "Unusual clinical presentation, Change in treatment response"
+msgstr ""
+"Présentation clinique inhabituelle ; Changement dans la réponse au traitement"
+
+#: mad_codes.csv:1
+msgid "Blurred vision, Headache, Shortness of breath, Nose bleeds"
+msgstr "Vision floue, maux de tête, essoufflement, saignements de nez"
+
+#: mad_codes.csv:1
+msgid ""
+"Isolation of vibrio cholera 01 or 0139 from stool sample (at least 5 grams "
+"or pea sized) or rectal swab"
+msgstr ""
+"Isolement de Vibrio cholérique 01 ou 0139 à partir d’échantillon de selles "
+"(au moins 5 grammes ou de la taille d’un pois) ou d’un prélèvement rectal "
+
+#: mad_codes.csv:1
+msgid ""
+"• Salmonella Typhi isolated from any clinical specimen \n"
+"• Widal test result of a four-fold or greater rise in the titre of "
+"Salmonella Typhi O antibody in paired sera "
+msgstr ""
+"• Salmonella Typhi isolé de tout échantillon clinique  \n"
+"• Le  résultat  du  test de  Widal  avec une  augmentation  de  quatre  "
+"fois  ou  plus  du  titre  de l'anticorps  Salmonella Typhi O dans les "
+"sérums apparié"
+
+#: mad_codes.csv:1
+msgid ""
+"Isolation of Shigella dysenteriae type 1 from stool samples (at least 5 "
+"grams or pea sized)"
+msgstr ""
+"Isolement de Shigella dysenteriae type 1 à partir d'échantillons de selles "
+"(au moins 5 grammes ou de la taille d’un petit pois)."
+
+#: mad_codes.csv:1
+msgid ""
+"Isolation of suspected causative agent/s (refer to MOH guidelines) AND "
+"detailed risk assessment"
+msgstr "Isolement de l'agent causal présumé (s) et de l'évaluation"
+
+#: mad_codes.csv:1
+msgid ""
+"At least one positive plate of 3 sputum specimens by direct examination by "
+"light microscopy (samples early in the morning are more likely to contain "
+"the TB germ in the body), a positive result by the GeneXpert technology, "
+"culture result positive despite a negative direct examination, radiography. "
+"Intradermal (IDR) with pediatric score in children."
+msgstr ""
+"Au moins une lame positive sur 3 échantillons de crachats par examen direct "
+"au microscope optique (échantillons tôt le matin sont plus susceptibles de "
+"contenir de germe de la tuberculose dans l’organisme), un résultat positif "
+"par la technique de GeneXpert, un résultat de culture positif malgré un "
+"examen direct négatif, radiographie. Intradermoréaction (IDR) avec score "
+"pédiatrique chez les enfants. "
+
+#: mad_codes.csv:1
+msgid ""
+"Any one of the following:  \n"
+"• Isolation of Yersinia pestis from a clinical specimen \n"
+"• Four-fold or greater change in serum antibody titre to Y. pestis fraction "
+"1 (F1) antigen"
+msgstr ""
+"L'une des opérations suivantes:\n"
+"• Isolement de Yersinia pestis à partir d'un échantillon clinique\n"
+"• Augmentatoin de quatre fois ou plus dans le sérum du titre d'anticorps à "
+"la fraction Y. pestis 1 (F1) antigène"
+
+#: mad_codes.csv:1
+msgid ""
+"• Multibacillary leprosy: demonstration of acid-fast bacilli in skin or "
+"dermal nerve, obtained either by skin biopsy, slit skin smear examination or "
+"nerve biopsy of a lepromatous lesion.\n"
+"• Paucibacillary leprosy: characteristic presence of epithelioid cell "
+"granulomas within or around peripheral nerves."
+msgstr ""
+"•La confirmation en laboratoire concerne les cas de rechute : existence de "
+"nouvelles lésions cutannées ou nodules, avec existence de BH à l’examen "
+"bacilloscopique."
+
+#: mad_codes.csv:1
+msgid ""
+"Not applicable.  The organism is rarely recovered from the site of infection "
+"and usually there is no detectable antibody response."
+msgstr ""
+"•N'est pas applicable \n"
+"• en général il n'y a pas de réponse d'anticorps détectable."
+
+#: mad_codes.csv:1
+msgid ""
+"• With a spatula, take two stool samples from 8 to 10 grams (thumb-sized "
+"adult) of the case in the range of 24 to 48 hours maximum in two different "
+"tubes and close them well\n"
+"• Enter on the tubes the following information: name and first names of the "
+"event, date and time of sampling and the sample Number (num 1 for the first "
+"saddle and the num 2 for 2nd seat)\n"
+"• Take an older saddle sample of each of the three contacts of the case of "
+"15 years and put them in 3 different tubes properly labeled\n"
+"• Put all 5 tubes in a bag and close it well\n"
+"• Put the bag in a vaccine carrier with frozen storage\n"
+"• Put the busy notification form into another plastic bag, place it above "
+"known accumulators\n"
+"• Close the door and send vaccine has IPM in less than 72 hours after the "
+"second sample\n"
+"• All AFP cases must be validated the focal point of the district before "
+"routing to IPM"
+msgstr ""
+"• Avec une spatule, prendre deux echantillons des selles de 8 a 10 grs "
+"(taille du pouce de l’adulte) du cas dans l’intervalle de de 24 a 48 heures "
+"maximum dans deux tubes differents et bien les refermer \n"
+"• Inscrire sur les tubes les informations suivantes : nom et prenoms du cas, "
+"date et heure de prélèvement et Numero de l’echantillon (num 1 pour la 1ere "
+"selle et le num 2 pour la 2e selle)\n"
+"• Prendre un echantillon de selle de chacun des 3 contacts du cas agés de "
+"moins 15 ans et les mettre dans 3 tubes differents bien etiquetés\n"
+"• Mettre tous les 5 tubes dans un sachet et bien le refermer\n"
+"• Mettre le sachet dans un porte vaccin avec des accumulateurs congelés\n"
+"• Mettre la fiche de notification bien remplie dans un autre sachet "
+"plastique, la déposer su dessus des accumulateurs\n"
+"• Fermer le porte vaccin et l’envoyer a l’IPM dans moins de 72 heures après "
+"le deuxieme prélèvement\n"
+"• Tout cas de PFA doit être validé le point focal du district avant "
+"l’acheminement vers l’IPM"
+
+#: mad_codes.csv:1
+msgid ""
+"Antigen detection using the FA test on skin biopsies from patients with "
+"clinical rabies, virus isolation using neuroblastoma cells (preferably "
+"performed on saliva samples or other biological fluids such as tears or "
+"cerebrospinal fluid), RFFIT or FAVN test antibody tests for non-vaccinated "
+"patients"
+msgstr ""
+"Détection de l'antigène en utilisant le test FA sur des biopsies de peau de "
+"patients atteints de la rage clinique, l'isolement du virus en utilisant des "
+"cellules de neuroblastome (de préférence effectuée sur des échantillons de "
+"salive ou d'autres fluides biologiques tels que les larmes ou le liquide "
+"céphalo-rachidien), RFFIT ou de test FAVN tests d'anticorps chez les "
+"patients non vaccines"
+
+#: mad_codes.csv:1
+msgid ""
+"Conduct lumbar puncture of first 25 cases during an epidemic to confirm "
+"diagnosis and serogroup"
+msgstr ""
+"•Ponction lombaire de 25 premiers cas lors d'une épidémie pour confirmer le "
+"diagnostic et le sérogroupe "
+
+#: mad_codes.csv:1
+msgid ""
+"Any one of the following:  \n"
+"• Isolation of dengue virus from serum and/or autopsy samples \n"
+"• Demonstration of a four-fold or greater change in antibody titres to one "
+"or more dengue virus antigens in paired serum samples \n"
+"• Detection of dengue virus genomic sequences in autopsy tissue or serum "
+"samples by polymerase chain reaction (PCR) \n"
+"• Demonstration of dengue virus antigen in serum samples "
+msgstr ""
+"Tout ou un des résultats suivants: \n"
+"•Isolement d’un arbovirus  à partir de sérum et / ou des échantillons "
+"d'autopsie \n"
+"•démonstration d'un changement des titres d'anticorps  de quatre fois ou "
+"plus sur un ou plusieurs antigènes du virus dans des échantillons de sérum "
+"appariés \n"
+"•Détection de séquences génomiques du virus dans des échantillons \n"
+"de tissu ou de sérum par PCR"
+
+#: mad_codes.csv:1
+msgid ""
+"• Take a sample of 5 ml of blood by venipuncture 1st contact with the case "
+"between the 3rd and the 28th day after the start of the eruption in a "
+"sterile tube\n"
+"• Mark on the tube containing blood, the following information: name and "
+"patient names, name of the CSB, district name, collection date\n"
+"• Allow the blood to rest for at least 60 minutes (without shaking or "
+"transported in a vehicle) and then pour the serum into a clean tube\n"
+"• If a refrigerator is available, put the serum (4-6 hours) until clot "
+"retracts and then take the serum\n"
+"• Place the serum in a vaccine carrier with frozen storage\n"
+"• Send the sample to the IPM within 72 hours after collection with the "
+"investigation forms filled well\n"
+"• Ask a family if there are other people with similar signs in the house or "
+"the neighborhood. If this is the case, visit these families to detect "
+"suspected cases of measles that have not been notified"
+msgstr ""
+"• Prelever un echantillon de 5 ml de sang par ponction veineuse  au 1er "
+"contact avec le cas entre le 3e et le 28e jour après le debut de l’eruption "
+"dans un tube sterile\n"
+"• Marquer sur le tube contenant le sang, les informations suivantes : nom et "
+"prenoms du patient, nom du CSB, nom du district, date de prélèvement\n"
+"• Laisser le sang prelevee se reposer pendant au moins 60 minutes (sans "
+"agiter ou transporter dans un vehicule) et verser ensuite le serum dans un "
+"tube de prelevement propre\n"
+"• Au cas où un refrigerateur est disponible, y mettre le serum (4-6 heures) "
+"jusqu’à ce que le caillot se retracte et prendre ensuite le serun\n"
+"• Mettre le serum dans un porte vaccin avec des accumulateurs congelees \n"
+"• Expedier l’echantillon a l’IPM dans les 72 heures qui suivent le "
+"prélèvement avec le formulaires d’investigation bien rempli\n"
+"• Demander a la famille s’il ya d’autres personnes avec des signes "
+"semblables dans la maison ou le voisinage. Si tel est le cas, visiter ces "
+"familles afin de detecter des cas suspects de rougeole non notofiees\n"
+
+#: mad_codes.csv:1
+msgid "Blood smear or rapid diagnostic malaria test"
+msgstr "Frottis de sang ou un test rapide de diagnostic du paludisme "
+
+#: mad_codes.csv:1
+msgid ""
+"Conventional or RT •  PCR OR viral antigen detection by immunofluorescence "
+"or enzyme immunoassay \n"
+"OR viral culture with second identification step to identify influenza "
+"viruses \n"
+"OR four-fold rise in antibody titre in paired acute and convalescent sera"
+msgstr ""
+"•Conventionnelle ou RT - détection de l'antigène viral  par PCR ou par "
+"immunofluorescence ou immuno-enzymatique ou de la culture virale avec la "
+"deuxième étape d'identification pour identifier les virus de la grippe ou "
+"multiplication par quatre du titre d'anticorps dans le sérum lors de la "
+"phase aiguë et de convalescence. "
+
+#: mad_codes.csv:1
+msgid ""
+"• Weight\n"
+"• Cut\n"
+"• MUAC "
+msgstr ""
+"• Poids\n"
+"• Taille\n"
+"• Périmètre brachial"
+
+#: mad_codes.csv:1
+msgid ""
+"Positive blood smear for the search for microfilariémie\n"
+"immunocartographique Test (ICT)\n"
+"Ultrasound"
+msgstr ""
+"Résultat positif de frottis sanguin pour la recherche de la microfilariémie\n"
+"Test immunocartographique (ICT)\n"
+"Echographie"

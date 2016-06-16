@@ -1571,9 +1571,3 @@ msgid ""
 "verify your contact details."
 msgstr "Votre code de vérification pour les notifications de surveillance de la santé publique {country} est: {code}. S'il vous plaît suivre les instructions dans l'e-mail pour vérifier vos coordonnées."
 
-#~ msgid ">Working with our partners:"
-#~ msgstr "> Travailler avec nos partenaires:"
-
-#~ msgid ""
-#~ msgstr ""
-
