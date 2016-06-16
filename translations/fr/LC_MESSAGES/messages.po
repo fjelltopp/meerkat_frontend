@@ -545,9 +545,7 @@ msgstr "Nombre de cas"
 msgid ""
 "Unfortunately the table you requested has no data.  Please request a "
 "different table."
-msgstr ""
-"Malheureusement, le tableau que vous avez demandé n'a pas de données. "
-"S'il vous plaît demander une autre table."
+msgstr "Malheureusement, le tableau que vous avez demandé n'a pas de données. S'il vous plaît demander une autre table."
 
 #: meerkat_frontend/src/js/explore/explore.js:310
 msgid "#Cases with "
@@ -886,9 +884,7 @@ msgstr "Panneau d'information"
 msgid ""
 "Log in to the <br> \n"
 "\t\t       <H2> Technical Site"
-msgstr ""
-"Connectez-vous au  <br> \n"
-"\t\t       <H2> Site technique"
+msgstr "Connectez-vous au  <br> \n\t\t       <H2> Site technique"
 
 #: meerkat_frontend/templates/homepage/index.html:93
 msgid "consultations in total"
@@ -908,9 +904,7 @@ msgstr "établissements"
 
 #: meerkat_frontend/templates/homepage/index.html:157
 msgid "If you would like to find out more about the project, please contact us:"
-msgstr ""
-"Si vous souhaitez en savoir plus sur le projet, s'il vous plaît nous "
-"contacter:"
+msgstr "Si vous souhaitez en savoir plus sur le projet, s'il vous plaît nous contacter:"
 
 #: meerkat_frontend/templates/messaging/subscribe.html:24
 #: meerkat_frontend/templates/messaging/subscribed.html:10
@@ -927,9 +921,7 @@ msgstr "Abonnez-vous aux Alertes et Rapports"
 msgid ""
 "Use the form below to subscribe to E-mail and SMS notifications for "
 "Alerts and Reports."
-msgstr ""
-"Utilisez le formulaire ci-dessous pour vous abonner à E-mail et SMS "
-"notifications pour les Alertes et Rapports."
+msgstr "Utilisez le formulaire ci-dessous pour vous abonner à E-mail et SMS notifications pour les Alertes et Rapports."
 
 #: meerkat_frontend/templates/messaging/subscribe.html:55
 msgid "Enter personal details"
@@ -982,7 +974,7 @@ msgstr "Emails doit être le même."
 #: meerkat_frontend/templates/messaging/subscribed.html:21
 #: meerkat_frontend/views/messaging.py:108
 msgid "Please verify your contact details"
-msgstr ""
+msgstr "S'il vous plaît vérifier vos coordonnées"
 
 #: meerkat_frontend/templates/messaging/subscribed.html:25
 #, python-format
@@ -999,19 +991,7 @@ msgid ""
 " have sent to your address: \n"
 "\t\t\t\t\t\t\t%(email)s\n"
 "\t\t\t\t\t\t\t</p>"
-msgstr ""
-"<p> Bonjour %(firstname)s %(lastname)s,,</p>\n"
-"\t\t\t\t\t\t\t<p>Merci de votre inscription pour recevoir nos "
-"notifications de surveillance de la santé publique.</p>\n"
-"\t\t\t\t\t\t\t<p><b>\n"
-"\t\t\t\t\t\t\tAvant nous pouvons activer votre abonnement, nous devons "
-"vérifier vos coordonnées.\n"
-"\t\t\t\t\t\t\t</b></p>\n"
-"\t\t\t\t\t\t\t<p>\n"
-"\t\t\t\t\t\t\tPour faire, s&#39;il vous plaît suivez les instructions "
-"dans l&#39;e-mail que nous avons envoyés à votre adresse: \n"
-"\t\t\t\t\t\t\t%(email)s\n"
-"\t\t\t\t\t\t\t</p>"
+msgstr "<p> Bonjour %(firstname)s %(lastname)s,,</p>\n\t\t\t\t\t\t\t<p>Merci de votre inscription pour recevoir nos notifications de surveillance de la santé publique.</p>\n\t\t\t\t\t\t\t<p><b>\n\t\t\t\t\t\t\tAvant nous pouvons activer votre abonnement, nous devons vérifier vos coordonnées.\n\t\t\t\t\t\t\t</b></p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\tPour faire, s&#39;il vous plaît suivez les instructions dans l&#39;e-mail que nous avons envoyés à votre adresse: \n\t\t\t\t\t\t\t%(email)s\n\t\t\t\t\t\t\t</p>"
 
 #: meerkat_frontend/templates/messaging/verified.html:21
 msgid "Verification Successful"
@@ -1022,11 +1002,11 @@ msgid ""
 "<p>Your contact details have been successfully verified.</p>\n"
 "\t\t\t\t\t\t    <p>You can unsubscribe at any time by clicking on the "
 "relevant link in your e-mails.</p>"
-msgstr ""
+msgstr "<p>Vos coordonnées ont été vérifiées avec succès.</p>\n\t\t\t\t\t\t    <p>Vous pouvez vous désabonner à tout moment en cliquant sur le lien correspondant dans vos e-mails.</p>"
 
 #: meerkat_frontend/templates/messaging/verify.html:20
 msgid "Please verify your contact details..."
-msgstr ""
+msgstr "S'il vous plaît vérifier vos coordonnées..."
 
 #: meerkat_frontend/templates/messaging/verify.html:25
 #, python-format
@@ -1035,19 +1015,19 @@ msgid ""
 "%(number)s.<br>\n"
 "\t\t\t\t\t\t    To check this we have just sent you a text with a "
 "verification code. Please submit the code below."
-msgstr ""
+msgstr "Nous devons être sûrs que vous avez donné le bon numéro de téléphone: %(number)s.<br>\n\t\t\t\t\t\t    Pour vérifier cela, nous venons de vous envoyer un texte avec une vérification code. S'il vous plaît soumettre le code ci-dessous."
 
 #: meerkat_frontend/templates/messaging/verify.html:32
 msgid "SMS Verification Code"
-msgstr ""
+msgstr "Code de vérification SMS"
 
 #: meerkat_frontend/templates/messaging/verify.html:38
 msgid "\"Submit Code\""
-msgstr ""
+msgstr "\"Soumettre code\""
 
 #: meerkat_frontend/templates/messaging/verify.html:43
 msgid "Send New Code"
-msgstr ""
+msgstr "Envoyer un nouveau code"
 
 #: meerkat_frontend/templates/reports/base.html:39
 msgid "For more information, please e-mail"
@@ -1112,10 +1092,7 @@ msgid ""
 "<p>Information reported in this public health profile represents cases "
 "reported from %(clinic_num)s reporting sites in %(project_region)s "
 "between %(start_date)s and %(end_date)s.</p>"
-msgstr ""
-"<p>Les informations communiquées dans ce profil de santé publique "
-"représente les cas déclarés de %(clinic_num)s établissements de santé en "
-"%(project_region)s entre% %(start_date)s et %(end_date)s.</p>"
+msgstr "<p>Les informations communiquées dans ce profil de santé publique représente les cas déclarés de %(clinic_num)s établissements de santé en %(project_region)s entre% %(start_date)s et %(end_date)s.</p>"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:26
@@ -1124,9 +1101,7 @@ msgstr ""
 msgid ""
 "A total of <strong>  %(total_cases)s cases</strong> reported from "
 "%(clinic_num)s health facilities."
-msgstr ""
-"Au total <strong>  %(total_cases)s cas</strong> signalés par "
-"%(clinic_num)s des établissements de santé."
+msgstr "Au total <strong>  %(total_cases)s cas</strong> signalés par %(clinic_num)s des établissements de santé."
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:28
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:28
@@ -1136,9 +1111,7 @@ msgstr ""
 msgid ""
 "<strong> %(percent_female)s %% female</strong> and <strong> "
 "%(percent_lt_5yo)s %% five years</strong> of age."
-msgstr ""
-"<strong> %(percent_female)s %% femelle</strong> and <strong> "
-"%(percent_lt_5yo)s %% cinq ans</strong>."
+msgstr "<strong> %(percent_female)s %% femelle</strong> and <strong> %(percent_lt_5yo)s %% cinq ans</strong>."
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:30
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:30
@@ -1148,9 +1121,7 @@ msgstr ""
 msgid ""
 "<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> "
 "and <strong>%(percent_refugee)s %% refugee status</strong>."
-msgstr ""
-"<strong>%(percent_national)s %% %(display_nationals)s nationales</strong>"
-" and <strong>%(percent_refugee)s %% statut de réfugié</strong>."
+msgstr "<strong>%(percent_national)s %% %(display_nationals)s nationales</strong> and <strong>%(percent_refugee)s %% statut de réfugié</strong>."
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:32
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:32
@@ -1164,9 +1135,7 @@ msgstr "morbidité due à la"
 msgid ""
 "A total of %(alerts_total)s alerts have been generated up to the end of "
 "Epidemiological Week %(epi_week)s (%(end_date)s)."
-msgstr ""
-"Un total de %(alerts_total)s alertes ont été générés jusqu'à la fin de la"
-" semaine épidémiologique %(epi_week)s (%(end_date)s)."
+msgstr "Un total de %(alerts_total)s alertes ont été générés jusqu'à la fin de la semaine épidémiologique %(epi_week)s (%(end_date)s)."
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:42
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:42
@@ -1175,9 +1144,7 @@ msgstr ""
 msgid ""
 "No alerts were generated up to the end of Epidemiological Week "
 "%(epi_week)s (%(end_date)s) "
-msgstr ""
-"Aucune alerte ont été générés jusqu'à la fin de la semaine "
-"épidémiologique %(epi_week)s (%(end_date)s) "
+msgstr "Aucune alerte ont été générés jusqu'à la fin de la semaine épidémiologique %(epi_week)s (%(end_date)s) "
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:65
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:65
@@ -1256,17 +1223,7 @@ msgid ""
 "reporting of information. Information is made available within one hour "
 "via an online framework with automated generation of SMS and email alerts"
 " and support for mapping and reporting.</p>"
-msgstr ""
-"<p>Un programme de surveillance de la santé publique est mise en œuvre en"
-" %(project_region)s, en partenariat avec l'OMS et le Ministère de la "
-"Santé. Le projet introduit la surveillance intégrée de la maladies.</p>\n"
-"          <p>Le clinicien utilise le système dans la consultation, qui "
-"introduit un soutien clinique de décision pour la santé des enfants, "
-"ainsi que la meilleure orientation pratique de prescription et des "
-"rapports en temps réel des informations. L'information est mise à "
-"disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la "
-"génération automatique des alertes SMS et e-mail et le soutien pour la "
-"cartographie et l'information.</p>"
+msgstr "<p>Un programme de surveillance de la santé publique est mise en œuvre en %(project_region)s, en partenariat avec l'OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.</p>\n          <p>Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L'information est mise à disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l'information.</p>"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:245
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:189
@@ -1295,19 +1252,14 @@ msgid ""
 "Information reported in this communicable diseases report represents "
 "cases reported from %(clinic_num)s reporting sites in %(project_region)s "
 "between %(start_date)s and %(end_date)s."
-msgstr ""
-"Les informations communiquées dans le présent rapport des maladies "
-"transmissibles représente les cas déclarés de %(clinic_num)s sites de "
-"surveillance en %(project_region)s entre %(start_date)s et %(end_date)s."
+msgstr "Les informations communiquées dans le présent rapport des maladies transmissibles représente les cas déclarés de %(clinic_num)s sites de surveillance en %(project_region)s entre %(start_date)s et %(end_date)s."
 
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:47
 #, python-format
 msgid ""
 "There were %(conf_cases)s new confirmed cases and %(susp_cases)s new "
 "suspected cases of %(disease)s this week."
-msgstr ""
-"Il y avait %(conf_cases)s nouveaux cas confirmé et %(susp_cases)s "
-"nouveaux cas suspects de %(disease)s cette semaine."
+msgstr "Il y avait %(conf_cases)s nouveaux cas confirmé et %(susp_cases)s nouveaux cas suspects de %(disease)s cette semaine."
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:15
@@ -1497,7 +1449,7 @@ msgstr " Indicateurs de la Santé Publique"
 
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:270
 msgid " Age"
-msgstr ""
+msgstr " Âge"
 
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:12
@@ -1510,19 +1462,14 @@ msgid ""
 "A total of <strong> %(total_consultations)s consultations</strong> and "
 "<strong> %(total_cases)s cases</strong> reported from %(clinic_num)s "
 "health facilities."
-msgstr ""
-"Un total de <strong> %(total_consultations)s consultations</strong> et "
-"<strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s "
-"établissements de santé."
+msgstr "Un total de <strong> %(total_consultations)s consultations</strong> et <strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s établissements de santé."
 
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:33
 #, python-format
 msgid ""
 "<strong> %(percent_cd)s %% morbidity due to communicable "
 "disease</strong>, including "
-msgstr ""
-"<strong> %(percent_cd)s %% morbidité à cause des maladies "
-"transmissibles</strong>, y compris "
+msgstr "<strong> %(percent_cd)s %% morbidité à cause des maladies transmissibles</strong>, y compris "
 
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:33
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:36
@@ -1535,18 +1482,14 @@ msgstr "et"
 msgid ""
 "<strong> %(percent_ncd)s %% morbidity due to non-communicable "
 "disease</strong>, including"
-msgstr ""
-"<strong> %(percent_ncd)s %% morbidité à cause de la maladie non-"
-"transmissible</strong>, y compris"
+msgstr "<strong> %(percent_ncd)s %% morbidité à cause de la maladie non-transmissible</strong>, y compris"
 
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:38
 #, python-format
 msgid ""
 "%(percent_mh)s %% morbidity due to mental health conditions</strong>, "
 "including"
-msgstr ""
-"%(percent_mh)s %% morbidité à cause des conditions de santé "
-"mentale</strong>, y compris"
+msgstr "%(percent_mh)s %% morbidité à cause des conditions de santé mentale</strong>, y compris"
 
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:217
 msgid "disease.percent|float|round(1)"
@@ -1569,7 +1512,7 @@ msgid ""
 "\n"
 "Please verify your contact details by copying and pasting the following "
 "url into your address bar: {url}\n"
-msgstr ""
+msgstr "Cher {first_name} {last_name} ,\n\nMerci pour vous abonner pour recevoir des notifications de surveillance de la santé publique du {country}.\n\nVeuillez vérifier vos coordonnées en copiant et collant l'URL suivante dans votre barre d'adresse: {url}\n"
 
 #: meerkat_frontend/views/messaging.py:96
 msgid ""
@@ -1577,11 +1520,11 @@ msgid ""
 "receive public health surveillance notifications from "
 "{country}.</p><p>Please verify your contact details by <a href='{url}' "
 "target='_blank'>clicking here</a>.</p>"
-msgstr ""
+msgstr "<p>Cher {first_name} {last_name},</p><p>Merci de votre inscription pour recevoir des notifications de surveillance de la santé publique du {country}.</p><p>S'il vous plaît vérifier vos coordonnées par <a href='{url}' target='_blank'>cliquant ici</a>.</p>"
 
 #: meerkat_frontend/views/messaging.py:145
 msgid "You have already verified your account."
-msgstr ""
+msgstr "Vous avez déjà vérifié votre compte."
 
 #: meerkat_frontend/views/messaging.py:174
 msgid ""
@@ -1597,19 +1540,7 @@ msgid ""
 " If you wish to unsubscribe now copy and paste the following url into "
 "your address bar:\n"
 "{url}/unsubscribe/{subscriber_id}"
-msgstr ""
-"Cher  {first_name} {last_name},\n"
-"\n"
-"Merci pour vous abonner pour recevoir des notifications de surveillance "
-"de la santé publique de {country}. Nous pouvons confirmer que vos "
-"coordonnées ont été vérifiées avec succès. \n"
-"\n"
-"Vous pouvez vous désinscrire à tout moment en cliquant sur le lien "
-"correspondant dans vos e-mails.\n"
-"\n"
-" Si vous souhaitez vous désinscrire maintenant copier et coller l'adresse"
-" suivante dans votre barre d'adresse: \n"
-"{url}/unsubscribe/{subscriber_id}"
+msgstr "Cher  {first_name} {last_name},\n\nMerci pour vous abonner pour recevoir des notifications de surveillance de la santé publique de {country}. Nous pouvons confirmer que vos coordonnées ont été vérifiées avec succès. \n\nVous pouvez vous désinscrire à tout moment en cliquant sur le lien correspondant dans vos e-mails.\n\n Si vous souhaitez vous désinscrire maintenant copier et coller l'adresse suivante dans votre barre d'adresse: \n{url}/unsubscribe/{subscriber_id}"
 
 #: meerkat_frontend/views/messaging.py:187
 msgid ""
@@ -1619,14 +1550,7 @@ msgid ""
 "verified.</p><p>You can unsubscribe at any time by clicking on the "
 "relevant link in your e-mails.</p><p> If you wish to unsubscribe now <a "
 "href='{url}/unsubscribe/{subscriber_id}'>click here.</a></p>"
-msgstr ""
-"<p>Cher {first_name} {last_name},</p><p>Merci de votre inscription pour "
-"recevoir des notifications de surveillance de la santé publique de "
-"{country}. Nous pouvons confirmer que vos coordonnées ont été vérifiées "
-"avec succès.</p><p> Vous pouvez vous désabonner à tout moment en cliquant"
-" sur le lien correspondant dans vos e-mails.</p><p> Si vous souhaitez "
-"vous désabonner maintenant <a "
-"href='{url}/unsubscribe/{subscriber_id}'>cliquez ici.</a></p>"
+msgstr "<p>Cher {first_name} {last_name},</p><p>Merci de votre inscription pour recevoir des notifications de surveillance de la santé publique de {country}. Nous pouvons confirmer que vos coordonnées ont été vérifiées avec succès.</p><p> Vous pouvez vous désabonner à tout moment en cliquant sur le lien correspondant dans vos e-mails.</p><p> Si vous souhaitez vous désabonner maintenant <a href='{url}/unsubscribe/{subscriber_id}'>cliquez ici.</a></p>"
 
 #: meerkat_frontend/views/messaging.py:199
 msgid "Your subscription has been successful"
@@ -1645,10 +1569,7 @@ msgid ""
 "Your verification code for {country} public health surveillance "
 "notifications is: {code}. Please follow instructions in the email to "
 "verify your contact details."
-msgstr ""
-"Votre code de vérification pour les notifications de surveillance de la "
-"santé publique {country} est: {code}. S'il vous plaît suivre les "
-"instructions dans l'e-mail pour vérifier vos coordonnées."
+msgstr "Votre code de vérification pour les notifications de surveillance de la santé publique {country} est: {code}. S'il vous plaît suivre les instructions dans l'e-mail pour vérifier vos coordonnées."
 
 #~ msgid ">Working with our partners:"
 #~ msgstr "> Travailler avec nos partenaires:"
