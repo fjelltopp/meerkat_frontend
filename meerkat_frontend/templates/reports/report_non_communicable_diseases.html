@@ -10,15 +10,15 @@
                         "tot": "Total no. of patients",
                         "gen_1": "females",
                         "gen_2": "males",
-                        "lab_1": "overweight (BMI > 25)",
-                        "lab_2": "obese (BMI > 30)",
-                        "lab_3": 'controlled patients <br>(Systolic BP < 140)',
-                        "lab_4": 'with controlled FBS <br>(Fasting Glucose < 130)',
-                        "lab_5": 'with controlled HbA1c (< 7%)',
+                        "lab_4": "overweight (BMI > 25)",
+                        "lab_5": "obese (BMI > 30)",
+                        "lab_2": 'controlled patients <br>(Systolic BP < 140)',
+                        "lab_7": 'with controlled FBS <br>(Fasting Glucose < 126)',
+                        "lab_9": 'with controlled HbA1c (< 7%)',
                         "com_1": 'with diabetes',
                         "com_2": "with hypertension",
                         "smo_2": 'smokers',
-                        "lab_6": 'with complications'
+                        "lab_11": 'with complications'
         } %}
 	{% for key in data.titles %}
 	{% if key == "reg" %}
@@ -61,7 +61,7 @@
         {% endif %}
 	{% else %}
         {% if percent %}
-	<td> {{ row["values"][0]}} ({{row["values"][i][1]|float|round(1) }} %) </td>
+	<td> {{ row["values"][i][0]}} ({{row["values"][i][1]|float|round(1) }} %) </td>
         {% else %}
 	<td> {{ row["values"][i] }} </td>
         {% endif %}
