@@ -5,28 +5,58 @@ Welcome to the latest public health epidemiological profile from the national pu
 View the latest full report:
 {{report_url}}
 
-The profile summarises the cumulative ICD-10 coded cases reported from {{email.data.global_clinic_num}} reporting sites until the end of Epidemiological Week {{email.data.epi_week_num}} ({{email.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y')}}).
+{{ gettext('Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
 
 
 ## Key Findings ##
 
- - A total of {{ email.data.total_consultations|commas }} consultations and {{ email.data.total_cases|commas }} cases reported from {{ email.data.clinic_num|commas }} health facilities.
- - {{ email.data.percent_cases_female|float|round(1) }}% female and {{ email.data.percent_cases_lt_5yo|float|round(1) }}% under five years of age.
- - {{ extras.patient_status.jordanian.percent|float|round(1) }}% Jordanian national and {{ extras.patient_status.refugee.percent|float|round(1) }}% refugee status.
- - {{ email.data.percent_morbidity_communicable|float|round(1) }}% morbidity due to communicable disease, including {% for disease in email.data.morbidity_communicable %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.
- - {{ email.data.percent_morbidity_non_communicable|float|round(1) }}% morbidity due to non-communicable disease, including {% for disease in email.data.morbidity_non_communicable %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.
- - {{ email.data.percent_morbidity_mental_health|float|round(1) }}% morbidity due to mental health conditions, including {% for disease in email.data.mental_health %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.
+ {{ _('- A total of  %(total_consultations)s consultations and  %(total_cases)s cases reported from %(clinic_num)s health facilities.', total_consultations= report.data.total_consultations|commas, total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}
+
+{{ _('- %(percent_female)s %% female and  %(percent_lt_5yo)s %% five years of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}
+
+{{ _('- %(percent_national)s %% %(display_nationals)s nationals and %(percent_refugee)s %% refugee status.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1)) }}
+
+{{ _('- %(percent_cd)s %% morbidity due to communicable disease, including ', percent_cd=report.data.percent_morbidity_communicable|float|round(1)) }}
+{% for disease in report.data.morbidity_communicable_tab %}
+	{% if loop.last and not loop.first %} 
+		{{_('and') }} 
+		{{ _(disease.title|e) }}
+	{% elif loop.first and loop.last %}
+		{{ _(disease.title|e) }}
+	{% else %}
+		{{ _(disease.title|e) }}, 
+	{% endif %}
+{% endfor %}.
+
+{{ _('- %(percent_ncd)s %% morbidity due to non-communicable disease, including', percent_ncd=report.data.percent_morbidity_non_communicable|float|round(1)) }} 
+{% for disease in report.data.morbidity_non_communicable_tab %}
+	{% if loop.last and not loop.first %} 
+		{{_('and') }} {{ _(disease.title|e) }}
+	{% elif loop.first and loop.last %}
+		{{ _(disease.title|e) }}
+	{% else %}
+		{{ _(disease.title|e) }}, 
+	{% endif %}
+{% endfor %}.
+
+{{ _('%(percent_mh)s %% morbidity due to mental health conditions, including', percent_mh= report.data.percent_morbidity_mental_health|float|round(1))}} 
+{% for disease in report.data.mental_health %}
+	{% if loop.last and not loop.first %}
+		{{ _('and') }} 
+		{{ _(disease.title|e) }}
+	{% elif loop.first and loop.last %}
+		{{ _(disease.title|e) }}
+	{% else %}
+		{{ _(disease.title|e) }}, 
+	{% endif %}
+{% endfor %}.
 
 
 ## Alerts ##
 
-A total of {{email.data.alerts_total|commas}} suspected notifiable communicable disease alerts have been generated up to the end of Epidemiological Week {{email.data.epi_week_num}} ({{email.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y')}}).
+{% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
+{{ _('A total of %(alerts_total)s alerts have been generated up to the end of Epidemiological Week %(epi_week)s (%(end_date)s).', alerts_total = report.data.alerts_total|commas, epi_week=report.data.epi_week_num, end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+{% else %}
+{{ _('No alerts were generated up to the end of Epidemiological Week %(epi_week)s (%(end_date)s) ', epi_week=report.data.epi_week_num, end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}.
+{% endif %}
 
-
-## Project Overview ##
-
-A program of public health surveillance is being implemented in {{email.data.global_clinic_num}} outpatient clinics in Jordan in partnership with WHO and Ministry of Health.
-
-The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease with ICD-10 coding of disease classification. The clinician uses the system within the consultation which introduces clinical-decision support, best practice prescribing guidance, and real-time reporting of information.
-
-Information is made available within one hour via an online framework with automated generation of SMS and email alerts for suspected notifiable diseases.

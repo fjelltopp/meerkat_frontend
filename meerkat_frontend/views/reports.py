@@ -100,6 +100,62 @@ def test(report):
         abort(501)
 
 
+@reports.route('/view_email/<report>/')
+@reports.route('/view_email/<report>/<email_format>/')
+def view_email_report(report, email_format = 'html'):
+    """Views and email as it would be sent to Hermes API
+
+        Args:
+            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+    """
+    
+
+    report_list = current_app.config['REPORTS_CONFIG']['report_list']
+    country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+
+    if report in report_list:
+
+        ret = create_report(
+            config=current_app.config, 
+            report=report, 
+            location=None, 
+            end_date=None, 
+            start_date=None
+        )
+
+        relative_url = url_for('.report',
+                                report=report,
+                                location=None,
+                                end_date=None, 
+                                start_date=None)
+        report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
+
+        if email_format == 'html':
+            email_body = render_template(
+                ret['template_email_html'],
+                report=ret['report'],
+                extras=ret['extras'],
+                address=ret['address'],
+                content=current_app.config['REPORTS_CONFIG'],
+                report_url=report_url
+            )
+        elif email_format == 'txt':
+            email_body = render_template(
+                ret['template_email_plain'],
+                report=ret['report'],
+                extras=ret['extras'],
+                address=ret['address'],
+                content=current_app.config['REPORTS_CONFIG'],
+                report_url=report_url
+            )
+        else:
+            abort(501)
+
+        return email_body
+
+    else:
+        abort(501)
+
 @reports.route('/email/<report>/', methods=['POST'])
 def send_email_report(report):
     """Sends an email via Hermes with the latest report.
@@ -455,6 +511,8 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     # Render correct template for the report
     return {
         'template':report_list[report]['template'],
+        'template_email_html':report_list[report]['template_email_html'],
+        'template_email_plain':report_list[report]['template_email_plain'],
         'report':data,
         'extras':extras,
         'address':current_app.config["REPORTS_CONFIG"]["address"]
