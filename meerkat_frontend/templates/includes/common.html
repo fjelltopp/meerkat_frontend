@@ -1,8 +1,0 @@
-{% macro language_chooser() -%}
-  {% set current_lang = g.get("language", None) %}
-  {% for lang in config["SUPPORTED_LANGUAGES"] %}
-    {% if lang != current_lang%}
-      <a href="{{request.url|replace('/'+ current_lang + '/', '/' + lang + '/')}}"> {{lang}} </a>
-	{% endif %}
-  {% endfor %}
-{%- endmacro %}

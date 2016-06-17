@@ -6,7 +6,6 @@
   <li><a href="#{{menu_item.title|lower|trim|replace(' ','_')}}" class="scroll-link" data-id="{{menu_item.title|lower|trim|replace(' ','_')}}">{{_(menu_item.title)}}</a></li>
 {% endfor %}
 </ul>
-{{ common.language_chooser() }}
 {% endblock %}
 
 {% block body %}

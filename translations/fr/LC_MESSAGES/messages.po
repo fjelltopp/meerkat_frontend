@@ -1570,3 +1570,4 @@ msgid ""
 "notifications is: {code}. Please follow instructions in the email to "
 "verify your contact details."
 msgstr "Votre code de vérification pour les notifications de surveillance de la santé publique {country} est: {code}. S'il vous plaît suivre les instructions dans l'e-mail pour vérifier vos coordonnées."
+

@@ -12,7 +12,7 @@ body.homepage{
 
 	background-color: $blue;
 	margin-bottom: 0;
-   border: none;
+	border: none;
 
 	.navbar-flag {
 		float: left;
@@ -42,13 +42,13 @@ body.homepage{
 		float: right;
 	}
 
-   .navbar-brand span{
+	.navbar-brand span{
 		float: left;
 		max-height: 40px;
 		margin-right: 10px;
-   }
+	}
 
-   .navbar-toggle{
+	.navbar-toggle{
 		border: #FFF 2px solid;
 		.icon-bar{
 			background: #FFF;
@@ -98,7 +98,7 @@ body.homepage{
 		text-align: center;
 		width: 490px;
 		z-index: 2;
-	   background: #FFF;
+		background: #FFF;
 		border-radius: 20px 20px 0px 0px;
 
 	 	h1{
@@ -159,9 +159,11 @@ body.homepage{
 		}
 
 		img{
+			height: 40px;
 			position: absolute;
 			z-index: 2;
-			right: 150px;
+			right: 165px;
+			top: 20px;
 		}
 
 		.keyBody{
@@ -169,7 +171,7 @@ body.homepage{
 		}
 	}
 
-  	.details{
+	.details{
 
 		background-color: $blue;
 		opacity: 0.8;
@@ -457,3 +459,31 @@ a:hover{
 	display:inline-block;
 	margin: 10px 10px;
 }	
+
+.lang-sel{
+  float:left;
+  margin: 15px -10px 15px 10px;
+}
+
+.lang{
+  color: white;
+  border: white solid 1px;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+.lang:hover{
+  background: $highlight;
+  color: white;
+  text-decoration: none;
+  border: 1px solid $highlight;
+}
+
+@media screen and (max-width: 751px){
+  .lang-sel{
+    margin: 0px 0px 15px;
+    text-align: center;
+    float: none;
+  }
+
+}
