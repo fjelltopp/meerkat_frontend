@@ -28,6 +28,8 @@ parser.add_argument("action", choices=["update-po",
                     help="Choose action" )
 parser.add_argument("-l", type=str,
                     help="Two letter langauge code")
+parser.add_argument("-f", type=str,
+                    help="Country Folder")
 
 
 
@@ -99,7 +101,10 @@ def insert_translation(pofile, csv_file, language):
 if __name__ == "__main__":
 
     args = parser.parse_args()
-    implementation_dir = os.environ.get("COUNTRY_FOLDER", "country_config")
+    if args.f:
+        implementation_dir = args.f
+    else:
+        implementation_dir = os.environ.get("COUNTRY_FOLDER", "country_config")
     implementation_csv = implementation_dir + "/translation.csv"
 
     if args.action == "update-po":
