@@ -18,7 +18,8 @@ setup(
         'Werkzeug>=0.10.4',
         'python-slugify>=1.1.4',
         'pdfcrowd3>=2.7',
-        'flask-babel>=0.10'
+        'flask-babel>=0.10',
+        'babel>=2.3.4'
     ],
     test_suite='meerkat_frontend.test'
 )
