@@ -734,10 +734,6 @@ msgstr "Basculer la navigation"
 msgid "Working with our partners:"
 msgstr "En collaboration avec nos partenaires:"
 
-#: meerkat_frontend/templates/base.html:65
-msgid "For more information, please e-mail:"
-msgstr "Pour plus d'informations, s'il vous plaît e-mail:"
-
 #: meerkat_frontend/templates/download/index.html:5
 #: meerkat_frontend/templates/explore/index.html:4
 #: meerkat_frontend/templates/messaging/base.html:4
@@ -1031,7 +1027,7 @@ msgstr "Envoyer un nouveau code"
 
 #: meerkat_frontend/templates/reports/base.html:39
 msgid "For more information, please e-mail"
-msgstr "Pour plus d'informations, s'il vous plaît e-mail:"
+msgstr "Pour plus d'informations, s'il vous plaît e-mail"
 
 #: meerkat_frontend/templates/reports/base.html:49
 msgid "This report was generated at"
