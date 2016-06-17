@@ -86,7 +86,7 @@ function createCrossPlot( catx, caty, options, post_function ){
 					"checkbox": true
 				},{
 					"field": "cases",
-					"title": "# of Cases",
+					"title": i18n.gettext("# of Cases"),
 					"align": "left",
 					"class": "header"
 				},
@@ -138,7 +138,7 @@ function createCrossPlot( catx, caty, options, post_function ){
 			for( var k in xKeys.sort(idSort) ){
 				var column ={
 					"field": xKeys[k],
-					"title": timelineLink(xKeys[k],catxData[xKeys[k]].name,"x"),
+					"title": timelineLink(xKeys[k],i18n.gettext(catxData[xKeys[k]].name),"x"),
 					"sortable": true
 					
 				};
@@ -150,7 +150,7 @@ function createCrossPlot( catx, caty, options, post_function ){
 			columns.push(
 				{
 					"field": "total",
-					"title": "Total",
+					"title": i18n.gettext("Total"),
                     "class": "total-col",
 					sortable: true
 				}
@@ -187,7 +187,7 @@ function createCrossPlot( catx, caty, options, post_function ){
 			}else{
 				console.log("Empty object");
 				$('#cross-wrapper').html( 
-					"Unfortunately the table you requested has no data.  Please request a different table." 
+					i18n.gettext("Unfortunately the table you requested has no data.  Please request a different table.")
 				);
 			}    
 		}
@@ -227,7 +227,7 @@ function max_min(data){
 function timelineLink(id, name, axis){
 	//helper function to create links to activate the timeline
 	return '<a href="#" onclick="prepareExploreTimeline(&apos;' + id +
-	       '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + name + "</a>";
+	    '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + i18n.gettext(name) + "</a>";
 }
 
 function idSort(a,b){
@@ -307,7 +307,7 @@ function createTimeline(id, cat, options){
 				"checkbox": true
 			},{				
                 "field": "cases",
-				"title": "#Cases with "+ variable.name,
+				"title": i18n.gettext("#Cases with ")+ i18n.gettext(variable.name),
 				"align": "left",
 				"class": "header"
 			}
@@ -337,7 +337,7 @@ function createTimeline(id, cat, options){
 		for( var k in xKeys.sort(function(a, b){return a-b;}) ){
 			var column ={
 				"field": "week_"+ xKeys[k],
-				"title": "Week " + xKeys[k],
+				"title": i18n.gettext("Week") +" " + xKeys[k],
 				"sortable": true
 			};
 			if(colour){
@@ -348,7 +348,7 @@ function createTimeline(id, cat, options){
 		columns.push(
 			{
 				"field": "total",
-				"title": "Total",
+				"title": i18n.gettext("Total"),
 				sortable: true
 			}
 		);

@@ -7,7 +7,7 @@ from flask import Blueprint, render_template, current_app, request, Response
 import json
 from .. import common as c
 
-download = Blueprint('download', __name__)
+download = Blueprint('download', __name__, url_prefix="/<language>")
 @download.before_request
 def requires_auth():
     """Checks that the user has authenticated before returning any page from the technical site."""

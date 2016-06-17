@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
-
 {% block menu %}
 <ul class="nav navbar-nav">
-  <li><a href="/technical/" >Dashboard</a></li>
-  <li><a href="/reports/" >Reports</a></li>
-  <li class="active"><a href="/messaging/" >Notifications</a></li>
-  <li><a href="/explore/" >Explore</a></li>
-  <li><a href="/download/" >Download</a></li>
-  <li><a href="/" >Log out</a></li>
+    <li><a href="/{{g.get('language')}}/technical/" >{{ _('Dashboard') }}</a></li>
+    <li><a href="/{{g.get('language')}}/reports/" >{{ _('Reports') }}</a></li>
+    <li class="active"><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
+    <li><a href="/{{g.get('language')}}/explore/" >{{ _('Explore') }}</a></li>
+    <li><a href="/{{g.get('language')}}/download/" >{{ _('Download') }}</a></li>
+    <li><a href="/"{{g.get("language")}} >{{ _('Log out') }}</a></li>
+
 </ul>
+
 {% endblock %}
 

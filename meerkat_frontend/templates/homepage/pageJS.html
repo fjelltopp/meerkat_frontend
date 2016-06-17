@@ -150,7 +150,7 @@
 
 		    if( report.geolocation[0] && report.geolocation[1] ){
 		      var m = L.marker( [ report.geolocation[0], report.geolocation[1]] );
-		      m.name = report.clinic;
+		      m.name = i18n.gettext(report.clinic);
 		      m.cases = report.value;
 		      m.consultations = consultation.value;
 		      markers.addLayer( m );
@@ -206,7 +206,7 @@
       }
       
       if( govSiteClash === false ){
-         $("#regionName.value").text(highlightedRegion.toGeoJSON().properties.name);
+         $("#regionName.value").text(i18n.gettext(highlightedRegion.toGeoJSON().properties.name));
       }
 
     }
@@ -258,15 +258,15 @@
          govSiteClash = true;
       }
 		
-      var info =  "<span id='name' class='label' > Facility Name: </span> <span id='name' class='value' > " +
+      var info =  "<span id='name' class='label' >" +i18n.gettext('Facility Name:') +" </span> <span id='name' class='value' > " +
                   a.layer.name + "</span></br>" +
-                  "<span id='cons' class='label' > # Consultations: </span> <span id='cons' class='value' > " +
+                  "<span id='cons' class='label' >" +i18n.gettext('# Consultations:') +" </span> <span id='cons' class='value' > " +
                   a.layer.consultations + "</span></br>" +
-                  "<span id='cases' class='label' > # Cases: </span> <span id='cases' class='value' > " +
+                  "<span id='cases' class='label' > "+i18n.gettext('# Cases:')+" </span> <span id='cases' class='value' > " +
                   a.layer.cases + "</span></br>" +
-                  "<span id='lat' class='label' > Lat: </span> <span id='lat' class='value' >" +
+                  "<span id='lat' class='label' >" +i18n.gettext('Lat:') +" </span> <span id='lat' class='value' >" +
                   Math.round(a.layer.getLatLng().lat*10000)/10000 + "</span>" +
-                  "<span id='lng' class='label' > Lng: </span> <span id='lng' class='value' >"  +
+                  "<span id='lng' class='label' >" +i18n.gettext('Lng:') +" </span> <span id='lng' class='value' >"  +
                   Math.round(a.layer.getLatLng().lng*10000)/10000+ "</span></br>";
       
       $("#map-home .details .selection").html(info);  

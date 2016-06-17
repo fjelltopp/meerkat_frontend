@@ -41,6 +41,10 @@ class Config(object):
     MAPBOX_API_ACCESS_TOKEN = from_env('MAPBOX_API_ACCESS_TOKEN','')
     MAPBOX_STATIC_MAP_API_URL = from_env('MAPBOX_STATIC_MAP_API_URL','')
     
+    DEFAULT_LANGUAGE = "en"
+    SUPPORTED_LANGUAGES = ["en"]
+    SUPPORTED_LANGAUGES_FLAGS = ["gb"]
+
 
 class Production(Config):
     DEBUG = False

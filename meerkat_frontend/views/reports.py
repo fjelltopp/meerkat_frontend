@@ -4,6 +4,7 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
+from flask.ext.babel import format_datetime
 from datetime import datetime, date, timedelta
 try:
     import simplejson as json
@@ -15,7 +16,7 @@ from .. import common as c
 import string
 import pdfcrowd
 
-reports = Blueprint('reports', __name__)
+reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 @reports.before_request
 def requires_auth():
@@ -288,19 +289,19 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
 
 # STATIC ROUTES
-@reports.route('/assets/<path:filepath>/')
-def serve_static(filepath):
-    """Serves static assets (js, css, img etc).
+# @reports.route('/assets/<path:filepath>/')
+# def serve_static(filepath):
+#     """Serves static assets (js, css, img etc).
 
-       Args:
-           filepath (str): The file path of the desired asset. 
-    """
-    return send_file(filepath)
+#        Args:
+#            filepath (str): The file path of the desired asset. 
+#     """
+#     return send_file(filepath)
 
 
 # FILTERS
 @reports.app_template_filter('datetime')
-def format_datetime(value, format='%H:%M %d-%m-%Y'):
+def format_datetime_with_lang(value, format='%H:%M %d-%m-%Y'):
     """Returns formatted timestamp.
     
        Args:
@@ -310,7 +311,8 @@ def format_datetime(value, format='%H:%M %d-%m-%Y'):
        Returns:
            The formatted timestamp string.
     """
-    return value.strftime(format)
+    return format_datetime(value, format)
+
 
 
 @reports.app_template_filter('datetime_from_json')
@@ -394,13 +396,14 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         # Extra parsing for natural language bullet points
         extras = {"patient_status": {}}
         extras["patient_status"]["national"] = {
-            'percent': 0,
-            'quantity': 0
-        }
+                'percent': 0,
+                'quantity': 0
+            }
         extras["patient_status"]["refugee"] = {
-            'percent': 0,
-            'quantity': 0
-        }
+                'percent': 0,
+                'quantity': 0
+            }
+
         for item in data['data']['patient_status']:
             title = item['title'].lower().replace(" ", "")
             if title not in ["refugee", "other"]:
@@ -409,6 +412,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 'percent': item['percent'],
                 'quantity': item['quantity']
             }
+
         extras['map_centre'] = report_list[report]["map_centre"]
         extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
                              "/clinics/1")

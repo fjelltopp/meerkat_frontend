@@ -3,18 +3,16 @@
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
 		<div class="location-box__label">
-			<div>Location:</div>
+			<div id="location_box">Location:</div>
 			<div id="location-title" class="location-title">Not Loaded</div>
 		</div>
 		<span class="glyphicon glyphicon-chevron-right"></span>
 		<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-6">
-		Alerts
+	<div class="tab-title hidden-xs col-sm-5 col-md-6" id="title">
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-		Date not loaded.
 	</div>
 
 </div>
@@ -23,7 +21,6 @@
 
 	<div id="sidebar-wrapper" >
 		<div id="location-selector" class="location-selector">
-			Locations not loaded
 		</div>
 	</div>
 
@@ -31,8 +28,7 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Selection Table
+					<div class="chartBox__heading" id="box_heading">
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="exportTableToCSV('alert-agg-table','alertsSummary.csv', this);" class="csv"> 
 								Excel 
@@ -50,8 +46,7 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Info Table
+					<div class="chartBox__heading" id="box_2_heading">
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="exportTableToCSV('alert-table','alerts.csv', this);" class="csv"> 
 								Excel 
@@ -82,8 +77,20 @@ $("#menu-toggle").click(function(e) {
 	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
 		$(window).resize();
 	});
-});
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+ });
+
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#title").html(i18n.gettext('Alerts'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#location-selector").html(i18n.gettext('Locations not loaded'));
+ $("#box_heading").html(i18n.gettext('Selection Table'));
+ $("#box_2_heading").html(i18n.gettext('Info Table'));
+ $(".csv").each(function(){
+	 $(this).html(i18n.gettext('Excel'));
+ });
+ $("#epi-week-title").html( i18n.gettext("Week") + " " +get_epi_week() + " · " + get_date() );
+
 
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.

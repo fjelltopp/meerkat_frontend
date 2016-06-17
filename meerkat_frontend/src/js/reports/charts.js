@@ -31,7 +31,7 @@ function pieChart(series) {
     series: [{
 		colorByPoint: true,
 		data: series,
-		name: "Count"
+		name: i18n.gettext("Count")
     }]
   };
   return chart;
@@ -145,11 +145,11 @@ function communicableDiseasesBarChart(categories, series, labels) {
     },
     series: [{
       type: 'column',
-      name: 'Confirmed',
+      name: i18n.gettext('Confirmed'),
       data: series[0]
     },{
       type: 'spline',
-      name: 'Suspected',
+      name: i18n.gettext('Suspected'),
       data: series[1],
     }]
   };
@@ -161,7 +161,7 @@ function PipBarChart(weeks, suspected, confirmed, labels) {
 	var series = [];
 		series.push({
       type: 'spline',
-      name: 'Suspected',
+			name: i18n.gettext('Suspected'),
 		data: suspected
 		});
 	for(var serie in confirmed){
@@ -260,11 +260,11 @@ function refugeeCommunicableDiseasesChart(categories, series, labels) {
     },
       series: [
 		  {
-      type: 'column',
-      name: 'Suspected',
+			  type: 'column',
+			  name: i18n.gettext('Suspected'),
 			  data: series[0],
 			  lineWidth: 5
-    }]
+		  }]
   };
 	return chart;
 }

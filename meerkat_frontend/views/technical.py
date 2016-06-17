@@ -3,11 +3,11 @@ technical.py
 
 A Flask Blueprint module for the technical site.
 """
-from flask import Blueprint, render_template, current_app, request, Response
+from flask import Blueprint, render_template, current_app, request, Response, g
 import json
 from .. import common as c
 
-technical = Blueprint('technical', __name__)
+technical = Blueprint('technical', __name__,url_prefix='/<language>')
 
 
 
@@ -24,9 +24,11 @@ def requires_auth():
 def index(tab="demographics", locID=1):
     """Serves a tab for the technical dashboard, filtered by the specified location."""
     pageState = "{ type: 'tab', dataID: '" + tab + "', locID: " + str(locID) + " }"
+
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState,
+                           langauge=g.get("language", current_app.config["DEFAULT_LANGUAGE"]),
                            week=c.api('/epi_week'))
 
 @technical.route('/alerts/<alertID>')
@@ -36,6 +38,7 @@ def alert( alertID=1 ):
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState,
+                           langauge=g.get("language", current_app.config["DEFAULT_LANGUAGE"]),
                            week=c.api('/epi_week'))
 
 @technical.route('/diseases/<diseaseID>/')
@@ -46,6 +49,7 @@ def disease( diseaseID='tot_1', locID=1 ):
     return render_template('technical/index.html', 
                            content=current_app.config['TECHNICAL_CONFIG'], 
                            page=pageState,
+                           langauge=g.get("language", current_app.config["DEFAULT_LANGUAGE"]),
                            week=c.api('/epi_week'))
 
 

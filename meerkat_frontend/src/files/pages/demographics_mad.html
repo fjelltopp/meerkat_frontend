@@ -1,20 +1,17 @@
 <div class="top-bar row">
-
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
 		<div class="location-box__label">
-			<div>Location:</div>
-			<div id="location-title" class="location-title">Not Loaded</div>
+			<div id="location_box"></div>
+			<div id="location-title" class="location-title"></div>
 		</div>
 		<span class="glyphicon glyphicon-chevron-right"></span>
 		<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-5">
-		Demographics
+	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-		Date not loaded.
 	</div>
 
 </div>
@@ -23,7 +20,7 @@
 
 	<div id="sidebar-wrapper" >
 		<div id="location-selector" class="location-selector">
-			Locations not loaded
+
 		</div>
 	</div>
 
@@ -32,16 +29,16 @@
 			<div class="col-xs-12 col-md-6 less-padding-col">
 				<div class="chartBox box">
 					<div class="chartBox__heading">
-						Gender
+						<p id="box_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="showChartType('bar','gender-charts');return false;" class="bar"> 
-								Bar 
+							
 							</a> /
 							<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie"> 
-								Pie 
+							
 							</a> /
 							<a href="" onclick="exportTableToCSV('gender-table','gender.csv', this);" class="csv"> 
-								Excel 
+							
 							</a> 
 						</div>
 					</div>
@@ -55,17 +52,14 @@
 			<div class="col-xs-12 col-md-6 less-padding-col">
 				<div class="chartBox box">
 					<div class="chartBox__heading">
-						Age
+						<p id="box_2_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="showChartType('bar','age-charts');return false;" class="bar"> 
-								Bar 
-							</a> /
+											</a> /
 							<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"> 
-								Pie 
-							</a>/
+											</a>/
 							<a href="" onclick="exportTableToCSV('age-table','age.csv', this);" class="csv"> 
-								Excel 
-							</a> 
+											</a> 
 						</div>
 					</div>
 					<div id="age-charts" class="chartBox__content">
@@ -82,7 +76,23 @@
 
 <!-- Menu Toggle Script -->
 <script>
-
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#title").html(i18n.gettext('Demographics'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#location-selector").html(i18n.gettext('Locations not loaded'));
+ $("#box_heading").html(i18n.gettext('Gender'));
+ $("#box_2_heading").html(i18n.gettext('Age'));
+ $(".csv").each(function(){
+	 $(this).html(i18n.gettext('Excel'));
+ });
+ $(".bar").each(function(){
+	 $(this).html(i18n.gettext('Bar'));
+ });
+ $(".pie").each(function(){
+	 $(this).html(i18n.gettext('Pie'));
+ });
+ 
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -95,7 +105,7 @@ $("#menu-toggle").click(function(e) {
 	});
 });
 
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + get_date() );
 
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){

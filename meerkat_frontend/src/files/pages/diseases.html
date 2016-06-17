@@ -1,29 +1,26 @@
 <div class="top-bar row">
-
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
-		<div class="location-box__label">
-			<div>Location:</div>
-			<div id="location-title" class="location-title">Not Loaded</div>
-		</div>
-		<span class="glyphicon glyphicon-chevron-right"></span>
-		<span class="glyphicon glyphicon-chevron-left hidden"></span>
+			<div class="location-box__label">
+				<div id="location_box"></div>
+				<div id="location-title" class="location-title"></div>
+			</div>
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-6">
-		Communicable Diseases
+	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-		Date not loaded.
 	</div>
 
 </div>
+
 
 <div class="demographics toggled" id="wrapper">
 
 	<div id="sidebar-wrapper" >
 		<div id="location-selector" class="location-selector">
-			Locations not loaded
 		</div>
 	</div>
 
@@ -31,11 +28,9 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Communicable Diseases
+					<div class="chartBox__heading" id="box_heading">
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="exportTableToCSV('disease-table','diseases.csv', this);" class="csv"> 
-								Excel 
 							</a> 
 						</div>
 					</div>
@@ -52,6 +47,15 @@
 
 <!-- Menu Toggle Script -->
 <script>
+
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#title").html(i18n.gettext('Communicable Diseases'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#location-selector").html(i18n.gettext('Locations not loaded'));
+  $(".csv").each(function(){
+	 $(this).html(i18n.gettext('Excel'));
+ });
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -63,7 +67,7 @@ $("#menu-toggle").click(function(e) {
 		$(window).resize();
 	});
 });
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( i18n.gettext("Week")+ " "+get_epi_week() + " · " + get_date() );
 
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
@@ -80,7 +84,7 @@ function drawCharts( locID ){
 	                    percent: true,
 	                    linkFunction: 'loadDisease',
                       strip: false,
-                      title: 'Communicable Disease'
+                      title: i18n.gettext('Communicable Disease')
 	                   });
 
 }

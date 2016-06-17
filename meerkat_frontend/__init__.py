@@ -8,8 +8,9 @@ different services such as the API and Reports.
 """
 import json, os
 from slugify import slugify
-from flask import Flask, send_file, render_template, request, current_app, abort, flash
+from flask import Flask, send_file, render_template, request, current_app, abort, flash, g, redirect, url_for
 import jinja2
+from flask.ext.babel import Babel, gettext, ngettext, get_translations, get_locale, support
 from .views.homepage import homepage
 from .views.technical import technical
 from .views.reports import reports
@@ -21,6 +22,7 @@ from . import common as c
 # Create the Flask app
 app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.do')
+babel = Babel(app)
 app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
@@ -32,6 +34,7 @@ if app.config.get( 'TEMPLATE_FOLDER', None ):
         jinja2.FileSystemLoader(app.config["TEMPLATE_FOLDER"]),
     ])
     app.jinja_loader = my_loader
+    
 
 # Set up the config files.
 for k,v in app.config['COMPONENT_CONFIGS'].items():
@@ -39,13 +42,49 @@ for k,v in app.config['COMPONENT_CONFIGS'].items():
     config = json.loads( open(path).read() ) 
     app.config[k] = {**app.config['SHARED_CONFIG'], **config}           
 
+# Internationalisation
+
+@babel.localeselector
+def get_locale():
+    return g.get("language", app.config["DEFAULT_LANGUAGE"])
+
+
+@messaging.url_value_preprocessor
+@reports.url_value_preprocessor
+@download.url_value_preprocessor
+@explore.url_value_preprocessor
+@technical.url_value_preprocessor
+@homepage.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    language = values.pop('language')
+    if language not in app.config["SUPPORTED_LANGUAGES"]:
+        abort(404, "Language not supported")
+    g.language = language
+
+
+@messaging.url_defaults
+@reports.url_defaults
+@download.url_defaults
+@explore.url_defaults
+@homepage.url_defaults
+@technical.url_defaults
+def add_language_code(endpoint, values):
+    values.setdefault('language', app.config["DEFAULT_LANGUAGE"])
+
+
 # Register the Blueprint modules
-app.register_blueprint(homepage, url_prefix='/')
-app.register_blueprint(technical, url_prefix='/technical')
-app.register_blueprint(reports, url_prefix='/reports')
-app.register_blueprint(messaging, url_prefix='/messaging')
-app.register_blueprint(download, url_prefix='/download')
-app.register_blueprint(explore, url_prefix='/explore')
+app.register_blueprint(homepage, url_prefix='/<language>')
+app.register_blueprint(technical, url_prefix='/<language>/technical')
+app.register_blueprint(reports, url_prefix='/<language>/reports')
+app.register_blueprint(messaging, url_prefix='/<language>/messaging')
+app.register_blueprint(download, url_prefix='/<language>/download')
+app.register_blueprint(explore, url_prefix='/<language>/explore')
+
+
+@app.route("/")
+def root():
+    return redirect("/" + app.config["DEFAULT_LANGUAGE"])
+
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):

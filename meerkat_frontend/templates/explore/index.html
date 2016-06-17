@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
-
 {% block menu %}
 <ul class="nav navbar-nav">
-    <li><a href="/technical/" >Dashboard</a></li>
-    <li><a href="/reports/" >Reports</a></li>
-    <li><a href="/messaging/" >Notifications</a></li>
-    <li class="active"><a href="/explore/" >Explore</a></li>
-    <li><a href="/download/" >Download</a></li>
-    <li><a href="/" >Log out</a></li>
+  <li><a href="/{{g.get('language')}}/technical/" >{{ _('Dashboard') }}</a></li>
+  <li><a href="/{{g.get('language')}}/reports/" >{{ _('Reports') }}</a></li>
+  <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
+  <li class="active"><a href="/{{g.get('language')}}/explore/" >{{ _('Explore') }}</a></li>
+  <li><a href="/{{g.get('language')}}/download/" >{{ _('Download') }}</a></li>
+  <li><a href="/"{{g.get("language")}} >{{ _('Log out') }}</a></li>
 </ul>
 {% endblock %}
 
@@ -19,18 +18,18 @@
         <div id="location-option" class="location-box box cross-option timeline-option" name="location" value="1">
             <a href="#menu-toggle" id="menu-toggle">
                 <div class="location-box__label">
-                    <div>Location:</div>
-                    <div id="location-title" class="location-title">Not Loaded</div>
+                    <div>{{ _('Location:') }}</div>
+                    <div id="location-title" class="location-title">{{ _('Not Loaded') }}</div>
                 </div>
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 <span class="glyphicon glyphicon-chevron-left hidden"></span>
             </a>
         </div>
         <div class="tab-title less-padding-col">
-            Explore Data 
+            {{ _('Explore Data') }}
         </div>
         <div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-            Date not loaded.
+           {{ _('Date not loaded.') }}
         </div>
     </div>
 
@@ -38,7 +37,7 @@
 
         <div id="sidebar-wrapper" >
             <div id="location-selector" class="location-selector">
-                Locations not loaded
+                {{ _('Locations not loaded') }}
             </div>
         </div>
 
@@ -46,7 +45,7 @@
             <div class="row">
                 <div class='col-xs-6 less-padding-col'>
                     <div class="form-group">
-                        <label> Start Date: </label>
+                        <label> {{_('Start Date:') }} </label>
                         <div class='input-group date cross-option timeline-option' id='start-date' name='start_date' value=''>
                             <input type='text' class="form-control "/>
                             <span class="input-group-addon">
@@ -57,7 +56,7 @@
                 </div>
                 <div class='col-xs-6 less-padding-col'>
                     <div class="form-group">
-                        <label> End Date: </label> 
+                        <label> {{ _('End Date:') }} </label> 
                         <div class='input-group date cross-option timeline-option' id='end-date' name='end_date' value=''>
                             <input type='text' class="form-control explore-date" />
                             <span class="input-group-addon">
@@ -82,19 +81,19 @@
                             <div class="options">
                                 <span class="glyphicon glyphicon-check" 
                                       id="toggle-selected" onClick="toggleSelected(this);" table="cross-table"
-                                      title="Hide not selected rows/Show hidden rows" value="shown" >
+                                      title="{{ _('Hide not selected rows/Show hidden rows') }}" value="shown" >
                                 </span>
                                 <span class="glyphicon glyphicon-resize-small cross-option" id="strip-button"
-                                      onClick="callStrip(this);" title="Hide/show empty records" table="cross-table"
+                                      onClick="callStrip(this);" title="{{ _('Hide/show empty records') }}" table="cross-table"
                                       value=true name="strip">
                                 </span>
                                 <span class="glyphicon glyphicon-pencil cross-option" id="colour-button"
-                                      onClick="callColour(this);" title="Colour the table" table="cross-table"
+                                      onClick="callColour(this);" title="{{ _('Colour the table') }}" table="cross-table"
                                       value=true name="colour">
                                 </span>
                                 <span class="glyphicon glyphicon-save cross-option" id="save-csv"
                                       onClick='$("#cross-table").tableExport({"type":"xls", "fileName": "data"});' 
-                                      title="Download Excel" value="" name="excel">
+                                      title="{{ _('Download Excel') }}" value="" name="excel">
                                 </span>
                             </div>
                             <div id="toolbox">
@@ -120,16 +119,16 @@
                                           table="timeline-table" value="shown" >
                                     </span>
                                     <span class="glyphicon glyphicon-resize-small timeline-option" id="strip-button"
-                                          onClick="callStrip(this);" title="Hide/show empty records" 
+                                          onClick="callStrip(this);" title="{{ _('Hide/show empty records') }}" 
                                           table="timeline-table" value=true name="strip">
                                     </span>
                                     <span class="glyphicon glyphicon-pencil timeline-option" id="colour-button"
-                                          onClick="callColour(this);" title="Colour the table" 
+                                          onClick="callColour(this);" title="{{_('Colour the table') }}" 
                                           table="timeline-table" value=true name="colour">
                                     </span>
                                     <span class="glyphicon glyphicon-save" id="save-csv"
                                           onClick='$("#timeline-table").tableExport({"type":"xls", "fileName": "data"});' 
-                                          title="Download Excel" >
+                                          title="{{_('Download Excel') }}" >
                                     </span>
                                 </div>
                             </div>
@@ -176,7 +175,7 @@ $( function(){
     var axisSelector = "<select>"
     for( var i in config.categories ){
         var cat = config.categories[i];
-        axisSelector += "<option value='" + cat[0] + "'>" + cat[1] + "</option>";
+        axisSelector += "<option value='" + cat[0] + "'>" + i18n.gettext(cat[1]) + "</option>";
     }
     axisSelector += "</select>";
     $('.axis-selector').html(axisSelector);
@@ -187,11 +186,13 @@ $( function(){
         useCurrent: false,
         defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
         format: "DD/MM/YYYY",
+        locale: language
     });
     $('#end-date').datetimepicker({
         useCurrent: true,
         defaultDate: d.toISOString(),
-        format: "DD/MM/YYYY"
+        format: "DD/MM/YYYY",
+        locale: language
     });
 
     //Add a listener to the axis selectors, update table upon change.

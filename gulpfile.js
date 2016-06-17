@@ -12,6 +12,7 @@ var debug = require('gulp-debug');
 var gulpif = require('gulp-if');
 var rsync = require('gulp-rsync');
 var argv = require('yargs').argv;
+var po2json = require('gulp-po2json');
 var mainBowerFiles = require('main-bower-files');
 
 // ** SASS/SCSS/CSS PLUGINS ** //
@@ -43,7 +44,9 @@ gulp.task('jshint', function() {
 gulp.task('vendorJS', function() {
 	return gulp.src( mainBowerFiles().concat([
 		'node_modules/tree-model/dist/TreeModel-min.js',
-		'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js'
+		'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
+		'bower_components/jed/jed.js',
+
     ]))
 		.pipe(filter('*.js'))
  //   .pipe(sourcemaps.init())
@@ -51,6 +54,19 @@ gulp.task('vendorJS', function() {
  //   .pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/js'));
 });
+// JAVASCRIPT TASKS
+gulp.task('locales', function() {
+	return gulp.src([
+		'bower_components/moment/locale/fr.js'
+    ])
+		.pipe(filter('*.js'))
+ //   .pipe(sourcemaps.init())
+    .pipe(gulpif(production, uglify()))
+ //   .pipe(sourcemaps.write())
+    .pipe(gulp.dest('meerkat_frontend/static/js/locale'));
+});
+
+
 
 gulp.task('appJS', ['jshint'], function() {
   return gulp.src([
@@ -180,6 +196,16 @@ gulp.task('sass:watch', function() {
   gulp.watch('meerkat_frontend/src/sass/**/*', ['sass']);
 });
 
+
+//LANGUAGE TASKS
+gulp.task('po2json', function () {
+    return gulp.src(['meerkat_frontend/translations/*/LC_MESSAGES/messages.po'])
+		.pipe(debug())
+        .pipe(po2json({format:"jed1.x"}))
+        .pipe(gulp.dest('meerkat_frontend/static/translations'));
+});
+
+
 // CLEAN TASKS
 gulp.task('clean', function() {
   return del([
@@ -188,10 +214,11 @@ gulp.task('clean', function() {
     'meerkat_frontend/static/js/**/*',
     'meerkat_frontend/static/fonts/**/*',
     'meerkat_frontend/static/img/**/*.{gif,jpg,png,svg}',
+    'meerkat_frontend/static/translations/**/*.json'
   ]);
 });
 
 // DEFAULT TASK
 gulp.task('default', ['clean'], function() {
-  gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css');
+	gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales');
 });

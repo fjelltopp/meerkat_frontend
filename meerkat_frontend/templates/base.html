@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% include 'includes/header.html' %}
-{% block head %} {% endblock %}
+  {% include 'includes/header.html' %}
+  {% block head %} {% endblock %}
 </head>
 <body class="{{content.application}}" {{ 'data-spy="scroll" data-target=".navmenu"' if content.application == "homepage" }} >
 
@@ -11,19 +11,21 @@
     <div class="container navmenu">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
+          <span class="sr-only">{{ _('Toggle navigation') }}</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand scroll-top" href="#">
           <img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> </img>
-          <span class="hidden-xs hidden-sm">{{content.titles.nav|safe}}</span>
-          <span class="visible-xs visible-sm">{{content.titles.mob_nav|safe}}</span>
+          <span class="hidden-xs hidden-sm">{{_(content.titles.nav|safe)}}</span>
+          <span class="visible-xs visible-sm">{{_(content.titles.mob_nav|safe)}}</span>
         </a>
       </div>
       <div class="collapse navbar-collapse" id="menu-collapse" >
         {% block menu %}{% endblock %}
+        <div class="lang-sel" title=>
+        </div>
       </div>
     </div>
   </nav>
@@ -36,7 +38,7 @@
 			<div class="frame {{category}}">
 				<span class="glyphicon glyphicon-alert" ></span>
 				<div class='text'>
-					{{ message }}
+					{{ _(message) }}
 				</div>
 			</div>
 		</li>
@@ -53,14 +55,14 @@
       {% block footer %}
       <div class="container">
 	      <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
-		      <p class="footer__title">{{content.titles.nav|safe}}</p>
-		      <p>Working with our partners:</p> 
+		      <p class="footer__title">{{_(content.titles.nav)|safe}}</p>
+		      <p>{{ _('Working with our partners:') }}</p> 
 		      <ul class="footer__supporters" >
 			      {% for partner in content.footer.partners %}
-				      <li>{{partner}}</li>
+				      <li>{{_(partner)}}</li>
 			      {% endfor %} 
 		      </ul>
-		      <p>For more information, please e-mail: {{content.footer.email|safe}} </p>
+		      <p>{{ _('For more information, please e-mail:') }} {{content.footer.email|safe}} </p>
 	      </div>
 	      <div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
 		      <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
@@ -73,6 +75,7 @@
       </div>
       {% endblock %}
     </footer>
+
   {% include 'includes/js.html' %}
   {% block pageJS %}{% endblock %}
   </body>
