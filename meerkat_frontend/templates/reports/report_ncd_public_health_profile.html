@@ -171,34 +171,7 @@
   </div>
 </div>
 <div class="row">
-  <!-- MORBIDITY NON COMMUNICABLE DISEASE -->
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('ICD-10 Classification') }}</div>
-      <div class="chart-stage">
-        <div id="chart-mor-non-communicable-disease"></div>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th>{{ _('%% morbidity') }}</th>
-              <th>{{ _('# of cases') }}</th>
-            </tr>
-          </thead>
-          {% for disease in report.data.morbidity_non_communicable_icd %}
-          <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ disease.title|e }}</td>
-            <td>{{ disease.percent|float|round(1) }}%</td>
-            <td>{{ disease.quantity|commas }}</td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-    </div>
-  </div>
-  <!-- MORBIDITY NON-COMMUNICABLE DISEASE CD TAB-->
+    <!-- MORBIDITY NON-COMMUNICABLE DISEASE CD TAB-->
   <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Non-Communicable Disease') }}</div>
