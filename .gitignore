@@ -54,5 +54,5 @@ Thumbs.db
 secret.cfg
 
 # Combined Translation files
-meerkat_frontend/translations
+meerkat_frontend/translations/**/.po
 
