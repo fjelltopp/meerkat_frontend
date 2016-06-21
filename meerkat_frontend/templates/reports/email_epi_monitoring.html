@@ -814,7 +814,7 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Public Health Profile')}}</h2>
+                                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Weekly Epidemiological Report')}}</h2>
                                       <h3>{{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}</h3>
                                     </td>
                                   </tr>
@@ -844,8 +844,8 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <p>Dear Colleagues,</p>
-                                      <p>Welcome to the latest public health epidemiological profile from the national public health surveillance program in Jordan.</p>
+                                      {{ _('<p>Dear Colleagues,</p>
+                                      <p>Welcome to the latest Weekly Epidemiological Report from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
                                     </td>
                                   </tr>
                                 </tbody>
@@ -879,23 +879,29 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      {{ _('<p>The profile summarises epidemiological information reported from %(clinic_num)s reporting sites in Epidemiological Week X (%(start_date)s – %(end_date)s).</p>', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
-                                      
+                                      <p>
+                                      {{ _('The profile summarises epidemiological information reported from %(clinic_num)s
+                                        reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
+                                        %(end_date)s).', 
+                                        clinic_num=report.data.clinic_num, 
+                                        project_region=_(report.data.project_region),
+                                        epi_week=report.data.epi_week_num,
+                                        start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+                                      </p>
+
+                                      <h3>{{ _('Key Findings') }} </h3>
+
                                       <ul>
-                                          <li> {{ _('A total of <strong> %(total_consultations)s consultations</strong> and <strong> %(total_cases)s cases</strong> reported from %(clinic_num)s health facilities.', total_consultations= report.data.total_consultations|commas, total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}</li>
-                                          
-                                          <li>{{ _('<strong> %(percent_female)s %% female</strong> and <strong> %(percent_lt_5yo)s %% five years</strong> of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}</li>
-                                          
-                                          <li>{{ _('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1)) }}</li>
-                                      
-                                          <li>{{ _('<strong> %(percent_cd)s %% morbidity due to communicable disease</strong>, including ', percent_cd=report.data.percent_morbidity_communicable|float|round(1)) }}{% for disease in report.data.morbidity_communicable_tab %}{% if loop.last and not loop.first %} {{_('and') }} {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
+
+                                      <li> {{ _('A total of %(consultations)s consultations and %(cases)s cases reported from %(clininc_num) health facilities.',
+                                      clinic_num=report.data.clinic_num,
+                                      consultations=report.data.total_consultations|commas,
+                                      cases=report.data.total_cases|commas
+                                      ) }}
+
+                                      </ul>
 
                                       
-                                          <li>{{ _('<strong> %(percent_ncd)s %% morbidity due to non-communicable disease</strong>, including', percent_ncd=report.data.percent_morbidity_non_communicable|float|round(1)) }} {% for disease in report.data.morbidity_non_communicable_tab %}{% if loop.last and not loop.first %} {{_('and') }} {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
-                                          
-                                          <li><strong>{{ _('%(percent_mh)s %% morbidity due to mental health conditions</strong>, including', percent_mh= report.data.percent_morbidity_mental_health|float|round(1))}} {% for disease in report.data.mental_health %}{% if loop.last and not loop.first %}{{ _('and') }} {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
-                                          
-                                      </ul>
                                     </td>
                                   </tr>
                                 </tbody>
