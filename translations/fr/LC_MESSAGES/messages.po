@@ -1088,7 +1088,7 @@ msgid ""
 "<p>Information reported in this public health profile represents cases "
 "reported from %(clinic_num)s reporting sites in %(project_region)s "
 "between %(start_date)s and %(end_date)s.</p>"
-msgstr "<p>Les informations communiquées dans ce profil de santé publique représente les cas déclarés de %(clinic_num)s établissements de santé en %(project_region)s entre% %(start_date)s et %(end_date)s.</p>"
+msgstr "<p>Les informations communiquées dans ce profil de santé publique représente les cas déclarés de %(clinic_num)s établissements de santé en %(project_region)s entre %(start_date)s et %(end_date)s.</p>"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:26
