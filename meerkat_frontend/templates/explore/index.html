@@ -205,9 +205,10 @@ $( function(){
 	}
 	reDraw();
     });
+	 // We add one day to end-date to make the date interval closed
      var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").toISOString();
      $('#start-date').attr('value', value );
-     var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").toISOString();
+     var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").add(1, "days").toISOString();
      $('#end-date').attr('value', value );
 
     //Add listeners to update table when date/pickers change. Store the chart state in the DOM element.
@@ -218,7 +219,7 @@ $( function(){
         reDraw();
     });
     $('#end-date').on('dp.change', function() {
-        var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOString();
+        var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").add(1, "days").toISOString();
         $('#end-date').attr('value', value );
 	keep_checked = true;
         reDraw();
