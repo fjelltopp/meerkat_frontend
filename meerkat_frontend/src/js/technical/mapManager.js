@@ -14,11 +14,17 @@ map = null;
     :param int location:
         The location ID to filter data by.        
 */
-function drawMap( varID, containerID, location ){
+function drawMap( varID, containerID, location, start_date, end_date ){
 
 	location = location || 1 ;
 	
-	$.getJSON( api_root+'/map/'+varID+'/'+location, function( data ){
+  url = api_root+'/map/'+varID+'/'+location;
+  if( end_date ) url += '/' + end_date;
+  if( start_date ) url += '/' + start_date;
+  console.log( url );
+
+	$.getJSON( url, function( data ){
+    console.log( data );
 		L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
 		map = L.mapbox.map( containerID, 'mrjb.143811c9', { 
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' + 

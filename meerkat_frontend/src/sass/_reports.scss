@@ -136,24 +136,30 @@ form.reports-form .download-buttons input{
   border-bottom: 1px solid #ddd;
 } 
 
-.table tbody td.border-left{
+.table tbody td.border-left,
+.table thead th.border-left{
   border-left: 2px solid #ddd;
 }
 
-.table tbody td.border-top{
+.table tbody td.border-top,
+.table thead th.border-top{
   border-top: 2px solid #ddd;
 }
 
-.table tbody td.border-right{
+.table tbody td.border-right,
+.table thead th.border-right{
   border-right: 2px solid #ddd;
 }
 
-.table tbody td.border-bottom{
+.table tbody td.border-bottom,
+.table thead th.border-bottom{
   border-bottom: 2px solid #ddd;
 }
 
-.dark{
+.table tbody td.dark,
+.table thead th.dark{
   background: $darkGrey;
+  border: none;
 }
 
 .table-wrapper{
@@ -221,4 +227,8 @@ table.refugee.small{
 	padding: 30px;
 	border: solid 1px $lightGrey;
 	border-radius: 3px;
+}
+
+#malaria-map-wrapper{
+   height: 350px;
 }
