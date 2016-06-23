@@ -88,15 +88,17 @@ $printedBlue: #337ab7;
 
 		// HEADER
 		.flag-icon {
+      border: 2px solid #ddd !important;
 			background: transparent !important;
-			background-size: contain !important;
+			background-size: cover !important;
 			background-position: 50% !important;
 			background-repeat: no-repeat !important;
 			position: relative !important;
 			display: inline-block !important;
 			width: 1.33333em !important;
 			line-height: 1em !important;
-			padding: 5px 10px;
+			margin: 5px 10px;
+      padding: 0px;
 		}
 
 		// CHARTS
@@ -133,9 +135,34 @@ $printedBlue: #337ab7;
 		//TABLES
 		.table{ 
 
+      border: 2px solid #ddd !important;
+
+      .table tbody tr td{
+        border-bottom: 1px solid #ddd !important;
+      } 
+
+      tbody td.border-left,
+      thead th.border-left{
+        border-left: 2px solid #ddd !important;
+      }
+
+      tbody td.border-top,
+      thead th.border-top{
+        border-top: 2px solid #ddd !important;
+      }
+
+      tbody td.border-right,
+      thead th.border-right{
+        border-right: 2px solid #ddd !important;
+      }
+
+      tbody td.border-bottom,
+      thead th.border-bottom{
+        border-bottom: 2px solid #ddd !important;
+      }
 			margin-bottom: 0px;
 			tbody td.highlight {
-					background: #d9692a !important;
+					background: #d9692a !important !important;
 					color: #FFF !important;
 					border: #d9692a;
 			}
@@ -143,6 +170,7 @@ $printedBlue: #337ab7;
 			 	th{
 					border: 0;
 					background: #cacaca !important;
+          border-bottom: 2px solid #ddd !important;
 				}
 			
 			}
@@ -150,13 +178,19 @@ $printedBlue: #337ab7;
 				background: $lightGrey !important;
 			}
 			.total {
-					border-right: 2px solid #cacaca !important;
-					border-left: 2px solid #cacaca !important;
-					background: #cacaca !important;
+				border-right: 2px solid #cacaca !important;
+				border-left: 2px solid #cacaca !important;
+				background: #cacaca !important;
 			}
+      tbody td.dark,
+      thead th.dark{
+        background: $darkGrey !important;
+        border: none;
+      }
 		}
 		.table-wrapper, .small-table-wrapper{
 			border-radius: 0;
+      border: 0;
 		}
 
 	}
