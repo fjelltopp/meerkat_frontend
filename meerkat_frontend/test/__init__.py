@@ -61,7 +61,8 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_reports_cd(self):
         rv = self.app.get('en/reports/test/communicable_diseases/',headers=self.header)
         self.assertIn(rv.status_code, [200])
-        self.assertIn(b"There were 0 new confirmed cases and 1 new suspected cases of Bloody diarrhoea this week", rv.data)
+        self.assertIn(b"There were 0 new confirmed cases and 1 new suspected cases of Bloody diarrhoea", rv.data)
+
     def test_reports_ncd(self):
         rv = self.app.get('en/reports/test/non_communicable_diseases/',headers=self.header)
         self.assertIn(rv.status_code, [200])
