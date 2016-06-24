@@ -814,7 +814,7 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Malaria Surveillance Report')}}
+                                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Communicable Disease Profile')}}
                                       </h2>
                                       <h3>{{ _('Epi week %(epi_week)s (%(start_date)s - %(end_date)s)',
                                       epi_week = report.data.epi_week_num,
@@ -851,7 +851,7 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                                       {{ _('<p>Dear Colleagues,</p>
-                                      <p>Welcome to the latest malaria surveillance report from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
+                                      <p>Welcome to the latest Communicable Disease Epidemiological Profile from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
                                     </td>
                                   </tr>
                                 </tbody>
@@ -886,7 +886,7 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                                       <p>
-                                      {{ _('The profile summarises epidemiological information reported from %(clinics)s
+                                      {{ _('The report summarises epidemiological information reported from %(clinics)s
                                         reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
                                         %(end_date)s).', 
                                         clinics=report.email.clinics, 
@@ -899,29 +899,17 @@
 
                                       <ul>
 
-                                      <li>{{ _('A total of %(consultations)s consultations reported from %(clinics)s health facilities.',
-                                      clinics=report.email.clinics,
+                                      <li>{{ _('A total of %(consultations)s consultations reported from %(cases)s health facilities.',
+                                      cases=report.email.cases,
                                       consultations=report.email.consultations
                                       ) }}</li>
 
 
-                                      <li>{{ _('%(fever)s cases and %(rdt)s RDT tests performed.',
-                                      fever=report.malaria_situation.mls_2,
-                                      rdt=report.malaria_situation.mls_3
+                                      <li>{{ _('%(female)s %% female and %(under_five)s %% under five years of age',
+                                      female=report.data.percent_cases_female|float|round(1),
+                                      under_five=report.data.percent_cases_lt_5yo|float|round(1)
                                       )}}</li>
 
-                                      <li>{{ _('%(simple_malaria)s cases of simple malaria and %(severe_malaria)s cases of severe malaria',
-                                      simple_malaria=report.malaria_situation.mls_12,
-                                      severe_malaria=report.malaria_situation.mls_12
-                                      ) }}</li>
-
-                                      <li>{{ _('%(mal_mortality)s malaria deaths',
-                                      mal_mortality=report.malaria_situation.mls_34
-                                      ) }}</li>
-
-                                      <li>{{ _('%(act)s cases treated with ACT',
-                                      act=report.malaria_situation.mls_45
-                                      ) }}</li>
 
                                       </ul>
 
