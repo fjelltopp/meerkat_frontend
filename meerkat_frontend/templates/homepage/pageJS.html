@@ -131,7 +131,7 @@
       map.scrollWheelZoom.disable();
       // Disable tap handler, if present.
       if (map.tap) map.tap.disable();
-      $('.key .keyBody').text("Click here to explore");
+      $('.key .keyBody').text(i18n.gettext("Click here to explore"));
       //if( undefined != regionalLayer ) map.removeLayer(regionalLayer);
 		viewingMap = false;
          
@@ -243,7 +243,7 @@
          map.scrollWheelZoom.enable();
          if (map.tap) map.tap.enable();
          // Show the key overlay/
-         $('.key .keyBody').text("Click here to finish.");
+         $('.key .keyBody').text(i18n.gettext("Click here to finish."));
 			viewingMap=true;
     }
 

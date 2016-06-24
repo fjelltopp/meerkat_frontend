@@ -87,8 +87,14 @@ def test(report):
             extras['map_centre'] = report_list[report]["map_centre"]
             extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                  "/clinics/1/SARI")
+        elif report in ["malaria"]:
+            extras = {}
+            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
+                                 "/map/epi_1/1")
+            extras['map_centre'] = report_list[report]["map_centre"]           
         else:
             extras = None
+
         return render_template(
             report_list[report]['template'],
             report=data,
@@ -497,6 +503,24 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         extras['map_centre'] = report_list[report]["map_centre"]
         extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                   "/clinics/1/SARI")
+        extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
+            current_app.config['MAPBOX_STATIC_MAP_API_URL'],
+            current_app.config['MAPBOX_MAP_ID'],
+            extras['map_centre'][1],
+            extras['map_centre'][0],
+            extras['map_centre'][2],
+            current_app.config['MAPBOX_API_ACCESS_TOKEN'])
+    elif report in ['malaria']:
+        extras = {} 
+        extras['map_centre'] = report_list[report]['map_centre']
+        extras["map_api_call"] = (
+            current_app.config['EXTERNAL_API_ROOT'] + "/map/{}/{}/{}/{}".format(
+               data['map_variable'],
+               data['data']['project_region_id'],
+               data['data']['end_date'],
+               data['data']['start_date']
+            )            
+        )
         extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
             current_app.config['MAPBOX_STATIC_MAP_API_URL'],
             current_app.config['MAPBOX_MAP_ID'],

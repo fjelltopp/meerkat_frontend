@@ -1,10 +1,14 @@
 
 
-function draw_public_health_map(api_call, map_centre){
+function draw_report_map(api_call, map_centre, containerID){
+
+    if( !containerID ) containerID = 'map';
+
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map('map', 'mrjb.143811c9', {
-	zoomControl: false,
-	fullscreenControl: true // Display fullscreen toggle button
+    var map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+	    zoomControl: false,
+	    fullscreenControl: true, // Display fullscreen toggle button
+      scrollWheelZoom: false
     })
     .setView([map_centre[0], map_centre[1]], map_centre[2]);
 
