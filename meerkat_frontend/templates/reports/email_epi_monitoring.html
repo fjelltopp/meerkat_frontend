@@ -883,7 +883,7 @@
                                       {{ _('The profile summarises epidemiological information reported from %(clinic_num)s
                                         reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
                                         %(end_date)s).', 
-                                        clinic_num=report.data.clinic_num, 
+                                        clinic_num=0, 
                                         project_region=_(report.data.project_region),
                                         epi_week=report.data.epi_week_num,
                                         start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
@@ -893,14 +893,44 @@
 
                                       <ul>
 
-                                      <li> {{ _('A total of %(consultations)s consultations and %(cases)s cases reported from %(clininc_num) health facilities.',
-                                      clinic_num=report.data.clinic_num,
-                                      consultations=report.data.total_consultations|commas,
-                                      cases=report.data.total_cases|commas
-                                      ) }}
+                                      <li>{{ _('A total of %(consultations)s consultations and %(cases)s cases reported from %(clinic_num) health facilities.',
+                                      clinic_num=0,
+                                      consultations=report.email.consultations,
+                                      cases=report.email.cases
+                                      ) }}</li>
+
+
+                                      <li>{{ _('%(tot_mortality)s deaths and %(mat_mortality)s maternal deaths.',
+                                      tot_mortality=report.tot_mortality.dea_0,
+                                      mat_mortality=report.mat_mortality.mat_0
+                                      )}}</li>
+
+                                      <li>{{ _('%(generated)s alerts generated and %(investigated)s alerts investigated',
+                                      generated=report.alerts.generated,
+                                      investigated=report.alerts.investigated
+                                      ) }}</li>
 
                                       </ul>
 
+                                      <h3>{{ _('Project Overview') }}</h3>
+
+                                      <p>
+                                      {{
+                                      _('
+                                        A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+                                      ',
+                                      project_region=_(report.data.project_region)
+                                      )
+                                      }}
+                                      </p>
+
+                                      <p>
+                                      {{
+                                      _('
+                                      The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+                                      ')
+                                      }}
+                                      </p>
                                       
                                     </td>
                                   </tr>
@@ -930,7 +960,7 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <p>Working with our partners:</p>
+                                      <p>{{ _('Working with our partners:') }}</p>
                                         {% for partner in content.footer.partners %}
                                           <li>{{_(partner)}}</li>
                                         {% endfor %} 
