@@ -899,17 +899,21 @@
 
                                       <ul>
 
-                                      <li>{{ _('A total of %(consultations)s consultations reported from %(cases)s health facilities.',
+                                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> and <strong>%(cases)s cases</strong> reported from %(clinic_num)s health facilities.',
+                                      clinic_num=report.data.clinic_num|commas,
                                       cases=report.email.cases,
                                       consultations=report.email.consultations
                                       ) }}</li>
 
 
-                                      <li>{{ _('%(female)s %% female and %(under_five)s %% under five years of age',
+                                      <li>{{ _('<strong>%(female)s %% females</strong> and <strong>%(under_five)s %% under five years</strong> of age',
                                       female=report.data.percent_cases_female|float|round(1),
                                       under_five=report.data.percent_cases_lt_5yo|float|round(1)
                                       )}}</li>
 
+                                      {% for disease in report.data.morbidity_communicable_cd_tab %}
+                                      <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
+                                      {% endfor %}
 
                                       </ul>
 
