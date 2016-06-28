@@ -12,7 +12,7 @@
       >
     </span> 
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
-    <span> {{ _('Weekly Epidemiological Surveillance Report') }} </span>
+    <span> {{ _('Malaria Epidemiological Surveillance Report') }} </span>
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
     </span>
@@ -112,9 +112,9 @@ function drawTable1(){
     return ret;
   }
 
-  struct = [["{{_('Number of consultations')}}", 1 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  struct = [["{{_('Number of consultations')}}", 1 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
             ["{{_('Number of fever cases')}}", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-            ["{{_('Number of RDT tests performed')}}", 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 11],
+            ["{{_('Number of RDT tests performed')}}", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
             ["{{_('Number of cases of simple malaria')}}", 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
             ["{{_('Number of cases of severe malaria')}}", 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33],
             ["{{_('Number of malaria deaths')}}", 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44],
