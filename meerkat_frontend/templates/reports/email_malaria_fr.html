@@ -814,9 +814,9 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Communicable Disease Profile')}}
+                                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Rapport de Surveillance Epidemiologique du Paludisme')}}
                                       </h2>
-                                      <h3>{{ _('Epi week %(epi_week)s (%(start_date)s - %(end_date)s)',
+                                      <h3>{{ _('Semaine Épidémiologique %(epi_week)s (%(start_date)s - %(end_date)s)',
                                       epi_week = report.data.epi_week_num,
                                       start_date = report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'),
                                       end_date = report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')
@@ -850,8 +850,8 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      {{ _('<p>Dear Colleagues,</p>
-                                      <p>Welcome to the latest Communicable Disease Epidemiological Profile from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
+                                      {{ _('<p>Chers collègues,</p>
+                                      <p>Bienvenue sur le Rapport de Surveillance Epidemiologique du Paludisme par le projet de Surveillance de la Santé Publique à %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
                                     </td>
                                   </tr>
                                 </tbody>
@@ -868,7 +868,7 @@
                                 <tbody>
                                   <tr>
                                     <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('View the latest report') }}</a>
+                                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('Voir le rapport') }}</a>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -886,8 +886,9 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                                       <p>
-                                      {{ _('The report summarises epidemiological information reported from %(clinics)s
-                                        reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
+                                      {{ _('Le profil résume l''information épidémiologique rapporté des sites 
+                                        %(clinics)s
+                                        de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s and 
                                         %(end_date)s).', 
                                         clinics=report.email.clinics, 
                                         project_region=_(report.data.project_region),
@@ -895,50 +896,46 @@
                                         start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
                                       </p>
 
-                                      <h3>{{ _('Key Findings') }} </h3>
+                                      <h3>{{ _('Principales Conclusions') }} </h3>
 
                                       <ul>
 
-                                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> and <strong>%(cases)s cases</strong> reported from %(clinic_num)s health facilities.',
-                                      clinic_num=report.data.clinic_num|commas,
-                                      cases=report.email.cases,
-                                      consultations=report.email.consultations
+                                      <li>{{ _('Au total <strong>%(consultations)s consultations</strong> par %(clinics)s des établissements de santé.',
+                                      clinics=report.email.clinics,
+                                      consultations=report.malaria_situation.mls_1
                                       ) }}</li>
 
 
-                                      <li>{{ _('<strong>%(female)s %% females</strong> and <strong>%(under_five)s %% under five years</strong> of age',
-                                      female=report.data.percent_cases_female|float|round(1),
-                                      under_five=report.data.percent_cases_lt_5yo|float|round(1)
+                                      <li>{{ _('<strong>%(fever)s</strong> cas de <strong>fièvre</strong> et <strong>%(rdt)s TDR effectués. 
+                                      </strong>',
+                                      fever=report.malaria_situation.mls_2,
+                                      rdt=report.malaria_situation.mls_3
                                       )}}</li>
 
-                                      {% for disease in report.data.morbidity_communicable_cd_tab %}
-                                      <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
-                                      {% endfor %}
+                                      <li>{{ _('<strong>%(simple_malaria)s</strong> cas de  
+                                      <strong>Paludisme simple</strong> et <strong>%(severe_malaria)s</strong>
+                                       cas de <strong>Paludisme grave</strong>',
+                                      simple_malaria=report.malaria_situation.mls_12,
+                                      severe_malaria=report.malaria_situation.mls_12
+                                      ) }}</li>
+
+                                      <li>{{ _('<strong>%(mal_mortality)s décès</strong> dû au Paludisme',
+                                      mal_mortality=report.malaria_situation.mls_34
+                                      ) }}</li>
+
+                                      <li>{{ _('<strong>%(act)s</strong> cas traité à <strong>l’ACT</strong>',
+                                      act=report.malaria_situation.mls_45
+                                      ) }}</li>
 
                                       </ul>
 
-                                      <h3>{{ _('Alerts') }}</h3>
+                                      <h3>{{ _('Plus d''informations') }}</h3>
 
                                       <p>
                                       {{
                                       _('
-                                      A total of %(alerts)s  suspected notifiable communicable disease alerts were generated in Epidemiological Week 
-                                      %(epi_week)s (%(start_date)s and 
-                                        %(end_date)s).
-                                      ',
-                                      alerts=report.data.alerts_total,
-                                      epi_week=report.data.epi_week_num,
-                                      start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), 
-                                      end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')
-                                      )
-                                      }}
-
-                                      <h3>{{ _('Project Overview') }}</h3>
-
-                                      <p>
-                                      {{
-                                      _('
-                                        A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+                                        Un programme de surveillance de la santé publique est mise en œuvre en 
+                                        %(project_region)s, en partenariat avec l''OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.
                                       ',
                                       project_region=_(report.data.project_region)
                                       )
@@ -948,7 +945,7 @@
                                       <p>
                                       {{
                                       _('
-                                      The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+                                      Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L''information est mise à disposition dans l''heure par l''intermédiaire d''un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l''information.
                                       ')
                                       }}
                                       </p>
@@ -981,13 +978,14 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <p>{{ _('Working with our partners:') }}</p>
+                                      <p>{{ _('En collaboration avec nos partenaires:') }}</p>
                                         <img src="{{ url_for('static', filename='img/logo/' + 'who-logo-no-text.svg') }}" id="whoLogo" width="50" style="padding-right:9px"></img> 
                                         <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}"
                                              id="countryLogo" width="50" style="padding-right:9px"></img> 
                                         {% for logo in content.footer.logos.partners %}
                                           <img src="{{ url_for('static', filename='img/homepage/' + logo) }}" width="50" style="padding-right:9px"></img> 
                                         {% endfor %} 
+                                    </td>
                                     </td>
                                   </tr>
                                 </tbody>

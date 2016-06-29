@@ -209,17 +209,22 @@ def send_email_report(report):
             }
 
         html_email_body = render_template(
-            report_list[report]['template_email_html'],
-            email=data,
-            extras=extras,
-            report_url=report_url
+                ret['template_email_html'],
+                report=ret['report'],
+                extras=ret['extras'],
+                address=ret['address'],
+                content=current_app.config['REPORTS_CONFIG'],
+                report_url=report_url
         )
         plain_email_body = render_template(
-            report_list[report]['template_email_plain'],
-            email=data,
-            extras=extras,
-            report_url=report_url
+                ret['template_email_plain'],
+                report=ret['report'],
+                extras=ret['extras'],
+                address=ret['address'],
+                content=current_app.config['REPORTS_CONFIG'],
+                report_url=report_url
         )
+        
         subject = (
             '{} | {} Epi Week {} ({})'
             .format(country, report_list[report]['title'], epi_week, epi_date)
