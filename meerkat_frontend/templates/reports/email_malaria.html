@@ -899,27 +899,30 @@
 
                                       <ul>
 
-                                      <li>{{ _('A total of %(consultations)s consultations reported from %(clinics)s health facilities.',
+                                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> reported from %(clinics)s health facilities.',
                                       clinics=report.email.clinics,
-                                      consultations=report.email.consultations
+                                      consultations=report.malaria_situation.mls_1
                                       ) }}</li>
 
 
-                                      <li>{{ _('%(fever)s cases and %(rdt)s RDT tests performed.',
+                                      <li>{{ _('<strong>%(fever)s cases</strong> and <strong>%(rdt)s RDT tests 
+                                      </strong> performed.',
                                       fever=report.malaria_situation.mls_2,
                                       rdt=report.malaria_situation.mls_3
                                       )}}</li>
 
-                                      <li>{{ _('%(simple_malaria)s cases of simple malaria and %(severe_malaria)s cases of severe malaria',
+                                      <li>{{ _('<strong>%(simple_malaria)s</strong> cases of 
+                                      <strong>simple malaria</strong> and <strong>%(severe_malaria)s</strong>
+                                       cases of <strong>severe malaria</strong>',
                                       simple_malaria=report.malaria_situation.mls_12,
                                       severe_malaria=report.malaria_situation.mls_12
                                       ) }}</li>
 
-                                      <li>{{ _('%(mal_mortality)s malaria deaths',
+                                      <li>{{ _('<strong>%(mal_mortality)s malaria deaths</strong>',
                                       mal_mortality=report.malaria_situation.mls_34
                                       ) }}</li>
 
-                                      <li>{{ _('%(act)s cases treated with ACT',
+                                      <li>{{ _('<strong>%(act)s</strong> cases <strong>treated with ACT</strong>',
                                       act=report.malaria_situation.mls_45
                                       ) }}</li>
 
