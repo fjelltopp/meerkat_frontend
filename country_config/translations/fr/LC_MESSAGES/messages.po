@@ -1,0 +1,356 @@
+# French translations for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-06-13 13:30+0000\n"
+"PO-Revision-Date: 2016-06-02 09:29+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+# null_config.py
+msgid "Null Island <br> Public Health Surveillance"
+msgstr "Surveillance de la santé publique de l'Île Null"
+
+# null_config.py
+msgid "<b>Null Island </b> &middot; Public Health Surveillance"
+msgstr "<B> Île Null </ b> & middot; Surveillance de la santé publique"
+
+# null_config.py
+msgid "Health Surveillance"
+msgstr "Surveillance de la santé"
+
+# null_config.py
+msgid "The Ministry of Health, Null Island"
+msgstr "Le ministère de la Santé, Île Null"
+
+# null_config.py
+msgid "kingdom"
+msgstr "Roi"
+
+# null_homepage.json
+msgid "Overview"
+msgstr "Vue d'ensemble"
+
+# null_homepage.json
+msgid ""
+"<p>A national program of public health surveillance is being implemented "
+"in various sites across Null Island.</p><p>The project introduces case-"
+"based, integrated disease surveillance that is coded according to the "
+"International Classification of Disease (ICD-10).</p><p>The clinician "
+"uses the system within the consultation, which introduces clinical-"
+"decision support, as well as best practice prescribing guidance and and "
+"real-time reporting of information. </p><p>Information is made available "
+"within one hour via an online framework with automated generation of SMS "
+"and email alerts and support for mapping and reporting, that is accessed "
+"at all levels of the Ministry of Health.</p><p>You can sign up to receive"
+" weekly epidemiological reports and updates.</p>"
+msgstr ""
+"<P> Un programme national de surveillance de la santé publique est mise "
+"en œuvre dans divers sites à travers l'île Null. </ P> <p> Le projet "
+"introduit, la surveillance intégrée de la maladie à partir de cas qui est"
+" codé selon la Classification internationale des maladies (CIM 10). </ p>"
+" <p> le clinicien utilise le système au sein de la consultation, qui "
+"introduit un soutien clinique de décision, ainsi que la meilleure "
+"orientation de prescription de la pratique et et des rapports en temps "
+"réel des informations. </ P> <p> L'information est mise à disposition "
+"dans l'heure par l'intermédiaire d'un cadre en ligne avec la génération "
+"automatique des alertes SMS et e-mail et le soutien pour la cartographie "
+"et l'information, qui est accessible à tous les niveaux du ministère de "
+"la Santé. </ P> < p> Vous pouvez vous inscrire pour recevoir des rapports"
+" et mises à jour épidémiologiques hebdomadaires. </ p>"
+
+# null_homepage.json
+msgid "Indicators"
+msgstr "Indicateurs"
+
+# null_homepage.json
+msgid ""
+"<p>The following indicators monitor the status and functioning of the "
+"health system in Null Island and are automatically updated from health "
+"facilities:</p>"
+msgstr ""
+"<P> Les indicateurs suivants surveillent l'état et le fonctionnement du "
+"système de santé dans l'île Null et sont automatiquement mis à jour des "
+"établissements de santé: </ p>"
+
+# null_homepage.json
+msgid "Reports"
+msgstr "Rapports"
+
+# null_homepage.json
+msgid ""
+"<p>Weekly epidemiological public reports are published online and "
+"distributed via e-mail.  Access the most recent report for Null Island "
+"here: </p><p class='reports-button'><a type='button' class='btn btn-lg "
+"btn-default ' href='reports/public_health' target='_blank'> Public "
+"Health<br>Profile</a><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/cd_public_health' target='_blank'>Communicable Disease<br "
+"/>Profile </a><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/ncd_public_health' target='_blank'> Non-Communicable<br "
+"/>Disease Profile </a><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/communicable_diseases' target='_blank'>Communicable "
+"Disease<br>Report</a><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/non_communicable_diseases' target='_blank'>Non-Communicable"
+" <br />Disease Report</a></p></p>"
+msgstr ""
+"<P> hebdomadaires rapports publics épidémiologiques sont publiés en ligne"
+" et distribués par e-mail. Accéder au dernier rapport pour l'île Null "
+"ici: </ p> <p class = 'rapports bouton'> <type = class 'bouton' = 'btn "
+"btn-lg btn-default' 'rapports / public_health' target = href = '_ blank'>"
+" Santé publique <br> Profil <a type='button' class='btn btn-lg btn-"
+"default 'href='reports/cd_public_health' target='_blank'> maladies "
+"transmissibles <br /> profil <a type='button' class='btn btn-lg btn-"
+"default 'href='reports/ncd_public_health' target='_blank'> non "
+"transmissibles <br /> profil de la maladie </ a > <a type='button' "
+"class='btn btn-lg btn-default 'href='reports/communicable_diseases' "
+"target='_blank'> <un type = </a> maladies transmissibles <br> Rapport' "
+"'classe bouton = 'btn btn-lg btn-default' 'rapports / "
+"non_communicable_diseases' = href target = '_ blank'> <br /> non-"
+"Communicable Disease Report </a> </ p> </ p>"
+
+# null_homepage.json
+msgid "Principles"
+msgstr "==Principes=="
+
+# null_homepage.json
+msgid ""
+"<p>The project has the following principles of implementation (click to "
+"expand):</p>"
+msgstr ""
+"<P> Le projet comporte les principes suivants de mise en œuvre (cliquez "
+"pour agrandir): </ p>"
+
+# null_homepage.json
+msgid "1. Routine surveillance"
+msgstr "1. La surveillance de routine"
+
+# null_homepage.json
+msgid ""
+"The project supports routine surveillance to ensure the national health "
+"system is strengthened and the capacity of the Ministry of Health is "
+"developed for long-term ownership and response."
+msgstr ""
+"Le projet prend en charge la surveillance de routine pour assurer le "
+"système national de santé est renforcée et la capacité du ministère de la"
+" Santé est mis au point pour la propriété à long terme et la réponse."
+
+# null_homepage.json
+msgid "2. Integrated, case based disease surveillance"
+msgstr "2. intégrée, la surveillance des maladies de cas basée"
+
+# null_homepage.json
+msgid ""
+"The project builds on existing national and international surveillance "
+"standards, guidelines and case definitions. Diseases, conditions and "
+"events are coded according to the International Classification of Disease"
+" (ICD-10)."
+msgstr ""
+"Le projet se fonde sur les normes de surveillance nationales et "
+"internationales existantes, des lignes directrices et des définitions de "
+"cas. Les maladies, les conditions et les événements sont codés selon la "
+"Classification internationale des maladies (CIM-10)."
+
+# null_homepage.json
+msgid "3. Clinical-decision support"
+msgstr "une aide cruciale à la décision clinique,"
+
+# null_homepage.json
+msgid ""
+"The system includes evidence-based clinical algorithms for integrated "
+"management of childhood illness (IMCI) for child health to support and "
+"improve the provision of clinical care."
+msgstr ""
+"Le système comprend des algorithmes cliniques fondées sur des données "
+"probantes pour la gestion intégrée des maladies de l'enfance (PCIME) pour"
+" la santé des enfants pour soutenir et améliorer la prestation des soins "
+"cliniques."
+
+# null_homepage.json
+msgid "4. Best practice prescribing"
+msgstr "4. Meilleure prescription de la pratique"
+
+# null_homepage.json
+msgid ""
+"The system includes the WHO essential medicines list that the clinician "
+"can use to prescribe against using best practice guidelines. Information "
+"is also collected as to whether the medicine is available for "
+"prescribing."
+msgstr ""
+"Le système comprend la liste des médicaments essentiels de l'OMS que le "
+"clinicien peut utiliser à prescrire contre l'utilisation de guides de "
+"bonnes pratiques. Des informations sont également recueillies pour savoir"
+" si le médicament est disponible pour la prescription."
+
+# null_homepage.json
+msgid "5. Public health screening and advice"
+msgstr "5. dépistage de la santé publique et des conseils"
+
+# null_homepage.json
+msgid ""
+"Patients are screened and advice is provided for vaccination status, "
+"nutrition, mosquito net ownership and use, maternal care and "
+"contraception."
+msgstr ""
+"Les patients sont examinés et des conseils sont fournis pour le statut de"
+" vaccination, la nutrition, les moustiques participation nette et "
+"l'utilisation, les soins maternels et la contraception."
+
+# null_homepage.json
+msgid "6. Alerts and notifications"
+msgstr "6. Alertes et notifications"
+
+# null_homepage.json
+msgid ""
+"Automated real-time notifications and alerts are generated for 20 "
+"notifiable communicable diseases, by SMS and email, within one hour of "
+"reporting to inform outbreak investigation and response at the "
+"appropriate level of decision-making. A line list of alerts is "
+"automatically generated via the online framework which links subsequent "
+"alert investigation and outcomes."
+msgstr ""
+"notifications et des alertes en temps réel automatisés sont générés pour "
+"20 notifiables maladies transmissibles, par SMS et e-mail, dans un délai "
+"d'une heure de rapports pour informer enquête sur l'éclosion et la "
+"réponse au niveau approprié de prise de décision. Une liste de ligne "
+"d'alertes est généré automatiquement par le biais du cadre en ligne qui "
+"relie l'enquête et les résultats d'alerte ultérieure."
+
+# null_homepage.json
+msgid "7. Real-time analysis and reporting"
+msgstr "7. en temps réel analyse et de reporting"
+
+# null_homepage.json
+msgid ""
+"The system shares structured, anonymised data via an online framework for"
+" geospatial data visualisation, generation of alerts, and automated "
+"generation of reports."
+msgstr ""
+"Les actions de système structuré, les données anonymisées par un cadre en"
+" ligne pour la visualisation de données géospatiales, génération "
+"d'alertes et la génération automatique de rapports."
+
+# null_homepage.json
+msgid "Acknowledgements"
+msgstr "Remarques"
+
+# null_homepage.json
+msgid ""
+"We gratefully acknowledge the support of <br> our partners in the "
+"development of this project."
+msgstr ""
+"Nous tenons à remercier le soutien de <br> nos partenaires dans le "
+"développement de ce projet."
+
+# demo_codes.csv
+msgid "Total"
+msgstr "Total"
+
+# demo_codes.csv
+msgid "Male"
+msgstr "Masculin"
+
+# demo_codes.csv
+msgid "Female"
+msgstr "Femme"
+
+# demo_codes.csv
+msgid "Null Island"
+msgstr "Null Island"
+
+# demo_codes.csv
+msgid "Demo"
+msgstr "Démo"
+
+# demo_codes.csv
+msgid "Other Nationality"
+msgstr "Autre Nationalité"
+
+# demo_codes.csv
+msgid "<5"
+msgstr "<5"
+
+# demo_codes.csv
+msgid "5-9"
+msgstr "5-9"
+
+# demo_codes.csv
+msgid "10-14"
+msgstr "10-14"
+
+# demo_codes.csv
+msgid "15-19"
+msgstr "15-19"
+
+# demo_codes.csv
+msgid "20-59"
+msgstr "20-59"
+
+# demo_codes.csv
+msgid ">60"
+msgstr ">60"
+
+#~ msgid "Hello, World!"
+#~ msgstr ""
+
+#~ msgid "Demographics"
+#~ msgstr ""
+
+#~ msgid "Click here to explore"
+#~ msgstr ""
+
+#~ msgid "Technical Site"
+#~ msgstr ""
+
+#~ msgid "Dashboard"
+#~ msgstr ""
+
+#~ msgid "Notifications"
+#~ msgstr ""
+
+#~ msgid "Explore Data"
+#~ msgstr ""
+
+#~ msgid "Download Data"
+#~ msgstr ""
+
+#~ msgid "Log out"
+#~ msgstr ""
+
+#~ msgid "Location"
+#~ msgstr ""
+
+#~ msgid "Date not loaded."
+#~ msgstr ""
+
+#~ msgid "Locations not loaded"
+#~ msgstr ""
+
+#~ msgid "Choose which report to download:"
+#~ msgstr ""
+
+#~ msgid "Choose which time period:"
+#~ msgstr ""
+
+#~ msgid "Default period"
+#~ msgstr ""
+
+#~ msgid "Start date:"
+#~ msgstr ""
+
+#~ msgid "End date:"
+#~ msgstr ""
+
+#~ msgid "Click to download your selected report for"
+#~ msgstr ""
+
