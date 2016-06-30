@@ -398,7 +398,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     
     data["flag"] = config["FLAGG_ABR"]
 
-    if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
+    if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:
         # Extra parsing for natural language bullet points
         extras = {"patient_status": {}}
         extras["patient_status"]["national"] = {
