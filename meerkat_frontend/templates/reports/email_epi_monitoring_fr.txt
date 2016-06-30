@@ -1,0 +1,51 @@
+{{ _('Chers collègues,
+Bienvenue sur le Rapport de Surveillance Épidémiologique Hebdomadaire par le project de Surveillance de la Santé Publique à %(project_region)s.',
+project_region=_(report.data.project_region)) }}
+
+{{_('Voir le rapport:')}}
+{{report_url}}
+
+{{ _('Le profil résume l\'information épidémiologique rapporté des sites 
+%(clinics)s
+de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s and 
+%(end_date)s).', 
+clinics=report.email.clinics, 
+project_region=_(report.data.project_region),
+epi_week=report.data.epi_week_num,
+start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+
+## {{ _('Principales Conclusions') }} ##
+
+{{ _('Au total %(cases)s cas signalés par %(clinics)s des établissements de santé.',
+clinics=report.email.clinics,
+consultations=report.email.consultations,
+cases=report.email.cases
+) }}
+
+{{ _('%(tot_mortality)s décès et %(mat_mortality)s décès maternels.',
+tot_mortality=report.tot_mortality.dea_0,
+mat_mortality=report.mat_mortality.mat_0
+)}}
+
+{{ _('%(generated)s alertes générées et %(investigated)s alertes d\'une enquête',
+generated=report.alerts.total,
+investigated=report.alerts.investigated
+) }}
+
+
+## {{ _('Plus d\'informations') }} ##
+
+{{
+_('
+Un programme de surveillance de la santé publique est mise en œuvre en 
+%(project_region)s, en partenariat avec l\'OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.
+',
+project_region=_(report.data.project_region)
+)
+}}
+
+{{
+_('
+Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L\'information est mise à disposition dans l\'heure par l\'intermédiaire d\'un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l\'information.
+')
+}}

@@ -175,38 +175,21 @@ def send_email_report(report):
 
     if report in report_list:
 
-        location = current_app.config['REPORTS_CONFIG']['default_location']
-        end = c.epi_week_to_date(c.date_to_epi_week() - 1)
-        api_request = '/reports/{report}/{loc}/{end}'.format(
-            report=report_list[report]['api_name'],
-            loc=location,
-            end=end.isoformat()
-            )
-        data = c.api(api_request, api_key=True)
-        epi_week = data['data']['epi_week_num']
-        epi_year = format_datetime(
-            datetime_from_json(data['data']['epi_week_date']),
-            format='%Y')
-        epi_date = format_datetime(
-            datetime_from_json(data['data']['epi_week_date']),
-            format='%-d %B %Y')
-        relative_url = url_for('.report',
-                               report=report,
-                               location=location,
-                               year=epi_year,
-                               week=epi_week)
-        report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
+        ret = create_report(
+            config=current_app.config, 
+            report=report, 
+            location=None, 
+            end_date=None, 
+            start_date=None
+        )
 
-        # RENDER!
-        # Extra parsing for natural language bullet points in email templates
-        patient_status = {
-            item['title'].lower().replace(" ", ""):
-                {'percent': item['percent'],
-                 'quantity': item['quantity']}
-                for item in data['data']['patient_status']}
-        extras = {
-            'patient_status': patient_status
-            }
+        relative_url = url_for('.report',
+                                report=report,
+                                location=None,
+                                end_date=None, 
+                                start_date=None)
+
+        report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
         html_email_body = render_template(
                 ret['template_email_html'],
@@ -225,15 +208,18 @@ def send_email_report(report):
                 report_url=report_url
         )
         
+        epi_week = ret['report']['data']['epi_week_num']
+
         subject = (
-            '{} | {} Epi Week {} ({})'
-            .format(country, report_list[report]['title'], epi_week, epi_date)
+            '{} | {} Epi Week {}'
+            .format(country, report_list[report]['title'], epi_week)
         )
-        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
+        #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
+        topic = 'test-emails'
         
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + str(epi_year),
+            "id": topic + "-" + str(epi_week) + "-" + '2016 test 2',#str(epi_year),
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
@@ -244,11 +230,20 @@ def send_email_report(report):
         #Publish the message to hermes
         r = c.hermes( '/publish', 'PUT', message )
 
-        if r.status_code == 200:
-            return 'OK'
-        else:
+        print(r)
+
+        try:
+            r['ResponseMetaData']['HTTPStatusCode']
+        except KeyError:
             current_app.logger.warning( "Aborting. Hermes error:" + str(r.json()) ) 
-            abort( 502 )
+            abort(502)  
+        else:
+            if r['ResponseMetaData']['HTTPStatusCode'] == 200:
+                return 'OK'
+            else:
+                current_app.logger.warning( "Aborting. Hermes error:" + str(r.json()) ) 
+                abort(502)
+                
     else:
         current_app.logger.warning( "Aborting. Report doesn't exist." ) 
         abort(501)

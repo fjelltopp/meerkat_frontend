@@ -868,7 +868,7 @@
                                 <tbody>
                                   <tr>
                                     <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Voir le rapport</a>
+                                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('Voir le rapport') }}</a>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -886,7 +886,7 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                                       <p>
-                                      {{ _('Le profil résume l''information épidémiologique rapporté des sites 
+                                      {{ _('Le profil résume l\'information épidémiologique rapporté des sites 
                                         %(clinics)s
                                         de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s and 
                                         %(end_date)s).', 
@@ -912,20 +912,20 @@
                                       mat_mortality=report.mat_mortality.mat_0
                                       )}}</li>
 
-                                      <li>{{ _('<strong>%(generated)s alertes générées</strong> et <strong>%(investigated)s alertes d''une enquête</strong>',
+                                      <li>{{ _('<strong>%(generated)s alertes générées</strong> et <strong>%(investigated)s alertes d\'une enquête</strong>',
                                       generated=report.alerts.total,
                                       investigated=report.alerts.investigated
                                       ) }}</li>
 
                                       </ul>
 
-                                      <h3>{{ _('Plus d''informations') }}</h3>
+                                      <h3>{{ _('Plus d\'informations') }}</h3>
 
                                       <p>
                                       {{
                                       _('
                                         Un programme de surveillance de la santé publique est mise en œuvre en 
-                                        %(project_region)s, en partenariat avec l''OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.
+                                        %(project_region)s, en partenariat avec l\'OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.
                                       ',
                                       project_region=_(report.data.project_region)
                                       )
@@ -935,7 +935,7 @@
                                       <p>
                                       {{
                                       _('
-                                      Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L''information est mise à disposition dans l''heure par l''intermédiaire d''un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l''information.
+                                      Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L\'information est mise à disposition dans l\'heure par l\'intermédiaire d\'un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l\'information.
                                       ')
                                       }}
                                       </p>
