@@ -1,62 +1,48 @@
-Dear Colleagues,
+_{{ _('Dear Colleagues,
+  Welcome to the latest Weekly Epidemiological Report from the Public Health Surveillance project in %(project_region)s.',project_region=_(report.data.project_region)) }}
 
-Welcome to the latest public health epidemiological profile from the national public health surveillance program in Jordan.
-
-View the latest full report:
+{{ _('View the latest report') }}
 {{report_url}}
 
-{{ gettext('Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+{{ _('The profile summarises epidemiological information reported from %(clinics)s
+reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
+%(end_date)s).', 
+clinics=report.email.clinics, 
+project_region=_(report.data.project_region),
+epi_week=report.data.epi_week_num,
+start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
 
 
-## Key Findings ##
+## {{ _('Key Findings') }} ##
 
- {{ _('- A total of  %(total_consultations)s consultations and  %(total_cases)s cases reported from %(clinic_num)s health facilities.', total_consultations= report.data.total_consultations|commas, total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}
+{ _('A total of %(consultations)s consultations and %(cases)s cases reported from %(clinics)s health facilities.',
+clinics=report.email.clinics,
+consultations=report.email.consultations,
+cases=report.email.cases
+) }}
 
-{{ _('- %(percent_female)s %% female and  %(percent_lt_5yo)s %% five years of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}
+{{ _('%(tot_mortality)s deaths and %(mat_mortality)s maternal deaths.',
+tot_mortality=report.tot_mortality.dea_0,
+mat_mortality=report.mat_mortality.mat_0
+)}}
 
-{{ _('- %(percent_national)s %% %(display_nationals)s nationals and %(percent_refugee)s %% refugee status.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1)) }}
+{{ _('%(generated)s alerts generated and %(investigated)s alerts investigated',
+generated=report.alerts.total,
+investigated=report.alerts.investigated
+) }}
 
-{{ _('- %(percent_cd)s %% morbidity due to communicable disease, including ', percent_cd=report.data.percent_morbidity_communicable|float|round(1)) }}
-{% for disease in report.data.morbidity_communicable_tab %}
-	{% if loop.last and not loop.first %} 
-		{{_('and') }} 
-		{{ _(disease.title|e) }}
-	{% elif loop.first and loop.last %}
-		{{ _(disease.title|e) }}
-	{% else %}
-		{{ _(disease.title|e) }}, 
-	{% endif %}
-{% endfor %}.
+## {{ _('Project Overview') }} ##
 
-{{ _('- %(percent_ncd)s %% morbidity due to non-communicable disease, including', percent_ncd=report.data.percent_morbidity_non_communicable|float|round(1)) }} 
-{% for disease in report.data.morbidity_non_communicable_tab %}
-	{% if loop.last and not loop.first %} 
-		{{_('and') }} {{ _(disease.title|e) }}
-	{% elif loop.first and loop.last %}
-		{{ _(disease.title|e) }}
-	{% else %}
-		{{ _(disease.title|e) }}, 
-	{% endif %}
-{% endfor %}.
+{{
+_('
+A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+',
+project_region=_(report.data.project_region)
+)
+}}
 
-{{ _('%(percent_mh)s %% morbidity due to mental health conditions, including', percent_mh= report.data.percent_morbidity_mental_health|float|round(1))}} 
-{% for disease in report.data.mental_health %}
-	{% if loop.last and not loop.first %}
-		{{ _('and') }} 
-		{{ _(disease.title|e) }}
-	{% elif loop.first and loop.last %}
-		{{ _(disease.title|e) }}
-	{% else %}
-		{{ _(disease.title|e) }}, 
-	{% endif %}
-{% endfor %}.
-
-
-## Alerts ##
-
-{% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
-{{ _('A total of %(alerts_total)s alerts have been generated up to the end of Epidemiological Week %(epi_week)s (%(end_date)s).', alerts_total = report.data.alerts_total|commas, epi_week=report.data.epi_week_num, end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
-{% else %}
-{{ _('No alerts were generated up to the end of Epidemiological Week %(epi_week)s (%(end_date)s) ', epi_week=report.data.epi_week_num, end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}.
-{% endif %}
-
+{{
+_('
+The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+')
+}}

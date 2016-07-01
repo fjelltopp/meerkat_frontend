@@ -199,7 +199,8 @@ def send_email_report(report):
                 extras=ret['extras'],
                 address=ret['address'],
                 content=current_app.config['REPORTS_CONFIG'],
-                report_url=report_url
+                report_url=report_url,
+                root_url=current_app.config['ROOT_URL']
         )
         plain_email_body = render_template(
                 ret['template_email_plain'],
@@ -207,7 +208,8 @@ def send_email_report(report):
                 extras=ret['extras'],
                 address=ret['address'],
                 content=current_app.config['REPORTS_CONFIG'],
-                report_url=report_url
+                report_url=report_url,
+                root_url=current_app.config['ROOT_URL']
         )
         
         epi_week = ret['report']['data']['epi_week_num']
@@ -221,7 +223,7 @@ def send_email_report(report):
         
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + '2016 test 2',#str(epi_year),
+            "id": topic + "-" + str(epi_week) + "-" + '2016 test 3',#str(epi_year),
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
