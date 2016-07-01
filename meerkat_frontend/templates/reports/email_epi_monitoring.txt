@@ -1,4 +1,4 @@
-_{{ _('Dear Colleagues,
+{{ _('Dear Colleagues,
   Welcome to the latest Weekly Epidemiological Report from the Public Health Surveillance project in %(project_region)s.',project_region=_(report.data.project_region)) }}
 
 {{ _('View the latest report') }}
@@ -15,7 +15,7 @@ start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), e
 
 ## {{ _('Key Findings') }} ##
 
-{ _('A total of %(consultations)s consultations and %(cases)s cases reported from %(clinics)s health facilities.',
+{{ _('A total of %(consultations)s consultations and %(cases)s cases reported from %(clinics)s health facilities.',
 clinics=report.email.clinics,
 consultations=report.email.consultations,
 cases=report.email.cases
