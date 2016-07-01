@@ -143,7 +143,8 @@ def view_email_report(report, email_format = 'html'):
                 extras=ret['extras'],
                 address=ret['address'],
                 content=current_app.config['REPORTS_CONFIG'],
-                report_url=report_url
+                report_url=report_url,
+                root_url=current_app.config['ROOT_URL']
             )
         elif email_format == 'txt':
             email_body = render_template(
@@ -152,7 +153,8 @@ def view_email_report(report, email_format = 'html'):
                 extras=ret['extras'],
                 address=ret['address'],
                 content=current_app.config['REPORTS_CONFIG'],
-                report_url=report_url
+                report_url=report_url,
+                root_url=current_app.config['ROOT_URL']
             )
         else:
             abort(501)
