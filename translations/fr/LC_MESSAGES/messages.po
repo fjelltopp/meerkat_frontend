@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-30 11:28+0000\n"
+"POT-Creation-Date: 2016-07-01 15:20+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -52,6 +52,7 @@ msgstr "Nombre total de cas"
 #: meerkat_frontend/reports.py:622
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:270
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:213
+#: meerkat_frontend/templates/reports/report_cerf.html:186
 #: meerkat_frontend/templates/reports/report_malaria.html:136
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:240
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:346
@@ -61,6 +62,7 @@ msgstr "Femelle"
 #: meerkat_frontend/reports.py:625
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:267
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:210
+#: meerkat_frontend/templates/reports/report_cerf.html:183
 #: meerkat_frontend/templates/reports/report_malaria.html:135
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:237
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:343
@@ -164,6 +166,7 @@ msgstr "Taux de mortalité moins de cinq ans (TMM5)"
 #: meerkat_frontend/reports.py:1679
 #: meerkat_frontend/src/files/pages/diseases.html:87
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:150
+#: meerkat_frontend/templates/reports/report_cerf.html:123
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:201
 msgid "Communicable Disease"
 msgstr "Maladie transmissible"
@@ -210,8 +213,11 @@ msgstr "Autres Références"
 #: meerkat_frontend/src/files/pages/alert.html:81
 #: meerkat_frontend/src/files/pages/alerts.html:84
 #: meerkat_frontend/src/files/pages/disease.html:131
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:118
+#: meerkat_frontend/templates/reports/email_cerf.html:121
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:38
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:37
+#: meerkat_frontend/templates/reports/report_cerf.html:37
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:41
 msgid "Alerts"
 msgstr "Alertes"
@@ -376,6 +382,7 @@ msgstr "Excel"
 #: meerkat_frontend/src/js/technical/tableManager.js:35
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
+#: meerkat_frontend/templates/reports/report_cerf.html:2
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:2
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
 #: meerkat_frontend/templates/reports/report_malaria.html:3
@@ -422,6 +429,7 @@ msgstr "Cliniques"
 #: meerkat_frontend/src/files/pages/demographics_mad.html:81
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:104
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:103
+#: meerkat_frontend/templates/reports/report_cerf.html:103
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:101
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:108
 msgid "Demographics"
@@ -431,6 +439,7 @@ msgstr "Démographie"
 #: meerkat_frontend/src/files/pages/demographics_mad.html:84
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:113
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:112
+#: meerkat_frontend/templates/reports/report_cerf.html:112
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:110
 msgid "Gender"
 msgstr "Sexe"
@@ -446,6 +455,7 @@ msgstr "Nationalité"
 #: meerkat_frontend/src/files/pages/demographics_mad.html:85
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:273
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:216
+#: meerkat_frontend/templates/reports/report_cerf.html:189
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:349
 msgid "Age"
 msgstr "Âge"
@@ -513,6 +523,7 @@ msgstr "Maladies transmissibles"
 #: meerkat_frontend/src/files/pages/map.html:27
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:50
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:49
+#: meerkat_frontend/templates/reports/report_cerf.html:49
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:47
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:54
 msgid "Map"
@@ -749,6 +760,7 @@ msgstr "Basculer la navigation"
 
 #: meerkat_frontend/templates/base.html:59
 #: meerkat_frontend/templates/reports/base.html:33
+#: meerkat_frontend/templates/reports/email_base.html:831
 msgid "Working with our partners:"
 msgstr "En collaboration avec nos partenaires:"
 
@@ -1080,6 +1092,409 @@ msgstr "Pour plus d'informations, s'il vous plaît e-mail"
 msgid "This report was generated at"
 msgstr "Ce rapport a été généré à"
 
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile.html:817
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:16
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:12
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:12
+msgid "Communicable Disease Profile"
+msgstr "Profil de la Maladie Transmissible"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile.html:883
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:24
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:24
+#: meerkat_frontend/templates/reports/report_cerf.html:24
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:25
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:24
+#, python-format
+msgid ""
+"<p>Information reported in this public health profile represents cases "
+"reported from %(clinic_num)s reporting sites in %(project_region)s "
+"between %(start_date)s and %(end_date)s.</p>"
+msgstr ""
+"<p>Les informations communiquées dans ce profil de santé publique "
+"représente les cas déclarés de %(clinic_num)s établissements de santé en "
+"%(project_region)s entre %(start_date)s et %(end_date)s.</p>"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile.html:886
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:26
+#: meerkat_frontend/templates/reports/report_cerf.html:26
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:27
+#, python-format
+msgid ""
+"A total of <strong>  %(total_cases)s cases</strong> reported from "
+"%(clinic_num)s health facilities."
+msgstr ""
+"Au total <strong>  %(total_cases)s cas</strong> signalés par "
+"%(clinic_num)s des établissements de santé."
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile.html:888
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:887
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:28
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:28
+#: meerkat_frontend/templates/reports/report_cerf.html:28
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:29
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:29
+#, python-format
+msgid ""
+"<strong> %(percent_female)s %% female</strong> and <strong> "
+"%(percent_lt_5yo)s %% five years</strong> of age."
+msgstr ""
+"<strong> %(percent_female)s %% femelle</strong> and <strong> "
+"%(percent_lt_5yo)s %% cinq ans</strong>."
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile.html:890
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:889
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:30
+#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:31
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:31
+#, python-format
+msgid ""
+"<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> "
+"and <strong>%(percent_refugee)s %% refugee status</strong>."
+msgstr ""
+"<strong>%(percent_national)s %% %(display_nationals)s nationales</strong>"
+" and <strong>%(percent_refugee)s %% statut de réfugié</strong>."
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile.html:892
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:113
+#: meerkat_frontend/templates/reports/email_cerf.html:115
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:32
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:31
+#: meerkat_frontend/templates/reports/report_cerf.html:31
+msgid "morbidity due to"
+msgstr "morbidité due à la"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:18
+#: meerkat_frontend/templates/reports/email_cerf.html:18
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:18
+#: meerkat_frontend/templates/reports/email_malaria.html:18
+#, python-format
+msgid "Epi week %(epi_week)s (%(start_date)s - %(end_date)s)"
+msgstr "Semaine Épidémiologique %(epi_week)s (%(start_date)s - %(end_date)s)"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:51
+#, python-format
+msgid ""
+"<p>Dear Colleagues,</p>\n"
+"                      <p>Welcome to the latest Communicable Disease "
+"Epidemiological Profile from the Public Health Surveillance project in "
+"%(project_region)s.</p>"
+msgstr ""
+"<p>Chers collègues,</p>\n"
+"                      <p>Bienvenue sur le Profil Épidémiologique des Maladies Transmissibles "
+"par le project de Surveillance de la Santé Publique à "
+"%(project_region)s.</p>"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:69
+#: meerkat_frontend/templates/reports/email_cerf.html:71
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:71
+#: meerkat_frontend/templates/reports/email_malaria.html:71
+msgid "View the latest report"
+msgstr "Voir le rapport"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:87
+#, python-format
+msgid ""
+"The report summarises epidemiological information reported from "
+"%(clinics)s\n"
+"                        reporting sites in Epidemiological Week "
+"%(epi_week)s (%(start_date)s and \n"
+"                        %(end_date)s)."
+msgstr ""
+"Le profil résume l'information épidémiologique rapporté des sites "
+"%(clinics)s\n"
+" de rapports dans Semaine Épidémiologique "
+"%(epi_week)s (%(start_date)s and \n"
+"                        %(end_date)s)."
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:96
+#: meerkat_frontend/templates/reports/email_cerf.html:98
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:98
+#: meerkat_frontend/templates/reports/email_malaria.html:98
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:22
+#: meerkat_frontend/templates/reports/report_cerf.html:22
+msgid "Key Findings"
+msgstr "Principales Conclusions"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:100
+#, python-format
+msgid ""
+"A total of <strong>%(consultations)s consultations</strong> and "
+"<strong>%(cases)s cases</strong> reported from %(clinic_num)s health "
+"facilities."
+msgstr ""
+"Au total <strong>%(consultations)s consultations</strong> et "
+"<strong>%(cases)s cas signalés</strong> par %(clinic_num)s "
+"des établissements de santé."
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:107
+#: meerkat_frontend/templates/reports/email_cerf.html:109
+#, python-format
+msgid ""
+"<strong>%(female)s %% females</strong> and <strong>%(under_five)s %% "
+"under five years</strong> of age"
+msgstr ""
+"<strong>%(female)s %% femelle</strong> et <strong>%(under_five)s %% moins de cinq ans.</strong>"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:122
+#: meerkat_frontend/templates/reports/email_cerf.html:125
+#, python-format
+msgid ""
+"\n"
+"                      A total of %(alerts)s  suspected notifiable "
+"communicable disease alerts were generated in Epidemiological Week \n"
+"                      %(epi_week)s (%(start_date)s and \n"
+"                        %(end_date)s).\n"
+"                      "
+msgstr ""
+"Un total de %(alerts)s  alertes ont été générés "
+"dans la Semaine Épidémiologique \n"
+"%(epi_week)s (%(start_date)s and \n"
+"%(end_date)s).\n"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:134
+#: meerkat_frontend/templates/reports/email_cerf.html:137
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:121
+#: meerkat_frontend/templates/reports/email_malaria.html:131
+msgid "Project Overview"
+msgstr "Plus d'informations"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:138
+#: meerkat_frontend/templates/reports/email_cerf.html:141
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:125
+#: meerkat_frontend/templates/reports/email_malaria.html:135
+#, python-format
+msgid ""
+"\n"
+"                        A program of public health surveillance is being "
+"implemented in %(project_region)s, in partnership with WHO and Ministry "
+"of Health. The project introduces case-based, integrated disease "
+"surveillance.\n"
+"                      "
+msgstr ""
+"\n"
+"Un programme de surveillance de la santé publique est mise en œuvre en %(project_region)s, en partenariat avec l'OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.\n"
+
+#: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:148
+#: meerkat_frontend/templates/reports/email_cerf.html:151
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:135
+#: meerkat_frontend/templates/reports/email_malaria.html:145
+msgid ""
+"\n"
+"                      The clinician uses the system within the "
+"consultation, which introduces clinical-decision support, as well as best"
+" practice prescribing guidance and real-time reporting of information. "
+"Information is made available within one hour via an online framework "
+"with automated generation of SMS and email alerts and support for mapping"
+" and reporting.\n"
+"                      "
+msgstr "Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L'information est mise à disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l'information.\n"
+
+#: meerkat_frontend/templates/reports/email_cerf.html:16
+#: meerkat_frontend/templates/reports/report_cerf.html:2
+#: meerkat_frontend/templates/reports/report_cerf.html:12
+msgid "Central Emergency Response Fund (CERF) Bulletin"
+msgstr "Central Emergency Response Fund (CERF) Bulletin"
+
+#: meerkat_frontend/templates/reports/email_cerf.html:53
+#, python-format
+msgid ""
+"<p>Dear Colleagues,</p>\n"
+"                      <p>Welcome to the latest Central Emergency Response"
+" Fund (CERF) Bulletin from the Public Health Surveillance project in "
+"%(project_region)s.</p>"
+msgstr ""
+"<p>Chers collègues,</p>\n"
+" Bienvenue sur le Bulletin de Central Emergency Response Fund (CERF) par le "
+"project de Surveillance de la Santé Publique à "
+"%(project_region)s.</p>"
+
+#: meerkat_frontend/templates/reports/email_cerf.html:89
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:89
+#: meerkat_frontend/templates/reports/email_malaria.html:89
+#, python-format
+msgid ""
+"The profile summarises epidemiological information reported from "
+"%(clinics)s\n"
+"                        reporting sites in Epidemiological Week "
+"%(epi_week)s (%(start_date)s and \n"
+"                        %(end_date)s)."
+msgstr ""
+"Le profil résume l'information épidémiologique rapporté des sites "
+" %(clinics)s de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s and "
+"%(end_date)s)."
+
+
+#: meerkat_frontend/templates/reports/email_cerf.html:102
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:102
+#, python-format
+msgid ""
+"A total of <strong>%(consultations)s consultations</strong> and "
+"<strong>%(cases)s cases</strong> reported from %(clinics)s health "
+"facilities."
+msgstr ""
+"Au total <strong>%(consultations)s consultations</strong> et "
+"<strong>%(cases)s cas signalés</strong> par %(clinics)s "
+"des établissements de santé."
+
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:16
+msgid "Weekly Epidemiological Report"
+msgstr "Rapport de Surveillance Épidémiologique Hebdomadaire"
+
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:53
+#, python-format
+msgid ""
+"<p>Dear Colleagues,</p>\n"
+"                      <p>Welcome to the latest Weekly Epidemiological "
+"Report from the Public Health Surveillance project in "
+"%(project_region)s.</p>"
+msgstr ""
+"<p>Chers collègues,</p>\n"
+"                      <p>Bienvenue sur le Rapport de Surveillance Épidémiologique "
+"Hebdomadaire par le project de Surveillance de la Santé Publique à"
+"%(project_region)s.</p>"
+
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:109
+#, python-format
+msgid ""
+"<strong>%(tot_mortality)s deaths</strong> and <strong>%(mat_mortality)s "
+"maternal deaths.</strong>"
+msgstr "<strong>%(tot_mortality)s décès</strong> et <strong>%(mat_mortality)s décès maternels.</strong>"
+
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:114
+#, python-format
+msgid ""
+"<strong>%(generated)s alerts generated</strong> and "
+"<strong>%(investigated)s alerts investigated</strong>"
+msgstr ""
+"<strong>%(generated)s alertes générées</strong> et "
+"<strong>%(investigated)s alertes d'une enquête</strong>"
+
+#: meerkat_frontend/templates/reports/email_malaria.html:16
+msgid "Malaria Surveillance Report"
+msgstr "Rapport de Surveillance Epidemiologique du Paludisme"
+
+#: meerkat_frontend/templates/reports/email_malaria.html:53
+#, python-format
+msgid ""
+"<p>Dear Colleagues,</p>\n"
+"                      <p>Welcome to the latest malaria surveillance "
+"report from the Public Health Surveillance project in "
+"%(project_region)s.</p>"
+msgstr ""
+"<p>Chers collègues,</p>\n"
+"<p>Bienvenue sur le Rapport de Surveillance Epidemiologique du Paludisme "
+"par le projet de Surveillance de la Santé Publique à"
+"%(project_region)s.</p>"
+
+#: meerkat_frontend/templates/reports/email_malaria.html:102
+#, python-format
+msgid ""
+"A total of <strong>%(consultations)s consultations</strong> reported from"
+" %(clinics)s health facilities."
+msgstr ""
+"Au total <strong>%(consultations)s consultations</strong> par "
+"%(clinics)s des établissements de santé."
+
+#: meerkat_frontend/templates/reports/email_malaria.html:108
+#, python-format
+msgid ""
+"<strong>%(fever)s cases</strong> and <strong>%(rdt)s RDT tests \n"
+"                      </strong> performed."
+msgstr ""
+"<strong>%(fever)s</strong> cas de <strong>fièvre</strong> et "
+"<strong>%(rdt)s TDR effectués.</strong>"
+
+#: meerkat_frontend/templates/reports/email_malaria.html:114
+#, python-format
+msgid ""
+"<strong>%(simple_malaria)s</strong> cases of \n"
+"                      <strong>simple malaria</strong> and "
+"<strong>%(severe_malaria)s</strong>\n"
+"                       cases of <strong>severe malaria</strong>"
+msgstr ""
+"<strong>%(simple_malaria)s</strong> cas de "
+"<strong>Paludisme simple</strong> et <strong>%(severe_malaria)s</strong> "
+"cas de <strong>Paludisme grave</strong>"
+
+#: meerkat_frontend/templates/reports/email_malaria.html:121
+#, python-format
+msgid "<strong>%(mal_mortality)s malaria deaths</strong>"
+msgstr "<strong>%(mal_mortality)s décès</strong> dû au Paludisme"
+
+#: meerkat_frontend/templates/reports/email_malaria.html:125
+#, python-format
+msgid "<strong>%(act)s</strong> cases <strong>treated with ACT</strong>"
+msgstr "<strong>%(act)s</strong> cas traité à <strong>l’ACT</strong>"
+
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:817
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:2
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:12
+msgid "Public Health Profile"
+msgstr "Profil de la Santé Publique"
+
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:882
+#, python-format
+msgid ""
+"<p>The profile summarises epidemiological information reported from "
+"%(clinic_num)s reporting sites in Epidemiological Week X (%(start_date)s "
+"– %(end_date)s).</p>"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:885
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:27
+#, python-format
+msgid ""
+"A total of <strong> %(total_consultations)s consultations</strong> and "
+"<strong> %(total_cases)s cases</strong> reported from %(clinic_num)s "
+"health facilities."
+msgstr ""
+"Un total de <strong> %(total_consultations)s consultations</strong> et "
+"<strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s "
+"établissements de santé."
+
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:891
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:33
+#, python-format
+msgid ""
+"<strong> %(percent_cd)s %% morbidity due to communicable "
+"disease</strong>, including "
+msgstr ""
+"<strong> %(percent_cd)s %% morbidité à cause des maladies "
+"transmissibles</strong>, y compris "
+
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:891
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:894
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:896
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:33
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:36
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:38
+msgid "and"
+msgstr "et"
+
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:894
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:36
+#, python-format
+msgid ""
+"<strong> %(percent_ncd)s %% morbidity due to non-communicable "
+"disease</strong>, including"
+msgstr ""
+"<strong> %(percent_ncd)s %% morbidité à cause de la maladie non-"
+"transmissible</strong>, y compris"
+
+#: meerkat_frontend/templates/reports/email_public_health_profile.html:896
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:38
+#, python-format
+msgid ""
+"%(percent_mh)s %% morbidity due to mental health conditions</strong>, "
+"including"
+msgstr ""
+"%(percent_mh)s %% morbidité à cause des conditions de santé "
+"mentale</strong>, y compris"
+
 #: meerkat_frontend/templates/reports/index.html:25
 msgid "Location"
 msgstr "Emplacement"
@@ -1112,71 +1527,11 @@ msgstr "Date de fin:"
 msgid "Click to download your selected report for"
 msgstr "Cliquer pour télécharger le rapport sélectionné pour"
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:12
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:12
-msgid "Communicable Disease Profile"
-msgstr "Profil de la Maladie Transmissible"
-
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:22
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:23
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:22
 msgid "Key findings"
 msgstr "Principales Conclusions"
-
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:24
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:24
-#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:25
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:24
-#, python-format
-msgid ""
-"<p>Information reported in this public health profile represents cases "
-"reported from %(clinic_num)s reporting sites in %(project_region)s "
-"between %(start_date)s and %(end_date)s.</p>"
-msgstr ""
-"<p>Les informations communiquées dans ce profil de santé publique "
-"représente les cas déclarés de %(clinic_num)s établissements de santé en "
-"%(project_region)s entre %(start_date)s et %(end_date)s.</p>"
-
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:26
-#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:27
-#, python-format
-msgid ""
-"A total of <strong>  %(total_cases)s cases</strong> reported from "
-"%(clinic_num)s health facilities."
-msgstr ""
-"Au total <strong>  %(total_cases)s cas</strong> signalés par "
-"%(clinic_num)s des établissements de santé."
-
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:28
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:28
-#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:29
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:29
-#, python-format
-msgid ""
-"<strong> %(percent_female)s %% female</strong> and <strong> "
-"%(percent_lt_5yo)s %% five years</strong> of age."
-msgstr ""
-"<strong> %(percent_female)s %% femelle</strong> and <strong> "
-"%(percent_lt_5yo)s %% cinq ans</strong>."
-
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:30
-#: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:31
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:31
-#, python-format
-msgid ""
-"<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> "
-"and <strong>%(percent_refugee)s %% refugee status</strong>."
-msgstr ""
-"<strong>%(percent_national)s %% %(display_nationals)s nationales</strong>"
-" and <strong>%(percent_refugee)s %% statut de réfugié</strong>."
-
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:32
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:31
-msgid "morbidity due to"
-msgstr "morbidité due à la"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:40
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:43
@@ -1200,12 +1555,14 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:65
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:64
+#: meerkat_frontend/templates/reports/report_cerf.html:64
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:69
 msgid "Public Health Indicators"
 msgstr "Indicateurs de la santé publique"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:92
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:91
+#: meerkat_frontend/templates/reports/report_cerf.html:91
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:89
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:96
 msgid "Reporting Sites"
@@ -1220,6 +1577,7 @@ msgstr "CIM-10 Classification"
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:215
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:131
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:158
+#: meerkat_frontend/templates/reports/report_cerf.html:131
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:185
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:124
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:209
@@ -1234,6 +1592,7 @@ msgstr "%% morbidité"
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:216
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:132
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:159
+#: meerkat_frontend/templates/reports/report_cerf.html:132
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:186
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:125
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:210
@@ -1277,11 +1636,20 @@ msgid ""
 "with automated generation of SMS and email alerts and support for mapping"
 " and reporting.</p>"
 msgstr ""
-"<p>Un programme de surveillance de la santé publique est mise en œuvre en %(project_region)s, en partenariat avec l'OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.</p>\n"
-"          <p>Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L'information est mise à disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l'information.</p>"
+"<p>Un programme de surveillance de la santé publique est mise en œuvre en"
+" %(project_region)s, en partenariat avec l'OMS et le Ministère de la "
+"Santé. Le projet introduit la surveillance intégrée de la maladies.</p>\n"
+"          <p>Le clinicien utilise le système dans la consultation, qui "
+"introduit un soutien clinique de décision pour la santé des enfants, "
+"ainsi que la meilleure orientation pratique de prescription et des "
+"rapports en temps réel des informations. L'information est mise à "
+"disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la "
+"génération automatique des alertes SMS et e-mail et le soutien pour la "
+"cartographie et l'information.</p>"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:245
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:188
+#: meerkat_frontend/templates/reports/report_cerf.html:161
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:68
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:85
 #: meerkat_frontend/templates/reports/report_malaria.html:68
@@ -1290,11 +1658,8 @@ msgstr ""
 msgid "Contact Information"
 msgstr "Coordonnées"
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:22
-msgid "Key Findings"
-msgstr ""
-
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:39
+#: meerkat_frontend/templates/reports/report_cerf.html:39
 #, python-format
 msgid ""
 "A total of %(alerts_total)s alerts generated between %(start_date)s and "
@@ -1302,13 +1667,31 @@ msgid ""
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:41
+#: meerkat_frontend/templates/reports/report_cerf.html:41
 #, python-format
 msgid "No alerts generated between %(start_date)s and %(end_date)s."
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:179
+#: meerkat_frontend/templates/reports/report_cerf.html:152
 msgid ">More Information"
 msgstr "> Plus d'informations"
+
+#: meerkat_frontend/templates/reports/report_cerf.html:154
+#, python-format
+msgid ""
+"<p>A program of public health surveillance is being implemented in "
+"%(clinic_num)s outpatient clinics in %(project_region)s, in partnership "
+"with WHO and Ministry of Health. The project introduces case-based, "
+"integrated disease surveillance of mental health, non-communicable "
+"disease and communicable disease.</p>\n"
+"          <p>The clinician uses the system within the consultation, which"
+" introduces clinical-decision support for child health and mental health,"
+" as well as best practice prescribing guidance and and real-time "
+"reporting of information. Information is made available within one hour "
+"via an online framework with automated generation of SMS and email alerts"
+" and support for mapping and reporting.</p>"
+msgstr ""
 
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:2
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:12
@@ -1624,55 +2007,6 @@ msgstr " Indicateurs de la Santé Publique"
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:243
 msgid " Age"
 msgstr " Âge"
-
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:2
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:12
-msgid "Public Health Profile"
-msgstr "Profil de la Santé Publique"
-
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:27
-#, python-format
-msgid ""
-"A total of <strong> %(total_consultations)s consultations</strong> and "
-"<strong> %(total_cases)s cases</strong> reported from %(clinic_num)s "
-"health facilities."
-msgstr ""
-"Un total de <strong> %(total_consultations)s consultations</strong> et "
-"<strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s "
-"établissements de santé."
-
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:33
-#, python-format
-msgid ""
-"<strong> %(percent_cd)s %% morbidity due to communicable "
-"disease</strong>, including "
-msgstr ""
-"<strong> %(percent_cd)s %% morbidité à cause des maladies "
-"transmissibles</strong>, y compris "
-
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:33
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:36
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:38
-msgid "and"
-msgstr "et"
-
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:36
-#, python-format
-msgid ""
-"<strong> %(percent_ncd)s %% morbidity due to non-communicable "
-"disease</strong>, including"
-msgstr ""
-"<strong> %(percent_ncd)s %% morbidité à cause de la maladie non-"
-"transmissible</strong>, y compris"
-
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:38
-#, python-format
-msgid ""
-"%(percent_mh)s %% morbidity due to mental health conditions</strong>, "
-"including"
-msgstr ""
-"%(percent_mh)s %% morbidité à cause des conditions de santé "
-"mentale</strong>, y compris"
 
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:217
 msgid "disease.percent|float|round(1)"

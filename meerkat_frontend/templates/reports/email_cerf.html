@@ -99,10 +99,10 @@
 
                       <ul>
 
-                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> and <strong>%(cases)s cases</strong> reported from %(clinics)s health facilities.',
-                      clinics=report.email.clinics,
-                      consultations=report.email.consultations,
-                      cases=report.email.cases
+                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> and <strong>%(cases)s cases</strong> reported from %(clinic_num)s health facilities.',
+                      clinic_num=report.data.clinic_num|commas,
+                      cases=report.email.cases,
+                      consultations=report.email.consultations
                       ) }}</li>
 
 

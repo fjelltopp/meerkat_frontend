@@ -4,7 +4,7 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
-from flask.ext.babel import format_datetime
+from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
 try:
     import simplejson as json
@@ -214,16 +214,17 @@ def send_email_report(report):
         
         epi_week = ret['report']['data']['epi_week_num']
 
-        subject = (
-            '{} | {} Epi Week {}'
-            .format(country, report_list[report]['title'], epi_week)
+        subject = gettext('{country} | {title} Epi Week {epi_week}').format(
+            country = country,
+            title = report_list[report]['title'],
+            epi_week = epi_week
         )
         #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
         topic = 'test-emails'
         
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + '2016 test 3',#str(epi_year),
+            "id": topic + "-" + str(epi_week) + "-" + '2016 test 10',#str(epi_year),
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
@@ -235,18 +236,28 @@ def send_email_report(report):
         r = c.hermes( '/publish', 'PUT', message )
 
         print(r)
+        succ=0
+        fail=0
 
-        try:
-            r['ResponseMetaData']['HTTPStatusCode']
-        except KeyError:
-            current_app.logger.warning( "Aborting. Hermes error:" + str(r.json()) ) 
-            abort(502)  
-        else:
-            if r['ResponseMetaData']['HTTPStatusCode'] == 200:
-                return 'OK'
-            else:
-                current_app.logger.warning( "Aborting. Hermes error:" + str(r.json()) ) 
+
+
+        for resp in r:
+            try:
+                resp['ResponseMetadata']['HTTPStatusCode']
+            except KeyError:
+                current_app.logger.warning( "Hermes return value error:" + str(resp['message']) ) 
+                fail += 1
+            except TypeError:
+                current_app.logger.warning( "Hermes job error:" + str(r['message']) )
                 abort(502)
+            else:
+                if resp['ResponseMetadata']['HTTPStatusCode'] == 200:
+                    succ =+ 1
+                else:
+                    current_app.logger.warning( "Hermes error while sending message:" + str(resp['message']) ) 
+                    fail += 1
+
+        return '\nSending {succ} messages succeeded, {fail} messages failed\n\n'.format(succ=succ, fail=fail)
                 
     else:
         current_app.logger.warning( "Aborting. Report doesn't exist." ) 
