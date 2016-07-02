@@ -1,4 +1,4 @@
-{% extends 'reports/email_base.html' %}
+{% extends 'reports/email/html/email_base.html' %}
 
 {% block header %}
 <!-- BEGIN HEADER // -->
@@ -13,7 +13,7 @@
                 <tbody>
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Weekly Epidemiological Report')}}
+                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Central Emergency Response Fund (CERF) Bulletin')}}
                       </h2>
                       <h3>{{ _('Epi week %(epi_week)s (%(start_date)s - %(end_date)s)',
                       epi_week = report.data.epi_week_num,
@@ -33,11 +33,11 @@
   </tr>
 </table>
 <!-- // END HEADER -->
-
 {% endblock %}
 
 {% block body %}
 
+ 
 <!-- BEGIN BODY // -->
 <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
   <tr>
@@ -51,7 +51,7 @@
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                       {{ _('<p>Dear Colleagues,</p>
-                      <p>Welcome to the latest Weekly Epidemiological Report from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
+                      <p>Welcome to the latest Central Emergency Response Fund (CERF) Bulletin from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
                     </td>
                   </tr>
                 </tbody>
@@ -68,7 +68,7 @@
                 <tbody>
                   <tr>
                     <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('View the latest report')  }}</a>
+                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('View the latest report') }}</a>
                     </td>
                   </tr>
                 </tbody>
@@ -99,24 +99,40 @@
 
                       <ul>
 
-                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> and <strong>%(cases)s cases</strong> reported from %(clinics)s health facilities.',
-                      clinics=report.email.clinics,
-                      consultations=report.email.consultations,
-                      cases=report.email.cases
+                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> and <strong>%(cases)s cases</strong> reported from %(clinic_num)s health facilities.',
+                      clinic_num=report.data.clinic_num|commas,
+                      cases=report.email.cases,
+                      consultations=report.email.consultations
                       ) }}</li>
 
 
-                      <li>{{ _('<strong>%(tot_mortality)s deaths</strong> and <strong>%(mat_mortality)s maternal deaths.</strong>',
-                      tot_mortality=report.tot_mortality.dea_0,
-                      mat_mortality=report.mat_mortality.mat_0
+                      <li>{{ _('<strong>%(female)s %% females</strong> and <strong>%(under_five)s %% under five years</strong> of age',
+                      female=report.data.percent_cases_female|float|round(1),
+                      under_five=report.data.percent_cases_lt_5yo|float|round(1)
                       )}}</li>
 
-                      <li>{{ _('<strong>%(generated)s alerts generated</strong> and <strong>%(investigated)s alerts investigated</strong>',
-                      generated=report.alerts.total,
-                      investigated=report.alerts.investigated
-                      ) }}</li>
+                      {% for disease in report.data.morbidity_communicable_cd_tab %}
+                      <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
+                      {% endfor %}
 
                       </ul>
+
+
+                      <h3>{{ _('Alerts') }}</h3>
+
+                      <p>
+                      {{
+                      _('
+                      A total of %(alerts)s  suspected notifiable communicable disease alerts were generated in Epidemiological Week 
+                      %(epi_week)s (%(start_date)s and 
+                        %(end_date)s).
+                      ',
+                      alerts=report.data.alerts_total,
+                      epi_week=report.data.epi_week_num,
+                      start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), 
+                      end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')
+                      )
+                      }}
 
                       <h3>{{ _('Project Overview') }}</h3>
 
@@ -150,4 +166,4 @@
   </tr>
 </table>
 <!-- // END BODY -->
-{% endblock %}
+{% endblock body %}

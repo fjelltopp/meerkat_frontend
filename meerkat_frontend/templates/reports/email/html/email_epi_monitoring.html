@@ -1,4 +1,4 @@
-{% extends 'reports/email_base.html' %}
+{% extends 'reports/email/html/email_base.html' %}
 
 {% block header %}
 <!-- BEGIN HEADER // -->
@@ -13,7 +13,7 @@
                 <tbody>
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Malaria Surveillance Report')}}
+                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Weekly Epidemiological Report')}}
                       </h2>
                       <h3>{{ _('Epi week %(epi_week)s (%(start_date)s - %(end_date)s)',
                       epi_week = report.data.epi_week_num,
@@ -33,11 +33,11 @@
   </tr>
 </table>
 <!-- // END HEADER -->
+
 {% endblock %}
 
 {% block body %}
 
- 
 <!-- BEGIN BODY // -->
 <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
   <tr>
@@ -51,7 +51,7 @@
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                       {{ _('<p>Dear Colleagues,</p>
-                      <p>Welcome to the latest malaria surveillance report from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
+                      <p>Welcome to the latest Weekly Epidemiological Report from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
                     </td>
                   </tr>
                 </tbody>
@@ -68,7 +68,7 @@
                 <tbody>
                   <tr>
                     <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('View the latest report') }}</a>
+                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('View the latest report')  }}</a>
                     </td>
                   </tr>
                 </tbody>
@@ -99,31 +99,21 @@
 
                       <ul>
 
-                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> reported from %(clinics)s health facilities.',
+                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> and <strong>%(cases)s cases</strong> reported from %(clinics)s health facilities.',
                       clinics=report.email.clinics,
-                      consultations=report.malaria_situation.mls_1
+                      consultations=report.email.consultations,
+                      cases=report.email.cases
                       ) }}</li>
 
 
-                      <li>{{ _('<strong>%(fever)s cases</strong> and <strong>%(rdt)s RDT tests 
-                      </strong> performed.',
-                      fever=report.malaria_situation.mls_2,
-                      rdt=report.malaria_situation.mls_3
+                      <li>{{ _('<strong>%(tot_mortality)s deaths</strong> and <strong>%(mat_mortality)s maternal deaths.</strong>',
+                      tot_mortality=report.tot_mortality.dea_0,
+                      mat_mortality=report.mat_mortality.mat_0
                       )}}</li>
 
-                      <li>{{ _('<strong>%(simple_malaria)s</strong> cases of 
-                      <strong>simple malaria</strong> and <strong>%(severe_malaria)s</strong>
-                       cases of <strong>severe malaria</strong>',
-                      simple_malaria=report.malaria_situation.mls_12,
-                      severe_malaria=report.malaria_situation.mls_12
-                      ) }}</li>
-
-                      <li>{{ _('<strong>%(mal_mortality)s malaria deaths</strong>',
-                      mal_mortality=report.malaria_situation.mls_34
-                      ) }}</li>
-
-                      <li>{{ _('<strong>%(act)s</strong> cases <strong>treated with ACT</strong>',
-                      act=report.malaria_situation.mls_45
+                      <li>{{ _('<strong>%(generated)s alerts generated</strong> and <strong>%(investigated)s alerts investigated</strong>',
+                      generated=report.alerts.total,
+                      investigated=report.alerts.investigated
                       ) }}</li>
 
                       </ul>
@@ -160,4 +150,4 @@
   </tr>
 </table>
 <!-- // END BODY -->
-{% endblock body %}
+{% endblock %}

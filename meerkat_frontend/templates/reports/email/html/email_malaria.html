@@ -1,4 +1,4 @@
-{% extends 'reports/email_base.html' %}
+{% extends 'reports/email/html/email_base.html' %}
 
 {% block header %}
 <!-- BEGIN HEADER // -->
@@ -13,7 +13,7 @@
                 <tbody>
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Central Emergency Response Fund (CERF) Bulletin')}}
+                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Malaria Surveillance Report')}}
                       </h2>
                       <h3>{{ _('Epi week %(epi_week)s (%(start_date)s - %(end_date)s)',
                       epi_week = report.data.epi_week_num,
@@ -51,7 +51,7 @@
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                       {{ _('<p>Dear Colleagues,</p>
-                      <p>Welcome to the latest Central Emergency Response Fund (CERF) Bulletin from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
+                      <p>Welcome to the latest malaria surveillance report from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
                     </td>
                   </tr>
                 </tbody>
@@ -99,40 +99,34 @@
 
                       <ul>
 
-                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> and <strong>%(cases)s cases</strong> reported from %(clinic_num)s health facilities.',
-                      clinic_num=report.data.clinic_num|commas,
-                      cases=report.email.cases,
-                      consultations=report.email.consultations
+                      <li>{{ _('A total of <strong>%(consultations)s consultations</strong> reported from %(clinics)s health facilities.',
+                      clinics=report.email.clinics,
+                      consultations=report.malaria_situation.mls_1
                       ) }}</li>
 
 
-                      <li>{{ _('<strong>%(female)s %% females</strong> and <strong>%(under_five)s %% under five years</strong> of age',
-                      female=report.data.percent_cases_female|float|round(1),
-                      under_five=report.data.percent_cases_lt_5yo|float|round(1)
+                      <li>{{ _('<strong>%(fever)s cases</strong> and <strong>%(rdt)s RDT tests 
+                      </strong> performed.',
+                      fever=report.malaria_situation.mls_2,
+                      rdt=report.malaria_situation.mls_3
                       )}}</li>
 
-                      {% for disease in report.data.morbidity_communicable_cd_tab %}
-                      <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
-                      {% endfor %}
+                      <li>{{ _('<strong>%(simple_malaria)s</strong> cases of 
+                      <strong>simple malaria</strong> and <strong>%(severe_malaria)s</strong>
+                       cases of <strong>severe malaria</strong>',
+                      simple_malaria=report.malaria_situation.mls_12,
+                      severe_malaria=report.malaria_situation.mls_12
+                      ) }}</li>
+
+                      <li>{{ _('<strong>%(mal_mortality)s malaria deaths</strong>',
+                      mal_mortality=report.malaria_situation.mls_34
+                      ) }}</li>
+
+                      <li>{{ _('<strong>%(act)s</strong> cases <strong>treated with ACT</strong>',
+                      act=report.malaria_situation.mls_45
+                      ) }}</li>
 
                       </ul>
-
-
-                      <h3>{{ _('Alerts') }}</h3>
-
-                      <p>
-                      {{
-                      _('
-                      A total of %(alerts)s  suspected notifiable communicable disease alerts were generated in Epidemiological Week 
-                      %(epi_week)s (%(start_date)s and 
-                        %(end_date)s).
-                      ',
-                      alerts=report.data.alerts_total,
-                      epi_week=report.data.epi_week_num,
-                      start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), 
-                      end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')
-                      )
-                      }}
 
                       <h3>{{ _('Project Overview') }}</h3>
 
