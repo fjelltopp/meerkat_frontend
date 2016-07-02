@@ -136,6 +136,13 @@ def view_email_report(report, email_format = 'html'):
                                 start_date=None)
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
+        #Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
+            content_url = current_app.config['PDFCROWD_STATIC_FILE_URL'] + '/static'
+        else:    
+            content_url = current_app.config['ROOT_URL']  + '/static'
+            
+
         if email_format == 'html':
             email_body = render_template(
                 ret['template_email_html'],
@@ -144,7 +151,7 @@ def view_email_report(report, email_format = 'html'):
                 address=ret['address'],
                 content=current_app.config['REPORTS_CONFIG'],
                 report_url=report_url,
-                root_url=current_app.config['ROOT_URL']
+                content_url=content_url
             )
         elif email_format == 'txt':
             email_body = render_template(
@@ -154,7 +161,7 @@ def view_email_report(report, email_format = 'html'):
                 address=ret['address'],
                 content=current_app.config['REPORTS_CONFIG'],
                 report_url=report_url,
-                root_url=current_app.config['ROOT_URL']
+                content_url=content_url
             )
         else:
             abort(501)
@@ -193,6 +200,12 @@ def send_email_report(report):
 
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
+        #Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
+            content_url = current_app.config['PDFCROWD_STATIC_FILE_URL'] + '/static'
+        else:    
+            content_url = current_app.config['ROOT_URL']  + '/static'
+
         html_email_body = render_template(
                 ret['template_email_html'],
                 report=ret['report'],
@@ -200,7 +213,7 @@ def send_email_report(report):
                 address=ret['address'],
                 content=current_app.config['REPORTS_CONFIG'],
                 report_url=report_url,
-                root_url=current_app.config['ROOT_URL']
+                content_url=content_url
         )
         plain_email_body = render_template(
                 ret['template_email_plain'],
@@ -209,15 +222,15 @@ def send_email_report(report):
                 address=ret['address'],
                 content=current_app.config['REPORTS_CONFIG'],
                 report_url=report_url,
-                root_url=current_app.config['ROOT_URL']
+                content_url=content_url
         )
         
         epi_week = ret['report']['data']['epi_week_num']
         title = gettext(report_list[report]['title'])
 
         subject = gettext('{country} | {title} Epi Week {epi_week}').format(
-            country = country,
-            title = title,
+            country = gettext(country),
+            title = gettext(report_list[report]['title']),
             epi_week = epi_week
         )
         #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
@@ -239,8 +252,6 @@ def send_email_report(report):
         print(r)
         succ=0
         fail=0
-
-
 
         for resp in r:
             try:
@@ -557,4 +568,5 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         'extras':extras,
         'address':current_app.config["REPORTS_CONFIG"]["address"]
         }
+
 
