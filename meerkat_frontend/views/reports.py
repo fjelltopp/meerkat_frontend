@@ -138,9 +138,9 @@ def view_email_report(report, email_format = 'html'):
 
         #Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
-            content_url = current_app.config['PDFCROWD_STATIC_FILE_URL'] + '/static'
+            content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:    
-            content_url = current_app.config['ROOT_URL']  + '/static'
+            content_url = current_app.config['ROOT_URL']  + '/static/'
             
 
         if email_format == 'html':
@@ -201,10 +201,11 @@ def send_email_report(report):
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
         #Use env variable to determine whether to fetch image content from external source or not
+        #Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
-            content_url = current_app.config['PDFCROWD_STATIC_FILE_URL'] + '/static'
+            content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:    
-            content_url = current_app.config['ROOT_URL']  + '/static'
+            content_url = current_app.config['ROOT_URL']  + '/static/'
 
         html_email_body = render_template(
                 ret['template_email_html'],
@@ -238,7 +239,7 @@ def send_email_report(report):
         
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + '2016 test 10',#str(epi_year),
+            "id": topic + "-" + str(epi_week) + "-" + '2016 test 15',#str(epi_year),
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,

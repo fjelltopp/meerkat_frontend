@@ -783,8 +783,8 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-left:18px; padding-bottom:9px; padding-right:0;">
-                                      <img align="none" height="56" src="{{ content_url +'/img/logo/' + 'who-logo-text.png' }}" style="width: 180px; height: 56px; margin: 0px;" width="180">
-                                      <img align="none" height="55" src="{{ content_url +'/img/homepage/' + content.footer.logos.country_partner }}" style="width: 55px; height: 55px; margin: 0px; margin-left: 15px;" width="40">
+                                      <img align="none" height="56" src="{{ content_url +'img/logo/' + 'who-logo-text.png' }}" style="width: 180px; height: 56px; margin: 0px;" width="180">
+                                      <img align="none" height="55" src="{{ content_url +'img/homepage/' + content.footer.logos.country_partner }}" style="width: 55px; height: 55px; margin: 0px; margin-left: 15px;" width="40">
                                       <br> &nbsp;
                                     </td>
                                   </tr>
@@ -829,11 +829,11 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                                       <p>{{ _('Working with our partners:') }}</p>
-                                        <img src="{{ content_url +'/img/logo/' + 'who-logo-no-text.png' }}" id="whoLogo" width="50" style="padding-right:9px"></img> 
-                                        <img src="{{ content_url +'/img/homepage/' + content.footer.logos.country_partner }}"
+                                        <img src="{{ content_url +'img/logo/' + 'who-logo-no-text.png' }}" id="whoLogo" width="50" style="padding-right:9px"></img> 
+                                        <img src="{{ content_url +'img/homepage/' + content.footer.logos.country_partner }}"
                                              id="countryLogo" width="50" style="padding-right:9px"></img> 
                                         {% for logo in content.footer.logos.partners %}
-                                          <img src="{{ content_url +'/img/homepage/' + logo }}" width="50" style="padding-right:9px"></img> 
+                                          <img src="{{ content_url +'img/homepage/' + logo }}" width="50" style="padding-right:9px"></img> 
                                         {% endfor %} 
                                     </td>
                                     </td>
