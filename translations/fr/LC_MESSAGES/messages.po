@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-01 15:20+0000\n"
+"POT-Creation-Date: 2016-07-01 20:35+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -1184,9 +1184,9 @@ msgid ""
 "%(project_region)s.</p>"
 msgstr ""
 "<p>Chers collègues,</p>\n"
-"                      <p>Bienvenue sur le Profil Épidémiologique des Maladies Transmissibles "
-"par le project de Surveillance de la Santé Publique à "
-"%(project_region)s.</p>"
+"                      <p>Bienvenue sur le Profil Épidémiologique des "
+"Maladies Transmissibles par le project de Surveillance de la Santé "
+"Publique à %(project_region)s.</p>"
 
 #: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:69
 #: meerkat_frontend/templates/reports/email_cerf.html:71
@@ -1206,8 +1206,8 @@ msgid ""
 msgstr ""
 "Le profil résume l'information épidémiologique rapporté des sites "
 "%(clinics)s\n"
-" de rapports dans Semaine Épidémiologique "
-"%(epi_week)s (%(start_date)s and \n"
+" de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s "
+"and \n"
 "                        %(end_date)s)."
 
 #: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:96
@@ -1220,6 +1220,7 @@ msgid "Key Findings"
 msgstr "Principales Conclusions"
 
 #: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:100
+#: meerkat_frontend/templates/reports/email_cerf.html:102
 #, python-format
 msgid ""
 "A total of <strong>%(consultations)s consultations</strong> and "
@@ -1227,8 +1228,8 @@ msgid ""
 "facilities."
 msgstr ""
 "Au total <strong>%(consultations)s consultations</strong> et "
-"<strong>%(cases)s cas signalés</strong> par %(clinic_num)s "
-"des établissements de santé."
+"<strong>%(cases)s cas signalés</strong> par %(clinic_num)s des "
+"établissements de santé."
 
 #: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:107
 #: meerkat_frontend/templates/reports/email_cerf.html:109
@@ -1237,7 +1238,8 @@ msgid ""
 "<strong>%(female)s %% females</strong> and <strong>%(under_five)s %% "
 "under five years</strong> of age"
 msgstr ""
-"<strong>%(female)s %% femelle</strong> et <strong>%(under_five)s %% moins de cinq ans.</strong>"
+"<strong>%(female)s %% femelle</strong> et <strong>%(under_five)s %% moins"
+" de cinq ans.</strong>"
 
 #: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:122
 #: meerkat_frontend/templates/reports/email_cerf.html:125
@@ -1250,8 +1252,8 @@ msgid ""
 "                        %(end_date)s).\n"
 "                      "
 msgstr ""
-"Un total de %(alerts)s  alertes ont été générés "
-"dans la Semaine Épidémiologique \n"
+"Un total de %(alerts)s  alertes ont été générés dans la Semaine "
+"Épidémiologique \n"
 "%(epi_week)s (%(start_date)s and \n"
 "%(end_date)s).\n"
 
@@ -1276,7 +1278,9 @@ msgid ""
 "                      "
 msgstr ""
 "\n"
-"Un programme de surveillance de la santé publique est mise en œuvre en %(project_region)s, en partenariat avec l'OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.\n"
+"Un programme de surveillance de la santé publique est mise en œuvre en "
+"%(project_region)s, en partenariat avec l'OMS et le Ministère de la "
+"Santé. Le projet introduit la surveillance intégrée de la maladies.\n"
 
 #: meerkat_frontend/templates/reports/email_cd_public_health_profile_mad.html:148
 #: meerkat_frontend/templates/reports/email_cerf.html:151
@@ -1291,7 +1295,14 @@ msgid ""
 "with automated generation of SMS and email alerts and support for mapping"
 " and reporting.\n"
 "                      "
-msgstr "Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L'information est mise à disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l'information.\n"
+msgstr ""
+"Le clinicien utilise le système dans la consultation, qui introduit un "
+"soutien clinique de décision pour la santé des enfants, ainsi que la "
+"meilleure orientation pratique de prescription et des rapports en temps "
+"réel des informations. L'information est mise à disposition dans l'heure "
+"par l'intermédiaire d'un cadre en ligne avec la génération automatique "
+"des alertes SMS et e-mail et le soutien pour la cartographie et "
+"l'information.\n"
 
 #: meerkat_frontend/templates/reports/email_cerf.html:16
 #: meerkat_frontend/templates/reports/report_cerf.html:2
@@ -1308,9 +1319,8 @@ msgid ""
 "%(project_region)s.</p>"
 msgstr ""
 "<p>Chers collègues,</p>\n"
-" Bienvenue sur le Bulletin de Central Emergency Response Fund (CERF) par le "
-"project de Surveillance de la Santé Publique à "
-"%(project_region)s.</p>"
+" Bienvenue sur le Bulletin de Central Emergency Response Fund (CERF) par "
+"le project de Surveillance de la Santé Publique à %(project_region)s.</p>"
 
 #: meerkat_frontend/templates/reports/email_cerf.html:89
 #: meerkat_frontend/templates/reports/email_epi_monitoring.html:89
@@ -1323,22 +1333,9 @@ msgid ""
 "%(epi_week)s (%(start_date)s and \n"
 "                        %(end_date)s)."
 msgstr ""
-"Le profil résume l'information épidémiologique rapporté des sites "
-" %(clinics)s de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s and "
-"%(end_date)s)."
-
-
-#: meerkat_frontend/templates/reports/email_cerf.html:102
-#: meerkat_frontend/templates/reports/email_epi_monitoring.html:102
-#, python-format
-msgid ""
-"A total of <strong>%(consultations)s consultations</strong> and "
-"<strong>%(cases)s cases</strong> reported from %(clinics)s health "
-"facilities."
-msgstr ""
-"Au total <strong>%(consultations)s consultations</strong> et "
-"<strong>%(cases)s cas signalés</strong> par %(clinics)s "
-"des établissements de santé."
+"Le profil résume l'information épidémiologique rapporté des sites  "
+"%(clinics)s de rapports dans Semaine Épidémiologique %(epi_week)s "
+"(%(start_date)s and %(end_date)s)."
 
 #: meerkat_frontend/templates/reports/email_epi_monitoring.html:16
 msgid "Weekly Epidemiological Report"
@@ -1353,16 +1350,29 @@ msgid ""
 "%(project_region)s.</p>"
 msgstr ""
 "<p>Chers collègues,</p>\n"
-"                      <p>Bienvenue sur le Rapport de Surveillance Épidémiologique "
-"Hebdomadaire par le project de Surveillance de la Santé Publique à"
-"%(project_region)s.</p>"
+"                      <p>Bienvenue sur le Rapport de Surveillance "
+"Épidémiologique Hebdomadaire par le project de Surveillance de la Santé "
+"Publique à%(project_region)s.</p>"
+
+#: meerkat_frontend/templates/reports/email_epi_monitoring.html:102
+#, python-format
+msgid ""
+"A total of <strong>%(consultations)s consultations</strong> and "
+"<strong>%(cases)s cases</strong> reported from %(clinics)s health "
+"facilities."
+msgstr ""
+"Au total <strong>%(consultations)s consultations</strong> et "
+"<strong>%(cases)s cas signalés</strong> par %(clinics)s des "
+"établissements de santé."
 
 #: meerkat_frontend/templates/reports/email_epi_monitoring.html:109
 #, python-format
 msgid ""
 "<strong>%(tot_mortality)s deaths</strong> and <strong>%(mat_mortality)s "
 "maternal deaths.</strong>"
-msgstr "<strong>%(tot_mortality)s décès</strong> et <strong>%(mat_mortality)s décès maternels.</strong>"
+msgstr ""
+"<strong>%(tot_mortality)s décès</strong> et <strong>%(mat_mortality)s "
+"décès maternels.</strong>"
 
 #: meerkat_frontend/templates/reports/email_epi_monitoring.html:114
 #, python-format
@@ -1387,8 +1397,8 @@ msgid ""
 msgstr ""
 "<p>Chers collègues,</p>\n"
 "<p>Bienvenue sur le Rapport de Surveillance Epidemiologique du Paludisme "
-"par le projet de Surveillance de la Santé Publique à"
-"%(project_region)s.</p>"
+"par le projet de Surveillance de la Santé Publique "
+"à%(project_region)s.</p>"
 
 #: meerkat_frontend/templates/reports/email_malaria.html:102
 #, python-format
@@ -1396,8 +1406,8 @@ msgid ""
 "A total of <strong>%(consultations)s consultations</strong> reported from"
 " %(clinics)s health facilities."
 msgstr ""
-"Au total <strong>%(consultations)s consultations</strong> par "
-"%(clinics)s des établissements de santé."
+"Au total <strong>%(consultations)s consultations</strong> par %(clinics)s"
+" des établissements de santé."
 
 #: meerkat_frontend/templates/reports/email_malaria.html:108
 #, python-format
@@ -1416,9 +1426,9 @@ msgid ""
 "<strong>%(severe_malaria)s</strong>\n"
 "                       cases of <strong>severe malaria</strong>"
 msgstr ""
-"<strong>%(simple_malaria)s</strong> cas de "
-"<strong>Paludisme simple</strong> et <strong>%(severe_malaria)s</strong> "
-"cas de <strong>Paludisme grave</strong>"
+"<strong>%(simple_malaria)s</strong> cas de <strong>Paludisme "
+"simple</strong> et <strong>%(severe_malaria)s</strong> cas de "
+"<strong>Paludisme grave</strong>"
 
 #: meerkat_frontend/templates/reports/email_malaria.html:121
 #, python-format
@@ -2120,4 +2130,12 @@ msgstr ""
 "Votre code de vérification pour les notifications de surveillance de la "
 "santé publique {country} est: {code}. S'il vous plaît suivre les "
 "instructions dans l'e-mail pour vérifier vos coordon"
+
+#: meerkat_frontend/views/reports.py:216
+msgid "title"
+msgstr ""
+
+#: meerkat_frontend/views/reports.py:218
+msgid "{country} | {title} Epi Week {epi_week}"
+msgstr "{country} | {title} Semaine Épidémiologique {epi_week}"
 

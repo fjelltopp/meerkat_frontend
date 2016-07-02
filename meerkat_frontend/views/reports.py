@@ -213,10 +213,11 @@ def send_email_report(report):
         )
         
         epi_week = ret['report']['data']['epi_week_num']
+        title = gettext(report_list[report]['title'])
 
         subject = gettext('{country} | {title} Epi Week {epi_week}').format(
             country = country,
-            title = report_list[report]['title'],
+            title = title,
             epi_week = epi_week
         )
         #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
