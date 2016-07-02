@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-02 15:02+0000\n"
+"POT-Creation-Date: 2016-07-02 17:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1293,6 +1293,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/email/html/email_malaria.html:98
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:16
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:16
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:16
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:16
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:22
 #: meerkat_frontend/templates/reports/report_cerf.html:22
@@ -1741,6 +1742,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/email/html/email_malaria.html:71
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:4
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:4
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:4
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:4
 msgid "View the latest report"
 msgstr ""
@@ -1790,6 +1792,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/email/html/email_malaria.html:131
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:51
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:51
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:34
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:46
 msgid "Project Overview"
 msgstr ""
@@ -1978,6 +1981,7 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:54
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:54
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:37
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:49
 #, python-format
 msgid ""
@@ -1989,6 +1993,7 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:62
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:62
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:45
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:57
 msgid ""
 "\n"
@@ -2068,14 +2073,15 @@ msgid ""
 "%(end_date)s).\n"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:1
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:1
 #, python-format
 msgid ""
 "Dear Colleagues,\n"
-"  Welcome to the latest malaria surveillance report from the Public "
+"  Welcome to the latest Weekly Epidemiological Report from the Public "
 "Health Surveillance project in %(project_region)s."
 msgstr ""
 
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:7
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:7
 #, python-format
 msgid ""
@@ -2084,6 +2090,31 @@ msgid ""
 "reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and"
 " \n"
 "%(end_date)s)."
+msgstr ""
+
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:18
+#, python-format
+msgid ""
+"A total of %(consultations)s consultations and %(cases)s cases reported "
+"from %(clinics)s health facilities."
+msgstr ""
+
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:24
+#, python-format
+msgid "%(tot_mortality)s deaths and %(mat_mortality)s maternal deaths."
+msgstr ""
+
+#: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:29
+#, python-format
+msgid "%(generated)s alerts generated and %(investigated)s alerts investigated"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:1
+#, python-format
+msgid ""
+"Dear Colleagues,\n"
+"  Welcome to the latest malaria surveillance report from the Public "
+"Health Surveillance project in %(project_region)s."
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:18
