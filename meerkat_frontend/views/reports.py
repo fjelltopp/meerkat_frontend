@@ -105,10 +105,12 @@ def test(report):
     else:
         abort(501)
 
-
 @reports.route('/view_email/<report>/')
-@reports.route('/view_email/<report>/<email_format>/')
-def view_email_report(report, email_format = 'html'):
+@reports.route('/view_email/<report>/<location>/')
+@reports.route('/view_email/<report>/<location>/<end_date>/')
+@reports.route('/view_email/<report>/<location>/<end_date>/<start_date>/')
+@reports.route('/view_email/<report>/<location>/<end_date>/<start_date>/<email_format>')
+def view_email_report(report, location=None, end_date=None, start_date=None, email_format = 'html'):
     """Views and email as it would be sent to Hermes API
 
         Args:
@@ -124,9 +126,9 @@ def view_email_report(report, email_format = 'html'):
         ret = create_report(
             config=current_app.config, 
             report=report, 
-            location=None, 
-            end_date=None, 
-            start_date=None
+            location=location, 
+            end_date=end_date, 
+            start_date=start_date
         )
 
         relative_url = url_for('.report',
@@ -172,7 +174,11 @@ def view_email_report(report, email_format = 'html'):
         abort(501)
 
 @reports.route('/email/<report>/', methods=['POST'])
-def send_email_report(report):
+@reports.route('/email/<report>/<location>/', methods=['POST'])
+@reports.route('/email/<report>/<location>/<end_date>/', methods=['POST'])
+@reports.route('/email/<report>/<location>/<end_date>/<start_date>/', methods=['POST'])
+@reports.route('/email/<report>/<location>/<end_date>/<start_date>/<email_format>', methods=['POST'])
+def send_email_report(report, location=None, end_date=None, start_date=None):
     """Sends an email via Hermes with the latest report.
 
        Args:
@@ -187,16 +193,16 @@ def send_email_report(report):
         ret = create_report(
             config=current_app.config, 
             report=report, 
-            location=None, 
-            end_date=None, 
-            start_date=None
+            location=location, 
+            end_date=end_date, 
+            start_date=start_date
         )
 
         relative_url = url_for('.report',
                                 report=report,
-                                location=None,
-                                end_date=None, 
-                                start_date=None)
+                                location=location,
+                                end_date=end_date, 
+                                start_date=start_date)
 
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
@@ -245,7 +251,7 @@ def send_email_report(report):
         
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + ' 28',
+            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + ' 32' + report,
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
