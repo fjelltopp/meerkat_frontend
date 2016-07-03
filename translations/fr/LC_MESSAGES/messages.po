@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-02 17:11+0000\n"
+"POT-Creation-Date: 2016-07-02 19:54+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -1823,10 +1823,9 @@ msgid ""
 "%(epi_week)s (%(start_date)s and \n"
 "                        %(end_date)s)."
 msgstr ""
-"Le profil résume l'information épidémiologique rapporté des sites "
-"%(clinics)s\n"
-" de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s "
-"and \n"
+"Le profil résume l'information épidémiologique rapporté des %(clinics)s "
+"sites de rapports dans Semaine Épidémiologique %(epi_week)s "
+"(%(start_date)s and \n"
 "                        %(end_date)s)."
 
 #: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile_mad.html:100
@@ -1941,8 +1940,8 @@ msgid ""
 "%(epi_week)s (%(start_date)s and \n"
 "                        %(end_date)s)."
 msgstr ""
-"Le profil résume l'information épidémiologique rapporté des sites  "
-"%(clinics)s de rapports dans Semaine Épidémiologique %(epi_week)s "
+"Le profil résume l'information épidémiologique rapporté des %(clinics)s "
+"sites de rapports dans Semaine Épidémiologique %(epi_week)s "
 "(%(start_date)s and %(end_date)s)."
 
 #: meerkat_frontend/templates/reports/email/html/email_epi_monitoring.html:16
@@ -2077,10 +2076,9 @@ msgid ""
 " \n"
 "%(end_date)s)."
 msgstr ""
-"Le profil résume l'information épidémiologique rapporté des sites "
-"%(clinics)s\n"
-"de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s and"
-" \n"
+"Le profil résume l'information épidémiologique rapporté des %(clinics)s\n"
+" sites de rapports dans Semaine Épidémiologique %(epi_week)s "
+"(%(start_date)s and \n"
 "%(end_date)s)."
 
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:18
@@ -2245,10 +2243,9 @@ msgid ""
 " \n"
 "%(end_date)s)."
 msgstr ""
-"Le profil résume l'information épidémiologique rapporté des sites "
-"%(clinics)s\n"
-"de rapports dans Semaine Épidémiologique %(epi_week)s (%(start_date)s and"
-" \n"
+"Le profil résume l'information épidémiologique rapporté des %(clinics)s\n"
+" sites de rapports dans Semaine Épidémiologique %(epi_week)s "
+"(%(start_date)s and \n"
 "%(end_date)s)."
 
 #: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:18
@@ -2416,11 +2413,14 @@ msgstr ""
 "santé publique {country} est: {code}. S'il vous plaît suivre les "
 "instructions dans l'e-mail pour vérifier vos coordon"
 
-#: meerkat_frontend/views/reports.py:230 meerkat_frontend/views/reports.py:234
+#: meerkat_frontend/views/reports.py:233 meerkat_frontend/views/reports.py:237
 msgid "title"
 msgstr ""
 
-#: meerkat_frontend/views/reports.py:232
-msgid "{country} | {title} Epi Week {epi_week}"
-msgstr "{country} | {title} Semaine Épidémiologique {epi_week}"
+#: meerkat_frontend/views/reports.py:238
+msgid "Epi Week"
+msgstr "Semaine Épidémiologique"
+
+#~ msgid "{country} | {title} Epi Week {epi_week}"
+#~ msgstr "{country} | {title} Semaine Épidémiologique {epi_week}"
 

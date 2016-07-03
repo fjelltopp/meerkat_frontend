@@ -227,19 +227,25 @@ def send_email_report(report):
         )
         
         epi_week = ret['report']['data']['epi_week_num']
+        start_date = datetime_from_json(ret['report']['data']['start_date'])
+        end_date = datetime_from_json(ret['report']['data']['end_date'])
+
         title = gettext(report_list[report]['title'])
 
-        subject = gettext('{country} | {title} Epi Week {epi_week}').format(
+        subject = '{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(
             country = gettext(country),
             title = gettext(report_list[report]['title']),
-            epi_week = epi_week
+            epi_week_text = gettext('Epi Week'),
+            epi_week = epi_week,
+            start_date = gettext(start_date.strftime('%D %B %Y')),
+            end_date = gettext(end_date.strftime('%D %B %Y'))
         )
         #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
         topic = 'test-emails'
         
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + '2016 test 15',#str(epi_year),
+            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + ' test 20',
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
