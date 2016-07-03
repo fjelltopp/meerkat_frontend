@@ -245,7 +245,7 @@ def send_email_report(report):
         
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + ' test 24',
+            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + ' 28',
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
