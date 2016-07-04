@@ -896,7 +896,7 @@ msgstr "Alertes générées"
 
 #: meerkat_frontend/templates/homepage/index.html:107
 msgid "facilities"
-msgstr "établissements"
+msgstr " sites de surveillance"
 
 #: meerkat_frontend/templates/homepage/index.html:157
 msgid "If you would like to find out more about the project, please contact us:"
@@ -1088,7 +1088,7 @@ msgid ""
 "<p>Information reported in this public health profile represents cases "
 "reported from %(clinic_num)s reporting sites in %(project_region)s "
 "between %(start_date)s and %(end_date)s.</p>"
-msgstr "<p>Les informations communiquées dans ce profil de santé publique représente les cas déclarés de %(clinic_num)s établissements de santé en %(project_region)s entre %(start_date)s et %(end_date)s.</p>"
+msgstr "<p>Les informations communiquées dans ce profil de santé publique représente les cas déclarés de %(clinic_num)s sites de surveillance en %(project_region)s entre %(start_date)s et %(end_date)s.</p>"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:26
@@ -1097,7 +1097,7 @@ msgstr "<p>Les informations communiquées dans ce profil de santé publique repr
 msgid ""
 "A total of <strong>  %(total_cases)s cases</strong> reported from "
 "%(clinic_num)s health facilities."
-msgstr "Au total <strong>  %(total_cases)s cas</strong> signalés par %(clinic_num)s des établissements de santé."
+msgstr "Au total <strong>  %(total_cases)s cas</strong> signalés par %(clinic_num)s des  sites de surveillance."
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:28
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:28
@@ -1344,7 +1344,7 @@ msgstr "Morsure ou griffure (animal à sang chaud)"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:159
 msgid "Rabies"
-msgstr "Suspicion cas de rage humaine"
+msgstr "Rage humaine"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:169
 msgid "Acute flaccid paralysis"
@@ -1376,15 +1376,15 @@ msgstr "Paludisme confirmé par test rapide ou Goutte Epaisse"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:185
 msgid "Acute Respiratory Tract Infection"
-msgstr "Nombre de cas d’IRA"
+msgstr "Infection Respiratoires Aiguë (IRA)"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:186
 msgid "Acute watery diarrhoea"
-msgstr "Nombre total de cas de diarrhée"
+msgstr "Diarrhée aiguë"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:187
 msgid "Acute watery diarrhoea among those over five years of age"
-msgstr "Diarrhée chez les > 5 ans"
+msgstr "Diarrhée aiguë chez les > 5 ans"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:188
 msgid "Sexually Transmitted Diseases other than HIV"
@@ -1458,7 +1458,7 @@ msgid ""
 "A total of <strong> %(total_consultations)s consultations</strong> and "
 "<strong> %(total_cases)s cases</strong> reported from %(clinic_num)s "
 "health facilities."
-msgstr "Un total de <strong> %(total_consultations)s consultations</strong> et <strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s établissements de santé."
+msgstr "Un total de <strong> %(total_consultations)s consultations</strong> et <strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s sites de surveillance."
 
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:33
 #, python-format
