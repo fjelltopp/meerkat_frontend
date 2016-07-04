@@ -1277,8 +1277,15 @@ msgid ""
 "with automated generation of SMS and email alerts and support for mapping"
 " and reporting.</p>"
 msgstr ""
-"<p>Un programme de surveillance de la santé publique est mise en œuvre en %(project_region)s, en partenariat avec l'OMS et le Ministère de la Santé. Le projet introduit la surveillance intégrée de la maladies.</p>\n"
-"          <p>Le clinicien utilise le système dans la consultation, qui introduit un soutien clinique de décision pour la santé des enfants, ainsi que la meilleure orientation pratique de prescription et des rapports en temps réel des informations. L'information est mise à disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l'information.</p>"
+"<p>Un programme de surveillance de la santé publique est mise en œuvre "
+"en %(project_region)s, en partenariat avec l'OMS et le Ministère de la Santé. "
+"Le projet introduit la surveillance intégrée de la maladies.</p>\n"
+"          <p>Le clinicien utilise le système dans la consultation,"
+" qui introduit un soutien clinique de décision pour la santé des enfants,"
+" ainsi que la meilleure orientation pratique de prescription et des rapports"
+" en temps réel des informations. L'information est mise à disposition dans l'heure"
+" par l'intermédiaire d'un cadre en ligne avec la génération automatique des"
+" alertes SMS et e-mail et le soutien pour la cartographie et l'information.</p>"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:245
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:188
