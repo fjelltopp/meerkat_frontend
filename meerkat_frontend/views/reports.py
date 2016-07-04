@@ -246,12 +246,12 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date = format_datetime(start_date, 'dd MMMM YYYY'),
             end_date = format_datetime(end_date, 'dd MMMM YYYY')
         )
-        #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
-        topic = 'test-emails'
+        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
         
+
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + ' 32' + report,
+            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + report,
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
