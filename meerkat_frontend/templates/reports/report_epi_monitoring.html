@@ -75,7 +75,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('More Information') }}</div>
       <div class="chart-stage">
-                    {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in Madagascar, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
+                    {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
           <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
       </div>
     </div>
@@ -207,9 +207,9 @@ function drawTable23(){
     ["{{ _('Acute watery diarrhoea among those over five years of age') }}", "epi_7", "lowlight"],
     ["{{ _('Sexually Transmitted Diseases other than HIV') }}", "icd_321", "", "border-top"],
     ["{{ _('Tuberculosis') }}", "icd_91"],
-    ["{{ _('Moderate malnutrition') }}", "cmd_43"],
+    ["{{ _('Moderate malnutrition') }}", "cmd_23"],
     ["{{ _('Severe malnutrition') }}", "icd_2189"],
-    ["{{ _('Other diseases of public health importance') }}", "cmd_48"],
+    ["{{ _('Other diseases of public health importance') }}", "cmd_28"],
   ]
 
   $('.table23-wrapper').html( drawFromStruct(struct) );
@@ -223,7 +223,9 @@ function drawTable3(){
     "<tr><td class='total'>{{ _('Number of alerts generated') }}</td><td>" + content.alerts.total + "</td></tr>" +
     "<tr><td class='total'>{{ _('Number of alerts investigated') }}</td><td>" + content.alerts.investigated + 
     "</td></tr></table>";  
+
   $('.table3-wrapper').html( html );
+
 }
 
 /*Refactorisation: draw table from a two dimensional array.
