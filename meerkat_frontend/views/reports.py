@@ -4,7 +4,7 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
-from flask.ext.babel import format_datetime
+from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
 try:
     import simplejson as json
@@ -105,9 +105,80 @@ def test(report):
     else:
         abort(501)
 
+@reports.route('/view_email/<report>/')
+@reports.route('/view_email/<report>/<location>/')
+@reports.route('/view_email/<report>/<location>/<end_date>/')
+@reports.route('/view_email/<report>/<location>/<end_date>/<start_date>/')
+@reports.route('/view_email/<report>/<location>/<end_date>/<start_date>/<email_format>')
+def view_email_report(report, location=None, end_date=None, start_date=None, email_format = 'html'):
+    """Views and email as it would be sent to Hermes API
+
+        Args:
+            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+    """
+    
+
+    report_list = current_app.config['REPORTS_CONFIG']['report_list']
+    country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+
+    if report in report_list:
+
+        ret = create_report(
+            config=current_app.config, 
+            report=report, 
+            location=location, 
+            end_date=end_date, 
+            start_date=start_date
+        )
+
+        relative_url = url_for('.report',
+                                report=report,
+                                location=None,
+                                end_date=None, 
+                                start_date=None)
+        report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
+
+        #Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
+            content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
+        else:    
+            content_url = current_app.config['ROOT_URL']  + '/static/'
+            
+
+        if email_format == 'html':
+            email_body = render_template(
+                ret['template_email_html'],
+                report=ret['report'],
+                extras=ret['extras'],
+                address=ret['address'],
+                content=current_app.config['REPORTS_CONFIG'],
+                report_url=report_url,
+                content_url=content_url
+            )
+        elif email_format == 'txt':
+            email_body = render_template(
+                ret['template_email_plain'],
+                report=ret['report'],
+                extras=ret['extras'],
+                address=ret['address'],
+                content=current_app.config['REPORTS_CONFIG'],
+                report_url=report_url,
+                content_url=content_url
+            )
+        else:
+            abort(501)
+
+        return email_body
+
+    else:
+        abort(501)
 
 @reports.route('/email/<report>/', methods=['POST'])
-def send_email_report(report):
+@reports.route('/email/<report>/<location>/', methods=['POST'])
+@reports.route('/email/<report>/<location>/<end_date>/', methods=['POST'])
+@reports.route('/email/<report>/<location>/<end_date>/<start_date>/', methods=['POST'])
+@reports.route('/email/<report>/<location>/<end_date>/<start_date>/<email_format>', methods=['POST'])
+def send_email_report(report, location=None, end_date=None, start_date=None):
     """Sends an email via Hermes with the latest report.
 
        Args:
@@ -119,60 +190,68 @@ def send_email_report(report):
 
     if report in report_list:
 
-        location = current_app.config['REPORTS_CONFIG']['default_location']
-        end = c.epi_week_to_date(c.date_to_epi_week() - 1)
-        api_request = '/reports/{report}/{loc}/{end}'.format(
-            report=report_list[report]['api_name'],
-            loc=location,
-            end=end.isoformat()
-            )
-        data = c.api(api_request, api_key=True)
-        epi_week = data['data']['epi_week_num']
-        epi_year = format_datetime(
-            datetime_from_json(data['data']['epi_week_date']),
-            format='%Y')
-        epi_date = format_datetime(
-            datetime_from_json(data['data']['epi_week_date']),
-            format='%-d %B %Y')
+        ret = create_report(
+            config=current_app.config, 
+            report=report, 
+            location=location, 
+            end_date=end_date, 
+            start_date=start_date
+        )
+
         relative_url = url_for('.report',
-                               report=report,
-                               location=location,
-                               year=epi_year,
-                               week=epi_week)
+                                report=report,
+                                location=location,
+                                end_date=end_date, 
+                                start_date=start_date)
+
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
-        # RENDER!
-        # Extra parsing for natural language bullet points in email templates
-        patient_status = {
-            item['title'].lower().replace(" ", ""):
-                {'percent': item['percent'],
-                 'quantity': item['quantity']}
-                for item in data['data']['patient_status']}
-        extras = {
-            'patient_status': patient_status
-            }
+        #Use env variable to determine whether to fetch image content from external source or not
+        #Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
+            content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
+        else:    
+            content_url = current_app.config['ROOT_URL']  + '/static/'
 
         html_email_body = render_template(
-            report_list[report]['template_email_html'],
-            email=data,
-            extras=extras,
-            report_url=report_url
+                ret['template_email_html'],
+                report=ret['report'],
+                extras=ret['extras'],
+                address=ret['address'],
+                content=current_app.config['REPORTS_CONFIG'],
+                report_url=report_url,
+                content_url=content_url
         )
         plain_email_body = render_template(
-            report_list[report]['template_email_plain'],
-            email=data,
-            extras=extras,
-            report_url=report_url
+                ret['template_email_plain'],
+                report=ret['report'],
+                extras=ret['extras'],
+                address=ret['address'],
+                content=current_app.config['REPORTS_CONFIG'],
+                report_url=report_url,
+                content_url=content_url
         )
-        subject = (
-            '{} | {} Epi Week {} ({})'
-            .format(country, report_list[report]['title'], epi_week, epi_date)
+        
+        epi_week = ret['report']['data']['epi_week_num']
+        start_date = datetime_from_json(ret['report']['data']['start_date'])
+        end_date = datetime_from_json(ret['report']['data']['end_date'])
+
+        title = gettext(report_list[report]['title'])
+
+        subject = '{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(
+            country = gettext(country),
+            title = gettext(report_list[report]['title']),
+            epi_week_text = gettext('Epi Week'),
+            epi_week = epi_week,
+            start_date = format_datetime(start_date, 'dd MMMM YYYY'),
+            end_date = format_datetime(end_date, 'dd MMMM YYYY')
         )
-        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
+        #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
+        topic = 'test-emails'
         
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + str(epi_year),
+            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + ' 32' + report,
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
@@ -183,11 +262,28 @@ def send_email_report(report):
         #Publish the message to hermes
         r = c.hermes( '/publish', 'PUT', message )
 
-        if r.status_code == 200:
-            return 'OK'
-        else:
-            current_app.logger.warning( "Aborting. Hermes error:" + str(r.json()) ) 
-            abort( 502 )
+        print(r)
+        succ=0
+        fail=0
+
+        for resp in r:
+            try:
+                resp['ResponseMetadata']['HTTPStatusCode']
+            except KeyError:
+                current_app.logger.warning( "Hermes return value error:" + str(resp['message']) ) 
+                fail += 1
+            except TypeError:
+                current_app.logger.warning( "Hermes job error:" + str(r['message']) )
+                abort(502)
+            else:
+                if resp['ResponseMetadata']['HTTPStatusCode'] == 200:
+                    succ =+ 1
+                else:
+                    current_app.logger.warning( "Hermes error while sending message:" + str(resp['message']) ) 
+                    fail += 1
+
+        return '\nSending {succ} messages succeeded, {fail} messages failed\n\n'.format(succ=succ, fail=fail)
+                
     else:
         current_app.logger.warning( "Aborting. Report doesn't exist." ) 
         abort(501)
@@ -479,8 +575,11 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     # Render correct template for the report
     return {
         'template':report_list[report]['template'],
+        'template_email_html':report_list[report]['template_email_html'],
+        'template_email_plain':report_list[report]['template_email_plain'],
         'report':data,
         'extras':extras,
         'address':current_app.config["REPORTS_CONFIG"]["address"]
         }
+
 

@@ -1,0 +1,48 @@
+{{ _('Dear Colleagues,
+  Welcome to the latest Weekly Epidemiological Report from the Public Health Surveillance project in %(project_region)s.',project_region=_(report.data.project_region)) }}
+
+{{ _('View the latest report') }}
+{{report_url}}
+
+{{ _('The profile summarises epidemiological information reported from %(clinics)s
+reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
+%(end_date)s).', 
+clinics=report.email.clinics, 
+project_region=_(report.data.project_region),
+epi_week=report.data.epi_week_num,
+start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+
+
+## {{ _('Key Findings') }} ##
+
+{{ _('A total of %(consultations)s consultations and %(cases)s cases reported from %(clinics)s health facilities.',
+clinics=report.email.clinics,
+consultations=report.email.consultations,
+cases=report.email.cases
+) }}
+
+{{ _('%(tot_mortality)s deaths and %(mat_mortality)s maternal deaths.',
+tot_mortality=report.tot_mortality.dea_0,
+mat_mortality=report.mat_mortality.mat_0
+)}}
+
+{{ _('%(generated)s alerts generated and %(investigated)s alerts investigated',
+generated=report.alerts.total,
+investigated=report.alerts.investigated
+) }}
+
+## {{ _('Project Overview') }} ##
+
+{{
+_('
+A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+',
+project_region=_(report.data.project_region)
+)
+}}
+
+{{
+_('
+The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+')
+}}
