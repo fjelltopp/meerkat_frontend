@@ -1,0 +1,60 @@
+{{ _('Dear Colleagues,
+  Welcome to the latest malaria surveillance report from the Public Health Surveillance project in %(project_region)s.',project_region=_(report.data.project_region)) }}
+
+{{ _('View the latest report') }}
+{{report_url}}
+
+{{ _('The profile summarises epidemiological information reported from %(clinics)s
+reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
+%(end_date)s).', 
+clinics=report.email.clinics, 
+project_region=_(report.data.project_region),
+epi_week=report.data.epi_week_num,
+start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+
+
+## {{ _('Key Findings') }} ##
+
+{{ _('A total of %(consultations)s consultations reported from %(clinics)s health facilities.',
+clinics=report.email.clinics,
+consultations=report.malaria_situation.mls_1
+) }}
+
+{{ _('%(fever)s cases and %(rdt)s RDT tests 
+ performed.',
+fever=report.malaria_situation.mls_2,
+rdt=report.malaria_situation.mls_3
+)}}
+
+{{ _('%(simple_malaria)s cases of 
+simple malaria and %(severe_malaria)s
+cases of severe malaria',
+simple_malaria=report.malaria_situation.mls_12,
+severe_malaria=report.malaria_situation.mls_12
+) }}
+
+
+{{ _('%(mal_mortality)s malaria deaths',
+mal_mortality=report.malaria_situation.mls_34
+) }}
+
+{{ _('%(act)s cases treated with ACT',
+act=report.malaria_situation.mls_45
+) }}
+
+
+## {{ _('Project Overview') }} ##
+
+{{
+_('
+A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+',
+project_region=_(report.data.project_region)
+)
+}}
+
+{{
+_('
+The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+')
+}}
