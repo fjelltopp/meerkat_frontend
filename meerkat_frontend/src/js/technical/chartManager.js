@@ -15,8 +15,8 @@
 
 */
 function showChartType( type, containerID ){
-	$('#'+containerID+' .chart').not('.'+type).addClass('hidden');
-	$('#'+containerID+' .'+type).removeClass('hidden');
+  $('#'+containerID+' .chart').not('.'+type).addClass('hidden');
+  $('#'+containerID+' .'+type).removeClass('hidden');
 }
 
 /**:drawBarChart( containerID, data, percent )
@@ -34,63 +34,76 @@ function showChartType( type, containerID ){
  */
 function drawBarChart( containerID, data, percent ){
 
-	//We want to work with a clone of the data, not the data itself.
-	data = $.extend(true, {}, data);
+  console.log( data );
 
-	//Hack to get plot to size correctly when being drawn into a hidden object.
-	//If the object is hidden, set the plot width to the inner width of the parent.
-	//Otherwise, leave as undefined as specified in the highcharts api.
-	var plotWidth;
-	if( $('#'+containerID).hasClass('hidden') ){
-		plotWidth = $('#'+containerID).parent().width();
-	}
+  //We want to work with a clone of the data, not the data itself.
+  data = $.extend(true, {}, data);
 
-	var units = 'Number';
-	var tooltipSuffix = '';
-	//If percent is set to true, first convert data to percentages.
-	if( percent ){
-		data.week = calc_percent_dist(data.week);
-		data.year = calc_percent_dist(data.year);
-		units=i18n.gettext('Percent %');
-		tooltipSuffix = '%';
-	}
+  //Hack to get plot to size correctly when being drawn into a hidden object.
+  //If the object is hidden, set the plot width to the inner width of the parent.
+  //Otherwise, leave as undefined as specified in the highcharts api.
+  var plotWidth;
+  if( $('#'+containerID).hasClass('hidden') ){
+    plotWidth = $('#'+containerID).parent().width();
+  }
 
-	$('#'+containerID).highcharts({
-		chart: {
-			type: 'column',
-			width: plotWidth
-		},
-		title: '',
-		tooltip: {
-			valueSuffix: tooltipSuffix
-		},
-		xAxis: {
-			categories: data.labels,
-			title: {
-				text: null
-			}
-		},
-		yAxis: {
-			min: 0,
-			title: {
-				text: units,
-				align: 'high'
-			},
-			labels: {
-				overflow: 'justify'
-			}
-		},			
-		series: [{
-			name: i18n.gettext('This Year'),
-			data:  data.year
-		},{
-			name: i18n.gettext('This Week'),
-			data:  data.week
-		}],
-	});
+  var tooltip = function(){
+    return this.series.name + ': ' + this.point.y;
+  };
+  var units = 'Number';
+  //If percent is set to true, convert data to percentages and store both in the data object.
+  //This means both percent and count can be referenced in tooltip.
+  if( percent ){
 
-	//Get rid of the highcharts logo.
-	$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
+    data.week_val = data.week;
+    data.year_val = data.year;
+    data.week = calc_percent_dist(data.week);
+    data.year = calc_percent_dist(data.year);
+    data.week = data.week.map( function (e, i) { return {"y":e, "val": data.week_val[i] }; });
+    data.year = data.year.map( function (e, i) { return {"y":e, "val": data.year_val[i] }; });
+
+    units=i18n.gettext('Percent %');
+    tooltip = function (){
+      return this.series.name + ': <b>' + this.point.y + '%</b> (' + this.point.val + ')';
+    };
+  }
+
+  $('#'+containerID).highcharts({
+    chart: {
+      type: 'column',
+      width: plotWidth
+    },
+    title: '',
+    tooltip: {
+      formatter: tooltip
+    },
+    xAxis: {
+      categories: data.labels,
+      title: {
+        text: null
+      }
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: units,
+        align: 'high'
+      },
+      labels: {
+        overflow: 'justify'
+      }
+    },      
+    series: [{
+      name: i18n.gettext('This Year'),
+      data:  data.year
+    },{
+      name: i18n.gettext('This Week'),
+      data:  data.week
+    }],
+  });
+
+  //Get rid of the highcharts logo.
+  $( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
 
 }
 
@@ -110,79 +123,97 @@ function drawBarChart( containerID, data, percent ){
         percentage of the total data set: (datum value/total value)*100.
  */
 function drawPieCharts( containerID, data, percent ){
-	
-	//We want to work with a clone of the data, not the data itself.
-	data = $.extend(true, {}, data);
+  
+  //We want to work with a clone of the data, not the data itself.
+  data = $.extend(true, {}, data);
 
-	//Hack to get plot to size correctly when being drawn into a hidden object.
-	//If the object is hidden, set the plot width to the inner width of the parent.
-	//Otherwise, leave as undefined (as specified in the highcharts api).
-	var plotWidth;
-	if( $('#'+containerID).hasClass('hidden') ){
-		plotWidth = $('#'+containerID).parent().width();
-	}
+  //Hack to get plot to size correctly when being drawn into a hidden object.
+  //If the object is hidden, set the plot width to the inner width of the parent.
+  //Otherwise, leave as undefined (as specified in the highcharts api).
+  var plotWidth;
+  if( $('#'+containerID).hasClass('hidden') ){
+    plotWidth = $('#'+containerID).parent().width();
+  }
+  var restructured = {};
+  var units = 'Number';
+  var tooltip = function(){
+    return this.series.name + ': ' + this.point.y;
+  };
+  //If percent is set to true, convert data to percentages and store both in the data object.
+  //This means both percent and count can be referenced in tooltip.
+  if( percent ){
 
-	var units = 'Number';
-	var tooltipSuffix = '';
-	//If percent is set to true, first convert data to percentages.
-	if( percent ){
-		data.week = calc_percent_dist(data.week);
-		data.year = calc_percent_dist(data.year);
-		units=i18n.gettext('Percent %');
-		tooltipSuffix = '%';
-	}
+    data.week_val = data.week;
+    data.year_val = data.year;
+    data.week = calc_percent_dist(data.week);
+    data.year = calc_percent_dist(data.year);
 
-	//First restructure the data object for pie charts.
-	var restructured = {week:[], year:[]};
-	for( var i=0; i<data.labels.length; i++ ){
-		restructured.week[i] = { name: data.labels[i], y: data.week[i] };
-		restructured.year[i] = { name: data.labels[i], y: data.year[i] };
-	}
+    //Restructure the data object for pie charts.
+    restructured.week = data.week.map( function (e, i) { 
+      return {name: data.labels[i], y:e, val: data.week_val[i] }; 
+    });
+    restructured.year = data.year.map( function (e, i) { 
+      return {name: data.labels[i], y:e, val: data.year_val[i] }; 
+    });
 
-	//Draw the graph.
-	$( '#'+containerID ).highcharts({
-		chart: {
-			plotBackgroundColor: null,
-			plotBorderWidth: null,
-			plotShadow: false,
-			type: 'pie',
-			width: plotWidth
-		},
-		title: '',
-		tooltip: {
-			valueSuffix: tooltipSuffix
-		},
-		plotOptions: {
-			pie: {
-				allowPointSelect: true,
-				cursor: 'pointer',
-				dataLabels: {
-					enabled: false
-				},
-				showInLegend: true
-			}
-		},
-		series: [{
-			name: i18n.gettext('This Week'),
-			center: ['20%','50%'],
-			size: "70%",
-			colorByPoint: true,
-			showInLegend:true,
-			title: { text: '<b>Week</b>', verticalAlign: 'top', y: -40 },
-			data: restructured.week
-		},{
-			name: i18n.gettext('This Year'),
-			center: ['80%','50%'],
-			size: "70%",
-			colorByPoint: true,
-			showInLegend:false,
-			title: { text: '<b>Year</b>', verticalAlign: 'top', y: -40 },
-			data: restructured.year
-		}]
-	});
+    units=i18n.gettext('Percent %');
+    tooltip = function (){
+      return this.series.name + ': <b>' + this.point.y + '%</b> (' + this.point.val + ')';
+    };
 
-	//Get rid of the highcharts.com logo.
-	$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
+  }else{
+    //Restructure the data object for pie charts.
+    restructured = {week:[], year:[]};
+    for( var i=0; i<data.labels.length; i++ ){
+      restructured.week[i] = { name: data.labels[i], y: data.week[i] };
+      restructured.year[i] = { name: data.labels[i], y: data.year[i] };
+    }
+  }
+
+  //Draw the graph.
+  $( '#'+containerID ).highcharts({
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie',
+      width: plotWidth
+    },
+    title: '',
+    tooltip: {
+      formatter:tooltip
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: false
+        },
+        showInLegend: true
+      }
+    },
+    series: [{
+      name: i18n.gettext('This Week'),
+      center: ['20%','50%'],
+      size: "70%",
+      colorByPoint: true,
+      showInLegend:true,
+      title: { text: '<b>Week</b>', verticalAlign: 'top', y: -40 },
+      data: restructured.week
+    },{
+      name: i18n.gettext('This Year'),
+      center: ['80%','50%'],
+      size: "70%",
+      colorByPoint: true,
+      showInLegend:false,
+      title: { text: '<b>Year</b>', verticalAlign: 'top', y: -40 },
+      data: restructured.year
+    }]
+  });
+
+  //Get rid of the highcharts.com logo.
+  $( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
 
 }
 
@@ -199,82 +230,82 @@ function drawPieCharts( containerID, data, percent ){
  */
 function drawTimeChart( varID, locID, containerID ){
 
-	$.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
+  $.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
 
-		var labels = [];
-		var values = [];
+    var labels = [];
+    var values = [];
 
-		for( var i = 1; i <= get_epi_week(); i++ ){
+    for( var i = 1; i <= get_epi_week(); i++ ){
 
-			labels.push(i.toString());
+      labels.push(i.toString());
 
-			if( typeof(data.weeks[i]) !== 'undefined' ){
-				values.push( data.weeks[i] );
-			}else{
-				values.push( 0 );
-			}
+      if( typeof(data.weeks[i]) !== 'undefined' ){
+        values.push( data.weeks[i] );
+      }else{
+        values.push( 0 );
+      }
 
-		}
+    }
 
-		//Hack to get plot to size correctly when being drawn into a hidden object.
-		//If the object is hidden, set the plot width to the inner width of the parent.
-		//Otherwise, leave as undefined as specified in the highcharts api.
-		var plotWidth;
-		if( $('#'+containerID).hasClass('hidden') ){
-			plotWidth = $('#'+containerID).parent().width();
-		}
+    //Hack to get plot to size correctly when being drawn into a hidden object.
+    //If the object is hidden, set the plot width to the inner width of the parent.
+    //Otherwise, leave as undefined as specified in the highcharts api.
+    var plotWidth;
+    if( $('#'+containerID).hasClass('hidden') ){
+      plotWidth = $('#'+containerID).parent().width();
+    }
 
 
-		$('#'+containerID).highcharts({
-		chart: {
-			type: 'column',
-			width: plotWidth
-		},
-		title: '',
-		xAxis: {
-			categories: labels,
-			title: {
-				text: i18n.gettext('Epidemiological Week')
-			}
-		},
-		legend:{ enabled:false },
-		yAxis: {
-			min: 0,
-			title: {
-				text: i18n.gettext('Number of Reported Cases'),
-				align: 'high'
-			},
-			labels: {
-				overflow: 'justify'
-			}
-		},			
-		series: [{
-			name: 'Year',
-			data:  values
-		}],
-		});
+    $('#'+containerID).highcharts({
+    chart: {
+      type: 'column',
+      width: plotWidth
+    },
+    title: '',
+    xAxis: {
+      categories: labels,
+      title: {
+        text: i18n.gettext('Epidemiological Week')
+      }
+    },
+    legend:{ enabled:false },
+    yAxis: {
+      min: 0,
+      title: {
+        text: i18n.gettext('Number of Reported Cases'),
+        align: 'high'
+      },
+      labels: {
+        overflow: 'justify'
+      }
+    },      
+    series: [{
+      name: 'Year',
+      data:  values
+    }],
+    });
 
-		//Get rid of the highcharts logo.
-		$( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
-	});
+    //Get rid of the highcharts logo.
+    $( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
+  });
 
 }
 
 Highcharts.setOptions({
-	colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
-		      "#CDEDF6", "#690500", "#77477B", "#40476D","#042A2B" ],
-	chart: {
-		backgroundColor: null,
-		style: {
-			fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
-		}
-	},
-	credits: {
-		enabled: false
-	},
-	exporting: {
-		enabled: false
-	}
+  colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
+          "#CDEDF6", "#690500", "#77477B", "#40476D","#042A2B" ],
+  chart: {
+    backgroundColor: null,
+    style: {
+      fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+    }
+  },
+  credits: {
+    enabled: false
+  },
+  exporting: {
+    enabled: false
+  }
 
 });
 
