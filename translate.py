@@ -84,9 +84,10 @@ def insert_translation(pofile, csv_file, language):
     with open(tmp_file) as original:
         catalog = read_po(original)
         for message in catalog:
-            if message.string == "" and message.id in translation_dict:
-                message.string = translation_dict[message.id]
-                change = True
+            if message.id in translation_dict:
+                if message.id == "" or message.id != translation_dict[message.id]:
+                    message.string = translation_dict[message.id]
+                    change = True
     if change:
         tmp_object = BytesIO()
         write_po(tmp_object, catalog)
