@@ -1152,14 +1152,7 @@ msgid ""
 "<p>Information reported in this public health profile represents cases "
 "reported from %(clinic_num)s reporting sites in %(project_region)s "
 "between %(start_date)s and %(end_date)s.</p>"
-<<<<<<< HEAD
 msgstr "<p>Les informations communiquées dans ce profil de santé publique représente les cas déclarés de %(clinic_num)s sites de surveillance en %(project_region)s entre %(start_date)s et %(end_date)s.</p>"
-=======
-msgstr ""
-"<p>Les informations communiquées dans ce profil de santé publique "
-"représente les cas déclarés de %(clinic_num)s établissements de santé en "
-"%(project_region)s entre %(start_date)s et %(end_date)s.</p>"
->>>>>>> origin/master
 
 #: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile.html:886
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
@@ -1170,13 +1163,7 @@ msgstr ""
 msgid ""
 "A total of <strong>  %(total_cases)s cases</strong> reported from "
 "%(clinic_num)s health facilities."
-<<<<<<< HEAD
 msgstr "Au total <strong>  %(total_cases)s cas</strong> signalés par %(clinic_num)s des  sites de surveillance."
-=======
-msgstr ""
-"Au total <strong>  %(total_cases)s cas</strong> signalés par "
-"%(clinic_num)s des établissements de santé."
->>>>>>> origin/master
 
 #: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile.html:888
 #: meerkat_frontend/templates/reports/email/html/email_public_health_profile.html:887
@@ -1728,14 +1715,7 @@ msgid ""
 "A total of <strong> %(total_consultations)s consultations</strong> and "
 "<strong> %(total_cases)s cases</strong> reported from %(clinic_num)s "
 "health facilities."
-<<<<<<< HEAD
 msgstr "Un total de <strong> %(total_consultations)s consultations</strong> et <strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s sites de surveillance."
-=======
-msgstr ""
-"Un total de <strong> %(total_consultations)s consultations</strong> et "
-"<strong> %(total_cases)s cas</strong> rapporté à %(clinic_num)s "
-"établissements de santé."
->>>>>>> origin/master
 
 #: meerkat_frontend/templates/reports/email/html/email_public_health_profile.html:891
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:33
