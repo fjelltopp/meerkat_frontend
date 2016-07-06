@@ -86,7 +86,7 @@ $(function() {
     communicableDiseasesBarChart(
       {{ v.weeks|safe }},
       [{{ v.confirmed }}, {{ v.suspected }}],
-      { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
+      { yAxis: { text: '{{ _("Cases") }}' }, xAxis: {text: '{{ _("Epi Week") }}'} }
     )
   );
   {% endfor %}

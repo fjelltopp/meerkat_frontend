@@ -96,7 +96,14 @@ function whichTransitionEvent(){
     }
 }
 
+/** idSort(a, b)
+   Sorts variable ids on the number
 
+**/
+ 
+function idSort(a,b){
+			return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]); 
+}
 //Capitalises the first character of a string.
 function capitalise( string ){
 	return string.charAt(0).toUpperCase() + string.slice(1);
@@ -173,7 +180,7 @@ function lastWeeks( week, n ){
 function makeDataObject( aggregation, variables, week, title, percent ){
 
 	var bins = Object.keys(aggregation);
-
+	bins = bins.sort(idSort);
 	//Create an array of everything we have to collate over each data bin.
 	//E.g. For gender labels we create a list made up of 'Male' and 'Female'.
 	var data = { 	

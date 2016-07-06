@@ -230,9 +230,7 @@ function timelineLink(id, name, axis){
 	    '&apos;, &apos;' + axis +'&apos;);" class="cross-table-links">' + i18n.gettext(name) + "</a>";
 }
 
-function idSort(a,b){
-			return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]); 
-}
+
 
 /**:createTimeline(id, cat, options)
 

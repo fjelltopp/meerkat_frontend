@@ -116,7 +116,6 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         Args:
             report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
-    
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
