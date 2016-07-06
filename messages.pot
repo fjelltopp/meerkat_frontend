@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-06 06:35+0000\n"
+"POT-Creation-Date: 2016-07-06 12:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,6 +136,14 @@ msgstr ""
 
 #: meerkat_frontend/reports.py:1092
 msgid "Cases Reported"
+msgstr ""
+
+#: meerkat_frontend/reports.py:1152
+msgid "Alerts generated"
+msgstr ""
+
+#: meerkat_frontend/reports.py:1159
+msgid "Alerts investigated"
 msgstr ""
 
 #: meerkat_frontend/reports.py:1620 meerkat_frontend/reports.py:1810
@@ -1063,7 +1071,7 @@ msgstr ""
 msgid "For more information, please e-mail"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/base.html:49
+#: meerkat_frontend/templates/reports/base.html:50
 msgid "This report was generated at"
 msgstr ""
 
@@ -1099,15 +1107,15 @@ msgstr ""
 msgid "Click to download your selected report for"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/index.html:198
+#: meerkat_frontend/templates/reports/index.html:201
 msgid "last epi-week"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/index.html:205
+#: meerkat_frontend/templates/reports/index.html:208
 msgid "last month"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/index.html:211
+#: meerkat_frontend/templates/reports/index.html:214
 msgid "current year"
 msgstr ""
 
@@ -1259,6 +1267,8 @@ msgid "Communicable Disease<"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:236
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:179
+#: meerkat_frontend/templates/reports/report_cerf.html:152
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:59
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:76
 #: meerkat_frontend/templates/reports/report_malaria.html:59
@@ -1328,11 +1338,6 @@ msgstr ""
 msgid "No alerts generated between %(start_date)s and %(end_date)s."
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:179
-#: meerkat_frontend/templates/reports/report_cerf.html:152
-msgid ">More Information"
-msgstr ""
-
 #: meerkat_frontend/templates/reports/email/html/email_cerf.html:16
 #: meerkat_frontend/templates/reports/report_cerf.html:2
 #: meerkat_frontend/templates/reports/report_cerf.html:12
@@ -1361,6 +1366,16 @@ msgstr ""
 msgid ""
 "There were %(conf_cases)s new confirmed cases and %(susp_cases)s new "
 "suspected cases of %(disease)s between %(start_date)s and %(end_date)s."
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:89
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:240
+msgid "Cases"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:89
+#: meerkat_frontend/views/reports.py:243
+msgid "Epi Week"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
@@ -1398,7 +1413,7 @@ msgid "Number of deaths"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:149
-msgid "Number of maternal death"
+msgid "Number of maternal deaths"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:167
@@ -1458,11 +1473,11 @@ msgid "Acute flaccid paralysis"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:190
-msgid "Neonatal tetanu"
+msgid "Neonatal tetanus"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:191
-msgid "Measles"
+msgid "Suspected measles"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:192
@@ -1522,19 +1537,7 @@ msgid "Number of alerts investigated"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:240
-msgid "Cases"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:240
 msgid "Deaths"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:252
-msgid " NA"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:262
-msgid "NA"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_malaria.html:15
@@ -2217,9 +2220,5 @@ msgstr ""
 
 #: meerkat_frontend/views/reports.py:238 meerkat_frontend/views/reports.py:242
 msgid "title"
-msgstr ""
-
-#: meerkat_frontend/views/reports.py:243
-msgid "Epi Week"
 msgstr ""
 

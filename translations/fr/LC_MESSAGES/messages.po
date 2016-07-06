@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-06 06:35+0000\n"
+"POT-Creation-Date: 2016-07-06 12:02+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -138,6 +138,14 @@ msgstr "La prévalence du tabagisme (courant)"
 #: meerkat_frontend/reports.py:1092
 msgid "Cases Reported"
 msgstr "Cas déclarés"
+
+#: meerkat_frontend/reports.py:1152
+msgid "Alerts generated"
+msgstr "Alertes générées"
+
+#: meerkat_frontend/reports.py:1159
+msgid "Alerts investigated"
+msgstr "Alertes enquêté"
 
 #: meerkat_frontend/reports.py:1620 meerkat_frontend/reports.py:1810
 msgid "Health Utilisation Rate"
@@ -426,7 +434,7 @@ msgstr "Régions"
 
 #: meerkat_frontend/src/files/pages/completeness.html:60
 msgid "Clinics"
-msgstr "Cliniques"
+msgstr "Sites de surveillance"
 
 #: meerkat_frontend/src/files/pages/demographics.html:118
 #: meerkat_frontend/src/files/pages/demographics_mad.html:81
@@ -1091,7 +1099,7 @@ msgstr "Envoyer un nouveau code"
 msgid "For more information, please e-mail"
 msgstr "Pour plus d'informations, s'il vous plaît e-mail"
 
-#: meerkat_frontend/templates/reports/base.html:49
+#: meerkat_frontend/templates/reports/base.html:50
 msgid "This report was generated at"
 msgstr "Ce rapport a été généré à"
 
@@ -1127,15 +1135,15 @@ msgstr "Date de fin:"
 msgid "Click to download your selected report for"
 msgstr "Cliquer pour télécharger le rapport sélectionné pour"
 
-#: meerkat_frontend/templates/reports/index.html:198
+#: meerkat_frontend/templates/reports/index.html:201
 msgid "last epi-week"
 msgstr "dernière semaine épidémiologique"
 
-#: meerkat_frontend/templates/reports/index.html:205
+#: meerkat_frontend/templates/reports/index.html:208
 msgid "last month"
 msgstr "dernière mois"
 
-#: meerkat_frontend/templates/reports/index.html:211
+#: meerkat_frontend/templates/reports/index.html:214
 msgid "current year"
 msgstr "année actuelle"
 
@@ -1300,6 +1308,8 @@ msgid "Communicable Disease<"
 msgstr "Maladies transmissibles<"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:236
+#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:179
+#: meerkat_frontend/templates/reports/report_cerf.html:152
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:59
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:76
 #: meerkat_frontend/templates/reports/report_malaria.html:59
@@ -1371,18 +1381,15 @@ msgstr "Principales Conclusions"
 msgid ""
 "A total of %(alerts_total)s alerts generated between %(start_date)s and "
 "%(end_date)s."
-msgstr "Un total de %(alerts_total)s alertes générées entre %(start_date)s et %(end_date)s."
+msgstr ""
+"Un total de %(alerts_total)s alertes générées entre %(start_date)s et "
+"%(end_date)s."
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:41
 #: meerkat_frontend/templates/reports/report_cerf.html:41
 #, python-format
 msgid "No alerts generated between %(start_date)s and %(end_date)s."
 msgstr "Aucune alerte générés entre %(start_date)s et %(end_date)s."
-
-#: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:179
-#: meerkat_frontend/templates/reports/report_cerf.html:152
-msgid ">More Information"
-msgstr "> Plus d'informations"
 
 #: meerkat_frontend/templates/reports/email/html/email_cerf.html:16
 #: meerkat_frontend/templates/reports/report_cerf.html:2
@@ -1415,7 +1422,20 @@ msgstr ""
 msgid ""
 "There were %(conf_cases)s new confirmed cases and %(susp_cases)s new "
 "suspected cases of %(disease)s between %(start_date)s and %(end_date)s."
-msgstr "Il y avait %(conf_cases)s nouveaux cas confirmées et %(susp_cases)s nouveaux cas suspects de %(disease)s entre %(start_date)s et %(end_date)s."
+msgstr ""
+"Il y avait %(conf_cases)s nouveaux cas confirmées et %(susp_cases)s "
+"nouveaux cas suspects de %(disease)s entre %(start_date)s et "
+"%(end_date)s."
+
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:89
+#: meerkat_frontend/templates/reports/report_epi_monitoring.html:240
+msgid "Cases"
+msgstr "Les cas"
+
+#: meerkat_frontend/templates/reports/report_communicable_diseases.html:89
+#: meerkat_frontend/views/reports.py:243
+msgid "Epi Week"
+msgstr "Semaine Épidémiologique"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:15
@@ -1576,20 +1596,8 @@ msgid "Number of alerts investigated"
 msgstr "Nombre d'alertes d'une enquête"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:240
-msgid "Cases"
-msgstr "Les cas"
-
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:240
 msgid "Deaths"
 msgstr "Nombre de décès"
-
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:252
-msgid " NA"
-msgstr " NA"
-
-#: meerkat_frontend/templates/reports/report_epi_monitoring.html:262
-msgid "NA"
-msgstr "NA"
 
 #: meerkat_frontend/templates/reports/report_malaria.html:15
 msgid "Malaria Epidemiological Surveillance Report"
@@ -2415,33 +2423,4 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: meerkat_frontend/views/reports.py:243
-msgid "Epi Week"
-msgstr "Semaine Épidémiologique"
-
-#~ msgid "{country} | {title} Epi Week {epi_week}"
-#~ msgstr "{country} | {title} Semaine Épidémiologique {epi_week}"
-
-#~ msgid ""
-#~ "<p>A program of public health "
-#~ "surveillance is being implemented in "
-#~ "%(clinic_num)s outpatient clinics in "
-#~ "%(project_region)s, in partnership with WHO"
-#~ " and Ministry of Health. The project"
-#~ " introduces case-based, integrated disease"
-#~ " surveillance of mental health, non-"
-#~ "communicable disease and communicable "
-#~ "disease.</p>\n"
-#~ "          <p>The clinician uses the "
-#~ "system within the consultation, which "
-#~ "introduces clinical-decision support for "
-#~ "child health and mental health, as "
-#~ "well as best practice prescribing "
-#~ "guidance and and real-time reporting "
-#~ "of information. Information is made "
-#~ "available within one hour via an "
-#~ "online framework with automated generation "
-#~ "of SMS and email alerts and "
-#~ "support for mapping and reporting.</p>"
-#~ msgstr ""
 

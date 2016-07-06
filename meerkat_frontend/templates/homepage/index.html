@@ -120,16 +120,16 @@
       </h2>
         <div class="row row-centered image-container">
           <div class="col-xs-12 col-sm-4 col-centered">
-            <img src="{{ url_for('static', filename='img/homepage/' + content.logos.country_partner) }}" id="whoLogo" ></img> 
-          </div>
-          <div class="col-xs-12 col-sm-4 col-centered">
-            <img src="{{ url_for('static', filename='img/homepage/' + content.logos.who) }}" id="countryLogo" ></img> 
+            <img src="{{ url_for('static', filename='img/homepage/' + content.logos.country_partner) }}" id="countryLogo" ></img> 
           </div>
           {% for logo in content.logos.partners %}
-		    <div class="col-xs-12 col-sm-4 col-centered">
+	     <div class="col-xs-12 col-sm-4 col-centered">
             <img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
           </div>
-          {% endfor %} 
+          {% endfor %}
+          <div class="col-xs-12 col-sm-4 col-centered">
+              <img src="{{ url_for('static', filename='img/homepage/' + content.logos.who) }}" id="whoLogo" ></img> 
+          </div>
         </div>
       {% endif %}
       <div class="breaker"> </div>
