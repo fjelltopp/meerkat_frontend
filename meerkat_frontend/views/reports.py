@@ -21,9 +21,11 @@ reports = Blueprint('reports', __name__, url_prefix='/<language>')
 @reports.before_request
 def requires_auth():
     """Checks that the user has authenticated before returning any page from the technical site."""
-    auth = request.authorization
-    if not auth or not c.check_auth(auth.username, auth.password):
-        return c.authenticate()
+    current_app.logger.warning('url: ' + request.base_url )
+    if "/email/" not in request.base_url: 
+        auth = request.authorization
+        if not auth or not c.check_auth(auth.username, auth.password):
+            return c.authenticate()
 
 
 # NORMAL ROUTES
@@ -117,7 +119,6 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
             report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
     
-
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
@@ -184,6 +185,13 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
        Args:
            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
+    current_app.logger.warning( str(request.data.decode('UTF-8')))
+    #Authorise the request.
+    key = json.loads(request.data.decode('UTF-8')).get('key', "")
+    if not (key == current_app.config["MAILING_KEY"] or current_app.config["MAILING_KEY"] == ""):
+        current_app.logger.warning("Unauthorized address trying to use API: {}".format(request.remote_addr) + 
+                           "\nwith api key: " + key)
+        abort(401)
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
@@ -246,8 +254,8 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date = format_datetime(start_date, 'dd MMMM YYYY'),
             end_date = format_datetime(end_date, 'dd MMMM YYYY')
         )
-        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
-        
+        #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
+        topic = 'test-emails'
 
         #Assemble the message data in a manner hermes will understand.
         message = {
@@ -476,8 +484,6 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 offset = today.weekday() + 1 + (7 - epi_week["offset"])
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 6)
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset)
-                current_app.logger.info(start_date)
-                current_app.logger.info(end_date)
             elif period == "month":
                 start_date = datetime(today.year, today.month - 1, 1)
                 end_date = datetime(today.year, today.month, 1) - timedelta(days=1)
