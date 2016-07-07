@@ -118,7 +118,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         Args:
             report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
-    
+
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
@@ -581,8 +581,8 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     # Render correct template for the report
     return {
         'template':report_list[report]['template'],
-        'template_email_html':report_list[report]['template_email_html'],
-        'template_email_plain':report_list[report]['template_email_plain'],
+        'template_email_html':report_list[report].get('template_email_html', None),
+        'template_email_plain':report_list[report].get('template_email_plain', None),
         'report':data,
         'extras':extras,
         'address':current_app.config["REPORTS_CONFIG"]["address"]

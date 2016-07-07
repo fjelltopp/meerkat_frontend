@@ -146,7 +146,7 @@ function drawTable1(){
   }  
 
   html += "<td class='total'>" + content.tot_mortality[ mort_keys[0] ] + "</td></tr>";    
-  html += "<tr><td class='border-right key'>{{ _('Number of maternal death') }}s</td>";
+  html += "<tr><td class='border-right key'>{{ _('Number of maternal deaths') }}</td>";
 
   mat_keys = Object.keys(content.mat_mortality);
   for( var i=1; i<mat_keys.length; i++ ){
@@ -187,8 +187,8 @@ function drawTable22(){
   
   var struct = [
     ["{{ _('Acute flaccid paralysis') }}", "icd_380"],
-    ["{{ _('Neonatal tetanu') }}s", "icd_188"],
-    ["{{ _('Measles') }}", "icd_488"],
+    ["{{ _('Neonatal tetanus') }}", "icd_188"],
+    ["{{ _('Suspected measles') }}", "icd_488"],
     ["{{ _('Leprosy') }}", "icd_168"],
     ["{{ _('Lymphatic filariasis') }}", "icd_804"],
   ]
@@ -249,7 +249,7 @@ function drawFromStruct( struct ){
 
       html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
         "<td class='lowlight' >" + cases + "</td>" +
-        "<td class='lowlight' >{{ _(' NA') }} </td>" +
+        "<td class='lowlight' > 0 </td>" +
         "<td class='total lowlight border-left'>" + cases + "</td></tr>"
 
     //If the "no_deaths" option is sepcified in the third array element.
@@ -259,7 +259,7 @@ function drawFromStruct( struct ){
 
       html += "<tr><td class='total key'>" + struct[i][0] + "</td>" +
         "<td>" + cases + "</td>" +
-        "<td>{{ _('NA') }}</td>" +
+        "<td> 0 </td>" +
         "<td class='total'>" + cases + "</td></tr>"
 
     //If the "highlight" option is sepcified in the third array element.

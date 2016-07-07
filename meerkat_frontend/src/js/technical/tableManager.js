@@ -32,7 +32,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 	//Table headers.
 	table = '<table class="table table-hover table-condensed"><tr>' +
 	    '<th>' + data.title + '</th><th>' +i18n.gettext('Week') +' '+ weeks[0] + '</th>' +
-	    '<th>Week ' + weeks[1] + '</th><th>' +i18n.gettext('Week') +' '+ weeks[2] + '</th>' + 
+	    '<th>' +i18n.gettext('Week') +' '+ weeks[1] + '</th><th>' +i18n.gettext('Week') +' '+ weeks[2] + '</th>' + 
 	    '<th>' + i18n.gettext('This Year') +'</th></tr>';
 
 	//For each data category, assemble a html string listing data for the three weeks and the year.

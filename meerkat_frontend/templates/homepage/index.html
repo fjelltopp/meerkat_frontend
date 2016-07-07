@@ -13,8 +13,8 @@
 	 <div id="mobile-home" class="visible-xs hidden-lg" > 
 		      <H1> {{_(content.titles.full|safe)}} </H1>
 		      <div class="logos" >
-		         <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" id="whoMobLogo" ></img>
-		         <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" id="johMobLogo" ></img>
+		         <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" id="whoMobLogo" ></img>
+		         <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" id="johMobLogo" ></img>
 		       </div>
     </div>
 
@@ -35,8 +35,8 @@
 		  <div class="title-overlay" class="slideDown"> 
           <H1> {{_(content.titles.full|safe)}} </H1> 
           <div class="logos" >
-            <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" ></img>
             <img src="{{url_for('static', filename='img/homepage/'+content.logos.country_partner)}}" ></img>
+            <img src="{{url_for('static', filename='img/homepage/'+content.logos.who)}}" ></img>
           </div>
         </div>
         <div class="details" >
@@ -120,16 +120,16 @@
       </h2>
         <div class="row row-centered image-container">
           <div class="col-xs-12 col-sm-4 col-centered">
-            <img src="{{ url_for('static', filename='img/homepage/' + content.logos.who) }}" id="whoLogo" ></img> 
-          </div>
-          <div class="col-xs-12 col-sm-4 col-centered">
             <img src="{{ url_for('static', filename='img/homepage/' + content.logos.country_partner) }}" id="countryLogo" ></img> 
           </div>
           {% for logo in content.logos.partners %}
-		    <div class="col-xs-12 col-sm-4 col-centered">
+	     <div class="col-xs-12 col-sm-4 col-centered">
             <img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
           </div>
-          {% endfor %} 
+          {% endfor %}
+          <div class="col-xs-12 col-sm-4 col-centered">
+              <img src="{{ url_for('static', filename='img/homepage/' + content.logos.who) }}" id="whoLogo" ></img> 
+          </div>
         </div>
       {% endif %}
       <div class="breaker"> </div>
