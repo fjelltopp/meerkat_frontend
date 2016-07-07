@@ -215,7 +215,6 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
         #Use env variable to determine whether to fetch image content from external source or not
-        #Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:    
@@ -230,6 +229,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report_url=report_url,
                 content_url=content_url
         )
+
         plain_email_body = render_template(
                 ret['template_email_plain'],
                 report=ret['report'],
@@ -254,8 +254,9 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date = format_datetime(start_date, 'dd MMMM YYYY'),
             end_date = format_datetime(end_date, 'dd MMMM YYYY')
         )
-        #topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
-        topic = 'test-emails'
+
+        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
+        #topic = 'test-emails'
 
         #Assemble the message data in a manner hermes will understand.
         message = {
