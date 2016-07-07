@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-06 12:02+0000\n"
+"POT-Creation-Date: 2016-07-07 17:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,14 +136,6 @@ msgstr ""
 
 #: meerkat_frontend/reports.py:1092
 msgid "Cases Reported"
-msgstr ""
-
-#: meerkat_frontend/reports.py:1152
-msgid "Alerts generated"
-msgstr ""
-
-#: meerkat_frontend/reports.py:1159
-msgid "Alerts investigated"
 msgstr ""
 
 #: meerkat_frontend/reports.py:1620 meerkat_frontend/reports.py:1810
@@ -1374,7 +1366,7 @@ msgid "Cases"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:89
-#: meerkat_frontend/views/reports.py:243
+#: meerkat_frontend/views/reports.py:252
 msgid "Epi Week"
 msgstr ""
 
@@ -2218,7 +2210,7 @@ msgid ""
 "verify your contact details."
 msgstr ""
 
-#: meerkat_frontend/views/reports.py:238 meerkat_frontend/views/reports.py:242
+#: meerkat_frontend/views/reports.py:247 meerkat_frontend/views/reports.py:251
 msgid "title"
 msgstr ""
 
