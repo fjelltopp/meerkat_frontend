@@ -8,8 +8,8 @@
 
         {% set labels = {"reg": _("Health Directorates"),
                         "tot": _("Total no. <br> of patients"),
-                        "gen_1": _("females"),
-                        "gen_2": _("males"),
+                        "gen_1": _("males"),
+                        "gen_2": _("females"),
                         "lab_4": _("overweight <br> (BMI > 25)"),
                         "lab_5": _("obese <br> (BMI > 30)"),
                         "lab_2": _('controlled patients <br> (BP < 140/90)'),
@@ -48,6 +48,7 @@
 	{% if row.title == "Total" %}
 	<td class="key total" style="text-align: center;"> {{ _(row.title)  }}</td>
 	{% else %}
+
 	<td class="total"> {{ _(row.title)  }}</td>
 	{% endif %}
 	{% for i in range(row["values"]|length) %}
