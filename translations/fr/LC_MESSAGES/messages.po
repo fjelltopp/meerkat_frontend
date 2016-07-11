@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-06 12:02+0000\n"
+"POT-Creation-Date: 2016-07-07 17:55+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -138,14 +138,6 @@ msgstr "La prévalence du tabagisme (courant)"
 #: meerkat_frontend/reports.py:1092
 msgid "Cases Reported"
 msgstr "Cas déclarés"
-
-#: meerkat_frontend/reports.py:1152
-msgid "Alerts generated"
-msgstr "Alertes générées"
-
-#: meerkat_frontend/reports.py:1159
-msgid "Alerts investigated"
-msgstr "Alertes enquêté"
 
 #: meerkat_frontend/reports.py:1620 meerkat_frontend/reports.py:1810
 msgid "Health Utilisation Rate"
@@ -1433,7 +1425,7 @@ msgid "Cases"
 msgstr "Les cas"
 
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:89
-#: meerkat_frontend/views/reports.py:243
+#: meerkat_frontend/views/reports.py:252
 msgid "Epi Week"
 msgstr "Semaine Épidémiologique"
 
@@ -2419,8 +2411,7 @@ msgstr ""
 "santé publique {country} est: {code}. S'il vous plaît suivre les "
 "instructions dans l'e-mail pour vérifier vos coordon"
 
-#: meerkat_frontend/views/reports.py:238 meerkat_frontend/views/reports.py:242
+#: meerkat_frontend/views/reports.py:247 meerkat_frontend/views/reports.py:251
 msgid "title"
 msgstr ""
-
 
