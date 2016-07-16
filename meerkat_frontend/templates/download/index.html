@@ -2,7 +2,7 @@
 {% block menu %}
 <ul class="nav navbar-nav">
 
-    <li><a href="/{{g.get('language')}}/technical/" >{{ _('Dashboard') }}</a></li>
+  <li><a href="/{{g.get('language')}}/technical/" >{{ _('Dashboard') }}</a></li>
   <li><a href="/{{g.get('language')}}/reports/" >{{ _('Reports') }}</a></li>
   <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
   <li><a href="/{{g.get('language')}}/explore/" >{{ _('Explore') }}</a></li>
@@ -59,11 +59,11 @@
 
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
-				<div class="box hiddenChartBox" id="raw_data_box">
-					<div class="chartBox__heading">
-						<a href="#" onclick='$("#raw_download").toggleClass("hidden");$("#raw_data_box").toggleClass("hiddenChartBox");$("#raw_data_box").toggleClass("chartBox");'> {{ _('Download Raw Data') }}</a>
+				<div class="chartBox box" id="raw_data_box">
+					<div class="chartBox__heading pointer no-border" onclick='toggleRawDownloader();return false;'>
+						{{ _('Download Raw Data') }}
 					</div>
-					<div class="chartBox__content hidden" id="raw_download" >
+					<div class="chartBox__content" id="raw_download" >
 						<div class="intro">
 						  {#content.rawIntro #}
 						  {{ _('Choose raw data set to download for analysis:') }}
@@ -134,6 +134,15 @@ $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + ge
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
 });
+
+
+function toggleRawDownloader(){
+    $("#raw_data_box .chartBox__heading").toggleClass("no-border");
+    $("#raw_download").slideToggle("slow");
+	//$("#raw_download").toggleClass("hidden");
+	//$("#raw_data_box").toggleClass("hiddenChartBox");
+	//$("#raw_data_box").toggleClass("chartBox");
+}
 
 //Check that at least one checkbox is clicked
 function checkSelected( ) {
