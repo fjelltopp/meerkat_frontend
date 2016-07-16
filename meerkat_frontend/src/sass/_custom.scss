@@ -141,3 +141,10 @@
       background-image:url(../img/fullscreen@2x.png);
     }
   }
+
+@media (max-width: 992px){
+    .nav li a{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
