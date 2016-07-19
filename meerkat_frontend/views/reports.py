@@ -269,7 +269,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         }
 
         #Publish the message to hermes
-        r = c.hermes( '/publish', 'PUT', message )
+        r = c.hermes( '/publish', 'PUT', message )offset = (today.weekday() - epi_week["offset"]) % 7 
 
         print(r)
         succ=0
@@ -482,8 +482,9 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             today = datetime.today()
             if period == "week":
                 epi_week = c.api('/epi_week')
-                offset = today.weekday() + 1 + (7 - epi_week["offset"])
-                start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 6)
+                #Calulation for start date is: month_day - ( week_day-week_offset % 7) - 7
+                offset = (today.weekday() - epi_week["offset"]) % 7 
+                start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset)
             elif period == "month":
                 start_date = datetime(today.year, today.month - 1, 1)
