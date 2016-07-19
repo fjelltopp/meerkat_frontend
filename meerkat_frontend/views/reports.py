@@ -269,7 +269,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         }
 
         #Publish the message to hermes
-        r = c.hermes( '/publish', 'PUT', message )offset = (today.weekday() - epi_week["offset"]) % 7 
+        r = c.hermes( '/publish', 'PUT', message )
 
         print(r)
         succ=0
