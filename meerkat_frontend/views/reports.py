@@ -484,8 +484,10 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 epi_week = c.api('/epi_week')
                 #Calulation for start date is: month_day - ( week_day-week_offset % 7) - 7
                 offset = (today.weekday() - epi_week["offset"]) % 7 
+                #Start date is today minus the offset minus one week.
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
-                end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset)
+                #End date is today minus the offset minus 1 day (because our end date is "inclusive")
+                end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 1 )
             elif period == "month":
                 start_date = datetime(today.year, today.month - 1, 1)
                 end_date = datetime(today.year, today.month, 1) - timedelta(days=1)
