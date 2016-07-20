@@ -23,7 +23,7 @@
 			<a href="#menu-toggle" id="menu-toggle" class="menu-toggle">
 			<div class="location-box__label">
 				<div>{{ _('Location') }}:</div>
-				<div id="location-title" class="location-title" >Not Loaded</div>
+				<div id="location-title" class="location-title" >{{ _('Not Loaded') }}</div>
 			</div>
 			<span class="glyphicon glyphicon-chevron-right"></span>
 			<span class="glyphicon glyphicon-chevron-left hidden"></span>
@@ -53,7 +53,7 @@
 						</div>
 						<div class="chartBox__content " >
 							<div class="row">
-								{{_(content.introduction)}}
+								{#_(content.introduction)#}
 							</div>
 							<div class="row">
 								<form class="reports-form col-sm-offset-3 col-xs-12 col-sm-8 col-md-6 col-lg-5 no-padding-col">
@@ -163,7 +163,7 @@ function setUpReportForm(){
 	setDefaultPeriod( $("#report-selector").find(':selected').attr('period' ));
 
 	//The change form details based upon the report selected.
-	$("#report-selector select").on("change", function(element){
+	 $("#report-selector select").on("change", function(element){
 		var startDate = new Date( $(this).find(':selected').attr('startdate' ) );
 		$('#start-date').data("DateTimePicker").minDate( dateToString(startDate) );
 		$('#start-date').data("DateTimePicker").date( dateToString(startDate) );
@@ -193,22 +193,25 @@ function setDefaultPeriod( period ){
 		case 'week':
 			console.log( "Week" );
 			var weekDay = - now.getDay() - ( 7- offset); // Subtract epi-week change over day.
+			if(weekDay < -7 ){
+				weekDay = weekDay + 7
+				}
 			start_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() - 6 + weekDay );
 			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate() + weekDay );	
-			$('.period').html('last epi-week');	
+			$('.period').html('{{ _("last epi-week") }}');	
 			break;
 
 		case 'month':
 			console.log( "Month" );
 			start_date = new Date( now.getFullYear(), now.getMonth()-1, 1 ); //The first of prev month
 			end_date = new Date( now.getFullYear(), now.getMonth(),  0 ); //The last of prev month
-			$('.period').html('last month');
+			$('.period').html('{{ _("last month") }}');
 			break;
 	
 		case 'year':
 			start_date = new Date( now.getFullYear(), 0, 1 )
 			end_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() );
-			$('.period').html('current year');
+			$('.period').html('{{ _("current year") }}');
 			break;
 
 	}
