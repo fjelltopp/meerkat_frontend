@@ -269,7 +269,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         }
 
         #Publish the message to hermes
-        r = c.hermes( '/publish', 'PUT', message )offset = (today.weekday() - epi_week["offset"]) % 7 
+        r = c.hermes( '/publish', 'PUT', message ) 
 
         print(r)
         succ=0
@@ -483,20 +483,13 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             if period == "week":
                 epi_week = c.api('/epi_week')
                 #Calulation for start date is: month_day - ( week_day-week_offset % 7) - 7
-<<<<<<< Updated upstream
                 #The offset is the #days into the current epi week.
                 offset = (today.weekday() - epi_week["offset"]) % 7 
                 #Start date is today minus the offset minus one week.
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
                 #End date is today minus the offset, minus 1 day (because our end date is "inclusive")
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 1)
-=======
-                offset = (today.weekday() - epi_week["offset"]) % 7 
-                start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
-                end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset)
-                current_app.logger.info(start_date)
-                current_app.logger.info(end_date)
->>>>>>> Stashed changes
+
             elif period == "month":
                 start_date = datetime(today.year, today.month - 1, 1)
                 end_date = datetime(today.year, today.month, 1) - timedelta(days=1)
