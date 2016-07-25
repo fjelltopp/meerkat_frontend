@@ -21,11 +21,12 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Key Findings') }}</div>
       <div class="chart-stage">
-                    {{ _('<p>Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.</p>', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+                    {{ _('<p>Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s. This report is up to date as of %(generation_time)s on %(generation_date)s. </p>', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY'), generation_time=report.meta.generation_timestamp|datetime_from_json|datetime('HH:mm'), generation_date=report.meta.generation_timestamp|datetime_from_json|datetime('dd MMMM YYYY')) }}
           <ul>
-              <li> {{ _('A total of <strong>  %(total_cases)s cases</strong> reported from %(clinic_num)s health facilities.', total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}</li>
+              <li> {{ _('A total of <strong>%(total_consultations)s consultations</strong> from %(clinic_num)s health facilities.', total_consultations=report.data.total_consultations|commas, clinic_num=report.data.clinic_num|commas) }}</li>
+              <li> {{ _('A total of <strong>%(total_cases)s cases</strong> and <strong>%(total_deaths)s deaths</strong> reported.', total_cases=report.data.total_cases|commas, total_deaths=report.data.total_deaths|commas) }}</li>
 
-              <li>{{ _('<strong> %(percent_female)s %% female</strong> and <strong> %(percent_lt_5yo)s %% five years</strong> of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}</li>
+              <li>{{ _('<strong> %(percent_female)s %% female</strong> and <strong> %(percent_lt_5yo)s %% under five years</strong> of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}</li>
 			  
           {% for disease in report.data.morbidity_communicable_cd_tab %}
 	  <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
