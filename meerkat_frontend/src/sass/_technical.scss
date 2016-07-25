@@ -118,12 +118,6 @@ button.header:hover{
 }
 
 .chartBox{
-	min-height: 300px;
-	padding: 0px;
-}
-
-.hiddenChartBox{
-	min-height: 50px;
 	padding: 0px;
 }
 
@@ -142,6 +136,7 @@ button.header:hover{
 .chartBox__content{
 	display: block;
 	padding: 10px 10px;
+    min-height: 260px
 }
 
 .chartBox__type-selector{
