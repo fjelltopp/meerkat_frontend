@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-25 13:33+0000\n"
+"POT-Creation-Date: 2016-07-26 11:44+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -881,7 +881,7 @@ msgstr "Afficher les champs avancés"
 msgid "Advanced Fields"
 msgstr "Fields avancée"
 
-#: meerkat_frontend/templates/download/index.html:147
+#: meerkat_frontend/templates/download/index.html:156
 #: meerkat_frontend/templates/messaging/subscribe.html:248
 #: meerkat_frontend/templates/messaging/subscribe.html:266
 msgid "You must tick at least one checkbox."
@@ -1109,8 +1109,12 @@ msgid "For more information, please e-mail"
 msgstr "Pour plus d'informations, s'il vous plaît e-mail"
 
 #: meerkat_frontend/templates/reports/base.html:50
-msgid "This report was generated at"
-msgstr "Ce rapport a été généré à"
+#, python-format
+msgid ""
+"This report is up to date as of %(generation_time)s on "
+"%(generation_date)s."
+msgstr "Ce rapport est à"
+" jour à partir de %(generation_time)s le %(generation_date)s."
 
 #: meerkat_frontend/templates/reports/index.html:25
 msgid "Location"
@@ -2469,4 +2473,7 @@ msgstr ""
 #: meerkat_frontend/views/reports.py:247 meerkat_frontend/views/reports.py:251
 msgid "title"
 msgstr ""
+
+#~ msgid "This report was generated at"
+#~ msgstr "Ce rapport a été généré à"
 

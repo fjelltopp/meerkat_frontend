@@ -47,7 +47,7 @@
                     {% endfor %}
                     <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
 		  </div>
-			<p class="small time-stamp pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">{{ _('This report was generated at') }} {{ report.meta.generation_timestamp|datetime_from_json|datetime("dd MMMM YYYY") }}.</p>
+			<p class="time-stamp pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">{{ _('This report is up to date as of %(generation_time)s on %(generation_date)s.', generation_time=report.meta.generation_timestamp|datetime_from_json|datetime('HH:mm'), generation_date=report.meta.generation_timestamp|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
 		</div>
   </div>
 </footer>
