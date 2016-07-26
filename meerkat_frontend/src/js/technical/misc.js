@@ -381,6 +381,25 @@ function categorySummation( details ){
 	});
 }
 
+/**:htmlDecode(input)
+
+    Converts a string with html unicode substrings to a fromat that
+    can be displayed in javascript and svg tags.  Used when printing 
+    api results directly to a svg tag, to ensure names display properly.
+    NOTE: Hacky? Is there a better way of doing this?
+
+    :param string input:
+        The string that may contain html UTF-8 codes. 
+
+    :returns:
+        The reformatted string with out HTML UTF-8 codes.  
+*/
+function htmlDecode(input){
+  var e = document.createElement('div');
+  e.innerHTML = input;
+  return e.childNodes[0].nodeValue;
+}
+
 /**:exportTableToCSV(tableID, filename, link)
 
     Exports a html table to CSV format.  Used to create the download table buttons in the

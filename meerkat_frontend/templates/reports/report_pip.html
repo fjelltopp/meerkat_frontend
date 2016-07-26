@@ -11,7 +11,7 @@
 	</span> 
 	<span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Pandemic Influenza Preparedness (PIP) Profile
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
     </h2>
     
@@ -23,7 +23,7 @@
       <div class="chart-title">Key findings</div>
       <div class="chart-stage">
 
-          <p>Information reported in this pandemic influenza preparedness (PIP) profile represents cumulative cases reported from {{ report.data.num_clinic }} sentinel sites between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
+          <p>Information reported in this pandemic influenza preparedness (PIP) profile represents cumulative cases reported from {{ report.data.num_clinic }} sentinel sites between {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} and {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}.</p>
         <ul>
           <li>A total of <strong>{{ report.data.total_cases|commas }} </strong> enrolled patients.</li>
           <li><strong>{{ report.data.percent_cases_male|float|round(1) }}% male</strong> and <strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> </li>
@@ -187,6 +187,9 @@
     <div class="chart-wrapper">
       <div class="chart-title">More Information</div>
       <div class="chart-stage">
+        {% for site in report.data.reporting_sites %}
+            {{ site.title }}
+        {% endfor %}
         <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
         <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
       </div>
@@ -207,11 +210,16 @@
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
+
 // Reporting Sites
 var reportingSites = {
-  categories: [{% for site in report.data.reporting_sites %}"{{ site.title }}"{% if not loop.last %},{% endif %}{% endfor %}],
+  categories: [{% for site in report.data.reporting_sites %} htmlDecode("{{ site.title }}") {% if not loop.last %},{% endif %}{% endfor %}],
   series: [{name: 'Clinics', data: [{% for site in report.data.reporting_sites %}{{ site.percent }}{% if not loop.last %},{% endif %}{% endfor %}]}],
   labels: { yAxis: { text: null } } };
+console.log( reportingSites );
+{% for site in report.data.reporting_sites %}
+console.log( "{{ site.title }}" );
+{% endfor %}
 // Demographics
 var demographicsAges = {
   categories: [{% for item in report.data.demographics %}"{{ item.age }}"{% if not loop.last %},{% endif %}{% endfor %}],
@@ -236,6 +244,7 @@ var communicableDiseases = [{% for item in report.data.morbidity_communicable_ic
 var CommunicableDiseasesList = [{% for item in report.data.morbidity_communicable_cd_tab %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Plots charts for report
 $(function() {
+
   $('#chart-reporting-sites').highcharts(
     sitesBarChart(
       reportingSites.categories,

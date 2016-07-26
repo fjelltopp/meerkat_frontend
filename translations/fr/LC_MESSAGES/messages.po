@@ -1415,7 +1415,7 @@ msgid ""
 "<strong>%(total_deaths)s deaths</strong> reported."
 msgstr ""
 "Au total de <strong>%(total_cases)s cas</strong> et "
-"\"\"<strong>%(total_deaths)s décès</strong> signalé"
+"<strong>%(total_deaths)s décès</strong> signalé"
 
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:29
 #, python-format
