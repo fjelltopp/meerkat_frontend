@@ -100,11 +100,16 @@ form.reports-form .download-buttons input{
   border-right: 2px solid #ddd;
 }
 
+.value{
+  border-right: 2px solid #ddd;
+}
+
 
 .total{
   border-right: 2px solid #ddd;
   border-left: 2px solid #ddd;
   background: $lightGrey;
+  font-weight: bold;
 }
 
 .total-row{

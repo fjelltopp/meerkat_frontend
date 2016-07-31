@@ -21,55 +21,52 @@
                         "lab_11": _('with <br>complications')
         } %}
 	{% for key in data.titles %}
-	{% if key == "reg" %}
-        <th class="key"> {{ labels[key]|safe }} </th>
-	{% elif key == "tot" %}
-	<th class="total"> {{ labels[key]|safe }} </th>
-	{% do total.append(counter) %}
-	{% else %}
-        <th>
-            {% if key in labels.keys() %}
-              {{ labels[key]|safe }}
-            {% else %}
-              {{ key }}
-            {% endif %}
-            {% if percent %}
-             (%)
-            {% endif %}
-        </th>
-
-	{% set counter = counter +1%}
-	{% endif %}
-	
+	 {% if key == "reg" %}
+    <th class="key"> {{ labels[key]|safe }} </th>
+	 {% elif key == "tot" %}
+    <th class="total"> {{ labels[key]|safe }} </th>
+	   {% do total.append(counter) %}
+	 {% else %}
+    <th class="key">
+    {% if key in labels.keys() %}
+      {{ labels[key]|safe }}
+    {% else %}
+      {{ key }}
+    {% endif %}
+    {% if percent %}
+      (%)
+    {% endif %}
+    </th>
+      {% set counter = counter +1%}
+	 {% endif %}
 	{% endfor %}
-    </tr>
-    {% for row in data["data"] %}
+  </tr>
+  {% for row in data["data"] %}
     <tr>
-	{% if row.title == "Total" %}
-	<td class="key total" style="text-align: center;"> {{ _(row.title)  }}</td>
-	{% else %}
-
-	<td class="total"> {{ _(row.title)  }}</td>
-	{% endif %}
-	{% for i in range(row["values"]|length) %}
-	{% if (total and i in total)%}
-	<td class="total"> {{ row["values"][i]}} </td>        
-        {% elif row.title == "Total" %}
+	 {% if row.title == "Total" %}
+	 <td class="key total" style="text-align: center;"> {{ _(row.title)  }}</td>
+	 {% else %}
+    <td class="total"> {{ _(row.title)  }}</td>
+	 {% endif %}
+	 {% for i in range(row["values"]|length) %}
+      {% if (total and i in total)%}
+	     <td class="total"> {{ row["values"][i]}} </td>        
+      {% elif row.title == "Total" %}
         {% if percent %}
-        <td class="total"> {{ row["values"][i][0] }} ({{ row["values"][i][1]|float|round(1) }} %)</td>
+          <td class="total"> {{ row["values"][i][0] }} ({{ row["values"][i][1]|float|round(1) }} %)</td>
         {% else %}
-        <td class="total"> {{ row["values"][i] }} </td>
+          <td class="total"> {{ row["values"][i] }} </td>
         {% endif %}
-	{% else %}
+      {% else %}
         {% if percent %}
-	<td> {{ row["values"][i][0]}} ({{row["values"][i][1]|float|round(1) }} %) </td>
+	         <td class="value"> {{ row["values"][i][0]}} ({{row["values"][i][1]|float|round(1) }} %) </td>
         {% else %}
-	<td> {{ row["values"][i] }} </td>
+	         <td class="value"> {{ row["values"][i] }} </td>
         {% endif %}
-	{% endif %}
-	{% endfor %}
+      {% endif %}
+	 {% endfor %}
     </tr>
-    {% endfor %}
+  {% endfor %}
 </table>
 {%- endmacro %}
 
