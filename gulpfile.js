@@ -144,7 +144,7 @@ gulp.task('copyFlags', function() {
 });
 
 gulp.task('copyMapMarkers', function() {
-  return gulp.src(['bower_components/mapbox.js/images/**/*'])
+  return gulp.src(['bower_components/mapbox.js/images/*'])
     .pipe(gulp.dest('meerkat_frontend/static/css/images'));
 });
 
@@ -220,5 +220,5 @@ gulp.task('clean', function() {
 
 // DEFAULT TASK
 gulp.task('default', ['clean'], function() {
-	gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales');
+	gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json');
 });
