@@ -9,6 +9,7 @@
 	    style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
 	>
 	</span> 
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
 	<span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Pandemic Influenza Preparedness (PIP) Profile
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
@@ -110,18 +111,54 @@
   <!-- DEMOGRAPHICS -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Demographics</div>
+      <div class="chart-title">{{ _('Age Group') }}</div>
       <div class="chart-stage">
         <div id="chart-demographics"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.demographics %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.age|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
   <!-- GENDER-->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Gender</div>
+      <div class="chart-title">{{ _('Gender') }}</div>
       <div class="chart-stage">
         <div id="chart-gender"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.gender %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.title|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
@@ -188,7 +225,7 @@
       <div class="chart-title">More Information</div>
       <div class="chart-stage">
         <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
-        <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
+        <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
       </div>
     </div>
   </div>
@@ -227,7 +264,7 @@ var demographicsAges = {
     name: 'Female',
     data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
-  labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
+  labels: { xAxis: { text: "{{ _('Age Group') }}" }, yAxis: { text: "{{_('No of cases')}}" } }
 };
 // Gender
 var gender = [{% for item in report.data.gender %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];

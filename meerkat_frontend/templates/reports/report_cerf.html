@@ -9,6 +9,7 @@
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
     </span> 
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Central Emergency Response Fund (CERF) Bulletin') }} 
     <span class="report-week">
 	{{ report.data.start_date|datetime_from_json|datetime("dd MMMM YYYY") }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
@@ -101,9 +102,27 @@
   <!-- DEMOGRAPHICS -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Demographics') }}</div>
+      <div class="chart-title">{{ _('Age Group') }}</div>
       <div class="chart-stage">
         <div id="chart-demographics"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.demographics %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.age|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
@@ -113,10 +132,29 @@
       <div class="chart-title">{{ _('Gender') }}</div>
       <div class="chart-stage">
         <div id="chart-gender"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.gender %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.title|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
 </div>
+
 <div class="row">
   <!-- MORBIDITY COMMUNICABLE DISEASE CD TAB-->
   <div class="col-sm-6">
@@ -153,7 +191,7 @@
       <div class="chart-title">{{ _('More Information') }}</div>
       <div class="chart-stage">
                     {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
-          <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
+          <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
       </div>
     </div>
   </div>
@@ -187,7 +225,7 @@ var demographicsAges = {
     name: "{{ _('Female') }}",
     data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
-  labels: { xAxis: { text: "{{ _('Age') }}" }, yAxis: { text: null } }
+  labels: { xAxis: { text: "{{ _('Age Group') }}" }, yAxis: { text: "{{_('No of cases')}}" } }
 };
 // Gender
 var gender = [{% for item in report.data.gender %}{name: "{{ _(item.title)|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
