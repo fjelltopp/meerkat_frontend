@@ -27,7 +27,8 @@
           <ul>
               <li> {{ _('A total of <strong>  %(total_cases)s cases</strong> reported from %(clinic_num)s health facilities.', total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}</li>
 
-              <li>{{ _('<strong> %(percent_female)s %% female</strong> and <strong> %(percent_lt_5yo)s %% five years</strong> of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}</li>
+              <li>{{ _('<strong> %(percent_female)s %% female</strong> and 
+              <strong> %(percent_male)s %% male</strong>.', percent_female=report.data.percent_cases_female|float|round(1), percent_male=report.data.percent_cases_male|float|round(1)) }}</li>
           
               <li>{{ _('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1)) }}</li
 

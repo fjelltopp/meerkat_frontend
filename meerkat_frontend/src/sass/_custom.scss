@@ -50,6 +50,7 @@
 .report-week {
   @extend small;
   @extend .dropdown;
+  white-space: nowrap;
   a {
     color: $gray-light;
   }
