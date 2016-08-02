@@ -246,6 +246,8 @@ function drawAlertAggTable( containerID, aggData, variables ){
  */
 function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, link_def_id_return, link_variable){
     
+    
+
 	$.getJSON( api_root+"/locations", function( locations ){
 
 		//Create the table headers, using the central review flag from the cofiguration file.
@@ -253,8 +255,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 		var table = '<table class="table table-hover table-condensed">' +
 		            '<tr><th>' + i18n.gettext('NAMRU-ID') + '</th>' +
 		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') + '</span></th>' + 
-		            '<th>' + i18n.gettext('Clinic') + '</th><th>' +i18n.gettext('Date Reported') +'</th><th>' + i18n.gettext('Follow-up completed') +'</th><th>' + i18n.gettext('Laboratory Results') + '</th><th>' + i18n.gettext('Status') +'</th>' +
-		            '</tr>';
+		            '<th>' + i18n.gettext('Clinic') + '</th><th>' +i18n.gettext('Date Reported') +'</th><th>' + i18n.gettext('Follow-up completed') +'</th><th>' + i18n.gettext('Laboratory Results') + '</th><th>' + i18n.gettext('Status') +'</th>' + '</tr>';
 
 		$.getJSON( api_root + "/records/" + variable_id + "/" + location_id, function( case_dict ){
 			$.getJSON( api_root + "/links/" + link_def_id_labs, function( links_dict_labs ){
@@ -262,6 +263,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 					var cases = case_dict.records;
 					var labs = links_dict_labs.links;
 					var return_visits = links_dict_return.links;
+                    console.log( labs );
 					cases.sort( function(a, b){
 						return new Date(b.date).valueOf()-new Date(a.date).valueOf();
 					});
@@ -281,8 +283,12 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 								table += '<td> - </td>';
 							}
 							if(link_id in labs){
+                                status = i18n.gettext(labs[link_id].data.status);
+                                if( labs[link_id].data.status=="Positive" ){
+                                    status = i18n.gettext("Type:") + " <b>" + labs[link_id].data.type + "</b>";
+                                }
 								table += '<td>' + labs[link_id].to_date.split("T")[0] + '</td>' +
-									'<td>' +i18n.gettext(labs[link_id].data.status) + '</td>';
+									'<td>' + status + '</td>';
 							}else{
 								table += '<td> - </td> <td>'+ i18n.gettext('Pending') + '</td>';
 							}

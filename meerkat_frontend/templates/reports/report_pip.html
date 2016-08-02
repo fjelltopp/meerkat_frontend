@@ -34,7 +34,7 @@
 
 	  
         </ul>
-        <h4>Viral Aetiologies</h4>
+        <p>Viral Aetiologies</p>
 	<ul>
 	{% for value in report.data.flu_type %}
 	    <li> <strong>  {{ value.quantity }} ({{ value.percent|float|round(1) }} %) </strong> cases of {{ value.title }} </li>
