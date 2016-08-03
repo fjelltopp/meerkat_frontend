@@ -8,7 +8,8 @@ different services such as the API and Reports.
 """
 import json, os
 from slugify import slugify
-from flask import Flask, send_file, render_template, request, current_app, abort, flash, g, redirect, url_for
+from flask import Flask, Blueprint, send_file, render_template, request
+from flask import current_app, abort, flash, g, redirect, url_for
 import jinja2
 from flask.ext.babel import Babel, gettext, ngettext, get_translations, get_locale, support
 from .views.homepage import homepage
@@ -42,49 +43,12 @@ for k,v in app.config['COMPONENT_CONFIGS'].items():
     config = json.loads( open(path).read() ) 
     app.config[k] = {**app.config['SHARED_CONFIG'], **config}           
 
-# Internationalisation
-
-@babel.localeselector
-def get_locale():
-    return g.get("language", app.config["DEFAULT_LANGUAGE"])
-
-
-@messaging.url_value_preprocessor
-@reports.url_value_preprocessor
-@download.url_value_preprocessor
-@explore.url_value_preprocessor
-@technical.url_value_preprocessor
-@homepage.url_value_preprocessor
-def pull_lang_code(endpoint, values):
-    language = values.pop('language')
-    if language not in app.config["SUPPORTED_LANGUAGES"]:
-        abort(404, "Language not supported")
-    g.language = language
-
-
-@messaging.url_defaults
-@reports.url_defaults
-@download.url_defaults
-@explore.url_defaults
-@homepage.url_defaults
-@technical.url_defaults
-def add_language_code(endpoint, values):
-    values.setdefault('language', app.config["DEFAULT_LANGUAGE"])
-
-
-# Register the Blueprint modules
-app.register_blueprint(homepage, url_prefix='/<language>')
-app.register_blueprint(technical, url_prefix='/<language>/technical')
-app.register_blueprint(reports, url_prefix='/<language>/reports')
-app.register_blueprint(messaging, url_prefix='/<language>/messaging')
-app.register_blueprint(download, url_prefix='/<language>/download')
-app.register_blueprint(explore, url_prefix='/<language>/explore')
-
-
 @app.route("/")
 def root():
     return redirect("/" + app.config["DEFAULT_LANGUAGE"])
 
+
+extra_pages = Blueprint('extra_pages', __name__)
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):
@@ -107,7 +71,49 @@ if "EXTRA_PAGES" in app.config:
       function = prepare_function(value['template'],
                                   json.loads( open(path).read()),
                                   authentication=authenticate)
-      app.add_url_rule('/{}'.format(url), url, function)
+      extra_pages.add_url_rule('/{}'.format(url), url, function)
+
+# Internationalisation
+
+@babel.localeselector
+def get_locale():
+    return g.get("language", app.config["DEFAULT_LANGUAGE"])
+
+
+@messaging.url_value_preprocessor
+@reports.url_value_preprocessor
+@download.url_value_preprocessor
+@explore.url_value_preprocessor
+@technical.url_value_preprocessor
+@homepage.url_value_preprocessor
+@extra_pages.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    language = values.pop('language')
+    if language not in app.config["SUPPORTED_LANGUAGES"]:
+        abort(404, "Language not supported")
+    g.language = language
+
+
+@messaging.url_defaults
+@reports.url_defaults
+@download.url_defaults
+@explore.url_defaults
+@homepage.url_defaults
+@technical.url_defaults
+@extra_pages.url_defaults
+def add_language_code(endpoint, values):
+    values.setdefault('language', app.config["DEFAULT_LANGUAGE"])
+
+
+# Register the Blueprint modules
+app.register_blueprint(homepage, url_prefix='/<language>')
+app.register_blueprint(extra_pages, url_prefix='/<language>')
+app.register_blueprint(technical, url_prefix='/<language>/technical')
+app.register_blueprint(reports, url_prefix='/<language>/reports')
+app.register_blueprint(messaging, url_prefix='/<language>/messaging')
+app.register_blueprint(download, url_prefix='/<language>/download')
+app.register_blueprint(explore, url_prefix='/<language>/explore')
+
 
 @app.template_filter('slugify')
 def slug(s):

@@ -65,11 +65,11 @@
 		      <p>{{ _('For more information, please e-mail:') }} {{content.footer.email|safe}} </p>
 	      </div>
 	      <div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
-		  <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
+		  <img src="{{ url_for('static', filename='img/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
 		      {% for logo in content.footer.logos.partners %}
-			      <img src="{{ url_for('static', filename='img/homepage/' + logo) }}" ></img> 
+			      <img src="{{ url_for('static', filename='img/' + logo) }}" ></img> 
                       {% endfor %}
-                  <img src="{{ url_for('static', filename='img/homepage/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+                  <img src="{{ url_for('static', filename='img/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
 	      </div>
       </div>
       {% endblock %}

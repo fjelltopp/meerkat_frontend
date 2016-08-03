@@ -60,9 +60,11 @@ def test(report):
         try:
             with open(report_list[report]['test_json_payload'])as json_blob:
                 data = json.load(json_blob)
-        except IOError:
+        except IOError as e:
+            current_app.logger.warning("IOError: " + str(e))
             abort(500)
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as e:
+            current_app.logger.warning("JSONDecodeError: " + str(e))
             abort(500)
         data["flag"] = current_app.config["FLAGG_ABR"]
         if report in ['public_health', 'cd_public_health', "ncd_public_health"]:

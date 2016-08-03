@@ -34,14 +34,14 @@
 									</div>
 									<div class="breaker"></div>
 									<div class="row">
-										<div class="col-xs-12 col-sm-6" >
-											<input class="submit btn btn-primary" type='submit' value={{ _('"Submit Code"') }} >	
-										</div>
-										<div class="col-xs-12 col-sm-6 no-padding-col" >
+										<div class="col-xs-12 col-sm-3 no-padding-col col-sm-offset-6" >
 											<a class="btn btn-default" 
 											   href="/{{g.get('language')}}/messaging/subscribe/sms_code/{{data['id']}}" >
-												{{ _('Send New Code')}}
+												{{ _('Get New Code')}}
 											</a>
+										</div>
+										<div class="col-xs-12 col-sm-3 no-padding-col text-right" >
+											<input class="submit btn btn-primary bold" type='submit' value={{ _('"Submit Code"') }} >	
 										</div>
 									</div>
 								</div>

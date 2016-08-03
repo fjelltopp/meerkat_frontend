@@ -79,7 +79,8 @@
 	  class="flag-icon flag-icon-{{report.flag}}"
 	  style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
-      </span> 
+      </span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
         <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _('Non Communciable Diseases Report') }}
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}

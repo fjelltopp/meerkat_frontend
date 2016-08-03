@@ -59,7 +59,7 @@ gulp.task('locales', function() {
   return gulp.src([
     'bower_components/moment/locale/fr.js'
     ])
-  .pipe(filter('*.js'))
+	.pipe(filter('*.js'))
     //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
     //   .pipe(sourcemaps.write())

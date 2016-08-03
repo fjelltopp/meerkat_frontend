@@ -9,6 +9,7 @@
     style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
   >
   </span> 
+  <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
   <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> North Eastern Border Public Health Profile
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
@@ -92,18 +93,54 @@
   <!-- DEMOGRAPHICS -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Demographics</div>
+      <div class="chart-title">{{ _('Age Group') }}</div>
       <div class="chart-stage">
         <div id="chart-demographics"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.demographics %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.age|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
   <!-- GENDER-->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Gender</div>
+      <div class="chart-title">{{ _('Gender') }}</div>
       <div class="chart-stage">
         <div id="chart-gender"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.gender %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.title|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
@@ -262,7 +299,7 @@ var demographicsAges = {
     name: 'Female',
     data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
-  labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
+  labels: { xAxis: { text: "{{ _('Age Group') }}" }, yAxis: { text: "{{_('No of cases')}}" } }
 };
 // Gender
 var gender = [{% for item in report.data.gender %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
