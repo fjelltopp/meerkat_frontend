@@ -42,13 +42,13 @@ gulp.task('jshint', function() {
 
 // JAVASCRIPT TASKS
 gulp.task('vendorJS', function() {
-	return gulp.src( mainBowerFiles().concat([
-		'node_modules/tree-model/dist/TreeModel-min.js',
-		'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
-		'bower_components/jed/jed.js',
+  return gulp.src( mainBowerFiles().concat([
+    'node_modules/tree-model/dist/TreeModel-min.js',
+    'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
+    'bower_components/jed/jed.js',
 
     ]))
-		.pipe(filter('*.js'))
+    .pipe(filter('*.js'))
  //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
  //   .pipe(sourcemaps.write())
@@ -56,13 +56,13 @@ gulp.task('vendorJS', function() {
 });
 // JAVASCRIPT TASKS
 gulp.task('locales', function() {
-	return gulp.src([
-		'bower_components/moment/locale/fr.js'
+  return gulp.src([
+    'bower_components/moment/locale/fr.js'
     ])
-		.pipe(filter('*.js'))
- //   .pipe(sourcemaps.init())
+  .pipe(filter('*.js'))
+    //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
- //   .pipe(sourcemaps.write())
+    //   .pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/js/locale'));
 });
 
@@ -110,8 +110,8 @@ gulp.task('mapbox-rename-css-to-scss', function() {
       'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
       'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
       'bower_components/intl-tel-input/build/css/intltelInput.css',
-	  'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
- 	  'bower_components/bootstrap-table/src/bootstrap-table.css'
+    'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
+    'bower_components/bootstrap-table/src/bootstrap-table.css'
     ])
     .pipe(rename(function(path) {
       path.extname = ".scss"
@@ -144,7 +144,7 @@ gulp.task('copyFlags', function() {
 });
 
 gulp.task('copyMapMarkers', function() {
-  return gulp.src(['bower_components/mapbox.js/images/*'])
+  return gulp.src(['bower_components/mapbox.js/images/**/*'])
     .pipe(gulp.dest('meerkat_frontend/static/css/images'));
 });
 
@@ -200,7 +200,7 @@ gulp.task('sass:watch', function() {
 //LANGUAGE TASKS
 gulp.task('po2json', function () {
     return gulp.src(['meerkat_frontend/translations/*/LC_MESSAGES/messages.po'])
-		.pipe(debug())
+    .pipe(debug())
         .pipe(po2json({format:"jed1.x"}))
         .pipe(gulp.dest('meerkat_frontend/static/translations'));
 });
@@ -220,5 +220,5 @@ gulp.task('clean', function() {
 
 // DEFAULT TASK
 gulp.task('default', ['clean'], function() {
-	gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json');
+  gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales');
 });

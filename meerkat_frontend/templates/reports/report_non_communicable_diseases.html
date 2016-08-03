@@ -2,10 +2,9 @@
 
 {% macro table(data, percent=False) %}
 {% set total=[] %}
-<table class="refugee centered table table-hover table-condensed"> 
+<table class="refugee centered table table-hover"> 
     <tr>
 	{% set counter=0 %}
-
         {% set labels = {"reg": _("Health Directorates"),
                         "tot": _("Total no. <br> of patients"),
                         "gen_1": _("males"),
