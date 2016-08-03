@@ -25,6 +25,9 @@
 	 {% elif key == "tot" %}
     <th class="total"> {{ labels[key]|safe }} </th>
 	   {% do total.append(counter) %}
+   {% elif key == "Total" %}
+    <th class="total"> {{ key|safe }} </th>
+     {% do total.append(counter) %}
 	 {% else %}
     <th class="key">
     {% if key in labels.keys() %}
