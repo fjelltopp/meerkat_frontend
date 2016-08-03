@@ -59,10 +59,10 @@ gulp.task('locales', function() {
 	return gulp.src([
 		'bower_components/moment/locale/fr.js'
     ])
-		.pipe(filter('*.js'))
- //   .pipe(sourcemaps.init())
+	.pipe(filter('*.js'))
+    //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
- //   .pipe(sourcemaps.write())
+    //   .pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/js/locale'));
 });
 
