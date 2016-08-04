@@ -55,13 +55,14 @@
 	     <td class="total"> {{ row["values"][i]}} </td>        
       {% elif row.title == "Total" %}
         {% if percent %}
-          <td class="total"> {{ row["values"][i][0] }} ({{ row["values"][i][1]|float|round(1) }} %)</td>
+          <td class="total"> {{ row["values"][i][0] }} 
+          <span class="value-percentage">({{ row["values"][i][1]|float|round(1) }} %)</span></td>
         {% else %}
           <td class="total"> {{ row["values"][i] }} </td>
         {% endif %}
       {% else %}
         {% if percent %}
-	         <td class="value"> {{ row["values"][i][0]}} ({{row["values"][i][1]|float|round(1) }} %) </td>
+	         <td class="value"> {{ row["values"][i][0]}} <span class="value-percentage">({{row["values"][i][1]|float|round(1) }} %)</span> </td>
         {% else %}
 	         <td class="value"> {{ row["values"][i] }} </td>
         {% endif %}
