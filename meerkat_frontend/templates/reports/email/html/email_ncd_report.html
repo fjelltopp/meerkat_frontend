@@ -13,7 +13,7 @@
                 <tbody>
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Communicable Disease Profile')}}
+                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Non-Communicable Disease Report')}}
                       </h2>
                       <h3>{{ _('Epi week %(epi_week)s (%(start_date)s - %(end_date)s)',
                       epi_week = report.data.epi_week_num,
@@ -49,7 +49,7 @@
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                       {{ _('<p>Dear Colleagues,</p>
-                      <p>Welcome to the latest Communicable Disease Epidemiological Profile from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
+                      <p>Welcome to the latest Non-Communicable Disease Epidemiological Report from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
                     </td>
                   </tr>
                 </tbody>
@@ -84,7 +84,7 @@
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                       <p>
-                      {{ _('The profile summarises epidemiological information reported from X reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
+                      {{ _('The profile summarises epidemiological information reported from %(clinics)s reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
                         %(end_date)s).', 
                         clinics=report.data.clinic_num, 
                         project_region=_(report.data.project_region),
@@ -96,22 +96,21 @@
 
                       <ul>
 
-                      <li>{{ _('A total of <strong>%(cases)s cases</strong> reported from %(clinic_num)s health facilities.',
-                      clinic_num=report.data.clinic_num|commas,
-                      cases=report.data.total_cases,
-                      ) }}</li>
+                        <li>{{ _('A total of <strong>%(hypertension)s hypertension cases</strong>.',
+                        hypertension=report.hypertension.email_summary.cases
+                        ) }}</li>
 
+                        <li>{{ _('<strong>%(ht_control)s%%</strong> hypertensive patients controlled (BP < 140/90).',
+                        ht_control=report.hypertension.email_summary.control|float|round(1)
+                        ) }}</li>
 
-                      <li>{{ _('<strong>%(female)s %% females</strong> and <strong>%(under_five)s %% under five years</strong> of age',
-                      female=report.data.percent_cases_female|float|round(1),
-                      under_five=report.data.percent_cases_lt_5yo|float|round(1)
-                      )}}</li>
+                        <li>{{ _('A total of <strong>%(diabetes)s diabetes cases</strong>.',
+                        diabetes=report.diabetes.email_summary.cases
+                        ) }}</li>
 
-                      <li>{{_('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1))}}</li>
-
-                      {% for disease in report.data.morbidity_communicable_cd_tab %}
-                      <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
-                      {% endfor %}
+                        <li>{{ _('<strong>%(d_control)s%% </strong> diabetes patients controlled (HbA1C < 7%%).',
+                        d_control=report.diabetes.email_summary.control|float|round(1)
+                        ) }}</li>
 
                       </ul>
 
@@ -120,7 +119,7 @@
                       <p>
                       {{
                       _('
-                      A total of %(alerts)s  suspected notifiable communicable disease alerts were generated in Epidemiological Week 
+                      A total of %(alerts)s suspected notifiable communicable disease alerts were generated in Epidemiological Week 
                       %(epi_week)s (%(start_date)s and 
                         %(end_date)s).
                       ',

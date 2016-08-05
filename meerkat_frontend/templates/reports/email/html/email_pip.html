@@ -86,7 +86,7 @@
                       <p>
                       {{ _('The profile summarises epidemiological information reported from X reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
                         %(end_date)s).', 
-                        clinics=report.data.clinic_num, 
+                        clinics=report.email.clinics, 
                         project_region=_(report.data.project_region),
                         epi_week=report.data.epi_week_num,
                         start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
@@ -98,7 +98,7 @@
 
                       <li>{{ _('A total of <strong>%(cases)s cases</strong> reported from %(clinic_num)s health facilities.',
                       clinic_num=report.data.clinic_num|commas,
-                      cases=report.data.total_cases,
+                      cases=report.email.cases,
                       ) }}</li>
 
 
@@ -107,7 +107,7 @@
                       under_five=report.data.percent_cases_lt_5yo|float|round(1)
                       )}}</li>
 
-                      <li>{{_('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1))}}</li>
+                      <li>_('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1))</li>
 
                       {% for disease in report.data.morbidity_communicable_cd_tab %}
                       <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
