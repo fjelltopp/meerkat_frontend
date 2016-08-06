@@ -114,22 +114,6 @@
 
                       </ul>
 
-                      <h3>{{ _('Alerts') }}</h3>
-
-                      <p>
-                      {{
-                      _('
-                      A total of %(alerts)s suspected notifiable communicable disease alerts were generated in Epidemiological Week 
-                      %(epi_week)s (%(start_date)s and 
-                        %(end_date)s).
-                      ',
-                      alerts=report.data.alerts_total,
-                      epi_week=report.data.epi_week_num,
-                      start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), 
-                      end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')
-                      )
-                      }}
-
                       <h3>{{ _('Project Overview') }}</h3>
 
                       <p>
