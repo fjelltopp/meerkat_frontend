@@ -153,7 +153,7 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
         },{
             "field": "week2",
             "title": i18n.gettext('Week') +' '+ weeks[2],
-            "align": "centre",
+            "align": "center",
             "class": "header",
             "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
             sortable: true,
