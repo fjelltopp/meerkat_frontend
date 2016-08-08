@@ -157,10 +157,6 @@ button.header:hover{
 	font-weight: bold;
 }
 
-#disease-table{
-	padding: 10px 20px 0;
-}
-
 .table-percent{
 	font-size: 12px;
 	display: inline;
@@ -319,5 +315,36 @@ footer{
 	position: relative;
 }
 
+.table.table-no-bordered{
+    border: none;
+}
 
+
+.chartBox__content div.table {
+    padding: 0 15px 15px;
+    position: relative;
+
+    .table-options{
+        position: absolute;
+        right: 20px;
+        top: 0px;
+        border-bottom: 1px solid #ddd;
+        padding: 0 10px 0 30px;
+
+        span{
+            font-size: 20px;
+            padding: 3px;
+            background: $lightGrey;
+            border: 1px solid #ddd;
+            border-radius: 3px 3px 0 0;
+            margin-right: 4px;
+        }
+    }
+}
+
+.bootstrap-table .table.table-no-bordered thead tr th,
+.bootstrap-table .table.table-no-bordered tbody tr td {
+  border-left: none;
+  border-right: none;
+}
 

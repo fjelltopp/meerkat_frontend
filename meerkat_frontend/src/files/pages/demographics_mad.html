@@ -45,7 +45,17 @@
 					<div id="gender-charts" class="chartBox__content">
 						<div id="gender-bar-chart" class="bar chart"></div>
 						<div id="gender-pie-chart" class="pie chart hidden" ></div>
-						<div id="gender-table" class="table" ></div>
+            <div class="options">
+              <span class="glyphicon glyphicon-resize-small table-option pull-right" id="strip-button"
+                    onClick="callButton(this);" title="Hide/show empty records" table="gender-table"
+                    value=false name="strip">
+              </span>
+              <span class="glyphicon glyphicon-pencil table-option pull-right" id="colour-button"
+                    onClick="callButton(this);" title="Colour the table" table="gender-table"
+                    value=false name="colour">
+              </span>
+            </div>
+            <div id="gender-table" class="table" ></div>
 					</div>
 				</div>
 			</div>
@@ -65,6 +75,16 @@
 					<div id="age-charts" class="chartBox__content">
 						<div id="age-bar-chart" class="bar chart"></div>
 						<div id="age-pie-chart" class="pie chart hidden" ></div>
+            <div class="options">
+              <span class="glyphicon glyphicon-resize-small table-option pull-right" id="strip-button"
+                    onClick="callButton(this);" title="Hide/show empty records" table="age-table"
+                    value=false name="strip">
+              </span>
+              <span class="glyphicon glyphicon-pencil table-option pull-right" id="colour-button"
+                    onClick="callButton(this);" title="Colour the table" table="age-table"
+                    value=false name="colour">
+              </span>
+            </div>
 						<div id="age-table" class="table" ></div>
 					</div>
 				</div>
@@ -76,6 +96,9 @@
 
 <!-- Menu Toggle Script -->
 <script>
+
+  var currrentLocation;
+
  $("#location_box").html(i18n.gettext("Location:"));
  $("#location_title").html(i18n.gettext("Not Loaded"));
  $("#title").html(i18n.gettext('Demographics'));
@@ -109,7 +132,17 @@ $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + 
 
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
+  currentLocation = locID;
+  reDraw();
+}
 
+function reDraw(){
+  var tableOptions = {};
+  //Assemble correct options object from html elements.
+  $('.table-option').each( function(){
+      tableOptions[$(this).attr('name')] = $(this).attr('value');
+  });
+  console.log( tableOptions );
 	//Keep week abstracted out of the chart drawing process.
 	//In case we want the user to be able to select the weeks to view.
 	var week = (get_epi_week()).toString();
@@ -117,17 +150,24 @@ function drawCharts( locID ){
 	//For each category draw a category summation.
 	var categories = ['gender', 'age'];
 	for( var i in categories ){
-		categorySummation({ category: categories[i],
-		                    locID: locID,
+		extendedCategorySummation({ category: categories[i],
+		                    locID: currentLocation,
 		                    week: week,
 		                    tableID: categories[i]+'-table',
 		                    barID: categories[i]+'-bar-chart',
 		                    pieID: categories[i]+'-pie-chart',
-		                    percent: true
+	                      percent: true,
+                        options: tableOptions
 		                  });
 	}
 
 }
 
+//Function that updates the colour option value.
+function callButton(element){
+    var value = $(element).attr("value");
+    $(element).attr("value", value=="true" ? "false" : "true" );
+    reDraw();
+}
 
 </script>

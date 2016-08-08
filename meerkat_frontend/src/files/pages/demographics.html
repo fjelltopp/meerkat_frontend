@@ -164,7 +164,8 @@ function drawCharts( locID ){
 		                    tableID: categories[i]+'-table',
 		                    barID: categories[i]+'-bar-chart',
 		                    pieID: categories[i]+'-pie-chart',
-		                    percent: true
+		                    percent: true,
+                            table_options: {'strip': 'false', 'colour':'false'}
 		                  });
 	}
 	categorySummation({ category: 'nationality',
@@ -174,7 +175,8 @@ function drawCharts( locID ){
 		                 barID: 'nationality-bar-chart',
 		                 pieID: 'nationality-pie-chart',
 		                 percent: true,
-	                    strip: true
+	                     strip: true,
+                         table_options: {'strip': 'false', 'colour':'false'}
 		               });
 
 
