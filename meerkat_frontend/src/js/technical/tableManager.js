@@ -77,7 +77,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 		table+='</tr><tr class="info"><td>'+ i18n.gettext('Total') + '</td>';
 
 		for (var j=0; j<sum.length; j++){
-			table+="<td>"+sum[j]+"</td>";
+			table+="<td>"+format(sum[j])+"</td>";
 		}
 	}
 
