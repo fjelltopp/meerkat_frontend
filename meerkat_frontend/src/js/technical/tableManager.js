@@ -132,8 +132,8 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
             "align": "center",
             "class": "header",
             "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
-            sortable: true,
-            width : "20%",
+            sortable: false,
+            width : "40%",
         },{
             "field": "week0",
             "title": i18n.gettext('Week') +' '+ weeks[0],
@@ -141,7 +141,7 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
             "class": "header",
             "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
             sortable: true,
-            width : "20%",
+            width : "15%",
         },{
             "field": "week1",
             "title": i18n.gettext('Week') +' '+ weeks[1],
@@ -149,7 +149,7 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
             "class": "header",
             "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
             sortable: true,
-            width : "20%",
+            width : "15%",
         },{
             "field": "week2",
             "title": i18n.gettext('Week') +' '+ weeks[2],
@@ -157,7 +157,7 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
             "class": "header",
             "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
             sortable: true,
-            width : "20%",
+            width : "15%",
         },{
         "field": "year",
         "title": i18n.gettext('This Year'),
@@ -166,7 +166,7 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
         "visible":"false",
         "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
         sortable: true,
-        width : "20%"
+        width : "15%"
         }
     ];
 
@@ -232,15 +232,64 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
             "year": format(sum[3])
         };
         dataPrepared.push(tot);
-	}
-
-    $('#'+containerID).bootstrapTable('destroy');
-	  table = $('#'+containerID).bootstrapTable({
-			  columns: columns,
-			  data: dataPrepared,
-        classes: 'table-no-bordered'
-		});
+    }
+    //$('#' + containerID ).append('<table class="table"></table>');
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID ).append('<table class="table"></table>');
+	table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: dataPrepared,
+        classes: 'table-no-bordered table-hover'
+    });
 	return table;
+}
+
+
+/**:drawAlertsTable(containerID, alerts, variables)
+
+    Draws the table options buttons for tables in the dashboard created using bootstrap tables.
+    These options allow you to colour the cells according to their value and to strip empty records.
+
+    :param string tableID:
+        The ID attribute of the html element to hold the table assoiated with the buttons.
+ */
+function drawOptionsButtons(tableID, redrawFunctionName){
+
+    var html = "<div class='table-options'>";
+    
+    html += "<span class='glyphicon glyphicon-resize-small " + tableID  + "-option pull-right' " + 
+        "id='strip-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");' "+
+        "title='Hide/show empty records' "+
+        "table='disease-table' value=false name='strip'></span>";
+
+    html += "<span class='glyphicon glyphicon-pencil " + tableID  + "-option pull-right' " +
+            " id='colour-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");'"+
+            " title='Colour the table' " +
+            "table='disease-table' value=false name='colour'></span>";
+
+    html += "</div>";
+    
+    $('#' + tableID ).attr( "style","padding-top: 28px" );
+    $('#' + tableID ).prepend( html );
+}
+
+//Function that updates table option button's values.
+function callTableOptionButton(element, redrawFunctionName){
+    var value = $(element).attr("value");
+    $(element).attr("value", value=="true" ? "false" : "true" );
+
+    //If the option called is strip rows, we want to swap between two glyph icons.
+    if( $(element).attr("name") == "strip" ){
+        $(element).toggleClass("glyphicon-resize-small");
+        $(element).toggleClass("glyphicon-resize-full");   
+    }  
+
+    //Check that the redraw function exists, if it does, call it.
+    var fn = window[redrawFunctionName];
+    if(typeof fn === 'function') {
+        fn();
+    }
 }
 
 /**:drawAlertsTable(containerID, alerts, variables)
@@ -580,8 +629,9 @@ function createColourCellTab(optionColourTable){
     // Returns a function that colours in the cells according to their value
     function cc2(value, row, index, columns){
         if(row.main == "Total"){
-            return {classes: "total-row"};
+            return {classes: "info"};
         }
+        console.log( "OptionColorTable: " + optionColourTable ); 
         if(optionColourTable == "false"){
             return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
         }else{

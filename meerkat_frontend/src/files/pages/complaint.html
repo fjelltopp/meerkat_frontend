@@ -116,7 +116,8 @@ function drawCharts( locID ){
 	                    tableID: 'complaint-table', 
 	                    percent: true,
 	                    linkFunction: 'loadDisease',
-	                    title: i18n.gettext('Category')
+	                    title: i18n.gettext('Category'),
+                        table_options: {'strip': 'false', 'colour':'false'}
 	                   });
 
 	categorySummation({ category: 'Chapter', 
@@ -127,7 +128,8 @@ function drawCharts( locID ){
 	                    percent: true,
 	                    linkFunction: 'loadDisease',
 	                    strip: true,
-	                    title: i18n.gettext('ICD10 Chapter')
+	                    title: i18n.gettext('ICD10 Chapter'),
+                        table_options: {'strip': 'false', 'colour':'false'}
 	                   });	 
 
 }
