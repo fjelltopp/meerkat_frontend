@@ -198,9 +198,9 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
         }
         var datum = {
             "main": mainLabel,
-            "week1": week0Label,
-            "week2": week1Label,
-            "week3": week2Label,
+            "week0": week0Label,
+            "week1": week1Label,
+            "week2": week2Label,
             "year": yearLabel
         };
         dataPrepared.push(datum);
@@ -226,9 +226,9 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
     if(!no_total){
         var tot = {
             "main":i18n.gettext('Total'),
-            "week1": format(sum[0]),
-            "week2": format(sum[1]),
-            "week3": format(sum[2]),
+            "week0": format(sum[0]),
+            "week1": format(sum[1]),
+            "week2": format(sum[2]),
             "year": format(sum[3])
         };
         dataPrepared.push(tot);
