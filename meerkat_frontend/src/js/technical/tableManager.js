@@ -89,6 +89,160 @@ function drawTable( containerID, data, no_total, linkFunction ){
 	return table;
 }
 
+/**:drawImprovedTable(containerID, data, no_total, linkFunction, tableOptions)
+
+    Creates epi tables with data from: current week, last two weeks and the year.
+    Takes the same data object as the chart drawing functions. Rather than loading JSON
+    data inside the method, it is passed as arguments to the method so that JSON requests
+    can be shared across multiple drawings. This is the most generic table drawing function
+    called primarily from the misc.js function `categorySummation()`.
+
+    :param string containerID: 
+        The ID of the html element to hold the table.
+    :param object data: 
+        The data to be tabulated, built by the misc.js function `buildDataObject()`.
+    :param boolean no_total: 
+        Set to true if no total row should be included.
+    :param string linkfunction: 
+        The function name to be added "onclick" to each table row header.
+        The linkfunction is given the row's variable ID as an argument (such as "gender_1"). 
+        e.g. We write a function `uslessAlert( varID ){ alert(varID); }`, and set the 
+        linkFunction argument to "uselessAlert" to create a link in each row header that flashes
+        up the variable ID in a javascript alert dialouge.
+    :param array tableOptions:
+        Additional options for a table to be created.
+
+
+*/
+function drawImprovedTable( containerID, data, no_total, linkFunction, tableOptions){
+
+	//We want to work with a clone of the data, not the data itself.
+	data = $.extend(true, {}, data);
+
+	//Initialise an array to store the summation values for the table.
+	var sum=[0,0,0,0];
+
+	var weeks = lastWeeks( get_epi_week(), 3 );	
+	
+
+    var columns = [
+        {
+            "field": "main",
+            "title": data.title,
+            "align": "center",
+            "class": "header",
+            "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
+            sortable: true,
+            width : "20%",
+        },{
+            "field": "week0",
+            "title": i18n.gettext('Week') +' '+ weeks[0],
+            "align": "center",
+            "class": "header",
+            "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
+            sortable: true,
+            width : "20%",
+        },{
+            "field": "week1",
+            "title": i18n.gettext('Week') +' '+ weeks[1],
+            "align": "center",
+            "class": "header",
+            "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
+            sortable: true,
+            width : "20%",
+        },{
+            "field": "week2",
+            "title": i18n.gettext('Week') +' '+ weeks[2],
+            "align": "centre",
+            "class": "header",
+            "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
+            sortable: true,
+            width : "20%",
+        },{
+        "field": "year",
+        "title": i18n.gettext('This Year'),
+        "align": "center",
+        "class": "header",
+        "visible":"false",
+        "sorter": function commas(a,b){ a = parseInt(a.replace(/,/g, '')); b = parseInt(b.replace(/,/g, '')); if (a < b) return 1; if (a > b) return -1; return 0; },
+        sortable: true,
+        width : "20%"
+        }
+    ];
+
+    //For each data category, assemble a listing bootstrap data variable for the three weeks and the year.
+    var dataPrepared = [];
+    for (var i =0; i< data.labels.length;i++){
+        var mainLabel;
+        var week0Label, week1Label, week2Label, yearLabel;
+        if(typeof linkFunction != 'undefined'){
+            mainLabel = "<a href='' onclick='" + linkFunction + "(\""+ data.ids[i] +
+                "\");return false;' >" + i18n.gettext(data.labels[i])+"</a>";
+        }else{
+            mainLabel=i18n.gettext(data.labels[i]);
+        }
+        if(data.yearPerc){
+            week0Label = format(data.week[i]) + " <div class='table-percent'>(" +
+                data.weekPerc[i] + "%)</div>";
+            week1Label = format(data.week1[i]) + " <div class='table-percent'>(" +
+                data.week1Perc[i] + "%)</div>";
+            week2Label = format(data.week2[i]) + " <div class='table-percent'>(" +
+                data.week2Perc[i] + "%)</div>";
+            yearLabel = format(data.year[i]) + " <div class='table-percent'>(" +
+                data.yearPerc[i] + "%)</div>";
+        }else{
+            week0Label = format(data.week[i]);
+            week1Label = format(data.week1[i]);
+            week2Label = format(data.week2[i]);
+            yearLabel = format(data.year[i]);
+        }
+        var datum = {
+            "main": mainLabel,
+            "week1": week0Label,
+            "week2": week1Label,
+            "week3": week2Label,
+            "year": yearLabel
+        };
+        dataPrepared.push(datum);
+        //Keep track of the sum over the data.
+        sum[0]=data.week[i]+sum[0];
+        sum[1]=data.week1[i]+sum[1];
+        sum[2]=data.week2[i]+sum[2];
+        sum[3]=data.year[i]+sum[3];
+    }
+
+    if(tableOptions.strip == "true"){
+        var r = stripRows(dataPrepared);
+        data = r;
+    }
+
+    //if(tableOptions.colour == "true"){
+        for(var k = 0; k < columns.length; k++){
+            columns[k].cellStyle = createColourCellTab(tableOptions.colour);
+        }
+    //}
+
+    //Add totals
+    if(!no_total){
+        var tot = {
+            "main":i18n.gettext('Total'),
+            "week1": format(sum[0]),
+            "week2": format(sum[1]),
+            "week3": format(sum[2]),
+            "year": format(sum[3])
+        };
+        dataPrepared.push(tot);
+	}
+
+    $('#'+containerID).bootstrapTable('destroy');
+	  table = $('#'+containerID).bootstrapTable({
+			  columns: columns,
+			  data: dataPrepared,
+        classes: 'table-no-bordered'
+		});
+	return table;
+}
+
 /**:drawAlertsTable(containerID, alerts, variables)
 
     Draws the table of alerts used on the Alerts tab. Lists each alert according to date
@@ -415,4 +569,67 @@ function drawCompletenessTable( containerID, regionID ){
 			});
 		});
 	});
+}
+
+
+/**:createColourCellTab()
+
+   A small helper function to define shading of cells realting to value in technical table view.
+*/
+function createColourCellTab(optionColourTable){
+    // Returns a function that colours in the cells according to their value
+    function cc2(value, row, index, columns){
+        if(row.main == "Total"){
+            return {classes: "total-row"};
+        }
+        if(optionColourTable == "false"){
+            return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
+        }else{
+            if (typeof value == 'undefined'){
+                return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
+            }
+            var possibleNum = value.toString().split(' ')[0];
+            var check4thousand = possibleNum.split(',');
+            if(check4thousand.length == 2){
+                possibleNum = check4thousand[0] + check4thousand[1];
+            }
+
+            if(isNaN(possibleNum)){
+                return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
+            }
+            if(possibleNum !== "<a"){
+                var numval = value.toString().split( '\%)' )[0].split('(')[1];
+                var perc = Number(numval) / 100;
+                return {css: {"background-color": "rgba(217, 105, 42, " + perc +")"}};
+            }
+        }
+    }
+
+    return cc2;
+}
+
+/**:stripRows(data)
+
+   A small helper function stripping rows from ones with empty records.
+*/
+function stripRows(data){
+		//Store a list of rows to be removed.
+		var remove = [];
+		//For each row iterate through it's elements to seeif all are empty.
+		for( var y=0; y<data.length; y++ ){
+			  var row = data[y];
+        //console.log("data[y =" + y + "] is " + data[y]);
+			  var empty = true;
+			  for( var x in row ){
+            //    console.log(row[x].split(' ')[0]);
+				    if( x != "main" && Number(row[x].split(' ')[0]) !== 0 ) empty = false;
+			  }
+			  if( empty ) {
+				    remove.push(y);
+			  }
+		}
+		for( var i = remove.length-1; i>=0; i-- ) data.splice( remove[i], 1 );
+
+		//Remove all empty rows (starting from the last to avoid screwing up indexes).
+		return data;
 }

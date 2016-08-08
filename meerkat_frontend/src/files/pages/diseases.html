@@ -36,6 +36,16 @@
 					</div>
 					<div class="chartBox__content">
 						<div id="disease-bar-chart" class="chart"></div>
+            <div class="options">
+              <span class="glyphicon glyphicon-resize-small table-option pull-right" id="strip-button"
+                    onClick="callButton(this);" title="Hide/show empty records" table="disease-table"
+                    value=false name="strip">
+              </span>
+              <span class="glyphicon glyphicon-pencil table-option pull-right" id="colour-button"
+                    onClick="callButton(this);" title="Colour the table" table="disease-table"
+                    value=false name="colour">
+              </span>
+            </div>
 						<div id="disease-table" class="table"></div>
 					</div>
 				</div>
@@ -47,6 +57,8 @@
 
 <!-- Menu Toggle Script -->
 <script>
+
+  var currentLocation;
 
  $("#location_box").html(i18n.gettext("Location:"));
  $("#location_title").html(i18n.gettext("Not Loaded"));
@@ -71,21 +83,39 @@ $("#epi-week-title").html( i18n.gettext("Week")+ " "+get_epi_week() + " · " + g
 
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
+  currentLocation = locID;
+  reDraw();
+}
 
+function reDraw(){
+  var tableOptions = {};
+  //Assemble correct options object from html elements.
+  $('.table-option').each( function(){
+      tableOptions[$(this).attr('name')] = $(this).attr('value');
+  });
+  console.log( tableOptions );
 	//Keep week abstracted out of the chart drawing process.
-	//In case we want the use to eb able to select the weeks to view.
-	var week = get_epi_week().toString();
+	//In case we want the user to be able to select the weeks to view.
+	var week = (get_epi_week()).toString();
 
-	categorySummation({ category: 'cd_tab', 
-	                    locID: locID,
+	extendedCategorySummation({ category: 'cd_tab', 
+	                    locID: currentLocation,
 	                    week: week, 
 	                    tableID: 'disease-table', 
 	                    barID: 'disease-bar-chart',
 	                    percent: true,
 	                    linkFunction: 'loadDisease',
                       strip: false,
-                      title: i18n.gettext('Communicable Disease')
+                      title: i18n.gettext('Communicable Disease'),
+                      options: tableOptions
 	                   });
+	}
 
+//Function that updates the colour option value.
+function callButton(element){
+    var value = $(element).attr("value");
+    $(element).attr("value", value=="true" ? "false" : "true" );
+    reDraw();
 }
+
 </script>
