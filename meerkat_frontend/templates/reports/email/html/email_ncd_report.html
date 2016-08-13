@@ -100,7 +100,7 @@
                         hypertension=report.hypertension.email_summary.cases
                         ) }}</li>
 
-                        <li>{{ _('<strong>%(ht_control)s%%</strong> hypertensive patients controlled (BP < 140/90).',
+                        <li>{{ _('<strong>%(ht_control)s%%</strong> new hypertensive patients controlled (BP < 140/90).',
                         ht_control=report.hypertension.email_summary.control|float|round(1)
                         ) }}</li>
 
@@ -108,7 +108,7 @@
                         diabetes=report.diabetes.email_summary.cases
                         ) }}</li>
 
-                        <li>{{ _('<strong>%(d_control)s%% </strong> diabetes patients controlled (HbA1C < 7%%).',
+                        <li>{{ _('<strong>%(d_control)s%% </strong> new diabetes patients controlled (HbA1C < 7%%).',
                         d_control=report.diabetes.email_summary.control|float|round(1)
                         ) }}</li>
 
