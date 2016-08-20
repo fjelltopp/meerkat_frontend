@@ -129,7 +129,7 @@ function loadAlertTables( reason, locID ){
 			var alerts = data.alerts;
 			console.log(alerts);
 			alerts.sort( function(a, b){
-				return new Date(b.alerts.date).valueOf()-new Date(a.alerts.date).valueOf();
+				return new Date(b.date).valueOf()-new Date(a.date).valueOf();
 			});
 			console.log( alerts );
 

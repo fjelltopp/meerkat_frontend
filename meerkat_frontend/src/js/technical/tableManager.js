@@ -328,11 +328,9 @@ function drawAlertsTable(containerID, alerts, variables){
 		}
 		//For each alert in the given array of alerts create the html for a row of the table.
 		for( var i in alerts ){
-
-			var alert = alerts[i].alerts;
-
-			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.id + '\'); return false;">' + 
-			         alert.id + '</a></td><td>' + i18n.gettext(variables[ alert.reason ].name) + '</td>' +
+			alert = alerts[i];
+			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.variables.alert_id + '\'); return false;">' + 
+			         alert.variables.alert_id + '</a></td><td>' + i18n.gettext(variables[ alert.variables.alert_reason ].name) + '</td>' +
 			         '<td>' + i18n.gettext(locations[locations[alert.clinic].parent_location].name) + '</td>' +
 			         '<td>' + i18n.gettext(locations[alert.clinic].name) + '</td>' +
 			         '<td>' + alert.date.split("T")[0] + '</td>'; 
@@ -340,23 +338,40 @@ function drawAlertsTable(containerID, alerts, variables){
 			//Some countries(Jordan) has a central review in addition to alert_investigation
 			// If the alert has been investigated (and has a central review) we display that in the table
 			if(config.central_review){
-				if( "links" in alerts[i] && "alert_investigation" in alerts[i].links ){
-					var investigation = alerts[i].links.alert_investigation;
-					var status = investigation.data.status;
+				if( "ale_1" in alert.variables ){
+					if ("ale_2" in alert.variables){
+						status = i18n.gettext("Confirmed");
+					}else if( "ale_3" in alert.variables){
+						status = i18n.gettext("Disregarded");
+					} else {
+						status = i18n.gettext("Ongoing");
+					}
 					var central_review_date = "-";
 					if ("central_review" in alerts[i].links){
-						status = alerts[i].links.central_review.data.status;
-						central_review_date = alerts[i].links.central_review.to_date.split("T")[0] ;
+						if ("cre_2" in alert.variables){
+							status = i18n.gettext("Confirmed");
+						}else if( "cre_3" in alert.variables){
+							status = i18n.gettext("Disregarded");
+						}else {
+							status = i18n.gettext("Ongoing");
+						}
+						central_review_date = alert.variables.cre_1.split("T")[0] ;
 					}
-					table += '<td>' + investigation.to_date.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + i18n.gettext(status) + '</td></tr>';
+					table += '<td>' + alert.variables.ale_1.to_date.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
 				}else{
 					table += '<td>-</td><td>-</td><td>'+i18n.gettext('Pending') +'</td></tr>';
 				}
 			
 			}else{
-				if( "links" in alerts[i] && "alert_investigation" in alerts[i].links ){
-					var link = alerts[i].links.alert_investigation;
-					table += '<td>' + link.to_date.split("T")[0] + '</td><td>' + i18n.gettext(link.data.status) + '</td></tr>';
+				if("ale_1" in  alert.variables ){
+					if ("ale_2" in alert.variables){
+						status = i18n.gettext("Confirmed");
+					}else if("ale_3" in alert.variables){
+						status = i18n.gettext("Disregarded");
+					} else {
+						status = i18n.gettext("Ongoing");
+					}
+					table += '<td>' + alert.variables.ale_1.split("T")[0] + '</td><td>' + status + '</td></tr>';
 				}else{
 					table += '<td>-</td><td>'+i18n.gettext('Pending')+'</td></tr>';
 				}
@@ -466,7 +481,8 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 					var cases = case_dict.records;
 					var labs = links_dict_labs.links;
 					var return_visits = links_dict_return.links;
-                    console.log( labs );
+                    console.log( cases );
+					console.log( labs );
 					cases.sort( function(a, b){
 						return new Date(b.date).valueOf()-new Date(a.date).valueOf();
 					});
@@ -480,6 +496,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 								'<td>' + i18n.gettext(locations[c.clinic].name) + '</td>' +
 								'<td>' + c.date.split("T")[0] + '</td> ';
 							link_id = link_id.toLowerCase();
+							
 							if(link_id in return_visits){
 								table +=  '<td>' + return_visits[link_id].to_date.split("T")[0] + '</td>';
 							}else{
