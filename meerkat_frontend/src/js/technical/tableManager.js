@@ -526,7 +526,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
  */
 function drawCompletenessAggTable( containerID ){
  
-	$.getJSON( api_root+"/completeness/reg_1/4", function( regionData ){
+	$.getJSON( api_root+"/completeness/reg_1/2", function( regionData ){
 		$.getJSON( api_root+"/locations", function( locations ){	
 
 			regionData = regionData.regions;
@@ -563,6 +563,10 @@ function drawCompletenessAggTable( containerID ){
 	});
 }
 
+// drawMissingCompletenessTable( 'missing-completeness-table', currentLocation);
+// clinic_score
+function drawMissingCompletenessTable( containerID, regionID ){
+}
 /**:drawCompletenessTable(containerID, regionID)
 
     Draws the completeness table, showing the number of case reports and daily
@@ -574,52 +578,91 @@ function drawCompletenessAggTable( containerID ){
         The ID of the region by which to filter the completeness data.
  */
 function drawCompletenessTable( containerID, regionID ){
+    console.log('We are in the region: ' + regionID);
 
-	$.getJSON( api_root+"/completeness/reg_1/4", function( registerData ){
-		$.getJSON( api_root+"/completeness/tot_1/4", function( caseData ){
-			$.getJSON( api_root+"/locations", function( locations ){	
+$.getJSON( api_root+"/locations", function( locations ){
+    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+        //2. make sublocation names links to this sublocation
+        //3. colour code it
+        //4. bootstrap plot it
+        //5. Would be nice if we could highlight the sublocations in the graph and simultaneously in the table when hovering over the line in the graph or the row in the table.
+        //6. Currently breaks at the lowest level
+        console.log("Reading in data from API:");
+        console.log(data);
 
-				registerData = registerData.clinics[regionID];
-				caseData = caseData.clinics[regionID];
+        // console.log("Score:");
+        // console.log(data.score);
 
-				var clinics = Object.keys(registerData);
-				var table = '<table class="table table-hover table-condensed">' +
-								'<tr><th> Clinic </th>' + 
-			 	            // '<th class="fit" >Case reports<br>for last 24 hours</th>' +
-							// 	'<th class="fit">Case reports<br>for last week</th>' +
-							// 	'<th class="fit">Case reports<br>for last year</th>' +
-						// '<th class="fit">Daily register<br>for last 24 hours</th>' +
-						'<th>'+i18n.gettext('Daily registers last week')+'</th></tr>' ;
-								// '<th class="fit">Daily register<br>for last year</th></tr>';
+        var dataPrepared = [];
+        var scoreKeys = Object.keys(data.score);
+        var index = 0;
+        for (var i=0; i<scoreKeys.length;i++){
+            index = scoreKeys[i];
+            var datum = {
+                "location": locations[index].name,
+                "completeness": Number(data.score[index]).toFixed(0) + "%"
+            };
+            dataPrepared.push(datum);
+        }
 
-				for( var i in clinics ){
+        var columns = [
+            {
+                "field": "location",
+                "title": "Location",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                width : "50%"
+            },{
+                "field": "completeness",
+                "title": "Completeness",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                width : "50%"
+            }];
 
-					var clinic = clinics[i];
-				    if( !(clinic in caseData)){
-					caseData[clinic] = {} ; 
-					caseData[clinic].day = 0;
-					caseData[clinic].week = 0;
-					caseData[clinic].year = 0;
-				    }
-					table += '<tr><td>' + i18n.gettext(locations[clinic].name) + '</td>' +
-								// '<td>' + Math.round(caseData[clinic].day) + '</td>' +
-								// '<td>' + Math.round(caseData[clinic].week) + '</td>' + 
-								// '<td>' + Math.round(caseData[clinic].year) + '</td>' +
-           						//'<td>' + Math.round(registerData[clinic].day) + '</td>' +
-         						'<td>' + Math.round(registerData[clinic].week) + '</td></tr>' ;
-								// '<td>' + Math.round(registerData[clinic].year) + '</td></tr>'; 
-		
-				}
-	
-				table += '</table>';
+        for(var k = 0; k < columns.length; k++){
+            columns[k].cellStyle = createCompletenessCellTab();
+        }
 
-				$( '#'+containerID ).html(table);
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+	      var table = $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: dataPrepared,
+            classes: 'table-no-bordered table-hover'
+        });
+	      return table;
 
-			});
-		});
-	});
+    });//getJSON
+}); // getJSON locations
+
 }
 
+function createCompletenessCellTab(){
+    // Returns a function that colours in the cells according to their value
+    function cc2(value, row, index, columns){
+        var valueStripped = value.split('%')[0];
+        if (typeof valueStripped == 'undefined'){
+            return {css: {"color": "rgba(0, 0, 0, 1)"}};
+        }
+
+        if(isNaN(valueStripped)){
+            return {css: {"color": "rgba(0, 0, 0, 1)"}};
+        }
+        if(valueStripped < 50){
+            return {css: {"color": "rgba(255, 20, 0, 1)"}};
+        }
+        if(valueStripped < 80){
+            return {css: {"color": "rgba(255, 250, 54, 1)"}};
+        }
+        return {css: {"color": "rgba(144, 238, 144, 1)"}};
+    }
+
+    return cc2;
+}
 
 /**:createColourCellTab()
 

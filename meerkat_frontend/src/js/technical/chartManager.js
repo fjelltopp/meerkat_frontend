@@ -232,6 +232,9 @@ function drawTimeChart( varID, locID, containerID ){
 
   $.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
 
+      console.log('DRAW TIME CHART');
+      console.log('Time series data for diseases:');
+      console.log(data);
     var labels = [];
     var values = [];
 
@@ -289,6 +292,123 @@ function drawTimeChart( varID, locID, containerID ){
     $( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
   });
 
+}
+
+/**:drawCompletenessGraph( containerID, locID )
+
+   Draws a timeline line chart showing the percentage of overall completeness and completeness for each clinic in each epi week this current year.
+   :param string containerID:
+   The ID of the HTML element to hold the chart.
+   :param string locID:
+   The ID of the location by which to filter the data.
+*/
+function drawCompletenessGraph( containerID, regionID ){
+    //remove dots
+    $.getJSON( api_root+"/locations", function( locations ){
+        $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+
+            //create a data series for each location
+            var dataPrepared = [];
+            var timeseries = [];
+            var scoreKeys = Object.keys(data.timeline);
+            var index = 0;
+            for (var i=0; i<scoreKeys.length;i++){
+                index = scoreKeys[i];
+                tl = data.timeline[index];
+                var dt = [];
+                var dtReady = [];
+                var avWeeks = tl.weeks.length;
+                var adjust = 12 - avWeeks;
+                for (var j = 0; j < avWeeks; j++){
+                    dt = [j + adjust,Number(Number(20 * tl.values[j]).toFixed(0))]; //HACK for screenshots
+                    dtReady.push(dt);
+                }
+
+                var datum = {
+                    name: locations[index].name,
+                    data: dtReady,
+                    color: 'grey'
+                };
+                timeseries.push(datum);
+            }
+            console.log("Drawing Completeness Chart for location " + regionID);
+            console.log(timeseries);
+
+            //hovering should give all the information about given clinick and sublocation
+            $('#' + containerID).highcharts({
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: ''
+                },
+                legend:{ enabled:false },
+                xAxis: {
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Completness'
+                    },
+                    minorGridLineWidth: 0,
+                    gridLineWidth: 0,
+                    alternateGridColor: null,
+                    plotBands: [{ //RED
+                        from: 0,
+                        to: 50,
+                        color: 'rgba(255, 0, 0, 0.6)'
+                    }, { //YELLOW
+                        from: 50,
+                        to: 80,
+                        color: 'rgba(255, 255, 224, 0.6)'
+                    }, { // GREEN
+                        from: 80,
+                        to: 100,
+                        color: 'rgba(144, 238, 144,0.6)'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: '%'
+                },
+                plotOptions: {
+                    spline: {
+                        lineWidth: 4,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineWidth: 5
+                            }
+                        },
+                        marker: {
+                            enabled: false
+                        },
+                        pointStart:0,
+                        events: {
+                            mouseOver: function () {
+                                this.chart.series[this.index].update({
+                                    color: 'blue'
+                                });
+                            },
+                            mouseOut: function () {
+                                this.chart.series[this.index].update({
+                                    color: "grey"
+                                });
+                            }
+                        }
+                    }
+                },
+                series: timeseries,
+                navigation: {
+                    menuItemStyle: {
+                        fontSize: '10px'
+                    }
+                }
+            }); //highchart
+
+        });//getJSON completeness
+    });//getJSON locations
 }
 
 Highcharts.setOptions({
