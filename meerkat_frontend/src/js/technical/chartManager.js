@@ -317,10 +317,10 @@ function drawCompletenessGraph( containerID, regionID ){
                 tl = data.timeline[index];
                 var dt = [];
                 var dtReady = [];
-                var avWeeks = tl.weeks.length;
-                var adjust = 12 - avWeeks;
-                for (var j = 0; j < avWeeks; j++){
-                    dt = [j + adjust,Number(Number(20 * tl.values[j]).toFixed(0))]; //HACK for screenshots
+                var noWeeks = tl.weeks.length;
+                var weeks = lastWeeks (get_epi_week(), noWeeks);
+                for (var j = 0; j < noWeeks; j++){
+                    dt = [weeks[j],Number(Number(20 * tl.values[j]).toFixed(0))]; //HACK for screenshots
                     dtReady.push(dt);
                 }
 
