@@ -563,9 +563,128 @@ function drawCompletenessAggTable( containerID ){
 	});
 }
 
+function drawAllClinicsCompleteness( containerID, regionID ){
+$.getJSON( api_root+"/locations", function( locations ){
+    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+
+        var dataPrepared = [];
+        var scoreKeys = Object.keys(data.clinic_score);
+        var index = 0;
+        for (var i=0; i<scoreKeys.length;i++){
+            index = scoreKeys[i];
+            var datum = {
+                "location": locations[index].name,
+                "completeness": Number(data.clinic_score[index]).toFixed(0) + "%"
+            };
+            dataPrepared.push(datum);
+        }
+
+        var columns = [
+            {
+                "field": "location",
+                "title": "Clinic",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                width : "50%"
+            },{
+                "field": "completeness",
+                "title": "Completeness",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                width : "50%"
+            }];
+
+        for(var k = 0; k < columns.length; k++){
+            columns[k].cellStyle = createCompletenessCellTab();
+        }
+
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+	      var table = $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: dataPrepared,
+            classes: 'table-no-bordered table-hover'
+        });
+	      return table;
+
+    });//getJSON
+}); // getJSON locations
+
+}
 // drawMissingCompletenessTable( 'missing-completeness-table', currentLocation);
 // clinic_score
 function drawMissingCompletenessTable( containerID, regionID ){
+    $.getJSON( api_root+"/locations", function( locations ){
+    console.log('We are in the region: ' + regionID);
+    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+        console.log("Reading in data from API:");
+        console.log(data);
+
+        // console.log("Score:");
+        // console.log(data.score);
+        var dataPrepared = [];
+        var columns = [];
+        var datum = [];
+
+        console.log( "length:" + data.dates_not_reported.length);//no information aboout reporting clinic
+        if(data.dates_not_reported.length === 0){//no information aboout reporting clinic
+        var scoreKeys = Object.keys(data.clinic_score);
+        var index = 0;
+        for (var i=0; i<scoreKeys.length;i++){
+            index = scoreKeys[i];
+            var cScore = data.clinic_score[index];
+            if(cScore === 0){
+                datum = {
+                    "location": locations[index].name,
+                };
+                dataPrepared.push(datum);
+            }
+        }
+
+        columns = [
+            {
+                "field": "location",
+                "title": "Location",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                width : "100%"
+            }];
+        }else{
+            for (var j=0; j<data.dates_not_reported.length;j++){
+                strDat = data.dates_not_reported[j];
+                    datum = {
+                        "date": strDat
+                    };
+                    dataPrepared.push(datum);
+                }
+            columns = [
+                {
+                    "field": "date",
+                    "title": "Not reported on a day",
+                    "align": "center",
+                    "class": "header",
+                    sortable: true,
+                    width : "100%"
+                }];
+        }
+
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+	      var table = $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: dataPrepared,
+            classes: 'table-no-bordered table-hover'
+        });
+	      return table;
+
+    });//getJSON
+}); // getJSON locations
+
 }
 /**:drawCompletenessTable(containerID, regionID)
 
@@ -590,16 +709,20 @@ $.getJSON( api_root+"/locations", function( locations ){
         console.log("Reading in data from API:");
         console.log(data);
 
-        // console.log("Score:");
-        // console.log(data.score);
+
+        //check if regionID is a clinic. If it is not, don't give a linking function
+        
 
         var dataPrepared = [];
         var scoreKeys = Object.keys(data.score);
         var index = 0;
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
+            var loc;
+                loc = "<a href='' onclick='loadLocationContent(" + index +
+                    ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
             var datum = {
-                "location": locations[index].name,
+                "location": loc,
                 "completeness": Number(data.score[index]).toFixed(0) + "%"
             };
             dataPrepared.push(datum);
@@ -612,14 +735,14 @@ $.getJSON( api_root+"/locations", function( locations ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                width : "50%"
+                width : "70%"
             },{
                 "field": "completeness",
                 "title": "Completeness",
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                width : "50%"
+                width : "30%"
             }];
 
         for(var k = 0; k < columns.length; k++){

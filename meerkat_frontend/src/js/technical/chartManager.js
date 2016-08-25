@@ -303,10 +303,8 @@ function drawTimeChart( varID, locID, containerID ){
    The ID of the location by which to filter the data.
 */
 function drawCompletenessGraph( containerID, regionID ){
-    //remove dots
     $.getJSON( api_root+"/locations", function( locations ){
         $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
-
             //create a data series for each location
             var dataPrepared = [];
             var timeseries = [];
@@ -318,11 +316,12 @@ function drawCompletenessGraph( containerID, regionID ){
                 var dt = [];
                 var dtReady = [];
                 var noWeeks = tl.weeks.length;
-                var weeks = lastWeeks (get_epi_week(), noWeeks);
-                for (var j = 0; j < noWeeks; j++){
-                    dt = [weeks[j],Number(Number(20 * tl.values[j]).toFixed(0))]; //HACK for screenshots
+                var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
+                //dropping the very last week in the data since we can only estimate it's completeness
+                for (var j = 1; j < noWeeks; j++){
+                    dt = [weeks[noWeeks - j],Number(Number(10 * (tl.values[j-1] + tl.values[j])).toFixed(0))]; //HACK for screenshots
                     dtReady.push(dt);
-                }
+                         }
 
                 var datum = {
                     name: locations[index].name,
@@ -344,9 +343,13 @@ function drawCompletenessGraph( containerID, regionID ){
                 },
                 legend:{ enabled:false },
                 xAxis: {
+                    title: {
+                        text: 'EPI week'
+                    },
                     labels: {
                         overflow: 'justify'
-                    }
+                    },
+                    allowDecimals: false
                 },
                 yAxis: {
                     title: {
