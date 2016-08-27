@@ -35,7 +35,11 @@ if app.config.get( 'TEMPLATE_FOLDER', None ):
         jinja2.FileSystemLoader(app.config["TEMPLATE_FOLDER"]),
     ])
     app.jinja_loader = my_loader
-    
+
+#Need to pass auth root down to all pages that might need it.
+#Feels a bit hacky, but can't immediately think of a better way.
+#Here we feed the env var into the shared config that is sent to all pages.
+app.config['SHARED_CONFIG']['auth_root'] = app.config['AUTH_ROOT']
 
 # Set up the config files.
 for k,v in app.config['COMPONENT_CONFIGS'].items():

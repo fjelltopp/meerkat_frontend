@@ -88,11 +88,13 @@
 </div>
 </div>
 </div>
+
 </body>
 </html>
 {% include 'includes/js.html' %}
 {% block pageJS %}
 <script>
+
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
     var map = L.mapbox.map('map', 'mrjb.143811c9', { zoomControl:false });
     var viewingMap = false;
@@ -104,6 +106,7 @@
     map.touchZoom.disable();
     map.doubleClickZoom.disable();
     map.scrollWheelZoom.disable();
+
 $('input.submit').click( function(){
     var formArray = {
         'username': $('input[name=username]').val(),

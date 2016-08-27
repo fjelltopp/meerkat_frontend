@@ -11,7 +11,10 @@ homepage = Blueprint('homepage', __name__,url_prefix='/<language>')
 
 @homepage.route('/')
 def index():
-    return render_template('homepage/index.html', content=current_app.config['HOMEPAGE_CONFIG'])
+    return render_template(
+        'homepage/index.html', 
+        content=current_app.config['HOMEPAGE_CONFIG'],
+    )
 
 @homepage.route('/login')
 def login():
@@ -35,3 +38,4 @@ def login_request():
     r = requests.post( url, json = request.json ) 
     current_app.logger.warning(r)
     return (r.text, r.status_code, r.headers.items())
+
