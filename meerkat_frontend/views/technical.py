@@ -6,6 +6,7 @@ A Flask Blueprint module for the technical site.
 from flask import Blueprint, render_template, current_app, request, Response, g
 import json
 from .. import common as c
+from .. import authorise as auth
 
 technical = Blueprint('technical', __name__,url_prefix='/<language>')
 
@@ -14,9 +15,8 @@ technical = Blueprint('technical', __name__,url_prefix='/<language>')
 @technical.before_request
 def requires_auth():
     """Checks that the user has authenticated before returning any page from the technical site."""
-    auth = request.authorization
-    if not auth or not c.check_auth(auth.username, auth.password):
-        return c.authenticate()
+    auth.check_auth( ['registered'] )
+        
 
 @technical.route('/')
 @technical.route('/<tab>')

@@ -487,3 +487,105 @@ a:hover{
   }
 
 }
+
+.login{ 
+
+    label{
+        display: block;
+        padding-left: 20px;
+    }
+
+    input.text{
+        display: block;
+        background: $lightGrey;
+        color: $textGrey;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    .form-group{
+        margin-bottom: 20px;
+        width: 100%;
+        display: block;
+    }
+
+    .submit{
+        background: $highlight;
+        color: #FFF;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: 1px solid $highlight;
+        font-size: 18px;
+        margin: 20px 0 10px;
+    }
+
+    .chartBox__heading{
+        padding: 7px 5px 4px 10px;
+    }
+
+    .lang-sel{ 
+        margin: 0px;  
+    }
+
+    .lang{
+        position: relative;
+        top: -3px;
+        right: -2px;
+        background: $blue;
+        color: #FFF;
+        font-size: 14px;
+        border: 1px solid $blue;
+    }
+
+    .lang:hover{
+      background: $highlight;
+      color: white;
+      text-decoration: none;
+      border: 1px solid $highlight;
+    }
+}
+
+.blue{
+    background: $blue;
+}
+
+.highlight{
+    background: $highlight;
+}
+
+.loading{
+    background: url('/static/img/loading.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+body.blue{
+  background: $blue;
+  padding: 0;
+}
+
+.login-title{
+  color: white;
+  font-size: 40px; 
+  margin: 40px 0 0 40px;
+}
+
+.login-box-holder{
+    width: 250px;
+    margin: 15vh auto 0;
+}
+
+.featherlight.loginBox .featherlight-content{
+    padding: 0px 15px;
+    border: 0px;
+    border-radius: 3px;
+
+    .login-box-holder{
+        margin: 0;
+    }
+}
