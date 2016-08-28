@@ -58,10 +58,6 @@
         <div class="chartBox box">
           <div class="chartBox__heading" id="box_3_heading">
           </div>
-          <div class="box__type-selector pull-right">
-            <a href="" class="csv" onclick="exportTableToCSV('completeness-table','completeness.csv', this);" > 
-            </a> 
-          </div>
         <div class="chartBox__content">
           <div id="missing-completeness-table" class="table">
           </div>
@@ -97,8 +93,8 @@
  $("#title").html(i18n.gettext('Completeness'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
- $("#box_heading").html(i18n.gettext('Completeness in the last period'));
- $("#box_2_heading").html(i18n.gettext('Completness in the last year'));
+ $("#box_heading").html(i18n.gettext('Completeness'));
+ $("#box_2_heading").html(i18n.gettext('Trend'));
  $("#box_3_heading").html(i18n.gettext('Non-reporting clinics'));
  $("#box_4_heading").html(i18n.gettext('All clinics'));
  $(".csv").each(function(){

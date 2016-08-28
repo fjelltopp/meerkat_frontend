@@ -516,59 +516,27 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 	});
 }
 
-/**:drawCompletenessAggTable(containerID)
+/**:drawAllClincsCompleteness(containerID, regionID)
 
-    Draws the completeness table, showing the percentage of daily registers submitted
-    by clinics in each region over different time periods.
+ Draws the completeness table, showing the percentage of daily registers submitted
+ by clinics in each region over last period (2 weeks)
 
-    :param string containerID:
-        The ID attribute of the html element to hold the table.
+ :param string containerid:
+ the id attribute of the html element to hold the table.
+ :param int regionID:
+ All clinics in this region (and its subregions) will be included in that table
+ the id of the region from which all clinics will 
  */
-function drawCompletenessAggTable( containerID ){
- 
-	$.getJSON( api_root+"/completeness/reg_1/2", function( regionData ){
-		$.getJSON( api_root+"/locations", function( locations ){	
-
-			regionData = regionData.regions;
-
-			var table = '<table class="table table-hover table-condensed">' +
-							'<tr><th>' + i18n.gettext(capitalise(config.glossary.region)) + '</th>' + 
-						//	'<th>Daily register for last 24 hours</th>' +
-					'<th>'+ i18n.gettext('Daily register for last week') + '</th></tr>' ;
-						//	'<th>Daily register for last year</th></tr>';
-
-			var regions = Object.keys(regionData);
-
-			for( var i in regions ){
-				var region = regions[i];
-				if( region != 1 ){
-					table += '<tr><td><a href="" onclick="drawCompletenessTables(' + i18n.gettext(region) + 
-								'); return false;">' + i18n.gettext(locations[region].name) + '</a></td>' +
-							//	'<td>' + Math.round(regionData[region].last_day) + '%</td>' +
-						'<td>' + Math.round(regionData[region].last_week) + '%</td></tr>' ;
-							//	'<td>' + Math.round(regionData[region].last_year) + '%</td></tr>'; 
-				}
-			}
-			table += '<tr class="info" ><td><a href="" onclick="drawCompletenessTables(1);' + 
-								'return false;">' + i18n.gettext(locations[1].name) + '</a></td>' +
-							//	'<td>' + Math.round(regionData[1].last_day) + '%</td>' +
-				'<td>' + Math.round(regionData[1].last_week) + '%</td></tr>' ;
-							//	'<td>' + Math.round(regionData[1].last_year) + '%</td></tr>';  
-
-			table += '</table>';
-
-			$( '#'+containerID ).html(table);
-
-		});
-	});
-}
-
 function drawAllClinicsCompleteness( containerID, regionID ){
 $.getJSON( api_root+"/locations", function( locations ){
     $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+        // console.log(locations);
+        // console.log(locations[regionID]);
+        // if (locations[regionID].level === "clinic")
+        //     return 0;//that should happen on data agregation level
 
-        var dataPrepared = [];
         var scoreKeys = Object.keys(data.clinic_score);
+        var dataPrepared = [];
         var index = 0;
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
@@ -593,6 +561,9 @@ $.getJSON( api_root+"/locations", function( locations ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
                 width : "50%"
             }];
 
@@ -614,15 +585,22 @@ $.getJSON( api_root+"/locations", function( locations ){
 }); // getJSON locations
 
 }
-// drawMissingCompletenessTable( 'missing-completeness-table', currentLocation);
-// clinic_score
+
+/**:drawMissingCompletenessTable( containerID, regionID)
+ Displays list of clinics in given subregion which haven't reported in the last two weeks. If the specified region is a clinic, then dates when registers are not submitted are listed.
+
+ :param string containerID:
+ the id attribute of the html element to hold the table.
+ :param int regionID:
+  Current region or clinic ID
+ */
 function drawMissingCompletenessTable( containerID, regionID ){
     $.getJSON( api_root+"/locations", function( locations ){
-    console.log('We are in the region: ' + regionID);
-    console.log(locations[regionID]);
+    // console.log('We are in the region: ' + regionID);
+    // console.log(locations[regionID]);
     $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
-        console.log("Reading in data from API:");
-        console.log(data);
+        // console.log("Reading in data from API:");
+        // console.log(data);
 
         // console.log("Score:");
         // console.log(data.score);
@@ -691,7 +669,7 @@ function drawMissingCompletenessTable( containerID, regionID ){
     Draws the completeness table, showing the number of case reports and daily
     registers submitted by each clinic over different time periods.
 
-    :param string containerID:
+ :param string containerID:
         The ID attribute of the html element to hold the table.
     :param string regionID:
         The ID of the region by which to filter the completeness data.
@@ -702,6 +680,8 @@ $.getJSON( api_root+"/locations", function( locations ){
     $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
         var dataPrepared = [];
         var scoreKeys = Object.keys(data.score);
+        var parentLocation  = locations[scoreKeys[0]].name; //string containg parentLocation name
+        console.log("par:" + parentLocation);
         var index = 0;
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
@@ -729,11 +709,14 @@ $.getJSON( api_root+"/locations", function( locations ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
                 width : "30%"
             }];
 
         for(var k = 0; k < columns.length; k++){
-            columns[k].cellStyle = createCompletenessCellTab();
+            columns[k].cellStyle = createCompletenessCellTab(parentLocation);
         }
 
         $('#' + containerID + ' table').bootstrapTable('destroy');
@@ -753,7 +736,7 @@ $.getJSON( api_root+"/locations", function( locations ){
 
 }
 
-function createCompletenessCellTab(){
+function createCompletenessCellTab(parentLocation){
     // Returns a function that colours in the cells according to their value
     function cc2(value, row, index, columns){
         var valueStripped = value.split('%')[0];
@@ -761,14 +744,27 @@ function createCompletenessCellTab(){
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
 
+        if(row.location.split('<').length > 1){//parent location highlight for column with links
+            console.log(row.location);
+            if (row.location.split('>')[1].split('<')[0] == parentLocation){
+                if(valueStripped < 50){//red
+                    return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.1)"}};
+                }
+                if(valueStripped < 80){//yellow
+                    return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.1)"}};
+                }
+                return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.1)"}};
+            }
+        }
+
         if(isNaN(valueStripped)){
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
-        if(valueStripped < 50){
+        if(valueStripped < 50){//red
             return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold"}};
         }
-        if(valueStripped < 80){
-            return {css: {"color": "rgba(255, 255, 0, 1)", "font-weight": "bold"}};
+        if(valueStripped < 80){//yellow
+            return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold"}};
         }
         return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold"}};
     }

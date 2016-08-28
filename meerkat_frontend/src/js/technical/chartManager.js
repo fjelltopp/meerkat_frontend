@@ -310,9 +310,8 @@ function drawCompletenessGraph( containerID, regionID ){
             var timeseries = [];
             var scoreKeys = Object.keys(data.timeline);
             var index = 0;
-            var parentLocation = true;
             for (var i=0; i<scoreKeys.length;i++){
-                index = scoreKeys[i];
+                index = scoreKeys[scoreKeys.length - i -1];
                 tl = data.timeline[index];
                 var dt = [];
                 var dtReady = [];
@@ -330,15 +329,11 @@ function drawCompletenessGraph( containerID, regionID ){
                     color: 'grey'
                 };
 
-                if(parentLocation === true){ //parent location
-                    datum.color= 'blue';
-                    parentLocation = false;
+                if(locations[index].id === regionID){ //parent location
+                    datum.color= 'rgb(100,0,221)';
                 }
                 timeseries.push(datum);
             }
-            // console.log("Drawing Completeness Chart for location " + regionID);
-            // console.log(locations[regionID]);
-            // console.log(timeseries);
 
             //hovering should give all the information about given clinick and sublocation
             $('#' + containerID).highcharts({
@@ -359,6 +354,7 @@ function drawCompletenessGraph( containerID, regionID ){
                     allowDecimals: false
                 },
                 yAxis: {
+                    max: 100,
                     title: {
                         text: 'Completness'
                     },
@@ -368,15 +364,15 @@ function drawCompletenessGraph( containerID, regionID ){
                     plotBands: [{ //RED
                         from: 0,
                         to: 50,
-                        color: 'rgba(255, 0, 0, 0.4)'
+                        color: 'rgba(255, 0, 0, 0.5)'
                     }, { //YELLOW
                         from: 50,
                         to: 80,
-                        color: 'rgba(255, 255, 0, 0.4)'
+                        color: 'rgba(255, 255, 0, 0.5)'
                     }, { // GREEN
                         from: 80,
                         to: 100,
-                        color: 'rgba(0, 128, 0,0.4)'
+                        color: 'rgba(0, 128, 0,0.5)'
                     }]
                 },
                 tooltip: {
@@ -384,7 +380,7 @@ function drawCompletenessGraph( containerID, regionID ){
                 },
                 plotOptions: {
                     spline: {
-                        lineWidth: 4,
+                        lineWidth: 3,
                         states: {
                             hover: {
                                 enabled: true,
@@ -399,13 +395,13 @@ function drawCompletenessGraph( containerID, regionID ){
                             mouseOver: function () {
                                 if(this.chart.series[this.index].color === 'grey'){
                                     this.chart.series[this.index].update({
-                                        color: 'lightblue'
+                                        color: 'blue'
                                     });
                                 }
                             },
                             //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
                             mouseOut: function () {
-                                if(this.chart.series[this.index].color === 'lightblue'){
+                                if(this.chart.series[this.index].color === 'blue'){
                                     this.chart.series[this.index].update({
                                         color: "grey"
                                     });
