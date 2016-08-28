@@ -619,6 +619,7 @@ $.getJSON( api_root+"/locations", function( locations ){
 function drawMissingCompletenessTable( containerID, regionID ){
     $.getJSON( api_root+"/locations", function( locations ){
     console.log('We are in the region: ' + regionID);
+    console.log(locations[regionID]);
     $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
         console.log("Reading in data from API:");
         console.log(data);
@@ -629,8 +630,7 @@ function drawMissingCompletenessTable( containerID, regionID ){
         var columns = [];
         var datum = [];
 
-        console.log( "length:" + data.dates_not_reported.length);//no information aboout reporting clinic
-        if(data.dates_not_reported.length === 0){//no information aboout reporting clinic
+        if(locations[regionID].level != "clinic"){//no information aboout reporting clinic
         var scoreKeys = Object.keys(data.clinic_score);
         var index = 0;
         for (var i=0; i<scoreKeys.length;i++){
@@ -638,7 +638,7 @@ function drawMissingCompletenessTable( containerID, regionID ){
             var cScore = data.clinic_score[index];
             if(cScore === 0){
                 datum = {
-                    "location": locations[index].name,
+                    "location": locations[index].name
                 };
                 dataPrepared.push(datum);
             }
@@ -657,7 +657,7 @@ function drawMissingCompletenessTable( containerID, regionID ){
             for (var j=0; j<data.dates_not_reported.length;j++){
                 strDat = data.dates_not_reported[j];
                     datum = {
-                        "date": strDat
+                        "date": strDat.split('T')[0]
                     };
                     dataPrepared.push(datum);
                 }
@@ -697,22 +697,9 @@ function drawMissingCompletenessTable( containerID, regionID ){
         The ID of the region by which to filter the completeness data.
  */
 function drawCompletenessTable( containerID, regionID ){
-    console.log('We are in the region: ' + regionID);
 
 $.getJSON( api_root+"/locations", function( locations ){
     $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
-        //2. make sublocation names links to this sublocation
-        //3. colour code it
-        //4. bootstrap plot it
-        //5. Would be nice if we could highlight the sublocations in the graph and simultaneously in the table when hovering over the line in the graph or the row in the table.
-        //6. Currently breaks at the lowest level
-        console.log("Reading in data from API:");
-        console.log(data);
-
-
-        //check if regionID is a clinic. If it is not, don't give a linking function
-        
-
         var dataPrepared = [];
         var scoreKeys = Object.keys(data.score);
         var index = 0;
@@ -755,7 +742,9 @@ $.getJSON( api_root+"/locations", function( locations ){
 	      var table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: dataPrepared,
-            classes: 'table-no-bordered table-hover'
+            classes: 'table-no-bordered table-hover',
+            sortName: 'completeness',
+            sortOrder: 'desc'
         });
 	      return table;
 
@@ -776,12 +765,12 @@ function createCompletenessCellTab(){
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
         if(valueStripped < 50){
-            return {css: {"color": "rgba(255, 20, 0, 1)"}};
+            return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold"}};
         }
         if(valueStripped < 80){
-            return {css: {"color": "rgba(255, 250, 54, 1)"}};
+            return {css: {"color": "rgba(255, 255, 0, 1)", "font-weight": "bold"}};
         }
-        return {css: {"color": "rgba(144, 238, 144, 1)"}};
+        return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold"}};
     }
 
     return cc2;

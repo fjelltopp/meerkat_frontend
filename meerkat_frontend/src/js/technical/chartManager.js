@@ -310,6 +310,7 @@ function drawCompletenessGraph( containerID, regionID ){
             var timeseries = [];
             var scoreKeys = Object.keys(data.timeline);
             var index = 0;
+            var parentLocation = true;
             for (var i=0; i<scoreKeys.length;i++){
                 index = scoreKeys[i];
                 tl = data.timeline[index];
@@ -319,7 +320,7 @@ function drawCompletenessGraph( containerID, regionID ){
                 var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
                 //dropping the very last week in the data since we can only estimate it's completeness
                 for (var j = 1; j < noWeeks; j++){
-                    dt = [weeks[noWeeks - j],Number(Number(10 * (tl.values[j-1] + tl.values[j])).toFixed(0))]; //HACK for screenshots
+                    dt = [weeks[noWeeks - j],Number(Number(10 * (tl.values[j-1] + tl.values[j])).toFixed(0))];
                     dtReady.push(dt);
                          }
 
@@ -328,10 +329,16 @@ function drawCompletenessGraph( containerID, regionID ){
                     data: dtReady,
                     color: 'grey'
                 };
+
+                if(parentLocation === true){ //parent location
+                    datum.color= 'blue';
+                    parentLocation = false;
+                }
                 timeseries.push(datum);
             }
-            console.log("Drawing Completeness Chart for location " + regionID);
-            console.log(timeseries);
+            // console.log("Drawing Completeness Chart for location " + regionID);
+            // console.log(locations[regionID]);
+            // console.log(timeseries);
 
             //hovering should give all the information about given clinick and sublocation
             $('#' + containerID).highcharts({
@@ -361,15 +368,15 @@ function drawCompletenessGraph( containerID, regionID ){
                     plotBands: [{ //RED
                         from: 0,
                         to: 50,
-                        color: 'rgba(255, 0, 0, 0.6)'
+                        color: 'rgba(255, 0, 0, 0.4)'
                     }, { //YELLOW
                         from: 50,
                         to: 80,
-                        color: 'rgba(255, 255, 224, 0.6)'
+                        color: 'rgba(255, 255, 0, 0.4)'
                     }, { // GREEN
                         from: 80,
                         to: 100,
-                        color: 'rgba(144, 238, 144,0.6)'
+                        color: 'rgba(0, 128, 0,0.4)'
                     }]
                 },
                 tooltip: {
@@ -390,14 +397,19 @@ function drawCompletenessGraph( containerID, regionID ){
                         pointStart:0,
                         events: {
                             mouseOver: function () {
-                                this.chart.series[this.index].update({
-                                    color: 'blue'
-                                });
+                                if(this.chart.series[this.index].color === 'grey'){
+                                    this.chart.series[this.index].update({
+                                        color: 'lightblue'
+                                    });
+                                }
                             },
+                            //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
                             mouseOut: function () {
-                                this.chart.series[this.index].update({
-                                    color: "grey"
-                                });
+                                if(this.chart.series[this.index].color === 'lightblue'){
+                                    this.chart.series[this.index].update({
+                                        color: "grey"
+                                    });
+                                }
                             }
                         }
                     }
