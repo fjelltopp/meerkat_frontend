@@ -516,110 +516,267 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 	});
 }
 
-/**:drawCompletenessAggTable(containerID)
+/**:drawAllClincsCompleteness(containerID, regionID)
 
-    Draws the completeness table, showing the percentage of daily registers submitted
-    by clinics in each region over different time periods.
+ Draws the completeness table, showing the percentage of daily registers submitted
+ by clinics in each region over last period (2 weeks)
 
-    :param string containerID:
-        The ID attribute of the html element to hold the table.
+ :param string containerid:
+ the id attribute of the html element to hold the table.
+ :param int regionID:
+ All clinics in this region (and its subregions) will be included in that table
+ the id of the region from which all clinics will 
  */
-function drawCompletenessAggTable( containerID ){
- 
-	$.getJSON( api_root+"/completeness/reg_1/4", function( regionData ){
-		$.getJSON( api_root+"/locations", function( locations ){	
+function drawAllClinicsCompleteness( containerID, regionID ){
+$.getJSON( api_root+"/locations", function( locations ){
+    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+        // console.log(locations);
+        // console.log(locations[regionID]);
+        // if (locations[regionID].level === "clinic")
+        //     return 0;//that should happen on data agregation level
 
-			regionData = regionData.regions;
+        var scoreKeys = Object.keys(data.clinic_score);
+        var dataPrepared = [];
+        var index = 0;
+        for (var i=0; i<scoreKeys.length;i++){
+            index = scoreKeys[i];
+            var datum = {
+                "location": locations[index].name,
+                "completeness": Number(data.clinic_score[index]).toFixed(0) + "%"
+            };
+            dataPrepared.push(datum);
+        }
 
-			var table = '<table class="table table-hover table-condensed">' +
-							'<tr><th>' + i18n.gettext(capitalise(config.glossary.region)) + '</th>' + 
-						//	'<th>Daily register for last 24 hours</th>' +
-					'<th>'+ i18n.gettext('Daily register for last week') + '</th></tr>' ;
-						//	'<th>Daily register for last year</th></tr>';
+        var columns = [
+            {
+                "field": "location",
+                "title": "Clinic",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                width : "50%"
+            },{
+                "field": "completeness",
+                "title": "Completeness",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
+                width : "50%"
+            }];
 
-			var regions = Object.keys(regionData);
+        for(var k = 0; k < columns.length; k++){
+            columns[k].cellStyle = createCompletenessCellTab();
+        }
 
-			for( var i in regions ){
-				var region = regions[i];
-				if( region != 1 ){
-					table += '<tr><td><a href="" onclick="drawCompletenessTables(' + i18n.gettext(region) + 
-								'); return false;">' + i18n.gettext(locations[region].name) + '</a></td>' +
-							//	'<td>' + Math.round(regionData[region].last_day) + '%</td>' +
-						'<td>' + Math.round(regionData[region].last_week) + '%</td></tr>' ;
-							//	'<td>' + Math.round(regionData[region].last_year) + '%</td></tr>'; 
-				}
-			}
-			table += '<tr class="info" ><td><a href="" onclick="drawCompletenessTables(1);' + 
-								'return false;">' + i18n.gettext(locations[1].name) + '</a></td>' +
-							//	'<td>' + Math.round(regionData[1].last_day) + '%</td>' +
-				'<td>' + Math.round(regionData[1].last_week) + '%</td></tr>' ;
-							//	'<td>' + Math.round(regionData[1].last_year) + '%</td></tr>';  
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+	      var table = $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: dataPrepared,
+            classes: 'table-no-bordered table-hover',
+            sortName: 'completeness',
+            sortOrder: 'desc'
+        });
+	      return table;
 
-			table += '</table>';
+    });//getJSON
+}); // getJSON locations
 
-			$( '#'+containerID ).html(table);
-
-		});
-	});
 }
 
+/**:drawMissingCompletenessTable( containerID, regionID)
+ Displays list of clinics in given subregion which haven't reported in the last two weeks. If the specified region is a clinic, then dates when registers are not submitted are listed.
+
+ :param string containerID:
+ the id attribute of the html element to hold the table.
+ :param int regionID:
+  Current region or clinic ID
+ */
+function drawMissingCompletenessTable( containerID, headerID, regionID ){
+    $.getJSON( api_root+"/locations", function( locations ){
+    // console.log('We are in the region: ' + regionID);
+    // console.log(locations[regionID]);
+    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+        // console.log("Reading in data from API:");
+        // console.log(data);
+
+        // console.log("Score:");
+        // console.log(data.score);
+        var dataPrepared = [];
+        var columns = [];
+        var datum = [];
+
+        if(locations[regionID].level != "clinic"){//no information aboout reporting clinic
+        var scoreKeys = Object.keys(data.clinic_score);
+        var index = 0;
+        for (var i=0; i<scoreKeys.length;i++){
+            index = scoreKeys[i];
+            var cScore = data.clinic_score[index];
+            if(cScore === 0){
+                datum = {
+                    "location": locations[index].name
+                };
+                dataPrepared.push(datum);
+            }
+       
+        }
+		$(headerID).html(i18n.gettext('Non Reporting Clinics'));
+        columns = [
+            {
+                "field": "location",
+                "title": "Location",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                width : "100%"
+            }];
+        }else{
+            for (var j=0; j<data.dates_not_reported.length;j++){
+                strDat = data.dates_not_reported[j];
+                    datum = {
+                        "date": strDat.split('T')[0]
+                    };
+                    dataPrepared.push(datum);
+                }
+			$(headerID).html(i18n.gettext('Dates Not Reported'));
+            columns = [
+                {
+                    "field": "date",
+                    "align": "center",
+                    "class": "header",
+                    sortable: true,
+                    width : "100%"
+                }];
+        }
+
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+	      var table = $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: dataPrepared,
+            classes: 'table-no-bordered table-hover'
+        });
+	      return table;
+
+    });//getJSON
+}); // getJSON locations
+
+}
 /**:drawCompletenessTable(containerID, regionID)
 
     Draws the completeness table, showing the number of case reports and daily
     registers submitted by each clinic over different time periods.
 
-    :param string containerID:
+ :param string containerID:
         The ID attribute of the html element to hold the table.
     :param string regionID:
         The ID of the region by which to filter the completeness data.
  */
 function drawCompletenessTable( containerID, regionID ){
 
-	$.getJSON( api_root+"/completeness/reg_1/4", function( registerData ){
-		$.getJSON( api_root+"/completeness/tot_1/4", function( caseData ){
-			$.getJSON( api_root+"/locations", function( locations ){	
+$.getJSON( api_root+"/locations", function( locations ){
+    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+        var dataPrepared = [];
+        var scoreKeys = Object.keys(data.score);
+        var parentLocation  = locations[scoreKeys[0]].name; //string containg parentLocation name
+        console.log("par:" + parentLocation);
+        var index = 0;
+        for (var i=0; i<scoreKeys.length;i++){
+            index = scoreKeys[i];
+            var loc;
+                // loc = "<a href='' onclick='loadLocationContent(" + index +
+            //     ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
+            loc = locations[index].name;
+            var datum = {
+                "location": loc,
+                "completeness": Number(data.score[index]).toFixed(0) + "%"
+            };
+            dataPrepared.push(datum);
+        }
 
-				registerData = registerData.clinics[regionID];
-				caseData = caseData.clinics[regionID];
+        var columns = [
+            {
+                "field": "location",
+                "title": "Location",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                width : "70%"
+            },{
+                "field": "completeness",
+                "title": "Completeness",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
+                width : "30%"
+            }];
 
-				var clinics = Object.keys(registerData);
-				var table = '<table class="table table-hover table-condensed">' +
-								'<tr><th> Clinic </th>' + 
-			 	            // '<th class="fit" >Case reports<br>for last 24 hours</th>' +
-							// 	'<th class="fit">Case reports<br>for last week</th>' +
-							// 	'<th class="fit">Case reports<br>for last year</th>' +
-						// '<th class="fit">Daily register<br>for last 24 hours</th>' +
-						'<th>'+i18n.gettext('Daily registers last week')+'</th></tr>' ;
-								// '<th class="fit">Daily register<br>for last year</th></tr>';
+        for(var k = 0; k < columns.length; k++){
+            columns[k].cellStyle = createCompletenessCellTab(parentLocation);
+        }
 
-				for( var i in clinics ){
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+	      var table = $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: dataPrepared,
+            classes: 'table-no-bordered table-hover',
+            sortName: 'completeness',
+            sortOrder: 'desc'
+        });
+	      return table;
 
-					var clinic = clinics[i];
-				    if( !(clinic in caseData)){
-					caseData[clinic] = {} ; 
-					caseData[clinic].day = 0;
-					caseData[clinic].week = 0;
-					caseData[clinic].year = 0;
-				    }
-					table += '<tr><td>' + i18n.gettext(locations[clinic].name) + '</td>' +
-								// '<td>' + Math.round(caseData[clinic].day) + '</td>' +
-								// '<td>' + Math.round(caseData[clinic].week) + '</td>' + 
-								// '<td>' + Math.round(caseData[clinic].year) + '</td>' +
-           						//'<td>' + Math.round(registerData[clinic].day) + '</td>' +
-         						'<td>' + Math.round(registerData[clinic].week) + '</td></tr>' ;
-								// '<td>' + Math.round(registerData[clinic].year) + '</td></tr>'; 
-		
-				}
-	
-				table += '</table>';
+    });//getJSON
+}); // getJSON locations
 
-				$( '#'+containerID ).html(table);
-
-			});
-		});
-	});
 }
 
+function createCompletenessCellTab(parentLocation){
+    // Returns a function that colours in the cells according to their value
+    function cc2(value, row, index, columns){
+        var valueStripped = value.split('%')[0];
+        var par = false;
+        if (row.location == parentLocation){
+            par = true;
+        }
+        if (typeof valueStripped == 'undefined'){
+            return {css: {"color": "rgba(0, 0, 0, 1)"}};
+        }
+        if(isNaN(valueStripped)){
+            if(par){
+                return {css: {"font-weight": "bold","background-color": "#0090CA"}};
+            }
+            return {css: {"color": "rgba(0, 0, 0, 1)"}};
+        }
+        if(valueStripped < 50){//red
+            if(par){
+                return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color":"#0090CA"}};
+            }
+            return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold"}};
+        }
+        if(valueStripped < 80){//yellow
+            if(par){
+                return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color": "#0090CA"}};
+            }
+            return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold"}};
+        }
+        if(par){
+            return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color": "#0090CA"}};
+        }
+        return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold"}};
+    }
+
+    return cc2;
+}
 
 /**:createColourCellTab()
 
