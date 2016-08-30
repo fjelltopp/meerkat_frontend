@@ -55,10 +55,10 @@
 
     <div class="row">
       <div class="col-xs-12 col-md-4 less-padding-col">
-        <div class="chartBox box">
-          <div class="chartBox__heading" id="box_3_heading">
+        <div class="chartBox box" id="missing_clinics_box">
+          <div class="chartBox__heading pointer no-border" id="box_3_heading" onclick='toggleMissingClinics();return false;'>
           </div>
-        <div class="chartBox__content">
+        <div class="chartBox__content" id="missing_clinics_content">
           <div id="missing-completeness-table" class="table">
           </div>
         </div>
@@ -67,14 +67,14 @@
 
 
     <div class="col-xs-12 col-md-8 less-padding-col">
-      <div class="chartBox box">
-        <div class="chartBox__heading" id="box_4_heading">
+      <div class="chartBox box" id="all_clinics_box">
+        <div class="chartBox__heading pointer no-border" id="box_4_heading" onclick='toggleAllClinics();return false;'>
           <div class="box__type-selector pull-right">
             <a href="" class="csv" onclick="exportTableToCSV('completeness-table','completeness.csv', this);" > 
             </a> 
           </div>
         </div>
-        <div class="chartBox__content">
+        <div class="chartBox__content" id="all_clinics_content">
           <div id="all-clinics-table" class="table">
           </div>
         </div>
@@ -129,5 +129,14 @@ function drawCharts( locID ){
  }
 
 
+function toggleAllClinics(){
+    $("#all_clinics_box .chartBox__heading").toggleClass("no-border");
+    $("#all_clinics_content").slideToggle("slow");
+}
+
+function toggleMissingClinics(){
+    $("#missing_clinics_box .chartBox__heading").toggleClass("no-border");
+    $("#missing_clinics_content").slideToggle("slow");
+}
 
 </script>
