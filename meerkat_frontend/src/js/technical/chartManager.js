@@ -317,13 +317,13 @@ function drawCompletenessGraph( containerID, regionID ){
                 var dtReady = [];
                 var noWeeks = tl.weeks.length;
                 var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
+	
                 //dropping the very last week in the data since we can only estimate it's completeness
                 for (var j = 0; j < noWeeks; j++){
-                    dt = [weeks[noWeeks - j -1],Number(Number(20 * (tl.values[j])).toFixed(0))];
+                    dt = [weeks[noWeeks - j],Number(Number(20 * (tl.values[j])).toFixed(0))];
                     dtReady.push(dt);
-                         }
-
-                var datum = {
+                }
+				var datum = {
                     name: locations[index].name,
                     data: dtReady,
                     color: 'lightgrey'

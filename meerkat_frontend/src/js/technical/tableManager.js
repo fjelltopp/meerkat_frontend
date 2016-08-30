@@ -600,7 +600,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
     $.getJSON( api_root+"/locations", function( locations ){
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
-    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+
         // console.log("Reading in data from API:");
         // console.log(data);
 
@@ -611,30 +611,27 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
         var datum = [];
 
         if(locations[regionID].level != "clinic"){//no information aboout reporting clinic
-        var scoreKeys = Object.keys(data.clinic_score);
-        var index = 0;
-        for (var i=0; i<scoreKeys.length;i++){
-            index = scoreKeys[i];
-            var cScore = data.clinic_score[index];
-            if(cScore === 0){
-                datum = {
-                    "location": locations[index].name
-                };
-                dataPrepared.push(datum);
-            }
-       
-        }
-		$(headerID).html(i18n.gettext('Clinics not reporting'));
-        columns = [
-            {
-                "field": "location",
-                "title": "Location",
-                "align": "center",
-                "class": "header",
-                sortable: true,
-                width : "100%"
-            }];
+			$.getJSON( api_root+"/non_reporting/reg_1/" + regionID, function( data ){
+				for (var i=0; i<data.clinics.length;i++){
+					datum = {
+						"location": locations[data.clinics[i]].name
+					};
+					dataPrepared.push(datum);
+				}
+
+				$(headerID).html(i18n.gettext('Clinics not reporting'));
+				columns = [
+					{
+						"field": "location",
+						"title": "Location",
+						"align": "center",
+						"class": "header",
+						sortable: true,
+						width : "100%"
+					}];
+			});
         }else{
+			$.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
             for (var j=0; j<data.dates_not_reported.length;j++){
                 strDat = data.dates_not_reported[j];
                     datum = {
@@ -651,7 +648,8 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
                     sortable: true,
                     width : "100%"
                 }];
-        }
+			});
+		}
 
         $('#' + containerID + ' table').bootstrapTable('destroy');
         $('#' + containerID + ' table').remove();
@@ -663,7 +661,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
         });
 	      return table;
 
-    });//getJSON
+
 }); // getJSON locations
 
 }
