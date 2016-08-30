@@ -596,7 +596,7 @@ $.getJSON( api_root+"/locations", function( locations ){
  :param int regionID:
   Current region or clinic ID
  */
-function drawMissingCompletenessTable( containerID, regionID ){
+function drawMissingCompletenessTable( containerID, headerID, regionID ){
     $.getJSON( api_root+"/locations", function( locations ){
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
@@ -622,8 +622,9 @@ function drawMissingCompletenessTable( containerID, regionID ){
                 };
                 dataPrepared.push(datum);
             }
+       
         }
-
+		$(headerID).html(i18n.gettext('Non Reporting Clinics'));
         columns = [
             {
                 "field": "location",
@@ -641,10 +642,10 @@ function drawMissingCompletenessTable( containerID, regionID ){
                     };
                     dataPrepared.push(datum);
                 }
+			$(headerID).html(i18n.gettext('Dates Not Reported'));
             columns = [
                 {
                     "field": "date",
-                    "title": "Not reported on a day",
                     "align": "center",
                     "class": "header",
                     sortable: true,
@@ -752,24 +753,24 @@ function createCompletenessCellTab(parentLocation){
         }
         if(isNaN(valueStripped)){
             if(par){
-                return {css: {"font-weight": "bold","background-color": "rgba(0,0, 255, 0.3)"}};
+                return {css: {"font-weight": "bold","background-color": "#0090CA"}};
             }
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
         if(valueStripped < 50){//red
             if(par){
-                return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.3)"}};
+                return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color":"#0090CA"}};
             }
             return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold"}};
         }
         if(valueStripped < 80){//yellow
             if(par){
-                return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.3)"}};
+                return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color": "#0090CA"}};
             }
             return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold"}};
         }
         if(par){
-            return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.3)"}};
+            return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color": "#0090CA"}};
         }
         return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold"}};
     }

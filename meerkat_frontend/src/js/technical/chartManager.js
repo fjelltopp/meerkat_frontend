@@ -330,7 +330,7 @@ function drawCompletenessGraph( containerID, regionID ){
                 };
 
                 if(locations[index].id === regionID){ //parent location
-                    datum.color= 'blue';
+                    datum.color= '#0090CA';
                     datum.lineWidth='5';
                 }
                 timeseries.push(datum);
@@ -396,13 +396,13 @@ function drawCompletenessGraph( containerID, regionID ){
                             mouseOver: function () {
                                 if(this.chart.series[this.index].color === 'lightgrey'){
                                     this.chart.series[this.index].update({
-                                        color: 'purple'
+                                        color: '#D9692A'
                                     });
                                 }
                             },
                             //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
                             mouseOut: function () {
-                                if(this.chart.series[this.index].color === 'purple'){
+                                if(this.chart.series[this.index].color === '#D9692A'){
                                     this.chart.series[this.index].update({
                                         color: "lightgrey"
                                     });

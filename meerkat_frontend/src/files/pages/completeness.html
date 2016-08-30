@@ -94,9 +94,9 @@
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('Completeness'));
- $("#box_2_heading").html(i18n.gettext('Trend'));
- $("#box_3_heading").html(i18n.gettext('Non-reporting clinics'));
- $("#box_4_heading").html(i18n.gettext('All clinics'));
+ $("#box_2_heading").html(i18n.gettext('Completeness by week'));
+ $("#box_3_heading").html(i18n.gettext('Non Reporting Clinics'));
+ $("#box_4_heading").html(i18n.gettext('Completeness for all Clinics'));
  $(".csv").each(function(){
 	 $(this).html(i18n.gettext('Excel'));
  });
@@ -122,10 +122,10 @@ function drawCharts( locID ){
  }
  
  function reDrawCompletness(){
- drawCompletenessTable( 'completeness-table', currentLocation );
- drawCompletenessGraph( 'completeness-graph', currentLocation );
- drawMissingCompletenessTable( 'missing-completeness-table', currentLocation);
- drawAllClinicsCompleteness( 'all-clinics-table', currentLocation);
+	 drawCompletenessTable( 'completeness-table', currentLocation );
+	 drawCompletenessGraph( 'completeness-graph', currentLocation );
+	 drawMissingCompletenessTable( 'missing-completeness-table',"#box_3_heading", currentLocation);
+	 drawAllClinicsCompleteness( 'all-clinics-table', currentLocation);
  }
 
 
