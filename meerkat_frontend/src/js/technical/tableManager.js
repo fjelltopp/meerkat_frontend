@@ -743,31 +743,33 @@ function createCompletenessCellTab(parentLocation){
     // Returns a function that colours in the cells according to their value
     function cc2(value, row, index, columns){
         var valueStripped = value.split('%')[0];
+        var par = false;
+        if (row.location == parentLocation){
+            par = true;
+        }
         if (typeof valueStripped == 'undefined'){
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
-
-        if(row.location.split('<').length > 1){//parent location highlight for column with links
-            console.log(row.location);
-            if (row.location.split('>')[1].split('<')[0] == parentLocation){
-                if(valueStripped < 50){//red
-                    return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.1)"}};
-                }
-                if(valueStripped < 80){//yellow
-                    return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.1)"}};
-                }
-                return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.1)"}};
-            }
-        }
-
         if(isNaN(valueStripped)){
+            if(par){
+                return {css: {"font-weight": "bold","background-color": "rgba(0,0, 255, 0.3)"}};
+            }
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
         if(valueStripped < 50){//red
+            if(par){
+                return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.3)"}};
+            }
             return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold"}};
         }
         if(valueStripped < 80){//yellow
+            if(par){
+                return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.3)"}};
+            }
             return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold"}};
+        }
+        if(par){
+            return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color": "rgba(0,0, 255, 0.3)"}};
         }
         return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold"}};
     }
