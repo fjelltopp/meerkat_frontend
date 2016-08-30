@@ -577,7 +577,9 @@ $.getJSON( api_root+"/locations", function( locations ){
 	      var table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: dataPrepared,
-            classes: 'table-no-bordered table-hover'
+            classes: 'table-no-bordered table-hover',
+            sortName: 'completeness',
+            sortOrder: 'desc'
         });
 	      return table;
 
@@ -686,8 +688,9 @@ $.getJSON( api_root+"/locations", function( locations ){
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
             var loc;
-                loc = "<a href='' onclick='loadLocationContent(" + index +
-                    ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
+                // loc = "<a href='' onclick='loadLocationContent(" + index +
+            //     ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
+            loc = locations[index].name;
             var datum = {
                 "location": loc,
                 "completeness": Number(data.score[index]).toFixed(0) + "%"
