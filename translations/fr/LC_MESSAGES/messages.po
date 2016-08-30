@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-08-30 08:50+0000\n"
+"POT-Creation-Date: 2016-08-30 15:21+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -398,6 +398,7 @@ msgstr "Excel"
 #: meerkat_frontend/src/files/pages/pip.html:59
 #: meerkat_frontend/src/files/pages/services.html:108
 #: meerkat_frontend/src/js/explore/explore.js:338
+#: meerkat_frontend/src/js/technical/chartManager.js:350
 #: meerkat_frontend/src/js/technical/tableManager.js:34
 #: meerkat_frontend/src/js/technical/tableManager.js:35
 #: meerkat_frontend/src/js/technical/tableManager.js:139
@@ -439,21 +440,22 @@ msgstr "CIM-10 Chapter"
 #: meerkat_frontend/src/files/pages/completeness.html:93
 #: meerkat_frontend/src/files/pages/completeness.html:96
 #: meerkat_frontend/src/files/pages/completeness2.html:106
+#: meerkat_frontend/src/js/technical/chartManager.js:360
 msgid "Completeness"
 msgstr "Complétude"
 
 #: meerkat_frontend/src/files/pages/completeness.html:97
 msgid "Completeness by week"
-msgstr ""
+msgstr "Complétude par semaine"
 
 #: meerkat_frontend/src/files/pages/completeness.html:98
 #: meerkat_frontend/src/js/technical/tableManager.js:627
-msgid "Non Reporting Clinics"
-msgstr ""
+msgid "Clinics not reporting"
+msgstr "Sites de surveillance ne déclarant pas"
 
 #: meerkat_frontend/src/files/pages/completeness.html:99
-msgid "Completeness for all Clinics"
-msgstr ""
+msgid "Completeness by clinic"
+msgstr "Complétude par site de surveillance"
 
 #: meerkat_frontend/src/files/pages/completeness2.html:109
 msgid "Regions"
@@ -788,8 +790,8 @@ msgid "Type:"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/tableManager.js:645
-msgid "Dates Not Reported"
-msgstr ""
+msgid "Dates not reported"
+msgstr "Dates non déclarés"
 
 #: meerkat_frontend/templates/base.html:14
 msgid "Toggle navigation"
@@ -2695,84 +2697,4 @@ msgstr ""
 #: meerkat_frontend/views/reports.py:249 meerkat_frontend/views/reports.py:253
 msgid "title"
 msgstr ""
-
-#~ msgid "This report was generated at"
-#~ msgstr "Ce rapport a été généré à"
-
-#~ msgid "tot"
-#~ msgstr ""
-
-#~ msgid "gen_1"
-#~ msgstr ""
-
-#~ msgid "gen_2"
-#~ msgstr ""
-
-#~ msgid "Influenza A"
-#~ msgstr "La grippe A"
-
-#~ msgid "Influenza B"
-#~ msgstr "La grippe B"
-
-#~ msgid "H1"
-#~ msgstr "H1"
-
-#~ msgid "Daily register for last week"
-#~ msgstr "Registre quotidien pour la semaine dernière"
-
-#~ msgid "Daily registers last week"
-#~ msgstr "Registres quotidiens de la semaine dernière"
-
-#~ msgid "Send New Code"
-#~ msgstr "Envoyer un nouveau code"
-
-#~ msgid ""
-#~ "This report is up to date as "
-#~ "of %(generation_time)s on %(generation_date)s."
-#~ msgstr ""
-#~ "Ce rapport est à jour à partir "
-#~ "de %(generation_time)s le %(generation_date)s."
-
-#~ msgid ""
-#~ "<p>A program of public health "
-#~ "surveillance is being implemented in "
-#~ "%(clinic_num)s outpatient clinics in "
-#~ "%(project_region)s, in partnership with WHO"
-#~ " and Ministry of Health. The project"
-#~ " introduces case-based, integrated disease"
-#~ " surveillance of priority diseases, "
-#~ "conditions and events.</p>\n"
-#~ "          <p>The clinician uses the "
-#~ "system within the consultation, which "
-#~ "introduces clinical-decision support as "
-#~ "well as best practice prescribing "
-#~ "guidance and and real-time reporting "
-#~ "of information. Information is made "
-#~ "available within one hour via an "
-#~ "online framework with automated generation "
-#~ "of SMS and email alerts and "
-#~ "support for mapping and reporting.</p>"
-#~ msgstr ""
-#~ "<p>Un programme de surveillance de la"
-#~ " santé publique est mise en œuvre "
-#~ "en %(project_region)s, en partenariat avec "
-#~ "l'OMS et le Ministère de la Santé."
-#~ " Le projet introduit la surveillance "
-#~ "intégrée de la maladies.</p>\n"
-#~ "          <p>Le clinicien utilise le "
-#~ "système dans la consultation, qui "
-#~ "introduit un soutien clinique de "
-#~ "décision pour la santé des enfants, "
-#~ "ainsi que la meilleure orientation "
-#~ "pratique de prescription et des rapports"
-#~ " en temps réel des informations. "
-#~ "L'information est mise à disposition "
-#~ "dans l'heure par l'intermédiaire d'un "
-#~ "cadre en ligne avec la génération "
-#~ "automatique des alertes SMS et e-mail"
-#~ " et le soutien pour la cartographie"
-#~ " et l'information.</p>"
-
-#~ msgid " Age"
-#~ msgstr " Âge"
 

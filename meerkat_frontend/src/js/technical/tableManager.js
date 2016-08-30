@@ -624,7 +624,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
             }
        
         }
-		$(headerID).html(i18n.gettext('Non Reporting Clinics'));
+		$(headerID).html(i18n.gettext('Clinics not reporting'));
         columns = [
             {
                 "field": "location",
@@ -642,7 +642,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
                     };
                     dataPrepared.push(datum);
                 }
-			$(headerID).html(i18n.gettext('Dates Not Reported'));
+			$(headerID).html(i18n.gettext('Dates not reported'));
             columns = [
                 {
                     "field": "date",

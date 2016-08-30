@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-08-30 08:50+0000\n"
+"POT-Creation-Date: 2016-08-30 15:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -397,6 +397,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/pip.html:59
 #: meerkat_frontend/src/files/pages/services.html:108
 #: meerkat_frontend/src/js/explore/explore.js:338
+#: meerkat_frontend/src/js/technical/chartManager.js:350
 #: meerkat_frontend/src/js/technical/tableManager.js:34
 #: meerkat_frontend/src/js/technical/tableManager.js:35
 #: meerkat_frontend/src/js/technical/tableManager.js:139
@@ -438,6 +439,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/completeness.html:93
 #: meerkat_frontend/src/files/pages/completeness.html:96
 #: meerkat_frontend/src/files/pages/completeness2.html:106
+#: meerkat_frontend/src/js/technical/chartManager.js:360
 msgid "Completeness"
 msgstr ""
 
@@ -447,11 +449,11 @@ msgstr ""
 
 #: meerkat_frontend/src/files/pages/completeness.html:98
 #: meerkat_frontend/src/js/technical/tableManager.js:627
-msgid "Non Reporting Clinics"
+msgid "Clinics not reporting"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/completeness.html:99
-msgid "Completeness for all Clinics"
+msgid "Completeness by clinic"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/completeness2.html:109
@@ -785,7 +787,7 @@ msgid "Type:"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/tableManager.js:645
-msgid "Dates Not Reported"
+msgid "Dates not reported"
 msgstr ""
 
 #: meerkat_frontend/templates/base.html:14

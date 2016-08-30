@@ -347,7 +347,7 @@ function drawCompletenessGraph( containerID, regionID ){
                 legend:{ enabled:false },
                 xAxis: {
                     title: {
-                        text: 'EPI week'
+                        text: i18n.gettext('Week')
                     },
                     labels: {
                         overflow: 'justify'
@@ -357,8 +357,11 @@ function drawCompletenessGraph( containerID, regionID ){
                 yAxis: {
                     max: 100,
                     title: {
-                        text: 'Completness'
+                        text: i18n.gettext('Completeness')
                     },
+					labels: {
+						format: '{value}%'
+					},
                     minorGridLineWidth: 0,
                     gridLineWidth: 0,
                     alternateGridColor: null,
