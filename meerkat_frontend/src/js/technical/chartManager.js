@@ -318,19 +318,20 @@ function drawCompletenessGraph( containerID, regionID ){
                 var noWeeks = tl.weeks.length;
                 var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
                 //dropping the very last week in the data since we can only estimate it's completeness
-                for (var j = 1; j < noWeeks; j++){
-                    dt = [weeks[noWeeks - j],Number(Number(10 * (tl.values[j-1] + tl.values[j])).toFixed(0))];
+                for (var j = 0; j < noWeeks; j++){
+                    dt = [weeks[noWeeks - j -1],Number(Number(20 * (tl.values[j])).toFixed(0))];
                     dtReady.push(dt);
                          }
 
                 var datum = {
                     name: locations[index].name,
                     data: dtReady,
-                    color: 'grey'
+                    color: 'lightgrey'
                 };
 
                 if(locations[index].id === regionID){ //parent location
-                    datum.color= 'rgb(100,0,221)';
+                    datum.color= 'blue';
+                    datum.lineWidth='5';
                 }
                 timeseries.push(datum);
             }
@@ -393,17 +394,17 @@ function drawCompletenessGraph( containerID, regionID ){
                         pointStart:0,
                         events: {
                             mouseOver: function () {
-                                if(this.chart.series[this.index].color === 'grey'){
+                                if(this.chart.series[this.index].color === 'lightgrey'){
                                     this.chart.series[this.index].update({
-                                        color: 'blue'
+                                        color: 'purple'
                                     });
                                 }
                             },
                             //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
                             mouseOut: function () {
-                                if(this.chart.series[this.index].color === 'blue'){
+                                if(this.chart.series[this.index].color === 'purple'){
                                     this.chart.series[this.index].update({
-                                        color: "grey"
+                                        color: "lightgrey"
                                     });
                                 }
                             }
