@@ -356,7 +356,8 @@ function drawCompletenessGraph( containerID, regionID ){
                     allowDecimals: false
                 },
                 yAxis: {
-                    max: 100,
+                    max: 105,
+                    min: 0,
                     title: {
                         text: i18n.gettext('Completeness')
                     },
@@ -376,7 +377,7 @@ function drawCompletenessGraph( containerID, regionID ){
                         color: 'rgba(255, 255, 0, 0.5)'
                     }, { // GREEN
                         from: 80,
-                        to: 100,
+                        to: 105,
                         color: 'rgba(0, 128, 0,0.5)'
                     }]
                 },
