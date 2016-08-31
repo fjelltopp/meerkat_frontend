@@ -3,7 +3,7 @@ homepage.py
 
 A Flask Blueprint module for the homepage.
 """
-from flask import Blueprint, render_template, current_app, abort, g
+from flask import Blueprint, render_template, current_app, abort, g, request
 from flask.ext.babel import get_translations, gettext
 import requests
 
