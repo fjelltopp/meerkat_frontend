@@ -529,7 +529,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
  */
 function drawAllClinicsCompleteness( containerID, regionID ){
 $.getJSON( api_root+"/locations", function( locations ){
-    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
         // console.log(locations);
         // console.log(locations[regionID]);
         // if (locations[regionID].level === "clinic")
@@ -641,7 +641,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
 				
 			});
         }else{
-			$.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+			$.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
             for (var j=0; j<data.dates_not_reported.length;j++){
                 strDat = data.dates_not_reported[j];
                     datum = {
@@ -689,7 +689,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
 function drawCompletenessTable( containerID, regionID ){
 
 $.getJSON( api_root+"/locations", function( locations ){
-    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
         var dataPrepared = [];
         var scoreKeys = Object.keys(data.score);
         var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name

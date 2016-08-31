@@ -266,7 +266,8 @@ function drawTimeChart( varID, locID, containerID ){
     },
     title: '',
     xAxis: {
-      categories: labels,
+
+		categories: labels,
       title: {
         text: i18n.gettext('Epidemiological Week')
       }
@@ -304,7 +305,7 @@ function drawTimeChart( varID, locID, containerID ){
 */
 function drawCompletenessGraph( containerID, regionID ){
     $.getJSON( api_root+"/locations", function( locations ){
-        $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
+        $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
             //create a data series for each location
             var dataPrepared = [];
             var timeseries = [];
@@ -320,7 +321,7 @@ function drawCompletenessGraph( containerID, regionID ){
 	
                 //dropping the very last week in the data since we can only estimate it's completeness
                 for (var j = 0; j < noWeeks; j++){
-                    dt = [weeks[noWeeks - j],Number(Number(20 * (tl.values[j])).toFixed(0))];
+                    dt = [weeks[noWeeks - j],Number(Number(25 * (tl.values[j])).toFixed(0))];
                     dtReady.push(dt);
                 }
 				var datum = {
