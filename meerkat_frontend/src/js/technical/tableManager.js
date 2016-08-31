@@ -751,37 +751,40 @@ $.getJSON( api_root+"/locations", function( locations ){
 
 }
 
-function createCompletenessCellTab(parentLocation){
+function createCompletenessCellTab(parentLocationRowID){
     // Returns a function that colours in the cells according to their value
     function cc2(value, row, index, columns){
         var valueStripped = value.split('%')[0];
         var par = false;
-        if (row.id == parentLocation){
-            par = true;
-        }
         if (typeof valueStripped == 'undefined'){
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
+        if (row.id == parentLocationRowID){
+            par = true;
+        }
+        if (typeof parentLocationRowID == 'undefined'){
+            par = false;
+        }
         if(isNaN(valueStripped)){
             if(par){
-                return {css: {"font-weight": "bold","background-color": "#0090CA"}};
+                return {css: {"font-weight": "bold","background-color": "rgba(0, 144, 202, 0.6)"}};
             }
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
         if(valueStripped < 50){//red
             if(par){
-                return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color":"#0090CA"}};
+                return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color":"rgba(0, 144, 202, 0.6)"}};
             }
             return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold"}};
         }
         if(valueStripped < 80){//yellow
             if(par){
-                return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color": "#0090CA"}};
+                return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color":"rgba(0, 144, 202, 0.6)"}};
             }
             return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold"}};
         }
         if(par){
-            return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color": "#0090CA"}};
+            return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color":"rgba(0, 144, 202, 0.6)"}};
         }
         return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold"}};
     }
