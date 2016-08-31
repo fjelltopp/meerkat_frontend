@@ -767,24 +767,24 @@ function createCompletenessCellTab(parentLocationRowID){
         }
         if(isNaN(valueStripped)){
             if(par){
-                return {css: {"font-weight": "bold","background-color": "#0090CA"}};
+                return {css: {"font-weight": "bold","background-color": "rgba(0, 144, 202, 0.6)"}};
             }
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
         }
         if(valueStripped < 50){//red
             if(par){
-                return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color":"#0090CA"}};
+                return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold","background-color":"rgba(0, 144, 202, 0.6)"}};
             }
             return {css: {"color": "rgba(255, 0, 0, 1)", "font-weight": "bold"}};
         }
         if(valueStripped < 80){//yellow
             if(par){
-                return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color": "#0090CA"}};
+                return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold","background-color":"rgba(0, 144, 202, 0.6)"}};
             }
             return {css: {"color": "rgba(128, 128, 0, 1)", "font-weight": "bold"}};
         }
         if(par){
-            return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color": "#0090CA"}};
+            return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold","background-color":"rgba(0, 144, 202, 0.6)"}};
         }
         return {css: {"color": "rgba(0, 128, 0, 1)", "font-weight": "bold"}};
     }
