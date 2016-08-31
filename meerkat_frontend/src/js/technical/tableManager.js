@@ -609,7 +609,6 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
         var dataPrepared = [];
         var columns = [];
         var datum = [];
-
         if(locations[regionID].level != "clinic"){//no information aboout reporting clinic
 			$.getJSON( api_root+"/non_reporting/reg_1/" + regionID, function( data ){
 				for (var i=0; i<data.clinics.length;i++){
@@ -618,6 +617,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
 					};
 					dataPrepared.push(datum);
 				}
+
 
 				$(headerID).html(i18n.gettext('Clinics not reporting'));
 				columns = [
@@ -629,6 +629,16 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
 						sortable: true,
 						width : "100%"
 					}];
+				$('#' + containerID + ' table').bootstrapTable('destroy');
+				$('#' + containerID + ' table').remove();
+				$('#' + containerID ).append('<table class="table"></table>');
+				var table = $('#' + containerID + ' table').bootstrapTable({
+					columns: columns,
+					data: dataPrepared,
+					classes: 'table-no-bordered table-hover'
+				});
+				return table;
+				
 			});
         }else{
 			$.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
@@ -648,18 +658,19 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
                     sortable: true,
                     width : "100%"
                 }];
+				$('#' + containerID + ' table').bootstrapTable('destroy');
+				$('#' + containerID + ' table').remove();
+				$('#' + containerID ).append('<table class="table"></table>');
+				var table = $('#' + containerID + ' table').bootstrapTable({
+					columns: columns,
+					data: dataPrepared,
+					classes: 'table-no-bordered table-hover'
+				});
+				return table;
+
 			});
 		}
 
-        $('#' + containerID + ' table').bootstrapTable('destroy');
-        $('#' + containerID + ' table').remove();
-        $('#' + containerID ).append('<table class="table"></table>');
-	      var table = $('#' + containerID + ' table').bootstrapTable({
-            columns: columns,
-            data: dataPrepared,
-            classes: 'table-no-bordered table-hover'
-        });
-	      return table;
 
 
 }); // getJSON locations
@@ -681,7 +692,7 @@ $.getJSON( api_root+"/locations", function( locations ){
     $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/5", function( data ){
         var dataPrepared = [];
         var scoreKeys = Object.keys(data.score);
-        var parentLocation  = locations[scoreKeys[0]].name; //string containg parentLocation name
+        var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name
         console.log("par:" + parentLocation);
         var index = 0;
         for (var i=0; i<scoreKeys.length;i++){
@@ -691,6 +702,7 @@ $.getJSON( api_root+"/locations", function( locations ){
             //     ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
             loc = locations[index].name;
             var datum = {
+				"id": index,
                 "location": loc,
                 "completeness": Number(data.score[index]).toFixed(0) + "%"
             };
@@ -726,11 +738,12 @@ $.getJSON( api_root+"/locations", function( locations ){
         $('#' + containerID ).append('<table class="table"></table>');
 	      var table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
-            data: dataPrepared,
-            classes: 'table-no-bordered table-hover',
-            sortName: 'completeness',
-            sortOrder: 'desc'
-        });
+              data: dataPrepared,
+			  idField: "id",
+              classes: 'table-no-bordered table-hover',
+              sortName: 'completeness',
+              sortOrder: 'desc'
+          });
 	      return table;
 
     });//getJSON
@@ -743,7 +756,7 @@ function createCompletenessCellTab(parentLocation){
     function cc2(value, row, index, columns){
         var valueStripped = value.split('%')[0];
         var par = false;
-        if (row.location == parentLocation){
+        if (row.id == parentLocation){
             par = true;
         }
         if (typeof valueStripped == 'undefined'){
