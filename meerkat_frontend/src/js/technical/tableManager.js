@@ -751,16 +751,19 @@ $.getJSON( api_root+"/locations", function( locations ){
 
 }
 
-function createCompletenessCellTab(parentLocation){
+function createCompletenessCellTab(parentLocationRowID){
     // Returns a function that colours in the cells according to their value
     function cc2(value, row, index, columns){
         var valueStripped = value.split('%')[0];
         var par = false;
-        if (row.id == parentLocation){
-            par = true;
-        }
         if (typeof valueStripped == 'undefined'){
             return {css: {"color": "rgba(0, 0, 0, 1)"}};
+        }
+        if (row.id == parentLocationRowID){
+            par = true;
+        }
+        if (typeof parentLocationRowID == 'undefined'){
+            par = false;
         }
         if(isNaN(valueStripped)){
             if(par){
