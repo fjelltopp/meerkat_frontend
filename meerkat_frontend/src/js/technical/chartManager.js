@@ -356,7 +356,7 @@ function drawCompletenessGraph( containerID, regionID ){
                     allowDecimals: false
                 },
                 yAxis: {
-                    max: 105,
+                    max: 100,
                     min: 0,
                     title: {
                         text: i18n.gettext('Completeness')
