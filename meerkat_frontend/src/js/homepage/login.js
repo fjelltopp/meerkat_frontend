@@ -11,7 +11,7 @@ function login(loginURL, redirectURL){
             'username': $('input[name=username]').val(),
             'password': $('input[name=password]').val()
         };
-        console.log( formArray );
+
         //Post json to server.
         $.ajax({
             url: loginURL,
@@ -23,7 +23,6 @@ function login(loginURL, redirectURL){
                 if( data.hasOwnProperty( 'message' ) ){
                     alert( data.message );
                 }else{
-                    console.log( data );
                     alert( i18n.gettext("There has been a server error. " + 
                                         "Please contact administrator and try again later.") );
                 }
