@@ -78,6 +78,7 @@ body.homepage{
 }
 
 
+
 #map-home{
 
 	.overlay{
@@ -488,7 +489,7 @@ a:hover{
 
 }
 
-.login{ 
+.login { 
 
     label{
         display: block;
@@ -525,25 +526,44 @@ a:hover{
         padding: 7px 5px 4px 10px;
     }
 
-    .lang-sel{ 
-        margin: 0px;  
+    .login-box-holder{
+        .lang-sel{ 
+            margin: 0px;  
+        }
+
+        .lang{
+            position: relative;
+            top: -3px;
+            right: -2px;
+            background: $blue;
+            color: #FFF;
+            font-size: 14px;
+            border: 1px solid $blue;
+        }
+
+        .lang:hover{
+          background: $highlight;
+          color: white;
+          text-decoration: none;
+          border: 1px solid $highlight;
+        }
     }
 
-    .lang{
-        position: relative;
-        top: -3px;
-        right: -2px;
-        background: $blue;
-        color: #FFF;
-        font-size: 14px;
-        border: 1px solid $blue;
+    #map{
+        height:100vh;
     }
 
-    .lang:hover{
-      background: $highlight;
-      color: white;
-      text-decoration: none;
-      border: 1px solid $highlight;
+    .page{
+        position:relative;
+    }
+
+    .overlay{
+        position: absolute;
+        top: 40px;
+        width: 100%;
+        .row{
+            margin: 0px;
+        }
     }
 }
 

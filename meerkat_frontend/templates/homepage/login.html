@@ -11,12 +11,39 @@
   </script>
   {% block head %} {% endblock %}
 </head>
-<body class="blue">
-
-<div class="login-title"> {{content.country}} {{_('Public Health Surveillance') }}</div>
-<div class="breaker"></div>
+<body class="login">
+ <!-- NAVBAR -->
+  <nav class="navbar navbar-fixed-top">
+    <div class="container navmenu">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
+          <span class="sr-only">{{ _('Toggle navigation') }}</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand scroll-top" href="#">
+          <img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> </img>
+          <span class="hidden-xs hidden-sm">{{_(content.titles.nav|safe)}}</span>
+          <span class="visible-xs visible-sm">{{_(content.titles.mob_nav|safe)}}</span>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="menu-collapse" >
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="/{{g.get('language')}}/" >{{ _('Home') }}</a>
+            </li>
+        </ul>
+        <div class="lang-sel"></div>
+      </div>
+    </div>
+  </nav>
+<div calss="page">
+<div id="map" class="screen"></div>
+<div class="overlay">
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
+    <div class="breaker"> </div>    
 	 <ul class='container flashes'>
 	 {% for category, message in messages %}
 	   <li>
@@ -33,12 +60,12 @@
     <div id="base-breaker" class="breaker"> </div>
   {% endif %}
 {% endwith %}
+
 <div class="row">
 	<div class="login-box-holder">
 		<div class="login box chartBox">
 			<div class="chartBox__heading">
 				{{ _('Login') }}
-                <div class="lang-sel pull-right"></div>
 			</div>
             
 			<div class="chartBox__content" >
@@ -58,36 +85,49 @@
 		</div>
 	</div>
 </div>
+</div>
+</div>
 </body>
 </html>
 {% include 'includes/js.html' %}
 {% block pageJS %}
 <script>
+    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+    var map = L.mapbox.map('map', 'mrjb.143811c9', { zoomControl:false });
+    var viewingMap = false;
+    map.setView(
+        [{{content.map.center.lat}}, {{content.map.center.lng}}], 
+        {{content.map.zoom}}
+    );
+    map.dragging.disable();
+    map.touchZoom.disable();
+    map.doubleClickZoom.disable();
+    map.scrollWheelZoom.disable();
 $('input.submit').click( function(){
     var formArray = {
         'username': $('input[name=username]').val(),
         'password': $('input[name=password]').val()
     }
     console.log( formArray );
-    //Post json to server.
-    $.ajax({
-        url: '{{auth_root}}/api/login',
-        type: 'post',
-        success: function (data) {
-            alert( data );
-            parent.location.replace( "{{redirect}}");
-        },
-        error: function (data) {
-            if( data.hasOwnProperty( 'message' ) ){
-                alert( data.message );
-            }else{
-                alert( i18n.gettext("There has been a server error. " + 
-                                    "Please contact administrator and try again later.") );
-            }
-        },
-        contentType: 'application/json;charset=UTF-8',
-        data: JSON.stringify(formArray, null, '\t')
-    });
+
+//Post json to server.
+        $.ajax({
+            url: "{{content.auth_root}}/api/login",
+            type: 'post',
+            success: function (data) {
+                parent.location.replace( "{{redirect}}" );
+            },
+            error: function (data) {
+                if( data.hasOwnProperty( 'message' ) ){
+                    alert( data.message );
+                }else{
+                    alert( i18n.gettext("There has been a server error. " + 
+                                        "Please contact administrator and try again later.") );
+                }
+            },
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(formArray, null, '\t')
+        });
 });
 </script>
 {% endblock %}
