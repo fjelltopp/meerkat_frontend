@@ -49,7 +49,7 @@ def authenticate():
     'You have to login with proper credentials', 401,
     {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
-def api(url, require_api_key=False):
+def api(url, api_key=False):
     """Returns JSON data from API request.
 
        Args:
@@ -67,7 +67,7 @@ def api(url, require_api_key=False):
         api_request = ''.join([current_app.config['INTERNAL_API_ROOT'], url])
         
         try:
-            if require_api_key:
+            if api_key:
                 headers = {'authorization': 'Bearer ' + auth.get_token()}
                 r = requests.get(
                     api_request,

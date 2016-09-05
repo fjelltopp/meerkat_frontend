@@ -146,6 +146,12 @@ def error500(error):
     flash("Sorry, something appears to have gone wrong.", "error")
     return render_template('error.html', error=error, content=current_app.config['TECHNICAL_CONFIG']), error.code
 
+@app.errorhandler(401)
+def error401(error):
+    """Show the login page if the user hasn't authenticated."""
+    flash( error.description )
+    redirect("/" + g.language+"/login")
+
 # Main
 if __name__ == "__main__":
     app.run(host="localhost", port="8080", debug=True, reloader=True)
