@@ -20,6 +20,10 @@ body.reports, body.htmlreport{
 	.reports-form{
 		min-height: 450px;
 	}
+    
+    footer{
+        padding-bottom:0px;
+    }
 
 }
 
@@ -28,7 +32,7 @@ body.reports, body.htmlreport{
 	padding: 10px 0;
 }
 
-.centered, .centered th{
+.centered, table.centered th{
   text-align: center;
 }
 
@@ -247,3 +251,5 @@ table.refugee.small{
     height: 50px;
     margin: 0 10px 0 15px;
 }
+
+

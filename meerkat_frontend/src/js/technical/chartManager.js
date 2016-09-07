@@ -232,6 +232,9 @@ function drawTimeChart( varID, locID, containerID ){
 
   $.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
 
+      console.log('DRAW TIME CHART');
+      console.log('Time series data for diseases:');
+      console.log(data);
     var labels = [];
     var values = [];
 
@@ -263,7 +266,8 @@ function drawTimeChart( varID, locID, containerID ){
     },
     title: '',
     xAxis: {
-      categories: labels,
+
+		categories: labels,
       title: {
         text: i18n.gettext('Epidemiological Week')
       }
@@ -289,6 +293,139 @@ function drawTimeChart( varID, locID, containerID ){
     $( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
   });
 
+}
+
+/**:drawCompletenessGraph( containerID, locID )
+
+   Draws a timeline line chart showing the percentage of overall completeness and completeness for each clinic in each epi week this current year.
+   :param string containerID:
+   The ID of the HTML element to hold the chart.
+   :param string locID:
+   The ID of the location by which to filter the data.
+*/
+function drawCompletenessGraph( containerID, regionID ){
+    $.getJSON( api_root+"/locations", function( locations ){
+        $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+            //create a data series for each location
+            var dataPrepared = [];
+            var timeseries = [];
+            var scoreKeys = Object.keys(data.timeline);
+            var index = 0;
+            for (var i=0; i<scoreKeys.length;i++){
+                index = scoreKeys[scoreKeys.length - i -1];
+                tl = data.timeline[index];
+                var dt = [];
+                var dtReady = [];
+                var noWeeks = tl.weeks.length;
+                var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
+	
+                //dropping the very last week in the data since we can only estimate it's completeness
+                for (var j = 0; j < noWeeks; j++){
+                    dt = [weeks[noWeeks - j],Number(Number(25 * (tl.values[j])).toFixed(0))];
+                    dtReady.push(dt);
+                }
+				var datum = {
+                    name: locations[index].name,
+                    data: dtReady,
+                    color: 'lightgrey'
+                };
+
+                if(locations[index].id === regionID){ //parent location
+                    datum.color= '#0090CA';
+                    datum.lineWidth='5';
+                }
+                timeseries.push(datum);
+            }
+
+            //hovering should give all the information about given clinick and sublocation
+            $('#' + containerID).highcharts({
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: ''
+                },
+                legend:{ enabled:false },
+                xAxis: {
+                    title: {
+                        text: i18n.gettext('Week')
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    },
+                    allowDecimals: false
+                },
+                yAxis: {
+                    max: 100,
+                    min: 0,
+                    title: {
+                        text: i18n.gettext('Completeness')
+                    },
+					labels: {
+						format: '{value}%'
+					},
+                    minorGridLineWidth: 0,
+                    gridLineWidth: 0,
+                    alternateGridColor: null,
+                    plotBands: [{ //RED
+                        from: 0,
+                        to: 50,
+                        color: 'rgba(255, 0, 0, 0.5)'
+                    }, { //YELLOW
+                        from: 50,
+                        to: 80,
+                        color: 'rgba(255, 255, 0, 0.5)'
+                    }, { // GREEN
+                        from: 80,
+                        to: 105,
+                        color: 'rgba(0, 128, 0,0.5)'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: '%'
+                },
+                plotOptions: {
+                    spline: {
+                        lineWidth: 3,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineWidth: 5
+                            }
+                        },
+                        marker: {
+                            enabled: false
+                        },
+                        pointStart:0,
+                        events: {
+                            mouseOver: function () {
+                                if(this.chart.series[this.index].color === 'lightgrey'){
+                                    this.chart.series[this.index].update({
+                                        color: '#D9692A'
+                                    });
+                                }
+                            },
+                            //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
+                            mouseOut: function () {
+                                if(this.chart.series[this.index].color === '#D9692A'){
+                                    this.chart.series[this.index].update({
+                                        color: "lightgrey"
+                                    });
+                                }
+                            }
+                        }
+                    }
+                },
+                series: timeseries,
+                navigation: {
+                    menuItemStyle: {
+                        fontSize: '10px'
+                    }
+                }
+            }); //highchart
+
+        });//getJSON completeness
+    });//getJSON locations
 }
 
 Highcharts.setOptions({
