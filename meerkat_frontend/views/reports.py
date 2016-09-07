@@ -507,7 +507,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     if( start_date != None ): api_request += '/' + start_date
 
     data = c.api(api_request, api_key=True)
-    
+
     data["flag"] = config["FLAGG_ABR"]
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:
