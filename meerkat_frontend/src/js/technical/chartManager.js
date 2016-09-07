@@ -238,7 +238,7 @@ function drawTimeChart( varID, locID, containerID ){
     var labels = [];
     var values = [];
 
-    for( var i = 1; i <= get_epi_week(); i++ ){
+    for( var i = 1; i <= 52; i++ ){
 
       labels.push(i.toString());
 
