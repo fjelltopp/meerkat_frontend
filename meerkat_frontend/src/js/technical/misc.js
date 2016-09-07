@@ -24,7 +24,6 @@ function get_epi_week(){
 function get_date(){
 
     date=new Date();
-    date=new Date(date.getTime()-3600*24*1000);
     var monthNames = [ i18n.gettext("January"), i18n.gettext("February"), i18n.gettext("March"), i18n.gettext("April"), 
                        i18n.gettext("May"), i18n.gettext("June"), i18n.gettext("July"), i18n.gettext("August"), i18n.gettext("September"), 
                        i18n.gettext("October"), i18n.gettext("November"), i18n.gettext("December") ];
