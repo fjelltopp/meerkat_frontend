@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>{{ _('Authentication and User Management | Meerkat Public Health Surveillance') }}</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" />
+  <script>
+  language = "{{g.get('language')|safe}}";
+  </script>
+  {% block head %} {% endblock %}
+</head>
+<body class="login">
+ <!-- NAVBAR -->
+  <nav class="navbar navbar-fixed-top">
+    <div class="container navmenu">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
+          <span class="sr-only">{{ _('Toggle navigation') }}</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand scroll-top" href="#">
+          <img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> </img>
+          <span class="hidden-xs hidden-sm">{{_(content.titles.nav|safe)}}</span>
+          <span class="visible-xs visible-sm">{{_(content.titles.mob_nav|safe)}}</span>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="menu-collapse" >
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="/{{g.get('language')}}/" >{{ _('Home') }}</a>
+            </li>
+        </ul>
+        <div class="lang-sel"></div>
+      </div>
+    </div>
+  </nav>
+<div calss="page">
+<div id="map" class="screen"></div>
+<div class="overlay">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="breaker"> </div>    
+	 <ul class='container flashes'>
+	 {% for category, message in messages %}
+	   <li>
+			<div class="frame {{category}}">
+				<span class="glyphicon glyphicon-alert" ></span>
+				<div class='text'>
+					{{ _(message) }}
+				</div>
+			</div>
+		</li>
+	 {% endfor %}
+	 </ul>
+  {% else %}
+    <div id="base-breaker" class="breaker"> </div>
+  {% endif %}
+{% endwith %}
+
+<div class="row">
+	<div class="login-box-holder">
+		<div class="login box chartBox">
+			<div class="chartBox__heading">
+				{{ _('Login') }}
+			</div>
+            
+			<div class="chartBox__content" >
+				<form id="login-form" class="login-form">
+                    <div class="form-group"></div>
+                    <div class="form-group">
+                        <label>{{_('Username')}}</label>
+                        <input type="text" class="text" name="username" />
+                    </div>
+                    <div class="form-group">
+                        <label>{{_('Password')}}</label>
+                        <input type="password" class="text" name="password" />
+                    </div>
+                    <input type="button" value="Login" class="submit pull-right" />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+{% include 'includes/js.html' %}
+{% block pageJS %}
+<script>
+    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+    var map = L.mapbox.map('map', 'mrjb.143811c9', { zoomControl:false });
+    var viewingMap = false;
+    map.setView(
+        [{{content.map.center.lat}}, {{content.map.center.lng}}], 
+        {{content.map.zoom}}
+    );
+    map.dragging.disable();
+    map.touchZoom.disable();
+    map.doubleClickZoom.disable();
+    map.scrollWheelZoom.disable();
+$('input.submit').click( function(){
+    var formArray = {
+        'username': $('input[name=username]').val(),
+        'password': $('input[name=password]').val()
+    }
+    console.log( formArray );
+
+//Post json to server.
+        $.ajax({
+            url: "{{content.auth_root}}/api/login",
+            type: 'post',
+            success: function (data) {
+                parent.location.replace( "{{redirect}}" );
+            },
+            error: function (data) {
+                if( data.hasOwnProperty( 'message' ) ){
+                    alert( data.message );
+                }else{
+                    alert( i18n.gettext("There has been a server error. " + 
+                                        "Please contact administrator and try again later.") );
+                }
+            },
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(formArray, null, '\t')
+        });
+});
+</script>
+{% endblock %}

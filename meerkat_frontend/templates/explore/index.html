@@ -6,7 +6,7 @@
   <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
   <li class="active"><a href="/{{g.get('language')}}/explore/" >{{ _('Explore') }}</a></li>
   <li><a href="/{{g.get('language')}}/download/" >{{ _('Download') }}</a></li>
-  <li><a href="/"{{g.get("language")}} >{{ _('Log out') }}</a></li>
+  <li><a href="{{content.auth_root}}/api/logout?url=/{{g.get('language')}}" >{{ _('Log out') }}</a></li>
 </ul>
 {% endblock %}
 
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="chart-row">
                         <div class="box yaxis" >
                             <div class="axis-selector">
                             </div>
@@ -239,7 +239,6 @@ function drawCharts( locID ){
     reDraw();
 }
 
-
 function createKeepRemoved(){
      
    indices = []
@@ -273,11 +272,9 @@ function createKeepRemoved(){
      return checkRemove
  }
 
-
-
-     
- var removed = false;
- function toggleSelected(element){
+  
+var removed = false;
+function toggleSelected(element){
      console.log("toggle")
      var table = $(element).attr('table');
      if( $(element).attr('value') == 'shown' ){ 
@@ -424,7 +421,7 @@ function prepareExploreTimeline(id, axis){
     $('.timeline-option').each( function(){
         options[$(this).attr('name')] = $(this).attr('value');
     });
-     console.log(options)
+    console.log(options)
     if( axis == "x"){
         category = $('.yaxis .axis-selector select').val();
     } else {

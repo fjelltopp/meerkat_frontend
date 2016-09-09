@@ -44,7 +44,7 @@ SHARED_CONFIG = {
     "glossary":{
         "region":"kingdom"
     },
-   "api_key": "test-api"
+    "api_key": "test-api"
 }
 
 

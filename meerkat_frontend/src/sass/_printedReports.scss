@@ -6,6 +6,8 @@ $printedBlue: #337ab7;
 
 @media print {
 
+
+
 	//We only want this CSS to apply to html report pages.
 	body.htmlreport{
 
@@ -38,6 +40,7 @@ $printedBlue: #337ab7;
 		}
 
 		// MAP
+
 		#map {
 			display: none;
 		}
@@ -114,7 +117,7 @@ $printedBlue: #337ab7;
 		// FOOTER
 		footer{
 
-			padding: 0px 20px 20px;
+			padding: 0px 20px 0px;
 
 			.container-fluid{
 
@@ -130,6 +133,9 @@ $printedBlue: #337ab7;
 			.time-stamp{
 				text-align: right;
 			}
+            .row {
+                margin-bottom: 0px;
+            }
 
 		}
 
@@ -195,4 +201,18 @@ $printedBlue: #337ab7;
 		}
 
 	}
+    #ncd-map-row{
+        height:0px;
+        overflow: hidden;
+    }
+
 }
+
+    #ncd-chart-demographics{
+        height:300px;
+    }
+
+
+
+
+

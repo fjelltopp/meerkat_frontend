@@ -48,7 +48,8 @@
           </div>
         </div>
         <div class="techSiteBtn">
-			  <a type="button" class="btn btn-lg btn-default"  href="technical" target="_blank" >
+			  <a type="button" id="login" class="btn btn-lg btn-default" 
+                 onclick="login('{{content.auth_root}}/api/login', 'technical' ); return false;" >
 		       {{ _('Log in to the <br> 
 		       <H2> Technical Site') }}</H2> 
 		     </a>  

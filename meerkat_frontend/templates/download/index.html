@@ -7,7 +7,7 @@
   <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
   <li><a href="/{{g.get('language')}}/explore/" >{{ _('Explore') }}</a></li>
   <li class="active"><a href="/{{g.get('language')}}/download/" >{{ _('Download') }}</a></li>
-  <li><a href="/"{{g.get("language")}} >{{ _('Log out') }}</a></li>
+  <li><a href="{{content.auth_root}}/api/logout?url=/{{g.get('language')}}" >{{ _('Log out') }}</a></li>
 
 </ul>
 {% endblock %}
@@ -47,7 +47,7 @@
 								</select>
 							</div>
 							<div class="row">
-								<input type="submit" 
+								<input type="button" 
 									     class="submit btn btn-default btn-lg col-sm-offset-3" 
 									     value="{{ _('Download') }}">
 							</div>
@@ -130,11 +130,6 @@ var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
 $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
-
-$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
-});
-
 
 function toggleRawDownloader(){
     $("#raw_data_box .chartBox__heading").toggleClass("no-border");
@@ -302,20 +297,19 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		}
 	});
 
-	$('#prepared-data-download').submit( function(event){
+	$('#prepared-data-download .submit').click( function(event){
+        
 		//Assemble the appropriate API call.
-	        var dataSet = config.prepared[$('#prepared-selector').val()];
-                for (key in dataSet.fields){
-                    dataSet.fields[key][1] = i18n.gettext(dataSet.fields[key][1]);
-                }
+	    var dataSet = config.prepared[$('#prepared-selector').val()];
+        for (key in dataSet.fields){
+            dataSet.fields[key][1] = i18n.gettext(dataSet.fields[key][1]);
+        }
 		if( "name_category" in dataSet){			      
    	          var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
 		}else{
-		   var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields)
-		}			      
-	    url += "&api_key=" + config.api_key;
-            console.log(url)
-		window.open( url );
+		   var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
+		}
+        console.log(url);
 	});
 
 });
