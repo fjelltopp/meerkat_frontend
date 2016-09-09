@@ -43,20 +43,7 @@
         </div>
     </div>
   </div>
-  <!-- OVERVIEW MAP -->
-  <div class="col-sm-6" id="mapbox-panel" st>
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Map') }}</div>
-      <div class="chart-stage">
-          <div id="map"></div>
-          <div id="map-print">
-            <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
+
   <!-- PUBLIC HEALTH INDICATORS -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -85,6 +72,8 @@
       </div>
     </div>
   </div>
+</div>
+<div class="row">
   <!-- REPORTING SITES -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -94,15 +83,13 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="row">
   <!-- DEMOGRAPHICS -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Age Group') }}</div>
       <div class="chart-stage">
-        <div id="chart-demographics"></div>
+        <div id="ncd-chart-demographics"></div>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -124,6 +111,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="row">
   <!-- GENDER-->
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -151,8 +141,7 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row" style="page-break-after: always;">
+
   <!-- NATIONALITY -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -180,6 +169,8 @@
       </div>
     </div>
   </div>
+</div>
+<div class="row">
   <!-- STATUS -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -207,8 +198,7 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row">
+
     <!-- MORBIDITY NON-COMMUNICABLE DISEASE CD TAB-->
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -233,6 +223,20 @@
           </tr>
           {% endfor %}
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" id="ncd-map-row">
+  <!-- OVERVIEW MAP -->
+  <div class="col-sm-12" id="ncd-mapbox-panel">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Map') }}</div>
+      <div class="chart-stage">
+          <div id="map"></div>
+          <div id="map-print">
+            <img src="{{extras.static_map_url}}" alt="Map">
+          </div>
       </div>
     </div>
   </div>
@@ -298,7 +302,7 @@ $(function() {
       reportingSites.series,
       reportingSites.labels
     ));
-  $('#chart-demographics').highcharts(
+  $('#ncd-chart-demographics').highcharts(
     genderBarChart(
       demographicsAges.categories,
       demographicsAges.series,

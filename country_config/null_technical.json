@@ -23,10 +23,12 @@
     "template":"complaint.html" 
   },{
     "name":"Communicable Diseases",
-    "template":"diseases.html"
+    "template":"diseases.html",
+    "access":"cd"
   },{
     "name":"Non Communicable Diseases",
-    "template":"nc_diseases.html"
+    "template":"nc_diseases.html",
+    "access":"ncd"
   },{
     "name":"Alerts",
     "template":"alerts.html"
