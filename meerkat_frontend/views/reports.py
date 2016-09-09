@@ -124,7 +124,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
-    if report in report_list:
+    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         ret = create_report(
             config=current_app.config, 
@@ -198,7 +198,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
-    if report in report_list:
+    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         ret = create_report(
             config=current_app.config, 
@@ -358,7 +358,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         current_app.config['PDFCROWD_API_ACCOUNT'],
         current_app.config['PDFCROWD_API_KEY'])
     current_app.logger.warning('Report: ' + report )
-    if report in report_list:
+    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
         ret = create_report(
             config=current_app.config, 
             report=report, 
@@ -476,6 +476,7 @@ def validate_report_arguments(config, report, location=None, end_date=None, star
         except ValueError:
             return False
 
+    # If all checks were successful, return True
     return True
 
 
