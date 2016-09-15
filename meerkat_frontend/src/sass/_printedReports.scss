@@ -114,7 +114,7 @@ $printedBlue: #337ab7;
 		// FOOTER
 		footer{
 
-			padding: 0px 20px 20px;
+			padding: 0px 20px 0px;
 
 			.container-fluid{
 
@@ -130,6 +130,9 @@ $printedBlue: #337ab7;
 			.time-stamp{
 				text-align: right;
 			}
+            .row {
+                margin-bottom: 0px;
+            }
 
 		}
 
@@ -195,4 +198,9 @@ $printedBlue: #337ab7;
 		}
 
 	}
+
+
 }
+    body.non_communicable_diseases{
+        font-size: 0.3em;
+    }
