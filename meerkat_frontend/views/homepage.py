@@ -17,7 +17,7 @@ def index():
 
 @homepage.route('/login')
 def login():
-    url = request.args.get('url', '/en/technical')
+    url = request.args.get('url', '/')
     return render_template(
         'homepage/login.html', 
         content=current_app.config['HOMEPAGE_CONFIG'],

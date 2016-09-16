@@ -154,8 +154,7 @@ def error500(error):
 def error401(error):
     """Show the login page if the user hasn't authenticated."""
     flash( error.description )
-    app.logger.warning( "Error handler: " + str(error.description) )
-    return redirect("/" + g.language+"/login?url=" + str(request.path))
+    redirect("/" + g.language+"/login")
 
 # Main
 if __name__ == "__main__":
