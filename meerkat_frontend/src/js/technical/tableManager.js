@@ -564,6 +564,7 @@ $.getJSON( api_root+"/locations", function( locations ){
             dataPrepared.push(datum);
         }
 
+
         var columns = [
             {
                 "field": "location",

@@ -6,6 +6,8 @@ $printedBlue: #337ab7;
 
 @media print {
 
+
+
 	//We only want this CSS to apply to html report pages.
 	body.htmlreport{
 
@@ -38,6 +40,7 @@ $printedBlue: #337ab7;
 		}
 
 		// MAP
+
 		#map {
 			display: none;
 		}
@@ -199,8 +202,15 @@ $printedBlue: #337ab7;
 
 	}
 
+    #ncd-map-row{
+        height:0px;
+        overflow: hidden;
+    }
 
 }
-    body.non_communicable_diseases{
-        font-size: 0.3em;
+
+    #ncd-chart-demographics{
+        height:300px;
     }
+
+
