@@ -10,7 +10,7 @@ from flask import current_app, abort, send_file, Response, request
 import requests
 import json, os
 from requests.auth import HTTPBasicAuth
-import authorise as auth
+
 
 def check_auth(username, password):
     """This function is called to check if a username / password combination is valid.
