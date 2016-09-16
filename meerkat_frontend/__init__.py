@@ -136,6 +136,7 @@ def error_test(error):
 
 @app.errorhandler(403)
 @app.errorhandler(404)
+@app.errorhandler(401)
 @app.errorhandler(410)
 @app.errorhandler(418)
 @app.errorhandler(500)
@@ -149,12 +150,6 @@ def error500(error):
     """
     flash("Sorry, something appears to have gone wrong.", "error")
     return render_template('error.html', error=error, content=current_app.config['TECHNICAL_CONFIG']), error.code
-
-@app.errorhandler(401)
-def error401(error):
-    """Show the login page if the user hasn't authenticated."""
-    flash( error.description )
-    redirect("/" + g.language+"/login")
 
 # Main
 if __name__ == "__main__":
