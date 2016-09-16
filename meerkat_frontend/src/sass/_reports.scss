@@ -99,20 +99,19 @@ form.reports-form .download-buttons input{
   background: $lightGrey;
 }
 
-table{
-    .key{
-      text-align: left;
-      border-right: 2px solid #ddd;
-    }
-
-    .value{
-      border-right: 2px solid #ddd;
-    }
-
-    .value-percentage{
-	    white-space: nowrap;
-    }
+.key{
+  text-align: left;
+  border-right: 2px solid #ddd;
 }
+
+.value{
+  border-right: 2px solid #ddd;
+}
+
+.value-percentage{
+	white-space: nowrap;
+}
+
 
 .total{
   border-right: 2px solid #ddd;
