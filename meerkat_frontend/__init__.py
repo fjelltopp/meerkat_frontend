@@ -136,7 +136,6 @@ def error_test(error):
 
 @app.errorhandler(403)
 @app.errorhandler(404)
-@app.errorhandler(401)
 @app.errorhandler(410)
 @app.errorhandler(418)
 @app.errorhandler(500)
