@@ -314,6 +314,7 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		}else{
 		   var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
 		}
+		window.open(url);
         console.log(url);
 	});
 
