@@ -357,7 +357,7 @@ function drawAlertsTable(containerID, alerts, variables){
 						}
 						central_review_date = alert.variables.cre_1.split("T")[0] ;
 					}
-					table += '<td>' + alert.variables.ale_1.to_date.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
+					table += '<td>' + alert.variables.ale_1.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
 				}else{
 					table += '<td>-</td><td>-</td><td>'+i18n.gettext('Pending') +'</td></tr>';
 				}
@@ -476,59 +476,50 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 		            '<th>' + i18n.gettext('Clinic') + '</th><th>' +i18n.gettext('Date Reported') +'</th><th>' + i18n.gettext('Follow-up completed') +'</th><th>' + i18n.gettext('Laboratory Results') + '</th><th>' + i18n.gettext('Status') +'</th>' + '</tr>';
 
 		$.getJSON( api_root + "/records/" + variable_id + "/" + location_id, function( case_dict ){
-			$.getJSON( api_root + "/links/" + link_def_id_labs, function( links_dict_labs ){
-				$.getJSON( api_root + "/links/" + link_def_id_return, function( links_dict_return ){
-					var cases = case_dict.records;
-					var labs = links_dict_labs.links;
-					var return_visits = links_dict_return.links;
-                    console.log( cases );
-					console.log( labs );
-					cases.sort( function(a, b){
+				var cases = case_dict.records;
+				cases.sort( function(a, b){
 						return new Date(b.date).valueOf()-new Date(a.date).valueOf();
-					});
+				});
 
-					for( var i in cases ){
-						c = cases[i];
-						if( link_variable in c.variables){
-							var link_id = c.variables[link_variable];
-							table += '<tr><td>' + link_id + '</td>' +
+				for( var i in cases ){
+					c = cases[i];
+					table += '<tr><td>' + c.variables.pip_1 + '</td>' +
 								'<td>' + i18n.gettext(locations[c.region].name) + '</td>' +
 								'<td>' + i18n.gettext(locations[c.clinic].name) + '</td>' +
 								'<td>' + c.date.split("T")[0] + '</td> ';
-							link_id = link_id.toLowerCase();
-							
-							if(link_id in return_visits){
-								table +=  '<td>' + return_visits[link_id].to_date.split("T")[0] + '</td>';
-							}else{
-								table += '<td> - </td>';
-							}
-							if(link_id in labs){
-                                status = i18n.gettext(labs[link_id].data.status);
-                                if( labs[link_id].data.status=="Positive" ){
-                                    status = i18n.gettext("Type:") + " <b>" + labs[link_id].data.type + "</b>";
-                                }
-								table += '<td>' + labs[link_id].to_date.split("T")[0] + '</td>' +
-									'<td>' + status + '</td>';
-							}else{
-								table += '<td> - </td> <td>'+ i18n.gettext('Pending') + '</td>';
-							}
-
-						}else{
-							table += '<tr><td>-</td>' +
-								'<td>' + i18n.gettext(locations[c.region].name) + '</td>' +
-								'<td>' + i18n.gettext(locations[c.clinic].name) + '</td>' +
-								'<td>' + c.date.split("T")[0] + '</td> ' +
-								'<td> - </td> <td> - </td><td>' +i18n.gettext('Pending') +'</td>';
-						}
-						table += "</tr>";
-
+					if("pif_1" in c.variables){
+						table +=  '<td>' + c.variables.pif_2.split("T")[0] + '</td>';
+					}else{
+						table += '<td> - </td>';
 					}
-					
-					table+="</table>";
-					
-					$('#'+containerID).html(table);
-				});
-			});
+					if("pil_1" in c.variables){
+                        if ("pil_2" in c.variables) {
+                           status = i18n.gettext("Positive");
+                           if("pil_4" in c.variables) {
+                              type = i18n.gettext("H3");
+                           } else if ("pil_5" in c.variables){
+                                type = i18n.gettext("H1N1");
+                           }else if ("pil_6" in c.variables){
+                                type = i18n.gettext("B");
+                           }else if ("pil_7" in c.variables){
+                                type = i18n.gettext("Mixed");
+                           }
+
+
+                          status = i18n.gettext("Type:") + " <b>" + type + "</b>";
+                        } else {
+                            status = i18n.gettext("Negative");
+                        }
+                               
+						table += '<td>' + c.variables.pil_1.split("T")[0] + '</td>' +
+								'<td>' + status + '</td>';
+					}else{
+							table += '<td> - </td> <td>'+ i18n.gettext('Pending') + '</td>';
+					}
+                 }
+				table+="</table>";
+				
+			$('#'+containerID).html(table);
 		});
 	});
 }
