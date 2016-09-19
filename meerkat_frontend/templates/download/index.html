@@ -131,6 +131,11 @@ var week = {{week.epi_week}};
 
 $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
+
+ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+	 options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
+ });
+
 function toggleRawDownloader(){
     $("#raw_data_box .chartBox__heading").toggleClass("no-border");
     $("#raw_download").slideToggle("slow");
