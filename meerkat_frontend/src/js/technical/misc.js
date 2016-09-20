@@ -308,7 +308,7 @@ function categorySummation( details ){
     //Get previous year's data if still in the first few weeks of the year.
     if( details.week <= 3 ){
     
-        url = api_root+"/aggregate_category/"+ details.category + "/" + details.locID + "/" + prevYear;
+        url = api_root+"/aggregate_category/"+ details.category + "/" + details.locID + "/" + prevYear + limit_to_postfix;
         deferreds.push( $.getJSON( url, function(data) {
             prevData = data;
         }));
