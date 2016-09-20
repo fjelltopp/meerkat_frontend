@@ -49,7 +49,7 @@ def authenticate():
     {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 
-def api(url, api_key=False):
+def api(url, api_key=False, params=None):
     """Returns JSON data from API request.
 
        Args:
@@ -68,11 +68,13 @@ def api(url, api_key=False):
             if api_key:
                 r = requests.get(
                     api_request,
-                    params={"api_key": current_app.config["TECHNICAL_CONFIG"]["api_key"]}
+                    params={"api_key": current_app.config["TECHNICAL_CONFIG"]["api_key"],
+                            "other":params}
                 )
             else:
                 r = requests.get(
-                    api_request
+                    api_request,
+                    parmas={"other": params}
                 )
         except requests.exceptions.RequestException as e:
             abort(500, e)

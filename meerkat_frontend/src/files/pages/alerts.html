@@ -111,13 +111,19 @@ function loadAlertTables( reason, locID ){
 	}
 
 	$.getJSON( api_root+"/variables/cd_tab", function( variables ){
-			
-		$.getJSON( api_root+"/aggregate_alerts?location="+locID, function( aggData ){
-			drawAlertAggTable('alert-agg-table', aggData, variables);
+		if(config.central_review){
+			url = api_root+"/aggregate_alerts/1?location="+locID
+		}else{
+			url = api_root+"/aggregate_alerts?location="+locID
+		}
+		$.getJSON(url, function( aggData ){
+				drawAlertAggTable('alert-agg-table', aggData, variables);
+
 		});
 
 		//Assemble the correct url, so that reason can be an optional argument.
 		var url = api_root+"/alerts?location=" + locID;
+
 		if( typeof reason !== 'undefined' ){
 			url += "&reason=" + reason;
 		}

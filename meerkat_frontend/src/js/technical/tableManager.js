@@ -340,14 +340,14 @@ function drawAlertsTable(containerID, alerts, variables){
 			if(config.central_review){
 				if( "ale_1" in alert.variables ){
 					if ("ale_2" in alert.variables){
-						status = i18n.gettext("Confirmed");
+						status = i18n.gettext("Ongoing");
 					}else if( "ale_3" in alert.variables){
 						status = i18n.gettext("Disregarded");
 					} else {
 						status = i18n.gettext("Ongoing");
 					}
 					var central_review_date = "-";
-					if ("central_review" in alerts[i].links){
+					if ("cre_1" in alert.variables){
 						if ("cre_2" in alert.variables){
 							status = i18n.gettext("Confirmed");
 						}else if( "cre_3" in alert.variables){
