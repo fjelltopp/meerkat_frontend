@@ -294,7 +294,6 @@ function categorySummation( details ){
     }else if(details.limit_to == "cd"){
         limit_to_postfix = "/prc_1";
     }
-    console.log("Limiting to: " + limit_to_postfix);
 
     //Assemble an array of AJAX calls 
     var deferreds = [
@@ -336,11 +335,6 @@ function categorySummation( details ){
     $.when.apply( $, deferreds ).then(function() {
         
         if(catData && variables){
-
-            console.log("catData");
-            console.log(catData);
-            console.log("variables");
-            console.log(variables);
 
             //Just some variables for counting/iteration that can be shared across this function.
             var variable, i, weekKeys;

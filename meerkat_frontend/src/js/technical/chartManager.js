@@ -34,7 +34,7 @@ function showChartType( type, containerID ){
  */
 function drawBarChart( containerID, data, percent ){
 
-  console.log( data );
+  //console.log( data );
 
   //We want to work with a clone of the data, not the data itself.
   data = $.extend(true, {}, data);

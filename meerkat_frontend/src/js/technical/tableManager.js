@@ -802,7 +802,6 @@ function createColourCellTab(optionColourTable){
         if(row.main == "Total"){
             return {classes: "info"};
         }
-        console.log( "OptionColorTable: " + optionColourTable ); 
         if(optionColourTable == "true"){
             if (typeof value == 'undefined'){
                 return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
