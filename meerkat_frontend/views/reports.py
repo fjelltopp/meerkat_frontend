@@ -327,6 +327,8 @@ def report(report=None, location=None, end_date=None, start_date=None):
             start_date=start_date
         )
 
+        ret['report']['report_id'] = report
+
         return render_template(
             ret['template'],
             report=ret['report'],
@@ -372,7 +374,9 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             extras=ret['extras'],
             address=ret['address'],
             content=current_app.config['REPORTS_CONFIG']
-            )
+        )
+        current_app.logger.warning( "USE EXTERNAL?" )
+        current_app.logger.warning( int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1 )
         # Read env flag whether to tell pdfcrowd to read static files from an external source
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
             html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
@@ -390,7 +394,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             client.setPageWidth('1200pt')
             client.setPageHeight('1697pt')
 
-        client.setPageMargins('90pt','60pt','90pt','60pt')
+        client.setPageMargins('70pt','40pt','55pt','40pt')
         client.setHtmlZoom(400)
         client.setPdfScalingFactor(1.5)
 
@@ -505,7 +509,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     if( start_date != None ): api_request += '/' + start_date
 
     data = c.api(api_request, api_key=True)
-    
+
     data["flag"] = config["FLAGG_ABR"]
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:

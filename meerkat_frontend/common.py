@@ -11,6 +11,7 @@ import requests
 import json, os
 from requests.auth import HTTPBasicAuth
 
+
 def check_auth(username, password):
     """This function is called to check if a username / password combination is valid.
 

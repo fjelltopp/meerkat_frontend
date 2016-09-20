@@ -15,12 +15,11 @@ body.homepage{
 	border: none;
 
 	.navbar-flag {
-		float: left;
 		margin-right: 10px;
 		height: 22px;
-		margin: 0px 10px 0px -10px;
 		border-radius: 3px;
 		border: 1px solid #01719F;
+        display: inline;
 	}
 
 	.navbar-nav{
@@ -42,8 +41,11 @@ body.homepage{
 		float: right;
 	}
 
+    .navbar-brand{
+        padding: 15px 5px;
+    }
+
 	.navbar-brand span{
-		float: left;
 		max-height: 40px;
 		margin-right: 10px;
 	}

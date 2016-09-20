@@ -160,15 +160,22 @@ function PipBarChart(weeks, suspected, confirmed, labels) {
 
 	var series = [];
 		series.push({
-      type: 'spline',
+			type: 'spline',
 			name: i18n.gettext('Suspected'),
-		data: suspected
+			data: suspected,
+			color: "#365286"
 		});
+	colors = {"B": '#0F79BD',
+			  "H3": "#E8E801",
+			  "H1N1": "#D22727",
+			  "Mixed": "#8F908E"
+			 };
 	for(var serie in confirmed){
 		series.push( {
 			'type': 'column',
 			'name': confirmed[serie].title,
-			'data': confirmed[serie].values
+			'data': confirmed[serie].values,
+			'color': colors[confirmed[serie].title]
 		});
 	}
 
@@ -194,7 +201,13 @@ function PipBarChart(weeks, suspected, confirmed, labels) {
 			series: {
                 stacking: 'normal',
 				lineWidth: 5
-            }
+            },
+			 column: {
+				 pointPadding: 0,
+				 borderWidth: 0,
+				 groupPadding: 0,
+				 shadow: false
+			 }
 		},
 		xAxis: {
 			categories: weeks,

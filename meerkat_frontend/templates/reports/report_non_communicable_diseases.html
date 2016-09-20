@@ -9,11 +9,11 @@
                         "tot": _("Total no. <br> of patients"),
                         "gen_1": _("males"),
                         "gen_2": _("females"),
-                        "lab_4": _("overweight <br> (25 < BMI < 30)"),
-                        "lab_5": _("obese <br> (BMI > 30)"),
-                        "lab_2": _('controlled patients <br> (BP < 140/90)'),
-                        "lab_7": _('with controlled FBS <br>(Fasting Glucose <br >< 7 mmol/l)'),
-                        "lab_9": _('with controlled <br >HbA1c (< 7%%)'),
+                        "lab_4": _("overweight <br> (25 &le; BMI &lt; 30)"),
+                        "lab_5": _("obese <br> (BMI &ge; 30)"),
+                        "lab_2": _('controlled patients <br> (BP &lt; 140/90)'),
+                        "lab_7": _('with controlled FBS <br>(Fasting Glucose <br >&lt; 7 mmol/l)'),
+                        "lab_9": _('with controlled <br >HbA1c (&lt; 7%%)'),
                         "com_1": _('with diabetes'),
                         "com_2": _("with <br> hypertension"),
                         "smo_2": _('smokers'),
@@ -85,7 +85,7 @@
       >
       </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
-        <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _('Non Communciable Diseases Report') }}
+        <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _('Non Communicable Diseases Report') }}
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
@@ -93,7 +93,7 @@
 </div>
 <div class="row">
   <!-- Hypertension -->
-  <div class="cols-sm-12">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Hypertension') }}</div>
       <div class="table-title">{{ _('Table 1: Number of hypertension patients by age group') }}</div>
@@ -110,7 +110,7 @@
 
 <!-- Diabetes -->
 <div class="row">
-   <div class="cols-sm-12">
+   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Diabetes') }}</div>
       <div class="table-title">{{ _('Table 1: Number of diabetes patients by age group') }}</div>
