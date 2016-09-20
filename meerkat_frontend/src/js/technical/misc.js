@@ -274,6 +274,7 @@ function makeDataObject( aggregation, variables, week, title, percent ){
           the docs for `drawTable()` from the file *tableManager.js* for more information. 
         * **table_options** - (json) An options object for drawing a bootstrap table, if this isn't
           supplied then a standard table is drawn. 
+        * **limit_to** - (string) An optional argument to limit results to a specific category: 'ncd', 'cd'. 
 
 */
 function categorySummation( details ){ 
@@ -283,11 +284,21 @@ function categorySummation( details ){
 
     //Calulate the previous year, so we can load data from the previous year if needed.
     var prevYear = new Date().getFullYear()-1;
+    var currYear = new Date().getFullYear();
     var url;
+
+    //Optional filtering of the aggregation result by limiting to an additional category
+    var limit_to_postfix = "";
+    if(details.limit_to == "ncd"){
+        limit_to_postfix = "/prc_2";
+    }else if(details.limit_to == "cd"){
+        limit_to_postfix = "/prc_1";
+    }
+    console.log("Limiting to: " + limit_to_postfix);
 
     //Assemble an array of AJAX calls 
     var deferreds = [
-        $.getJSON( api_root + "/aggregate_category/" + details.category + "/" + details.locID, function(data) {
+        $.getJSON( api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {
             catData = data;
         }),
         $.getJSON( api_root + "/variables/" + details.category, function(data) {
@@ -325,6 +336,11 @@ function categorySummation( details ){
     $.when.apply( $, deferreds ).then(function() {
         
         if(catData && variables){
+
+            console.log("catData");
+            console.log(catData);
+            console.log("variables");
+            console.log(variables);
 
             //Just some variables for counting/iteration that can be shared across this function.
             var variable, i, weekKeys;
