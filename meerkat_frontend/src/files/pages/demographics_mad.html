@@ -130,24 +130,16 @@ function reDraw(){
 	//For each category draw a category summation.
 	var categories = ['gender', 'age'];
 	for( var i in categories ){
-		extendedCategorySummation({ category: categories[i],
+		categorySummation({ category: categories[i],
 		                    locID: currentLocation,
 		                    week: week,
 		                    tableID: categories[i]+'-table',
 		                    barID: categories[i]+'-bar-chart',
 		                    pieID: categories[i]+'-pie-chart',
-	                      percent: true,
-                        options: tableOptions
+	                      percent: true
 		                  });
 	}
 
-}
-
-//Function that updates the colour option value.
-function callButton(element){
-    var value = $(element).attr("value");
-    $(element).attr("value", value=="true" ? "false" : "true" );
-    reDraw();
 }
 
 </script>
