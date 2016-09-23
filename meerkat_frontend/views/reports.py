@@ -452,6 +452,12 @@ def list_reports(region,
     """Returns a list of reports"""
 
 def validate_report_arguments(config, report, location=None, end_date=None, start_date=None):
+    """
+        Validates the data type of arguments given to a report.
+        TODO: Add error handling to allow API to throw exceptions if e.g. non-existing locations are called
+    """
+
+
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
 
     # Validate report
