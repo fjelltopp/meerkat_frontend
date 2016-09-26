@@ -215,7 +215,9 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		var basicFieldsHtml = "";
 		var advancedFieldsHtml = "";
 
-		var allFields = data[form]; //All api fields, from which we take intersect and difference. 
+	    var allFields = data[form]; //All api fields, from which we take intersect and difference.
+            console.log(form)
+                console.log(config.forms)
 		var basicFields = getIntersect( allFields, config.forms[form].default ); 
 		var advancedFields = getDifference( allFields, basicFields ); 
 

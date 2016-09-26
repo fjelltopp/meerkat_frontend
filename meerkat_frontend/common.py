@@ -74,7 +74,7 @@ def api(url, api_key=False, params=None):
             else:
                 r = requests.get(
                     api_request,
-                    parmas={"other": params}
+                    params={"other": params}
                 )
         except requests.exceptions.RequestException as e:
             abort(500, e)
