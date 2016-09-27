@@ -17,6 +17,38 @@
   </h2>
 </div>
 
+<div class="row">
+  <!-- Vaccination types -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Vaccinations') }}</div>
+      <div class="table-title">{{ _('Table 1: Number of infant vaccinations') }}</div>
+      <div class="table-wrapper table-responsive">
+
+        <table class="table table-striped">
+          <th>
+            <tr>
+              <th>Vaccine</th>
+              <th>0-11 months</th>
+              <th>>12 months</th>
+              <th>Total</th>
+            </tr>
+          </th>
+          {% for infant_vaccination in report.data.infants %}
+          <tr>
+            <td>{{ _(infant_vaccination) }}</td>
+            <td>{{ _(infant_vaccination.vaccinated_0_11_mo_infants) }}</td>
+            <td>{{ _(infant_vaccination.vaccinated_12_mo_infants) }}</td>
+            <td>{{ _(infant_vaccination.vaccinated_0_11_mo_infants) + _(infant_vaccination.vaccinated_12_mo_infants) }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock body %}
 {% block extra_js %}
