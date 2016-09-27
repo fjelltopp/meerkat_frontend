@@ -1,6 +1,6 @@
 {% extends 'reports/base.html' %}
 
-{% block title %}{{report.data.project_region|e}} &middot; Vaccination Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('Vaccination Report') }} {% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
@@ -10,45 +10,13 @@
       >
       </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
-        <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _(Vaccination Report') }}
+        <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _('Vaccination Report') }}
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
   </h2>
 </div>
-<div class="row">
-  <!-- Hypertension -->
-  <div class="col-sm-12">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Hypertension') }}</div>
-      <div class="table-title">{{ _('Table 1: Number of hypertension patients by age group') }}</div>
-      <div class="table-wrapper table-responsive">
-    {{ table(report["hypertension"]["age"]) }}
-      </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of hypertension patients') }}</div>
-      <div class="table-wrapper table-responsive">
-    {{ table(report["hypertension"]["complications"], percent=True) }}
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Diabetes -->
-<div class="row">
-   <div class="col-sm-12">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Diabetes') }}</div>
-      <div class="table-title">{{ _('Table 1: Number of diabetes patients by age group') }}</div>
-      <div class="table-wrapper table-responsive">
-    {{ table(report["diabetes"]["age"]) }}
-      </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of diabetes patients') }} </div>
-      <div class="table-wrapper table-responsive">
-    {{ table(report["diabetes"]["complications"], percent=True) }}
-      </div>
-    </div>
-  </div>
-</div>
 
 {% endblock body %}
 {% block extra_js %}
