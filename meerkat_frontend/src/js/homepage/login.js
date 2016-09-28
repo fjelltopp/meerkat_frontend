@@ -20,8 +20,9 @@ function login(loginURL, redirectURL){
                 parent.location.replace( redirectURL );
             },
             error: function (data) {
-                if( data.hasOwnProperty( 'message' ) ){
-                    alert( data.message );
+                console.log( data );
+                if( data.responseJSON.hasOwnProperty( 'message' ) ){
+                    alert( data.responseJSON.message );
                 }else{
                     alert( i18n.gettext("There has been a server error. " + 
                                         "Please contact administrator and try again later.") );
