@@ -24,6 +24,7 @@ before_script:
 - echo $HOME
 - echo $PYTHONPATH
 - echo $PATH
+- readlink -f ./meerkat_auth/meerkat_auth/authorise.py
 - bower install
 - gulp
 
