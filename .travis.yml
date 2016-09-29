@@ -17,9 +17,13 @@ install:
 - npm install
 - git clone https://github.com/meerkat-code/meerkat_auth.git
 - pip install -r meerkat_auth/requirements.txt
-- export PYTHONPATH=$HOME/meerkat_auth/meerkat_auth
 
 before_script:
+- export PYTHONPATH=$PYTHONPATH:$HOME/meerkat_auth/meerkat_auth
+- export PATH=$PATH:$HOME/meerkat_auth/meerkat_auth
+- echo $HOME
+- echo $PYTHONPATH
+- echo $PATH
 - bower install
 - gulp
 
