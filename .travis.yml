@@ -19,7 +19,7 @@ install:
 - pip install -r meerkat_auth/requirements.txt
 
 before_script:
-- export PYTHONPATH=$PYTHONPATH:$HOME/meerkat_auth/meerkat_auth
+- export PYTHONPATH=$PYTHONPATH:$HOME/build/meerkat-code/meerkat_frontend/meerkat_auth/meerkat_auth
 - export PATH=$PATH:$HOME/meerkat_auth/meerkat_auth
 - echo $HOME
 - echo $PYTHONPATH
