@@ -37,7 +37,7 @@
           {% for infant_vaccination in report.data.infants %}
           <tr>
             <td>{{ _(infant_vaccination) }}</td>
-            <td>{{ _(infant_vaccination.vaccinated_0_11_mo_infants) }}</td>
+            <td>{{ _(report.data.infants["infant_vaccination"]["vaccinated_0_11_mo_infants"]) }}</td>
             <td>{{ _(infant_vaccination.vaccinated_12_mo_infants) }}</td>
             <td>{{ _(infant_vaccination.vaccinated_0_11_mo_infants) + _(infant_vaccination.vaccinated_12_mo_infants) }}</td>
           </tr>
