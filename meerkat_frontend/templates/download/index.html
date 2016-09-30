@@ -7,7 +7,7 @@
   <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
   <li><a href="/{{g.get('language')}}/explore/" >{{ _('Explore') }}</a></li>
   <li class="active"><a href="/{{g.get('language')}}/download/" >{{ _('Download') }}</a></li>
-  <li><a href="{{content.auth_root}}/api/logout?url=/{{g.get('language')}}" >{{ _('Log out') }}</a></li>
+  <li><a href="{{content.auth_root}}/api/logout?url={{request.url_root}}{{g.get('language')}}" >{{ _('Log out') }}</a></li>
 
 </ul>
 {% endblock %}
