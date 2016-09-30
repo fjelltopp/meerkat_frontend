@@ -30,7 +30,8 @@ class Config(object):
     MAILING_KEY = from_env('MAILING_KEY', 'test-mailing' )
     USE_BASIC_AUTH = int(from_env('USE_BASIC_AUTH', True))
     AUTH = {}
-    AUTH_ROOT= from_env('MEERKAT_AUTH_ROOT', 'http://dev_nginx_1/auth' )
+    INTERNAL_AUTH_ROOT = from_env('MEERKAT_AUTH_ROOT', 'http://dev_nginx_1/auth' )
+    AUTH_ROOT = from_env('MEERKAT_AUTH_ROOT', '/auth' )
     USERNAME = "admin"
     PASSWORD = "secret"
     EXTRA_PAGES = {}

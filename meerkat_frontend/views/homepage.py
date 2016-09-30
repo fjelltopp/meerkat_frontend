@@ -32,7 +32,7 @@ def login_request():
     Can't do this directly from the browser because of the "same-origin policy".
     Browser scripts can't make cross domain POST requests.
     """
-    url = current_app.config['AUTH_ROOT'] + "/api/login"
+    url = current_app.config['INTERNAL_AUTH_ROOT'] + "/api/login"
     current_app.logger.warning(url)
     current_app.logger.warning( request.json )
     r = requests.post( url, json = request.json ) 
