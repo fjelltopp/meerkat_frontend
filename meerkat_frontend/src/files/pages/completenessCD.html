@@ -122,10 +122,10 @@ function drawCharts( locID ){
  }
  
  function reDrawCompletness(){
-	 drawCompletenessTable( 'completeness-table', currentLocation );
+	 drawCompletenessTable( 'completeness-table', currentLocation, 'cd' );
 	 drawCompletenessGraph( 'completeness-graph', currentLocation, 'cd');
-	 drawMissingCompletenessTable( 'missing-completeness-table',"#box_3_heading", currentLocation);
-	 drawAllClinicsCompleteness( 'all-clinics-table', currentLocation);
+	 drawMissingCompletenessTable( 'missing-completeness-table',"#box_3_heading", currentLocation, 'cd');
+	 drawAllClinicsCompleteness( 'all-clinics-table', currentLocation, 'cd');
  }
 
 
