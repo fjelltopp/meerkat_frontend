@@ -56,6 +56,19 @@
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('PIP Table'));
+
+ $("#menu-toggle").click(function(e) {
+	e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+	$(".location-box .glyphicon").toggleClass( "hidden" );
+	
+	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+	var transitionEvent = whichTransitionEvent();
+	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+		$(window).resize();
+	});
+});
+
  $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
 //This function is called every time a new location is loaded.

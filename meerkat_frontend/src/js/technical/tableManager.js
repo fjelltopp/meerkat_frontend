@@ -624,6 +624,7 @@ function drawTbTable(containerID, location_id){
 					}
 					data.push(datum);
                }
+            $('#' + containerID).html("<table> </table>");
 			$('#' + containerID + ' table').bootstrapTable(
 				{
 					columns: columns,
