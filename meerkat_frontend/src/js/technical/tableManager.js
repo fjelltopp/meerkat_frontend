@@ -524,6 +524,121 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 	});
 }
 
+/**:drawPipTable(containerID, aggData, variables)
+
+    ??
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+
+ */
+function drawTbTable(containerID, location_id){
+	$.getJSON( api_root+"/locations", function( locations ){
+
+		//Create the table headers, using the central review flag from the cofiguration file.
+
+
+
+		columns = [
+			{
+				field: "sample_id",
+				title:  i18n.gettext('Sample ID'),
+				'searchable': true
+			},
+			{
+				field: "region",
+				title: '<span class="glossary capitalised" word="region">' + i18n.gettext('Governorate') + '</span>',
+				'searchable': true
+			},
+			{
+				field: "clinic", 
+				title: i18n.gettext('Centre'),
+				'searchable': true
+			},
+			{
+				field: "initial_visit",
+				title: i18n.gettext('Centre Visit Date')
+			},
+			{
+				field: "lab",
+				title: i18n.gettext('Labratory Results Date')
+			},
+			{
+				field: "cxr",
+				title: i18n.gettext('Chest X-Ray')
+			},
+			{
+				field: "hiv",
+				title: i18n.gettext('HIV Result')
+			},
+			{
+				field: "hep_b",
+				title: i18n.gettext('Hepatitis B Result') 
+			}
+       ];
+
+		$.getJSON( api_root + "/records/tub_1/" + location_id, function( case_dict ){
+				var cases = case_dict.records;
+				cases.sort( function(a, b){
+						return new Date(b.date).valueOf()-new Date(a.date).valueOf();
+				});
+
+                var data = [];
+
+				for( var i in cases ){
+					c = cases[i];
+
+                    var datum = {
+                              sample_id: c.variables.tub_2,
+                              region: i18n.gettext(locations[c.region].name),
+                              clinic: i18n.gettext(locations[c.clinic].name),
+                              initial_visit: c.date.split("T")[0],
+                              follow_up: "-",
+                              cxr: "-",
+                              lab: "-",
+                              hiv: "-",
+                              hep_b: "-"
+                           };
+
+					if("tbr_1" in c.variables){
+                        if( "tbr_2" in c.variables){
+							datum.cxr = i18n.gettext('Positive');
+                        } else {
+							datum.cxr = i18n.gettext('Negative');
+                        }
+					}
+					if("tbl_1" in c.variables){
+                        datum.lab = c.variables.tbl_1.split("T")[0];
+						if( "tbl_2" in c.variables){
+							datum.hiv = i18n.gettext('Positive');
+                        } else {
+							datum.hiv = i18n.gettext('Negative');
+                        }
+						if( "tbl_3" in c.variables){
+							datum.hep_b = i18n.gettext('Positive');
+                        } else {
+							datum.hep_b = i18n.gettext('Negative');
+                        }
+					}
+					data.push(datum);
+               }
+			$('#' + containerID + ' table').bootstrapTable(
+				{
+					columns: columns,
+					data: data,
+					search: true
+//					pagination: true,
+//					pageSize: 20
+				});
+		});
+	});
+}
+
+
+
+
 /**:drawAllClincsCompleteness(containerID, regionID)
 
  Draws the completeness table, showing the percentage of daily registers submitted
