@@ -56,7 +56,7 @@
 								<td><span id="patientAge" class="alertInfo" ></span> </td>
 							</tr>
 							<tr class="spaceUnder">
-								<td align="right" class="fit" ><b id="patien_gender_title"</b></td>
+								<td align="right" class="fit" ><b id="patient_gender_title"</b></td>
 								<td><span id="patientGender" class="alertInfo" ></span> </td>
 							</tr>
 						</table>
@@ -99,12 +99,13 @@ function drawAlertContent( alertID ){
 	$.getJSON( api_root+"/alert/"+alertID, function( alert ){
             $.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		//Load the location info for the given location ID from the location tree.
-		var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===alert.alerts.clinic; });
+		var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===alert.clinic; });
 		var parent = node.getPath();
 		parent = parent[parent.length-2];
 
 		//Assemble the alert investigation checklist as a table.
 		var stages = ["Referral", "Case Management", "Contact Tracing", "Laboratory Diagnosis" ];
+	    var stage_ids = ["ale_5", "ale_6", "ale_7", "ale_8"]
 		var table = "<table>";
 
 		for( var i in stages ){
@@ -113,7 +114,7 @@ function drawAlertContent( alertID ){
 
 			table += "<tr><td align='right' class='fit' ><b>" + i18n.gettext(stage) + "</b></td>";
 
-			if( alert.links != undefined && alert.links.data.checklist.indexOf( stage ) >= 0 ){
+			if( "ale_1" in alert.variables && stage_ids[i] in alert.variables ){
 				table += "<td>"+ i18n.gettext('Completed') +" </td>";
 			}else{
 				table += "<td>"+ i18n.gettext('Not Completed') + "</td></tr>";
@@ -125,13 +126,13 @@ function drawAlertContent( alertID ){
 		//Draw!
 		$('#alertTitle').html( alertID );
 		$('#alertID').html( alertID );
-		$('#reason').html( variables[alert.alerts.reason].name );
-		$('#date').html( alert.alerts.date.split("T")[0] );
+		$('#reason').html( variables[alert.variables.alert_reason].name );
+		$('#date').html( alert.date.split("T")[0] );
 		$('#clinic').html( node.model.text );
 		$('#region').html( parent.model.text );
-		$('#patientID').html( alert.alerts.uuids );
-		$('#patientAge').html( alert.alerts.data.age );
-		$('#patientGender').html( alert.alerts.data.gender );
+		$('#patientID').html( alert.uuid );
+		$('#patientAge').html( alert.variables.alert_age );
+		$('#patientGender').html( i18n.gettext(alert.variables.alert_gender ));
 		$('#checklist').html( table );		
 		
          });
