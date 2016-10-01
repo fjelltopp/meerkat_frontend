@@ -328,11 +328,9 @@ function drawAlertsTable(containerID, alerts, variables){
 		}
 		//For each alert in the given array of alerts create the html for a row of the table.
 		for( var i in alerts ){
-
-			var alert = alerts[i].alerts;
-
-			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.id + '\'); return false;">' + 
-			         alert.id + '</a></td><td>' + i18n.gettext(variables[ alert.reason ].name) + '</td>' +
+			alert = alerts[i];
+			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.variables.alert_id + '\'); return false;">' + 
+			         alert.variables.alert_id + '</a></td><td>' + i18n.gettext(variables[ alert.variables.alert_reason ].name) + '</td>' +
 			         '<td>' + i18n.gettext(locations[locations[alert.clinic].parent_location].name) + '</td>' +
 			         '<td>' + i18n.gettext(locations[alert.clinic].name) + '</td>' +
 			         '<td>' + alert.date.split("T")[0] + '</td>'; 
@@ -340,23 +338,40 @@ function drawAlertsTable(containerID, alerts, variables){
 			//Some countries(Jordan) has a central review in addition to alert_investigation
 			// If the alert has been investigated (and has a central review) we display that in the table
 			if(config.central_review){
-				if( "links" in alerts[i] && "alert_investigation" in alerts[i].links ){
-					var investigation = alerts[i].links.alert_investigation;
-					var status = investigation.data.status;
-					var central_review_date = "-";
-					if ("central_review" in alerts[i].links){
-						status = alerts[i].links.central_review.data.status;
-						central_review_date = alerts[i].links.central_review.to_date.split("T")[0] ;
+				if( "ale_1" in alert.variables ){
+					if ("ale_2" in alert.variables){
+						status = i18n.gettext("Ongoing");
+					}else if( "ale_3" in alert.variables){
+						status = i18n.gettext("Disregarded");
+					} else {
+						status = i18n.gettext("Ongoing");
 					}
-					table += '<td>' + investigation.to_date.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + i18n.gettext(status) + '</td></tr>';
+					var central_review_date = "-";
+					if ("cre_1" in alert.variables){
+						if ("cre_2" in alert.variables){
+							status = i18n.gettext("Confirmed");
+						}else if( "cre_3" in alert.variables){
+							status = i18n.gettext("Disregarded");
+						}else {
+							status = i18n.gettext("Ongoing");
+						}
+						central_review_date = alert.variables.cre_1.split("T")[0] ;
+					}
+					table += '<td>' + alert.variables.ale_1.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
 				}else{
 					table += '<td>-</td><td>-</td><td>'+i18n.gettext('Pending') +'</td></tr>';
 				}
 			
 			}else{
-				if( "links" in alerts[i] && "alert_investigation" in alerts[i].links ){
-					var link = alerts[i].links.alert_investigation;
-					table += '<td>' + link.to_date.split("T")[0] + '</td><td>' + i18n.gettext(link.data.status) + '</td></tr>';
+				if("ale_1" in  alert.variables ){
+					if ("ale_2" in alert.variables){
+						status = i18n.gettext("Confirmed");
+					}else if("ale_3" in alert.variables){
+						status = i18n.gettext("Disregarded");
+					} else {
+						status = i18n.gettext("Ongoing");
+					}
+					table += '<td>' + alert.variables.ale_1.split("T")[0] + '</td><td>' + status + '</td></tr>';
 				}else{
 					table += '<td>-</td><td>'+i18n.gettext('Pending')+'</td></tr>';
 				}
@@ -461,60 +476,168 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 		            '<th>' + i18n.gettext('Clinic') + '</th><th>' +i18n.gettext('Date Reported') +'</th><th>' + i18n.gettext('Follow-up completed') +'</th><th>' + i18n.gettext('Laboratory Results') + '</th><th>' + i18n.gettext('Status') +'</th>' + '</tr>';
 
 		$.getJSON( api_root + "/records/" + variable_id + "/" + location_id, function( case_dict ){
-			$.getJSON( api_root + "/links/" + link_def_id_labs, function( links_dict_labs ){
-				$.getJSON( api_root + "/links/" + link_def_id_return, function( links_dict_return ){
-					var cases = case_dict.records;
-					var labs = links_dict_labs.links;
-					var return_visits = links_dict_return.links;
-                    console.log( labs );
-					cases.sort( function(a, b){
+				var cases = case_dict.records;
+				cases.sort( function(a, b){
 						return new Date(b.date).valueOf()-new Date(a.date).valueOf();
-					});
+				});
 
-					for( var i in cases ){
-						c = cases[i];
-						if( link_variable in c.variables){
-							var link_id = c.variables[link_variable];
-							table += '<tr><td>' + link_id + '</td>' +
+				for( var i in cases ){
+					c = cases[i];
+					table += '<tr><td>' + c.variables.pip_1 + '</td>' +
 								'<td>' + i18n.gettext(locations[c.region].name) + '</td>' +
 								'<td>' + i18n.gettext(locations[c.clinic].name) + '</td>' +
 								'<td>' + c.date.split("T")[0] + '</td> ';
-							link_id = link_id.toLowerCase();
-							if(link_id in return_visits){
-								table +=  '<td>' + return_visits[link_id].to_date.split("T")[0] + '</td>';
-							}else{
-								table += '<td> - </td>';
-							}
-							if(link_id in labs){
-                                status = i18n.gettext(labs[link_id].data.status);
-                                if( labs[link_id].data.status=="Positive" ){
-                                    status = i18n.gettext("Type:") + " <b>" + labs[link_id].data.type + "</b>";
-                                }
-								table += '<td>' + labs[link_id].to_date.split("T")[0] + '</td>' +
-									'<td>' + status + '</td>';
-							}else{
-								table += '<td> - </td> <td>'+ i18n.gettext('Pending') + '</td>';
-							}
-
-						}else{
-							table += '<tr><td>-</td>' +
-								'<td>' + i18n.gettext(locations[c.region].name) + '</td>' +
-								'<td>' + i18n.gettext(locations[c.clinic].name) + '</td>' +
-								'<td>' + c.date.split("T")[0] + '</td> ' +
-								'<td> - </td> <td> - </td><td>' +i18n.gettext('Pending') +'</td>';
-						}
-						table += "</tr>";
-
+					if("pif_1" in c.variables){
+						table +=  '<td>' + c.variables.pif_2.split("T")[0] + '</td>';
+					}else{
+						table += '<td> - </td>';
 					}
-					
-					table+="</table>";
-					
-					$('#'+containerID).html(table);
-				});
-			});
+					if("pil_1" in c.variables){
+                        if ("pil_2" in c.variables) {
+                           status = i18n.gettext("Positive");
+                           if("pil_4" in c.variables) {
+                              type = i18n.gettext("H3");
+                           } else if ("pil_5" in c.variables){
+                                type = i18n.gettext("H1N1");
+                           }else if ("pil_6" in c.variables){
+                                type = i18n.gettext("B");
+                           }else if ("pil_7" in c.variables){
+                                type = i18n.gettext("Mixed");
+                           }
+
+
+                          status = i18n.gettext("Type:") + " <b>" + type + "</b>";
+                        } else {
+                            status = i18n.gettext("Negative");
+                        }
+                               
+						table += '<td>' + c.variables.pil_1.split("T")[0] + '</td>' +
+								'<td>' + status + '</td>';
+					}else{
+							table += '<td> - </td> <td>'+ i18n.gettext('Pending') + '</td>';
+					}
+                 }
+				table+="</table>";
+				
+			$('#'+containerID).html(table);
 		});
 	});
 }
+
+/**:drawPipTable(containerID, aggData, variables)
+
+    ??
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+
+ */
+function drawTbTable(containerID, location_id){
+	$.getJSON( api_root+"/locations", function( locations ){
+
+		//Create the table headers, using the central review flag from the cofiguration file.
+
+
+
+		columns = [
+			{
+				field: "sample_id",
+				title:  i18n.gettext('Sample ID'),
+				'searchable': true
+			},
+			{
+				field: "region",
+				title: '<span class="glossary capitalised" word="region">' + i18n.gettext('Governorate') + '</span>',
+				'searchable': true
+			},
+			{
+				field: "clinic", 
+				title: i18n.gettext('Centre'),
+				'searchable': true
+			},
+			{
+				field: "initial_visit",
+				title: i18n.gettext('Centre Visit Date')
+			},
+			{
+				field: "lab",
+				title: i18n.gettext('Labratory Results Date')
+			},
+			{
+				field: "cxr",
+				title: i18n.gettext('Chest X-Ray')
+			},
+			{
+				field: "hiv",
+				title: i18n.gettext('HIV Result')
+			},
+			{
+				field: "hep_b",
+				title: i18n.gettext('Hepatitis B Result') 
+			}
+       ];
+
+		$.getJSON( api_root + "/records/tub_1/" + location_id, function( case_dict ){
+				var cases = case_dict.records;
+				cases.sort( function(a, b){
+						return new Date(b.date).valueOf()-new Date(a.date).valueOf();
+				});
+
+                var data = [];
+
+				for( var i in cases ){
+					c = cases[i];
+
+                    var datum = {
+                              sample_id: c.variables.tub_2,
+                              region: i18n.gettext(locations[c.region].name),
+                              clinic: i18n.gettext(locations[c.clinic].name),
+                              initial_visit: c.date.split("T")[0],
+                              follow_up: "-",
+                              cxr: "-",
+                              lab: "-",
+                              hiv: "-",
+                              hep_b: "-"
+                           };
+
+					if("tbr_1" in c.variables){
+                        if( "tbr_2" in c.variables){
+							datum.cxr = i18n.gettext('Positive');
+                        } else {
+							datum.cxr = i18n.gettext('Negative');
+                        }
+					}
+					if("tbl_1" in c.variables){
+                        datum.lab = c.variables.tbl_1.split("T")[0];
+						if( "tbl_2" in c.variables){
+							datum.hiv = i18n.gettext('Positive');
+                        } else {
+							datum.hiv = i18n.gettext('Negative');
+                        }
+						if( "tbl_3" in c.variables){
+							datum.hep_b = i18n.gettext('Positive');
+                        } else {
+							datum.hep_b = i18n.gettext('Negative');
+                        }
+					}
+					data.push(datum);
+               }
+			$('#' + containerID + ' table').bootstrapTable(
+				{
+					columns: columns,
+					data: data,
+					search: true
+//					pagination: true,
+//					pageSize: 20
+				});
+		});
+	});
+}
+
+
+
 
 /**:drawAllClincsCompleteness(containerID, regionID)
 
@@ -554,6 +677,7 @@ $.getJSON( api_root+"/locations", function( locations ){
             };
             dataPrepared.push(datum);
         }
+
 
         var columns = [
             {

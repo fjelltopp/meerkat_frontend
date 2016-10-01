@@ -508,7 +508,14 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     if( end_date != None ): api_request += '/' + end_date
     if( start_date != None ): api_request += '/' + start_date
 
-    data = c.api(api_request, api_key=True)
+    params = None
+    if report in ["communicable_diseases"]:
+        if "central_review" in config["TECHNICAL_CONFIG"] and config["TECHNICAL_CONFIG"]["central_review"]:
+            params = "central_review"
+        else:
+            params = None
+    
+    data = c.api(api_request, api_key=True, params=params)
 
     data["flag"] = config["FLAGG_ABR"]
 
