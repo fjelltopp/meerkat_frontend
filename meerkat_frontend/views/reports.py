@@ -124,7 +124,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
-    if report in report_list:
+    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         ret = create_report(
             config=current_app.config, 
@@ -198,7 +198,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
-    if report in report_list:
+    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         ret = create_report(
             config=current_app.config, 
@@ -317,7 +317,8 @@ def report(report=None, location=None, end_date=None, start_date=None):
     # Check that the requested project and report are valid
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
 
-    if report in report_list:
+
+    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         ret = create_report(
             config=current_app.config, 
@@ -359,7 +360,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         current_app.config['PDFCROWD_API_ACCOUNT'],
         current_app.config['PDFCROWD_API_KEY'])
     current_app.logger.warning('Report: ' + report )
-    if report in report_list:
+    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
         ret = create_report(
             config=current_app.config, 
             report=report, 
@@ -449,6 +450,45 @@ def list_reports(region,
                  start=date(1970, 1, 1),
                  end=datetime.today()):
     """Returns a list of reports"""
+
+def validate_report_arguments(config, report, location=None, end_date=None, start_date=None):
+    """
+        Validates the data type of arguments given to a report.
+        TODO: Add error handling to allow API to throw exceptions if e.g. non-existing locations are called
+    """
+
+
+    report_list = current_app.config['REPORTS_CONFIG']['report_list']
+
+    # Validate report
+    if report:
+        if report not in report_list:
+            return False
+
+    # Validate location if given
+    if location:
+        try:
+            location_int = int(location)
+        except ValueError:
+            return False
+
+    # Validate start date if given
+    if start_date:
+        try:
+            valid_start_date = dateutil.parser.parse(start_date)
+        except ValueError:
+            return False
+
+    # Validate end date if given
+    if end_date:
+        try:
+            valid_end_date = dateutil.parser.parse(end_date)
+        except ValueError:
+            return False
+
+    # If all checks were successful, return True
+    return True
+
 
 
 def create_report(config, report=None, location=None, end_date=None, start_date=None):
