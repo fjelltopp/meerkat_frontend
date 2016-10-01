@@ -48,12 +48,12 @@
               <th>{{_('Total')}}</th>
             </tr>
           </th>
-          {% for infant_vaccination in report.data.infants %}
+          {% for item in report.data.infants %}
           <tr>
-            <td>{{ _(infant_vaccination) }}</td>
-            <td>{{ report.data.infants[infant_vaccination]["vaccinated_0_11_mo_infants"] }}</td>
-            <td>{{ report.data.infants[infant_vaccination]["vaccinated_12_mo_infants"] }}</td>
-            <td>{{ report.data.infants[infant_vaccination]["vaccinated_0_11_mo_infants"] + report.data.infants[infant_vaccination]["vaccinated_12_mo_infants"] }}</td>
+            <td>{{ _(item["name"]) }}</td>
+            <td>{{ item["vaccinated_0_11_mo_infants"] }}</td>
+            <td>{{ item["vaccinated_12_mo_infants"] }}</td>
+            <td>{{ item["vaccinated_0_11_mo_infants"] + item["vaccinated_12_mo_infants"] }}</td>
           </tr>
           {% endfor %}
         </table>
@@ -72,12 +72,12 @@
               <th>{{_('Total')}}</th>
             </tr>
           </th>
-          {% for female_vaccination in report.data.females %}
+          {% for item in report.data.females %}
           <tr>
-            <td>{{ _(female_vaccination) }}</td>
-            <td>{{ report.data.females[female_vaccination]["vaccinated_pw"] }}</td>
-            <td>{{ report.data.females[female_vaccination]["vaccinated_notpw"] }}</td>
-            <td>{{ report.data.females[female_vaccination]["vaccinated_pw"] + report.data.females[female_vaccination]["vaccinated_notpw"] }}</td>
+            <td>{{ _(item["name"]) }}</td>
+            <td>{{ item["vaccinated_pw"] }}</td>
+            <td>{{ item["vaccinated_notpw"] }}</td>
+            <td>{{ item["vaccinated_pw"] + item["vaccinated_notpw"] }}</td>
           </tr>
           {% endfor %}
         </table>
