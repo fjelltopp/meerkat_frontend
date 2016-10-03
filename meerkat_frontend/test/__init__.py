@@ -5,11 +5,16 @@ Meerkat Frontend Tests
 Unit tests for the Meerkat frontend
 """
 import meerkat_frontend as mk
-import unittest
+import base64, unittest, calendar, jwt
 from datetime import datetime
 from werkzeug.datastructures import Headers
-import base64
+from passlib.hash import pbkdf2_sha256
 
+#Need this module to be importable without the whole of meerkat_auth config.
+#Directly load the secret settings file from which to import required variables.
+#File must include JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY variables.
+filename = os.environ.get( 'MEERKAT_AUTH_SETTINGS' )
+exec( compile(open(filename, "rb").read(), filename, 'exec') )
 
 class MeerkatFrontendTestCase(unittest.TestCase):
 
@@ -17,12 +22,22 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         """Setup for testing"""
         mk.app.config['TESTING'] = True
         self.app = mk.app.test_client()
-        mk.app.config["USERNAME"] = "admin"
-        mk.app.config["PASSWORD"] = "secret"
-        cred = base64.b64encode(b"admin:secret").decode("utf-8")
-        self.header = {"Authorization": "Basic {cred}".format(cred=cred)}
-
-
+ 
+        #We need to authenticate our tests using the dev/testing rsa keys. 
+        token_payload = {
+            u'acc': {
+                u'demo': [u'manager', u'registered'], 
+                u'jordan': [u'manager', u'registered'], 
+                u'madagascar':[u'manager', u'registered']
+            }, 
+            u'data': {u'name': u'Testy McTestface'}, 
+            u'usr': u'testUser', 
+            u'exp': calendar.timegm( time.gmtime() ) + 1000,  #Lasts for 1000 seconds
+            u'email': u'test@test.org.uk'
+        }
+        token = jwt.encode(token_payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+        self.header = { 'Authorization': JWT_HEADER_PREFIX + token }
+        
     def tearDown(self):
         pass
 
@@ -38,7 +53,6 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         self.assertIn(rv.status_code, [401])
         rv2 = self.app.get('en/reports/', headers=self.header)
         self.assertEqual(rv2.status_code, 200)
-        
 
     def test_reports_pub_health(self):
         rv = self.app.get('en/reports/test/public_health/',headers=self.header)
