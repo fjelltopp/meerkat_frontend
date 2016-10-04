@@ -309,8 +309,8 @@ $(function() {
      var series = [
 	 {% for value in report.data.timeline.confirmed %}
 	 {
-	     title: "{{ value.title }}",
-	     values: {{ value["values"] }}
+	     title: "{{ value }}",
+	     values: {{ report.data.timeline.confirmed[value] }}
 	 },
 	 {% endfor %}
      ]

@@ -233,7 +233,7 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ disease.title|e }}</td>
-            <td>{{ _('disease.percent|float|round(1)') }}%</td>
+            <td>{{ disease.percent|float|round(1) }}%</td>
             <td>{{ disease.quantity|commas }}</td>
           </tr>
           {% endfor %}
@@ -260,7 +260,7 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ _(disease.title|e) }}</td>
-            <td>{{ disease.percent|float|round(1) }}%</td>
+            <td>{{ disease.percent|float|round(1) }} %</td>
             <td>{{ disease.quantity|commas }}</td>
           </tr>
           {% endfor %}

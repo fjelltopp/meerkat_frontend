@@ -131,6 +131,11 @@ var week = {{week.epi_week}};
 
 $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
+
+ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+	 options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
+ });
+
 function toggleRawDownloader(){
     $("#raw_data_box .chartBox__heading").toggleClass("no-border");
     $("#raw_download").slideToggle("slow");
@@ -210,7 +215,9 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		var basicFieldsHtml = "";
 		var advancedFieldsHtml = "";
 
-		var allFields = data[form]; //All api fields, from which we take intersect and difference. 
+	    var allFields = data[form]; //All api fields, from which we take intersect and difference.
+            console.log(form)
+                console.log(config.forms)
 		var basicFields = getIntersect( allFields, config.forms[form].default ); 
 		var advancedFields = getDifference( allFields, basicFields ); 
 
@@ -309,6 +316,8 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		}else{
 		   var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
 		}
+		url += "&api_key=" + config.api_key;
+		window.open(url);
         console.log(url);
 	});
 

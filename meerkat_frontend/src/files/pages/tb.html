@@ -36,7 +36,8 @@
 						</div>
 					</div>
 					<div class="chartBox__content">
-						<div id="pip-table" class="table" >
+						<div id="tb-table" class="table" >
+							<table></table>
 						</div>
 					</div>
 				</div>
@@ -52,12 +53,12 @@
 
  $("#location_box").html(i18n.gettext("Location:"));
  $("#location_title").html(i18n.gettext("Not Loaded"));
- $("#title").html(i18n.gettext('Pandemic Influenza Preparedness'));
+ $("#title").html(i18n.gettext('Foreigner Screening Program'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
- $("#box_heading").html(i18n.gettext('PIP Table'));
+ $("#box_heading").html(i18n.gettext('Foreigner Screening Table'));
 
- $("#menu-toggle").click(function(e) {
+$("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
@@ -69,6 +70,7 @@
 	});
 });
 
+ 
  $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
 //This function is called every time a new location is loaded.
@@ -77,7 +79,7 @@ function drawCharts( locID ){
 	
 	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
 
-     drawPipTable("pip-table", locID, "pip_2", "pip","pip_followup", "pip_1"); 
+     drawTbTable("tb-table", locID)
 }
 
 </script>
