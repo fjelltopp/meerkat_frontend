@@ -49,13 +49,11 @@ def authenticate():
     'You have to login with proper credentials', 401,
     {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
-def api(url, api_key=False):
+def api(url, api_key=False, params=None):
     """Returns JSON data from API request.
-
        Args:
            url (str): The Meerkat API url from which data is requested
-           authenticate (optional bool): Whether or not we should authenticate the request. 
-                Defaults to False.
+           api_key (optional bool): Whethe or not we should include the api key. Defaults to False.
        Returns:
            dict: A python dictionary formed from the API reponse json string.
     """
@@ -65,17 +63,17 @@ def api(url, api_key=False):
             return json.load(data_file)
     else:
         api_request = ''.join([current_app.config['INTERNAL_API_ROOT'], url])
-        
         try:
             if api_key:
-                headers = {'authorization': 'Bearer ' + auth.get_token()}
                 r = requests.get(
                     api_request,
-                    headers=headers
+                    headers = {'authorization': 'Bearer ' + auth.get_token()},
+                    params={"other": params}
                 )
             else:
                 r = requests.get(
-                    api_request
+                    api_request,
+                    params={"other": params}
                 )
         except requests.exceptions.RequestException as e:
             abort(500, e)

@@ -13,7 +13,8 @@ technical = Blueprint('technical', __name__,url_prefix='/<language>')
 @technical.before_request
 def requires_auth():
     """Checks that the user has authenticated before returning any page from this Blueprint."""
-    auth.check_auth( ['registered'] )
+    #We load the arguments for check_auth function from the config files.
+    auth.check_auth( *current_app.config['AUTH'].get('technical', [['BROKEN'],['']]) )
 
 @technical.route('/')
 @technical.route('/<tab>')

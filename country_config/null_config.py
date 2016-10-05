@@ -3,11 +3,12 @@ WEBMASTER_EMAIL = 'webmaster@emro.info'
 SITE_TITLE = 'Null Island Public Health Surveillance'
 FLAGG_ABR = "null"
 
-AUTHENTICATION = {
-    'basic_auth':{
-        'username': '',
-        'password': ''
-    }
+AUTH = {
+    "technical": [['registered'],['demo']],
+    "messaging": [['registered'],['demo']],
+    "download": [['registered'],['demo']],
+    "explore": [['registered'],['demo']],
+    "reports": [['registered'],['demo']]
 }
 
 # Configuration fields that are specific to each frontend component.
