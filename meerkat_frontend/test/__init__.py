@@ -8,6 +8,14 @@ import meerkat_frontend as mk
 import base64, unittest, calendar, jwt, os, time
 from datetime import datetime
 from werkzeug.datastructures import Headers
+#Check if auth requirements have been installed
+try:
+    #Test by importing package that will only ever be required in auth (touch wood). 
+    __import__('passlib')
+    print( "Authentication requirements installed." )
+except ImportError:
+    print( "Authentication requirements not installed.  Installing them now." )
+    os.system('pip install -r /var/www/meerkat_auth/requirements.txt') 
 from passlib.hash import pbkdf2_sha256
 
 #Need this module to be importable without the whole of meerkat_auth config.
@@ -26,9 +34,13 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         #We need to authenticate our tests using the dev/testing rsa keys. 
         token_payload = {
             u'acc': {
-                u'demo': [u'manager', u'registered'], 
-                u'jordan': [u'manager', u'registered'], 
-                u'madagascar':[u'manager', u'registered']
+                u'demo': [u'root',u'admin',u'registered'], 
+                u'jordan': [
+                    u'root', u'central',u'directorate',u'clinic',u'reports',
+                    u'all',u'cd',u'ncd',u'mh',u'admin',u'personal'
+                ], 
+                u'madagascar':[u'root',u'admin',u'registered'],
+                u'rms':[u'root',u'admin',u'registered']
             }, 
             u'data': {u'name': u'Testy McTestface'}, 
             u'usr': u'testUser', 
