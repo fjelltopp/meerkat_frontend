@@ -117,7 +117,7 @@ $('input.submit').click( function(evt){
 
 //Post json to server.
         $.ajax({
-            url: "{{content.auth_root}}/api/login",
+            url: "login_request",
             type: 'post',
             success: function (data) {
                 parent.location.replace( "{{redirect}}" );
