@@ -48,6 +48,12 @@ class Config(object):
     SUPPORTED_LANGUAGES = ["en"]
     SUPPORTED_LANGAUGES_FLAGS = ["gb"]
 
+    #Need this module to be importable without the whole of meerkat_auth config.
+    #Directly load the secret settings file from which to import required variables.
+    #File must include JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY variables.
+    filename = os.environ.get( 'MEERKAT_AUTH_SETTINGS' )
+    exec( compile(open(filename, "rb").read(), filename, 'exec') )
+
 
 class Production(Config):
     DEBUG = False

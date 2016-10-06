@@ -1,5 +1,5 @@
 function login(loginURL, redirectURL){
-    //if( !Cookies.get('meerkat_jwt') ){
+    if( !Cookies.get('meerkat_jwt') ){
         var loginbox = "<div class='row'><div class='login-box-holder'><div class='login box chartBox'><div class='chartBox__heading'>" + i18n.gettext('Login') + "</div><div class='chartBox__content' ><form id='login-form' class='login-form'><div class='form-group'></div><div class='form-group'><label>" + i18n.gettext('Username') + "</label><input type='text' class='text' name='username' /></div><div class='form-group'><label>" + i18n.gettext('Password') + "</label><input type='password' class='text' name='password' /></div><input type='submit' value='Login' class='submit login pull-right' /></form></div></div></div></div>";
 
         //Show the login html in a featherlight popup box.
@@ -34,7 +34,7 @@ function login(loginURL, redirectURL){
             });
         });
 
-    //}else{
-    //    parent.location.replace( redirectURL );
-    //}
+    }else{
+        parent.location.replace( redirectURL );
+    }
 }

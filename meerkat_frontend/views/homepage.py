@@ -3,7 +3,7 @@ homepage.py
 
 A Flask Blueprint module for the homepage.
 """
-from flask import Blueprint, render_template, current_app, abort, g, request
+from flask import Blueprint, render_template, current_app, abort, g, request, make_response, redirect
 from flask.ext.babel import get_translations, gettext
 import requests
 
@@ -36,3 +36,21 @@ def login_request():
     r = requests.post( url, json = request.json ) 
     return (r.text, r.status_code, r.headers.items())
 
+@homepage.route('/logout')
+def logout():
+    """
+    Logs a user out. This involves delete the current jwt stored in a cookie and 
+    redirecting to the specified page.  We delete a cookie by changing it's
+    expiration date to immediately. Set the page to be redirected to using url
+    params, eg. /logout?url=https://www.google.com
+
+    Get Args:
+        url (str) The url of the page to redirect to after logging out.
+
+    Returns:
+        A redirect response object that also sets the cookie's expiration time to 0.
+    """
+    url = request.args.get('url', '/')
+    response = make_response( redirect(url) )
+    response.set_cookie( current_app.config["JWT_COOKIE_NAME"], value="", expires=0 )
+    return response
