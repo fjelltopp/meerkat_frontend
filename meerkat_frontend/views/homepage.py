@@ -33,9 +33,6 @@ def login_request():
     Browser scripts can't make cross domain POST requests.
     """
     url = current_app.config['INTERNAL_AUTH_ROOT'] + "/api/login"
-    current_app.logger.warning(url)
-    current_app.logger.warning( request.json )
     r = requests.post( url, json = request.json ) 
-    current_app.logger.warning(r)
     return (r.text, r.status_code, r.headers.items())
 
