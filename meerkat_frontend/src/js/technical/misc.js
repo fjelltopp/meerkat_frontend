@@ -685,4 +685,25 @@ function stripEmptyRecords( dataObject ){
 }
 
 
+/**:completnessPreparation( details )
 
+   This function factorises out repeated code when drawing tables and charts for completness.
+   It also helps to share data from AJAX calls where possible, rather than making multiple replicated
+   AJAX calls for tables and charts.
+
+   Arguments:
+   * **locID** - (String) The ID of the location for which completeness shall be calculated.
+   * **graphID** - (string) The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
+   * **tableID** - (string) The ID for the HTML element that will hold the main completeness table.  If empty, no table is drawn.
+   * **nonreportingtableID** - (string) The ID for the HTML element that will hold the line table of non-reporting clinics.  If empty, this table isn't drawn.
+   * **nonreportingTitle** - (string) The ID for the HTML element containg title of the non-reporting clinics table.
+   * **allclinisctableID** - (string) The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+
+   */
+function completenessPreparation( locID, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID ){
+ console.log("Performing completeness summation");
+  drawCompletenessTable( tableID, locID );
+  drawCompletenessGraph( graphID, locID );
+  drawMissingCompletenessTable( nonreportingtableID,nonreportingTitle, locID);
+  drawAllClinicsCompleteness( allclinisctableID, locID);
+}
