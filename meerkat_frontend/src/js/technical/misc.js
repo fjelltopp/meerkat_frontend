@@ -692,18 +692,38 @@ function stripEmptyRecords( dataObject ){
    AJAX calls for tables and charts.
 
    Arguments:
-   * **locID** - (String) The ID of the location for which completeness shall be calculated.
-   * **graphID** - (string) The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
-   * **tableID** - (string) The ID for the HTML element that will hold the main completeness table.  If empty, no table is drawn.
-   * **nonreportingtableID** - (string) The ID for the HTML element that will hold the line table of non-reporting clinics.  If empty, this table isn't drawn.
-   * **nonreportingTitle** - (string) The ID for the HTML element containg title of the non-reporting clinics table.
-   * **allclinisctableID** - (string) The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
-
+   :param string locID:
+   The ID of the location for which completeness shall be calculated.
+   :param string graphID:
+   The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
+   :param string tableID:
+   The ID for the HTML element that will hold the main completeness table.  If empty, no table is drawn.
+   :param string nonreportingtableID:
+   The ID for the HTML element that will hold the line table of non-reporting clinics.  If empty, this table isn't drawn.
+   :param string nonreportingTitle:
+   The ID for the HTML element containg title of the non-reporting clinics table.
+   :param string allclinisctableID:
+   The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+   
    */
 function completenessPreparation( locID, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID ){
- console.log("Performing completeness summation");
-  drawCompletenessTable( tableID, locID );
-  drawCompletenessGraph( graphID, locID );
-  drawMissingCompletenessTable( nonreportingtableID,nonreportingTitle, locID);
-  drawAllClinicsCompleteness( allclinisctableID, locID);
-}
+     
+     var deferreds = [
+       $.getJSON( api_root+"/locations", function( data ){
+         locations = data;
+       }),
+       $.getJSON( api_root+"/completeness/reg_1/" + locID + "/4", function( data ){
+         completenessData = data;
+       })
+     ];
+     
+     $.when.apply( $, deferreds ).then(function() {
+       
+       drawCompletenessGraph( graphID, locID, locations, completenessData );
+       drawCompletenessTable( tableID, locID, locations, completenessData );
+       drawMissingCompletenessTable( nonreportingtableID,nonreportingTitle, locID, locations); //this call makes one additional AJAX call
+       drawAllClinicsCompleteness( allclinisctableID, locID, locations, completenessData);
+     } );
+     
+     
+   }
