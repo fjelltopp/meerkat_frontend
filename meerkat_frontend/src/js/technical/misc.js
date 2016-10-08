@@ -707,10 +707,11 @@ function stripEmptyRecords( dataObject ){
    
    */
 function completenessPreparation( locID, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID ){
-     
+    var completenessLocations;
+    var completenessData; 
      var deferreds = [
        $.getJSON( api_root+"/locations", function( data ){
-         locations = data;
+         completenessLocations = data;
        }),
        $.getJSON( api_root+"/completeness/reg_1/" + locID + "/4", function( data ){
          completenessData = data;
@@ -719,10 +720,10 @@ function completenessPreparation( locID, graphID, tableID, nonreportingtableID, 
      
      $.when.apply( $, deferreds ).then(function() {
        
-       drawCompletenessGraph( graphID, locID, locations, completenessData );
-       drawCompletenessTable( tableID, locID, locations, completenessData );
-       drawMissingCompletenessTable( nonreportingtableID,nonreportingTitle, locID, locations); //this call makes one additional AJAX call
-       drawAllClinicsCompleteness( allclinisctableID, locID, locations, completenessData);
+       drawCompletenessGraph( graphID, locID, completenessLocations, completenessData );
+       drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
+       drawMissingCompletenessTable( nonreportingtableID,nonreportingTitle, locID, completenessLocations); //this call makes one additional AJAX call
+       drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
      } );
      
      

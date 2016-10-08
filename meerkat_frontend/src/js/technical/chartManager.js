@@ -302,10 +302,12 @@ function drawTimeChart( varID, locID, containerID ){
    The ID of the HTML element to hold the chart.
    :param string locID:
    The ID of the location by which to filter the data.
+   :param Object locations:
+   List of all locations from API.
+   :param Object data:
+   Completeness data from API.
 */
-function drawCompletenessGraph( containerID, regionID ){
-    $.getJSON( api_root+"/locations", function( locations ){
-        $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+function drawCompletenessGraph( containerID, regionID, locations, data ){
             //create a data series for each location
             var dataPrepared = [];
             var timeseries = [];
@@ -423,9 +425,6 @@ function drawCompletenessGraph( containerID, regionID ){
                     }
                 }
             }); //highchart
-
-        });//getJSON completeness
-    });//getJSON locations
 }
 
 Highcharts.setOptions({
@@ -445,5 +444,3 @@ Highcharts.setOptions({
   }
 
 });
-
-

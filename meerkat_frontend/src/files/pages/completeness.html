@@ -118,8 +118,6 @@ $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + 
 //It's also called upon the first load of the page. 
 function drawCharts( locID ){
   currentLocation = locID;
-  
-  console.log("Optimising completeness...");
   completenessPreparation( currentLocation, 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table' );
 }
 
