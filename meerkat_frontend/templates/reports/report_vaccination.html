@@ -25,7 +25,7 @@
         <div class="chart-stage">{{ _('District: %(region)s',
           region = report.data.project_region) }}</div>
         <div class="chart-stage">{{ _('Vaccination sessions: %(sessions)s',
-          sessions = report.data.vaccination_sessions
+          sessions = report.data.vaccination_sessions|int
         ) }}</div>
     </div>
   </div>
@@ -51,9 +51,9 @@
           {% for item in report.data.infants %}
           <tr>
             <td>{{ _(item["name"]) }}</td>
-            <td>{{ item["vaccinated_0_11_mo_infants"] }}</td>
-            <td>{{ item["vaccinated_12_mo_infants"] }}</td>
-            <td>{{ item["vaccinated_0_11_mo_infants"] + item["vaccinated_12_mo_infants"] }}</td>
+            <td>{{ item["vaccinated_0_11_mo_infants"]|int}}</td>
+            <td>{{ item["vaccinated_12_mo_infants"]|int}}</td>
+            <td>{{ (item["vaccinated_0_11_mo_infants"] + item["vaccinated_12_mo_infants"])|int}}</td>
           </tr>
           {% endfor %}
         </table>
@@ -75,9 +75,9 @@
           {% for item in report.data.females %}
           <tr>
             <td>{{ _(item["name"]) }}</td>
-            <td>{{ item["vaccinated_pw"] }}</td>
-            <td>{{ item["vaccinated_notpw"] }}</td>
-            <td>{{ item["vaccinated_pw"] + item["vaccinated_notpw"] }}</td>
+            <td>{{ item["vaccinated_pw"]|int }}</td>
+            <td>{{ item["vaccinated_notpw"]|int }}</td>
+            <td>{{ (item["vaccinated_pw"] + item["vaccinated_notpw"])|int }}</td>
           </tr>
           {% endfor %}
         </table>
