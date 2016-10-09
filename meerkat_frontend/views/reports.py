@@ -6,6 +6,8 @@ A Flask Blueprint module for reports.
 from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
 from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
+import authorise as auth
+
 try:
     import simplejson as json
 except ImportError:
@@ -20,12 +22,9 @@ reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 @reports.before_request
 def requires_auth():
-    """Checks that the user has authenticated before returning any page from the technical site."""
-    current_app.logger.warning('url: ' + request.base_url )
-    if "/email/" not in request.base_url: 
-        auth = request.authorization
-        if not auth or not c.check_auth(auth.username, auth.password):
-            return c.authenticate()
+    """Checks that the user has authenticated before returning any page from this Blueprint."""
+    #We load the arguments for check_auth function from the config files.
+    auth.check_auth( *current_app.config['AUTH'].get('reports', [['BROKEN'],['']]) )
 
 
 # NORMAL ROUTES

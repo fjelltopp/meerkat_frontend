@@ -5,11 +5,24 @@ Meerkat Frontend Tests
 Unit tests for the Meerkat frontend
 """
 import meerkat_frontend as mk
-import unittest
+import base64, unittest, calendar, jwt, os, time
 from datetime import datetime
 from werkzeug.datastructures import Headers
-import base64
+#Check if auth requirements have been installed
+try:
+    #Test by importing package that will only ever be required in auth (touch wood). 
+    __import__('passlib')
+    print( "Authentication requirements installed." )
+except ImportError:
+    print( "Authentication requirements not installed.  Installing them now." )
+    os.system('pip install -r /var/www/meerkat_auth/requirements.txt') 
+from passlib.hash import pbkdf2_sha256
 
+#Need this module to be importable without the whole of meerkat_auth config.
+#Directly load the secret settings file from which to import required variables.
+#File must include JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY variables.
+filename = os.environ.get( 'MEERKAT_AUTH_SETTINGS' )
+exec( compile(open(filename, "rb").read(), filename, 'exec') )
 
 class MeerkatFrontendTestCase(unittest.TestCase):
 
@@ -17,12 +30,26 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         """Setup for testing"""
         mk.app.config['TESTING'] = True
         self.app = mk.app.test_client()
-        mk.app.config["USERNAME"] = "admin"
-        mk.app.config["PASSWORD"] = "secret"
-        cred = base64.b64encode(b"admin:secret").decode("utf-8")
-        self.header = {"Authorization": "Basic {cred}".format(cred=cred)}
-
-
+ 
+        #We need to authenticate our tests using the dev/testing rsa keys. 
+        token_payload = {
+            u'acc': {
+                u'demo': [u'root',u'admin',u'registered'], 
+                u'jordan': [
+                    u'root', u'central',u'directorate',u'clinic',u'reports',
+                    u'all',u'cd',u'ncd',u'mh',u'admin',u'personal'
+                ], 
+                u'madagascar':[u'root',u'admin',u'registered'],
+                u'rms':[u'root',u'admin',u'registered']
+            }, 
+            u'data': {u'name': u'Testy McTestface'}, 
+            u'usr': u'testUser', 
+            u'exp': calendar.timegm( time.gmtime() ) + 1000,  #Lasts for 1000 seconds
+            u'email': u'test@test.org.uk'
+        }
+        token = jwt.encode(token_payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+        self.header = { 'Authorization': JWT_HEADER_PREFIX + token.decode("utf-8") }
+        
     def tearDown(self):
         pass
 
@@ -35,10 +62,11 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_reports(self):
         """Check the Reports page loads"""
         rv = self.app.get('/en/reports/')
-        self.assertIn(rv.status_code, [401])
+        #Without auth you should be redirected to login page.
+        self.assertIn(rv.status_code, [302])
+        #With auth you should get a 200 ok  
         rv2 = self.app.get('en/reports/', headers=self.header)
         self.assertEqual(rv2.status_code, 200)
-        
 
     def test_reports_pub_health(self):
         rv = self.app.get('en/reports/test/public_health/',headers=self.header)
@@ -71,58 +99,20 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def test_technical(self):
         """Check the Technical page loads"""
         rv = self.app.get('/en/technical/')
-        #Due to basic auth
-        self.assertEqual(rv.status_code, 401)
+        #Without auth you should be redirected to login page.
+        self.assertEqual(rv.status_code, 302)
+        #With auth you should get a 200 ok        
         rv2 = self.app.get('/en/technical/', headers=self.header)
         self.assertEqual(rv2.status_code, 200)
 
     #HOMEPAGE testing
     def test_index(self):
         """Ensure the config file is loading correctly"""
-        rv = self.app.get('/')
+        rv = self.app.get('/en/')
         self.assertIn(b'Null Island', rv.data)
 
-    def test_index(self):
-        """Ensure the API data is successfully picked up and displayed."""
-        #TODO Write function that waits for javascript to load api data, and then checks it has loaded.
 
-    def test_multi_basic_auth(self):
-        mk.app.config["AUTH"] = {"reports": {"USERNAME": "admin",
-                                               "PASSWORD": "secret2"},
-                                   "reports/test": {"USERNAME": "admin",
-                                               "PASSWORD": "secret3"}
-                                   }
-        mk.app.config["USE_BASIC_AUTH"] = 1
-        cred1 = base64.b64encode(b"admin:secret").decode("utf-8")
-        header1 = {"Authorization": "Basic {cred}".format(cred=cred1)}
-        cred2 = base64.b64encode(b"admin:secret2").decode("utf-8")
-        header2 = {"Authorization": "Basic {cred}".format(cred=cred2)}
-        cred3 = base64.b64encode(b"admin:secret3").decode("utf-8")
-        header3 = {"Authorization": "Basic {cred}".format(cred=cred3)}
 
-        #Test standard auth
-        rv = self.app.get('en/technical/', headers=header1)
-        self.assertEqual(rv.status_code, 200)
-        rv = self.app.get('en/technical/', headers=header2)
-        self.assertEqual(rv.status_code, 401)
-
-        #Test Level 1 auth
-        rv = self.app.get('en/reports/', headers=header1)
-        self.assertEqual(rv.status_code, 401)
-        rv = self.app.get('en/reports/', headers=header2)
-        self.assertEqual(rv.status_code, 200)
-        rv = self.app.get('en/reports/', headers=header3)
-        self.assertEqual(rv.status_code, 401)
-
-        #Test Level 2 auth
-        rv = self.app.get('en/reports/test/public_health/', headers=header1)
-        self.assertEqual(rv.status_code, 401)
-        rv = self.app.get('en/reports/test/public_health/', headers=header2)
-        self.assertEqual(rv.status_code, 401)
-        rv = self.app.get('en/reports/test/public_health/', headers=header3)
-        self.assertEqual(rv.status_code, 200)
-        
-        mk.app.config["AUTH"] = {}
 
 if __name__ == '__main__':
     unittest.main()

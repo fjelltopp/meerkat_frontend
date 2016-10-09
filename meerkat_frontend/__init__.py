@@ -35,7 +35,11 @@ if app.config.get( 'TEMPLATE_FOLDER', None ):
         jinja2.FileSystemLoader(app.config["TEMPLATE_FOLDER"]),
     ])
     app.jinja_loader = my_loader
-    
+
+#Need to pass auth root down to all pages that might need it.
+#Feels a bit hacky, but can't immediately think of a better way.
+#Here we feed the env var into the shared config that is sent to all pages.
+app.config['SHARED_CONFIG']['auth_root'] = app.config['AUTH_ROOT']
 
 # Set up the config files.
 for k,v in app.config['COMPONENT_CONFIGS'].items():
@@ -130,8 +134,8 @@ def error_test(error):
     """
     abort(error)
 
-@app.errorhandler(403)
 @app.errorhandler(404)
+@app.errorhandler(401)
 @app.errorhandler(410)
 @app.errorhandler(418)
 @app.errorhandler(500)
@@ -145,6 +149,14 @@ def error500(error):
     """
     flash("Sorry, something appears to have gone wrong.", "error")
     return render_template('error.html', error=error, content=current_app.config['TECHNICAL_CONFIG']), error.code
+
+@app.errorhandler(403)
+@app.errorhandler(401)
+def error401(error):
+    """Show the login page if the user hasn't authenticated."""
+    flash( error.description, "error" )
+    app.logger.warning( "Error handler: " + str(error.description) )
+    return redirect("/" + g.language+"/login?url=" + str(request.path))
 
 # Main
 if __name__ == "__main__":

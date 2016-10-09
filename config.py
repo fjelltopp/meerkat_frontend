@@ -30,6 +30,8 @@ class Config(object):
     MAILING_KEY = from_env('MAILING_KEY', 'test-mailing' )
     USE_BASIC_AUTH = int(from_env('USE_BASIC_AUTH', True))
     AUTH = {}
+    INTERNAL_AUTH_ROOT = from_env('MEERKAT_AUTH_ROOT', 'http://dev_nginx_1/auth' )
+    AUTH_ROOT = from_env('MEERKAT_AUTH_ROOT', '/auth' )
     USERNAME = "admin"
     PASSWORD = "secret"
     EXTRA_PAGES = {}
@@ -45,6 +47,12 @@ class Config(object):
     DEFAULT_LANGUAGE = "en"
     SUPPORTED_LANGUAGES = ["en"]
     SUPPORTED_LANGAUGES_FLAGS = ["gb"]
+
+    #Need this module to be importable without the whole of meerkat_auth config.
+    #Directly load the secret settings file from which to import required variables.
+    #File must include JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY variables.
+    filename = os.environ.get( 'MEERKAT_AUTH_SETTINGS' )
+    exec( compile(open(filename, "rb").read(), filename, 'exec') )
 
 
 class Production(Config):

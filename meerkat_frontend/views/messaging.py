@@ -6,6 +6,7 @@ A Flask Blueprint module for Meerkat messaging services.
 from flask.ext.babel import gettext
 from flask import Blueprint, render_template, abort, redirect, flash, request, send_file, current_app, Response, g
 import time, random
+import authorise as auth
 try:
     import simplejson as json
 except ImportError:
@@ -15,31 +16,11 @@ from .. import common as c
 
 messaging = Blueprint('messaging', __name__)
 
-def check_auth(username, password):
-    """This function is called to check if a username / password combination is valid.
-
-       Args:
-           username (str): The given username
-           password (str): The given password
-
-       Returns:
-           bool: True if username/password combination is valid, false otherwise.
-    """
-    return username == current_app.config["USERNAME"] and password == current_app.config["PASSWORD"]
-
-def authenticate():
-    """Sends a 401 response that enables basic auth."""
-    return Response(
-    'Could not verify your access level for that URL.\n'
-    'You have to login with proper credentials', 401,
-    {'WWW-Authenticate': 'Basic realm="Login Required"'})
-
 @messaging.before_request
 def requires_auth():
-    """Checks that the user has authenticated before returning any page from the technical site."""
-    auth = request.authorization
-    if not auth or not check_auth(auth.username, auth.password):
-        return authenticate()
+    """Checks that the user has authenticated before returning any page from this Blueprint."""
+    #We load the arguments for check_auth function from the config files.
+    auth.check_auth( *current_app.config['AUTH'].get( 'messaging', [['BROKEN'],['']]) )
 
 # THE SUBSCRIBING PROCESS
 #Stage1: Fill out a subscription form.

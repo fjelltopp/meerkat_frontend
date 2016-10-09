@@ -10,6 +10,7 @@ from flask import current_app, abort, send_file, Response, request
 import requests
 import json, os
 from requests.auth import HTTPBasicAuth
+import authorise as auth
 
 
 def check_auth(username, password):
@@ -48,10 +49,8 @@ def authenticate():
     'You have to login with proper credentials', 401,
     {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
-
 def api(url, api_key=False, params=None):
     """Returns JSON data from API request.
-
        Args:
            url (str): The Meerkat API url from which data is requested
            api_key (optional bool): Whethe or not we should include the api key. Defaults to False.
@@ -68,8 +67,8 @@ def api(url, api_key=False, params=None):
             if api_key:
                 r = requests.get(
                     api_request,
-                    params={"api_key": current_app.config["TECHNICAL_CONFIG"]["api_key"],
-                            "other":params}
+                    headers = {'authorization': 'Bearer ' + auth.get_token()},
+                    params={"other": params}
                 )
             else:
                 r = requests.get(

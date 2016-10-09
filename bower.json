@@ -25,11 +25,13 @@
     "highcharts": "~4.1.7",
     "Leaflet.fullscreen": "Leaflet/Leaflet.fullscreen#~0.0.4",
     "leaflet-omnivore": "~0.3.2",
-    "intl-tel-input":"~7.1.1",
+    "intl-tel-input": "~7.1.1",
     "eonasdan-bootstrap-datetimepicker": "~4.17.37",
     "bootstrap-table": "~1.10.1",
     "tableExport.jquery.plugin": "~1.5.0",
-    "jed":"~1.1.0"
+    "jed": "~1.1.0",
+    "featherlight": "~1.5.0",
+    "js-cookie": "~2.1.3"
   },
   "overrides": {
     "Leaflet.fullscreen": {
@@ -38,8 +40,11 @@
     "leaflet-omnivore": {
       "main": "leaflet-omnivore.js"
     },
-    "highcharts":{
-      "main":["highcharts.js", "highcharts-more.js"]
+    "highcharts": {
+      "main": [
+        "highcharts.js",
+        "highcharts-more.js"
+      ]
     }
   }
 }
