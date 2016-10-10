@@ -180,6 +180,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
 #We only want this route to take the api key authentication, not the JWT.
 #Achieve this by removing it from the blueprint and adding it directly to the app. 
 #TODO: Is this the best way of managing authentication for this?
+@auth.authorise( *current_app.config['AUTH'].get('report_emails', [['BROKEN'],['']]) )
 @app.route('/reports/email/<report>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/', methods=['POST'])
@@ -192,14 +193,6 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
     current_app.logger.warning( str(request.data.decode('UTF-8')))
-    #Authorise the request.
-    key = json.loads(request.data.decode('UTF-8')).get('key', "")
-    if not (key == current_app.config["MAILING_KEY"] or current_app.config["MAILING_KEY"] == ""):
-        current_app.logger.warning(
-            "Unauthorized address trying to use API: {}".format(request.remote_addr) + 
-            "\nwith api key: " + key
-        )
-        abort(401)
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
