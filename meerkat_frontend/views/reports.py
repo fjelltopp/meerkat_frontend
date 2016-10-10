@@ -3,9 +3,11 @@ reports.py
 
 A Flask Blueprint module for reports.
 """
-from flask import Blueprint, render_template, abort, redirect, url_for, request, send_file, current_app, Response
+from flask import Blueprint, render_template, abort, redirect 
+from flask import url_for, request, send_file, current_app, Response
 from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
+from meerkat_frontend import app
 import authorise as auth
 
 try:
@@ -175,11 +177,14 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
     else:
         abort(501)
 
-@reports.route('/email/<report>/', methods=['POST'])
-@reports.route('/email/<report>/<location>/', methods=['POST'])
-@reports.route('/email/<report>/<location>/<end_date>/', methods=['POST'])
-@reports.route('/email/<report>/<location>/<end_date>/<start_date>/', methods=['POST'])
-@reports.route('/email/<report>/<location>/<end_date>/<start_date>/<email_format>', methods=['POST'])
+#We only want this route to take the api key authentication, not the JWT.
+#Achieve this by removing it from the blueprint and adding it directly to the app. 
+#TODO: Is this the best way of managing authentication for this?
+@app.route('/reports/email/<report>/', methods=['POST'])
+@app.route('/reports/email/<report>/<location>/', methods=['POST'])
+@app.route('/reports/email/<report>/<location>/<end_date>/', methods=['POST'])
+@app.route('/reports/email/<report>/<location>/<end_date>/<start_date>/', methods=['POST'])
+@app.route('/reports/email/<report>/<location>/<end_date>/<start_date>/<email_format>', methods=['POST'])
 def send_email_report(report, location=None, end_date=None, start_date=None):
     """Sends an email via Hermes with the latest report.
 
@@ -190,8 +195,10 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
     #Authorise the request.
     key = json.loads(request.data.decode('UTF-8')).get('key', "")
     if not (key == current_app.config["MAILING_KEY"] or current_app.config["MAILING_KEY"] == ""):
-        current_app.logger.warning("Unauthorized address trying to use API: {}".format(request.remote_addr) + 
-                           "\nwith api key: " + key)
+        current_app.logger.warning(
+            "Unauthorized address trying to use API: {}".format(request.remote_addr) + 
+            "\nwith api key: " + key
+        )
         abort(401)
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
