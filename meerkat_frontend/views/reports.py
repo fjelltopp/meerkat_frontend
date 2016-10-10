@@ -177,15 +177,13 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
     else:
         abort(501)
 
-#We only want this route to take the api key authentication, not the JWT.
-#Achieve this by removing it from the blueprint and adding it directly to the app. 
-#TODO: Is this the best way of managing authentication for this?
-@auth.authorise( *app.config['AUTH'].get('report_emails', [['BROKEN'],['']]) )
+#Need to handle authentication to this url seperately to the rest of the reports system
 @app.route('/reports/email/<report>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/<start_date>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/<start_date>/<email_format>', methods=['POST'])
+@auth.authorise( *app.config['AUTH'].get('report_emails', [['BROKEN'],['']]) )
 def send_email_report(report, location=None, end_date=None, start_date=None):
     """Sends an email via Hermes with the latest report.
 
@@ -207,11 +205,11 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date=start_date
         )
 
-        relative_url = url_for('.report',
+        relative_url = url_for( 'reports.report',
                                 report=report,
                                 location=location,
                                 end_date=end_date, 
-                                start_date=start_date)
+                                start_date=start_date )
 
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
