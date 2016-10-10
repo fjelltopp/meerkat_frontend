@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-10-09 17:20+0000\n"
+"POT-Creation-Date: 2016-10-10 20:31+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -1988,7 +1988,7 @@ msgstr "Conditions de Santé des Enfants"
 #: meerkat_frontend/templates/reports/report_vaccination.html:3
 #: meerkat_frontend/templates/reports/report_vaccination.html:13
 msgid "Vaccination Report"
-msgstr ""
+msgstr "Rapport de Vaccination"
 
 #: meerkat_frontend/templates/reports/report_vaccination.html:24
 msgid "Vaccination sessions"
@@ -2002,15 +2002,15 @@ msgstr "Nom du district:  %(region)s"
 #: meerkat_frontend/templates/reports/report_vaccination.html:27
 #, python-format
 msgid "Vaccination sessions: %(sessions)s"
-msgstr ""
+msgstr "Nombre du seance du vaccination: %(sessions)s"
 
 #: meerkat_frontend/templates/reports/report_vaccination.html:38
 msgid "Vaccinations"
-msgstr ""
+msgstr "Vaccinations"
 
 #: meerkat_frontend/templates/reports/report_vaccination.html:39
 msgid "Table 1: Number of infant vaccinations"
-msgstr ""
+msgstr "Table 1: Nombre de vaccinations des nourissons"
 
 #: meerkat_frontend/templates/reports/report_vaccination.html:45
 #: meerkat_frontend/templates/reports/report_vaccination.html:69
@@ -2027,7 +2027,7 @@ msgstr ">12 mois"
 
 #: meerkat_frontend/templates/reports/report_vaccination.html:63
 msgid "Table 2: Number of female vaccinations"
-msgstr ""
+msgstr "Table 2: Nombre de vaccinations des femmes"
 
 #: meerkat_frontend/templates/reports/report_vaccination.html:70
 msgid "Pregnant women"
