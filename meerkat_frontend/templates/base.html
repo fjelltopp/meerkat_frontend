@@ -24,7 +24,23 @@
         </a>
       </div>
       <div class="collapse navbar-collapse" id="menu-collapse" >
-        {% block menu %}{% endblock %}
+        {% block menu %}
+        <ul class="nav navbar-nav">
+            {% for item in content.main_menu %}
+                {% if (('access' in item) and (item.access in g.payload.acc[content.country|slugify]))
+                    or ('access' not in item) %}  
+                <li class="menu-{{item.text|slugify}}">
+                    <a href="/{{g.get('language')}}{{item.url}}" >{{ item.text }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            <li class="menu-logout">
+                <a href="/{{g.get('language')}}/logout?url={{request.url_root}}{{g.get('language')}}" >
+                    {{ _('Log out') }}
+                </a>
+            </li>
+        </ul>
+        {% endblock %}
         <div class="lang-sel" title=>
         </div>
       </div>

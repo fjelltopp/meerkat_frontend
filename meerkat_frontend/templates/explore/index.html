@@ -1,14 +1,5 @@
 {% extends 'base.html' %}
-{% block menu %}
-<ul class="nav navbar-nav">
-  <li><a href="/{{g.get('language')}}/technical/" >{{ _('Dashboard') }}</a></li>
-  <li><a href="/{{g.get('language')}}/reports/" >{{ _('Reports') }}</a></li>
-  <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
-  <li class="active"><a href="/{{g.get('language')}}/explore/" >{{ _('Explore') }}</a></li>
-  <li><a href="/{{g.get('language')}}/download/" >{{ _('Download') }}</a></li>
-  <li><a href="/{{g.get('language')}}/logout?url={{request.url_root}}{{g.get('language')}}" >{{ _('Log out') }}</a></li>
-</ul>
-{% endblock %}
+
 
 {% block body %}
 <!-- CONTENT -->
@@ -148,6 +139,9 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
+
+$('ul.navbar-nav .active').removeClass('active');
+$('.menu-explore').addClass('active');
 
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
