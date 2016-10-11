@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!-- CONTENT -->
+<div class="container page-content">
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			{{_('Account Settings') }}
+		</div>
+		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+			{{ _('Date not loaded.') }}
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+	    <div class="row">
+		    <div class="col-xs-12 less-padding-col">
+			    <div class="box chartBox">
+				    <div class="chartBox__heading">
+					    {{ _('Reset Password') }}
+				    </div>
+				    <div class="chartBox__content" >
+				        <div class="intro"></div>
+					    <div class="breaker"></div>
+					    <form id="account-details" class="account-details clearfix">
+                            <div class='col-xs-12 col-md-8 col-lg-6 col-md-offset-1 col-lg-offset-2'>
+                                <div class='input-group row'>
+                                    <label class='username col-xs-12 col-md-6 col-lg-5'>
+                                        {{_('Username')}}: 
+                                    </label>
+                                    <input type='text' readonly class='username col-xs-12 col-md-6 col-lg-7' 
+                                           value='{{g.payload.usr}}' name='username' />
+                                </div>
+                                <div class='input-group row'>
+                                    <label class='username col-xs-12 col-md-6 col-lg-5'>
+                                        {{_('Current password')}}: 
+                                    </label>
+                                    <input type='password' class='old_password col-xs-12 col-md-6 col-lg-7' 
+                                           value='' name='old_password' />
+                                </div>
+
+                                <div class="breaker"></div>
+
+                                <div class='input-group row'>
+                                    <label class='password col-xs-12 col-md-6 col-lg-5'>
+                                        {{_('New password')}}: 
+                                    </label>
+                                    <input type='password' class='password col-xs-12 col-md-6 col-lg-7' 
+                                           value='' name='password' id='password'
+                                           oninput="checkEqual('password', 'password2')" />
+                                </div>
+                                <div class='input-group row'>
+                                    <label class='retype_password col-xs-12 col-md-6 col-lg-5'>
+                                        {{_('Retype new password')}}: 
+                                    </label>
+                                    <input type='password' class='retype_password col-xs-12 col-md-6 col-lg-7' 
+                                           value='' id='password2' oninput="checkEqual('password', 'password2')"/>
+                                </div>
+
+                                <div class="breaker"></div>
+
+						        <div class="row">
+							        <input type="submit" 
+								           class="submit btn btn-default btn-lg col-md-offset-6 col-lg-offset-5" 
+								           value="{{ _('Reset') }}">
+						        </div>
+                            </div>
+					    </form>
+                        <div class="breaker"></div>
+				    </div>
+			    </div>
+		    </div>
+		</div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+var config = {{content|tojson|safe}};
+var week = {{week.epi_week}};
+$("#epi-week-title").html( i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date() );
+
+function checkEqual( id1, id2 ) {
+
+    var email1 = document.getElementById(id1);
+    var email2 = document.getElementById(id2);
+
+    if ( email2.value != email1.value ) {
+        email2.setCustomValidity( i18n.gettext('Fields must be Matching.') );
+        return false;
+    } else {
+        //Input is valid -- reset the error message
+        email2.setCustomValidity('');
+        return true;
+    }
+}
+
+//FORM SUBMISSION
+$('.account-details .submit').click(function(evt){
+    
+    if( formValid() ){
+        evt.preventDefault();
+        $('.account-details .submit').html( i18n.gettext("Working" ) + 
+                                         " <div class='loading'></div>" );
+        //Assemble complete json object.
+        var data = {};
+        var form = $('.account-details');
+        var formArray = form.serializeArray();
+
+        for( var z in formArray ){
+            var element = formArray[z];
+            data[element.name] = element.value;
+        }
+
+        console.log( data )
+
+        //Post json to server.
+        $.ajax({
+            url: "",
+            type: 'post',
+            success: function(data){
+                alert( "Password successfully changed. Please login again." );
+                parent.location.replace( 
+                    "/{{g.get('language')}}/logout?url={{request.url_root}}{{g.get('language')}}" 
+                );
+            },
+            error: function (data) {
+                if( data.responseJSON.hasOwnProperty( 'message' ) ){
+                    alert( data.responseJSON.message );
+                }else{
+                    alert( i18n.gettext("There has been a server error. " + 
+                                        "Please contact administrator and try again later.") );
+                }
+            },
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(data, null, '\t')
+        });
+
+    }
+});
+
+//Form validation
+function formValid(){
+
+    var valid = true;
+
+    return valid;    
+}
+</script>
+
+{% endblock pageJS %}
