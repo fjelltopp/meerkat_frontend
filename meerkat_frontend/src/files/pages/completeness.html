@@ -118,16 +118,8 @@ $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + 
 //It's also called upon the first load of the page. 
 function drawCharts( locID ){
   currentLocation = locID;
-  reDrawCompletness();
- }
- 
- function reDrawCompletness(){
-	 drawCompletenessTable( 'completeness-table', currentLocation );
-	 drawCompletenessGraph( 'completeness-graph', currentLocation );
-	 drawMissingCompletenessTable( 'missing-completeness-table',"#box_3_heading", currentLocation);
-	 drawAllClinicsCompleteness( 'all-clinics-table', currentLocation);
- }
-
+  completenessPreparation( currentLocation, 'reg_1', 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table' );
+}
 
 function toggleAllClinics(){
     $("#all_clinics_box .chartBox__heading").toggleClass("no-border");

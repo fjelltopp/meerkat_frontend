@@ -649,19 +649,15 @@ function drawTbTable(containerID, location_id){
  the id attribute of the html element to hold the table.
  :param int regionID:
  All clinics in this region (and its subregions) will be included in that table
- the id of the region from which all clinics will 
+ the id of the region from w.hich all clinics will 
+    :param Object locations:
+        List of all locations from API.
+    :param Object data:
+        Completeness data from API.
  */
-function drawAllClinicsCompleteness( containerID, regionID, module ){
 
-    var module_var = 'reg_1';
-    if(module === 'cd'){
-        module_var = 'reg_10';
-    }else if(module === 'ncd'){
-        module_var = 'reg_11';
-    }
+function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
 
-$.getJSON( api_root+"/locations", function( locations ){
-    $.getJSON( api_root+"/completeness/" + module_var + "/" + regionID + "/4", function( data ){
         // console.log(locations);
         // console.log(locations[regionID]);
         // if (locations[regionID].level === "clinic")
@@ -715,10 +711,6 @@ $.getJSON( api_root+"/locations", function( locations ){
             sortOrder: 'desc'
         });
 	      return table;
-
-    });//getJSON
-}); // getJSON locations
-
 }
 
 /**:drawMissingCompletenessTable( containerID, regionID)
@@ -728,18 +720,13 @@ $.getJSON( api_root+"/locations", function( locations ){
  the id attribute of the html element to hold the table.
  :param int regionID:
   Current region or clinic ID
+    :param Object locations:
+        List of all locations from API.
+
+
  */
-function drawMissingCompletenessTable( containerID, headerID, regionID, module ){
 
-
-    var module_var = 'reg_1';
-    if(module === 'cd'){
-        module_var = 'reg_10';
-    }else if(module === 'ncd'){
-        module_var = 'reg_11';
-    }
-
-    $.getJSON( api_root+"/locations", function( locations ){
+function drawMissingCompletenessTable( module_var, containerID, headerID, regionID, locations ){
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
 
@@ -815,7 +802,6 @@ function drawMissingCompletenessTable( containerID, headerID, regionID, module )
 
 
 
-}); // getJSON locations
 
 }
 /**:drawCompletenessTable(containerID, regionID)
@@ -827,23 +813,16 @@ function drawMissingCompletenessTable( containerID, headerID, regionID, module )
         The ID attribute of the html element to hold the table.
     :param string regionID:
         The ID of the region by which to filter the completeness data.
+    :param Object locations:
+        List of all locations from API.
+    :param Object data:
+        Completeness data from API.
  */
-function drawCompletenessTable( containerID, regionID, module ){
 
-    var module_var = 'reg_1';
-    if(module === 'cd'){
-        module_var = 'reg_10';
-    }else if(module === 'ncd'){
-        module_var = 'reg_11';
-    }
-
-
-$.getJSON( api_root+"/locations", function( locations ){
-    $.getJSON( api_root+"/completeness/" + module_var + "/" + regionID + "/4", function( data ){
+function drawCompletenessTable( containerID, regionID, locations, data ){
         var dataPrepared = [];
         var scoreKeys = Object.keys(data.score);
         var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name
-        console.log("par:" + parentLocation);
         var index = 0;
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
@@ -895,9 +874,6 @@ $.getJSON( api_root+"/locations", function( locations ){
               sortOrder: 'desc'
           });
 	      return table;
-
-    });//getJSON
-}); // getJSON locations
 
 }
 

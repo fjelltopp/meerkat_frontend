@@ -553,4 +553,46 @@ function stripEmptyRecords( dataObject ){
 }
 
 
+/**:completnessPreparation( details )
 
+   This function factorises out repeated code when drawing tables and charts for completness.
+   It also helps to share data from AJAX calls where possible, rather than making multiple replicated
+   AJAX calls for tables and charts.
+
+   Arguments:
+   :param string locID:
+   The ID of the location for which completeness shall be calculated.
+   :param string graphID:
+   The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
+   :param string tableID:
+   The ID for the HTML element that will hold the main completeness table.  If empty, no table is drawn.
+   :param string nonreportingtableID:
+   The ID for the HTML element that will hold the line table of non-reporting clinics.  If empty, this table isn't drawn.
+   :param string nonreportingTitle:
+   The ID for the HTML element containg title of the non-reporting clinics table.
+   :param string allclinisctableID:
+   The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+   
+   */
+function completenessPreparation( locID, var_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week){
+    var completenessLocations;
+    var completenessData; 
+     var deferreds = [
+       $.getJSON( api_root+"/locations", function( data ){
+         completenessLocations = data;
+       }),
+       $.getJSON( api_root+"/completeness/" +var_id +"/" + locID + "/4", function( data ){
+         completenessData = data;
+       })
+     ];
+     
+     $.when.apply( $, deferreds ).then(function() {
+       
+		 drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week );
+       drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
+		 drawMissingCompletenessTable( var_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations); //this call makes one additional AJAX call
+       drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
+     } );
+     
+     
+   }
