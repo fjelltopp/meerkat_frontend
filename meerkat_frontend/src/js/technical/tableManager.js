@@ -260,13 +260,13 @@ function drawOptionsButtons(tableID, redrawFunctionName){
     
     html += "<span class='glyphicon glyphicon-resize-small " + tableID  + "-option pull-right' " + 
         "id='strip-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");' "+
-        "title='Hide/show empty records' "+
-        "table='disease-table' value=false name='strip'></span>";
+        "title='" + i18n.gettext('Hide/show empty records')+
+        "' table='disease-table' value=false name='strip'></span>";
 
     html += "<span class='glyphicon glyphicon-pencil " + tableID  + "-option pull-right' " +
             " id='colour-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");'"+
-            " title='Colour the table' " +
-            "table='disease-table' value=false name='colour'></span>";
+            " title='" + i18n.gettext('Colour the table') +
+            "' table='disease-table' value=false name='colour'></span>";
 
     html += "</div>";
     
@@ -651,9 +651,17 @@ function drawTbTable(containerID, location_id){
  All clinics in this region (and its subregions) will be included in that table
  the id of the region from which all clinics will 
  */
-function drawAllClinicsCompleteness( containerID, regionID ){
+function drawAllClinicsCompleteness( containerID, regionID, module ){
+
+    var module_var = 'reg_1';
+    if(module === 'cd'){
+        module_var = 'reg_10';
+    }else if(module === 'ncd'){
+        module_var = 'reg_11';
+    }
+
 $.getJSON( api_root+"/locations", function( locations ){
-    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+    $.getJSON( api_root+"/completeness/" + module_var + "/" + regionID + "/4", function( data ){
         // console.log(locations);
         // console.log(locations[regionID]);
         // if (locations[regionID].level === "clinic")
@@ -721,7 +729,16 @@ $.getJSON( api_root+"/locations", function( locations ){
  :param int regionID:
   Current region or clinic ID
  */
-function drawMissingCompletenessTable( containerID, headerID, regionID ){
+function drawMissingCompletenessTable( containerID, headerID, regionID, module ){
+
+
+    var module_var = 'reg_1';
+    if(module === 'cd'){
+        module_var = 'reg_10';
+    }else if(module === 'ncd'){
+        module_var = 'reg_11';
+    }
+
     $.getJSON( api_root+"/locations", function( locations ){
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
@@ -735,7 +752,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
         var columns = [];
         var datum = [];
         if(locations[regionID].level != "clinic"){//no information aboout reporting clinic
-			$.getJSON( api_root+"/non_reporting/reg_1/" + regionID, function( data ){
+			$.getJSON( api_root+"/non_reporting/" + module_var + "/" + regionID, function( data ){
 				for (var i=0; i<data.clinics.length;i++){
 					datum = {
 						"location": locations[data.clinics[i]].name
@@ -811,10 +828,18 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
     :param string regionID:
         The ID of the region by which to filter the completeness data.
  */
-function drawCompletenessTable( containerID, regionID ){
+function drawCompletenessTable( containerID, regionID, module ){
+
+    var module_var = 'reg_1';
+    if(module === 'cd'){
+        module_var = 'reg_10';
+    }else if(module === 'ncd'){
+        module_var = 'reg_11';
+    }
+
 
 $.getJSON( api_root+"/locations", function( locations ){
-    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+    $.getJSON( api_root+"/completeness/" + module_var + "/" + regionID + "/4", function( data ){
         var dataPrepared = [];
         var scoreKeys = Object.keys(data.score);
         var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name
@@ -927,10 +952,7 @@ function createColourCellTab(optionColourTable){
         if(row.main == "Total"){
             return {classes: "info"};
         }
-        console.log( "OptionColorTable: " + optionColourTable ); 
-        if(optionColourTable == "false"){
-            return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
-        }else{
+        if(optionColourTable == "true"){
             if (typeof value == 'undefined'){
                 return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
             }
@@ -948,6 +970,8 @@ function createColourCellTab(optionColourTable){
                 var perc = Number(numval) / 100;
                 return {css: {"background-color": "rgba(217, 105, 42, " + perc +")"}};
             }
+        }else{
+            return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
         }
     }
 

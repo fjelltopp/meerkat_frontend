@@ -34,7 +34,7 @@ function showChartType( type, containerID ){
  */
 function drawBarChart( containerID, data, percent ){
 
-  console.log( data );
+  //console.log( data );
 
   //We want to work with a clone of the data, not the data itself.
   data = $.extend(true, {}, data);
@@ -303,9 +303,15 @@ function drawTimeChart( varID, locID, containerID ){
    :param string locID:
    The ID of the location by which to filter the data.
 */
-function drawCompletenessGraph( containerID, regionID ){
+function drawCompletenessGraph( containerID, regionID, module ){
+    var module_var = 'reg_1';
+    if(module === 'cd'){
+        module_var = 'reg_10';
+    }else if(module === 'ncd'){
+        module_var = 'reg_11';
+    }
     $.getJSON( api_root+"/locations", function( locations ){
-        $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+        $.getJSON( api_root+"/completeness/" + module_var + "/" + regionID + "/4", function( data ){
             //create a data series for each location
             var dataPrepared = [];
             var timeseries = [];

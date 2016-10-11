@@ -1,12 +1,13 @@
 <div class="top-bar row">
+
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
-		<div class="location-box__label">
-			<div id="location_box"></div>
-			<div id="location-title" class="location-title"></div>
-		</div>
-		<span class="glyphicon glyphicon-chevron-right"></span>
-		<span class="glyphicon glyphicon-chevron-left hidden"></span>
+			<div class="location-box__label">
+				<div id="location_box"></div>
+				<div id="location-title" class="location-title"></div>
+			</div>
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
 	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
@@ -20,7 +21,6 @@
 
 	<div id="sidebar-wrapper" >
 		<div id="location-selector" class="location-selector">
-
 		</div>
 	</div>
 
@@ -32,34 +32,52 @@
 						<p id="box_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="showChartType('bar','gender-charts');return false;" class="bar"> 
-							
 							</a> /
 							<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie"> 
-							
 							</a> /
 							<a href="" onclick="exportTableToCSV('gender-table','gender.csv', this);" class="csv"> 
-							
 							</a> 
 						</div>
 					</div>
 					<div id="gender-charts" class="chartBox__content">
 						<div id="gender-bar-chart" class="bar chart"></div>
 						<div id="gender-pie-chart" class="pie chart hidden" ></div>
-            <div id="gender-table" class="table" ></div>
+						<div id="gender-table" class="table" ></div>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-md-6 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
+					<div class="chartBox__heading" >
 						<p id="box_2_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="showChartType('bar','age-charts');return false;" class="bar"> 
-											</a> /
-							<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"> 
-											</a>/
+							<a href="" onclick="showChartType('bar','nationality-charts');return false;" class="bar"> 
+							</a> /
+							<a href="" onclick="showChartType('pie','nationality-charts');return false;" class="pie"> 
+							</a>/
+							<a href="" onclick="exportTableToCSV('nationality-table','nationality.csv', this);" class="csv"> 
+							</a> 
+						</div>
+					</div>
+					<div id="nationality-charts" class="chartBox__content">
+						<div id="nationality-bar-chart" class="bar chart"></div>
+						<div id="nationality-pie-chart" class="pie chart hidden" ></div>
+						<div id="nationality-table" class="table" ></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						<p id="box_3_heading" style="display: inline"> </p>
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','age-charts');return false;" class="bar"></a> /
+							<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"></a> /
 							<a href="" onclick="exportTableToCSV('age-table','age.csv', this);" class="csv"> 
-											</a> 
+							</a> 
 						</div>
 					</div>
 					<div id="age-charts" class="chartBox__content">
@@ -69,23 +87,43 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading" >
+						<p id="box_4_heading" style="display: inline"> </p>
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','status-charts');return false;" class="bar"></a> /
+							<a href="" onclick="showChartType('pie','status-charts');return false;" class="pie"></a> /
+							<a href="" onclick="exportTableToCSV('status-table','status.csv', this);" class="csv"> 
+							</a> 
+						</div>
+					</div>
+					<div id="status-charts" class="chartBox__content">
+						<div id="status-bar-chart" class="bar chart"></div>
+						<div id="status-pie-chart" class="pie chart hidden" ></div>
+						<div id="status-table" class="table" ></div>
+					</div>
+				</div>
+			</div>
 		</div>
+
 	</div>
 </div>
 <div class="breaker"></div>
 
 <!-- Menu Toggle Script -->
 <script>
-
-  var currrentLocation;
-
  $("#location_box").html(i18n.gettext("Location:"));
  $("#location_title").html(i18n.gettext("Not Loaded"));
- $("#title").html(i18n.gettext('Demographics'));
+ $("#title").html(i18n.gettext('DemographicsNCD'));
+ //$("#title").html(i18n.gettext('Demographics'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('Gender'));
- $("#box_2_heading").html(i18n.gettext('Age'));
+ $("#box_2_heading").html(i18n.gettext('Nationality'));
+ $("#box_3_heading").html(i18n.gettext('Age'));
+ $("#box_4_heading").html(i18n.gettext('Status'));
+ 
  $(".csv").each(function(){
 	 $(this).html(i18n.gettext('Excel'));
  });
@@ -95,6 +133,7 @@
  $(".pie").each(function(){
 	 $(this).html(i18n.gettext('Pie'));
  });
+
  
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
@@ -112,34 +151,39 @@ $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + 
 
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
-  currentLocation = locID;
-  reDraw();
-}
 
-function reDraw(){
-  var tableOptions = {};
-  //Assemble correct options object from html elements.
-  $('.table-option').each( function(){
-      tableOptions[$(this).attr('name')] = $(this).attr('value');
-  });
-  console.log( tableOptions );
 	//Keep week abstracted out of the chart drawing process.
 	//In case we want the user to be able to select the weeks to view.
 	var week = (get_epi_week()).toString();
 
 	//For each category draw a category summation.
-	var categories = ['gender', 'age'];
+	var categories = ['gender', 'status', 'age'];
 	for( var i in categories ){
 		categorySummation({ category: categories[i],
-		                    locID: currentLocation,
+		                    locID: locID,
 		                    week: week,
 		                    tableID: categories[i]+'-table',
 		                    barID: categories[i]+'-bar-chart',
 		                    pieID: categories[i]+'-pie-chart',
-	                      percent: true
+		                    percent: true,
+                        table_options: {'strip': 'false', 'colour':'false'},
+                        limit_to: 'ncd' 
 		                  });
 	}
+	categorySummation({ category: 'nationality',
+		                 locID: locID,
+		                 week: week,
+		                 tableID: 'nationality-table',
+		                 barID: 'nationality-bar-chart',
+		                 pieID: 'nationality-pie-chart',
+		                 percent: true,
+	                   strip: true,
+                     table_options: {'strip': 'false', 'colour':'false'},
+                     limit_to: 'ncd' 
+		               });
+
 
 }
+
 
 </script>
