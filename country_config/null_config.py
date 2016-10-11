@@ -25,6 +25,7 @@ COMPONENT_CONFIGS = {
 # Any fields in the above files labelled with the same key path override the fields in this dictionary.
 SHARED_CONFIG = {
     "country":"Null Island",
+    "auth_country":"demo",
     "titles":{
         "full":"Null Island <br> Public Health Surveillance",
         "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
