@@ -289,12 +289,10 @@ function categorySummation( details ){
 
     //Optional filtering of the aggregation result by limiting to an additional category
     var limit_to_postfix = "";
-    if(details.limit_to == "ncd"){
-        limit_to_postfix = "/prc_2";
-    }else if(details.limit_to == "cd"){
-        limit_to_postfix = "/prc_1";
-    }
-
+	
+    if(details.limit_to){
+        limit_to_postfix = "/" + details.limit_to;
+	}
     //Assemble an array of AJAX calls 
     var deferreds = [
         $.getJSON( api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {

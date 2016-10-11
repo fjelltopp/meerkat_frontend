@@ -115,7 +115,7 @@
 <script>
  $("#location_box").html(i18n.gettext("Location:"));
  $("#location_title").html(i18n.gettext("Not Loaded"));
- $("#title").html(i18n.gettext('DemographicsNCD'));
+ $("#title").html(i18n.gettext('NCD Demographics'));
  //$("#title").html(i18n.gettext('Demographics'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
@@ -167,7 +167,7 @@ function drawCharts( locID ){
 		                    pieID: categories[i]+'-pie-chart',
 		                    percent: true,
                         table_options: {'strip': 'false', 'colour':'false'},
-                        limit_to: 'ncd' 
+                        limit_to: 'prc_2' 
 		                  });
 	}
 	categorySummation({ category: 'nationality',
@@ -179,7 +179,7 @@ function drawCharts( locID ){
 		                 percent: true,
 	                   strip: true,
                      table_options: {'strip': 'false', 'colour':'false'},
-                     limit_to: 'ncd' 
+                     limit_to: 'prc_2' 
 		               });
 
 
