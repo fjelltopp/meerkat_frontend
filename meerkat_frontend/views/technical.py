@@ -7,6 +7,7 @@ from flask import Blueprint, render_template, current_app, request, Response, g
 import json
 from .. import common as c
 import authorise as auth
+from slugify import slugify
 
 technical = Blueprint('technical', __name__,url_prefix='/<language>')
 
@@ -19,8 +20,18 @@ def requires_auth():
 @technical.route('/')
 @technical.route('/<tab>')
 @technical.route('/<tab>/loc_<int:locID>')
-def index(tab="demographics", locID=1):
+def index(tab=None, locID=1):
     """Serves a tab for the technical dashboard, filtered by the specified location."""
+
+    #If no tab is provided, load the first tab in the tab list the user has access to.
+    if tab == None:
+        for t in current_app.config['TECHNICAL_CONFIG']['tabs']:
+            country = slugify( current_app.config['TECHNICAL_CONFIG']['country'] )
+            tab_access = t.get('access', False)
+            if (tab_access in g.payload['acc'][country]) or not tab_access:
+                tab=slugify(t['name'])
+                break
+
     pageState = "{ type: 'tab', dataID: '" + tab + "', locID: " + str(locID) + " }"
 
     return render_template(

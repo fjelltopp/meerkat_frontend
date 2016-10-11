@@ -8,7 +8,7 @@
             {% if (('access' in tab) and (tab.access in g.payload.acc[content.country|slugify]))
                     or ('access' not in tab) %}          
         <li>
-	       <a href="" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}" page="{{tab.template}}" onclick="loadTab('{{tab.name|striptags|lower|trim|replace(' ','_')}}'); return false;">{{_(tab.name)}}</a>
+	       <a href="" id="{{tab.name|slugify}}" page="{{tab.template}}" onclick="loadTab('{{tab.name|slugify}}'); return false;">{{_(tab.name)}}</a>
 	    </li>
             {% endif %}
         {% endfor %}
