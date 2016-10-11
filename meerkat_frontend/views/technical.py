@@ -26,7 +26,7 @@ def index(tab=None, locID=1):
     #If no tab is provided, load the first tab in the tab list the user has access to.
     if tab == None:
         for t in current_app.config['TECHNICAL_CONFIG']['tabs']:
-            country = slugify( current_app.config['TECHNICAL_CONFIG']['country'] )
+            country = current_app.config['TECHNICAL_CONFIG']['auth_country'] 
             tab_access = t.get('access', False)
             if (tab_access in g.payload['acc'][country]) or not tab_access:
                 tab=slugify(t['name'])
