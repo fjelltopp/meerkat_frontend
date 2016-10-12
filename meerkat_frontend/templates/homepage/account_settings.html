@@ -120,7 +120,7 @@ $('.account-details .submit').click(function(evt){
             url: "",
             type: 'post',
             success: function(data){
-                alert( "Password successfully changed. Please login again." );
+                alert( i18n.gettext("Password successfully changed. Please login again.") );
                 parent.location.replace( 
                     "/{{g.get('language')}}/logout?url={{request.url_root}}{{g.get('language')}}" 
                 );

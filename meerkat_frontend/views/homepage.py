@@ -5,6 +5,7 @@ A Flask Blueprint module for the homepage.
 """
 from flask import Blueprint, render_template, current_app, abort, g, request, make_response, redirect, flash
 from flask.ext.babel import get_translations, gettext
+from meerkat_frontend import app
 from .. import common as c
 import requests
 import authorise as auth
@@ -60,8 +61,11 @@ def logout():
     return response
 
 @homepage.route('/account_settings', methods=['GET', 'POST'])
-@auth.authorise(['personal'], ['jordan'])
+@auth.authorise( *app.config['AUTH'].get('settings', [['BROKEN'],['']]) )
 def account_settings():
+    """
+    Shows the account settings page.
+    """
     current_app.logger.warning(request.method)
     if request.method == 'GET':
         current_app.logger.warning("GET called")
