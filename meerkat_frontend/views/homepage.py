@@ -66,7 +66,6 @@ def account_settings():
     """
     Shows the account settings page.
     """
-    current_app.logger.warning(request.method)
     if request.method == 'GET':
         current_app.logger.warning("GET called")
         return render_template(
