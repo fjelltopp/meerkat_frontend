@@ -8,7 +8,8 @@ AUTH = {
     "messaging": [['registered'],['demo']],
     "download": [['registered'],['demo']],
     "explore": [['registered'],['demo']],
-    "reports": [['registered'],['demo']]
+    "reports": [['registered'],['demo']],
+    "settings": [['personal'],['demo']]
 }
 
 # Configuration fields that are specific to each frontend component.
@@ -43,6 +44,22 @@ SHARED_CONFIG = {
         ],
         "email":"nullisland@moh.int"
     },
+    "main_menu":[{
+        "text":"Dashboard",
+        "url":"/technical/",
+    },{
+        "text":"Reports",
+        "url":"/reports/",
+    },{
+        "text":"Notifications",
+        "url":"/messaging/",
+    },{
+        "text":"Explore",
+        "url":"/explore/",
+    },{
+        "text":"Download",
+        "url":"/download/",
+    }],
     "glossary":{
         "region":"kingdom"
     },

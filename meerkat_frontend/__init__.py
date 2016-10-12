@@ -48,7 +48,6 @@ from .views.messaging import messaging
 from .views.download import download
 from .views.explore import explore
 
-
 @app.route("/")
 def root():
     return redirect("/" + app.config["DEFAULT_LANGUAGE"])
