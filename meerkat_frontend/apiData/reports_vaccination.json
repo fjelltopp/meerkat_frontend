@@ -1,0 +1,123 @@
+{
+
+    "data": {
+        "end_date": "2016-10-16T14:05:59.514727",
+        "epi_week_num": 41,
+        "females": [
+            {
+                "name": "VAT1",
+                "vaccinated_notpw": 0,
+                "vaccinated_pw": 0
+            },
+            {
+                "name": "VAT2",
+                "vaccinated_notpw": 0,
+                "vaccinated_pw": 0
+            },
+            {
+                "name": "VAT3",
+                "vaccinated_notpw": 0,
+                "vaccinated_pw": 0
+            },
+            {
+                "name": "VAT4",
+                "vaccinated_notpw": 0,
+                "vaccinated_pw": 0
+            },
+            {
+                "name": "VAT5",
+                "vaccinated_notpw": 0,
+                "vaccinated_pw": 0
+            }
+        ],
+        "infants": [
+            {
+                "name": "BCG",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "DTC1",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "DTC2",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "DTC3",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "PCV1",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "PCV2",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "PCV3",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "ROTA1",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "ROTA2",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "ROTA3",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "VPI",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "VPO0",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "VPO1",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "VPO2",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            },
+            {
+                "name": "VPO3",
+                "vaccinated_0_11_mo_infants": 0,
+                "vaccinated_12_mo_infants": 0
+            }
+        ],
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Madagascar",
+        "project_region_id": "1",
+        "start_date": "2016-01-01T00:00:00",
+        "vaccination_sessions": 0
+    },
+    "meta": {
+        "generation_timestamp": "2016-10-16T14:05:59.514792",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "4210b0eb-f921-4b0d-b78b-c183197f2634"
+    }
+
+}

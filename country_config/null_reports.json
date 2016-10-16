@@ -106,6 +106,17 @@
             "email_from_address": "demo@emro.info",
             "test_json_payload": "meerkat_frontend/apiData/epi_monitoring.json",
             "default_period": "week"
+        },
+        "vaccination": {
+            "title": "Vaccination Report",
+            "template": "reports/report_vaccination.html",
+            "template_email_html": "reports/email/html/email_vaccination.html",
+            "template_email_plain": "reports/email/plain/email_vaccination.html",
+            "api_name": "vaccination",
+            "test_json_payload": "meerkat_frontend/apiData/reports_vaccination.json",
+            "default_period": "week",
+            "map_centre": [-21.70, 45.10, 6]
+
         }
     },
 
