@@ -108,10 +108,10 @@
             }
         ],
         "project_epoch": "2015-05-20T00:00:00",
-        "project_region": "Madagascar",
+        "project_region": "Demo",
         "project_region_id": "1",
         "start_date": "2016-01-01T00:00:00",
-        "vaccination_sessions": 0
+        "vaccination_sessions": 1
     },
     "meta": {
         "generation_timestamp": "2016-10-16T14:05:59.514792",
