@@ -8,7 +8,8 @@ AUTH = {
     "messaging": [['registered'],['demo']],
     "download": [['registered'],['demo']],
     "explore": [['registered'],['demo']],
-    "reports": [['registered'],['demo']]
+    "reports": [['registered'],['demo']],
+    "settings": [['personal'],['demo']]
 }
 
 # Configuration fields that are specific to each frontend component.
@@ -25,6 +26,7 @@ COMPONENT_CONFIGS = {
 # Any fields in the above files labelled with the same key path override the fields in this dictionary.
 SHARED_CONFIG = {
     "country":"Null Island",
+    "auth_country":"demo",
     "titles":{
         "full":"Null Island <br> Public Health Surveillance",
         "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
@@ -42,6 +44,22 @@ SHARED_CONFIG = {
         ],
         "email":"nullisland@moh.int"
     },
+    "main_menu":[{
+        "text":"Dashboard",
+        "url":"/technical/",
+    },{
+        "text":"Reports",
+        "url":"/reports/",
+    },{
+        "text":"Notifications",
+        "url":"/messaging/",
+    },{
+        "text":"Explore",
+        "url":"/explore/",
+    },{
+        "text":"Download",
+        "url":"/download/",
+    }],
     "glossary":{
         "region":"kingdom"
     },

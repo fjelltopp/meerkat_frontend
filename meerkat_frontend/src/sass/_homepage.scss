@@ -611,3 +611,24 @@ body.blue{
         margin: 0;
     }
 }
+
+.input-group{
+    width: 100%;
+    margin-bottom: 5px;
+    input, select{
+        padding: 3px 5px;
+    }
+    label{
+        padding: 7px 10px 3px 0px;
+    }
+
+    @media screen and (min-width: 1083px){
+        text-align: right;
+    }
+
+    label.access,
+    label.data{
+        text-align: left;
+        margin-top: 5px;
+    }
+}

@@ -3,9 +3,13 @@ homepage.py
 
 A Flask Blueprint module for the homepage.
 """
-from flask import Blueprint, render_template, current_app, abort, g, request, make_response, redirect
+from flask import Blueprint, render_template, current_app, abort, g, request, make_response, redirect, flash
 from flask.ext.babel import get_translations, gettext
+from meerkat_frontend import app
+from .. import common as c
 import requests
+import authorise as auth
+
 
 homepage = Blueprint('homepage', __name__,url_prefix='/<language>')
 
@@ -53,4 +57,24 @@ def logout():
     url = request.args.get('url', '/')
     response = make_response( redirect(url) )
     response.set_cookie( current_app.config["JWT_COOKIE_NAME"], value="", expires=0 )
+    g.payload = {}
     return response
+
+@homepage.route('/account_settings', methods=['GET', 'POST'])
+@auth.authorise( *app.config['AUTH'].get('settings', [['BROKEN'],['']]) )
+def account_settings():
+    """
+    Shows the account settings page.
+    """
+    if request.method == 'GET':
+        current_app.logger.warning("GET called")
+        return render_template(
+            'homepage/account_settings.html', 
+            content=current_app.config['TECHNICAL_CONFIG'],
+            week=c.api('/epi_week')
+        )
+
+    elif request.method == 'POST':
+        url = current_app.config['INTERNAL_AUTH_ROOT'] + "/api/update_user"
+        r = requests.post( url, json = request.json )
+        return (r.text, r.status_code, r.headers.items())

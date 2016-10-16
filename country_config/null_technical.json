@@ -19,6 +19,14 @@
     "name":"Demographics",
     "template":"demographics.html" 
   },{
+    "name":"Demographics CD",
+    "template":"demographicsCD.html", 
+    "access": "cd"
+  },{
+    "name":"Demographics NCD",
+    "template":"demographicsNCD.html", 
+    "access": "ncd" 
+  },{
     "name":"Presenting Complaint",
     "template":"complaint.html" 
   },{

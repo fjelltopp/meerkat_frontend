@@ -24,9 +24,30 @@
         </a>
       </div>
       <div class="collapse navbar-collapse" id="menu-collapse" >
-        {% block menu %}{% endblock %}
+        {% block menu %}
+        <ul class="nav navbar-nav">
+            {% for item in content.main_menu %}
+                {% if (('access' in item) and (item.access in g.payload.acc[content.auth_country]))
+                    or ('access' not in item) %}  
+                <li class="menu-{{item.text|slugify}}">
+                    <a href="/{{g.get('language')}}{{item.url}}" >{{ item.text }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            <li class="menu-logout">
+                <a href="/{{g.get('language')}}/logout?url={{request.url_root}}{{g.get('language')}}" >
+                    {{ _('Log out') }}
+                </a>
+            </li>
+        </ul>
+        {% endblock %}
         <div class="lang-sel" title=>
         </div>
+        {% if 'payload' in g and 'personal' in g.payload.acc[content.auth_country] %}
+        <a class="settings" href="/{{g.language}}/account_settings">
+            <span class="glyphicon glyphicon-cog"></span>
+        </a>
+        {% endif %}
       </div>
     </div>
   </nav>
@@ -69,7 +90,7 @@
 		  <img src="{{ url_for('static', filename='img/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
 		      {% for logo in content.footer.logos.partners %}
 			      <img src="{{ url_for('static', filename='img/' + logo) }}" ></img> 
-                      {% endfor %}
+              {% endfor %}
                   <img src="{{ url_for('static', filename='img/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
 	      </div>
       </div>

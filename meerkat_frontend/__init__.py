@@ -12,12 +12,6 @@ from flask import Flask, Blueprint, send_file, render_template, request
 from flask import current_app, abort, flash, g, redirect, url_for
 import jinja2
 from flask.ext.babel import Babel, gettext, ngettext, get_translations, get_locale, support
-from .views.homepage import homepage
-from .views.technical import technical
-from .views.reports import reports
-from .views.messaging import messaging
-from .views.download import download
-from .views.explore import explore
 from . import common as c
 
 # Create the Flask app
@@ -46,6 +40,13 @@ for k,v in app.config['COMPONENT_CONFIGS'].items():
     path = os.path.dirname(os.path.realpath(__file__)) + "/../" + v
     config = json.loads( open(path).read() ) 
     app.config[k] = {**app.config['SHARED_CONFIG'], **config}           
+
+from .views.homepage import homepage
+from .views.technical import technical
+from .views.reports import reports
+from .views.messaging import messaging
+from .views.download import download
+from .views.explore import explore
 
 @app.route("/")
 def root():

@@ -113,7 +113,6 @@ $('input.submit').click( function(evt){
         'username': $('input[name=username]').val(),
         'password': $('input[name=password]').val()
     }
-    console.log( formArray );
 
 //Post json to server.
         $.ajax({
@@ -123,8 +122,8 @@ $('input.submit').click( function(evt){
                 parent.location.replace( "{{redirect}}" );
             },
             error: function (data) {
-                if( data.hasOwnProperty( 'message' ) ){
-                    alert( data.message );
+                if( data.responseJSON.hasOwnProperty( 'message' ) ){
+                    alert( data.responseJSON.message );
                 }else{
                     alert( i18n.gettext("There has been a server error. " + 
                                         "Please contact administrator and try again later.") );

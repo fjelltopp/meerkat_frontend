@@ -1,29 +1,15 @@
-
 {% extends 'base.html' %}
-
-{% block menu %}
-<ul class="nav navbar-nav">
-  <li class="active"><a href="/{{g.get('language')}}/technical/" >{{ _('Dashboard') }}</a></li>
-  <li><a href="/{{g.get('language')}}/reports/" >{{ _('Reports') }}</a></li>
-  <li><a href="/{{g.get('language')}}/messaging/" >{{ _('Notifications') }}</a></li>
-  <li><a href="/{{g.get('language')}}/explore/" >{{ _('Explore') }}</a></li>
-  <li><a href="/{{g.get('language')}}/download/" >{{ _('Download') }}</a></li>
-  <li><a href="/{{g.get('language')}}/logout?url={{request.url_root}}{{g.get('language')}}" >{{ _('Log out') }}</a></li>
-
-</ul>
-{% endblock %}
 
 {% block body %}
   <div class="container">
     <div class="row">
       <ul class="tabs">
-        {% for tab in content.tabs %}          
-            {% if ('access' in tab and tab.access in g.payload.acc['demo']) 
-                   or 'access' not in tab %}
-             
+        {% for tab in content.tabs %}     
+            {% if (('access' in tab) and (tab.access in g.payload.acc[content.auth_country]))
+                    or ('access' not in tab) %}          
         <li>
-	       <a href="" id="{{tab.name|striptags|lower|trim|replace(' ','_')}}" page="{{tab.template}}" onclick="loadTab('{{tab.name|striptags|lower|trim|replace(' ','_')}}'); return false;">{{_(tab.name)}}</a>
-	     </li>
+	       <a href="" id="{{tab.name|slugify}}" page="{{tab.template}}" onclick="loadTab('{{tab.name|slugify}}'); return false;">{{_(tab.name)}}</a>
+	    </li>
             {% endif %}
         {% endfor %}
 	  </ul>
@@ -41,11 +27,15 @@
 
 <script type="text/javascript" >
 
+    $('ul.navbar-nav .active').removeClass('active');
+    $('.menu-dashboard').addClass('active');
+
 	var api_root = "{{config['EXTERNAL_API_ROOT']}}";
     var config = {{config['TECHNICAL_CONFIG']|tojson|safe}};
     var language = {{g.get("language")|tojson|safe}};
 	var week = {{week.epi_week|safe}};
     var user = {{g.payload|safe}};
+
 	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
 	});

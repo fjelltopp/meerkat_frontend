@@ -260,13 +260,13 @@ function drawOptionsButtons(tableID, redrawFunctionName){
     
     html += "<span class='glyphicon glyphicon-resize-small " + tableID  + "-option pull-right' " + 
         "id='strip-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");' "+
-        "title='Hide/show empty records' "+
-        "table='disease-table' value=false name='strip'></span>";
+        "title='" + i18n.gettext('Hide/show empty records')+
+        "' table='disease-table' value=false name='strip'></span>";
 
     html += "<span class='glyphicon glyphicon-pencil " + tableID  + "-option pull-right' " +
             " id='colour-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");'"+
-            " title='Colour the table' " +
-            "table='disease-table' value=false name='colour'></span>";
+            " title='" + i18n.gettext('Colour the table') +
+            "' table='disease-table' value=false name='colour'></span>";
 
     html += "</div>";
     
@@ -649,11 +649,15 @@ function drawTbTable(containerID, location_id){
  the id attribute of the html element to hold the table.
  :param int regionID:
  All clinics in this region (and its subregions) will be included in that table
- the id of the region from which all clinics will 
+ the id of the region from w.hich all clinics will 
+    :param Object locations:
+        List of all locations from API.
+    :param Object data:
+        Completeness data from API.
  */
-function drawAllClinicsCompleteness( containerID, regionID ){
-$.getJSON( api_root+"/locations", function( locations ){
-    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+
+function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
+
         // console.log(locations);
         // console.log(locations[regionID]);
         // if (locations[regionID].level === "clinic")
@@ -707,10 +711,6 @@ $.getJSON( api_root+"/locations", function( locations ){
             sortOrder: 'desc'
         });
 	      return table;
-
-    });//getJSON
-}); // getJSON locations
-
 }
 
 /**:drawMissingCompletenessTable( containerID, regionID)
@@ -720,9 +720,13 @@ $.getJSON( api_root+"/locations", function( locations ){
  the id attribute of the html element to hold the table.
  :param int regionID:
   Current region or clinic ID
+    :param Object locations:
+        List of all locations from API.
+
+
  */
-function drawMissingCompletenessTable( containerID, headerID, regionID ){
-    $.getJSON( api_root+"/locations", function( locations ){
+
+function drawMissingCompletenessTable( module_var, containerID, headerID, regionID, locations ){
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
 
@@ -735,7 +739,7 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
         var columns = [];
         var datum = [];
         if(locations[regionID].level != "clinic"){//no information aboout reporting clinic
-			$.getJSON( api_root+"/non_reporting/reg_1/" + regionID, function( data ){
+			$.getJSON( api_root+"/non_reporting/" + module_var + "/" + regionID, function( data ){
 				for (var i=0; i<data.clinics.length;i++){
 					datum = {
 						"location": locations[data.clinics[i]].name
@@ -798,7 +802,6 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
 
 
 
-}); // getJSON locations
 
 }
 /**:drawCompletenessTable(containerID, regionID)
@@ -810,15 +813,16 @@ function drawMissingCompletenessTable( containerID, headerID, regionID ){
         The ID attribute of the html element to hold the table.
     :param string regionID:
         The ID of the region by which to filter the completeness data.
+    :param Object locations:
+        List of all locations from API.
+    :param Object data:
+        Completeness data from API.
  */
-function drawCompletenessTable( containerID, regionID ){
 
-$.getJSON( api_root+"/locations", function( locations ){
-    $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+function drawCompletenessTable( containerID, regionID, locations, data ){
         var dataPrepared = [];
         var scoreKeys = Object.keys(data.score);
         var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name
-        console.log("par:" + parentLocation);
         var index = 0;
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
@@ -870,9 +874,6 @@ $.getJSON( api_root+"/locations", function( locations ){
               sortOrder: 'desc'
           });
 	      return table;
-
-    });//getJSON
-}); // getJSON locations
 
 }
 
@@ -927,10 +928,7 @@ function createColourCellTab(optionColourTable){
         if(row.main == "Total"){
             return {classes: "info"};
         }
-        console.log( "OptionColorTable: " + optionColourTable ); 
-        if(optionColourTable == "false"){
-            return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
-        }else{
+        if(optionColourTable == "true"){
             if (typeof value == 'undefined'){
                 return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
             }
@@ -948,6 +946,8 @@ function createColourCellTab(optionColourTable){
                 var perc = Number(numval) / 100;
                 return {css: {"background-color": "rgba(217, 105, 42, " + perc +")"}};
             }
+        }else{
+            return {css: {"background-color": "rgba(217, 105, 42, " + 0 +")"}};
         }
     }
 

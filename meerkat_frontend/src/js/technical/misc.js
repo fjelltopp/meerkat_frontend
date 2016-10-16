@@ -274,6 +274,7 @@ function makeDataObject( aggregation, variables, week, title, percent ){
           the docs for `drawTable()` from the file *tableManager.js* for more information. 
         * **table_options** - (json) An options object for drawing a bootstrap table, if this isn't
           supplied then a standard table is drawn. 
+        * **limit_to** - (string) An optional argument to limit results to a specific category: 'ncd', 'cd'. 
 
 */
 function categorySummation( details ){ 
@@ -283,11 +284,18 @@ function categorySummation( details ){
 
     //Calulate the previous year, so we can load data from the previous year if needed.
     var prevYear = new Date().getFullYear()-1;
+    var currYear = new Date().getFullYear();
     var url;
 
+    //Optional filtering of the aggregation result by limiting to an additional category
+    var limit_to_postfix = "";
+	
+    if(details.limit_to){
+        limit_to_postfix = "/" + details.limit_to;
+	}
     //Assemble an array of AJAX calls 
     var deferreds = [
-        $.getJSON( api_root + "/aggregate_category/" + details.category + "/" + details.locID, function(data) {
+        $.getJSON( api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {
             catData = data;
         }),
         $.getJSON( api_root + "/variables/" + details.category, function(data) {
@@ -298,7 +306,7 @@ function categorySummation( details ){
     //Get previous year's data if still in the first few weeks of the year.
     if( details.week <= 3 ){
     
-        url = api_root+"/aggregate_category/"+ details.category + "/" + details.locID + "/" + prevYear;
+        url = api_root+"/aggregate_category/"+ details.category + "/" + details.locID + "/" + prevYear + limit_to_postfix;
         deferreds.push( $.getJSON( url, function(data) {
             prevData = data;
         }));
@@ -383,146 +391,6 @@ function categorySummation( details ){
                                    details.linkFunction, 
                                    details.table_options );
             }
-        }else {
-            //Failed
-            console.error( "Ajax request for the category aggregation and variable information failed.");
-        }
-    });
-}
-
-/**:extendedCategorySummation( details )
-
-    This is an extended version od a function categorySummation(). This function factorises out repeated code when drawing tables and charts for category aggregations.
-    It also helps to share data from AJAX calls where possible, rather than making multiple replicated
-    AJAX calls for tables, bar charts and pie charts. The function manages the turn over
-    of years, by combining data from the previous year into the current year if necessary. In general,
-    when aggregating over a category, you should display the results using this function. All the 
-    parameters are specified in a details object. 
-
-    :param object details:
-        The details object can have the following properties:
-        
-        * **category** - (String) The ID (from Meerkat Abacus) of the category to be summarised.
-        * **locID** - (String) The ID of the location by which to filter the day.
-        * **week** - (number) The epi week for which the summary should take place.
-        * **percent** - (boolean OR string) If true, percentages are shown in the chart and table.
-          If this is a string, each datum percentage will represent the percentage of a yearly 
-          total, rather than the category total.  The denominator used to calulate the percentage
-          will be taken as the yearly total of the variable specified by the string.  
-        * **strip** - (boolean) If true, remove all empty records from the summary (i.e. all rows
-          that have just 0 for each column). 
-        * **title** - (string) The title for the table/chart.
-        * **barID** - (string) The ID for the HTML element that will hold the bar chart.  If empty, 
-          no bar chart is drawn.
-        * **pieID** - (string) The ID for the HTML element that will hold the pie charts.  If empty, 
-          no pie charts are drawn.
-        * **tableID** - (string) The ID for the HTML element that will hold the table. If empty, 
-          no table will be drawn.  
-        * **no_total** - (boolean) If true, no total row will be drawn in the table.
-        * **link_function** - The function name to be added "onclick" to each table row header. See 
-          the docs for `drawTable()` from the file *tableManager.js* for more information.
-        * **options** - contains list of options for drawing tables and potentially charts.
-
-*/
-function extendedCategorySummation( details ){ 
-
-    //These variable will hold all the JSON data from the api, when the AJAX requests are complete.
-    var catData, variables, percentDenom, prevData, prevPercentDenom;
-
-    //Calulate the previous year, so we can load data from the previous year if needed.
-    var prevYear = new Date().getFullYear()-1;
-    var url;
-
-    //Assemble an array of AJAX calls 
-    var deferreds = [
-        $.getJSON( api_root + "/aggregate_category/" + details.category + "/" + details.locID, function(data) {
-            catData = data;
-        }),
-        $.getJSON( api_root + "/variables/" + details.category, function(data) {
-            variables = data;
-        })
-    ];
-
-    //Get previous year's data if still in the first few weeks of the year.
-    if( details.week <= 3 ){
-    
-        url = api_root+"/aggregate_category/"+ details.category + "/" + details.locID + "/" + prevYear;
-        deferreds.push( $.getJSON( url, function(data) {
-            prevData = data;
-        }));
-    }
-
-    //Add data for the percent denominator if calculating percentage values from other data variables.
-    if( details.percent && typeof details.percent == 'string' ){
-
-        url = api_root + "/aggregate_year/" + details.percent + "/" + details.locID;
-        deferreds.push( $.getJSON( url, function(data) {
-            percentDenom = data;
-        }));
-
-        //Get previous years percent denominator data if still in the first few weeks of the year.
-        if( details.week <= 3 ){
-            deferreds.push( $.getJSON( url + "/" + prevYear, function(data) {
-                prevPercentDenom = data;
-            }));
-        }
-    }
-
-
-    //Run the AJAX reuqests asynchronously and act when they have all completed.
-    $.when.apply( $, deferreds ).then(function() {
-        
-        if(catData && variables){
-
-            //Just some variables for counting/iteration that can be shared across this function.
-            var variable, i, weekKeys;
-
-            //Add the data for the final weeks of the previous year to the current year's data. 
-            if(prevData){
-                for( variable in prevData ){
-                    weekKeys = Object.keys(prevData[variable].weeks);
-                    for( i=weekKeys.length-1; i>weekKeys.length-5; i-- ){
-                        if( weekKeys[i] ){
-                            catData[variable].weeks[weekKeys[i]] = prevData[variable].weeks[weekKeys[i]];
-                            
-                        }
-                    }
-                }
-            }else if( !prevYear && details.week <= 3){
-                //AJAX Failed
-                console.error( "Ajax request for previous year's information failed.");
-            }
-
-            if( percentDenom ){
-            
-                //Add the percent denominator data for the final weeks of the previous year to this year's. 
-                if( prevPercentDenom ){
-                    weekKeys = Object.keys(prevPercentDenom.weeks);
-                    for( i=weekKeys.length-1; i>weekKeys.length-5; i-- ){
-                        if( weekKeys[i] ) percentDenom.weeks[weekKeys[i]] = prevPercentDenom.weeks[weekKeys[i]];
-                    }
-                }else if( !prevPercentDenom && typeof details.percent == 'string' && details.week <= 3 ){
-                    //AJAX Failed
-                    console.error( "Ajax request for the previous year's percent denominator information failed.");
-                }
-                details.percent = percentDenom;
-                
-            }else if( !percentDenom && typeof details.percent == 'string'){
-                //AJAX Failed
-                console.error( "Ajax request for percent denominator information failed.");
-            }
-            
-            //Draw using the current and previous year's data combined into one aggregation object.
-            var title = details.category.charAt(0).toUpperCase() + details.category.slice(1);
-            if( details.title ) title = details.title;
-             
-            var dataObject = makeDataObject(catData, variables, details.week, title, details.percent );
-            if( details.strip ) dataObject = stripEmptyRecords( dataObject );
-
-            if( details.barID ) drawBarChart( details.barID, dataObject, true);
-            if( details.pieID ) drawPieCharts( details.pieID, dataObject, true );
-      if( details.tableID ) drawImprovedTable( details.tableID, dataObject, details.no_total, details.linkFunction, details.options );
-
         }else {
             //Failed
             console.error( "Ajax request for the category aggregation and variable information failed.");
@@ -685,4 +553,46 @@ function stripEmptyRecords( dataObject ){
 }
 
 
+/**:completnessPreparation( details )
 
+   This function factorises out repeated code when drawing tables and charts for completness.
+   It also helps to share data from AJAX calls where possible, rather than making multiple replicated
+   AJAX calls for tables and charts.
+
+   Arguments:
+   :param string locID:
+   The ID of the location for which completeness shall be calculated.
+   :param string graphID:
+   The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
+   :param string tableID:
+   The ID for the HTML element that will hold the main completeness table.  If empty, no table is drawn.
+   :param string nonreportingtableID:
+   The ID for the HTML element that will hold the line table of non-reporting clinics.  If empty, this table isn't drawn.
+   :param string nonreportingTitle:
+   The ID for the HTML element containg title of the non-reporting clinics table.
+   :param string allclinisctableID:
+   The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+   
+   */
+function completenessPreparation( locID, var_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week){
+    var completenessLocations;
+    var completenessData; 
+     var deferreds = [
+       $.getJSON( api_root+"/locations", function( data ){
+         completenessLocations = data;
+       }),
+       $.getJSON( api_root+"/completeness/" +var_id +"/" + locID + "/4", function( data ){
+         completenessData = data;
+       })
+     ];
+     
+     $.when.apply( $, deferreds ).then(function() {
+       
+		 drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week );
+       drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
+		 drawMissingCompletenessTable( var_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations); //this call makes one additional AJAX call
+       drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
+     } );
+     
+     
+   }

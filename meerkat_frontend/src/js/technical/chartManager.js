@@ -34,7 +34,7 @@ function showChartType( type, containerID ){
  */
 function drawBarChart( containerID, data, percent ){
 
-  console.log( data );
+  //console.log( data );
 
   //We want to work with a clone of the data, not the data itself.
   data = $.extend(true, {}, data);
@@ -302,10 +302,14 @@ function drawTimeChart( varID, locID, containerID ){
    The ID of the HTML element to hold the chart.
    :param string locID:
    The ID of the location by which to filter the data.
+   :param Object locations:
+   List of all locations from API.
+   :param Object data:
+   Completeness data from API.
 */
-function drawCompletenessGraph( containerID, regionID ){
-    $.getJSON( api_root+"/locations", function( locations ){
-        $.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+
+function drawCompletenessGraph( containerID, regionID, locations, data, start_week ){
+
             //create a data series for each location
             var dataPrepared = [];
             var timeseries = [];
@@ -321,8 +325,15 @@ function drawCompletenessGraph( containerID, regionID ){
 	
                 //dropping the very last week in the data since we can only estimate it's completeness
                 for (var j = 0; j < noWeeks; j++){
-                    dt = [weeks[noWeeks - j],Number(Number(25 * (tl.values[j])).toFixed(0))];
-                    dtReady.push(dt);
+					if( start_week ){
+						if(weeks[noWeeks - j] > start_week){
+							dt = [weeks[noWeeks - j],Number(Number(25 * (tl.values[j])).toFixed(0))];
+							dtReady.push(dt);
+						}
+					}else{
+						dt = [weeks[noWeeks - j],Number(Number(25 * (tl.values[j])).toFixed(0))];
+						dtReady.push(dt);
+					}
                 }
 				var datum = {
                     name: locations[index].name,
@@ -423,9 +434,6 @@ function drawCompletenessGraph( containerID, regionID ){
                     }
                 }
             }); //highchart
-
-        });//getJSON completeness
-    });//getJSON locations
 }
 
 Highcharts.setOptions({
@@ -445,5 +453,3 @@ Highcharts.setOptions({
   }
 
 });
-
-
