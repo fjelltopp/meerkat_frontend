@@ -13,6 +13,8 @@ from flask import current_app, abort, flash, g, redirect, url_for
 import jinja2
 from flask.ext.babel import Babel, gettext, ngettext, get_translations, get_locale, support
 from . import common as c
+import authorise as auth
+
 
 # Create the Flask app
 app = Flask(__name__)
@@ -36,11 +38,11 @@ if app.config.get( 'TEMPLATE_FOLDER', None ):
 app.config['SHARED_CONFIG']['auth_root'] = app.config['AUTH_ROOT']
 
 # Set up the config files.
-for k,v in app.config['COMPONENT_CONFIGS'].items():
+for k, v in app.config['COMPONENT_CONFIGS'].items():
     path = os.path.dirname(os.path.realpath(__file__)) + "/../" + v
-    config = json.loads( open(path).read() ) 
-    app.config[k] = {**app.config['SHARED_CONFIG'], **config}           
-
+    config = json.loads(open(path).read()) 
+    app.config[k] = {**app.config['SHARED_CONFIG'], **config}
+    
 from .views.homepage import homepage
 from .views.technical import technical
 from .views.reports import reports
@@ -48,38 +50,40 @@ from .views.messaging import messaging
 from .views.download import download
 from .views.explore import explore
 
+
 @app.route("/")
 def root():
     return redirect("/" + app.config["DEFAULT_LANGUAGE"])
 
 
-extra_pages = Blueprint('extra_pages', __name__)
+extra_pages = Blueprint('extra_pages', __name__, url_prefix='/<language>')
+
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):
     def function():
         if authentication:
-            auth = request.authorization
-            if not auth or not c.check_auth(auth.username, auth.password):
-                return c.authenticate()
-        return render_template(template, content=config, week=c.api('/epi_week'))
+            auth.check_auth(*authentication)
+        return render_template(template, content=config,
+                               week=c.api('/epi_week'))
     return function
 
 # Add any extra country specific pages.
 if "EXTRA_PAGES" in app.config:
-  for url, value in app.config["EXTRA_PAGES"].items():
-      path = os.path.dirname(os.path.realpath(__file__))+"/../"+value['config']
-      if "authenticate" in value and value["authenticate"]:
-          authenticate = True
-      else:
-          authenticate = False
-      function = prepare_function(value['template'],
-                                  json.loads( open(path).read()),
-                                  authentication=authenticate)
-      extra_pages.add_url_rule('/{}'.format(url), url, function)
+    for url, value in app.config["EXTRA_PAGES"].items():
+        path = os.path.dirname(os.path.realpath(__file__)) + "/../"+value['config']
+        if "authenticate" in value and value["authenticate"]:
+            authenticate = value["authenticate"]
+        else:
+            authenticate = False
+        function = prepare_function(value['template'],
+                                    json.loads(open(path).read()),
+                                    authentication=authenticate)
+        print(url)
+        extra_pages.add_url_rule('/{}'.format(url), url, function)
+
 
 # Internationalisation
-
 @babel.localeselector
 def get_locale():
     return g.get("language", app.config["DEFAULT_LANGUAGE"])
@@ -135,6 +139,7 @@ def error_test(error):
     """
     abort(error)
 
+    
 @app.errorhandler(404)
 @app.errorhandler(401)
 @app.errorhandler(410)
@@ -149,14 +154,16 @@ def error500(error):
            error (int): The error code given by the error handler.
     """
     flash("Sorry, something appears to have gone wrong.", "error")
-    return render_template('error.html', error=error, content=current_app.config['TECHNICAL_CONFIG']), error.code
+    return render_template('error.html', error=error,
+                           content=current_app.config['TECHNICAL_CONFIG']), error.code
+
 
 @app.errorhandler(403)
 @app.errorhandler(401)
 def error401(error):
     """Show the login page if the user hasn't authenticated."""
-    flash( error.description, "error" )
-    app.logger.warning( "Error handler: " + str(error.description) )
+    flash(error.description, "error")
+    app.logger.warning("Error handler: " + str(error.description))
     return redirect("/" + g.language+"/login?url=" + str(request.path))
 
 # Main
