@@ -140,11 +140,14 @@ def in_array( needles, haystack ):
         True if a needle is found in haystack, false otherwise.
     """
     #For flexibility, allow a single value in place of a list.
-    if needles is not list:
+    if not isinstance( needles, list ):
         needles = [needles]
-    
+
+    current_app.logger.warning( "Access: " + str(needles) ) 
+
     #Look for all the needles and return true if a needle isfound.
     for needle in needles:
+        current_app.logger.warning( "Needle: " + str(needle) + " Haystack: " + str(haystack) ) 
         if needle in haystack:
             return True
     return False
