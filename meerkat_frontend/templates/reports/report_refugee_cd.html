@@ -78,24 +78,13 @@ $(function() {
   // {{ k }}
   $('#chart-{{ k|slugify }}').highcharts(
     refugeeCommunicableDiseasesChart(
-      {{ v.weeks }},
-      [{{ v.suspected }}],
+      {{ v.weeks|safe }},
+      [{{ v.suspected|safe }}],
       { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
     )
   );
   {% endfor %}
-  $('#chart-population').highcharts(
-     refugeeCommunicableDiseasesChart(
-       {{ report.data.population.weeks }},
-       [{{ report.data.population.suspected }}],
-       { yAxis: { text: 'Population' }, xAxis: {text: 'Epi Week'} }
-  ));
-  $('#chart-clinicians').highcharts(
-     refugeeCommunicableDiseasesChart(
-       {{ report.data.number_clinicians.weeks }},
-       [{{ report.data.number_clinicians.suspected }}],
-       { yAxis: { text: 'Number of Clinicans' }, xAxis: {text: 'Epi Week'} }
-   ));
+
 });
 </script>
 {% endblock extra_js %}

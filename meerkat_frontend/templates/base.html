@@ -27,7 +27,7 @@
         {% block menu %}
         <ul class="nav navbar-nav">
             {% for item in content.main_menu %}
-                {% if (('access' in item) and (item.access in g.payload.acc[content.auth_country]))
+                {% if (('access' in item) and ("payload" in g and item.access in g.payload.acc[content.auth_country]))
                     or ('access' not in item) %}  
                 <li class="menu-{{item.text|slugify}}">
                     <a href="/{{g.get('language')}}{{item.url}}" >{{ item.text }}</a>
