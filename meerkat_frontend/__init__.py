@@ -50,14 +50,11 @@ from .views.messaging import messaging
 from .views.download import download
 from .views.explore import explore
 
-
 @app.route("/")
 def root():
     return redirect("/" + app.config["DEFAULT_LANGUAGE"])
 
-
 extra_pages = Blueprint('extra_pages', __name__, url_prefix='/<language>')
-
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):
