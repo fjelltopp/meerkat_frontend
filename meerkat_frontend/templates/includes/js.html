@@ -30,6 +30,14 @@
   ga('create', 'UA-52506330-1', 'auto');
   ga('send', 'pageview');
 
+  //Store the user payload so it can be accessed by javascript for improving formatting of site.
+  //Data access restriction should not be handled in the javascript though.
+  {% if g.payload %}
+  var user = {{g.payload|safe}};
+  {% else %}
+  var user = {};
+  {% endif %}
+
   //Draw the langauge selector.
   var languages = {{ config["SUPPORTED_LANGUAGES"]|tojson|safe }};
   var currentLang = "{{ g.get("language", None)|safe }}";

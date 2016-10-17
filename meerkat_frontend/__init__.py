@@ -125,6 +125,29 @@ def slug(s):
     """Creates a slugify filter for Jinja templates"""
     return slugify(s)
 
+@app.template_filter('in_array')
+def in_array( needles, haystack ):
+    """
+    Returns true if any of the needles are in the haystack.
+    Returns false if none of needles is found in the haystack.
+
+    Args:
+        needles (array) A list of values to look for. Also accepts a single value.
+        haystack (array) A list of values to look in. 
+    
+    Returns:
+        True if a needle is found in haystack, false otherwise.
+    """
+    #For flexibility, allow a single value in place of a list.
+    if needles is not list:
+        needles = [needles]
+    
+    #Look for all the needles and return true if a needle isfound.
+    for needle in needles:
+        if needle in haystack:
+            return True
+    return False
+
 # ERROR HANDLING
 @app.route('/error/<int:error>/')
 def error_test(error):

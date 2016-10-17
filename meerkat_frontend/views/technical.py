@@ -8,6 +8,7 @@ import json
 from .. import common as c
 import authorise as auth
 from slugify import slugify
+import meerkat_frontend
 
 technical = Blueprint('technical', __name__,url_prefix='/<language>')
 
@@ -28,7 +29,7 @@ def index(tab=None, locID=1):
         for t in current_app.config['TECHNICAL_CONFIG']['tabs']:
             country = current_app.config['TECHNICAL_CONFIG']['auth_country'] 
             tab_access = t.get('access', False)
-            if (tab_access in g.payload['acc'][country]) or not tab_access:
+            if meerkat_frontend.in_array(tab_access, g.payload['acc'][country]) or not tab_access:
                 tab=slugify(t['name'])
                 break
 

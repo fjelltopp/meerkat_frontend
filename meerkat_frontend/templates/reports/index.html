@@ -227,16 +227,19 @@ function drawReportSelect(){
 
 	for( var i in config.reports ){
 		var report = config.reports[i];
-		html += "<option value='" + report.url + "'" +
-		        "startdate='" + report.start_date + "'" +
-		        "period='" + report.period + "'>" + 
-		        i18n.gettext(report.name) + "</option>";
+        if( report.access && user.acc.{{content.auth_country}}.indexOf(report.access) != -1 ){ 
+		    html += "<option value='" + report.url + "'" +
+		            "startdate='" + report.start_date + "'" +
+		            "period='" + report.period + "'>" + 
+		            i18n.gettext(report.name) + "</option>";
+        }
 	}
 
 	html += "</select>";
 
 	$('#report-selector').html( html );
-     $("#report-selector select").val(config.reports[0].url);
+
+    $("#report-selector select").val($("#report-selector select:first").val());
 
 }
 

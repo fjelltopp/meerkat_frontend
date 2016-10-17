@@ -3,7 +3,7 @@ reports.py
 
 A Flask Blueprint module for reports.
 """
-from flask import Blueprint, render_template, abort, redirect 
+from flask import Blueprint, render_template, abort, redirect, g
 from flask import url_for, request, send_file, current_app, Response
 from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
@@ -511,6 +511,11 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     #try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
+    access = report_list[report]['access']
+
+    #Restrict report access as specified in configs.
+    if access and access not in g.payload['acc']:
+        auth.check_auth( [access], [current_app.config['SHARED_CONFIG']['auth_country']] )
 
     if not location:
         location = current_app.config['REPORTS_CONFIG']['default_location']
