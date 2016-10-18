@@ -100,6 +100,11 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         rv = self.app.get('en/reports/test/non_communicable_diseases/' )
         self.assertIn(rv.status_code, [200])
         self.assertIn(b"with <br> hypertension", rv.data)
+
+    def test_reports_vaccination(self):
+        rv = self.app.get('en/reports/test/vaccination/' )
+        self.assertIn(rv.status_code, [200])
+        self.assertIn(b"Vaccination sessions: 1", rv.data)
         
     def test_technical(self):
         """Check the Technical page loads"""
