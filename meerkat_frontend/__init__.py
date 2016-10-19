@@ -78,6 +78,7 @@ if "EXTRA_PAGES" in app.config:
                                     authentication=authenticate)
         print(url)
         extra_pages.add_url_rule('/{}'.format(url), url, function)
+        extra_pages.add_url_rule('/{}/'.format(url), url, function)
 
 
 # Internationalisation
