@@ -190,10 +190,20 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
        Args:
            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
-    current_app.logger.warning( str(request.data.decode('UTF-8')))
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+
+    #TESTING
+    #If the report requested begins with "test_" then we send the email to the test topic.
+    #E.g. /api/reports/test_communicable_diseases would send cd report to "test-emails" topic.
+    if report.startswith( "test_" ):
+        topic = "test-emails"
+        test_id = "-" + str(datetime.now().time().isoformat())
+        report = report[5:]
+    else:
+        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
+        test_id = ""
 
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
@@ -254,12 +264,12 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             end_date = format_datetime(end_date, 'dd MMMM YYYY')
         )
 
-        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
-        #topic = 'test-emails'
+        email_id = ( topic + "-" + str(epi_week) + "-" +  
+                     end_date.strftime('%Y') +"-" + report + test_id )
 
         #Assemble the message data in a manner hermes will understand.
         message = {
-            "id": topic + "-" + str(epi_week) + "-" + end_date.strftime('%Y') + report,
+            "id": email_id,
             "topics": topic,
             "html-message": html_email_body,
             "message": plain_email_body,
@@ -293,7 +303,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         return '\nSending {succ} messages succeeded, {fail} messages failed\n\n'.format(succ=succ, fail=fail)
                 
     else:
-        current_app.logger.warning( "Aborting. Report doesn't exist." ) 
+        current_app.logger.warning( "Aborting. Report doesn't exist: " + str(report)  ) 
         abort(501)
 
 
@@ -460,6 +470,7 @@ def validate_report_arguments(config, report, location=None, end_date=None, star
     # Validate report
     if report:
         if report not in report_list:
+            current_app.logger.warning( "Report param not valid: " + str(report) ) 
             return False
 
     # Validate location if given
@@ -467,6 +478,7 @@ def validate_report_arguments(config, report, location=None, end_date=None, star
         try:
             location_int = int(location)
         except ValueError:
+            current_app.logger.warning( "Location param not valid: " + str(location) )
             return False
 
     # Validate start date if given
@@ -474,6 +486,7 @@ def validate_report_arguments(config, report, location=None, end_date=None, star
         try:
             valid_start_date = dateutil.parser.parse(start_date)
         except ValueError:
+            current_app.logger.warning( "Start date param not valid: " + str(start_date) )
             return False
 
     # Validate end date if given
@@ -481,6 +494,7 @@ def validate_report_arguments(config, report, location=None, end_date=None, star
         try:
             valid_end_date = dateutil.parser.parse(end_date)
         except ValueError:
+            current_app.logger.warning( "End date param not valid: " + str(end_date) )
             return False
 
     # If all checks were successful, return True
@@ -511,7 +525,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     #try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
-    access = report_list[report]['access']
+    access = report_list[report].get( 'access', '' ) 
 
     #Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:

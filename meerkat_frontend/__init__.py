@@ -142,6 +142,8 @@ def in_array( needles, haystack ):
     #For flexibility, allow a single value in place of a list.
     if not isinstance( needles, list ):
         needles = [needles]
+    if not isinstance( haystack, list ):
+        haystack = [haystack]
 
     #Look for all the needles and return true if a needle isfound.
     for needle in needles:

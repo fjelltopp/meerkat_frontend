@@ -9,7 +9,8 @@ AUTH = {
     "download": [['registered'],['demo']],
     "explore": [['registered'],['demo']],
     "reports": [['registered'],['demo']],
-    "settings": [['personal'],['demo']]
+    "settings": [['personal'],['demo']],
+    "report_emails":[['emails'],['demo']]
 }
 
 # Configuration fields that are specific to each frontend component.
