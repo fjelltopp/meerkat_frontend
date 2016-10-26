@@ -338,6 +338,8 @@ function drawAlertsTable(containerID, alerts, variables){
 			//Some countries(Jordan) has a central review in addition to alert_investigation
 			// If the alert has been investigated (and has a central review) we display that in the table
 			if(config.central_review){
+				var investigation_date = "-";
+				status = i18n.gettext("Pending");
 				if( "ale_1" in alert.variables ){
 					if ("ale_2" in alert.variables){
 						status = i18n.gettext("Ongoing");
@@ -346,21 +348,22 @@ function drawAlertsTable(containerID, alerts, variables){
 					} else {
 						status = i18n.gettext("Ongoing");
 					}
-					var central_review_date = "-";
-					if ("cre_1" in alert.variables){
-						if ("cre_2" in alert.variables){
-							status = i18n.gettext("Confirmed");
-						}else if( "cre_3" in alert.variables){
-							status = i18n.gettext("Disregarded");
-						}else {
-							status = i18n.gettext("Ongoing");
-						}
-						central_review_date = alert.variables.cre_1.split("T")[0] ;
-					}
-					table += '<td>' + alert.variables.ale_1.split("T")[0] + '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
-				}else{
-					table += '<td>-</td><td>-</td><td>'+i18n.gettext('Pending') +'</td></tr>';
+					investigation_date = alert.variables.ale_1.split("T")[0];
 				}
+				central_review_date = "-";
+				if ("cre_1" in alert.variables){
+					if ("cre_2" in alert.variables){
+						status = i18n.gettext("Confirmed");
+					}else if( "cre_3" in alert.variables){
+						status = i18n.gettext("Disregarded");
+					}else {
+						status = i18n.gettext("Ongoing");
+					}
+					central_review_date = alert.variables.cre_1.split("T")[0] ;
+
+
+				}
+				table += '<td>' + investigation_date+ '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
 			
 			}else{
 				if("ale_1" in  alert.variables ){
