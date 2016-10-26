@@ -8,31 +8,36 @@
         "introduction":"This report summarises the state of public health in the selected location.",
         "url":"public_health",
         "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"week"
+        "period":"week",
+        "access":"registered"
     },{
         "name":"Communicable Disease Profile",
         "introduction":"This report summarises the state of communicable disease public health in the selected location.",
         "url":"cd_public_health",
         "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"week"
+        "period":"week",
+        "access":"registered"
     },{
         "name":"Non-Communicable Disease Profile",
         "introduction":"This report summarises the state of non-communicable disease public health in the selected location.",
         "url":"ncd_public_health",
         "start_date":"2016-02-01T00:00:00.000Z",
-        "period":"month"
+        "period":"month",
+        "access":"registered"
     },{
         "name":"Communicable Disease Report",
         "introduction":"This report tracks the spread of communicable diseases across the selected location.",
         "url":"communicable_diseases",
         "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"year"
+        "period":"year",
+        "access":"registered"
     },{
         "name":"Non Communicable Disease Report",
         "introduction":"This report tracks the spread of non-communicable diseases across the selected location.",
         "url":"non_communicable_diseases",
         "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"month"
+        "period":"month",
+        "access":"registered"
     }],
 
     "report_list": {
@@ -48,7 +53,8 @@
             "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "week",
-            "test_json_payload": "meerkat_frontend/apiData/reports_public_health.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_public_health.json",
+            "access": "registered"
         },
         "cd_public_health": {
             "title": "Communicable Disease Profile Report",
@@ -60,7 +66,8 @@
             "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "week",
-            "test_json_payload": "meerkat_frontend/apiData/reports_cd_public_health.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_cd_public_health.json",
+            "access": "registered"
         },
        "ncd_public_health": {
             "title": "Non-Communicable Disease Profile Report",
@@ -72,7 +79,8 @@
             "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "month",
-            "test_json_payload": "meerkat_frontend/apiData/reports_ncd_public_health.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_ncd_public_health.json",
+            "access": "registered"
         },
         "communicable_diseases": {
             "title": "Communicable Diseases Report",
@@ -83,7 +91,8 @@
             "email_from_name": "MOH Demo",
             "email_from_address": "demo@emro.info",
             "default_period": "year",
-            "test_json_payload": "meerkat_frontend/apiData/reports_communicable_diseases.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_communicable_diseases.json",
+            "access": "registered"
         },
         "non_communicable_diseases": {
             "title": "Non Communicable Diseases Report",
@@ -94,7 +103,8 @@
             "email_from_name": "MOH Demo",
             "email_from_address": "demo@emro.info",
             "default_period": "month",
-            "test_json_payload": "meerkat_frontend/apiData/reports_non_communicable_diseases.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_non_communicable_diseases.json",
+            "access": "registered"
         },
         "epi_monitoring": {
             "title": "Epidemiological Monitoring Report",
@@ -105,7 +115,8 @@
             "email_from_name": "MOH Demo",
             "email_from_address": "demo@emro.info",
             "test_json_payload": "meerkat_frontend/apiData/epi_monitoring.json",
-            "default_period": "week"
+            "default_period": "week",
+            "access": "registered"
         },
         "vaccination": {
             "title": "Vaccination Report",
@@ -115,7 +126,8 @@
             "api_name": "vaccination",
             "test_json_payload": "meerkat_frontend/apiData/reports_vaccination.json",
             "default_period": "week",
-            "map_centre": [-21.70, 45.10, 6]
+            "map_centre": [-21.70, 45.10, 6],
+            "access": "registered"
 
         }
     },

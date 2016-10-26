@@ -83,6 +83,37 @@ def api(url, api_key=False, params=None):
             abort(500, r )
         return output
 
+def refine_hermes_topics(topics):
+    """
+    We don't want mass emails to be sent from the dev environment, but we do want the ability to test.
+
+    This function takes a list of hermes topics, and if we are in the development/testing 
+    environment (determined by HERMES_DEV) this function strips them back to only those topics
+    in the config variable HERMES_DEV_TOPICS.
+
+    Args:
+        topics ([str]) A list of topic ids that a message is initially intended to be published to.
+
+    Returns:
+        [str] A refined list of topic ids containing only those topics from HERMES_DEV_TOPICS, if
+        HERMES_DEV == 1. 
+    """
+    #Do some logging.
+    current_app.logger.warning( "Topics: " + str( topics ) )
+    current_app.logger.warning( "Allowed topics: " + str( current_app.config["HERMES_DEV_TOPICS"] ) )
+
+    #Make topics a list if it isn't already one.
+    topics = [topics] if not isinstance( topics, list ) else topics
+
+    #If in development/testing environment, remove topics that aren't pre-specified as allowed.
+    if current_app.config["HERMES_DEV"]:
+        for t in range( len(topics)-1, -1, -1 ):
+            if topics[t] not in current_app.config["HERMES_DEV_TOPICS"]:
+                del topics[t]
+
+    return topics
+
+
 def hermes(url, method, data={}):
     """Makes a Hermes API request.
        
@@ -94,15 +125,23 @@ def hermes(url, method, data={}):
        Returns:
            dict: a dictionary formed from the json data in the response.
     """
+    #If we are in the dev envirnoment only allow publishing to specially selected topics. 
+    topics = refine_hermes_topics( data.get('topics', []) )
 
+    #Return a error message if we have tried to publish a mass email from the dev envirnoment. 
+    if not topics:
+        return {"message": "No topics to publish to, perhaps because system is in hermes dev mode."}
+    else:
+        data['topics'] = topics
+    
     #Add the API key and turn into JSON.
     data["api_key"] = current_app.config['HERMES_API_KEY']
 
     #Assemble the other request params.
-    url = current_app.config['HERMES_ROOT']+url #+"?api_key="+current_app.config['HERMES_API_KEY']
+    url = current_app.config['HERMES_ROOT'] + url 
     headers = {'content-type' : 'application/json'}
 
-    current_app.logger.warning( "Sending json data:" + json.dumps(data) +"\nTo url: " + url )
+    current_app.logger.warning( "Sending json data: " + json.dumps(data) +"\nTo url: " + url )
     
     #Make the request and handle the response.
     try:
