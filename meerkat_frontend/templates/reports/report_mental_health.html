@@ -1,0 +1,119 @@
+{% extends 'reports/base.html' %}
+
+{% macro table(data, percent=False) %}
+{% set total=[] %}
+<table class="refugee centered table table-hover"> 
+    <tr>
+	{% set counter=0 %}
+        {% set labels = {
+        "reg": _("Health Directorates"),
+        "tot": _("Total no. <br> of patients"),
+        "gen_3": _("males"),
+        "gen_4": _("females"),
+        "nat_17": _("Other Nationality"),
+        "nat_10": _("Jordan"),
+        "nat_11": _("Syria"),
+        "nat_12": _("Egypt"),
+        "nat_13": _("Iraq"),
+        "nat_14": _("Iran"),
+        "nat_15": _("Saudi Arabia"),
+        "nat_16": _("Palestine"),
+        "vis_1": _("New Visit"),
+        "vis_2": _("Return Visit"),
+        "vis_3": _("Referral")
+        } %}
+	{% for key in data.titles %}
+	 {% if key == "reg" %}
+    <th class="key"> {{ labels[key]|safe }} </th>
+	 {% elif key == "tot" %}
+    <th class="total"> {{ labels[key]|safe }} </th>
+	   {% do total.append(counter) %}
+   {% elif key == "Total" %}
+    <th class="total"> {{ key|safe }} </th>
+     {% do total.append(counter) %}
+	 {% else %}
+    <th class="key">
+    {% if key in labels.keys() %}
+      {{ labels[key]|safe }}
+    {% else %}
+      {{ key }}
+    {% endif %}
+    {% if percent %}
+      (%)
+    {% endif %}
+    </th>
+      {% set counter = counter +1%}
+	 {% endif %}
+	{% endfor %}
+  </tr>
+  {% for row in data["data"] %}
+    <tr>
+	 {% if row.title == "Total" %}
+	 <td class="key total" style="text-align: center;"> {{ _(row.title)  }}</td>
+	 {% else %}
+    <td class="total"> {{ _(row.title)  }}</td>
+	 {% endif %}
+	 {% for i in range(row["values"]|length) %}
+      {% if (total and i in total)%}
+	     <td class="total"> {{ row["values"][i]}} </td>
+      {% elif row.title == "Total" %}
+        {% if percent %}
+          <td class="total"> {{ row["values"][i][0] }} 
+          <span class="value-percentage">({{ row["values"][i][1]|float|round(1) }} %)</span></td>
+        {% else %}
+          <td class="total"> {{ row["values"][i] }} </td>
+        {% endif %}
+      {% else %}
+        {% if percent %}
+	         <td class="value"> {{ row["values"][i][0]}} <span class="value-percentage">({{row["values"][i][1]|float|round(1) }} %)</span> </td>
+        {% else %}
+	         <td class="value"> {{ row["values"][i] }} </td>
+        {% endif %}
+      {% endif %}
+	 {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+{%- endmacro %}
+
+
+
+{% block title %}{{report.data.project_region|e}} &middot; Mental Health Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+    <h2>     <span 
+	  class="flag-icon flag-icon-{{report.flag}}"
+	  style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+      >
+      </span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
+        <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _('Mental Health Report') }}
+    <span class="report-week">
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
+    </span>
+  </h2>
+</div>
+
+<div class="row">
+  <!-- Visit type / Nationality -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Nationality') }}</div>
+      <div class="table-title">{{ _('Table 1: Nationality of ') }}</div>
+      <div class="table-wrapper table-responsive">
+          {{ table(report["visit_nationality"], percent=False) }}
+      </div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 2: ') }}</div>
+      <div class="table-wrapper table-responsive">
+	  {{ table(report["visit_nationality"]) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+{% endblock extra_js %}
+
