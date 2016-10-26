@@ -316,7 +316,7 @@ function drawAlertsTable(containerID, alerts, variables){
 		var table = '<table class="table table-hover table-condensed">' +
 		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th>' +
 		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') +' </span></th>' + 
-		            '<th>Clinic</th><th>' + i18n.gettext('Date Reported') + '</th><th>' + i18n.gettext('Date Investigated') + '</th><th>' +i18n.gettext('Status') + '</th>' +
+		            '<th>Clinic</th><th>' + i18n.gettext('Date Reported') + '</th><th>' + i18n.gettext('Type') + '</th><th>'+ i18n.gettext('Date Investigated') + '</th><th>' +i18n.gettext('Status') + '</th>' +
 		            '</tr>';
 		if(config.central_review){
 			table = '<table class="table table-hover table-condensed">' +
@@ -332,8 +332,10 @@ function drawAlertsTable(containerID, alerts, variables){
 			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.variables.alert_id + '\'); return false;">' + 
 			         alert.variables.alert_id + '</a></td><td>' + i18n.gettext(variables[ alert.variables.alert_reason ].name) + '</td>' +
 			         '<td>' + i18n.gettext(locations[locations[alert.clinic].parent_location].name) + '</td>' +
-			         '<td>' + i18n.gettext(locations[alert.clinic].name) + '</td>' +
-			         '<td>' + alert.date.split("T")[0] + '</td>'; 
+			    '<td>' + i18n.gettext(locations[alert.clinic].name) + '</td>' +
+
+			'<td>' + alert.date.split("T")[0] + '</td>' + 
+				'<td>' + i18n.gettext(alert.variables.alert_type) + '</td>';
 
 			//Some countries(Jordan) has a central review in addition to alert_investigation
 			// If the alert has been investigated (and has a central review) we display that in the table
