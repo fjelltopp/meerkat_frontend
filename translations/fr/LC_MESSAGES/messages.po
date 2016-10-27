@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-10-27 10:54+0000\n"
+"POT-Creation-Date: 2016-10-27 11:35+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -1979,7 +1979,7 @@ msgstr "14+ ans"
 
 #: meerkat_frontend/templates/reports/report_malaria.html:140
 msgid "Not Done"
-msgstr "Pas fini"
+msgstr "Non Fait"
 
 #: meerkat_frontend/templates/reports/report_malaria.html:154
 msgid "Value"
