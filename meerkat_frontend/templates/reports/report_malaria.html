@@ -105,7 +105,7 @@ function drawTable1(){
     for( var i=1; i<struct.length; i++ ){
       if( struct[i] == 0 ) ret += "<td class='dark'></td>";
       else{
-        ret += [1,6,8,10].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
+        ret += [1,6,8,11].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
         ret += content['malaria_situation']["mls_" + struct[i]] + "</td>";
       } 
     }  
@@ -113,20 +113,20 @@ function drawTable1(){
     return ret;
   }
 
-  struct = [["{{_('Number of consultations')}}", 1 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-            ["{{_('Number of fever cases')}}", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-            ["{{_('Number of RDT tests performed')}}", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-            ["{{_('Number of cases of simple malaria')}}", 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
-            ["{{_('Number of cases of severe malaria')}}", 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33],
-            ["{{_('Number of malaria deaths')}}", 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44],
-            ["{{_('Number of cases treated with ACT')}}", 45, 46, 47, 48, 49, 50, 51, 52, 0, 0, 0]];
+  struct = [["{{_('Number of consultations')}}", 1 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            ["{{_('Number of fever cases')}}", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            ["{{_('Number of RDT tests performed')}}", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            ["{{_('Number of cases of simple malaria')}}", 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            ["{{_('Number of cases of severe malaria')}}", 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35],
+            ["{{_('Number of malaria deaths')}}", 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+            ["{{_('Number of cases treated with ACT')}}", 48, 49, 50, 51, 52, 53, 54, 55, 0, 0, 0, 0]];
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
     "<thead><tr><th class='border-right' rowspan='2'>{{_('Indicator')}}</th>" + 
     "<th rowspan='2' class='border-right'>{{_('Total')}}</th>" +
     "<th colspan='5' class='border-right'>{{_('Age Group')}}</th>" +
     "<th colspan='2' class='border-right'>{{_('Sex')}}</th>" + 
-    "<th colspan='2'>{{_('RDT')}}</th>" +
+    "<th colspan='3'>{{_('RDT')}}</th>" +
     "<th rowspan='2' class='border-left'>{{_('Pregnant Women')}}</th></tr>" +
     "<tr><th>{{_('0-1 Month')}}</th>" + 
     "<th>{{_('2-12 Months')}}</th>" +
@@ -136,7 +136,8 @@ function drawTable1(){
     "<th>{{_('Male')}}</th>" + 
     "<th class='border-right'>{{_('Female')}}</th>" + 
     "<th>{{_('Positive')}}</th>" +
-    "<th>{{_('Negative')}}</th></tr></thead>" ;
+    "<th>{{_('Negative')}}</th>" +
+    "<th>{{_('Not Done')}}</th></tr></thead>" ;
 
   for( var j in struct ) html += drawRowFromStruct(struct[j]);
 
