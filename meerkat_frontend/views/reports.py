@@ -337,13 +337,15 @@ def report(report=None, location=None, end_date=None, start_date=None):
 
         ret['report']['report_id'] = report
 
-        return render_template(
+        html = render_template(
             ret['template'],
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address'],
             content=current_app.config['REPORTS_CONFIG']
         )
+
+        return html
 
     else:
         abort(501)
@@ -383,18 +385,19 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             address=ret['address'],
             content=current_app.config['REPORTS_CONFIG']
         )
+
         current_app.logger.warning( "USE EXTERNAL?" )
         current_app.logger.warning( int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1 )
+
         # Read env flag whether to tell pdfcrowd to read static files from an external source
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
             html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
         else:
-            html=html.replace("/static/", '{}{}'.format(
-                current_app.config['ROOT_URL'],
-                '/static/'))
+            html=html.replace("/static/", '{}{}'.format( current_app.config['ROOT_URL'],'/static/' ))
 
         client.usePrintMedia(True)
-	#Allow reports to be set as portrait or landscape in the config files.
+
+	    #Allow reports to be set as portrait or landscape in the config files.
         if( report_list[report].get( 'landscape', False ) ):
             client.setPageWidth('1697pt')
             client.setPageHeight('1200pt')

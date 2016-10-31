@@ -1,18 +1,23 @@
 
-function get_translator(){
+function get_translator(translations_url){
 
 	if(language === undefined){
 		var langauge = "en";
 	}
-	
-	
-	console.log(language);
+    if(translations_url === undefined){
+        translations_url = "/static/translations/"+language+"/LC_MESSAGES/messages.json";
+    }
+
+	console.log( language );
+    console.log( "Translations from: " );
+    console.log( translations_url );
+
 	if(language !== undefined && language != "en"){
 
 		$.ajax({
 			dataType: "json",
 			async: false,
-			url: "/static/translations/"+language+"/LC_MESSAGES/messages.json",
+			url: translations_url,
 			success: function(translation) {
 				translator = new Jed(translation);
 			}
