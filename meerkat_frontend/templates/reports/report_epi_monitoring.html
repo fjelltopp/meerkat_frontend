@@ -101,6 +101,8 @@
 <script>
 //Store the report content from the server.
 var content = {{report|tojson|safe}};
+//Load a new translator in this template so that the source of translations can be loaded for pdfs.
+i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
 
 //Draw the content using the functions below.
 prepareMortData();
