@@ -157,9 +157,6 @@ function drawAlertContent( alertID ){
 				ages.push(alert.linked_alerts[a].variables.alert_age)
 				genders.push(alert.linked_alerts[a].variables.alert_gender)
 			}
-			$("#patient_title").html(i18n.gettext('Patient IDs:'));
-			$("#patient_age_title").html(i18n.gettext('Patient Ages:'));
-			$("#patient_gender_title").html(i18n.gettext('Patient Genders:'));
 			$('#patientID').html( ids.join("<br />") );
 			$('#patientAge').html( ages.join());
 			$('#patientGender').html( genders.join());
