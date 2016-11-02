@@ -1,0 +1,62 @@
+{% extends 'reports/base.html' %}
+
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('Weekly Epidemiological Bulletin') }}  &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-content">
+<div class="page-header">
+  <h2>
+    <span 
+      class="flag-icon flag-icon-{{report.flag}}"
+      style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+      >
+    </span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
+    <span> {{ _('Weekly Epidemiological Bulletin') }} </span>
+    <span class="report-week">
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
+    </span>
+  </h2>
+</div>
+
+
+<div class="row">
+
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('More Information') }}</div>
+      <div class="chart-stage">
+                    {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
+          <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Contact Information') }}</div>
+      <div class="chart-stage">
+        <address>
+	  {{address|safe}}
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+
+
+{% block extra_js %}
+
+<script>
+//Store the report content from the server.
+var content = {{report|tojson|safe}};
+//Load a new translator in this template so that the source of translations can be loaded for pdfs.
+i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
+</script>
+{% endblock extra_js %}
+
