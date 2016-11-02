@@ -18,6 +18,15 @@
         "nat_14": _("Iran"),
         "nat_15": _("Saudi Arabia"),
         "nat_16": _("Palestine"),
+        "age_47": "0-9",
+        "age_48": "10-19",
+        "age_49": "20-29",
+        "age_50": "30-39",
+        "age_51": "40-49",
+        "age_52": "50-59",
+        "age_53": "60-69",
+        "age_54": "70-79",
+        "age_55": ">80",
         "vis": _("Visit type"),
         "vis_1": _("New Visit"),
         "vis_2": _("Return Visit"),
@@ -107,13 +116,47 @@
   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Nationality') }}</div>
-      <div class="table-title">{{ _('Table 1: Nationality of ') }}</div>
+      <div class="table-title">{{ _('Table 1: Nationality of the patients.') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ table(report["visit_nationality"], percent=False) }}
+          {{ table(report["visit_nationality"]["gen_3"], percent=False) }}
       </div>
       <div class="table-title" style="page-break-before: always">{{ _('Table 2: ') }}</div>
       <div class="table-wrapper table-responsive">
-	  {{ table(report["visit_nationality"]) }}
+	        {{ table(report["visit_nationality"]["gen_4"]) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Visit type / Nationality -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Age') }}</div>
+      <div class="table-title">{{ _('Table 1: Age of the patients.') }}</div>
+      <div class="table-wrapper table-responsive">
+          {{ table(report["visit_age"]["gen_3"], percent=False) }}
+      </div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 2: ') }}</div>
+      <div class="table-wrapper table-responsive">
+	        {{ table(report["visit_age"]["gen_4"]) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Visit type / Nationality -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Age') }}</div>
+      <div class="table-title">{{ _('Table 1: Age of the patients.') }}</div>
+      <div class="table-wrapper table-responsive">
+          {{ table(report["ncd_age"]["gen_3"], percent=False) }}
+      </div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 2: ') }}</div>
+      <div class="table-wrapper table-responsive">
+	        {{ table(report["nationality"]["gen_4"]) }}
       </div>
     </div>
   </div>
