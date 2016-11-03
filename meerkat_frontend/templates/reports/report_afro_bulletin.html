@@ -5,6 +5,7 @@
 <!-- CONTENT -->
 <div class="page-content">
 <div class="page-header">
+
   <h2>
     <span 
       class="flag-icon flag-icon-{{report.flag}}"
@@ -19,10 +20,89 @@
     </span>
   </h2>
 </div>
-
-
 <div class="row">
-
+  <!-- KEY FINDINGS -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Weekly Highlights') }}</div>
+      <div class="chart-stage"><ul>
+        <li>          
+          {{ _('Completeness of daily reporting was <b>%(comp_week)s%%</b> across %(clinic_num)s health facilities in Week %(epi_week_num)s, compared to <b>%(comp_year)s%%</b> cumulatively in 2016.', comp_week=report.data.weekly_highlights.comp_week|round(1), clinic_num=report.data.weekly_highlights.clinic_num, epi_week_num=report.data.epi_week_num, comp_year=report.data.weekly_highlights.comp_year|round(1)) }}
+        </li>
+        <li>          
+          {{ _('<b>%(dea_0)s</b> reported deaths in total.', dea_0=report.data.weekly_highlights.dea_0|int ) }}
+          {% if report.data.weekly_highlights.dea_0 > 0 %}
+            Leading causes of mortality include: 
+            {% for mort in report.data.weekly_highlights.mortality %}
+              {% if not loop.last %}
+                <b>"{{mort.name}}"</b>,
+              {% else %}
+                and <b>"{{mort.name}}"</b>.
+              {% endif %}
+            {% endfor %}
+              
+          {% endif %}
+        </li>
+        <li>          
+          {{ _('<b>%(cmd_21)s</b> maternal deaths were reported (<b>%(cmd_21_ale_1)s</b> investigated) and <b>%(cmd_22)s</b> neonatal deaths (<b>%(cmd_22_ale_1)s</b> investigated).', cmd_21=report.data.weekly_highlights.cmd_21|int, cmd_21_ale_1=report.data.weekly_highlights.cmd_21_ale_1|int, cmd_22=report.data.weekly_highlights.cmd_22|int, cmd_22_ale_1=report.data.weekly_highlights.cmd_22_ale_1|int) }}
+        </li>
+        <li>          
+          {{ _('A total of <b>%(mls_2)s</b> fever cases were reported, <b>%(mls_3)s</b> (<b>%(mls_3_perc_mls_2)s</b>%%) tested and <b>%(cmd_17)s</b> (<b>%(cmd_17_perc_mls_2)s</b>%%) positive with <b>%(mls_12)s</b> cases of simple malaria and <b>%(mls_24)s</b> cases of severe malaria. <b>%(mls_48)s</b> (<b>%(mls_48_perc_cmd_17)s</b>%%) malaria cases were treated with ACT. A total of <b>%(mls_36)s</b> malaria deaths were reported.', mls_2=report.data.weekly_highlights.mls_2|int, mls_3=report.data.weekly_highlights.mls_3|int, mls_3_perc_mls_2=report.data.weekly_highlights.mls_3_perc_mls_2|round(1), cmd_17=report.data.weekly_highlights.cmd_17|int, cmd_17_perc_mls_2=report.data.weekly_highlights.cmd_17_perc_mls_2|round(1), mls_12=report.data.weekly_highlights.mls_12|int, mls_24=report.data.weekly_highlights.mls_24|int, mls_48=report.data.weekly_highlights.mls_48|int, mls_48_perc_cmd_17=report.data.weekly_highlights.mls_48_perc_cmd_17|round(1), mls_36=report.data.weekly_highlights.mls_36|int) }}
+        </li>
+        <li>          
+          {{ _('<b>%(cmd_15)s</b> suspected measles cases were alerted, of which <b>%(cmd_15_ale_1)s</b> (<b>%(cmd_15_ale_1_perc_cmd_15)s</b>%%) were investigated and <b>%(cmd_15_ale_2)s</b> (<b>%(cmd_15_ale_2_perc_cmd_15)s</b>%%) have been confirmed. <b>%(cmd_15_age_1)s</b> (<b>%(cmd_15_age_1_perc_cmd_15)s</b>%%) were reported among children under five years of age.', 
+cmd_15=report.data.weekly_highlights.cmd_15|int, 
+cmd_15_ale_1=report.data.weekly_highlights.cmd_15_ale_1|int, cmd_15_ale_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_ale_1_perc_cmd_15|round(1),
+cmd_15_ale_2=report.data.weekly_highlights.cmd_15_ale_2|int,
+cmd_15_ale_2_perc_cmd_15=report.data.weekly_highlights.cmd_15_ale_2_perc_cmd_15|round(1),
+cmd_15_age_1=report.data.weekly_highlights.cmd_15_age_1|int,
+cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|round(1)) }}
+        </li>  
+        <li>          
+          {{ _('<b>%(cmd_10)s</b> cases of acute flaccid paralysis were reported, with <b>%(cmd_10_ale_2)s</b> (<b>%(cmd_10_ale_2_perc_cmd_10)s</b>%%) cases investigated.', cmd_10=report.data.weekly_highlights.cmd_10|int, cmd_21_ale_2=report.data.weekly_highlights.cmd_10_ale_2|int, cmd_10_ale_2=report.data.weekly_highlights.cmd_10_ale_2|int, cmd_10_ale_2_perc_cmd_10=report.data.weekly_highlights.cmd_10_ale_2_perc_cmd_10|int) }}
+        </li>
+        <li>          
+          {{ _('<b>%(cmd_24)s</b> cases of severe and <b>%(cmd_23)s</b> cases of moderate malnutrition were reported during the week', cmd_24=report.data.weekly_highlights.cmd_24|int, cmd_23=report.data.weekly_highlights.cmd_23|int)}}
+          {% if report.data.weekly_highlights.malnutrition %}
+            , with most cases reported from  
+            {% for reg in report.data.weekly_highlights.malnutrition %}
+              {% if not loop.last %}
+                <b>"{{reg.region}}"</b>,
+              {% else %}
+                and <b>"{{reg.region}}"</b> regions.
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            .   
+          {% endif %}
+        </li>
+        <li>          
+          {{ _('<b>%(cmd_1)s</b> cases of acute diarrhoea were reported, with <b>%(cmd_4)s</b> confirmed cases of dysentery (bloody diarrhoea) and <b>%(cmd_2)s</b> confirmed cases of acute watery diarrhoea (cholera). ', cmd_1=report.data.weekly_highlights.cmd_1|int, cmd_2=report.data.weekly_highlights.cmd_2|int, cmd_4=report.data.weekly_highlights.cmd_4|int) }}
+        </li>
+        <li>          
+          {{ _('<b>%(cmd_25)s</b> cases of acute respiratory tract infection (ARTI) were reported, with <b>%(cmd_18)s</b> cases of influenza-like illness (ILI).', cmd_25=report.data.weekly_highlights.cmd_25|int, cmd_18=report.data.weekly_highlights.cmd_18|int) }}
+        </li>
+        <li>          
+          {{ _('<b>%(cmd_27)s</b> cases of animal bite were reported, with <b>%(cmd_11_ale_2)s</b> confirmed cases of rabies.', cmd_27=report.data.weekly_highlights.cmd_27|int, cmd_11_ale_2=report.data.weekly_highlights.cmd_11_ale_2|int) }}
+        </li>
+        <li>          
+          {{ _('<b>%(cmd_7)s</b> cases of plague were reported, with <b>%(cmd_7_ale_1)s</b> (<b>%(cmd_7_ale_1_perc_cmd_7)s</b>%%) cases investigated and <b>%(cmd_7_ale_2)s</b> (<b>%(cmd_7_ale_2_perc_cmd_7)s</b>%%) confirmed.', cmd_7=report.data.weekly_highlights.cmd_7|int, cmd_7_ale_1=report.data.weekly_highlights.cmd_7_ale_1|int, cmd_7_ale_1_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_1_perc_cmd_7|int, cmd_7_ale_2=report.data.weekly_highlights.cmd_7_ale_2|int, cmd_7_ale_2_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_2_perc_cmd_7|int) }}
+        </li> 
+      </ul></div>
+    </div>
+  </div>
+  <!-- OVERVIEW MAP -->
+  <div class="col-sm-6" id="mapbox-panel">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Map') }}</div>
+      <div class="chart-stage">
+          <div id="map"></div>
+          <div id="map-print">
+            <img src="{{extras.static_map_url}}" alt="Map">
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row">
