@@ -751,7 +751,7 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				}
 
 
-				$(headerID).html(i18n.gettext('Clinics not reporting'));
+        $(headerID).html(i18n.gettext('Reporting sites never reported'));
 				columns = [
 					{
 						"field": "location",
