@@ -5,9 +5,9 @@ Shared functions for meerkat_frontend.
 """
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-
+import meerkat_frontend
 from flask import current_app, abort, send_file, Response, request
-import requests
+import requests, logging
 import json, os
 from requests.auth import HTTPBasicAuth
 import authorise as auth
@@ -32,11 +32,11 @@ def check_auth(username, password):
     
     requested_object = request_path.strip("/").split("/")[1:] # To remove country code
     if len(requested_object) > 1 and "/".join(requested_object[:2]) in current_app.config["AUTH"]:
-        current_app.logger.info("Found AUTH for level 2")
+        logging.info("Found AUTH for level 2")
         auth_object = current_app.config["AUTH"]["/".join(requested_object[:2])]
         return username == auth_object["USERNAME"] and password == auth_object["PASSWORD"]
     elif requested_object[0] in current_app.config["AUTH"]:
-        current_app.logger.info("Found AUTH for level 1")        
+        logging.info("Found AUTH for level 1")        
         auth_object = current_app.config["AUTH"][requested_object[0]]
         return username == auth_object["USERNAME"] and password == auth_object["PASSWORD"]
     else:
@@ -99,16 +99,16 @@ def refine_hermes_topics(topics):
         HERMES_DEV == 1. 
     """
     #Do some logging.
-    current_app.logger.warning( "Topics: " + str( topics ) )
-    current_app.logger.warning( "Allowed topics: " + str( current_app.config["HERMES_DEV_TOPICS"] ) )
+    logging.warning( "Topics: " + str( topics ) )
+    logging.warning( "Allowed topics: " + str( meerkat_frontend.app.config["HERMES_DEV_TOPICS"] ) )
 
     #Make topics a list if it isn't already one.
     topics = [topics] if not isinstance( topics, list ) else topics
 
     #If in development/testing environment, remove topics that aren't pre-specified as allowed.
-    if current_app.config["HERMES_DEV"]:
+    if meerkat_frontend.app.config["HERMES_DEV"]:
         for t in range( len(topics)-1, -1, -1 ):
-            if topics[t] not in current_app.config["HERMES_DEV_TOPICS"]:
+            if topics[t] not in meerkat_frontend.app.config["HERMES_DEV_TOPICS"]:
                 del topics[t]
 
     return topics
@@ -125,23 +125,24 @@ def hermes(url, method, data={}):
        Returns:
            dict: a dictionary formed from the json data in the response.
     """
-    #If we are in the dev envirnoment only allow publishing to specially selected topics. 
-    topics = refine_hermes_topics( data.get('topics', []) )
-
-    #Return a error message if we have tried to publish a mass email from the dev envirnoment. 
-    if not topics:
-        return {"message": "No topics to publish to, perhaps because system is in hermes dev mode."}
-    else:
-        data['topics'] = topics
+    
+    if 'publish' in url: 
+        #If we are in the dev envirnoment only allow publishing to specially selected topics. 
+        topics = refine_hermes_topics( data.get('topics', []) )
+        #Return an error message if we have tried to publish a mass email from the dev envirnoment. 
+        if not topics:
+            return {"message": "No topics to publish to, perhaps because system is in hermes dev mode."}
+        else:
+            data['topics'] = topics
     
     #Add the API key and turn into JSON.
-    data["api_key"] = current_app.config['HERMES_API_KEY']
+    data["api_key"] = meerkat_frontend.app.config['HERMES_API_KEY']
 
     #Assemble the other request params.
-    url = current_app.config['HERMES_ROOT'] + url 
+    url = meerkat_frontend.app.config['HERMES_ROOT'] + url 
     headers = {'content-type' : 'application/json'}
 
-    current_app.logger.warning( "Sending json data: " + json.dumps(data) +"\nTo url: " + url )
+    logging.warning( "Sending json data: " + json.dumps(data) +"\nTo url: " + url )
     
     #Make the request and handle the response.
     try:

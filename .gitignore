@@ -56,3 +56,4 @@ secret.cfg
 # Combined Translation files
 meerkat_frontend/translations/**/.po
 
+yarn.lock

@@ -12,6 +12,7 @@ from unittest.mock import MagicMock
 from unittest import mock
 from flask import g
 import authorise as auth
+from .. import common as c
 
 #Check if auth requirements have been installed
 try:
@@ -112,11 +113,44 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         rv2 = self.app.get('/en/technical/')
         self.assertEqual(rv2.status_code, 200)
 
+    @mock.patch('meerkat_frontend.common.requests')
+    def test_hermes(self, mock_requests):
+        #In dev mode
+        mk.app.config['HERMES_DEV'] = True
+        #In dev mode a publish call should only be allowed to specified topics (not test-topic).
+        c.hermes("publish", "POST", {"topics":["test-topic"]})
+        self.assertFalse( mock_requests.request.called )
+        #In dev mode, a call that isn't publish, is allowed and shouldn't have it's topics regined.
+        headers = {'content-type': 'application/json'}
+        c.hermes("test", "POST", {"topics":["test-topic"]})
+        mock_requests.request.assert_called_with( 
+            "POST",
+            mk.app.config['HERMES_ROOT'] + "test",
+            json={
+                'api_key': mk.app.config['HERMES_API_KEY'], 
+                'topics':['test-topic']
+            },
+            headers=headers 
+        )
+        #Outside dev mode
+        mk.app.config['HERMES_DEV'] = False
+        c.hermes("publish", "POST", {"topics":["test-topic"]})
+        headers = {'content-type': 'application/json'}
+        mock_requests.request.assert_called_with( 
+            "POST",
+            mk.app.config['HERMES_ROOT'] + "publish",
+            json={'api_key': mk.app.config['HERMES_API_KEY'],'topics':['test-topic']},
+            headers=headers
+        )
+
+
     #HOMEPAGE testing
     def test_index(self):
         """Ensure the config file is loading correctly"""
         rv = self.app.get('/en/')
         self.assertIn(b'Null Island', rv.data)
+
+    
 
 
 
