@@ -64,6 +64,11 @@ function calc_percent_dist( array ){
     return ret;
 }
 
+function round(num , precision){
+	return Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision);
+}
+
+
 //Returns the value if the key exists in vari, returns zero if it doesn't. 
 function if_exists(vari,key){
 
