@@ -27,30 +27,33 @@
       <div class="chart-title">{{ _('Weekly Highlights') }}</div>
       <div class="chart-stage"><ul>
         <li>          
-          {{ _('Completeness of daily reporting was <b>%(comp_week)s%%</b> across %(clinic_num)s health facilities in Week %(epi_week_num)s, compared to <b>%(comp_year)s%%</b> cumulatively in 2016.', comp_week=report.data.weekly_highlights.comp_week|round(1), clinic_num=report.data.weekly_highlights.clinic_num, epi_week_num=report.data.epi_week_num, comp_year=report.data.weekly_highlights.comp_year|round(1)) }}
+          {{ _('Completeness of daily reporting was %(comp_week)s%% across %(clinic_num)s health facilities in Week %(epi_week_num)s, compared to %(comp_year)s%% cumulatively this year.', comp_week=report.data.weekly_highlights.comp_week|round(1), clinic_num=report.data.weekly_highlights.clinic_num, epi_week_num=report.data.epi_week_num, comp_year=report.data.weekly_highlights.comp_year|round(1)) }}
         </li>
         <li>          
-          {{ _('<b>%(dea_0)s</b> reported deaths in total.', dea_0=report.data.weekly_highlights.dea_0|int ) }}
-          {% if report.data.weekly_highlights.dea_0 > 0 %}
-            Leading causes of mortality include: 
+          {{ _('%(dea_0)s reported deaths in total.', dea_0=report.data.weekly_highlights.dea_0|int ) }}
+          {% if report.data.weekly_highlights.mortality %}
+            
             {% for mort in report.data.weekly_highlights.mortality %}
-              {% if not loop.last %}
-                <b>"{{mort.name}}"</b>,
-              {% else %}
-                and <b>"{{mort.name}}"</b>.
+              {% if loop.first and loop.last %}
+                 Leading cause of mortality is "{{mort.name}}".
+              {% elif loop.first %}
+                Leading causes of mortality include: "{{mort.name}}", 
+              {% elif not loop.first and not loop.last %}
+                "{{mort.name}}",
+              {% elif loop.last %}
+                and "{{mort.name}}".
               {% endif %}
-            {% endfor %}
-              
+            {% endfor %}   
           {% endif %}
         </li>
         <li>          
-          {{ _('<b>%(cmd_21)s</b> maternal deaths were reported (<b>%(cmd_21_ale_1)s</b> investigated) and <b>%(cmd_22)s</b> neonatal deaths (<b>%(cmd_22_ale_1)s</b> investigated).', cmd_21=report.data.weekly_highlights.cmd_21|int, cmd_21_ale_1=report.data.weekly_highlights.cmd_21_ale_1|int, cmd_22=report.data.weekly_highlights.cmd_22|int, cmd_22_ale_1=report.data.weekly_highlights.cmd_22_ale_1|int) }}
+          {{ _('%(cmd_21)s maternal deaths were reported (%(cmd_21_ale_1)s investigated) and %(cmd_22)s neonatal deaths (%(cmd_22_ale_1)s investigated).', cmd_21=report.data.weekly_highlights.cmd_21|int, cmd_21_ale_1=report.data.weekly_highlights.cmd_21_ale_1|int, cmd_22=report.data.weekly_highlights.cmd_22|int, cmd_22_ale_1=report.data.weekly_highlights.cmd_22_ale_1|int) }}
         </li>
         <li>          
-          {{ _('A total of <b>%(mls_2)s</b> fever cases were reported, <b>%(mls_3)s</b> (<b>%(mls_3_perc_mls_2)s</b>%%) tested and <b>%(cmd_17)s</b> (<b>%(cmd_17_perc_mls_2)s</b>%%) positive with <b>%(mls_12)s</b> cases of simple malaria and <b>%(mls_24)s</b> cases of severe malaria. <b>%(mls_48)s</b> (<b>%(mls_48_perc_cmd_17)s</b>%%) malaria cases were treated with ACT. A total of <b>%(mls_36)s</b> malaria deaths were reported.', mls_2=report.data.weekly_highlights.mls_2|int, mls_3=report.data.weekly_highlights.mls_3|int, mls_3_perc_mls_2=report.data.weekly_highlights.mls_3_perc_mls_2|round(1), cmd_17=report.data.weekly_highlights.cmd_17|int, cmd_17_perc_mls_2=report.data.weekly_highlights.cmd_17_perc_mls_2|round(1), mls_12=report.data.weekly_highlights.mls_12|int, mls_24=report.data.weekly_highlights.mls_24|int, mls_48=report.data.weekly_highlights.mls_48|int, mls_48_perc_cmd_17=report.data.weekly_highlights.mls_48_perc_cmd_17|round(1), mls_36=report.data.weekly_highlights.mls_36|int) }}
+          {{ _('A total of %(mls_2)s fever cases were reported, %(mls_3)s (%(mls_3_perc_mls_2)s%%) tested and %(cmd_17)s (%(cmd_17_perc_mls_2)s%%) positive with %(mls_12)s cases of simple malaria and %(mls_24)s cases of severe malaria. %(mls_48)s (%(mls_48_perc_cmd_17)s%%) malaria cases were treated with ACT. A total of %(mls_36)s malaria deaths were reported.', mls_2=report.data.weekly_highlights.mls_2|int, mls_3=report.data.weekly_highlights.mls_3|int, mls_3_perc_mls_2=report.data.weekly_highlights.mls_3_perc_mls_2|round(1), cmd_17=report.data.weekly_highlights.cmd_17|int, cmd_17_perc_mls_2=report.data.weekly_highlights.cmd_17_perc_mls_2|round(1), mls_12=report.data.weekly_highlights.mls_12|int, mls_24=report.data.weekly_highlights.mls_24|int, mls_48=report.data.weekly_highlights.mls_48|int, mls_48_perc_cmd_17=report.data.weekly_highlights.mls_48_perc_cmd_17|round(1), mls_36=report.data.weekly_highlights.mls_36|int) }}
         </li>
         <li>          
-          {{ _('<b>%(cmd_15)s</b> suspected measles cases were alerted, of which <b>%(cmd_15_ale_1)s</b> (<b>%(cmd_15_ale_1_perc_cmd_15)s</b>%%) were investigated and <b>%(cmd_15_ale_2)s</b> (<b>%(cmd_15_ale_2_perc_cmd_15)s</b>%%) have been confirmed. <b>%(cmd_15_age_1)s</b> (<b>%(cmd_15_age_1_perc_cmd_15)s</b>%%) were reported among children under five years of age.', 
+          {{ _('%(cmd_15)s suspected measles cases were alerted, of which %(cmd_15_ale_1)s (%(cmd_15_ale_1_perc_cmd_15)s%%) were investigated and %(cmd_15_ale_2)s (%(cmd_15_ale_2_perc_cmd_15)s%%) have been confirmed. %(cmd_15_age_1)s (%(cmd_15_age_1_perc_cmd_15)s%%) were reported among children under five years of age.', 
 cmd_15=report.data.weekly_highlights.cmd_15|int, 
 cmd_15_ale_1=report.data.weekly_highlights.cmd_15_ale_1|int, cmd_15_ale_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_ale_1_perc_cmd_15|round(1),
 cmd_15_ale_2=report.data.weekly_highlights.cmd_15_ale_2|int,
@@ -59,17 +62,19 @@ cmd_15_age_1=report.data.weekly_highlights.cmd_15_age_1|int,
 cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|round(1)) }}
         </li>  
         <li>          
-          {{ _('<b>%(cmd_10)s</b> cases of acute flaccid paralysis were reported, with <b>%(cmd_10_ale_2)s</b> (<b>%(cmd_10_ale_2_perc_cmd_10)s</b>%%) cases investigated.', cmd_10=report.data.weekly_highlights.cmd_10|int, cmd_21_ale_2=report.data.weekly_highlights.cmd_10_ale_2|int, cmd_10_ale_2=report.data.weekly_highlights.cmd_10_ale_2|int, cmd_10_ale_2_perc_cmd_10=report.data.weekly_highlights.cmd_10_ale_2_perc_cmd_10|int) }}
+          {{ _('%(cmd_10)s cases of acute flaccid paralysis were reported, with %(cmd_10_ale_2)s (%(cmd_10_ale_2_perc_cmd_10)s%%) cases investigated.', cmd_10=report.data.weekly_highlights.cmd_10|int, cmd_21_ale_2=report.data.weekly_highlights.cmd_10_ale_2|int, cmd_10_ale_2=report.data.weekly_highlights.cmd_10_ale_2|int, cmd_10_ale_2_perc_cmd_10=report.data.weekly_highlights.cmd_10_ale_2_perc_cmd_10|int) }}
         </li>
         <li>          
-          {{ _('<b>%(cmd_24)s</b> cases of severe and <b>%(cmd_23)s</b> cases of moderate malnutrition were reported during the week', cmd_24=report.data.weekly_highlights.cmd_24|int, cmd_23=report.data.weekly_highlights.cmd_23|int)}}
+          {{ _('%(cmd_24)s cases of severe and %(cmd_23)s cases of moderate malnutrition were reported during the week', cmd_24=report.data.weekly_highlights.cmd_24|int, cmd_23=report.data.weekly_highlights.cmd_23|int)}}
           {% if report.data.weekly_highlights.malnutrition %}
             , with most cases reported from  
             {% for reg in report.data.weekly_highlights.malnutrition %}
-              {% if not loop.last %}
-                <b>"{{reg.region}}"</b>,
+              {% if loop.first and loop.last  %}
+                "{{reg.region}}"
+              {% elif not loop.last %}
+                "{{reg.region}}",
               {% else %}
-                and <b>"{{reg.region}}"</b> regions.
+                and "{{reg.region}}" regions.
               {% endif %}
             {% endfor %}
           {% else %}
@@ -77,34 +82,110 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
           {% endif %}
         </li>
         <li>          
-          {{ _('<b>%(cmd_1)s</b> cases of acute diarrhoea were reported, with <b>%(cmd_4)s</b> confirmed cases of dysentery (bloody diarrhoea) and <b>%(cmd_2)s</b> confirmed cases of acute watery diarrhoea (cholera). ', cmd_1=report.data.weekly_highlights.cmd_1|int, cmd_2=report.data.weekly_highlights.cmd_2|int, cmd_4=report.data.weekly_highlights.cmd_4|int) }}
+          {{ _('%(cmd_1)s cases of acute diarrhoea were reported, with %(cmd_4)s confirmed cases of dysentery (bloody diarrhoea) and %(cmd_2)s confirmed cases of acute watery diarrhoea (cholera). ', cmd_1=report.data.weekly_highlights.cmd_1|int, cmd_2=report.data.weekly_highlights.cmd_2|int, cmd_4=report.data.weekly_highlights.cmd_4|int) }}
         </li>
         <li>          
-          {{ _('<b>%(cmd_25)s</b> cases of acute respiratory tract infection (ARTI) were reported, with <b>%(cmd_18)s</b> cases of influenza-like illness (ILI).', cmd_25=report.data.weekly_highlights.cmd_25|int, cmd_18=report.data.weekly_highlights.cmd_18|int) }}
+          {{ _('%(cmd_25)s cases of acute respiratory tract infection (ARTI) were reported, with %(cmd_18)s cases of influenza-like illness (ILI).', cmd_25=report.data.weekly_highlights.cmd_25|int, cmd_18=report.data.weekly_highlights.cmd_18|int) }}
         </li>
         <li>          
-          {{ _('<b>%(cmd_27)s</b> cases of animal bite were reported, with <b>%(cmd_11_ale_2)s</b> confirmed cases of rabies.', cmd_27=report.data.weekly_highlights.cmd_27|int, cmd_11_ale_2=report.data.weekly_highlights.cmd_11_ale_2|int) }}
+          {{ _('%(cmd_27)s cases of animal bite were reported, with %(cmd_11_ale_2)s confirmed cases of rabies.', cmd_27=report.data.weekly_highlights.cmd_27|int, cmd_11_ale_2=report.data.weekly_highlights.cmd_11_ale_2|int) }}
         </li>
         <li>          
-          {{ _('<b>%(cmd_7)s</b> cases of plague were reported, with <b>%(cmd_7_ale_1)s</b> (<b>%(cmd_7_ale_1_perc_cmd_7)s</b>%%) cases investigated and <b>%(cmd_7_ale_2)s</b> (<b>%(cmd_7_ale_2_perc_cmd_7)s</b>%%) confirmed.', cmd_7=report.data.weekly_highlights.cmd_7|int, cmd_7_ale_1=report.data.weekly_highlights.cmd_7_ale_1|int, cmd_7_ale_1_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_1_perc_cmd_7|int, cmd_7_ale_2=report.data.weekly_highlights.cmd_7_ale_2|int, cmd_7_ale_2_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_2_perc_cmd_7|int) }}
+          {{ _('%(cmd_7)s cases of plague were reported, with %(cmd_7_ale_1)s (%(cmd_7_ale_1_perc_cmd_7)s%%) cases investigated and %(cmd_7_ale_2)s (%(cmd_7_ale_2_perc_cmd_7)s%%) confirmed.', cmd_7=report.data.weekly_highlights.cmd_7|int, cmd_7_ale_1=report.data.weekly_highlights.cmd_7_ale_1|int, cmd_7_ale_1_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_1_perc_cmd_7|int, cmd_7_ale_2=report.data.weekly_highlights.cmd_7_ale_2|int, cmd_7_ale_2_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_2_perc_cmd_7|int) }}
         </li> 
       </ul></div>
     </div>
   </div>
-  <!-- OVERVIEW MAP -->
-  <div class="col-sm-6" id="mapbox-panel">
+  <!-- COMPLETENESS CHART -->
+  <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Map') }}</div>
+      <div class="chart-title">{{ _('Figure 1. District completeness of reporting for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-          <div id="map"></div>
-          <div id="map-print">
-            <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
+        <div id="district-completeness"></div>
       </div>
     </div>
   </div>
 </div>
+<div class="row">
+  <!-- MORTALITY MAP -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 2. Cumulative Reported Maternal Deaths by district, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
 
+      </div>
+    </div>
+  </div>
+  <!-- MALARIA CHART -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 3. Incidence of Confirmed Malaria Cases (per 100,000 population) by type, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- MALARIA MAP -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 4. Incidence of Confirmed Malaria Cases (per 100,000 population), from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+
+      </div>
+    </div>
+  </div>
+  <!-- MEASLES CHART -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 5. Trend of Suspected Measles Cases Reported, by age group, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- MALNUTRITION CHART -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 6. Trend of Reported Severe Malnutrition Cases in Under Fives, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+
+      </div>
+    </div>
+  </div>
+  <!-- PRIORITY DISEASES TABLE -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 1: Reported Priority Diseases, Conditions and Events by District, Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- PRIORITY DISEASES SUMMARY -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 2: Summary of Priority Diseases, Conditions and Events for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+
+      </div>
+    </div>
+  </div>
+  <!-- TIMELINESS TABLE -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 3: Timeliness and Completeness of reporting for Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -137,6 +218,34 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 var content = {{report|tojson|safe}};
 //Load a new translator in this template so that the source of translations can be loaded for pdfs.
 i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
+
+// Reporting Sites
+var completenessSites = {
+  categories: [
+    {% for site in report.data.figure_completeness %}
+      "{{ site.district|safe }}"
+      {% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  series: [{
+    name: 'Percentage Completeness', 
+    data: [
+      {% for site in report.data.figure_completeness %}
+        {{ site.value }}
+        {% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }],
+  labels: { yAxis: { text: null } } 
+};
+
+$('#district-completeness').highcharts(
+    sitesBarChart(
+      completenessSites.categories,
+      completenessSites.series,
+      completenessSites.labels
+    )
+);
 </script>
 {% endblock extra_js %}
 
