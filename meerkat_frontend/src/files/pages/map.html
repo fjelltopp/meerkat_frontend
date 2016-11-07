@@ -9,6 +9,14 @@
 <div class="map-view">
 
 	<div id="page-content-wrapper">
+		<div class="row"
+			<div class="col-xs-12 less-padding-col">
+				<div id="variable-selector" class="col-sm-offset-1 col-sm-11 no-padding-col"></div>
+				<div id="type-selector" class="col-sm-offset-1 col-sm-11 no-padding-col">
+				</div>
+
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
@@ -27,5 +35,41 @@
  $("#box_heading").html(i18n.gettext('Map'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
- drawMap( 'tot_1', "total-map" );
+
+
+ options = {"cmd_17": "Malaria", "cmd_24": "Severe malnutrition", "cmd_6": "TB","cmd_7": "Plague", "tot_1": "All cases"}
+ var html ="<p class='col-xs-3'>"+ i18n.gettext("Choose disease to map") + "</p><select class='report col-xs-4 no-padding-col' style='display:inline;'>";
+ for( var key in options ){
+	 option = options[key];
+	 html += "<option value='" + key + "'>" +
+		     i18n.gettext(option) + "</option>";
+ }
+ html += "</select>";
+ $('#variable-selector').html(html);
+
+ $('#variable-selector').change( function(){
+	 reDraw();
+ });
+
+ type_html ="<p class='col-xs-3'>" + i18n.gettext("Choose map type")+  '</p><select><option value="clinic">'+
+			i18n.gettext('Clinic Map') +' </option><option value="district">' + i18n.gettext("District Map") +"</option></select>"
+ $('#type-selector').html(type_html);
+
+ $('#type-selector').change( function(){
+	 reDraw();
+ });
+ function reDraw(){
+     if(map){
+         map.remove();
+	 }
+	 var variable = $('#variable-selector select').val();
+	 var map_type = $('#type-selector select').val();
+	 if( map_type == "clinic") {
+		 drawIncidenceMap( options[variable],  variable, "total-map" );
+	 }else if( map_type == "district") {
+		 drawIncidenceChoroplet(options[variable], variable, "total-map", "district", "madagascar.geojson");
+	 }
+ }
+ reDraw();
+
 </script>
