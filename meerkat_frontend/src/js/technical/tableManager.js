@@ -673,7 +673,8 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
             index = scoreKeys[i];
             var datum = {
                 "location": locations[index].name,
-                "completeness": Number(data.clinic_score[index]).toFixed(0) + "%"
+                "completeness": Number(data.clinic_score[index]).toFixed(0) + "%",
+                "yearly": Number(data.yearly_score[index]).toFixed(0) + "%"
             };
             dataPrepared.push(datum);
         }
@@ -686,7 +687,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                width : "50%"
+                width : "34%"
             },{
                 "field": "completeness",
                 "title": "Completeness",
@@ -696,7 +697,17 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
                 "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
-                width : "50%"
+                width : "33%"
+            },{
+                "field": "yearly",
+                "title": "Yearly completeness",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
+                width : "33%"
             }];
 
         for(var k = 0; k < columns.length; k++){
@@ -834,9 +845,10 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
             //     ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
             loc = locations[index].name;
             var datum = {
-				"id": index,
+                "id": index,
                 "location": loc,
-                "completeness": Number(data.score[index]).toFixed(0) + "%"
+                "completeness": Number(data.score[index]).toFixed(0) + "%",
+                "yearly": Number(data.yearly_score[index]).toFixed(0) + "%"
             };
             dataPrepared.push(datum);
         }
@@ -848,7 +860,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                width : "70%"
+                width : "50%"
             },{
                 "field": "completeness",
                 "title": "Completeness",
@@ -858,7 +870,17 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
-                width : "30%"
+                width : "25%"
+            },{
+                "field": "yearly",
+                "title": "Yearly completeness",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
+                width : "25%"
             }];
 
         for(var k = 0; k < columns.length; k++){
