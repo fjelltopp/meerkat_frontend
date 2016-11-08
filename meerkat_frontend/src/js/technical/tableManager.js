@@ -666,6 +666,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
         // if (locations[regionID].level === "clinic")
         //     return 0;//that should happen on data agregation level
 
+
         var scoreKeys = Object.keys(data.clinic_score);
         var dataPrepared = [];
         var index = 0;
@@ -674,7 +675,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
             var datum = {
                 "location": locations[index].name,
                 "completeness": Number(data.clinic_score[index]).toFixed(0) + "%",
-                "yearly": Number(data.yearly_score[index]).toFixed(0) + "%"
+                "yearly": Number(data.clinic_yearly_score[index]).toFixed(0) + "%"
             };
             dataPrepared.push(datum);
         }
@@ -838,6 +839,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
         var scoreKeys = Object.keys(data.score);
         var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name
         var index = 0;
+
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
             var loc;
@@ -873,7 +875,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 width : "25%"
             },{
                 "field": "yearly",
-                "title": "Yearly completeness",
+                "title": "Yearly",
                 "align": "center",
                 "class": "header",
                 sortable: true,
