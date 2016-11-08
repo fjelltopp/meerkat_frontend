@@ -152,7 +152,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 6. Trend of Reported Severe Malnutrition Cases in Under Fives, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-
+        <div id="malnutrition-chart"></div>
       </div>
     </div>
   </div>
@@ -283,6 +283,29 @@ $('#malaria-chart').highcharts(
       malaria.categories,
       malaria.series,
       malaria.labels
+    )
+);
+
+//Malnutrition chart
+var malnutrition_data = [{% for week, value in report.data.figure_malnutrition.malnutrition.weeks.items() %}{"week":"{{ week|safe }}", "value": {{ value|safe }}} {% if not loop.last %},{% endif %}{% endfor %}];
+
+malnutrition_data.sort(function(a,b){
+  return a.week - b.week;
+});
+
+var malnutrition = {
+  categories: malnutrition_data.map( function(a){ return a.week}),
+  series: [
+    { name: i18n.gettext('Cases'), data: malnutrition_data.map( function(a){ return a.value || 0 }) },
+  ], 
+  labels: { yAxis: { text: "# Cases" }, xAxis: { text: "Epi Week" } } 
+};
+
+$('#malnutrition-chart').highcharts(
+    malnutritionChart(
+      malnutrition.categories,
+      malnutrition.series,
+      malnutrition.labels
     )
 );
 </script>

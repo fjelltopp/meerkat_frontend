@@ -377,9 +377,46 @@ function malariaChart(weeks, series, labels) {
 				}
 			},
 			series: {
-        stacking: 'normal',
+
 				lineWidth: 5
       },
+		},
+		xAxis: {
+			categories: weeks,
+			title: {
+				text: labels.xAxis.text,
+				align: 'middle'
+			}
+		},
+		yAxis: {
+			title: {
+				text: labels.yAxis.text,
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0
+		},
+		series: series
+	};
+	return chart;
+}
+
+//Malaria bar chart for the afro bulletin.
+function malnutritionChart(weeks, series, labels) {
+
+  var chart = {
+		chart: {
+			animation: false,
+      type: 'spline'
+		},
+		title: {
+			text: null
+		},
+		legend: {
+			enabled: true,
+			style: {
+				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+			}
 		},
 		xAxis: {
 			categories: weeks,
