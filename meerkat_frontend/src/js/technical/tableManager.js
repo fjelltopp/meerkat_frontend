@@ -691,7 +691,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
                 width : "34%"
             },{
                 "field": "completeness",
-                "title": "Completeness",
+                "title": "This Week",
                 "align": "center",
                 "class": "header",
                 sortable: true,
@@ -701,7 +701,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
                 width : "33%"
             },{
                 "field": "yearly",
-                "title": "Yearly completeness",
+                "title": "This Year",
                 "align": "center",
                 "class": "header",
                 sortable: true,
@@ -865,7 +865,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 width : "50%"
             },{
                 "field": "completeness",
-                "title": "Completeness",
+                "title": "Week",
                 "align": "center",
                 "class": "header",
                 sortable: true,
@@ -875,7 +875,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 width : "25%"
             },{
                 "field": "yearly",
-                "title": "Yearly",
+                "title": "Year",
                 "align": "center",
                 "class": "header",
                 sortable: true,
