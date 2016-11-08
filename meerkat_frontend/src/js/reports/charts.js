@@ -179,7 +179,7 @@ function PipBarChart(weeks, suspected, confirmed, labels) {
 		});
 	}
 
-	var chart = {
+  var chart = {
 		chart: {
 			animation: false
 		},
@@ -281,6 +281,126 @@ function refugeeCommunicableDiseasesChart(categories, series, labels) {
   };
 	return chart;
 }
+
+//Completeness bar chart for the AFRO Bulletin
+function completenessBarChart(categories, series, labels) {
+  var chart = {
+    chart: {
+      type: 'bar',
+      animation: false
+    },
+	  tooltip: {
+		  valueDecimals: 1,
+		  valueSuffix: '%'
+	  },
+    title: {
+      text: null
+    },
+    xAxis: {
+      min: 0,
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      },
+      labels: {
+        formatter: function() {
+			return Math.round(Math.abs(this.value),1) + '%';
+        }
+      }
+    },
+    yAxis: {
+      categories: categories,
+    },
+    series: series
+  };
+  return chart;
+}
+
+//Measles bar chart for the afro bulletin.
+function measlesBarChart(categories, series, labels) {
+  var chart = {
+    chart: {
+      type: 'column',
+      animation: false
+    },
+    title: {
+      text: null
+    },
+    legend: {
+      enabled: true,
+      style: {
+        fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+      }
+    },
+    xAxis: {
+      categories: categories,
+      labels: {
+        step: 1
+      },
+      title: {
+        text: labels.xAxis.text,
+        align: 'middle'
+      }
+    },
+    yAxis: {
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      }
+    },
+    series: series
+  };
+  return chart;
+}
+
+//Malaria bar chart for the afro bulletin.
+function malariaChart(weeks, series, labels) {
+
+  var chart = {
+		chart: {
+			animation: false,
+      type: 'column'
+		},
+		title: {
+			text: null
+		},
+		legend: {
+			enabled: true,
+			style: {
+				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+			}
+		},
+		plotOptions: {
+			spline: {
+				marker: {
+					enabled: false
+				}
+			},
+			series: {
+        stacking: 'normal',
+				lineWidth: 5
+      },
+		},
+		xAxis: {
+			categories: weeks,
+			title: {
+				text: labels.xAxis.text,
+				align: 'middle'
+			}
+		},
+		yAxis: {
+			title: {
+				text: labels.yAxis.text,
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0
+		},
+		series: series
+	};
+	return chart;
+}
+
 // Global chart settings
 /*$(function() {
       Highcharts.setOptions({

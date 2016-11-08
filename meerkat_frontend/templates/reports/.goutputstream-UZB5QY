@@ -271,9 +271,9 @@ malaria_data.sort(function(a,b){
 var malaria = {
   categories: malaria_data.map( function(a){ return a.week}),
   series: [
+    { name: i18n.gettext('Positivity'), data: malaria_data.map( function(a){ return a.positivity}), type:'spline'  },
     { name: i18n.gettext('Simple'), data: malaria_data.map( function(a){ return a.simple || 0 }) },
-    { name: i18n.gettext('Severe'), data: malaria_data.map( function(a){ return a.severe || 0})},
-    { name: i18n.gettext('Positivity'), data: malaria_data.map( function(a){ return a.positivity}), type:'spline'  }
+    { name: i18n.gettext('Severe'), data: malaria_data.map( function(a){ return a.severe || 0}) }
   ], 
   labels: { yAxis: { text: "# Cases" }, xAxis: { text: "Epi Week" } } 
 };
