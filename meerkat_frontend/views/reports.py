@@ -652,7 +652,10 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             extras['map_centre'][0],
             extras['map_centre'][2],
             current_app.config['MAPBOX_API_ACCESS_TOKEN'])
-
+    elif report in ['afro']:
+        extras = {} 
+        extras['map_centre'] = report_list[report]['map_centre']
+        extras['reg_data_file'] = report_list[report]['reg_data_file']
     else:
         extras = None
 

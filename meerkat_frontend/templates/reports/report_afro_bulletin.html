@@ -112,7 +112,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 2. Cumulative Reported Maternal Deaths by district, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-
+        <div id="maternal-deaths-map" class="mapbox"></div>
       </div>
     </div>
   </div>
@@ -132,7 +132,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 4. Incidence of Confirmed Malaria Cases (per 100,000 population), from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-
+        <div id="malaria-map" class="mapbox"></div>
       </div>
     </div>
   </div>
@@ -307,6 +307,20 @@ $('#malnutrition-chart').highcharts(
       malnutrition.series,
       malnutrition.labels
     )
+);
+
+regional_map( 
+    {}, 
+    {{extras.map_centre}}, 
+    "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
+    'malaria-map' 
+);
+
+regional_map( 
+    {}, 
+    {{extras.map_centre}}, 
+    "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
+    'maternal-deaths-map' 
 );
 </script>
 {% endblock extra_js %}
