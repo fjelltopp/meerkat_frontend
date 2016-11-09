@@ -47,6 +47,9 @@
     "name":"Completeness",
     "template":"completeness.html"
   },{
+    "name":"Timeliness",
+    "template":"timeliness.html"
+  },{
     "name":"Map View",
     "template":"map.html"
   }],
