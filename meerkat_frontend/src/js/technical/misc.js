@@ -594,18 +594,12 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
 
     $.when.apply( $, deferreds ).then(function() {
 
-<<<<<<< HEAD
-        drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week );
-=======
         drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week, 0 );
->>>>>>> 7a29c4f0c6dfe927ca58ba7d919f97231c597d0d
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
     } );
 }
-<<<<<<< HEAD
-=======
 
 /**:timelinessPreparation( details )
 
@@ -649,4 +643,3 @@ function timelinessPreparation( locID, reg_id, graphID, tableID, nonreportingtab
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );
 }
->>>>>>> 7a29c4f0c6dfe927ca58ba7d919f97231c597d0d
