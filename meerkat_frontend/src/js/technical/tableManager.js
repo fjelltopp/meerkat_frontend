@@ -666,6 +666,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
         // if (locations[regionID].level === "clinic")
         //     return 0;//that should happen on data agregation level
 
+
         var scoreKeys = Object.keys(data.clinic_score);
         var dataPrepared = [];
         var index = 0;
@@ -673,7 +674,8 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
             index = scoreKeys[i];
             var datum = {
                 "location": locations[index].name,
-                "completeness": Number(data.clinic_score[index]).toFixed(0) + "%"
+                "completeness": Number(data.clinic_score[index]).toFixed(0) + "%",
+                "yearly": Number(data.clinic_yearly_score[index]).toFixed(0) + "%"
             };
             dataPrepared.push(datum);
         }
@@ -686,17 +688,27 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                width : "50%"
+                width : "34%"
             },{
                 "field": "completeness",
-                "title": "Completeness",
+                "title": "This Week",
                 "align": "center",
                 "class": "header",
                 sortable: true,
                 "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
-                width : "50%"
+                width : "33%"
+            },{
+                "field": "yearly",
+                "title": "This Year",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
+                width : "33%"
             }];
 
         for(var k = 0; k < columns.length; k++){
@@ -751,7 +763,7 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				}
 
 
-				$(headerID).html(i18n.gettext('Clinics not reporting'));
+        $(headerID).html(i18n.gettext('Reporting sites never reported'));
 				columns = [
 					{
 						"field": "location",
@@ -827,6 +839,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
         var scoreKeys = Object.keys(data.score);
         var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name
         var index = 0;
+
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
             var loc;
@@ -834,9 +847,10 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
             //     ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
             loc = locations[index].name;
             var datum = {
-				"id": index,
+                "id": index,
                 "location": loc,
-                "completeness": Number(data.score[index]).toFixed(0) + "%"
+                "completeness": Number(data.score[index]).toFixed(0) + "%",
+                "yearly": Number(data.yearly_score[index]).toFixed(0) + "%"
             };
             dataPrepared.push(datum);
         }
@@ -848,17 +862,27 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                width : "70%"
+                width : "50%"
             },{
                 "field": "completeness",
-                "title": "Completeness",
+                "title": "Week",
                 "align": "center",
                 "class": "header",
                 sortable: true,
                 "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
-                width : "30%"
+                width : "25%"
+            },{
+                "field": "yearly",
+                "title": "Year",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
+                width : "25%"
             }];
 
         for(var k = 0; k < columns.length; k++){

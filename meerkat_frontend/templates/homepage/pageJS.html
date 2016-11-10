@@ -235,6 +235,7 @@ var auth_root = "{{content.auth_root}}";
 
     //Attach the custom layer features to the kml data and display on map.
     var regionalLayer = omnivore.kml("{{url_for( 'static', filename='files/'+content.map.reg_data_file)}}", null, customLayer );
+    console.log(regionalLayer );
 
     function enterMap(){
          //Hide the overlay.
