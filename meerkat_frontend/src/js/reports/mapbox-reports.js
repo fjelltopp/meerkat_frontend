@@ -46,13 +46,13 @@ function map_from_data( data, map_centre, containerID){
 }
 
 function regional_map( data, map_centre, regionsURL, containerID ){
-
+    this.map = {};
     //If no containerID is provided, assume we're looking for a container ID of "map".
     if( !containerID ) containerID = 'map';
 
     //Build the basic map using mapbox.
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+    map = L.mapbox.map(containerID, 'mrjb.143811c9', {
 	      zoomControl: false,
 	      fullscreenControl: true,
         scrollWheelZoom: false
@@ -68,10 +68,10 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         }
     });
 
+    //Find the min and max in the data.
     var locs = Object.keys( data );
     var minimum = 999999;
     var maximum = 0;
-
     for( var l in locs ){
         var loc = data[locs[l]];
         minimum = loc.value < minimum ? loc.value : minimum;
@@ -100,14 +100,13 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         }
     }
 
+    //Find the centre of each region and store it in the data object.
     function onEachFeature(feature, layer) {
         if( feature.properties.description != "?" ){
             // Get bounds of polygon
             var bounds = layer.getBounds();
             // Get center of bounds
-            var center = bounds.getCenter();
-            // Use center to put marker on map
-            var marker = L.circleMarker(center, {zIndexOffset: 1000}).addTo(map);
+            data[feature.properties.description].centre = bounds.getCenter();
         }
     }
 
@@ -123,60 +122,23 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         null, 
         customLayer 
     );
-
+    
+    //Add the regions to the map.
     regionalLayer.addTo(map);
+
+    //Once the regions have been added, add case labels.
+    regionalLayer.on('ready', function(){
+        for( var l in locs ){
+            var loc = data[locs[l]];
+            var icon = L.divIcon({
+                className: 'area-label', 
+                html:"<div class='outer'><div class='inner'>" + loc.value + "</div></div>"
+            });
+	          L.marker(loc.centre, {icon: icon}).addTo(map); 
+        }
+    }, map);
+
+
 }
-/*
-//REGIONAL POLYGON DATA --------------------------
 
-    //Don't de-highlight region upon "mouseout" event as region de-highlights when hovering over a surveilance site.
-    //Instead store the region in this variable on mouseover and de-highlight it upon mouseover a different region.
-    var highlightedRegion;
-
-
-
-    //Quick fix to handle situations where surveillance site is reported as being in different regions by data and kml data. 
-    var govSiteClash = false;
-
-    //De-highlight the previously highlighted region, and then highlight the new region. 
-    function highlightFeature (e){
-
-      if (undefined === highlightedRegion ){
-         highlightedRegion = e.target;
-      }else{
-         regionalLayer.resetStyle( highlightedRegion ); 
-         if( highlightedRegion.toGeoJSON().properties.name != e.target.toGeoJSON().properties.name ){
-           highlightedRegion = e.target;
-           $(".details .selection").html("");
-           govSiteClash = false;
-         }
-      }
-      highlightedRegion.setStyle({
-         fillOpacity: 0.1,
-         opacity: 1
-      });
-
-      if (!L.Browser.ie && !L.Browser.opera) {
-         highlightedRegion.bringToFront();
-      }
-      
-      if( govSiteClash === false ){
-         $("#regionName.value").text(i18n.gettext(highlightedRegion.toGeoJSON().properties.name));
-      }
-
-    }
-
-    function clickFeature(e){
-        enterMap(e);
-        map.fitBounds(e.target.getBounds());
-    }
-
-    //Attached the highlight feture to the mouseover event. 
-    function onEachFeature(feature, layer) {
-      layer.on({
-         mouseover: highlightFeature,
-         click: clickFeature
-      });
-    }
-*/
 

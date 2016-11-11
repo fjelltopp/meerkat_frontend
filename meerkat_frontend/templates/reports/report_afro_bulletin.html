@@ -108,7 +108,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 </div>
 <div class="row">
   <!-- MORTALITY MAP -->
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 2. Cumulative Reported Maternal Deaths by district, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -117,7 +117,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     </div>
   </div>
   <!-- MALARIA CHART -->
-  <div class="col-sm-8">
+  <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 3. Incidence of Confirmed Malaria Cases (per 100,000 population) by type, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -128,7 +128,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 </div>
 <div class="row">
   <!-- MALARIA MAP -->
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 4. Incidence of Confirmed Malaria Cases (per 100,000 population), from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -137,7 +137,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     </div>
   </div>
   <!-- MEASLES CHART -->
-  <div class="col-sm-8">
+  <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 5. Trend of Suspected Measles Cases Reported, by age group, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -216,6 +216,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 <script>
 //Store the report content from the server.
 var content = {{report|tojson|safe}};
+var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 //Load a new translator in this template so that the source of translations can be loaded for pdfs.
 i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
 
@@ -321,7 +322,7 @@ regional_map(
     {{extras.map_centre}}, 
     "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
     'maternal-deaths-map' 
- );
+);
 
  // Table Completeness
  /* var table_completeness_data = {{report.data['table_timeliness_completeness']|tojson|safe}};*/
@@ -390,7 +391,7 @@ regional_map(
  };
 
     $('#table_completeness_id').append('<table class="table"></table>');
- $('#table_completeness_id table').bootstrapTable({
+     $('#table_completeness_id table').bootstrapTable({
                        columns: table_completeness_setup.columns,
      data: table_completeness_data_prepared,
      classes: 'table-no-bordered table-hover',

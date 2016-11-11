@@ -256,3 +256,26 @@ table.refugee.small{
   min-height: 600px;
 }
 
+.area-label{
+  .outer {
+      width: 35px;
+      height: 35px;
+      background: #4fbfec;
+      text-align: center;
+      line-height: 35px;
+      border-radius: 20px;
+  }
+
+  .inner {
+      width: 25px;
+      height: 25px;
+      background: #0090ca;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      border-radius: 20px;
+      line-height: 25px;
+      display: inline-block;
+  }
+}
+
