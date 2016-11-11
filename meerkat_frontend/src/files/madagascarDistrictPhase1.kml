@@ -34,7 +34,7 @@
 	<Placemark>
 		<name>Betioky-Sud</name>
 		<open>1</open>
-		<description>Fivondronana</description>
+    <description>34</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -69,7 +69,7 @@
 	<Placemark>
 		<name>Ampanihy</name>
 		<open>1</open>
-		<description>Fivondronana</description>
+    <description>33</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -130,7 +130,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Ambohidratrimo</name>
-		<description>Fivondronana</description>
+    <description>25</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -146,7 +146,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Anjozorobe</name>
-		<description>Fivondronana</description>
+    <description>15</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -162,7 +162,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Ankazobe</name>
-		<description>Fivondronana</description>
+    <description>16</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -178,7 +178,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Fenoarivo-Centre</name>
-		<description>Fivondronana</description>
+    <description>17</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -194,7 +194,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Tsiroanomandidy</name>
-		<description>Fivondronana</description>
+    <description>18</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -210,7 +210,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Antalaha</name>
-		<description>Fivondronana</description>
+    <description>31</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -271,7 +271,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Farafangana</name>
-		<description>Fivondronana</description>
+    <description>28</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -287,7 +287,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Vohipeno</name>
-		<description>Fivondronana</description>
+    <description>32</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -303,7 +303,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Moramanga</name>
-		<description>Fivondronana</description>
+    <description>14</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -319,7 +319,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Nosy-Boraha (St. Marie)</name>
-		<description>Fivondronana</description>
+    <description>26</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -362,7 +362,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Ambovombe-Androy</name>
-		<description>Fivondronana</description>
+    <description>20</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -378,7 +378,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Bekily</name>
-		<description>Fivondronana</description>
+    <description>21</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -394,7 +394,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Beloha</name>
-		<description>Fivondronana</description>
+    <description>22</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>
@@ -410,7 +410,7 @@
 	</Placemark>
 	<Placemark>
 		<name>Tsiombe</name>
-		<description>Fivondronana</description>
+    <description>23</description>
 		<styleUrl>#1126</styleUrl>
 		<MultiGeometry>
 			<Polygon>

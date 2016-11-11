@@ -108,7 +108,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 </div>
 <div class="row">
   <!-- MORTALITY MAP -->
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 2. Cumulative Reported Maternal Deaths by district, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -117,7 +117,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     </div>
   </div>
   <!-- MALARIA CHART -->
-  <div class="col-sm-6">
+  <div class="col-sm-8">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 3. Incidence of Confirmed Malaria Cases (per 100,000 population) by type, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -128,7 +128,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 </div>
 <div class="row">
   <!-- MALARIA MAP -->
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 4. Incidence of Confirmed Malaria Cases (per 100,000 population), from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -137,7 +137,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     </div>
   </div>
   <!-- MEASLES CHART -->
-  <div class="col-sm-6">
+  <div class="col-sm-8">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 5. Trend of Suspected Measles Cases Reported, by age group, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -310,14 +310,14 @@ $('#malnutrition-chart').highcharts(
 );
 
 regional_map( 
-    {}, 
+    {{report.data.figure_mat_deaths_map|safe}}, 
     {{extras.map_centre}}, 
-    "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
+    "{{url_for( 'static', filename='files/'+extras.dis_data_file)}}", 
     'malaria-map' 
 );
 
 regional_map( 
-    {}, 
+    {{report.data.figure_malaria_map|safe}}, //TODO: Replace with just all confirmed malria cases.
     {{extras.map_centre}}, 
     "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
     'maternal-deaths-map' 

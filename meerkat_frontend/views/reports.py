@@ -656,6 +656,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         extras = {} 
         extras['map_centre'] = report_list[report]['map_centre']
         extras['reg_data_file'] = report_list[report]['reg_data_file']
+        extras['dis_data_file'] = report_list[report]['dis_data_file']
     else:
         extras = None
 

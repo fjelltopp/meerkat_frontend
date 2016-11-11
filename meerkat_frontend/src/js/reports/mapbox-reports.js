@@ -46,7 +46,7 @@ function map_from_data( data, map_centre, containerID){
 }
 
 function regional_map( data, map_centre, regionsURL, containerID ){
-    
+
     //If no containerID is provided, assume we're looking for a container ID of "map".
     if( !containerID ) containerID = 'map';
 
@@ -68,22 +68,53 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         }
     });
 
+    var locs = Object.keys( data );
+    var minimum = 999999;
+    var maximum = 0;
+
+    for( var l in locs ){
+        var loc = data[locs[l]];
+        minimum = loc.value < minimum ? loc.value : minimum;
+        maximum = loc.value > maximum ? loc.value : maximum; 
+    }
+
     //Import regional KML data.
 
     //Specify the basic style of the polygons.
     function style (feature){
-      return {
-         fillColor: '#688B9E',
-         color: '#537080',
-         weight: 4,
-         opacity: 0,
-         fillOpacity: 0
-      };
+        if( feature.properties.description != "?" ){
+            var opacity = ((data[feature.properties.description].value-minimum)/(maximum-minimum));
+            opacity = 0.6*opacity + 0.4;
+            return {
+                fillColor: '#d9692a',
+                color: '#c35d23',
+                weight: 2,
+                opacity: 100,
+                fillOpacity: opacity
+            };
+        }else{
+            return {
+                fillOpacity: 0,
+                opacity: 0 
+            };
+        }
+    }
+
+    function onEachFeature(feature, layer) {
+        if( feature.properties.description != "?" ){
+            // Get bounds of polygon
+            var bounds = layer.getBounds();
+            // Get center of bounds
+            var center = bounds.getCenter();
+            // Use center to put marker on map
+            var marker = L.circleMarker(center, {zIndexOffset: 1000}).addTo(map);
+        }
     }
 
     //Create a custom layer to hold the style and the event listeners. 
     var customLayer = L.geoJson(null, {
-        style: style
+        style: style,
+        onEachFeature: onEachFeature
     });
 
     //Attach the custom layer features to the kml data and display on map.
@@ -92,6 +123,7 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         null, 
         customLayer 
     );
+
     regionalLayer.addTo(map);
 }
 /*
