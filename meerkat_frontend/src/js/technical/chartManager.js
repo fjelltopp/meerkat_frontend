@@ -228,7 +228,7 @@ function drawPieCharts( containerID, data, percent ){
     :param string containerID:
         The ID of the HTML element to hold the chart.
  */
-function drawTimeChart( varID, locID, containerID ){
+function drawTimeChart( varID, locID, containerID, alert_week){
 
   $.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
 
@@ -258,6 +258,35 @@ function drawTimeChart( varID, locID, containerID ){
       plotWidth = $('#'+containerID).parent().width();
     }
 
+	  var series = [];
+	  if (alert_week){
+		  var alert_values = [];
+		  for( var j = 1; j <= 52; j++ ){
+
+			  if( j == alert_week  ){
+				  alert_values.push( data.weeks[j] );
+			  }else{
+				  alert_values.push( 0 );
+			  }
+
+		  }
+		  values[alert_week - 1 ] = 0;
+		  series = [{
+			  name: 'Year',
+			  data:  values,
+			  grouping: false
+		  },{
+			  name: 'Alert',
+			  data: alert_values,
+			  grouping: false
+		  }];
+	  } else{
+		  series = [{
+			  name: 'Year',
+			  data:  values
+		  }];
+
+	  }
 
     $('#'+containerID).highcharts({
     chart: {
@@ -283,10 +312,7 @@ function drawTimeChart( varID, locID, containerID ){
         overflow: 'justify'
       }
     },      
-    series: [{
-      name: 'Year',
-      data:  values
-    }],
+    series: series
     });
 
     //Get rid of the highcharts logo.

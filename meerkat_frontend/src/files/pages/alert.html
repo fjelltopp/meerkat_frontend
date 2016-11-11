@@ -61,7 +61,7 @@
 							</tr>
 							<tr class="spaceUnder">
 								<td align="right" class="fit" ><b id="patient_gender_title"</b></td>
-								<td><span id="patientGender" class="alertInfo" ></span> </td>
+								<td><span id="patientGender" class="alertInfo"></span> </td>
 							</tr>
 						</table>
 						<div class="col-sm-6 col-xs-12" >
@@ -71,6 +71,18 @@
 					</div>
 				</div>
 			</div>
+                        <div class="row">
+			    <div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+				    <div class="chartBox__heading" id="box_2_heading">
+				    </div>
+				    <div class="chartBox__content">
+					<div id="time-chart" class="chart">
+					</div>
+				    </div>
+				</div>
+			    </div>
+		        </div>
 		</div>
 
 	</div>
@@ -80,87 +92,93 @@
 <script>
 
 
-function drawAlertContent( alertID ){
+ function drawAlertContent( alertID ){
 
-	 $("#title").html(i18n.gettext('Alerts'));
-	 $("#sub_title").html(i18n.gettext('Alert #'));
-	 $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
-	 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
-	 $("#box_heading").html(i18n.gettext('Alert Investigation Report'));
-	 $("#alert").html(i18n.gettext('Alert:'));
-	 $("#case").html(i18n.gettext('Case:'));
-	 $("#type").html(i18n.gettext('Type:'));
-	 $("#date_title").html(i18n.gettext('Date:'));
-	 $("#clinic_title").html(i18n.gettext('Clinic:'));
-	 $("#region_title").html(i18n.gettext('Region:'));
-	 $("#patient_title").html(i18n.gettext('Patient ID:'));
-	 $("#patient_age_title").html(i18n.gettext('Patient Age:'));
-	 $("#patient_gender_title").html(i18n.gettext('Patient Gender:'));
-	 $("#investigation_title").html(i18n.gettext('Alert Investigation:'));
-	 $(".alertInfo").each(function(){
-		 $(this).html(i18n.gettext('No data loaded'));
-	 }
-	 );
-	 
-	 $.getJSON( api_root+"/alert/"+alertID, function( alert ){
+     $("#title").html(i18n.gettext('Alerts'));
+     $("#sub_title").html(i18n.gettext('Alert #'));
+     $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+     $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+     $("#box_heading").html(i18n.gettext('Alert Investigation Report'));
+     $("#alert").html(i18n.gettext('Alert:'));
+     $("#case").html(i18n.gettext('Case:'));
+     $("#type").html(i18n.gettext('Type:'));
+     $("#date_title").html(i18n.gettext('Date:'));
+     $("#clinic_title").html(i18n.gettext('Clinic:'));
+     $("#region_title").html(i18n.gettext('Region:'));
+     $("#patient_title").html(i18n.gettext('Patient ID:'));
+     $("#patient_age_title").html(i18n.gettext('Patient Age:'));
+     $("#patient_gender_title").html(i18n.gettext('Patient Gender:'));
+     $("#investigation_title").html(i18n.gettext('Alert Investigation:'));
+     $(".alertInfo").each(function(){
+	 $(this).html(i18n.gettext('No data loaded'));
+     }
+     );
+     
+     $.getJSON( api_root+"/alert/"+alertID, function( alert ){
          $.getJSON( api_root+"/variables/cd_tab", function( variables ){
-			 //Load the location info for the given location ID from the location tree.
-																					   var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===alert.alert.clinic; });
-			 var parent = node.getPath();
-			 parent = parent[parent.length-2];
-			 
-			 //Assemble the alert investigation checklist as a table.
-			 var stages = ["Referral", "Case Management", "Contact Tracing", "Laboratory Diagnosis" ];
-			 var stage_ids = ["ale_5", "ale_6", "ale_7", "ale_8"]
-			 var table = "<table>";
-			 
-			 for( var i in stages ){
-				 
-			var stage = stages[i];
+	     //Load the location info for the given location ID from the location tree.
+	     var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===alert.alert.clinic; });
+	     var parent = node.getPath();
+	     parent = parent[parent.length-2];
+	     
+	     //Assemble the alert investigation checklist as a table.
+	     var stages = ["Referral", "Case Management", "Contact Tracing", "Laboratory Diagnosis" ];
+	     var stage_ids = ["ale_5", "ale_6", "ale_7", "ale_8"]
+	     var table = "<table>";
+	     
+	     for( var i in stages ){
+		 
+		 var stage = stages[i];
 
-			table += "<tr><td align='right' class='fit' ><b>" + i18n.gettext(stage) + "</b></td>";
+		 table += "<tr><td align='right' class='fit' ><b>" + i18n.gettext(stage) + "</b></td>";
 
-			if( "ale_1" in alert.alert.variables && stage_ids[i] in alert.alert.variables ){
-				table += "<td>"+ i18n.gettext('Completed') +" </td>";
-			}else{
-				table += "<td>"+ i18n.gettext('Not Completed') + "</td></tr>";
-			}			
-		}
+		 if( "ale_1" in alert.alert.variables && stage_ids[i] in alert.alert.variables ){
+		     table += "<td>"+ i18n.gettext('Completed') +" </td>";
+		 }else{
+		     table += "<td>"+ i18n.gettext('Not Completed') + "</td></tr>";
+		 }			
+	     }
 
-		table += "</table>";
-		
-		//Draw!
-		$('#alertTitle').html( alertID );
-		$('#alertID').html( alertID );
-			 $('#reason').html( variables[alert.alert.variables.alert_reason].name );
-		$('#date').html( alert.alert.date.split("T")[0] );
-	    $('#clinic').html( node.model.text );
-			 $('#region').html( parent.model.text );
-			 console.log(alert);
-    	 if (alert.alert.variables.alert_type == "individual") {
-		     $('#type_info').html(i18n.gettext("Individual"));
-			 $('#patientID').html( alert.alert.uuid );
-			 $('#patientAge').html( alert.alert.variables.alert_age );
-			 $('#patientGender').html( i18n.gettext(alert.alert.variables.alert_gender ));
-		 }else if (alert.alert.variables.alert_type == "threshold"){
-
+	     table += "</table>";
+	     
+	     //Draw!
+	     $('#alertTitle').html( alertID );
+	     $('#alertID').html( alertID );
+	     $('#reason').html( variables[alert.alert.variables.alert_reason].name );
+	     $('#date').html( alert.alert.date.split("T")[0] );
+	     $('#clinic').html( node.model.text );
+	     $('#region').html( parent.model.text );
+	     console.log(alert);
+    	     if (alert.alert.variables.alert_type == "individual") {
+		 $('#type_info').html(i18n.gettext("Individual"));
+		 $('#patientID').html( alert.alert.uuid );
+		 $('#patientAge').html( alert.alert.variables.alert_age );
+		 $('#patientGender').html( i18n.gettext(alert.alert.variables.alert_gender ));
+	     }else if (alert.alert.variables.alert_type == "threshold"){
+             $("#box_2_heading").html(i18n.gettext('Time of reports'));
+			 $.getJSON( api_root + '/epi_week/' + alert.alert.date, function(data){
+				 alert_week = data["epi_week"]
+				 console.log(alert_week)
+				 drawTimeChart( alert.alert.variables.alert_reason, alert.alert.clinic, 'time-chart' ,alert_week)
+			 });
 			 if(alert.alert.variables.alert_duration == 1){
-				 $('#type_info').html(i18n.gettext("Daily Threshold"));
+			     $('#type_info').html(i18n.gettext("Daily Threshold"));
 			 }else if(alert.alert.variables.alert_duration == 7){
-				 $('#type_info').html(i18n.gettext("Weekly Threshold"));
+			     $('#type_info').html(i18n.gettext("Weekly Threshold"));
 			 }
-			ids = [alert.alert.uuid]
-			ages = [alert.alert.variables.alert_age]
-			genders = [alert.alert.variables.alert_gender]
-			for(a in alert.linked_alerts){
-				ids.push(alert.linked_alerts[a].uuid)
-				ages.push(alert.linked_alerts[a].variables.alert_age)
-				genders.push(alert.linked_alerts[a].variables.alert_gender)
-			}
-			$('#patientID').html( ids.join("<br />") );
-			$('#patientAge').html( ages.join());
-			$('#patientGender').html( genders.join());
-		}
+		 ids = [alert.alert.uuid]
+		 ages = [alert.alert.variables.alert_age]
+		 genders = [alert.alert.variables.alert_gender]
+		 for(a in alert.linked_alerts){
+		     ids.push(alert.linked_alerts[a].uuid)
+			 ages.push(alert.linked_alerts[a].variables.alert_age)
+			 genders.push(alert.linked_alerts[a].variables.alert_gender)
+		 }
+		 $('#patientID').html( ids.join("<br />") );
+	     $('#patientAge').html( ages.join());
+
+		 $('#patientGender').html( genders.join());
+	     }
 		$('#checklist').html( table );		
 		
          });
