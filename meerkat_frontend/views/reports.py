@@ -174,17 +174,35 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         else:
             abort(501)
 
-        start_date = datetime_from_json(ret['report']['data']['start_date'])
-        end_date = datetime_from_json(ret['report']['data']['end_date'])
-        subject = '{country} | {title} ({start_date} - {end_date})'.format(
-            country = gettext(country),
-            title = gettext(report_list[report]['title']),
-            start_date = format_datetime(start_date, 'dd MMMM YYYY'),
-            end_date = format_datetime(end_date, 'dd MMMM YYYY')
-        )
+        if report_list[report]['default_period'] == 'month':
+            topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report
+            start_date = datetime_from_json(ret['report']['data']['start_date'])
+            end_date = datetime_from_json(ret['report']['data']['end_date'])
+            subject = '{country} | {title} ({start_date} - {end_date})'.format(
+                country = gettext(country),
+                title = gettext(report_list[report]['title']),
+                start_date = format_datetime(start_date, 'dd MMMM YYYY'),
+                end_date = format_datetime(end_date, 'dd MMMM YYYY')
+            )
 
-        email_id = ( 'test-emails' + "-" + end_date.strftime('%b') + "-" +  
-                     end_date.strftime('%Y') +"-" + report )
+            email_id = ( "<topic>" + "-" + end_date.strftime('%b') + "-" +  
+                         end_date.strftime('%Y') +"-" + report )
+
+        else:
+            start_date = datetime_from_json(ret['report']['data']['start_date'])
+            end_date = datetime_from_json(ret['report']['data']['end_date'])
+            epi_week = ret['report']['data']['epi_week_num']
+            subject = '{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(
+                country = gettext(country),
+                title = gettext(report_list[report]['title']),
+                epi_week_text = gettext('Epi Week'),
+                epi_week = epi_week,
+                start_date = format_datetime(start_date, 'dd MMMM YYYY'),
+                end_date = format_datetime(end_date, 'dd MMMM YYYY')
+            )
+
+            email_id = ( "<topic>" + "-" + str(epi_week) + "-" +  
+                         end_date.strftime('%Y') +"-" + report )
 
         current_app.logger.debug('Viewing email with id: ' + email_id)
         current_app.logger.debug('Email subject:  ' + subject)
@@ -272,7 +290,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
 
         title = gettext(report_list[report]['title'])
 
-        if report == 'non_communicable_diseases':
+        if report_list[report]['default_period'] == 'month':
             subject = '{country} | {title} ({start_date} - {end_date})'.format(
                 country = gettext(country),
                 title = gettext(report_list[report]['title']),
