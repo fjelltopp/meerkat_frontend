@@ -181,7 +181,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 3: Timeliness and Completeness of reporting for Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-
+          <div id="table_completeness_id" class="table"></div>
       </div>
     </div>
   </div>
@@ -321,6 +321,83 @@ regional_map(
     {{extras.map_centre}}, 
     "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
     'maternal-deaths-map' 
-);
+ );
+
+ // Table Completeness
+ /* var table_completeness_data = {{report.data['table_timeliness_completeness']|tojson|safe}};*/
+ var table_completeness_data = content.data['table_timeliness_completeness'];
+ var table_completeness_keys = Object.keys(table_completeness_data);
+ var table_completeness_data_prepared = [];
+ var index = 0;
+ for (var i=0; i<table_completeness_keys.length;i++){
+     index = table_completeness_keys[i];
+     var datum = {
+         "location": table_completeness_data[index].name,
+         "clinics": table_completeness_data[index].clinics,
+         "clinics_reported": table_completeness_data[index].clinics_reported,
+         "completeness": Number(table_completeness_data[index].completeness).toFixed(0) + "%",
+         "timeliness": Number(table_completeness_data[index].timeliness).toFixed(0) + "%"
+     };
+     table_completeness_data_prepared.push(datum);
+ }
+
+
+ //Columns: District	No. of Health facilities	No. of health facilities that reported	Completeness (%)	Timeliness (%)
+ var table_completeness_setup = {
+     columns : [
+         {
+             "field": "location",
+             "title": "District",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "20%"
+         },{
+             "field": "clinics",
+             "title": "No. of Health facilities",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "20%"
+         },{
+             "field": "clinics_reported",
+             "title": "No. of Health facilities that reported",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "20%"
+         },{
+             "field": "completeness",
+             "title": "Completeness (%)",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                 b = Number(b.split('%')[0]);
+                 if(a < b) return 1; if (a>b) return -1; return 0;},
+             width : "20%"
+         },{
+             "field": "timeliness",
+             "title": "Timeliness (%)",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                 b = Number(b.split('%')[0]);
+                 if(a < b) return 1; if (a>b) return -1; return 0;},
+             width : "20%"
+         }]
+ };
+
+    $('#table_completeness_id').append('<table class="table"></table>');
+ $('#table_completeness_id table').bootstrapTable({
+                       columns: table_completeness_setup.columns,
+     data: table_completeness_data_prepared,
+     classes: 'table-no-bordered table-hover',
+     sortName: 'completeness',
+     sortOrder: 'desc'
+ });
+
+
 </script>
 {% endblock extra_js %}

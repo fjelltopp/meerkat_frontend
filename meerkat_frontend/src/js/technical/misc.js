@@ -643,4 +643,3 @@ function timelinessPreparation( locID, reg_id, graphID, tableID, nonreportingtab
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );
 }
-
