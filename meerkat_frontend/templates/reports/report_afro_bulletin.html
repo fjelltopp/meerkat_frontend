@@ -161,7 +161,6 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 1: Reported Priority Diseases, Conditions and Events by District, Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-
       </div>
     </div>
   </div>
@@ -172,7 +171,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 2: Summary of Priority Diseases, Conditions and Events for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-
+          <div id="table_priority_diseases_cumulative_id" class="table"></div>
       </div>
     </div>
   </div>
@@ -323,6 +322,99 @@ regional_map(
     "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
     'maternal-deaths-map' 
 );
+
+
+
+ // Table priority disease CUMULATIVE
+ /* var table_priority_diseases_cumulative_data = {{report.data['table_timeliness_completeness']|tojson|safe}};*/
+ var table_priority_diseases_cumulative_data = content.data['table_priority_diseases_cumulative'];
+ var epi_week_num_int = content.data['epi_week_num'];
+ var table_priority_diseases_cumulative_keys = Object.keys(table_priority_diseases_cumulative_data);
+ var table_priority_diseases_cumulative_data_prepared = [];
+ var index = 0;
+ for (var i=0; i<table_priority_diseases_cumulative_keys.length;i++){
+     index = table_priority_diseases_cumulative_keys[i];
+     var datum = {
+         "disease": index,
+         "cases": table_priority_diseases_cumulative_data[index].cases,
+         "mortality": table_priority_diseases_cumulative_data[index].mortality,
+         "cfr": Number(table_priority_diseases_cumulative_data[index].cfr).toFixed(0) + "%",
+         "cases_cumulative": table_priority_diseases_cumulative_data[index].cases_cumulative,
+         "mortality_cumulative": table_priority_diseases_cumulative_data[index].mortality,
+         "cfr_cumulative": Number(table_priority_diseases_cumulative_data[index].cfr_cumulative).toFixed(0) + "%"
+     };
+     table_priority_diseases_cumulative_data_prepared.push(datum);
+ }
+
+
+ var table_priority_diseases_cumulative_setup = {
+     columns : [
+         {
+             "field": "disease",
+             "title": "Disease",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "15%"
+         },{
+             "field": "cases",
+             "title": "Reported in Week "+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "14%"
+         },{
+             "field": "mortality",
+             "title": "Deaths in Week "+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "14%"
+         },{
+             "field": "cfr",
+             "title": "CFR (%) in Week "+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                 b = Number(b.split('%')[0]);
+                 if(a < b) return 1; if (a>b) return -1; return 0;},
+             width : "14%"
+         },{
+             "field": "cases_cumulative",
+             "title": "Reported in weeks 1-"+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "14%"
+         },{
+             "field": "mortality_cumulative",
+             "title": "Deaths in weeks 1-"+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "14%"
+         },{
+             "field": "cfr_cumulative",
+             "title": "CFR (%) in weeks 1-"+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                 b = Number(b.split('%')[0]);
+                 if(a < b) return 1; if (a>b) return -1; return 0;},
+             width : "14%"
+         }]
+ };
+
+    $('#table_priority_diseases_cumulative_id').append('<table class="table"></table>');
+     $('#table_priority_diseases_cumulative_id table').bootstrapTable({
+                       columns: table_priority_diseases_cumulative_setup.columns,
+     data: table_priority_diseases_cumulative_data_prepared,
+     classes: 'table-no-bordered table-hover',
+     sortName: 'disease',
+     sortOrder: 'desc'
+ });
 
  // Table Completeness
  /* var table_completeness_data = {{report.data['table_timeliness_completeness']|tojson|safe}};*/
