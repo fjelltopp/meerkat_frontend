@@ -419,7 +419,7 @@ regional_map(
          "mortality": table_priority_diseases_cumulative_data[index].mortality,
          "cfr": Number(table_priority_diseases_cumulative_data[index].cfr).toFixed(0) + "%",
          "cases_cumulative": table_priority_diseases_cumulative_data[index].cases_cumulative,
-         "mortality_cumulative": table_priority_diseases_cumulative_data[index].mortality,
+         "mortality_cumulative": table_priority_diseases_cumulative_data[index].mortality_cumulative,
          "cfr_cumulative": Number(table_priority_diseases_cumulative_data[index].cfr_cumulative).toFixed(0) + "%"
      };
      table_priority_diseases_cumulative_data_prepared.push(datum);
@@ -486,6 +486,7 @@ regional_map(
          }]
  };
 
+console.log(table_priority_diseases_cumulative_data);
     $('#table_priority_diseases_cumulative_id').append('<table class="table"></table>');
      $('#table_priority_diseases_cumulative_id table').bootstrapTable({
                        columns: table_priority_diseases_cumulative_setup.columns,
