@@ -335,7 +335,7 @@ regional_map(
  for (var i=0; i<table_priority_diseases_cumulative_keys.length;i++){
      index = table_priority_diseases_cumulative_keys[i];
      var datum = {
-         "disease": index,
+         "disease": table_priority_diseases_cumulative_data[index].name,
          "cases": table_priority_diseases_cumulative_data[index].cases,
          "mortality": table_priority_diseases_cumulative_data[index].mortality,
          "cfr": Number(table_priority_diseases_cumulative_data[index].cfr).toFixed(0) + "%",
