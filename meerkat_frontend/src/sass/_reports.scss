@@ -126,56 +126,9 @@ table{
   border-bottom: 2px solid #ddd;
   background: $lightGrey;
 }
-
-.table tbody td.highlight,
-.table th.highlight{
-  background: $highlight;
-  color: #FFF;
-}
-
 .highlight{
   border: $highlight;
 }
-
-
-.table th.lowlight,
-.table tbody td.lowlight{
-  background: #FAFAFA;
-  color: $textGrey;
-  border-bottom: none;
-  border-top: none;
-}
-
-.table tbody tr td{
-  border-bottom: 1px solid #ddd;
-} 
-
-.table tbody td.border-left,
-.table thead th.border-left{
-  border-left: 2px solid #ddd;
-}
-
-.table tbody td.border-top,
-.table thead th.border-top{
-  border-top: 2px solid #ddd;
-}
-
-.table tbody td.border-right,
-.table thead th.border-right{
-  border-right: 2px solid #ddd;
-}
-
-.table tbody td.border-bottom,
-.table thead th.border-bottom{
-  border-bottom: 2px solid #ddd;
-}
-
-.table tbody td.dark,
-.table thead th.dark{
-  background: $lightGrey;
-  border: none;
-}
-
 .table-wrapper{
   margin: 15px;
   border: 1px solid #DDD;
@@ -203,6 +156,64 @@ table.refugee.small{
   margin: 15px 0px 0px 50px;
   font-weight: bold;
   font-size: 15px;
+}
+
+.reports-table,
+.bootstrap-table .table.reports-table{
+
+    tbody td.highlight,
+    th.highlight{
+      background: $highlight;
+      color: #FFF;
+    }
+
+    th.lowlight,
+    tbody td.lowlight{
+      background: #FAFAFA;
+      color: $textGrey;
+      border-bottom: none;
+      border-top: none;
+    }
+
+    tbody tr td{
+      border-bottom: 1px solid #ddd;
+    } 
+
+    tbody td.border-left,
+    thead th.border-left{
+      border-left: 2px solid #ddd;
+    }
+
+    tbody td.border-top,
+    thead th.border-top{
+      border-top: 2px solid #ddd;
+    }
+
+    tbody td.border-right,
+    thead th.border-right{
+      border-right: 2px solid #ddd;
+    }
+
+    tbody td.border-bottom,
+    thead th.border-bottom{
+      border-bottom: 2px solid #ddd;
+    }
+
+    tbody td.dark,
+    thead th.dark{
+      background: $lightGrey;
+      border: none;
+    }
+}
+
+.htmlreport .fixed-table-container.table-no-bordered {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.bootstrap-table .reports-table thead tr th{
+    border-bottom: 2px solid #ddd;
 }
 
 .right-align{

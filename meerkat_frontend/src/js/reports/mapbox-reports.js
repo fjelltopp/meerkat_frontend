@@ -92,8 +92,7 @@ function regional_map( data, map_centre, regionsURL, containerID ){
     };
     info.addTo(map);
 
-    //Importing and formatting regional KML data----------------
-
+    //Importing and formatting regional KML data
     //Specify the basic style of the polygons.
     function style (feature){
         //Basic polygon style is hidden from view with 0 opacity.
@@ -102,8 +101,7 @@ function regional_map( data, map_centre, regionsURL, containerID ){
             color: '#c35d23',
             weight: 2,
             opacity: 0,
-            fillOpacity: 0,
-            cursor: 'none'
+            fillOpacity: 0
         };
         //Only give the polygon opacity if the region is one where meerkat is implemented.
         //Description should be a meerkat location_id, or a '?' if region not currently implemented.   
@@ -113,7 +111,6 @@ function regional_map( data, map_centre, regionsURL, containerID ){
             opacity = 0.8*opacity + 0.2;
             style.opacity = 1;
             style.fillOpacity = opacity;
-            style.cursor = 'pointer';
         }
         return style;
     }
@@ -158,7 +155,7 @@ function regional_map( data, map_centre, regionsURL, containerID ){
     //Add the regions to the map.
     regionalLayer.addTo(map);
 
-    //Store the maps in "this" to we can pass the context to callback functions.
+    //Store the maps in "this" so we can pass the context to callback functions.
     if( !this.maps ) this.maps = [map];
     else this.maps.push(map);
 

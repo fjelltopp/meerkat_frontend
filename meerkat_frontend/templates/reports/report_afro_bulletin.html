@@ -364,7 +364,7 @@ regional_map(
          "field": "disease",
          "title": "Disease",
          "align": "center",
-         "class": "header",
+         "class": "header total border-right",
          sortable: true,
      }];
  for (var loc_ind2 = 0; loc_ind2 < loc_list.length; loc_ind2++){
@@ -382,14 +382,14 @@ regional_map(
          "field": "mortality",
          "title": "Total deaths",
          "align": "center",
-         "class": "header",
+         "class": "header total border-left",
          sortable: true,
      });
  table_priority_diseases_setup.push({
      "field": "cfr",
      "title": "Total CFR (%)",
      "align": "center",
-     "class": "header",
+     "class": "header total border-left",
      sortable: true,
      "sorter": function percs(a,b){a = Number(a.split('%')[0]);
          b = Number(b.split('%')[0]);
@@ -400,7 +400,7 @@ regional_map(
                $('#table_priority_diseases_id table').bootstrapTable({
                    columns: table_priority_diseases_setup,
                    data: table_priority_diseases_data_prepared,
-                   classes: 'table-no-bordered table-hover',
+                   classes: 'table-no-bordered table-hover reports-table table-condensed',
                    sortName: 'disease',
                    sortOrder: 'desc'
                });
@@ -435,7 +435,7 @@ regional_map(
              "field": "disease",
              "title": "Disease",
              "align": "center",
-             "class": "header",
+             "class": "header total border-right",
              sortable: true,
              width : "15%"
          },{
@@ -495,7 +495,7 @@ console.log(table_priority_diseases_cumulative_data);
      $('#table_priority_diseases_cumulative_id table').bootstrapTable({
                        columns: table_priority_diseases_cumulative_setup.columns,
      data: table_priority_diseases_cumulative_data_prepared,
-     classes: 'table-no-bordered table-hover',
+     classes: 'table-no-bordered table-hover reports-table table-condensed',
      sortName: 'disease',
      sortOrder: 'desc'
  });
@@ -526,7 +526,7 @@ console.log(table_priority_diseases_cumulative_data);
              "field": "location",
              "title": "District",
              "align": "center",
-             "class": "header",
+             "class": "header total border-right",
              sortable: true,
              width : "20%"
          },{
@@ -570,7 +570,7 @@ console.log(table_priority_diseases_cumulative_data);
      $('#table_completeness_id table').bootstrapTable({
                        columns: table_completeness_setup.columns,
      data: table_completeness_data_prepared,
-     classes: 'table-no-bordered table-hover',
+     classes: 'table-no-bordered table-hover reports-table table-condensed',
      sortName: 'completeness',
      sortOrder: 'desc'
  });
