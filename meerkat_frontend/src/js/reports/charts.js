@@ -296,7 +296,7 @@ function completenessBarChart(categories, series, labels) {
     title: {
       text: null
     },
-    xAxis: {
+    yAxis: {
       min: 0,
       title: {
         text: labels.yAxis.text,
@@ -308,8 +308,8 @@ function completenessBarChart(categories, series, labels) {
         }
       }
     },
-    yAxis: {
-      categories: categories,
+    xAxis: {
+      categories: categories
     },
     series: series
   };
