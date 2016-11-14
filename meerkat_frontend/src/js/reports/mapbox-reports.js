@@ -78,6 +78,20 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         maximum = loc.value > maximum ? loc.value : maximum; 
     }
 
+    //Create a div to store the region/district label and the value.
+    var info = L.control();
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+    info.update = function (props) {
+        this._div.innerHTML = ( props ?
+            '<b>' + props.name + '</b><br />Value: ' + data[props.description].value 
+            : 'Hover over an area');
+    };
+    info.addTo(map);
+
     //Importing and formatting regional KML data----------------
 
     //Specify the basic style of the polygons.
@@ -88,27 +102,43 @@ function regional_map( data, map_centre, regionsURL, containerID ){
             color: '#c35d23',
             weight: 2,
             opacity: 0,
-            fillOpacity: 0
+            fillOpacity: 0,
+            cursor: 'none'
         };
         //Only give the polygon opacity if the region is one where meerkat is implemented.
         //Description should be a meerkat location_id, or a '?' if region not currently implemented.   
         if( feature.properties.description != "?" ){
             //Calculate the colour shade based on the max and min. Looks odd if min is 0 opacity though.
             var opacity = ((data[feature.properties.description].value-minimum)/(maximum-minimum));
-            opacity = 0.6*opacity + 0.4;
+            opacity = 0.8*opacity + 0.2;
             style.opacity = 1;
             style.fillOpacity = opacity;
+            style.cursor = 'pointer';
         }
         return style;
     }
 
+    function highlightFeature(e){
+        console.log( e.target.feature.properties );
+        info.update(e.target.feature.properties);
+    }
+
+    function resetHighlight(e){
+        info.update();
+    }
+
     //Find the centre of each region and store it in the data object.
-    function onEachFeature(feature, layer) {
+    function onEachFeature(feature, layer){
         if( feature.properties.description != "?" ){
             // Get bounds of polygon
             var bounds = layer.getBounds();
             // Get center of bounds
             data[feature.properties.description].centre = bounds.getCenter();
+            //Add region label when mouse over.
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight
+            });
         }
     }
 

@@ -253,7 +253,7 @@ table.refugee.small{
 }
 
 .mapbox{
-  min-height: 600px;
+  min-height: 700px;
 }
 
 .area-label{
@@ -279,3 +279,16 @@ table.refugee.small{
   }
 }
 
+.chart-stage.map-padding{
+  padding: 0px 1px 1px;
+}
+
+.mapbox .info {
+    background: #0090ca;
+    padding: 10px;
+    color: white;
+    border-radius: 3px;
+    font-size: 1.2em;
+    text-align: right;
+    margin: 20px;
+}

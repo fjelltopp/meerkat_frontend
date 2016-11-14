@@ -111,33 +111,33 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
   <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 2. Cumulative Reported Maternal Deaths by district, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
-      <div class="chart-stage">
+      <div class="chart-stage map-padding">
         <div id="maternal-deaths-map" class="mapbox"></div>
       </div>
     </div>
-  </div>
-  <!-- MALARIA CHART -->
+  </div>  <!-- MALARIA MAP -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Figure 3. Incidence of Confirmed Malaria Cases (per 100,000 population) by type, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-title">{{ _('Figure 3. Incidence of Confirmed Malaria Cases (per 100,000 population), from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage map-padding">
+        <div id="malaria-map" class="mapbox"></div>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+  <!-- MALARIA CHART -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 4. Incidence of Confirmed Malaria Cases (per 100,000 population) by type, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
         <div id="malaria-chart"></div>
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <!-- MALARIA MAP -->
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Figure 4. Incidence of Confirmed Malaria Cases (per 100,000 population), from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
-      <div class="chart-stage">
-        <div id="malaria-map" class="mapbox"></div>
-      </div>
-    </div>
   </div>
   <!-- MEASLES CHART -->
-  <div class="col-sm-6">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 5. Trend of Suspected Measles Cases Reported, by age group, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -148,7 +148,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 </div>
 <div class="row">
   <!-- MALNUTRITION CHART -->
-  <div class="col-sm-6">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Figure 6. Trend of Reported Severe Malnutrition Cases in Under Fives, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -157,7 +157,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     </div>
   </div>
   <!-- PRIORITY DISEASES TABLE -->
-  <div class="col-sm-6">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 1: Reported Priority Diseases, Conditions and Events by District, Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -168,7 +168,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 </div>
 <div class="row">
   <!-- PRIORITY DISEASES SUMMARY -->
-  <div class="col-sm-6">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 2: Summary of Priority Diseases, Conditions and Events for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -177,7 +177,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     </div>
   </div>
   <!-- TIMELINESS TABLE -->
-  <div class="col-sm-6">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 3: Timeliness and Completeness of reporting for Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
