@@ -46,7 +46,7 @@ function map_from_data( data, map_centre, containerID){
 }
 
 function regional_map( data, map_centre, regionsURL, containerID ){
-    this.map = {};
+
     //If no containerID is provided, assume we're looking for a container ID of "map".
     if( !containerID ) containerID = 'map';
 
@@ -78,26 +78,28 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         maximum = loc.value > maximum ? loc.value : maximum; 
     }
 
-    //Import regional KML data.
+    //Importing and formatting regional KML data----------------
 
     //Specify the basic style of the polygons.
     function style (feature){
+        //Basic polygon style is hidden from view with 0 opacity.
+        var style = {
+            fillColor: '#d9692a',
+            color: '#c35d23',
+            weight: 2,
+            opacity: 0,
+            fillOpacity: 0
+        };
+        //Only give the polygon opacity if the region is one where meerkat is implemented.
+        //Description should be a meerkat location_id, or a '?' if region not currently implemented.   
         if( feature.properties.description != "?" ){
+            //Calculate the colour shade based on the max and min. Looks odd if min is 0 opacity though.
             var opacity = ((data[feature.properties.description].value-minimum)/(maximum-minimum));
             opacity = 0.6*opacity + 0.4;
-            return {
-                fillColor: '#d9692a',
-                color: '#c35d23',
-                weight: 2,
-                opacity: 100,
-                fillOpacity: opacity
-            };
-        }else{
-            return {
-                fillOpacity: 0,
-                opacity: 0 
-            };
+            style.opacity = 1;
+            style.fillOpacity = opacity;
         }
+        return style;
     }
 
     //Find the centre of each region and store it in the data object.
@@ -126,6 +128,13 @@ function regional_map( data, map_centre, regionsURL, containerID ){
     //Add the regions to the map.
     regionalLayer.addTo(map);
 
+    //Store the maps in "this" to we can pass the context to callback functions.
+    if( !this.maps ) this.maps = [map];
+    else this.maps.push(map);
+
+    //Make sure we know which map we're working with.
+    var index = this.maps.indexOf(map);
+
     //Once the regions have been added, add case labels.
     regionalLayer.on('ready', function(){
         for( var l in locs ){
@@ -134,9 +143,12 @@ function regional_map( data, map_centre, regionsURL, containerID ){
                 className: 'area-label', 
                 html:"<div class='outer'><div class='inner'>" + loc.value + "</div></div>"
             });
-	          L.marker(loc.centre, {icon: icon}).addTo(map); 
+            //Only add the marker if both regional gemotry and api data exist.
+            if(loc.centre) L.marker(loc.centre, {icon: icon}).addTo(this.maps[index]); 
+            else console.error( "Failed to find regional geometry for location '" + 
+                               loc.name + "' with value " + loc.value + "." );
         }
-    }, map);
+    }, this);
 
 
 }
