@@ -216,7 +216,8 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 <script>
 //Store the report content from the server.
 var content = {{report|tojson|safe}};
-var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+  console.log({{report.data.table_priority_diseases_cumulative|tojson|safe}});
+var api_root = '{{config["EXTERNAL_API_ROOT"]}}';
 //Load a new translator in this template so that the source of translations can be loaded for pdfs.
 i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
 
@@ -407,10 +408,12 @@ regional_map(
                // Table priority disease CUMULATIVE
  /* var table_priority_diseases_cumulative_data = {{report.data['table_timeliness_completeness']|tojson|safe}};*/
  var table_priority_diseases_cumulative_data = content.data['table_priority_diseases_cumulative'];
+  console.log(content.data['table_priority_diseases_cumulative']);
  var epi_week_num_int = content.data['epi_week_num'];
  var table_priority_diseases_cumulative_keys = Object.keys(table_priority_diseases_cumulative_data);
  var table_priority_diseases_cumulative_data_prepared = [];
  var index = 0;
+
  for (var i=0; i<table_priority_diseases_cumulative_keys.length;i++){
      index = table_priority_diseases_cumulative_keys[i];
      var datum = {
@@ -487,6 +490,7 @@ regional_map(
  };
 
 console.log(table_priority_diseases_cumulative_data);
+
     $('#table_priority_diseases_cumulative_id').append('<table class="table"></table>');
      $('#table_priority_diseases_cumulative_id table').bootstrapTable({
                        columns: table_priority_diseases_cumulative_setup.columns,
