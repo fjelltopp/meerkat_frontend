@@ -67,8 +67,12 @@ $printedBlue: #337ab7;
 
 			border: none;
 
+      .chart-title *{
+				color: #FFF !important;
+      }
+
 			.chart-title{
-				background: $printedBlue !important;
+        background: $printedBlue !important;
 				color: #FFF !important;
 				border-radius: 3px 3px 0px 0px;
 				border: 1px solid $printedBlue;
@@ -218,6 +222,27 @@ $printedBlue: #337ab7;
   .fixed-table-container thead th .sortable{
       padding: 2px;
   } 
+
+  .mapbox{
+      .info{
+        display: none;
+      }
+
+      .area-label{
+        .outer {
+            background: #87bbe8 !important;
+            color: white !important;
+        }
+
+        .inner {
+            background: #337ab7 !important;
+            color: white !important;
+        }
+      }
+
+  }
+
+
   
 }
 
