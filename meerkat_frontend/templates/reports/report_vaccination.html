@@ -87,7 +87,38 @@
 
         </div>
       </div>
+
+      <div class="col-xs-12 col-md-6">
+        <div class="table-title">{{ _('Table 3: Vials used') }}</div>
+        <div class="table-wrapper table-responsive">
+
+          <table class="table table-striped">
+            <th>
+              <tr>
+                <th>{{_('Vaccine')}}</th>
+                <th>{{_('Total doses')}}</th>
+                <th>{{_('Doses per vial')}}</th>
+                <th>{{_('Vials used')}}</th>
+              </tr>
+            </th>
+            {% for item in report.data.vials %}
+            <tr>
+              <td>{{ _(item["name"]) }}</td>
+              <td>{{ item["total_doses"]|int }}</td>
+              <td>{{ item["doses_per_vial"]|int }}</td>
+              <td>{{ (item["vials"])|int }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+
+        </div>
+      </div>
+
+
     </div>
+
+
+
   </div>
 </div>
 
