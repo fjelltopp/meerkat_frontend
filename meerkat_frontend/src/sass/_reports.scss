@@ -248,6 +248,10 @@ table.refugee.small{
 	font-weight: normal;
 }
 
+#district-completeness-column{
+    display: none;
+}
+
 .reports-form-wrapper{
 	padding: 30px;
 	border: solid 1px $lightGrey;
@@ -303,3 +307,5 @@ table.refugee.small{
     text-align: right;
     margin: 20px;
 }
+
+

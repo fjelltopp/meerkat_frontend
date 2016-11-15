@@ -283,10 +283,10 @@ function refugeeCommunicableDiseasesChart(categories, series, labels) {
 }
 
 //Completeness bar chart for the AFRO Bulletin
-function completenessBarChart(categories, series, labels) {
+function completenessBarChart(categories, series, labels, type) {
   var chart = {
     chart: {
-      type: 'bar',
+      type: type,
       animation: false
     },
 	  tooltip: {
@@ -296,12 +296,12 @@ function completenessBarChart(categories, series, labels) {
     title: {
       text: null
     },
+    legend: {
+            enabled: false
+    },
     yAxis: {
       min: 0,
-      title: {
-        text: labels.yAxis.text,
-        align: 'middle'
-      },
+      title: null,
       labels: {
         formatter: function() {
 			return Math.round(Math.abs(this.value),1) + '%';

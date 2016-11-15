@@ -89,6 +89,14 @@ $printedBlue: #337ab7;
 		 	page-break-inside: avoid;
 		}
 
+		.row.allow-breaks {
+		 	page-break-inside: auto;
+		}    
+
+    tr{
+		 	page-break-inside: avoid;
+    }
+
 		// HEADER
 		.flag-icon {
       border: 2px solid #ddd !important;
@@ -202,15 +210,23 @@ $printedBlue: #337ab7;
 
 	}
 
-    #ncd-map-row{
-        height:0px;
-        overflow: hidden;
-    }
+  #ncd-map-row{
+      height:0px;
+      overflow: hidden;
+  }
 
+  .fixed-table-container thead th .sortable{
+      padding: 2px;
+  } 
+  
 }
 
-    #ncd-chart-demographics{
-        height:300px;
-    }
+#district-completeness-column{
+    height: 350px;
+    display: block;
+}
+#ncd-chart-demographics{
+    height:300px;
+}
 
 
