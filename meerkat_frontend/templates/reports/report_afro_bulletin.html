@@ -259,7 +259,7 @@ var measles = {
     { name: i18n.gettext('Under 5 yrs'), data: measles_data.map( function(a){ return a.under}) },
     { name: i18n.gettext('Over 5 yrs'), data: measles_data.map( function(a){ return a.over}) }
   ],
-  labels: { yAxis: { text: "# Cases" }, xAxis: { text: "Epi Week" } } 
+  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } } 
 };
 
 $('#measles-age').highcharts(
@@ -284,7 +284,7 @@ var malaria = {
     { name: i18n.gettext('Severe'), data: malaria_data.map( function(a){ return a.severe || 0})},
     { name: i18n.gettext('Positivity'), data: malaria_data.map( function(a){ return a.positivity}), type:'spline'  }
   ], 
-  labels: { yAxis: { text: "# Cases" }, xAxis: { text: "Epi Week" } } 
+  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } } 
 };
 
 $('#malaria-chart').highcharts(
@@ -307,7 +307,7 @@ var malnutrition = {
   series: [
     { name: i18n.gettext('Cases'), data: malnutrition_data.map( function(a){ return a.value || 0 }) },
   ], 
-  labels: { yAxis: { text: "# Cases" }, xAxis: { text: "Epi Week" } } 
+  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } } 
 };
 
 $('#malnutrition-chart').highcharts(
@@ -322,14 +322,14 @@ regional_map(
     {{report.data.figure_mat_deaths_map|safe}}, 
     {{extras.map_centre}}, 
     "{{url_for( 'static', filename='files/'+extras.dis_data_file)}}", 
-    'malaria-map' 
+    'maternal-deaths-map' 
 );
 
 regional_map( 
-    {{report.data.figure_malaria_map|safe}}, //TODO: Replace with just all confirmed malria cases.
+    {{report.data.figure_malaria_map|safe}},
     {{extras.map_centre}}, 
     "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
-    'maternal-deaths-map' 
+    'malaria-map' 
 );
 
  // Table PRIORITY DISEASES
@@ -369,7 +369,7 @@ regional_map(
  var table_priority_diseases_setup = [
      {
          "field": "disease",
-         "title": "Disease",
+         "title": "{{_('Disease')}}",
          "align": "center",
          "class": "header total border-right",
          sortable: true,
@@ -387,14 +387,14 @@ regional_map(
  table_priority_diseases_setup.push(
      {
          "field": "mortality",
-         "title": "Total deaths",
+         "title": "{{_('Total deaths')}}",
          "align": "center",
          "class": "header total border-left",
          sortable: true,
      });
  table_priority_diseases_setup.push({
      "field": "cfr",
-     "title": "Total CFR (%)",
+     "title": "{{_('Total CFR (%%)')}}",
      "align": "center",
      "class": "header total border-left",
      sortable: true,
@@ -440,28 +440,28 @@ regional_map(
      columns : [
          {
              "field": "disease",
-             "title": "Disease",
+             "title": "{{_('Disease')}}",
              "align": "center",
              "class": "header total border-right",
              sortable: true,
              width : "15%"
          },{
              "field": "cases",
-             "title": "Reported in Week "+epi_week_num_int.toString(),
+             "title": "{{_('Reported in Week')}} " + epi_week_num_int.toString(),
              "align": "center",
              "class": "header",
              sortable: true,
              width : "14%"
          },{
              "field": "mortality",
-             "title": "Deaths in Week "+epi_week_num_int.toString(),
+             "title": "{{_('Deaths in Week')}} " + epi_week_num_int.toString(),
              "align": "center",
              "class": "header",
              sortable: true,
              width : "14%"
          },{
              "field": "cfr",
-             "title": "CFR (%) in Week "+epi_week_num_int.toString(),
+             "title": "{{_('CFR (%%) in Week')}} " + epi_week_num_int.toString(),
              "align": "center",
              "class": "header",
              sortable: true,
@@ -471,21 +471,21 @@ regional_map(
              width : "14%"
          },{
              "field": "cases_cumulative",
-             "title": "Reported in weeks 1-"+epi_week_num_int.toString(),
+             "title": "{{_('Reported in weeks')}} 1-"+epi_week_num_int.toString(),
              "align": "center",
              "class": "header",
              sortable: true,
              width : "14%"
          },{
              "field": "mortality_cumulative",
-             "title": "Deaths in weeks 1-"+epi_week_num_int.toString(),
+             "title": "{{_('Deaths in weeks')}} 1-"+epi_week_num_int.toString(),
              "align": "center",
              "class": "header",
              sortable: true,
              width : "14%"
          },{
              "field": "cfr_cumulative",
-             "title": "CFR (%) in weeks 1-"+epi_week_num_int.toString(),
+             "title": "{{_('CFR (%%) in weeks')}} 1-"+epi_week_num_int.toString(),
              "align": "center",
              "class": "header",
              sortable: true,
@@ -495,8 +495,6 @@ regional_map(
              width : "14%"
          }]
  };
-
-console.log(table_priority_diseases_cumulative_data);
 
     $('#table_priority_diseases_cumulative_id').append('<table class="table"></table>');
      $('#table_priority_diseases_cumulative_id table').bootstrapTable({
@@ -531,28 +529,28 @@ console.log(table_priority_diseases_cumulative_data);
      columns : [
          {
              "field": "location",
-             "title": "District",
+             "title": "{{_('District')}}",
              "align": "center",
              "class": "header total border-right",
              sortable: true,
              width : "20%"
          },{
              "field": "clinics",
-             "title": "No. of Health facilities",
+             "title": "{{_('No. of Health facilities')}}",
              "align": "center",
              "class": "header",
              sortable: true,
              width : "20%"
          },{
              "field": "clinics_reported",
-             "title": "No. of Health facilities that reported",
+             "title": "{{_('No. of Health facilities that reported')}}",
              "align": "center",
              "class": "header",
              sortable: true,
              width : "20%"
          },{
              "field": "completeness",
-             "title": "Completeness (%)",
+             "title": "{{_('Completeness (%%)')}}",
              "align": "center",
              "class": "header",
              sortable: true,
@@ -562,7 +560,7 @@ console.log(table_priority_diseases_cumulative_data);
              width : "20%"
          },{
              "field": "timeliness",
-             "title": "Timeliness (%)",
+             "title": "{{_('Timeliness (%%)')}}",
              "align": "center",
              "class": "header",
              sortable: true,

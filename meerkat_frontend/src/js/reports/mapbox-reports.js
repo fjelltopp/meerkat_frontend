@@ -87,8 +87,8 @@ function regional_map( data, map_centre, regionsURL, containerID ){
     };
     info.update = function (props) {
         this._div.innerHTML = ( props ?
-            '<b>' + props.name + '</b><br />Value: ' + data[props.description].value 
-            : 'Hover over an area');
+            '<b>' + props.name + '</b><br />Value: ' + 
+            parseFloat(data[props.description].value).toFixed(4) : 'Hover over an area');
     };
     info.addTo(map);
 
@@ -166,9 +166,11 @@ function regional_map( data, map_centre, regionsURL, containerID ){
     regionalLayer.on('ready', function(){
         for( var l in locs ){
             var loc = data[locs[l]];
+            var value = loc.value;
+            if( !Number.isInteger(value) ) value = value.toFixed(1);
             var icon = L.divIcon({
                 className: 'area-label', 
-                html:"<div class='outer'><div class='inner'>" + loc.value + "</div></div>"
+                html:"<div class='outer'><div class='inner'>" + value + "</div></div>"
             });
             //Only add the marker if both regional gemotry and api data exist.
             if(loc.centre) L.marker(loc.centre, {icon: icon}).addTo(this.maps[index]); 
