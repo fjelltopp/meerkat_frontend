@@ -175,7 +175,7 @@ function regional_map( data, map_centre, regionsURL, containerID ){
             //Only add the marker if both regional gemotry and api data exist.
             if(loc.centre) L.marker(loc.centre, {icon: icon}).addTo(this.maps[index]); 
             else console.error( "Failed to find regional geometry for location '" + 
-                               loc.name + "' with value " + loc.value + "." );
+                               loc.name + "'(" + locs[l] +") with value " + loc.value + "." );
         }
     }, this);
 
