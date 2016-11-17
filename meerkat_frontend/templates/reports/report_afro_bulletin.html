@@ -50,7 +50,7 @@
           {{ _('%(cmd_21)s maternal deaths were reported (%(cmd_21_ale_1)s investigated) and %(cmd_22)s neonatal deaths (%(cmd_22_ale_1)s investigated).', cmd_21=report.data.weekly_highlights.cmd_21|int, cmd_21_ale_1=report.data.weekly_highlights.cmd_21_ale_1|int, cmd_22=report.data.weekly_highlights.cmd_22|int, cmd_22_ale_1=report.data.weekly_highlights.cmd_22_ale_1|int) }}
         </li>
         <li>          
-          {{ _('A total of %(mls_2)s fever cases were reported, %(mls_3)s (%(mls_3_perc_mls_2)s%%) tested and %(cmd_17)s (%(cmd_17_perc_mls_2)s%%) positive with %(mls_12)s cases of simple malaria and %(mls_24)s cases of severe malaria. %(mls_48)s (%(mls_48_perc_cmd_17)s%%) malaria cases were treated with ACT. A total of %(mls_36)s malaria deaths were reported.', mls_2=report.data.weekly_highlights.mls_2|int, mls_3=report.data.weekly_highlights.mls_3|int, mls_3_perc_mls_2=report.data.weekly_highlights.mls_3_perc_mls_2|round(1), cmd_17=report.data.weekly_highlights.cmd_17|int, cmd_17_perc_mls_2=report.data.weekly_highlights.cmd_17_perc_mls_2|round(1), mls_12=report.data.weekly_highlights.mls_12|int, mls_24=report.data.weekly_highlights.mls_24|int, mls_48=report.data.weekly_highlights.mls_48|int, mls_48_perc_cmd_17=report.data.weekly_highlights.mls_48_perc_cmd_17|round(1), mls_36=report.data.weekly_highlights.mls_36|int) }}
+          {{ _('A total of %(mls_2)s fever cases were reported, %(mls_3)s (%(mls_3_perc_mls_2)s%%) tested and %(cmd_17)s (%(cmd_17_perc_mls_2)s%%) positive with %(mls_12)s cases of simple malaria and %(mls_24)s cases of severe malaria. %(mls_48)s (%(mls_48_perc_mls_12_or_mls_24)s%%) malaria cases were treated with ACT. A total of %(mls_36)s malaria deaths were reported.', mls_2=report.data.weekly_highlights.mls_2|int, mls_3=report.data.weekly_highlights.mls_3|int, mls_3_perc_mls_2=report.data.weekly_highlights.mls_3_perc_mls_2|round(1), cmd_17=report.data.weekly_highlights.cmd_17|int, cmd_17_perc_mls_2=report.data.weekly_highlights.cmd_17_perc_mls_2|round(1), mls_12=report.data.weekly_highlights.mls_12|int, mls_24=report.data.weekly_highlights.mls_24|int, mls_48=report.data.weekly_highlights.mls_48|int, mls_48_perc_mls_12_or_mls_24=report.data.weekly_highlights.mls_48_perc_mls_12_or_mls_24|round(1), mls_36=report.data.weekly_highlights.mls_36|int) }}
         </li>
         <li>          
           {{ _('%(cmd_15)s suspected measles cases were alerted, of which %(cmd_15_ale_1)s (%(cmd_15_ale_1_perc_cmd_15)s%%) were investigated and %(cmd_15_ale_2)s (%(cmd_15_ale_2_perc_cmd_15)s%%) have been confirmed. %(cmd_15_age_1)s (%(cmd_15_age_1_perc_cmd_15)s%%) were reported among children under five years of age.', 
@@ -181,7 +181,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     </div>
   </div>
 </div>
-<div class="row allow-breaks">
+<div class="row">
   <!-- TIMELINESS TABLE -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
