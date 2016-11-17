@@ -242,9 +242,22 @@ $printedBlue: #337ab7;
 
   }
 
+  .reports-table{
+    font-size: 12px;
+  }
 
+  .reports-table.small {
+    font-size: 12px;
+
+    tbody tr td{
+      padding: 2px;
+    }
+
+  }
   
 }
+
+
 
 #district-completeness-column{
     height: 350px;
