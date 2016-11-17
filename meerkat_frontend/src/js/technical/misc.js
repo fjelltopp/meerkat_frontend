@@ -64,6 +64,11 @@ function calc_percent_dist( array ){
     return ret;
 }
 
+function round(num , precision){
+	return Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision);
+}
+
+
 //Returns the value if the key exists in vari, returns zero if it doesn't. 
 function if_exists(vari,key){
 
@@ -588,8 +593,6 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
     ];
 
     $.when.apply( $, deferreds ).then(function() {
-
-
         drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week, 0 );
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations); //this call makes one additional AJAX call

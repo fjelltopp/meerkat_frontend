@@ -191,6 +191,8 @@ var auth_root = "{{content.auth_root}}";
          highlightedRegion = e.target;
       }else{
          regionalLayer.resetStyle( highlightedRegion ); 
+         console.log( highlightedRegion.toGeoJSON() );
+          console.log( e.target.toGeoJSON() );
          if( highlightedRegion.toGeoJSON().properties.name != e.target.toGeoJSON().properties.name ){
            highlightedRegion = e.target;
            $(".details .selection").html("");
@@ -207,7 +209,7 @@ var auth_root = "{{content.auth_root}}";
       }
       
       if( govSiteClash === false ){
-         $("#regionName.value").text(i18n.gettext(highlightedRegion.toGeoJSON().properties.name));
+         $("#regionName.value").text( highlightedRegion.toGeoJSON().properties.name );
       }
 
     }
