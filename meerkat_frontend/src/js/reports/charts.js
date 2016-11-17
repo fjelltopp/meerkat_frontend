@@ -332,6 +332,11 @@ function measlesBarChart(categories, series, labels) {
         fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
       }
     },
+    plotOptions: {
+        series: {
+            stacking: 'normal'
+        }
+    },
     xAxis: {
       categories: categories,
       labels: {
