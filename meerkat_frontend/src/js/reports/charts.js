@@ -388,14 +388,23 @@ function malariaChart(weeks, series, labels) {
 				align: 'middle'
 			}
 		},
-		yAxis: {
+		yAxis: [{
 			title: {
-				text: labels.yAxis.text,
+				text: labels.yAxis.text[0],
 				align: 'middle'
 			},
 			allowDecimals: false,
 			min: 0
-		},
+		},{
+			title: {
+				text: labels.yAxis.text[1],
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0,
+      max: 100,
+      opposite: true
+		}],
 		series: series
 	};
 	return chart;

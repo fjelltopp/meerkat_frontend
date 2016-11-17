@@ -271,7 +271,7 @@ $('#measles-age').highcharts(
 );
 
 //Malaria Chart
-var malaria_data = [{% for week, value in report.data.figure_malaria.positivity_rate.weeks.items() %}{"week":"{{ week|safe }}", "positivity": {{ value|safe }}, "simple": {{report.data.figure_malaria.simple_malaria.weeks.get(week, '0' )}}, "severe": {{report.data.figure_malaria.severe_malaria.weeks.get(week, '0' )}}} {% if not loop.last %},{% endif %}{% endfor %}];
+var malaria_data = [{% for week, value in report.data.figure_malaria.positivity.items() %}{"week":"{{ week|safe }}", "positivity": {{ value|safe }}, "simple": {{report.data.figure_malaria.simple_malaria.get(week, '0' )}}, "severe": {{report.data.figure_malaria.severe_malaria.get(week, '0' )}}} {% if not loop.last %},{% endif %}{% endfor %}];
 
 malaria_data.sort(function(a,b){
   return a.week - b.week;
@@ -282,9 +282,9 @@ var malaria = {
   series: [
     { name: i18n.gettext('Simple'), data: malaria_data.map( function(a){ return a.simple || 0 }) },
     { name: i18n.gettext('Severe'), data: malaria_data.map( function(a){ return a.severe || 0})},
-    { name: i18n.gettext('Positivity'), data: malaria_data.map( function(a){ return a.positivity}), type:'spline'  }
+    { name: i18n.gettext('Positivity'), yAxis: 1, data: malaria_data.map( function(a){ return a.positivity}), type:'spline'  }
   ], 
-  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } } 
+  labels: { yAxis: { text: [i18n.gettext("# Cases"), "% " + i18n.gettext("Positivity")] }, xAxis: { text: i18n.gettext("Epi Week") } } 
 };
 
 $('#malaria-chart').highcharts(
@@ -347,7 +347,8 @@ regional_map(
      "Bongolava",
      "Menabe",
      "Sava",
-     "Vatovavy Fitovinany"];
+     "Vatovavy Fitovinany"
+ ];
 
  var table_priority_diseases_keys = Object.keys(table_priority_diseases_data);
  var table_priority_diseases_data_prepared = [];
