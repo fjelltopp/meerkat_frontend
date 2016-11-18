@@ -179,7 +179,7 @@ function PipBarChart(weeks, suspected, confirmed, labels) {
 		});
 	}
 
-	var chart = {
+  var chart = {
 		chart: {
 			animation: false
 		},
@@ -281,6 +281,177 @@ function refugeeCommunicableDiseasesChart(categories, series, labels) {
   };
 	return chart;
 }
+
+//Completeness bar chart for the AFRO Bulletin
+function completenessBarChart(categories, series, labels, type) {
+  var chart = {
+    chart: {
+      type: type,
+      animation: false
+    },
+	  tooltip: {
+		  valueDecimals: 1,
+		  valueSuffix: '%'
+	  },
+    title: {
+      text: null
+    },
+    legend: {
+            enabled: false
+    },
+    yAxis: {
+      min: 0,
+      title: null,
+      labels: {
+        formatter: function() {
+			return Math.round(Math.abs(this.value),1) + '%';
+        }
+      }
+    },
+    xAxis: {
+      categories: categories
+    },
+    series: series
+  };
+  return chart;
+}
+
+//Measles bar chart for the afro bulletin.
+function measlesBarChart(categories, series, labels) {
+  var chart = {
+    chart: {
+      type: 'column',
+      animation: false
+    },
+    title: {
+      text: null
+    },
+    legend: {
+      enabled: true,
+      style: {
+        fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+      }
+    },
+    plotOptions: {
+        series: {
+            stacking: 'normal'
+        }
+    },
+    xAxis: {
+      categories: categories,
+      labels: {
+        step: 1
+      },
+      title: {
+        text: labels.xAxis.text,
+        align: 'middle'
+      }
+    },
+    yAxis: {
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      }
+    },
+    series: series
+  };
+  return chart;
+}
+
+//Malaria bar chart for the afro bulletin.
+function malariaChart(weeks, series, labels) {
+
+  var chart = {
+		chart: {
+			animation: false,
+      type: 'column'
+		},
+		title: {
+			text: null
+		},
+		legend: {
+			enabled: true,
+			style: {
+				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+			}
+		},
+		plotOptions: {
+			spline: {
+				marker: {
+					enabled: false
+				}
+			},
+			series: {
+
+				lineWidth: 5
+      },
+		},
+		xAxis: {
+			categories: weeks,
+			title: {
+				text: labels.xAxis.text,
+				align: 'middle'
+			}
+		},
+		yAxis: [{
+			title: {
+				text: labels.yAxis.text[0],
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0
+		},{
+			title: {
+				text: labels.yAxis.text[1],
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0,
+      max: 100,
+      opposite: true
+		}],
+		series: series
+	};
+	return chart;
+}
+
+//Malaria bar chart for the afro bulletin.
+function malnutritionChart(weeks, series, labels) {
+
+  var chart = {
+		chart: {
+			animation: false,
+      type: 'spline'
+		},
+		title: {
+			text: null
+		},
+		legend: {
+			enabled: true,
+			style: {
+				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+			}
+		},
+		xAxis: {
+			categories: weeks,
+			title: {
+				text: labels.xAxis.text,
+				align: 'middle'
+			}
+		},
+		yAxis: {
+			title: {
+				text: labels.yAxis.text,
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0
+		},
+		series: series
+	};
+	return chart;
+}
+
 // Global chart settings
 /*$(function() {
       Highcharts.setOptions({

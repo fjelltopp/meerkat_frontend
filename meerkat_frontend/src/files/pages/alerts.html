@@ -105,10 +105,10 @@ function loadAlertTables( reason, locID ){
 	
 	//locID (the id of the location) is an optional argument.  
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
-	if( typeof locID == 'undefined' ){
-		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
-		else locID = history.state.locID;
-	}
+     if( typeof locID == 'undefined' ){
+	 if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+	 else locID = history.state.locID;
+     }
 
 	$.getJSON( api_root+"/variables/cd_tab", function( variables ){
 		if(config.central_review){

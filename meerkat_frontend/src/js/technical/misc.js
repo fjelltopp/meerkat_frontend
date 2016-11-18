@@ -64,6 +64,11 @@ function calc_percent_dist( array ){
     return ret;
 }
 
+function round(num , precision){
+	return Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision);
+}
+
+
 //Returns the value if the key exists in vari, returns zero if it doesn't. 
 function if_exists(vari,key){
 
@@ -588,19 +593,12 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
     ];
 
     $.when.apply( $, deferreds ).then(function() {
-
-<<<<<<< HEAD
-        drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week );
-=======
         drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week, 0 );
->>>>>>> 7a29c4f0c6dfe927ca58ba7d919f97231c597d0d
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
     } );
 }
-<<<<<<< HEAD
-=======
 
 /**:timelinessPreparation( details )
 
@@ -617,14 +615,10 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
    The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
    :param string tableID:
    The ID for the HTML element that will hold the main timeliness table.  If empty, no table is drawn.
-   :param string nonreportingtableID:
-   The ID for the HTML element that will hold the line table of non-reporting clinics.  If empty, this table isn't drawn.
-   :param string nonreportingTitle:
-   The ID for the HTML element containg title of the non-reporting clinics table.
    :param string allclinisctableID:
    The ID for the HTML element that will hold the table for all clnics timeliness information.  If empty, this table isn't drawn.
    */
-function timelinessPreparation( locID, reg_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week){
+function timelinessPreparation( locID, reg_id, graphID, tableID, allclinisctableID, start_week){
     var timelinessLocations;
     var timelinessData; 
     var deferreds = [
@@ -636,12 +630,15 @@ function timelinessPreparation( locID, reg_id, graphID, tableID, nonreportingtab
         })
     ];
 
+    if(reg_id === "reg_5"){
+
     $.when.apply( $, deferreds ).then(function() {
 
         drawCompletenessGraph( graphID, locID, timelinessLocations, timelinessData, start_week, 1 );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
-        drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, timelinessLocations); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );
+    }else{
+        console.log("Invalid call to timeliness. Varabile \"reg_5\" expected, provided \"" + reg_id + "\"" );
+    }
 }
->>>>>>> 7a29c4f0c6dfe927ca58ba7d919f97231c597d0d
