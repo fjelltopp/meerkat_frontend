@@ -15,7 +15,7 @@
 <Folder><name>madagascarDistrictPhase1</name>
   <Placemark>
 	<name>Betioky-Sud</name>
-	<description>34</description>
+	<description>33</description>
 	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
 	<ExtendedData><SchemaData schemaUrl="#madagascarDistrictPhase1">
 		<SimpleData name="tessellate">-1</SimpleData>
@@ -26,7 +26,7 @@
   </Placemark>
   <Placemark>
 	<name>Ampanihy</name>
-	<description>33</description>
+	<description>32</description>
 	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
 	<ExtendedData><SchemaData schemaUrl="#madagascarDistrictPhase1">
 		<SimpleData name="tessellate">-1</SimpleData>
@@ -92,7 +92,7 @@
   </Placemark>
   <Placemark>
 	<name>Antalaha</name>
-	<description>31</description>
+	<description>30</description>
 	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
 	<ExtendedData><SchemaData schemaUrl="#madagascarDistrictPhase1">
 		<SimpleData name="tessellate">-1</SimpleData>
@@ -103,7 +103,7 @@
   </Placemark>
   <Placemark>
 	<name>Farafangana</name>
-	<description>28</description>
+	<description>27</description>
 	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
 	<ExtendedData><SchemaData schemaUrl="#madagascarDistrictPhase1">
 		<SimpleData name="tessellate">-1</SimpleData>
@@ -114,7 +114,7 @@
   </Placemark>
   <Placemark>
 	<name>Vohipeno</name>
-	<description>32</description>
+	<description>31</description>
 	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
 	<ExtendedData><SchemaData schemaUrl="#madagascarDistrictPhase1">
 		<SimpleData name="tessellate">-1</SimpleData>
@@ -136,7 +136,7 @@
   </Placemark>
   <Placemark>
 	<name>Sainte Marie</name>
-	<description>27</description>
+	<description>26</description>
 	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
 	<ExtendedData><SchemaData schemaUrl="#madagascarDistrictPhase1">
 		<SimpleData name="tessellate">-1</SimpleData>
