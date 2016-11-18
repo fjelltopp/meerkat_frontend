@@ -85,11 +85,14 @@ function drawMap( varID, containerID, location, start_date, end_date ){
 			limit += binSize;
 			limits.push(limit);
 		}
+		console.log(binSize);
+		console.log(number);
 		markers = [];
 		//For each clinic, select the marker colour and add the marker to the map.
 		for(i in data){
 
-			var bin = Math.floor(data[i].value/binSize*number -1); //-1 because bins are inclusive of the upper-limit
+			var bin = Math.floor(data[i].value/binSize); //-1 because bins are inclusive of the upper-limit
+			
 			
 			var colour = colours[bin];
 
@@ -123,7 +126,7 @@ function drawMap( varID, containerID, location, start_date, end_date ){
 								        '; border-color:' + colours[i-1] + '"></i> ' + limits[i] + '<br/>';
 				}else{
 					div.innerHTML += '<i class="circle" style="background:' + colours[i-1] + 
-						'; border-color:' + colours[i-1] + '"></i> ' + limit[i-1]  + 
+						'; border-color:' + colours[i-1] + '"></i> ' + limits[i-1]  + 
 						'-' + limits[i] + '<br/>';
 				}
 			}
