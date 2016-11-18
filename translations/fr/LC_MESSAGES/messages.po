@@ -1367,6 +1367,11 @@ msgid ""
 "This report is up to date as of %(generation_time)s on "
 "%(generation_date)s UTC."
 msgstr ""
+"Ce rapport est à jour à partir de %(generation_time)s sur "
+"%(generation_date)s UTC."
+
+
+
 
 #: meerkat_frontend/templates/reports/index.html:13
 msgid "Location"
@@ -1612,6 +1617,17 @@ msgid ""
 "generation of SMS and email alerts and support for mapping and "
 "reporting.</p>"
 msgstr ""
+"<P> Un programme de surveillance de la santé publique est mise en œuvre en"
+"%(clinic_num)s des cliniques externes  en %(project_region)s, en partenariat "
+"avec l'OMS et le Ministère de la Santé. Le projet introduit, la surveillance "
+"intégrée de la maladie basée sur les cas de maladies prioritaires, les "
+"conditions et les événements. </ P> \n <p> Le clinicien utilise le système "
+"dans la consultation, qui introduit un soutien clinique de décision ainsi "
+"que la meilleure orientation de prescription de la pratique et des rapports "
+"en temps réel des informations. L'information est mise à disposition dans "
+"l'heure par l'intermédiaire d'un cadre en ligne avec la génération "
+"automatique des alertes SMS et e-mail et le soutien pour la cartographie et "
+"l'information. </ P>"
 
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:207
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:284
@@ -1702,6 +1718,17 @@ msgstr "Profil de la Maladie Transmissible"
 msgid "Key findings"
 msgstr "Principales Conclusions"
 
+#: meerkat_frontend/templates/reports/email/plain/email_public_health_profile_plain.html:8
+#, python-format
+msgid ""
+"Information reported in this public health profile represents cases reported "
+"from %(clinic_num)s reporting sites in %(project_region)s between "
+"%(start_date)s and %(end_date)s."
+msgstr ""
+"Les informations communiquées dans ce profil de santé publique représente "
+"les cas déclarés de %(clinic_num)s sites en de rapports %(project_region)s "
+"entre %(start_date)s et %(end_date)s."
+
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:26
 #: meerkat_frontend/templates/reports/report_cerf.html:25
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:26
@@ -1725,6 +1752,16 @@ msgid ""
 msgstr ""
 "Au total <strong>  %(total_cases)s cas</strong> signalés par "
 "%(clinic_num)s des  sites de surveillance."
+
+
+#: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile.html:99
+#, python-format
+msgid ""
+"A total of <strong>%(cases)s cases</strong> reported from %(clinic_num)s "
+"health facilities."
+msgstr ""
+"Au total <strong>  %(cases)s cas</strong> signalés par %(clinic_num)s "
+"des  sites de surveillance."
 
 #: meerkat_frontend/templates/reports/email/html/email_public_health_profile.html:887
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:30
@@ -2428,13 +2465,21 @@ msgid ""
 "(%(start_date)s and \n"
 "                        %(end_date)s)."
 msgstr ""
+"Le profil résume l'information épidémiologique rapporté de %(clinics)s "
+"sites épidémiologique Semaine des rapports de %(epi_week)s (%(start_date)s"
+"et \n %(end_date)s)."
 
-#: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile.html:99
+
+#: meerkat_frontend/templates/reports/email/html/email_ncd_report.html:87
 #, python-format
 msgid ""
-"A total of <strong>%(cases)s cases</strong> reported from %(clinic_num)s "
-"health facilities."
+"The profile summarises epidemiological information reported from %(clinics)s "
+"reporting sites in the previous month %(start_date)s to \n"
+"                        %(end_date)s."
 msgstr ""
+"Le profil résume l'information épidémiologique rapporté de %(clinics)s "
+"sites dans le mois précédent des rapports %(start_date)s \n"
+" de %(end_date)s."
 
 #: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile.html:105
 #: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile_mad.html:107
@@ -2701,13 +2746,6 @@ msgid ""
 "%(project_region)s.</p>"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/html/email_ncd_report.html:87
-#, python-format
-msgid ""
-"The profile summarises epidemiological information reported from "
-"%(clinics)s reporting sites in the previous month %(start_date)s to \n"
-"                        %(end_date)s."
-msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ncd_report.html:99
 #, python-format
@@ -2894,8 +2932,12 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_plain.html:18
 #, python-format
-msgid "A total of %(cases)s cases reported from %(clinic_num)s health facilities."
+msgid ""
+"A total of %(cases)s cases reported from %(clinic_num)s health facilities."
 msgstr ""
+"Les cas de Un total de %(cases)s signalés en des établissements de santé "
+"%(clinic_num)s."
+
 
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:1
 #, python-format
@@ -3064,13 +3106,6 @@ msgstr ""
 msgid "%(lab)s (%(lab_per)s %%) patients with laboratory results recorded.\n"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/plain/email_public_health_profile_plain.html:8
-#, python-format
-msgid ""
-"Information reported in this public health profile represents cases "
-"reported from %(clinic_num)s reporting sites in %(project_region)s "
-"between %(start_date)s and %(end_date)s."
-msgstr ""
 
 #: meerkat_frontend/templates/reports/email/plain/email_public_health_profile_plain.html:13
 #, python-format
