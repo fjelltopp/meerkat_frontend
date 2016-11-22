@@ -1,84 +1,27 @@
 """
 meerkat_frontend.py
 
-Root Flask app for the Meerkat Frontend.
-
-This module runs as the root Flask app and mounts component Flask apps for
-different services such as the API and Reports.
+This module runs as the Flask app from app.py and mounts component Flask apps
+for different services such as the API and Reports.
 """
-import json, os
+from .app import app
 from slugify import slugify
-from flask import Flask, Blueprint, send_file, render_template, request
-from flask import current_app, abort, flash, g, redirect, url_for
-import jinja2
-from flask.ext.babel import Babel, gettext, ngettext, get_translations, get_locale, support
-from . import common as c
-import authorise as auth
-
-
-# Create the Flask app
-app = Flask(__name__)
-app.jinja_options['extensions'].append('jinja2.ext.do')
-babel = Babel(app)
-app.config.from_object('config.Development')
-app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
-app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
-app.secret_key = 'some_secret'
-
-if app.config.get( 'TEMPLATE_FOLDER', None ):
-    my_loader = jinja2.ChoiceLoader([
-        app.jinja_loader,
-        jinja2.FileSystemLoader(app.config["TEMPLATE_FOLDER"]),
-    ])
-    app.jinja_loader = my_loader
-
-#Need to pass auth root down to all pages that might need it.
-#Feels a bit hacky, but can't immediately think of a better way.
-#Here we feed the env var into the shared config that is sent to all pages.
-app.config['SHARED_CONFIG']['auth_root'] = app.config['AUTH_ROOT']
-
-# Set up the config files.
-for k, v in app.config['COMPONENT_CONFIGS'].items():
-    path = os.path.dirname(os.path.realpath(__file__)) + "/../" + v
-    config = json.loads(open(path).read()) 
-    app.config[k] = {**app.config['SHARED_CONFIG'], **config}
-    
+from flask import render_template, request
+from flask import current_app, abort, flash, g, redirect
 from .views.homepage import homepage
 from .views.technical import technical
 from .views.reports import reports
 from .views.messaging import messaging
 from .views.download import download
 from .views.explore import explore
+from .app import extra_pages
+from .app import babel
 
+
+# Redirect all pages to a language-specified page.
 @app.route("/")
 def root():
     return redirect("/" + app.config["DEFAULT_LANGUAGE"])
-
-extra_pages = Blueprint('extra_pages', __name__, url_prefix='/<language>')
-
-# Paths specified in config file
-def prepare_function(template, config, authentication=False):
-    def function():
-        if authentication:
-            auth.check_auth(*authentication)
-        return render_template(template, content=config,
-                               week=c.api('/epi_week'))
-    return function
-
-# Add any extra country specific pages.
-if "EXTRA_PAGES" in app.config:
-    for url, value in app.config["EXTRA_PAGES"].items():
-        path = os.path.dirname(os.path.realpath(__file__)) + "/../"+value['config']
-        if "authenticate" in value and value["authenticate"]:
-            authenticate = value["authenticate"]
-        else:
-            authenticate = False
-        function = prepare_function(value['template'],
-                                    json.loads(open(path).read()),
-                                    authentication=authenticate)
-        print(url)
-        extra_pages.add_url_rule('/{}'.format(url), url, function)
-        extra_pages.add_url_rule('/{}/'.format(url), url, function)
 
 
 # Internationalisation
@@ -127,42 +70,46 @@ def slug(s):
     """Creates a slugify filter for Jinja templates"""
     return slugify(s)
 
+
 @app.template_filter('in_array')
-def in_array( needles, haystack ):
+def in_array(needles, haystack):
     """
     Returns true if any of the needles are in the haystack.
     Returns false if none of needles is found in the haystack.
 
     Args:
-        needles (array) A list of values to look for. Also accepts a single value.
-        haystack (array) A list of values to look in. 
-    
+        needles (array) A list of values to look for. Accepts a single value.
+        haystack (array) A list of values to look in.
+
     Returns:
         True if a needle is found in haystack, false otherwise.
     """
-    #For flexibility, allow a single value in place of a list.
-    if not isinstance( needles, list ):
+    # For flexibility, allow a single value in place of a list.
+    if not isinstance(needles, list):
         needles = [needles]
-    if not isinstance( haystack, list ):
+    if not isinstance(haystack, list):
         haystack = [haystack]
 
-    #Look for all the needles and return true if a needle isfound.
+    # Look for all the needles and return true if a needle isfound.
     for needle in needles:
         if needle in haystack:
             return True
     return False
 
+
 # ERROR HANDLING
 @app.route('/error/<int:error>/')
 def error_test(error):
-    """Serves requested error page for testing, by calling the ```abort()``` function.
+    """
+    Serves requested error page for testing, by calling the ```abort()```
+    function.
 
        Args:
            error (int): The error code for the requested error.
     """
     abort(error)
 
-    
+
 @app.errorhandler(404)
 @app.errorhandler(401)
 @app.errorhandler(410)
@@ -172,13 +119,16 @@ def error_test(error):
 @app.errorhandler(502)
 def error500(error):
     """Serves page for generic error.
-    
+
        Args:
            error (int): The error code given by the error handler.
     """
     flash("Sorry, something appears to have gone wrong.", "error")
-    return render_template('error.html', error=error,
-                           content=current_app.config['TECHNICAL_CONFIG']), error.code
+    return render_template(
+        'error.html',
+        error=error,
+        content=current_app.config['TECHNICAL_CONFIG']
+    ), error.code
 
 
 @app.errorhandler(403)
