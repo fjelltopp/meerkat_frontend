@@ -4,18 +4,50 @@ meerkat_frontend.py
 This module runs as the Flask app from app.py and mounts component Flask apps
 for different services such as the API and Reports.
 """
-from .app import app
+from .app import app, babel
 from slugify import slugify
-from flask import render_template, request
+from flask import render_template, request, Blueprint
 from flask import current_app, abort, flash, g, redirect
+from . import common as c
 from .views.homepage import homepage
 from .views.technical import technical
 from .views.reports import reports
 from .views.messaging import messaging
 from .views.download import download
 from .views.explore import explore
-from .app import extra_pages
-from .app import babel
+import authorise as auth
+import os
+import json
+
+
+# App has been imported at the top of this file. We now add crucial services...
+
+# Paths specified in config file
+def prepare_function(template, config, authentication=False):
+    def function():
+        if authentication:
+            auth.check_auth(*authentication)
+        return render_template(template, content=config,
+                               week=c.api('/epi_week'))
+    return function
+
+
+# Add any extra country specific pages.
+extra_pages = Blueprint('extra_pages', __name__, url_prefix='/<language>')
+if "EXTRA_PAGES" in app.config:
+    for url, value in app.config["EXTRA_PAGES"].items():
+        path = os.path.dirname(os.path.realpath(__file__))
+        path += "/../" + value['config']
+        if "authenticate" in value and value["authenticate"]:
+            authenticate = value["authenticate"]
+        else:
+            authenticate = False
+        function = prepare_function(value['template'],
+                                    json.loads(open(path).read()),
+                                    authentication=authenticate)
+        print(url)
+        extra_pages.add_url_rule('/{}'.format(url), url, function)
+        extra_pages.add_url_rule('/{}/'.format(url), url, function)
 
 
 # Redirect all pages to a language-specified page.

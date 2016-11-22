@@ -6,12 +6,15 @@ Shared functions for meerkat_frontend.
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from flask import abort
-import authorise as auth
 from meerkat_frontend import app
+import authorise as auth
 import requests
 import logging
 import json
 import os
+
+
+logging.warning(app.config)
 
 
 def api(url, api_key=False, params=None):
