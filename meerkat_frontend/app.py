@@ -10,7 +10,6 @@ from flask.ext.babel import Babel
 import jinja2
 import os
 import json
-import logging
 
 # Create the Flask app
 app = Flask(__name__)
@@ -20,8 +19,6 @@ app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
-
-logging.warning(app.config)
 
 if app.config.get('TEMPLATE_FOLDER', None):
     my_loader = jinja2.ChoiceLoader([

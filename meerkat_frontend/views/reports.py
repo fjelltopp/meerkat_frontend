@@ -24,7 +24,10 @@ reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 @reports.before_request
 def requires_auth():
-    """Checks that the user has authenticated before returning any page from this Blueprint."""
+    """
+    Checks that the user has authenticated before returning any page from this
+    Blueprint.
+    """
     #We load the arguments for check_auth function from the config files.
     auth.check_auth( *current_app.config['AUTH'].get('reports', [['BROKEN'],['']]) )
 
@@ -33,24 +36,26 @@ def requires_auth():
 @reports.route('/')
 @reports.route('/loc_<int:locID>')
 def index(locID=1):
-    """Render the reports splash page (index.html).
-       The reports splash page provides a form enabling user to select which report to view.
+    """
+    Render the reports splash page (index.html).
+    The reports splash page provides a form enabling user to select which
+    report to view.
 
-       Args:
-           locID (int): The location ID of a location to be automatically loaded into the 
-               location selector. 
+    Args:
+        locID (int): The location ID of a location to be automatically loaded
+            into the location selector.
     """
 
     return render_template('reports/index.html',
                            content=current_app.config['REPORTS_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
-    
+
 
 @reports.route('/test/<report>/')
 def test(report):
     """Serves a test report page using a static JSON file.
-        
+
        Args:
            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
     """
@@ -96,7 +101,7 @@ def test(report):
             extras = {}
             extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
                                  "/map/epi_1/1")
-            extras['map_centre'] = report_list[report]["map_centre"]           
+            extras['map_centre'] = report_list[report]["map_centre"]
         else:
             extras = None
 
@@ -116,10 +121,11 @@ def test(report):
 @reports.route('/view_email/<report>/<location>/<end_date>/<start_date>/')
 @reports.route('/view_email/<report>/<location>/<end_date>/<start_date>/<email_format>')
 def view_email_report(report, location=None, end_date=None, start_date=None, email_format = 'html'):
-    """Views and email as it would be sent to Hermes API
+    """
+    Views and email as it would be sent to Hermes API
 
-        Args:
-            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+    Args: report (str): The report ID, from the REPORTS_LIST configuration
+        file parameter.
     """
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
@@ -128,26 +134,26 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         ret = create_report(
-            config=current_app.config, 
-            report=report, 
-            location=location, 
-            end_date=end_date, 
+            config=current_app.config,
+            report=report,
+            location=location,
+            end_date=end_date,
             start_date=start_date
         )
 
         relative_url = url_for('.report',
                                 report=report,
                                 location=None,
-                                end_date=None, 
+                                end_date=None,
                                 start_date=None)
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
         #Use env variable to determine whether to fetch image content from external source or not
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
-        else:    
+        else:
             content_url = current_app.config['ROOT_URL']  + '/static/'
-            
+
 
         if email_format == 'html':
             email_body = render_template(
@@ -208,25 +214,25 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         ret = create_report(
-            config=current_app.config, 
-            report=report, 
-            location=location, 
-            end_date=end_date, 
+            config=current_app.config,
+            report=report,
+            location=location,
+            end_date=end_date,
             start_date=start_date
         )
 
         relative_url = url_for( 'reports.report',
                                 report=report,
                                 location=location,
-                                end_date=end_date, 
+                                end_date=end_date,
                                 start_date=start_date )
 
         report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
 
         #Use env variable to determine whether to fetch image content from external source or not
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
-        else:    
+        else:
             content_url = current_app.config['ROOT_URL']  + '/static/'
 
         html_email_body = render_template(
@@ -248,7 +254,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report_url=report_url,
                 content_url=content_url
         )
-        
+
         epi_week = ret['report']['data']['epi_week_num']
         start_date = datetime_from_json(ret['report']['data']['start_date'])
         end_date = datetime_from_json(ret['report']['data']['end_date'])
@@ -264,7 +270,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             end_date = format_datetime(end_date, 'dd MMMM YYYY')
         )
 
-        email_id = ( topic + "-" + str(epi_week) + "-" +  
+        email_id = ( topic + "-" + str(epi_week) + "-" +
                      end_date.strftime('%Y') +"-" + report + test_id )
 
         #Assemble the message data in a manner hermes will understand.
@@ -278,7 +284,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         }
 
         #Publish the message to hermes
-        r = c.hermes( '/publish', 'PUT', message ) 
+        r = c.hermes( '/publish', 'PUT', message )
 
         print(r)
         succ=0
@@ -288,7 +294,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             try:
                 resp['ResponseMetadata']['HTTPStatusCode']
             except KeyError:
-                current_app.logger.warning( "Hermes return value error:" + str(resp['message']) ) 
+                current_app.logger.warning( "Hermes return value error:" + str(resp['message']) )
                 fail += 1
             except TypeError:
                 current_app.logger.warning( "Hermes job error:" + str(r['message']) )
@@ -297,13 +303,13 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 if resp['ResponseMetadata']['HTTPStatusCode'] == 200:
                     succ =+ 1
                 else:
-                    current_app.logger.warning( "Hermes error while sending message:" + str(resp['message']) ) 
+                    current_app.logger.warning( "Hermes error while sending message:" + str(resp['message']) )
                     fail += 1
 
         return '\nSending {succ} messages succeeded, {fail} messages failed\n\n'.format(succ=succ, fail=fail)
-                
+
     else:
-        current_app.logger.warning( "Aborting. Report doesn't exist: " + str(report)  ) 
+        current_app.logger.warning( "Aborting. Report doesn't exist: " + str(report)  )
         abort(501)
 
 
@@ -312,26 +318,30 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
 @reports.route('/<report>/<location>/<end_date>/')
 @reports.route('/<report>/<location>/<end_date>/<start_date>/')
 def report(report=None, location=None, end_date=None, start_date=None):
-    """Serves dynamic report for a location and date.
-   
-       Args:
-           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
-           location (int): The location ID for the location used to filter the report's data.
-           end_date (str): The end_data used to filter the report's data, in ISO format.
-           start_date (str): The start_date used to filter the report's data, in ISO format.
-        
+    """
+        Serves dynamic report for a location and date.
+
+        Args:
+            report (str): The report ID, from the REPORTS_LIST configuration
+                file parameter.
+           location (int): The location ID for the location used to filter the
+                report's data.
+           end_date (str): The end_data used to filter the report's data, in
+                ISO format.
+           start_date (str): The start_date used to filter the report's data,
+                in ISO format.
     """
     # Check that the requested project and report are valid
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
 
-
-    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
+    if validate_report_arguments(current_app.config, report,
+                                 location, end_date, start_date):
 
         ret = create_report(
-            config=current_app.config, 
-            report=report, 
-            location=location, 
-            end_date=end_date, 
+            config=current_app.config,
+            report=report,
+            location=location,
+            end_date=end_date,
             start_date=start_date
         )
 
@@ -350,31 +360,37 @@ def report(report=None, location=None, end_date=None, start_date=None):
     else:
         abort(501)
 
+
 @reports.route('/<report>.pdf')
 @reports.route('/<report>~<location>.pdf')
 @reports.route('/<report>~<location>~<end_date>.pdf')
 @reports.route('/<report>~<location>~<end_date>~<start_date>.pdf')
 def pdf_report(report=None, location=None, end_date=None, start_date=None):
-    """Serves a PDF report, by printing the HTML report (with @media print CSS) to PDF using PDF crowd.
-       Tildes are used because underscores are already used in the report ID and hyphens in the ISO dates.
+    """
+    Serves a PDF report, by printing the HTML report (with @media print CSS) to
+    PDF using PDF crowd. Tildes are used because underscores are already used
+    in the report ID and hyphens in the ISO dates.
 
-       Args:
-           report (str): The report ID, from the REPORTS_LIST configuration file parameter.\n
-           location (int): The location ID for the location used to filter the report's data.\n
-           end_date (str): The end_data used to filter the report's data, in ISO format.\n
-           start_date (str): The start_date used to filter the report's data, in ISO format.
+    Args: report (str): The report ID, from the REPORTS_LIST configuration
+        file parameter.\n location (int): The location ID for the location used
+        to filter the report's data.\n end_date (str): The end_data used to
+        filter the report's data, in ISO format.\n start_date (str): The
+        start_date used to filter the report's data, in ISO format.
     """
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     client = pdfcrowd.Client(
         current_app.config['PDFCROWD_API_ACCOUNT'],
-        current_app.config['PDFCROWD_API_KEY'])
-    current_app.logger.warning('Report: ' + report )
-    if validate_report_arguments(current_app.config, report, location, end_date, start_date):
+        current_app.config['PDFCROWD_API_KEY']
+    )
+    current_app.logger.warning('Report: ' + report)
+
+    if validate_report_arguments(current_app.config, report,
+                                 location, end_date, start_date):
         ret = create_report(
-            config=current_app.config, 
-            report=report, 
-            location=location, 
-            end_date=end_date, 
+            config=current_app.config,
+            report=report,
+            location=location,
+            end_date=end_date,
             start_date=start_date
         )
 
@@ -390,7 +406,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         current_app.logger.warning( int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1 )
 
         # Read env flag whether to tell pdfcrowd to read static files from an external source
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1: 
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
             html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
         else:
             html=html.replace("/static/", '{}{}'.format( current_app.config['ROOT_URL'],'/static/' ))
@@ -422,7 +438,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 #     """Serves static assets (js, css, img etc).
 
 #        Args:
-#            filepath (str): The file path of the desired asset. 
+#            filepath (str): The file path of the desired asset.
 #     """
 #     return send_file(filepath)
 
@@ -431,10 +447,10 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 @reports.app_template_filter('datetime')
 def format_datetime_with_lang(value, format='%H:%M %d-%m-%Y'):
     """Returns formatted timestamp.
-    
+
        Args:
            value (date): the date to be converted to a string.
-           format (optional str): the format of the new string. Defaults to '%H:%M %d-%m-%Y'. 
+           format (optional str): the format of the new string. Defaults to '%H:%M %d-%m-%Y'.
 
        Returns:
            The formatted timestamp string.
@@ -473,7 +489,7 @@ def validate_report_arguments(config, report, location=None, end_date=None, star
     # Validate report
     if report:
         if report not in report_list:
-            current_app.logger.warning( "Report param not valid: " + str(report) ) 
+            current_app.logger.warning( "Report param not valid: " + str(report) )
             return False
 
     # Validate location if given
@@ -509,7 +525,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     """Dynamically creates report, that can then be served either in HTML or PDF format.
 
        Args:
-           config (dict): The current app config object. 
+           config (dict): The current app config object.
            report (str): The report ID, from the REPORTS_LIST configuration file parameter.
            location (int): The location ID for the location used to filter the report's data.
            end_date (str): The end_data used to filter the report's data, in ISO format.
@@ -528,7 +544,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     #try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
-    access = report_list[report].get( 'access', '' ) 
+    access = report_list[report].get( 'access', '' )
 
     #Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:
@@ -538,7 +554,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         location = current_app.config['REPORTS_CONFIG']['default_location']
 
     api_request = '/reports'
-    api_request += '/' + report_list[report]['api_name'] 
+    api_request += '/' + report_list[report]['api_name']
     if( location != None ): api_request += '/' + str(location)
     if start_date is None and end_date is None:
         if "default_period" in report_list[report].keys():
@@ -549,7 +565,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 epi_week = c.api('/epi_week')
                 #Calulation for start date is: month_day - ( week_day-week_offset % 7) - 7
                 #The offset is the #days into the current epi week.
-                offset = (today.weekday() - epi_week["offset"]) % 7 
+                offset = (today.weekday() - epi_week["offset"]) % 7
                 #Start date is today minus the offset minus one week.
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
                 #End date is today minus the offset, minus 1 day (because our end date is "inclusive")
@@ -573,7 +589,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             params = "central_review"
         else:
             params = None
-    
+
     data = c.api(api_request, api_key=True, params=params)
 
     data["flag"] = config["FLAGG_ABR"]
@@ -635,7 +651,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             extras['map_centre'][2],
             current_app.config['MAPBOX_API_ACCESS_TOKEN'])
     elif report in ['malaria']:
-        extras = {} 
+        extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
         extras["map_api_call"] = (
             current_app.config['EXTERNAL_API_ROOT'] + "/map/{}/{}/{}/{}".format(
@@ -643,7 +659,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                data['data']['project_region_id'],
                data['data']['end_date'],
                data['data']['start_date']
-            )            
+            )
         )
         extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
             current_app.config['MAPBOX_STATIC_MAP_API_URL'],
@@ -653,7 +669,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             extras['map_centre'][2],
             current_app.config['MAPBOX_API_ACCESS_TOKEN'])
     elif report in ['afro']:
-        extras = {} 
+        extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
         extras['reg_data_file'] = report_list[report]['reg_data_file']
         extras['dis_data_file'] = report_list[report]['dis_data_file']
@@ -669,5 +685,3 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         'extras':extras,
         'address':current_app.config["REPORTS_CONFIG"]["address"]
         }
-
-

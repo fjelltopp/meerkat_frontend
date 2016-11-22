@@ -14,9 +14,6 @@ import json
 import os
 
 
-logging.warning(app.config)
-
-
 def api(url, api_key=False, params=None):
     """
     Returns JSON data from API request.
