@@ -787,7 +787,7 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				
 			});
         }else{
-			$.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
+			$.getJSON( api_root+"/completeness/"+ module_var +"/" + regionID + "/4", function( data ){
             for (var j=0; j<data.dates_not_reported.length;j++){
                 strDat = data.dates_not_reported[j];
                     datum = {
