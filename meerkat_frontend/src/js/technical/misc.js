@@ -31,8 +31,18 @@ function get_date(){
     return date.getDate()+" "+monthNames[date.getMonth()]+" "+date.getFullYear();
 }
 
+/**:isInteger(num)
+
+    Returns a boolean stating whether or not the argument is an integer.
+    Number.isInteger() doesn't work in IE and more crucially Docraptor. Define
+    this little method here to use instead.
+    :param num:
+    :returns:
+        (boolean) True if the argument is an Integer type.
+
+*/
 function isInteger(num) {
- return (num ^ 0) === num;
+  return (num ^ 0) === num;
 }
 
 //Format a number with commas separating the thousands.
