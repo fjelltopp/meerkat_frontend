@@ -19,6 +19,7 @@ import requests
 from .. import common as c
 import string
 import pdfcrowd
+from os import path
 
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
@@ -673,6 +674,11 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         extras['map_centre'] = report_list[report]['map_centre']
         extras['reg_data_file'] = report_list[report]['reg_data_file']
         extras['dis_data_file'] = report_list[report]['dis_data_file']
+        base = path.dirname(path.realpath(__file__)) + '/../static/files/'
+        with open(base + report_list[report]['reg_data_file']) as data_file:
+            extras['reg_data'] = data_file.read()
+        with open(base + report_list[report]['dis_data_file']) as data_file:
+            extras['dis_data'] = data_file.read()
     else:
         extras = None
 

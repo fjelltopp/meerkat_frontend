@@ -25,7 +25,7 @@ $printedBlue: #337ab7;
 				border-radius: 3px;
 			}
 
-			.navbar-brand span, 
+			.navbar-brand span,
 			.navbar-brand span b{
 				 color: #fff !important;
 			}
@@ -50,8 +50,8 @@ $printedBlue: #337ab7;
 			margin: -10px;
 		}
 
-	 	.leaflet-container img { 
-	 		max-width:none !important; 
+	 	.leaflet-container img {
+	 		max-width:none !important;
 	 	}
 
 	 	.leaflet-control-fullscreen a {
@@ -85,7 +85,7 @@ $printedBlue: #337ab7;
 				border-top:none;
 				padding: 10px;
 			}
-				
+
 		}
 
 		.row {
@@ -95,7 +95,11 @@ $printedBlue: #337ab7;
 
 		.row.allow-breaks {
 		 	page-break-inside: auto;
-		}    
+		}
+
+		footer.row{
+			margin-bottom: 0px;
+		}
 
     tr{
 		 	page-break-inside: avoid;
@@ -152,13 +156,13 @@ $printedBlue: #337ab7;
 		}
 
 		//TABLES
-		.table{ 
+		.table{
 
       border: 2px solid #ddd !important;
 
       .table tbody tr td{
         border-bottom: 1px solid #ddd !important;
-      } 
+      }
 
       tbody td.border-left,
       thead th.border-left{
@@ -191,7 +195,7 @@ $printedBlue: #337ab7;
 					background: #cacaca !important;
           border-bottom: 2px solid #ddd !important;
 				}
-			
+
 			}
 			td{
 				background: $lightGrey !important;
@@ -221,7 +225,7 @@ $printedBlue: #337ab7;
 
   .fixed-table-container thead th .sortable{
       padding: 2px;
-  } 
+  }
 
   .mapbox{
       .info{
@@ -254,7 +258,7 @@ $printedBlue: #337ab7;
     }
 
   }
-  
+
 }
 
 
@@ -266,5 +270,3 @@ $printedBlue: #337ab7;
 #ncd-chart-demographics{
     height:300px;
 }
-
-
