@@ -35,13 +35,13 @@
             
             {% for mort in report.data.weekly_highlights.mortality %}
               {% if loop.first and loop.last %}
-                 Leading cause of mortality is "{{mort.name}}".
+                 {{_('Leading cause of mortality is') }} "{{mort.name}}".
               {% elif loop.first %}
-                Leading causes of mortality include: "{{mort.name}}", 
+                {{_('Leading causes of mortality include:')}} "{{mort.name}}", 
               {% elif not loop.first and not loop.last %}
                 "{{mort.name}}",
               {% elif loop.last %}
-                and "{{mort.name}}".
+                {{_('and')}} "{{mort.name}}".
               {% endif %}
             {% endfor %}   
           {% endif %}

@@ -1456,11 +1456,11 @@ msgstr "%(dea_0)s décès rapportés au total"
 
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:38
 msgid "Leading cause of mortality is"
-msgstr ""
+msgstr "La principale cause de mortalité est"
 
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:40
 msgid "Leading causes of mortality include:"
-msgstr ""
+msgstr "Les principales causes de mortalité sont les suivantes:"
 
 #: meerkat_frontend/templates/reports/email/html/email_public_health_profile.html:891
 #: meerkat_frontend/templates/reports/email/html/email_public_health_profile.html:894
