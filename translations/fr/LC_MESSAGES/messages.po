@@ -2948,7 +2948,7 @@ msgstr ""
 "%(clinics)s \n"
 " sites de surveillance pendant  la semaine épidémiologique "
 "%(epi_week)(%(start_date)s et \n"
-" %(end_date))."
+" %(end_date)s)."
 
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:18
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:18
@@ -3412,4 +3412,3 @@ msgstr ""
 #~ " S'il vous plaît, suivez les "
 #~ "instructions dans vos e-mail pour "
 #~ "vérifier vos coordonnée"
-
