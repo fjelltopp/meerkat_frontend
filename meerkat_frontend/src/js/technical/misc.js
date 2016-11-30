@@ -593,22 +593,24 @@ function stripEmptyRecords( dataObject ){
    :param string allclinisctableID:
    The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
    */
-function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week){
+function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude){
     var completenessLocations;
     var completenessData;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             completenessLocations = data;
-        }),
-        $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4", function( data ){
-            completenessData = data;
-        })
-    ];
+        })];
+	if(exclude){
+		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + exclude,function( data ){completenessData = data;}));
+	}else{
+		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4",
+								   function( data ){completenessData = data; }));
+	}
 
     $.when.apply( $, deferreds ).then(function() {
-        drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week, 0 );
+        drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week, 0  );
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
-        drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations); //this call makes one additional AJAX call
+        drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
     } );
 }
@@ -643,15 +645,10 @@ function timelinessPreparation( locID, reg_id, graphID, tableID, allclinisctable
         })
     ];
 
-    if(reg_id === "reg_5"){
-
     $.when.apply( $, deferreds ).then(function() {
 
         drawCompletenessGraph( graphID, locID, timelinessLocations, timelinessData, start_week, 1 );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );
-    }else{
-        console.log("Invalid call to timeliness. Varabile \"reg_5\" expected, provided \"" + reg_id + "\"" );
-    }
 }
