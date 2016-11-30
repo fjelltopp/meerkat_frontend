@@ -195,7 +195,7 @@ function makeDataObject( aggregation, variables, week, title, percent ){
         week: [],
         week1: [],
         week2: []
-    }
+    };
 
     //If an object of values is given in [percent], instead of a boolean...
     if( typeof percent == 'object' ){
