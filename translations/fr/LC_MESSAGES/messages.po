@@ -1452,7 +1452,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:33
 #, python-format
 msgid "%(dea_0)s reported deaths in total."
-msgstr "%(dea_0)s décès rapportés au total"
+msgstr "%(dea_0)s décès rapportés au total."
 
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:38
 msgid "Leading cause of mortality is"
@@ -1703,8 +1703,8 @@ msgstr ""
 "dans %(clinic_num)s centres de santé  dans %(project_region)s, en "
 "partenariat avec l'OMS et le Ministère de la Santé. Le projet introduit, "
 "la surveillance intégrée des maladies prioritaires, basée sur les cas , "
-"les conditions et les événements. </p>\n"
-" <p> Le clinicien utilise  lors de la consultation le système qui "
+"les conditions et les événements."
+"Le clinicien utilise  lors de la consultation le système qui "
 "introduit un aide à la décision clinique ainsi que des orientations sur "
 "les bonnes pratiques de prescription et permet des rapports en temps réel"
 " des informations. L'information est mise à disposition dans l'heure par "

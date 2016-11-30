@@ -39,9 +39,9 @@
               {% elif loop.first %}
                 {{_('Leading causes of mortality include:')}} "{{mort.name}}", 
               {% elif not loop.first and not loop.last %}
-                "{{mort.name}}",
+                "{{_('mort.name')}}",
               {% elif loop.last %}
-                {{_('and')}} "{{mort.name}}".
+                {{_('and')}} "{{_('mort.name')}}".
               {% endif %}
             {% endfor %}   
           {% endif %}
