@@ -35,13 +35,13 @@
 
             {% for mort in report.data.weekly_highlights.mortality %}
               {% if loop.first and loop.last %}
-                 {{_('Leading cause of mortality is') }} "{{mort.name}}".
+                 {{_('Leading cause of mortality is') }} "{{_(mort.name)}}".
               {% elif loop.first %}
-                {{_('Leading causes of mortality include:') }} "{{mort.name}}", 
+                {{_('Leading causes of mortality include:')}} "{{_(mort.name)}}", 
               {% elif not loop.first and not loop.last %}
-                "{{mort.name}}",
+                "{{_(mort.name)}}",
               {% elif loop.last %}
-                {{_('and')}} "{{mort.name}}".
+                {{_('and')}} "{{_(mort.name)}}".
               {% endif %}
             {% endfor %}
           {% endif %}
@@ -429,8 +429,13 @@ regional_map(
 
  for (var i=0; i<table_priority_diseases_cumulative_keys.length;i++){
      index = table_priority_diseases_cumulative_keys[i];
+	 name = i18n.gettext(table_priority_diseases_cumulative_data[index].name)
+	 if( name == "Episode d’Intoxication par consommation d’animaux marins (ICAM)"){
+		 name = "ICAM"
+
+	}
      var datum = {
-         "disease": i18n.gettext(table_priority_diseases_cumulative_data[index].name),
+         "disease": name,
          "cases": table_priority_diseases_cumulative_data[index].cases,
          "mortality": table_priority_diseases_cumulative_data[index].mortality,
          "cfr": (isNaN(table_priority_diseases_cumulative_data[index].cfr) ? table_priority_diseases_cumulative_data[index].cfr:Number(table_priority_diseases_cumulative_data[index].cfr).toFixed(0) + "%"),
