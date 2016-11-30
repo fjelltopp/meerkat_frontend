@@ -3412,4 +3412,3 @@ msgstr ""
 #~ " S'il vous plaît, suivez les "
 #~ "instructions dans vos e-mail pour "
 #~ "vérifier vos coordonnée"
-
