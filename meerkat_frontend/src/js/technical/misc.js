@@ -20,18 +20,18 @@ function get_epi_week(){
 
     :returns:
         (string) the current date in text format: "DD Month YYYY".
-*/  
+*/
 function get_date(){
 
     date=new Date();
-    var monthNames = [ i18n.gettext("January"), i18n.gettext("February"), i18n.gettext("March"), i18n.gettext("April"), 
-                       i18n.gettext("May"), i18n.gettext("June"), i18n.gettext("July"), i18n.gettext("August"), i18n.gettext("September"), 
+    var monthNames = [ i18n.gettext("January"), i18n.gettext("February"), i18n.gettext("March"), i18n.gettext("April"),
+                       i18n.gettext("May"), i18n.gettext("June"), i18n.gettext("July"), i18n.gettext("August"), i18n.gettext("September"),
                        i18n.gettext("October"), i18n.gettext("November"), i18n.gettext("December") ];
 
     return date.getDate()+" "+monthNames[date.getMonth()]+" "+date.getFullYear();
 }
 
- 
+
 //Format a number with commas separating the thousands.
 function format(number){
 
@@ -50,7 +50,7 @@ function calc_percent(no,denom){
 //Given an array of values, calulate what percentage each value is of the total.
 function calc_percent_dist( array ){
 
-    var total = 0;    
+    var total = 0;
     var ret = [];
 
     for( var i=0; i<array.length; i++ ){
@@ -69,7 +69,7 @@ function round(num , precision){
 }
 
 
-//Returns the value if the key exists in vari, returns zero if it doesn't. 
+//Returns the value if the key exists in vari, returns zero if it doesn't.
 function if_exists(vari,key){
 
     if ($.inArray(key,Object.keys(vari)) != -1 || $.inArray(key.toString(),Object.keys(vari)) != -1 ){
@@ -104,9 +104,9 @@ function whichTransitionEvent(){
    Sorts variable ids on the number
 
 **/
- 
+
 function idSort(a,b){
-            return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]); 
+            return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]);
 }
 //Capitalises the first character of a string.
 function capitalise( string ){
@@ -114,8 +114,8 @@ function capitalise( string ){
 }
 
 /**:lastWeeks( week, n )
-    
-    Gets the last n week numbers in an array, taking into account the change over between years. 
+
+    Gets the last n week numbers in an array, taking into account the change over between years.
 
     :param number week:
         The week from which to calulate previous weeks.
@@ -138,10 +138,10 @@ function lastWeeks( week, n ){
 }
 
 /**:makeDataObject( aggregation, variables, week, title, percent )
-    
+
     This function takes data structure churned out by Meerkat API and turns it into a structure
     that is recognised by multiple chart drawing and table drawing functions in the technical component
-    Javascript. It allows multiple charts and tables that share the same data, to share the same api calls. 
+    Javascript. It allows multiple charts and tables that share the same data, to share the same api calls.
 
     :param object aggregation:
         The aggregation data returned by Meerkat API upon calling `/aggregate_category`.
@@ -150,18 +150,18 @@ function lastWeeks( week, n ){
         variable IDs used in the aggregation object.
     :param number week:
         The week for which the data object should be made.  Data is stored in the data object for this
-        given week and the previous two weeks as well as the current yearly total. 
+        given week and the previous two weeks as well as the current yearly total.
     :param string title:
-        The title that should be given to the data.  Used when constructing tables and charts. 
+        The title that should be given to the data.  Used when constructing tables and charts.
     :param object percent:
-        An object giving the denominators to be used in calculating the percentages. The object should 
+        An object giving the denominators to be used in calculating the percentages. The object should
         include the following properties:
 
         * **year** - the denominator used to calulate the percentage for the year total.
         * **weeks** - an array specifying the denominators to be used for calulating each week's percentage.
-          The 0th element is the current week and the 2nd element is the previous-but-one week. 
+          The 0th element is the current week and the 2nd element is the previous-but-one week.
 
-        **Can also be boolean:** if true, percentages are auto- calculated from the category distribution. 
+        **Can also be boolean:** if true, percentages are auto- calculated from the category distribution.
 
     :returns:
         The structured data object with the following properties:
@@ -173,10 +173,10 @@ function lastWeeks( week, n ){
         * **week** ([number]) - An array of the totals for each variable during the specified week.
         * **week1** ([number]) - An array of the totals for each variable during the previous week.
         * **week2** ([number]) - An array of the totals for each variable during the previous-but-one week.
-        
+
         And optionally:
 
-        * **percYear** ([number]) - An array of yearly percentages for each variable. 
+        * **percYear** ([number]) - An array of yearly percentages for each variable.
         * **percWeek** ([number]) - An array of percentages for each variable during the specified week.
         * **percWeek1** ([number]) - An array of percentages for each variable during the previous week.
         * **percWeek2** ([number]) - An array of percentages for each variable during the previous-but-one week.
@@ -187,19 +187,19 @@ function makeDataObject( aggregation, variables, week, title, percent ){
     bins = bins.sort(idSort);
     //Create an array of everything we have to collate over each data bin.
     //E.g. For gender labels we create a list made up of 'Male' and 'Female'.
-    var data = {     
+    var data = {
         title: i18n.gettext(title),
-        labels: [], 
-        ids: [], 
-        year: [], 
-        week: [],    
-        week1: [],    
+        labels: [],
+        ids: [],
+        year: [],
+        week: [],
+        week1: [],
         week2: []
     };
 
     //If an object of values is given in [percent], instead of a boolean...
     if( typeof percent == 'object' ){
-        
+
         //Prepare arrays for "complicated" calculations (percentages that depend on other variables)
         data.yearPerc = [];
         data.weekPerc = [];
@@ -212,7 +212,7 @@ function makeDataObject( aggregation, variables, week, title, percent ){
 
     //Group data according to Weeks/Year instead of Variable...
     for( var i=0; i<bins.length; i++ ){
-        
+
         var label = bins[i];
 
         data.labels.push( i18n.gettext(variables[label].name) );
@@ -223,7 +223,7 @@ function makeDataObject( aggregation, variables, week, title, percent ){
         data.week2.push( if_exists( aggregation[label].weeks, weeks[2].toString() ) );
 
         if( typeof percent == 'object' ){
-            
+
             //Do the "complicated" percent calulations
             data.yearPerc.push( calc_percent( aggregation[label].year, percent.year ) );
             data.weekPerc.push( calc_percent( aggregation[label].weeks[weeks[0]], percent.weeks[weeks[0]] ) );
@@ -252,37 +252,37 @@ function makeDataObject( aggregation, variables, week, title, percent ){
     It also helps to share data from AJAX calls where possible, rather than making multiple replicated
     AJAX calls for tables, bar charts and pie charts. The function manages the turn over
     of years, by combining data from the previous year into the current year if necessary. In general,
-    when aggregating over a category, you should display the results using this function. All the 
-    parameters are specified in a details object. 
+    when aggregating over a category, you should display the results using this function. All the
+    parameters are specified in a details object.
 
     :param object details:
         The details object can have the following properties:
-        
+
         * **category** - (String) The ID (from Meerkat Abacus) of the category to be summarised.
         * **locID** - (String) The ID of the location by which to filter the day.
         * **week** - (number) The epi week for which the summary should take place.
         * **percent** - (boolean OR string) If true, percentages are shown in the chart and table.
-          If this is a string, each datum percentage will represent the percentage of a yearly 
+          If this is a string, each datum percentage will represent the percentage of a yearly
           total, rather than the category total.  The denominator used to calulate the percentage
-          will be taken as the yearly total of the variable specified by the string.  
+          will be taken as the yearly total of the variable specified by the string.
         * **strip** - (boolean) If true, remove all empty records from the summary (i.e. all rows
-          that have just 0 for each column). 
+          that have just 0 for each column).
         * **title** - (string) The title for the table/chart.
-        * **barID** - (string) The ID for the HTML element that will hold the bar chart.  If empty, 
+        * **barID** - (string) The ID for the HTML element that will hold the bar chart.  If empty,
           no bar chart is drawn.
-        * **pieID** - (string) The ID for the HTML element that will hold the pie charts.  If empty, 
+        * **pieID** - (string) The ID for the HTML element that will hold the pie charts.  If empty,
           no pie charts are drawn.
-        * **tableID** - (string) The ID for the HTML element that will hold the table. If empty, 
-          no table will be drawn.  
+        * **tableID** - (string) The ID for the HTML element that will hold the table. If empty,
+          no table will be drawn.
         * **no_total** - (boolean) If true, no total row will be drawn in the table.
-        * **link_function** - The function name to be added "onclick" to each table row header. See 
-          the docs for `drawTable()` from the file *tableManager.js* for more information. 
+        * **link_function** - The function name to be added "onclick" to each table row header. See
+          the docs for `drawTable()` from the file *tableManager.js* for more information.
         * **table_options** - (json) An options object for drawing a bootstrap table, if this isn't
-          supplied then a standard table is drawn. 
-        * **limit_to** - (string) An optional argument to limit results to a specific category: 'ncd', 'cd'. 
+          supplied then a standard table is drawn.
+        * **limit_to** - (string) An optional argument to limit results to a specific category: 'ncd', 'cd'.
 
 */
-function categorySummation( details ){ 
+function categorySummation( details ){
 
     //These variable will hold all the JSON data from the api, when the AJAX requests are complete.
     var catData, variables, percentDenom, prevData, prevPercentDenom;
@@ -294,11 +294,11 @@ function categorySummation( details ){
 
     //Optional filtering of the aggregation result by limiting to an additional category
     var limit_to_postfix = "";
-	
+
     if(details.limit_to){
         limit_to_postfix = "/" + details.limit_to;
 	}
-    //Assemble an array of AJAX calls 
+    //Assemble an array of AJAX calls
     var deferreds = [
         $.getJSON( api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {
             catData = data;
@@ -310,7 +310,7 @@ function categorySummation( details ){
 
     //Get previous year's data if still in the first few weeks of the year.
     if( details.week <= 3 ){
-    
+
         url = api_root+"/aggregate_category/"+ details.category + "/" + details.locID + "/" + prevYear + limit_to_postfix;
         deferreds.push( $.getJSON( url, function(data) {
             prevData = data;
@@ -336,20 +336,20 @@ function categorySummation( details ){
 
     //Run the AJAX reuqests asynchronously and act when they have all completed.
     $.when.apply( $, deferreds ).then(function() {
-        
+
         if(catData && variables){
 
             //Just some variables for counting/iteration that can be shared across this function.
             var variable, i, weekKeys;
 
-            //Add the data for the final weeks of the previous year to the current year's data. 
+            //Add the data for the final weeks of the previous year to the current year's data.
             if(prevData){
                 for( variable in prevData ){
                     weekKeys = Object.keys(prevData[variable].weeks);
                     for( i=weekKeys.length-1; i>weekKeys.length-5; i-- ){
                         if( weekKeys[i] ){
                             catData[variable].weeks[weekKeys[i]] = prevData[variable].weeks[weekKeys[i]];
-                            
+
                         }
                     }
                 }
@@ -359,8 +359,8 @@ function categorySummation( details ){
             }
 
             if( percentDenom ){
-            
-                //Add the percent denominator data for the final weeks of the previous year to this year's. 
+
+                //Add the percent denominator data for the final weeks of the previous year to this year's.
                 if( prevPercentDenom ){
                     weekKeys = Object.keys(prevPercentDenom.weeks);
                     for( i=weekKeys.length-1; i>weekKeys.length-5; i-- ){
@@ -371,29 +371,29 @@ function categorySummation( details ){
                     console.error( "Ajax request for the previous year's percent denominator information failed.");
                 }
                 details.percent = percentDenom;
-                
+
             }else if( !percentDenom && typeof details.percent == 'string'){
                 //AJAX Failed
                 console.error( "Ajax request for percent denominator information failed.");
             }
-            
+
             //Draw using the current and previous year's data combined into one aggregation object.
             var title = details.category.charAt(0).toUpperCase() + details.category.slice(1);
             if( details.title ) title = details.title;
-             
+
             var dataObject = makeDataObject(catData, variables, details.week, title, details.percent );
             if( details.strip ) dataObject = stripEmptyRecords( dataObject );
 
             if( details.barID ) drawBarChart( details.barID, dataObject, true);
             if( details.pieID ) drawPieCharts( details.pieID, dataObject, true );
-            if( details.tableID && !details.table_options ){ 
+            if( details.tableID && !details.table_options ){
                 drawTable( details.tableID, dataObject, details.no_total, details.linkFunction );
             }
             if( details.tableID && details.table_options ){
-                drawImprovedTable( details.tableID, 
-                                   dataObject, 
-                                   details.no_total, 
-                                   details.linkFunction, 
+                drawImprovedTable( details.tableID,
+                                   dataObject,
+                                   details.no_total,
+                                   details.linkFunction,
                                    details.table_options );
             }
         }else {
@@ -406,15 +406,15 @@ function categorySummation( details ){
 /**:htmlDecode(input)
 
     Converts a string with html unicode substrings to a fromat that
-    can be displayed in javascript and svg tags.  Used when printing 
+    can be displayed in javascript and svg tags.  Used when printing
     api results directly to a svg tag, to ensure names display properly.
     NOTE: Hacky? Is there a better way of doing this?
 
     :param string input:
-        The string that may contain html UTF-8 codes. 
+        The string that may contain html UTF-8 codes.
 
     :returns:
-        The reformatted string with out HTML UTF-8 codes.  
+        The reformatted string with out HTML UTF-8 codes.
 */
 function htmlDecode(input){
   var e = document.createElement('div');
@@ -425,7 +425,7 @@ function htmlDecode(input){
 /**:exportTableToCSV(tableID, filename, link)
 
     Exports a html table to CSV format.  Used to create the download table buttons in the
-    technical dashboard. 
+    technical dashboard.
 
     :param string tableID:
         The ID of the HTML table element to be exported.
@@ -433,8 +433,8 @@ function htmlDecode(input){
         The file name of the CSV file to be downloaded.
     :param string link:
         The HTML link element which, upon a click, should make the table available to download.
-        This function is usually called from within the HTML link element using "onclick=" so 
-        "this" will usually suffice here. 
+        This function is usually called from within the HTML link element using "onclick=" so
+        "this" will usually suffice here.
 */
 function exportTableToCSV(tableID, filename, link) {
 
@@ -498,16 +498,16 @@ function getIntersect( arr1, arr2 ){
 }
 
 function getDifference( arr1, arr2 ){
-    return arr1.filter( function(x) { 
-        return arr2.indexOf(x) < 0; 
+    return arr1.filter( function(x) {
+        return arr2.indexOf(x) < 0;
     });
 }
-  
+
 
 /**:stripEmptyRecords( dataObject )
 
     Strips records from a data object that are empy - i.e. rows that are zero in all columns.
-    
+
     :param object dataObject:
         A data object as built by the **misc.js** function `makeDataObject()`.
 
@@ -520,12 +520,12 @@ function stripEmptyRecords( dataObject ){
     var stripped = [];
     var newData = {};
 
-    //Find the indicies of records to be retained. 
+    //Find the indicies of records to be retained.
     //I.E. NOT THE ONES TO BE STRIPPED, but the ones AFTER stripping.
     for( var i in dataObject.year ){
         if( dataObject.year[i] !== 0 ){
             stripped.push( i );
-        }    
+        }
     }
 
     //Clone the data object structure.
@@ -548,7 +548,7 @@ function stripEmptyRecords( dataObject ){
 
             var label = dataFields[l];
             if( dataObject[label].constructor === Array ){
-                var value = dataObject[ label ][ index ]; 
+                var value = dataObject[ label ][ index ];
                 newData[ label ].push( value );
             }
         }
@@ -582,7 +582,7 @@ function stripEmptyRecords( dataObject ){
    */
 function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude){
     var completenessLocations;
-    var completenessData; 
+    var completenessData;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             completenessLocations = data;
@@ -622,7 +622,7 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
    */
 function timelinessPreparation( locID, reg_id, graphID, tableID, allclinisctableID, start_week){
     var timelinessLocations;
-    var timelinessData; 
+    var timelinessData;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             timelinessLocations = data;

@@ -29,7 +29,7 @@ class Config(object):
     HERMES_ROOT = 'https://hermes.aws.emro.info'
     HERMES_API_KEY = from_env('HERMES_API_KEY', 'test-hermes')
     HERMES_DEV = from_env('HERMES_DEV', False)
-    HERMES_DEV_TOPICS = []   # ['test-emails','error-reporting']
+    HERMES_DEV_TOPICS = ['test-emails', 'error-reporting']
     MAILING_KEY = from_env('MAILING_KEY', 'test-mailing')
     USE_BASIC_AUTH = int(from_env('USE_BASIC_AUTH', True))
     AUTH = {}
