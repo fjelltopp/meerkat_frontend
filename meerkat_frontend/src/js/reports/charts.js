@@ -283,10 +283,10 @@ function refugeeCommunicableDiseasesChart(categories, series, labels) {
 }
 
 //Completeness bar chart for the AFRO Bulletin
-function completenessBarChart(categories, series, labels) {
+function completenessBarChart(categories, series, labels, type) {
   var chart = {
     chart: {
-      type: 'bar',
+      type: type,
       animation: false
     },
 	  tooltip: {
@@ -296,20 +296,20 @@ function completenessBarChart(categories, series, labels) {
     title: {
       text: null
     },
-    xAxis: {
+    legend: {
+            enabled: false
+    },
+    yAxis: {
       min: 0,
-      title: {
-        text: labels.yAxis.text,
-        align: 'middle'
-      },
+      title: null,
       labels: {
         formatter: function() {
 			return Math.round(Math.abs(this.value),1) + '%';
         }
       }
     },
-    yAxis: {
-      categories: categories,
+    xAxis: {
+      categories: categories
     },
     series: series
   };
@@ -331,6 +331,11 @@ function measlesBarChart(categories, series, labels) {
       style: {
         fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
       }
+    },
+    plotOptions: {
+        series: {
+            stacking: 'normal'
+        }
     },
     xAxis: {
       categories: categories,
@@ -388,14 +393,23 @@ function malariaChart(weeks, series, labels) {
 				align: 'middle'
 			}
 		},
-		yAxis: {
+		yAxis: [{
 			title: {
-				text: labels.yAxis.text,
+				text: labels.yAxis.text[0],
 				align: 'middle'
 			},
 			allowDecimals: false,
 			min: 0
-		},
+		},{
+			title: {
+				text: labels.yAxis.text[1],
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0,
+      max: 100,
+      opposite: true
+		}],
 		series: series
 	};
 	return chart;

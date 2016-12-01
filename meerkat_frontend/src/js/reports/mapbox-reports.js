@@ -46,13 +46,13 @@ function map_from_data( data, map_centre, containerID){
 }
 
 function regional_map( data, map_centre, regionsURL, containerID ){
-    
+
     //If no containerID is provided, assume we're looking for a container ID of "map".
     if( !containerID ) containerID = 'map';
 
     //Build the basic map using mapbox.
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+    map = L.mapbox.map(containerID, 'mrjb.143811c9', {
 	      zoomControl: false,
 	      fullscreenControl: true,
         scrollWheelZoom: false
@@ -68,22 +68,81 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         }
     });
 
-    //Import regional KML data.
+    //Find the min and max in the data.
+    var locs = Object.keys( data );
+    var minimum = 999999;
+    var maximum = 0;
+    for( var l in locs ){
+        var loc = data[locs[l]];
+        minimum = loc.value < minimum ? loc.value : minimum;
+        maximum = loc.value > maximum ? loc.value : maximum; 
+    }
 
+    //Create a div to store the region/district label and the value.
+    var info = L.control();
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+    info.update = function (props) {
+        this._div.innerHTML = ( props ?
+            '<b>' + props.name + '</b><br />Value: ' + 
+            parseFloat(data[props.description].value).toFixed(4) : 'Hover over an area');
+    };
+    info.addTo(map);
+
+    //Importing and formatting regional KML data
     //Specify the basic style of the polygons.
     function style (feature){
-      return {
-         fillColor: '#688B9E',
-         color: '#537080',
-         weight: 4,
-         opacity: 0,
-         fillOpacity: 0
-      };
+        //Basic polygon style is hidden from view with 0 opacity.
+        var style = {
+            fillColor: '#d9692a',
+            color: '#c35d23',
+            weight: 2,
+            opacity: 0,
+            fillOpacity: 0
+        };
+        //Only give the polygon opacity if the region is one where meerkat is implemented.
+        //Description should be a meerkat location_id, or a '?' if region not currently implemented.   
+        if( feature.properties.description != "?" ){
+            //Calculate the colour shade based on the max and min. Looks odd if min is 0 opacity though.
+            var opacity = ((data[feature.properties.description].value-minimum)/(maximum-minimum));
+            opacity = 0.8*opacity + 0.2;
+            style.opacity = 1;
+            style.fillOpacity = opacity;
+        }
+        return style;
+    }
+
+    function highlightFeature(e){
+        console.log( e.target.feature.properties );
+        info.update(e.target.feature.properties);
+    }
+
+    function resetHighlight(e){
+        info.update();
+    }
+
+    //Find the centre of each region and store it in the data object.
+    function onEachFeature(feature, layer){
+        if( feature.properties.description != "?" ){
+            // Get bounds of polygon
+            var bounds = layer.getBounds();
+            // Get center of bounds
+            data[feature.properties.description].centre = bounds.getCenter();
+            //Add region label when mouse over.
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight
+            });
+        }
     }
 
     //Create a custom layer to hold the style and the event listeners. 
     var customLayer = L.geoJson(null, {
-        style: style
+        style: style,
+        onEachFeature: onEachFeature
     });
 
     //Attach the custom layer features to the kml data and display on map.
@@ -92,59 +151,35 @@ function regional_map( data, map_centre, regionsURL, containerID ){
         null, 
         customLayer 
     );
+    
+    //Add the regions to the map.
     regionalLayer.addTo(map);
+
+    //Store the maps in "this" so we can pass the context to callback functions.
+    if( !this.maps ) this.maps = [map];
+    else this.maps.push(map);
+
+    //Make sure we know which map we're working with.
+    var index = this.maps.indexOf(map);
+
+    //Once the regions have been added, add case labels.
+    regionalLayer.on('ready', function(){
+        for( var l in locs ){
+            var loc = data[locs[l]];
+            var value = loc.value;
+            if( !Number.isInteger(value) ) value = value.toFixed(1);
+            var icon = L.divIcon({
+                className: 'area-label', 
+                html:"<div class='outer'><div class='inner'>" + value + "</div></div>"
+            });
+            //Only add the marker if both regional gemotry and api data exist.
+            if(loc.centre) L.marker(loc.centre, {icon: icon}).addTo(this.maps[index]); 
+            else console.error( "Failed to find regional geometry for location '" + 
+                               loc.name + "'(" + locs[l] +") with value " + loc.value + "." );
+        }
+    }, this);
+
+
 }
-/*
-//REGIONAL POLYGON DATA --------------------------
 
-    //Don't de-highlight region upon "mouseout" event as region de-highlights when hovering over a surveilance site.
-    //Instead store the region in this variable on mouseover and de-highlight it upon mouseover a different region.
-    var highlightedRegion;
-
-
-
-    //Quick fix to handle situations where surveillance site is reported as being in different regions by data and kml data. 
-    var govSiteClash = false;
-
-    //De-highlight the previously highlighted region, and then highlight the new region. 
-    function highlightFeature (e){
-
-      if (undefined === highlightedRegion ){
-         highlightedRegion = e.target;
-      }else{
-         regionalLayer.resetStyle( highlightedRegion ); 
-         if( highlightedRegion.toGeoJSON().properties.name != e.target.toGeoJSON().properties.name ){
-           highlightedRegion = e.target;
-           $(".details .selection").html("");
-           govSiteClash = false;
-         }
-      }
-      highlightedRegion.setStyle({
-         fillOpacity: 0.1,
-         opacity: 1
-      });
-
-      if (!L.Browser.ie && !L.Browser.opera) {
-         highlightedRegion.bringToFront();
-      }
-      
-      if( govSiteClash === false ){
-         $("#regionName.value").text(i18n.gettext(highlightedRegion.toGeoJSON().properties.name));
-      }
-
-    }
-
-    function clickFeature(e){
-        enterMap(e);
-        map.fitBounds(e.target.getBounds());
-    }
-
-    //Attached the highlight feture to the mouseover event. 
-    function onEachFeature(feature, layer) {
-      layer.on({
-         mouseover: highlightFeature,
-         click: clickFeature
-      });
-    }
-*/
 
