@@ -14,9 +14,11 @@ var rsync = require('gulp-rsync');
 var argv = require('yargs').argv;
 var po2json = require('gulp-po2json');
 var mainBowerFiles = require('main-bower-files');
+var runSequence = require('run-sequence');
 
 // ** SASS/SCSS/CSS PLUGINS ** //
 var sass = require('gulp-sass');
+var sassError = require('gulp-sass-error').gulpSassError;
 
 // ** JAVASCRIPT PLUGINS ** //
 var uglify = require('gulp-uglify');
@@ -31,13 +33,15 @@ var jpegoptim = require('imagemin-jpegoptim');
 
 // ** SETTINGS ** //
 var production = !!(argv.production);
+var throwError = true;
 // To build production site, run: gulp --production
 
 // JAVASCRIPT HINTING
 gulp.task('jshint', function() {
   gulp.src('meerkat_frontend/src/js/**/*.js')
     .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter("fail"));
 });
 
 // JAVASCRIPT TASKS
@@ -59,7 +63,7 @@ gulp.task('locales', function() {
   return gulp.src([
     'bower_components/moment/locale/fr.js'
     ])
-	.pipe(filter('*.js'))
+    .pipe(filter('*.js'))
     //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
     //   .pipe(sourcemaps.write())
@@ -95,10 +99,11 @@ gulp.task('sass', ['mapbox-rename-css-to-scss'], function() {
       production,
       sass({
         outputStyle: 'compressed'
-      }).on('error', sass.logError),
+      }).on('error', sassError(throwError)),
       sass({
         outputStyle: 'expanded'
-      }).on('error', sass.logError)))
+      }).on('error', sassError(throwError))
+     ))
 //    .pipe(sourcemaps.write())
     .pipe(gulp.dest('meerkat_frontend/static/css'));
 });
@@ -129,16 +134,15 @@ gulp.task('vendor-css', function(){
 // FONT TASKS
 gulp.task('fonts', function() {
   return gulp.src([
-      'bower_components/fontawesome/fonts/*',
-      'bower_components/bootstrap-sass/assets/fonts/bootstrap/*'
-    ])
-    .pipe(gulp.dest('meerkat_frontend/static/fonts'));
+    'bower_components/fontawesome/fonts/*',
+    'bower_components/bootstrap-sass/assets/fonts/bootstrap/*'
+  ]).pipe(gulp.dest('meerkat_frontend/static/fonts'));
 });
 
 // IMG TASKS
 gulp.task('copyFlags', function() {
   return gulp.src([
-      'bower_components/flag-icon-css/flags/**/*', 
+      'bower_components/flag-icon-css/flags/**/*',
       'meerkat_frontend/src/img/flags/**/*'
     ])
     .pipe(gulp.dest('meerkat_frontend/static/img/flags'));
@@ -197,15 +201,13 @@ gulp.task('sass:watch', function() {
   gulp.watch('meerkat_frontend/src/sass/**/*', ['sass']);
 });
 
-
 //LANGUAGE TASKS
 gulp.task('po2json', function () {
     return gulp.src(['meerkat_frontend/translations/*/LC_MESSAGES/messages.po'])
-    .pipe(debug())
-        .pipe(po2json({format:"jed1.x"}))
-        .pipe(gulp.dest('meerkat_frontend/static/translations'));
+           .pipe(debug())
+           .pipe(po2json({format:"jed1.x"}))
+           .pipe(gulp.dest('meerkat_frontend/static/translations'));
 });
-
 
 // CLEAN TASKS
 gulp.task('clean', function() {
@@ -223,3 +225,25 @@ gulp.task('clean', function() {
 gulp.task('default', ['clean'], function() {
   gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales');
 });
+
+/*
+gulp.task('default', function (cb) {
+  runSequence(
+    ['clean'],
+    ['sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales'],
+    // this callback is executed at the end, if any of the previous tasks errored,
+    // the first param contains the error
+    function (err) {
+      //if any error happened in the previous tasks, exit with a code > 0
+      if (err) {
+        var exitCode = 1;
+        console.log('[ERROR] gulp build task failed', err);
+        console.log('[FAIL] gulp build task failed - exiting with code ' + exitCode);
+        return process.exit(exitCode);
+      }
+      else {
+        return cb();
+      }
+    }
+  );
+}); */
