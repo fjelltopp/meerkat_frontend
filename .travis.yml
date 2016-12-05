@@ -13,8 +13,7 @@ install:
 - pip install -r .travis-requirements.txt
 # As per http://austinpray.com/ops/2015/09/20/change-travis-node-version.html
 - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
-- npm install -g yarn
-- yarn install
+- npm install -g yarn gulp bower
 - yarn install
 - git clone https://github.com/meerkat-code/meerkat_auth.git
 - pip install -r meerkat_auth/requirements.txt
