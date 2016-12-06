@@ -184,9 +184,9 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
             topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report
             start_date = datetime_from_json(ret['report']['data']['start_date'])
             end_date = datetime_from_json(ret['report']['data']['end_date'])
-            subject = '{country} | {title} ({start_date} - {end_date})'.format(
+            subject = '{country} | {monthly_email_title} ({start_date} - {end_date})'.format(
                 country = gettext(country),
-                title = gettext(report_list[report]['title']),
+                monthly_email_title = gettext(report_list[report]['monthly_email_title']),
                 start_date = format_datetime(start_date, 'dd MMMM YYYY'),
                 end_date = format_datetime(end_date, 'dd MMMM YYYY')
             )
