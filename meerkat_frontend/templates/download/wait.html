@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block menu %}
+{% endblock menu %}
+
+{% block body %}
+<!-- CONTENT -->
+<div class="container page-content">
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			{{_('Download Data') }}
+		</div>
+		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+			{{ _('Date not loaded.') }}
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+	    <div class="row">
+                <div class col-md-12>
+	            <h4> {{ _('Downloadig Data Set') }} <h4>
+                        <p> Status: </p>
+                        <p id="status"> </p>
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+ var config = {{content|tojson|safe}};
+ var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+ var week = {{week.epi_week}};
+ $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
+ url = '{{api_url|safe}}';
+ var uuid = "";
+ interval = ""
+ function check_status(){
+     $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
+         if(data){
+             console.log(data);
+             if(data.status == 1){
+                 if(data.success == 1){
+
+                     t = i18n.gettext("Data sucesfully generated. Download ") + '<a href="' + api_root + "/export/get/" + uuid +'">' + i18n.gettext("here") + '</a>'
+                     $("#status").html(t)
+                 }else{
+                     t = i18n.gettext("Data generation was unsucesfull Please try again later")
+                         $("#status").html(t)
+                 }
+                 clearInterval(interval)
+             }else{
+                 t = i18n.gettext("Dataset is still generated, please wait.")
+                 $("#status").html(t)
+             }
+         
+         }
+     });
+ }
+
+ $.getJSON(url, function( data ){
+     uuid = data;
+
+     $("#status").html(i18n.gettext("Started"))
+         
+         interval = setInterval(function() {
+             check_status()
+         }, 5000);
+     });
+
+ 
+</script>
+
+{% endblock pageJS %}

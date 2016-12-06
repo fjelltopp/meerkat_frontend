@@ -288,7 +288,8 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		
 			url += "&api_key=" + config.api_key;
 
-			window.open( url );
+                       open_url = "wait?url=" + url
+                       window.open(open_url);
 		}else{
 			event.preventDefault();
 		}
@@ -301,14 +302,14 @@ $.getJSON( api_root+"/export/forms", function( data ){
         for (key in dataSet.fields){
             dataSet.fields[key][1] = i18n.gettext(dataSet.fields[key][1]);
         }
-		if( "name_category" in dataSet){			      
-   	          var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
-		}else{
-		   var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
-		}
-		url += "&api_key=" + config.api_key;
-		window.open(url);
-        console.log(url);
+	    if( "name_category" in dataSet){			      
+   	        var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
+	    }else{
+		var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
+	    }
+	    open_url = "wait?url=" + url
+	    window.open(open_url);
+        console.log(open_url);
 	});
 
 });
