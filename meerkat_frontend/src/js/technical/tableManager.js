@@ -320,7 +320,7 @@ function drawAlertsTable(containerID, alerts, variables){
 		            '</tr>';
 		if(config.central_review){
 			table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') + i18n.gettext('Type') + '</th>'+ 
+		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th><th>' + i18n.gettext('Type') + '</th>'+ 
 		            '<th><span class="glossary capitalised" word="region">'+ i18n.gettext('Region') + '</span></th>' + 
 		            '<th>Clinic</th><th>'+i18n.gettext('Date Reported')+'</th><th>'+ i18n.gettext('Date Investigated') + '</th>' +
                     '<th>'+ i18n.gettext('Central Review')+'</th><th>'+i18n.gettext('Status')+'</th></tr>';
@@ -743,7 +743,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
 
  */
 
-function drawMissingCompletenessTable( module_var, containerID, headerID, regionID, locations ){
+function drawMissingCompletenessTable( module_var, containerID, headerID, regionID, locations,exclude){
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
 
@@ -756,7 +756,10 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
         var columns = [];
         var datum = [];
         if(locations[regionID].level != "clinic"){//no information aboout reporting clinic
-			$.getJSON( api_root+"/non_reporting/" + module_var + "/" + regionID, function( data ){
+			url = api_root+"/non_reporting/" + module_var + "/" + regionID;
+
+			if(exclude) url += "/" + exclude;
+			$.getJSON(url , function( data ){
 				for (var i=0; i<data.clinics.length;i++){
 					datum = {
 						"location": locations[data.clinics[i]].name

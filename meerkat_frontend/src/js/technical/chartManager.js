@@ -350,7 +350,7 @@ function drawCompletenessGraph( containerID, regionID, locations, data, start_we
         multiplier = 25;
     }else if(graphtypeID ===1){
         stringGraphType = 'Timeliness';
-        multiplier = 20;
+        multiplier = 25;
     }
 
     //create a data series for each location

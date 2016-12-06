@@ -583,14 +583,15 @@ function stripEmptyRecords( dataObject ){
 function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude){
     var completenessLocations;
     var completenessData;
+	if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             completenessLocations = data;
         })];
 	if(exclude){
-		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + exclude,function( data ){completenessData = data;}));
+		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + start_week + "/" + exclude,function( data ){completenessData = data;}));
 	}else{
-		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4",
+		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + start_week,
 								   function( data ){completenessData = data; }));
 	}
 
@@ -623,11 +624,12 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
 function timelinessPreparation( locID, reg_id, graphID, tableID, allclinisctableID, start_week){
     var timelinessLocations;
     var timelinessData;
+	if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             timelinessLocations = data;
         }),
-        $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/5", function( data ){
+        $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + start_week, function( data ){
             timelinessData = data;
         })
     ];
