@@ -5,6 +5,7 @@ A Flask Blueprint module for the download site.
 """
 from flask import Blueprint, render_template, current_app, request, Response, abort
 import json
+from urllib import parse
 from .. import common as c
 import authorise as auth
 
@@ -28,7 +29,8 @@ def wait():
         url = request.args["url"]
     else:
         abort(500, "Did not get a url")
-        
+    
+    url = url.replace("'", "%27")
     return render_template('download/wait.html', 
                            content=current_app.config['DOWNLOAD_CONFIG'],
                            api_url=url,

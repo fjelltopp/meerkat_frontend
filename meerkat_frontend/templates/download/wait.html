@@ -16,9 +16,11 @@
 	<div id="page-content-wrapper">
 	    <div class="row">
                 <div class col-md-12>
-	            <h4> {{ _('Downloadig Data Set') }} <h4>
-                        <p> Status: </p>
-                        <p id="status"> </p>
+	            <h4> {{ _('Your data set is being prepared') }} <h4>
+                        <div id="spinner">
+                            <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img></div>
+                        <p> Current Status: </p>
+                        <span id="status"> </span>
 		</div>
 		</div>
 	</div>
@@ -32,9 +34,10 @@
  var api_root = "{{config['EXTERNAL_API_ROOT']}}";
  var week = {{week.epi_week}};
  $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
- url = '{{api_url|safe}}';
+ url ='{{api_url|safe}}';
  var uuid = "";
  interval = ""
+ console.log(url)
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
          if(data){
@@ -42,15 +45,18 @@
              if(data.status == 1){
                  if(data.success == 1){
 
-                     t = i18n.gettext("Data sucesfully generated. Download ") + '<a href="' + api_root + "/export/get/" + uuid +'">' + i18n.gettext("here") + '</a>'
-                     $("#status").html(t)
+                     t = i18n.gettext("Data set was sucesfully generated. Download ") + '<a href="' + api_root + "/export/get/" + uuid +'">' + i18n.gettext("here") + '</a>'
+                     $("#spinner").html(t);
+                     $("#status").html("Finished");
+
                  }else{
-                     t = i18n.gettext("Data generation was unsucesfull Please try again later")
-                         $("#status").html(t)
+                     t = i18n.gettext("Data set generation was unsucesfull, please try again later")
+                         $("#spinner").html(t);
+                     $("#status").html("Finished");
                  }
                  clearInterval(interval)
              }else{
-                 t = i18n.gettext("Dataset is still generated, please wait.")
+                 t = i18n.gettext("Dataset is still being prepared, please wait.")
                  $("#status").html(t)
              }
          
@@ -61,7 +67,7 @@
  $.getJSON(url, function( data ){
      uuid = data;
 
-     $("#status").html(i18n.gettext("Started"))
+     $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
          
          interval = setInterval(function() {
              check_status()
