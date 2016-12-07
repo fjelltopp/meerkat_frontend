@@ -191,7 +191,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 end_date = format_datetime(end_date, 'dd MMMM YYYY')
             )
 
-            email_id = ( "<topic>" + "-" + end_date.strftime('%b') + "-" +  
+            email_id = ( "<topic>" + "-" + end_date.strftime('%b') + "-" +
                          end_date.strftime('%Y') +"-" + report )
 
         else:
@@ -207,7 +207,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 end_date = format_datetime(end_date, 'dd MMMM YYYY')
             )
 
-            email_id = ( "<topic>" + "-" + str(epi_week) + "-" +  
+            email_id = ( "<topic>" + "-" + str(epi_week) + "-" +
                          end_date.strftime('%Y') +"-" + report )
 
         current_app.logger.debug('Viewing email with id: ' + email_id)
@@ -303,7 +303,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 start_date = format_datetime(start_date, 'dd MMMM YYYY'),
                 end_date = format_datetime(end_date, 'dd MMMM YYYY')
             )
-            email_id = ( topic + "-" + end_date.strftime('%M') + "-" +  
+            email_id = ( topic + "-" + end_date.strftime('%M') + "-" +
                          end_date.strftime('%Y') +"-" + report + test_id )
         else:
             subject = '{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(
@@ -586,11 +586,11 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                }
     """
 
-    #try:
+    # try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     access = report_list[report].get( 'access', '' )
 
-    #Restrict report access as specified in configs.
+    # Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:
         auth.check_auth( [access], [current_app.config['SHARED_CONFIG']['auth_country']] )
 
@@ -607,10 +607,10 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             today = datetime.today()
             if period == "week":
                 epi_week = c.api('/epi_week')
-                #Calulation for start date is: month_day - ( week_day-week_offset % 7) - 7
-                #The offset is the #days into the current epi week.
+                # Calulation for start date is: month_day - ( week_day-week_offset % 7) - 7
+                # The offset is the #days into the current epi week.
                 offset = (today.weekday() - epi_week["offset"]) % 7
-                #Start date is today minus the offset minus one week.
+                # Start date is today minus the offset minus one week.
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
                 #End date is today minus the offset, minus 1 day (because our end date is "inclusive")
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 1)
