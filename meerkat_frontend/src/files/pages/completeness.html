@@ -117,8 +117,8 @@ $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + 
 //Every tab needs a draw charts function that is called when loading a new location.
 //It's also called upon the first load of the page. 
 function drawCharts( locID ){
-  currentLocation = locID;
-  completenessPreparation( currentLocation, 'reg_1', 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table' );
+     currentLocation = locID;
+  completenessPreparation( currentLocation, 'reg_1',config.completeness_denominator.all, 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table' );
 }
 
 function toggleAllClinics(){

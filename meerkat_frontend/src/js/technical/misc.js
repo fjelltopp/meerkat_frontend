@@ -569,6 +569,8 @@ function stripEmptyRecords( dataObject ){
    The ID of the location for which completeness shall be calculated.
    :param string reg_id:
    type of a non reporting registers. Can be `reg_10` for CD, `reg_11`  for NCD.
+   :param string denomintor:
+   number of expected reporting days in a week
    :param string graphID:
    The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
    :param string tableID:
@@ -580,7 +582,7 @@ function stripEmptyRecords( dataObject ){
    :param string allclinisctableID:
    The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
    */
-function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude){
     var completenessLocations;
     var completenessData;
 	if( start_week === undefined) start_week = 1;
@@ -589,9 +591,9 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
             completenessLocations = data;
         })];
 	if(exclude){
-		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + start_week + "/" + exclude,function( data ){completenessData = data;}));
+		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude,function( data ){completenessData = data;}));
 	}else{
-		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + start_week,
+		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week,
 								   function( data ){completenessData = data; }));
 	}
 
@@ -614,6 +616,8 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
    The ID of the location for which timeliness shall be calculated.
    :param string reg_id:
    type of a non reporting registers. It should be `reg_5` for general timeliness
+   :param string denomintor:
+   number of expected reporting days in a week
    :param string graphID:
    The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
    :param string tableID:
@@ -621,7 +625,7 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
    :param string allclinisctableID:
    The ID for the HTML element that will hold the table for all clnics timeliness information.  If empty, this table isn't drawn.
    */
-function timelinessPreparation( locID, reg_id, graphID, tableID, allclinisctableID, start_week){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week){
     var timelinessLocations;
     var timelinessData;
 	if( start_week === undefined) start_week = 1;
@@ -629,7 +633,7 @@ function timelinessPreparation( locID, reg_id, graphID, tableID, allclinisctable
         $.getJSON( api_root+"/locations", function( data ){
             timelinessLocations = data;
         }),
-        $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + start_week, function( data ){
+        $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week, function( data ){
             timelinessData = data;
         })
     ];
