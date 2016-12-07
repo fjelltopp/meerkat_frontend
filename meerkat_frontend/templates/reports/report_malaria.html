@@ -6,11 +6,11 @@
 <div class="page-content">
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
-    </span> 
+    </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
     <span> {{ _('Malaria Epidemiological Surveillance Report') }} </span>
@@ -88,14 +88,14 @@ var extras = {{extras|tojson|safe}};
 var config = {};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 
-
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-	options.data = $.param($.extend(originalOptions.data, { api_key: "{{config['REPORTS_CONFIG']['api_key']}}" })) // 
+	options.data = $.param($.extend(originalOptions.data, { api_key: "{{config['REPORTS_CONFIG']['api_key']}}" })) //
 });
 
 //Draw the content using the functions below.
 drawTable1();
-drawMalariaMap();
+//Draw Malaria Map
+drawMapFromData(content['map'], 'malaria-map-wrapper')
 //Load a new translator in this template so that the source of translations can be loaded for pdfs.
 i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
 drawTable2();
@@ -111,9 +111,9 @@ function drawTable1(){
       else{
         ret += [1,6,8,11].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
         ret += content['malaria_situation']["mls_" + struct[i]] + "</td>";
-      } 
-    }  
-    ret += "</tr>";        
+      }
+    }
+    ret += "</tr>";
     return ret;
   }
 
@@ -127,19 +127,19 @@ function drawTable1(){
             ["{{_('Number of cases treated with ACT')}}", 48, 49, 50, 51, 52, 53, 54, 55, 0, 0, 0, 0]];
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
-    "<thead><tr><th class='border-right' rowspan='2'>{{_('Indicator')}}</th>" + 
+    "<thead><tr><th class='border-right' rowspan='2'>{{_('Indicator')}}</th>" +
     "<th rowspan='2' class='border-right'>{{_('Total')}}</th>" +
     "<th colspan='5' class='border-right'>{{_('Age Group')}}</th>" +
-    "<th colspan='2' class='border-right'>{{_('Sex')}}</th>" + 
+    "<th colspan='2' class='border-right'>{{_('Sex')}}</th>" +
     "<th colspan='3'>{{_('RDT')}}</th>" +
     "<th rowspan='2' class='border-left'>{{_('Pregnant Women')}}</th></tr>" +
-    "<tr><th>{{_('0-1 Month')}}</th>" + 
+    "<tr><th>{{_('0-1 Month')}}</th>" +
     "<th>{{_('2-12 Months')}}</th>" +
-    "<th>{{_('1-5 Years')}}</th>" + 
-    "<th>{{_('6-13 Years')}}</th>" + 
+    "<th>{{_('1-5 Years')}}</th>" +
+    "<th>{{_('6-13 Years')}}</th>" +
     "<th class='border-right'>{{_('14+ Years')}}</th>" +
-    "<th>{{_('Male')}}</th>" + 
-    "<th class='border-right'>{{_('Female')}}</th>" + 
+    "<th>{{_('Male')}}</th>" +
+    "<th class='border-right'>{{_('Female')}}</th>" +
     "<th>{{_('Positive')}}</th>" +
     "<th>{{_('Negative')}}</th>" +
     "<th>{{_('Not Done')}}</th></tr></thead>" ;
@@ -155,45 +155,22 @@ function drawTable1(){
 function drawTable2(){
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
-    "<thead><tr><th class='border-right'>{{_('Indicator')}}</th>" + 
+    "<thead><tr><th class='border-right'>{{_('Indicator')}}</th>" +
     "<th class='border-right'>{{_('Value')}}</th></tr></thead><tbody>";
 
   var keys = Object.keys( content['malaria_prevention'] );
 
   console.log( content['malaria_prevention'] );
-  for( var i in keys ){ 
+  for( var i in keys ){
       var name = i18n.gettext(content['variables'][keys[i]].name);
       var value = content['malaria_prevention'][keys[i]];
-      html += "<tr><td class='border-right key total'>" + name + "</td>" + 
+      html += "<tr><td class='border-right key total'>" + name + "</td>" +
         "<td>" + value + "</td></tr>";
   }
-  
+
   html += "</tbody></table>";
 
   $('.table2-wrapper').html(html);
 }
-
-//Draw the malaria map.
-function drawMalariaMap(){
-  //Put some config parameters in the place where Draw Map is expecting them.
-  config ={ 
-    'map':{
-      'center':{
-        'lat': extras['map_centre'][0],
-        'lng': extras['map_centre'][1]
-      },
-      'zoom': extras['map_centre'][2]
-    }
-  }
-  //Use the dashboard's drawMap function to visualise the data. 
-  drawMap( 
-    content['map_variable'], 
-    'malaria-map-wrapper', 
-    content['data']['project_region_id'],
-    content['data']['start_date'],
-    content['data']['end_date']
-  )
-}
 </script>
 {% endblock extra_js %}
-
