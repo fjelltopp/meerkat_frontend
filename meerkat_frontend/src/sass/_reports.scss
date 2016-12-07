@@ -20,7 +20,7 @@ body.reports, body.htmlreport{
 	.reports-form{
 		min-height: 450px;
 	}
-    
+
     footer{
         padding-bottom:0px;
     }
@@ -39,7 +39,7 @@ body.reports, body.htmlreport{
 .reports-form{
 
 	margin-top: 40px;
-	margin-bottom: 20px;	
+	margin-bottom: 20px;
 
 	label{
 		text-align: left;
@@ -76,7 +76,7 @@ body.reports, body.htmlreport{
 
 		input{
 			position: absolute;
-			left: 0px;			
+			left: 0px;
 		}
 
 	}
@@ -145,7 +145,7 @@ table{
 table.refugee.table,
 table.reports-table.table{
   margin-bottom: 0px;
-} 
+}
 
 table.refugee.small{
   width: initial;
@@ -177,7 +177,7 @@ table.refugee.small{
 
     tbody tr td{
       border-bottom: 1px solid #ddd;
-    } 
+    }
 
     tbody td.border-left,
     thead th.border-left{
@@ -220,7 +220,7 @@ table.refugee.small{
   text-align: right;
 }
 
-.htmlreport{ 
+.htmlreport{
 
     .navbar .container-fluid .navbar-brand{
         margin: 0 10px;
@@ -229,7 +229,7 @@ table.refugee.small{
     .page-header{
         margin: 40px 15px 20px;
     }
-	
+
 		.time-stamp{
 			margin-top: 20px;
 		}
@@ -309,10 +309,14 @@ table.refugee.small{
 }
 
 .figure-title-left{
-  float: left;
-  width: 80px;
+    float: left;
+    width: 80px;
 }
 
 .figure-title-right{
-  float: left;
+    float: left;
+}
+
+#ncd-mapbox-panel .chart-stage{
+    height:600px;
 }

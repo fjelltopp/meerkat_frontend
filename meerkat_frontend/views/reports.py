@@ -408,14 +408,14 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
         # Read env flag whether to tell pdfcrowd to read static files from an external source
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
-            html=html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
+            html = html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
         else:
-            html=html.replace("/static/", '{}{}'.format( current_app.config['ROOT_URL'],'/static/' ))
+            html = html.replace("/static/", '{}{}'.format( current_app.config['ROOT_URL'],'/static/' ))
 
         client.usePrintMedia(True)
 
-	    #Allow reports to be set as portrait or landscape in the config files.
-        if( report_list[report].get( 'landscape', False ) ):
+	    # Allow reports to be set as portrait or landscape in the config files.
+        if(report_list[report].get('landscape', False)):
             client.setPageWidth('1697pt')
             client.setPageHeight('1200pt')
         else:
@@ -569,7 +569,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 offset = (today.weekday() - epi_week["offset"]) % 7
                 #Start date is today minus the offset minus one week.
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
-                #End date is today minus the offset, minus 1 day (because our end date is "inclusive")
+                # End date is today minus the offset, minus 1 day (because our end date is "inclusive")
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 1)
 
             elif period == "month":
@@ -580,9 +580,11 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 end_date = datetime(today.year, today.month, today.day)
             if start_date and end_date:
                 start_date = start_date.isoformat()
-                end_date = end_date.isoformat() # To include the the end date
-    if( end_date != None ): api_request += '/' + end_date
-    if( start_date != None ): api_request += '/' + start_date
+                end_date = end_date.isoformat()  # To include the the end date
+    if(end_date is not None):
+        api_request += '/' + end_date
+    if(start_date is not None):
+        api_request += '/' + start_date
 
     params = None
     if report in ["communicable_diseases"]:
@@ -616,59 +618,6 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 'quantity': item['quantity']
             }
 
-        extras['map_centre'] = report_list[report]["map_centre"]
-        extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
-                             "/clinics/1")
-        extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
-                            current_app.config['MAPBOX_STATIC_MAP_API_URL'],
-                            current_app.config['MAPBOX_MAP_ID'],
-                            extras['map_centre'][1],
-                            extras['map_centre'][0],
-                            extras['map_centre'][2],
-                            current_app.config['MAPBOX_API_ACCESS_TOKEN'])
-
-    elif report in ["refugee_public_health"]:
-        extras = {}
-        extras['map_centre'] = report_list[report]["map_centre"]
-        extras["map_api_call"] = (config['EXTERNAL_API_ROOT'] +
-                             "/clinics/1/Refugee")
-        extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
-                current_app.config['MAPBOX_STATIC_MAP_API_URL'],
-                current_app.config['MAPBOX_MAP_ID'],
-                extras['map_centre'][1],
-                extras['map_centre'][0],
-                extras['map_centre'][2],
-                current_app.config['MAPBOX_API_ACCESS_TOKEN'])
-    elif report in ["pip"]:
-        extras = {}
-        extras['map_centre'] = report_list[report]["map_centre"]
-        extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                  "/clinics/1/SARI")
-        extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
-            current_app.config['MAPBOX_STATIC_MAP_API_URL'],
-            current_app.config['MAPBOX_MAP_ID'],
-            extras['map_centre'][1],
-            extras['map_centre'][0],
-            extras['map_centre'][2],
-            current_app.config['MAPBOX_API_ACCESS_TOKEN'])
-    elif report in ['malaria']:
-        extras = {}
-        extras['map_centre'] = report_list[report]['map_centre']
-        extras["map_api_call"] = (
-            current_app.config['EXTERNAL_API_ROOT'] + "/map/{}/{}/{}/{}".format(
-               data['map_variable'],
-               data['data']['project_region_id'],
-               data['data']['end_date'],
-               data['data']['start_date']
-            )
-        )
-        extras['static_map_url'] = '{}{}/{},{},{}/1000x1000.png?access_token={}'.format(
-            current_app.config['MAPBOX_STATIC_MAP_API_URL'],
-            current_app.config['MAPBOX_MAP_ID'],
-            extras['map_centre'][1],
-            extras['map_centre'][0],
-            extras['map_centre'][2],
-            current_app.config['MAPBOX_API_ACCESS_TOKEN'])
     elif report in ['afro']:
         extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
@@ -684,10 +633,16 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     # Render correct template for the report
     return {
-        'template':report_list[report]['template'],
-        'template_email_html':report_list[report].get('template_email_html', None),
-        'template_email_plain':report_list[report].get('template_email_plain', None),
-        'report':data,
-        'extras':extras,
-        'address':current_app.config["REPORTS_CONFIG"]["address"]
-        }
+        'report': data,
+        'extras': extras,
+        'address': current_app.config["REPORTS_CONFIG"]["address"],
+        'template': report_list[report]['template'],
+        'template_email_html': report_list[report].get(
+            'template_email_html',
+            None
+        ),
+        'template_email_plain': report_list[report].get(
+            'template_email_plain',
+            None
+        )
+    }

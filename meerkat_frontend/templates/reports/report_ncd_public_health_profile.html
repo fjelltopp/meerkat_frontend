@@ -4,10 +4,10 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
-    >    
+    >
     </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}}&middot;</span>
@@ -27,9 +27,9 @@
           <ul>
               <li> {{ _('A total of <strong>  %(total_cases)s cases</strong> reported from %(clinic_num)s health facilities.', total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}</li>
 
-              <li>{{ _('<strong> %(percent_female)s %% female</strong> and 
+              <li>{{ _('<strong> %(percent_female)s %% female</strong> and
               <strong> %(percent_male)s %% male</strong>.', percent_female=report.data.percent_cases_female|float|round(1), percent_male=report.data.percent_cases_male|float|round(1)) }}</li>
-          
+
               <li>{{ _('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1)) }}</li
 
           </ul>
@@ -38,7 +38,7 @@
           {% endfor %}
         </table>
 
-	  
+
         </ul>
         </div>
     </div>
@@ -120,7 +120,7 @@
       <div class="chart-title">{{ _('Gender') }}</div>
       <div class="chart-stage">
         <div id="chart-gender"></div>
-        <table class="table table-striped">
+        <table class="table table-striped reports-table small">
           <thead>
             <tr>
               <th></th>
@@ -148,7 +148,7 @@
       <div class="chart-title">{{ _('Nationality') }}</div>
       <div class="chart-stage">
         <div id="chart-nationality"></div>
-        <table class="table table-striped">
+        <table class="table table-striped reports-table small">
           <thead>
             <tr>
               <th></th>
@@ -177,7 +177,7 @@
       <div class="chart-title">{{ _('Status') }}</div>
       <div class="chart-stage">
         <div id="chart-status"></div>
-        <table class="table table-striped">
+        <table class="table table-striped reports-table small">
           <thead>
             <tr>
               <th></th>
@@ -205,7 +205,7 @@
       <div class="chart-title">{{ _('Non-Communicable Disease') }}</div>
       <div class="chart-stage">
         <div id="chart-mor-non-communicable-disease-list"></div>
-        <table class="table table-striped">
+        <table class="table table-striped reports-table small">
           <thead>
             <tr>
               <th></th>
@@ -234,9 +234,6 @@
       <div class="chart-title">{{ _('Map') }}</div>
       <div class="chart-stage">
           <div id="map"></div>
-          <div id="map-print">
-            <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
       </div>
     </div>
   </div>
@@ -324,8 +321,9 @@ $(function() {
     pieChart(nonCommunicableDiseasesList)
   );
 });
+
 // Draw map
-draw_report_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+map_from_data({{report.data.map|safe}})
 
 </script>
 {% endblock extra_js %}

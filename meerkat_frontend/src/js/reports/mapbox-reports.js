@@ -8,13 +8,15 @@ function map_from_data( data, map_centre, containerID){
 
     if( !containerID ) containerID = 'map';
 
+
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
     var map = L.mapbox.map(containerID, 'mrjb.143811c9', {
 	      zoomControl: false,
 	      fullscreenControl: true, // Display fullscreen toggle button
         scrollWheelZoom: false
-    })
-    .setView([map_centre[0], map_centre[1]], map_centre[2]);
+    });
+
+    if( map_centre ) map.setView([map_centre[0], map_centre[1]], map_centre[2]);
 
     // Disable map dragging on touch devices to ensure scrolling works
     map.dragging.disable();
@@ -41,8 +43,7 @@ function map_from_data( data, map_centre, containerID){
 
     markers.addLayer(geoJsonLayer);
     map.addLayer(markers);
-    map.fitBounds(markers.getBounds());
-
+    if( !map_centre ) map.fitBounds(markers.getBounds(), {padding: [30, 30]});
 }
 
 function regional_map( data, map_centre, geojson, containerID ){

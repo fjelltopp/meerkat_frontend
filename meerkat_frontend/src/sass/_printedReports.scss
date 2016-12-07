@@ -1,12 +1,20 @@
 $printedBlue: #337ab7;
 
-#map-print {
-	display: none;
+@page {
+  size: A4;
+  margin: 0;
+  padding: 1in;
+  background: #ffffff;
+}
+
+/* setup the footer */
+@page {
+  @bottom {
+    content: flow(footer);
+  }
 }
 
 @media print {
-
-
 
 	//We only want this CSS to apply to html report pages.
 	body.htmlreport{
@@ -40,16 +48,6 @@ $printedBlue: #337ab7;
 		}
 
 		// MAP
-
-		#map {
-			display: none;
-		}
-
-		#map-print {
-			display: block;
-			margin: -10px;
-		}
-
 	 	.leaflet-container img {
 	 		max-width:none !important;
 	 	}
@@ -58,9 +56,12 @@ $printedBlue: #337ab7;
 			display: none;
 		}
 
-		#map .marker-cluster-small, #map .marker-cluster-medium, #map .marker-cluster-large {
-			color: rgba(181, 226, 140, 0.6) !important;
-			background-color: #EA9E72 !important;
+		#map .marker-cluster-small,
+        #map .marker-cluster-medium,
+        #map .marker-cluster-large {
+            background-color: #EA9E72 !important;
+            span{ color: #FFF !important; }
+            div{ background-color: $highlight !important; }
 		}
 
 		.chart-wrapper {
@@ -218,11 +219,6 @@ $printedBlue: #337ab7;
 
 	}
 
-  #ncd-map-row{
-      height:0px;
-      overflow: hidden;
-  }
-
   .fixed-table-container thead th .sortable{
       padding: 2px;
   }
@@ -257,6 +253,10 @@ $printedBlue: #337ab7;
       padding: 2px;
     }
 
+  }
+
+  .leaflet-control-zoom {
+    display: none;
   }
 
 }
