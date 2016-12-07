@@ -4,11 +4,11 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-  <span 
+  <span
     class="flag-icon flag-icon-{{report.flag}}"
     style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
   >
-  </span> 
+  </span>
   <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
   <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> North Eastern Border Public Health Profile
     <span class="report-week">
@@ -33,7 +33,7 @@
 
         </table>
 
-	  
+
         </ul>
       </div>
     </div>
@@ -44,9 +44,6 @@
       <div class="chart-title">Map</div>
       <div class="chart-stage">
           <div id="map"></div>
-          <div id="map-print">
-            <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
       </div>
     </div>
   </div>
@@ -308,7 +305,7 @@ var communicableDiseases = [{% for item in report.data.morbidity_communicable %}
 // Non Communicable diseases
 
 var nonCommunicableDiseases = [{% for item in report.data.morbidity_non_communicable %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
-//Injury 
+//Injury
 var injury = [{% for item in report.data.injury %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 //Menta Health
 var mental_health = [{% for item in report.data.mental_health %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
@@ -344,8 +341,7 @@ $(function() {
   );
 });
 // Draw map
-draw_report_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+map_from_data({{report.data.map|safe}})
 
 </script>
 {% endblock extra_js %}
-

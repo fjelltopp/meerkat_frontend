@@ -7,12 +7,12 @@
 <div class="page-header">
 
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
     </span>
-    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
     <span> {{ _('Weekly Epidemiological Bulletin') }} </span>
     <span class="report-week">
@@ -26,48 +26,49 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Weekly Highlights') }}</div>
       <div class="chart-stage"><ul>
-        <li>          
+        <li>
           {{ _('Completeness of daily reporting was %(comp_week)s%% across %(clinic_num)s health facilities in Week %(epi_week_num)s, compared to %(comp_year)s%% cumulatively this year.', comp_week=report.data.weekly_highlights.comp_week|round(1), clinic_num=report.data.weekly_highlights.clinic_num, epi_week_num=report.data.epi_week_num, comp_year=report.data.weekly_highlights.comp_year|round(1)) }}
         </li>
-        <li>          
+        <li>
           {{ _('%(dea_0)s reported deaths in total.', dea_0=report.data.weekly_highlights.dea_0|int ) }}
           {% if report.data.weekly_highlights.mortality %}
-            
+
             {% for mort in report.data.weekly_highlights.mortality %}
               {% if loop.first and loop.last %}
-                 {{_('Leading cause of mortality is') }} "{{mort.name}}".
+                 {{_('Leading cause of mortality is') }} "{{_(mort.name)}}".
               {% elif loop.first %}
-                {{_('Leading causes of mortality include:')}} "{{mort.name}}", 
+                {{_('Leading causes of mortality include:')}} "{{_(mort.name)}}",
               {% elif not loop.first and not loop.last %}
-                "{{_('mort.name')}}",
+                "{{_(mort.name)}}",
               {% elif loop.last %}
-                {{_('and')}} "{{_('mort.name')}}".
+                {{_('and')}} "{{_(mort.name)}}".
+
               {% endif %}
-            {% endfor %}   
+            {% endfor %}
           {% endif %}
         </li>
-        <li>          
+        <li>
           {{ _('%(cmd_21)s maternal deaths were reported (%(cmd_21_ale_1)s investigated) and %(cmd_22)s neonatal deaths (%(cmd_22_ale_1)s investigated).', cmd_21=report.data.weekly_highlights.cmd_21|int, cmd_21_ale_1=report.data.weekly_highlights.cmd_21_ale_1|int, cmd_22=report.data.weekly_highlights.cmd_22|int, cmd_22_ale_1=report.data.weekly_highlights.cmd_22_ale_1|int) }}
         </li>
-        <li>          
+        <li>
           {{ _('A total of %(mls_2)s fever cases were reported, %(mls_3)s (%(mls_3_perc_mls_2)s%%) tested and %(cmd_17)s (%(cmd_17_perc_mls_2)s%%) positive with %(mls_12)s cases of simple malaria and %(mls_24)s cases of severe malaria. %(mls_48)s (%(mls_48_perc_mls_12_or_mls_24)s%%) malaria cases were treated with ACT. A total of %(mls_36)s malaria deaths were reported.', mls_2=report.data.weekly_highlights.mls_2|int, mls_3=report.data.weekly_highlights.mls_3|int, mls_3_perc_mls_2=report.data.weekly_highlights.mls_3_perc_mls_2|round(1), cmd_17=report.data.weekly_highlights.cmd_17|int, cmd_17_perc_mls_2=report.data.weekly_highlights.cmd_17_perc_mls_2|round(1), mls_12=report.data.weekly_highlights.mls_12|int, mls_24=report.data.weekly_highlights.mls_24|int, mls_48=report.data.weekly_highlights.mls_48|int, mls_48_perc_mls_12_or_mls_24=report.data.weekly_highlights.mls_48_perc_mls_12_or_mls_24|round(1), mls_36=report.data.weekly_highlights.mls_36|int) }}
         </li>
-        <li>          
-          {{ _('%(cmd_15)s suspected measles cases were alerted, of which %(cmd_15_ale_1)s (%(cmd_15_ale_1_perc_cmd_15)s%%) were investigated and %(cmd_15_ale_2)s (%(cmd_15_ale_2_perc_cmd_15)s%%) have been confirmed. %(cmd_15_age_1)s (%(cmd_15_age_1_perc_cmd_15)s%%) were reported among children under five years of age.', 
-cmd_15=report.data.weekly_highlights.cmd_15|int, 
+        <li>
+          {{ _('%(cmd_15)s suspected measles cases were alerted, of which %(cmd_15_ale_1)s (%(cmd_15_ale_1_perc_cmd_15)s%%) were investigated and %(cmd_15_ale_2)s (%(cmd_15_ale_2_perc_cmd_15)s%%) have been confirmed. %(cmd_15_age_1)s (%(cmd_15_age_1_perc_cmd_15)s%%) were reported among children under five years of age.',
+cmd_15=report.data.weekly_highlights.cmd_15|int,
 cmd_15_ale_1=report.data.weekly_highlights.cmd_15_ale_1|int, cmd_15_ale_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_ale_1_perc_cmd_15|round(1),
 cmd_15_ale_2=report.data.weekly_highlights.cmd_15_ale_2|int,
 cmd_15_ale_2_perc_cmd_15=report.data.weekly_highlights.cmd_15_ale_2_perc_cmd_15|round(1),
 cmd_15_age_1=report.data.weekly_highlights.cmd_15_age_1|int,
 cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|round(1)) }}
-        </li>  
-        <li>          
+        </li>
+        <li>
           {{ _('%(cmd_10)s cases of acute flaccid paralysis were reported, with %(cmd_10_ale_2)s (%(cmd_10_ale_2_perc_cmd_10)s%%) cases investigated.', cmd_10=report.data.weekly_highlights.cmd_10|int, cmd_21_ale_2=report.data.weekly_highlights.cmd_10_ale_2|int, cmd_10_ale_2=report.data.weekly_highlights.cmd_10_ale_2|int, cmd_10_ale_2_perc_cmd_10=report.data.weekly_highlights.cmd_10_ale_2_perc_cmd_10|int) }}
         </li>
-        <li>          
+        <li>
           {{ _('%(cmd_24)s cases of severe and %(cmd_23)s cases of moderate malnutrition were reported during the week', cmd_24=report.data.weekly_highlights.cmd_24|int, cmd_23=report.data.weekly_highlights.cmd_23|int)}}
           {% if report.data.weekly_highlights.malnutrition %}
-            , with most cases reported from  
+            , with most cases reported from
             {% for reg in report.data.weekly_highlights.malnutrition %}
               {% if loop.first and loop.last  %}
                 "{{reg.region}}"
@@ -78,21 +79,21 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
               {% endif %}
             {% endfor %}
           {% else %}
-            .   
+            .
           {% endif %}
         </li>
-        <li>          
+        <li>
           {{ _('%(cmd_1)s cases of acute diarrhoea were reported, with %(cmd_4)s confirmed cases of dysentery (bloody diarrhoea) and %(cmd_2)s confirmed cases of acute watery diarrhoea (cholera). ', cmd_1=report.data.weekly_highlights.cmd_1|int, cmd_2=report.data.weekly_highlights.cmd_2|int, cmd_4=report.data.weekly_highlights.cmd_4|int) }}
         </li>
-        <li>          
+        <li>
           {{ _('%(cmd_25)s cases of acute respiratory tract infection (ARTI) were reported, with %(cmd_18)s cases of influenza-like illness (ILI).', cmd_25=report.data.weekly_highlights.cmd_25|int, cmd_18=report.data.weekly_highlights.cmd_18|int) }}
         </li>
-        <li>          
+        <li>
           {{ _('%(cmd_27)s cases of animal bite were reported, with %(cmd_11_ale_2)s confirmed cases of rabies.', cmd_27=report.data.weekly_highlights.cmd_27|int, cmd_11_ale_2=report.data.weekly_highlights.cmd_11_ale_2|int) }}
         </li>
-        <li>          
+        <li>
           {{ _('%(cmd_7)s cases of plague were reported, with %(cmd_7_ale_1)s (%(cmd_7_ale_1_perc_cmd_7)s%%) cases investigated and %(cmd_7_ale_2)s (%(cmd_7_ale_2_perc_cmd_7)s%%) confirmed.', cmd_7=report.data.weekly_highlights.cmd_7|int, cmd_7_ale_1=report.data.weekly_highlights.cmd_7_ale_1|int, cmd_7_ale_1_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_1_perc_cmd_7|int, cmd_7_ale_2=report.data.weekly_highlights.cmd_7_ale_2|int, cmd_7_ale_2_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_2_perc_cmd_7|int) }}
-        </li> 
+        </li>
       </ul></div>
     </div>
   </div>
@@ -115,7 +116,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
         <div id="maternal-deaths-map" class="mapbox"></div>
       </div>
     </div>
-  </div>  
+  </div>
   <!-- MALARIA MAP -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -231,10 +232,10 @@ i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.js
 var completenessSites = {
   categories: [{% for site in report.data.figure_completeness %}"{{ site.district|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
   series: [{
-    name: i18n.gettext('Percentage Completeness'), 
+    name: i18n.gettext('Percentage Completeness'),
     data: [{% for site in report.data.figure_completeness %}{{ site.value }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
-  labels: { yAxis: { text: null } } 
+  labels: { yAxis: { text: null } }
 };
 
 $('#district-completeness-column').highcharts(
@@ -246,7 +247,7 @@ $('#district-completeness-column').highcharts(
     )
 );
 
-// Measles 
+// Measles
 var measles_data = [{% for week, value in report.data.figure_measles.measles_over_5yo.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{report.data.figure_measles.measles_under_5yo.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
 
 measles_data.sort(function(a,b){
@@ -259,7 +260,7 @@ var measles = {
     { name: i18n.gettext('Under 5 yrs'), data: measles_data.map( function(a){ return a.under}) },
     { name: i18n.gettext('Over 5 yrs'), data: measles_data.map( function(a){ return a.over}) }
   ],
-  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } } 
+  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
 };
 
 $('#measles-age').highcharts(
@@ -283,8 +284,8 @@ var malaria = {
     { name: i18n.gettext('Simple'), data: malaria_data.map( function(a){ return a.simple || 0 }) },
     { name: i18n.gettext('Severe'), data: malaria_data.map( function(a){ return a.severe || 0})},
     { name: i18n.gettext('Positivity'), yAxis: 1, data: malaria_data.map( function(a){ return a.positivity}), type:'spline'  }
-  ], 
-  labels: { yAxis: { text: [i18n.gettext("# Cases"), "% " + i18n.gettext("Positivity")] }, xAxis: { text: i18n.gettext("Epi Week") } } 
+  ],
+  labels: { yAxis: { text: [i18n.gettext("# Cases"), "% " + i18n.gettext("Positivity")] }, xAxis: { text: i18n.gettext("Epi Week") } }
 };
 
 $('#malaria-chart').highcharts(
@@ -306,8 +307,8 @@ var malnutrition = {
   categories: malnutrition_data.map( function(a){ return a.week}),
   series: [
     { name: i18n.gettext('Cases'), data: malnutrition_data.map( function(a){ return a.value || 0 }) },
-  ], 
-  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } } 
+  ],
+  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
 };
 
 $('#malnutrition-chart').highcharts(
@@ -317,19 +318,24 @@ $('#malnutrition-chart').highcharts(
       malnutrition.labels
     )
 );
+// Load the regional geojson data from the report dump.
+// Has to be in report dump because of CORS and Docraptor.
+var dis_data = {{extras.dis_data|safe}};
+var reg_data = {{extras.reg_data|safe}};
 
-regional_map( 
-    {{report.data.figure_mat_deaths_map|safe}}, 
-    {{extras.map_centre}}, 
-    "{{url_for( 'static', filename='files/'+extras.dis_data_file)}}", 
-    'maternal-deaths-map' 
+// Draw the regional maps.
+regional_map(
+    {{report.data.figure_mat_deaths_map|safe}},
+    {{extras.map_centre}},
+    dis_data,
+    'maternal-deaths-map'
 );
 
-regional_map( 
+regional_map(
     {{report.data.figure_malaria_map|safe}},
-    {{extras.map_centre}}, 
-    "{{url_for( 'static', filename='files/'+extras.reg_data_file)}}", 
-    'malaria-map' 
+    {{extras.map_centre}},
+    reg_data,
+    'malaria-map'
 );
 
  // Table PRIORITY DISEASES
@@ -424,8 +430,13 @@ regional_map(
 
  for (var i=0; i<table_priority_diseases_cumulative_keys.length;i++){
      index = table_priority_diseases_cumulative_keys[i];
+	 name = i18n.gettext(table_priority_diseases_cumulative_data[index].name)
+	 if( name == "Episode d’Intoxication par consommation d’animaux marins (ICAM)"){
+		 name = "ICAM"
+
+	}
      var datum = {
-         "disease": i18n.gettext(table_priority_diseases_cumulative_data[index].name),
+         "disease": name,
          "cases": table_priority_diseases_cumulative_data[index].cases,
          "mortality": table_priority_diseases_cumulative_data[index].mortality,
          "cfr": (isNaN(table_priority_diseases_cumulative_data[index].cfr) ? table_priority_diseases_cumulative_data[index].cfr:Number(table_priority_diseases_cumulative_data[index].cfr).toFixed(0) + "%"),
@@ -466,7 +477,7 @@ regional_map(
              "align": "center",
              "class": "header",
              sortable: true,
-             "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]);
                  b = Number(b.split('%')[0]);
                  if(a < b) return 1; if (a>b) return -1; return 0;},
              width : "14%"
@@ -490,7 +501,7 @@ regional_map(
              "align": "center",
              "class": "header",
              sortable: true,
-             "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]);
                  b = Number(b.split('%')[0]);
                  if(a < b) return 1; if (a>b) return -1; return 0;},
              width : "14%"
@@ -555,7 +566,7 @@ regional_map(
              "align": "center",
              "class": "header",
              sortable: true,
-             "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]);
                  b = Number(b.split('%')[0]);
                  if(a < b) return 1; if (a>b) return -1; return 0;},
              width : "20%"
@@ -565,7 +576,7 @@ regional_map(
              "align": "center",
              "class": "header",
              sortable: true,
-             "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]);
                  b = Number(b.split('%')[0]);
                  if(a < b) return 1; if (a>b) return -1; return 0;},
              width : "20%"

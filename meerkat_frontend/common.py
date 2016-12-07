@@ -51,64 +51,19 @@ def api(url, api_key=False, params=None):
         return output
 
 
-def refine_hermes_topics(topics):
+def hermes(url, method, data={}):
     """
-    We don't want mass emails to be sent from the dev environment, but we do
-    want the ability to test.
-
-    This function takes a list of hermes topics, and if we are in the
-    development/testing environment (determined by HERMES_DEV) this function
-    strips them back to only those topics in the config variable
-    HERMES_DEV_TOPICS.
+    Makes a Hermes API request.
 
     Args:
-        topics ([str]) A list of topic ids that a message is initially intended
-        to be published to.
+       url (str): The Meerkat Hermes url for the desired function.
+       method (str):  The desired HTML function: GET, POST or PUT.
+       data (optional dict): The data to be sent to the url. Defaults
+       to ```{}```.
 
     Returns:
-        [str] A refined list of topic ids containing only those topics from
-        HERMES_DEV_TOPICS, if HERMES_DEV == 1.
+       dict: a dictionary formed from the json data in the response.
     """
-    # Do some logging.
-    logging.warning("Topics: " + str(topics))
-    logging.warning("Allowed topics: " + str(app.config["HERMES_DEV_TOPICS"]))
-
-    # Make topics a list if it isn't already one.
-    topics = [topics] if not isinstance(topics, list) else topics
-
-    # If developing/testing, remove topics not specified in config as allowed.
-    if app.config["HERMES_DEV"]:
-        for t in range(len(topics)-1, -1, -1):
-            if topics[t] not in app.config["HERMES_DEV_TOPICS"]:
-                del topics[t]
-
-    return topics
-
-
-def hermes(url, method, data={}):
-    """Makes a Hermes API request.
-
-       Args:
-           url (str): The Meerkat Hermes url for the desired function.
-           method (str):  The desired HTML function: GET, POST or PUT.
-           data (optional dict): The data to be sent to the url. Defaults
-           to ```{}```.
-
-       Returns:
-           dict: a dictionary formed from the json data in the response.
-    """
-
-    if 'publish' in url:
-        # If in dev envirnoment only publish to specially selected topics.
-        topics = refine_hermes_topics(data.get('topics', []))
-        # Return error if tried to mass email from the dev envirnoment.
-        if not topics:
-            return {
-                "message": ("No topics to publish to, perhaps because system"
-                            "is in hermes dev mode.")
-            }
-        else:
-            data['topics'] = topics
 
     # Add the API key and turn into JSON.
     data["api_key"] = app.config['HERMES_API_KEY']
@@ -122,6 +77,7 @@ def hermes(url, method, data={}):
     # Make the request and handle the response.
     try:
         r = requests.request(method, url, json=data, headers=headers)
+        logging.warning(r)
     except requests.exceptions.RequestException:
         abort(500, "request")
     return r.json()
