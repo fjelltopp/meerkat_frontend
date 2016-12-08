@@ -4,18 +4,18 @@
 <!-- CONTENT -->
 <div class="page-header">
     <h2>
-	<span 
+	<span
 	    class="flag-icon flag-icon-{{report.flag}}"
 	    style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
 	>
-	</span> 
+	</span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
 	<span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Pandemic Influenza Preparedness (PIP) Profile
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
     </h2>
-    
+
 </div>
 <div class="row">
   <!-- KEY FINDINGS -->
@@ -32,7 +32,7 @@
 	  <li><strong>{{ report.data.cases_pcr }} samples </strong> tested by PCR.</li>
         </table>
 
-	  
+
         </ul>
         <p>Viral Aetiologies</p>
 	<ul>
@@ -49,9 +49,6 @@
       <div class="chart-title">Map</div>
       <div class="chart-stage">
           <div id="map"></div>
-	  <div id="map-print">
-              <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
       </div>
     </div>
   </div>
@@ -315,7 +312,7 @@ $(function() {
 	 {% endfor %}
      ]
 
-	     
+
      $('#chart-epi').highcharts(
 	 PipBarChart(
 	     {{ report.data.timeline.weeks|safe }},
@@ -324,8 +321,8 @@ $(function() {
 	 ));
 
 });
- // Draw map
-draw_report_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+// Draw map
+map_from_data({{report.data.map|safe}})
 
 </script>
 {% endblock extra_js %}
