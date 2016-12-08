@@ -2947,7 +2947,7 @@ msgstr ""
 "Le profil résume l'information épidémiologique rapporté par des "
 "%(clinics)s \n"
 " sites de surveillance pendant  la semaine épidémiologique "
-"%(epi_week)(%(start_date)s et \n"
+"%(epi_week)s (%(start_date)s et \n"
 " %(end_date)s)."
 
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:18
