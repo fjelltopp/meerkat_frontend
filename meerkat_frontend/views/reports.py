@@ -22,14 +22,17 @@ import pdfcrowd
 
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
+
 @reports.before_request
 def requires_auth():
     """
     Checks that the user has authenticated before returning any page from this
     Blueprint.
     """
-    #We load the arguments for check_auth function from the config files.
-    auth.check_auth( *current_app.config['AUTH'].get('reports', [['BROKEN'],['']]) )
+    # We load the arguments for check_auth function from the config files.
+    auth.check_auth(
+        *current_app.config['AUTH'].get('reports', [['BROKEN'], ['']])
+    )
 
 
 # NORMAL ROUTES
@@ -57,7 +60,8 @@ def test(report):
     """Serves a test report page using a static JSON file.
 
        Args:
-           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+           report (str): The report ID, from the REPORTS_LIST configuration
+           file parameter.
     """
 
     report_list = current_app.config["REPORTS_CONFIG"]['report_list']
@@ -85,18 +89,21 @@ def test(report):
                     'quantity': item['quantity']
                 }
             extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1")
+            extras["map_api_call"] = (
+                current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1"
+            )
         elif report in ["refugee_public_health"]:
             extras = {}
             extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1/Refugee")
+            extras["map_api_call"] = (
+                current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1/Refugee"
+            )
         elif report in ["pip"]:
             extras = {}
             extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/clinics/1/SARI")
+            extras["map_api_call"] = (
+                current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1/SARI"
+            )
         elif report in ["malaria"]:
             extras = {}
             extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +

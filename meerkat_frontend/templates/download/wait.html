@@ -21,11 +21,21 @@
                         {{ _('Your data set is being prepared...') }}
                     </div>
                     <div class="chartBox__content" >
-                        <div id="spinner">
-                            <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
+                        <div class='breaker'></div>
+                        <div class='clearfix'>
+                            <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
+                                <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
+                            </div>
+                            <a id='download-button'
+                               class='btn btn-lg btn-default col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'
+                               href='#'>
+                                <span class='glyphicon glyphicon-download'></span>
+                                    {{ _('Download Here') }}
+                            </a>
                         </div>
-                        <p> Current Status: </p>
-                        <span id="status"> </span>
+                        <div class='breaker'></div>
+                        <p> <b>Current Status:</b> <span id="status"> </span></p>
+
                     </div>
         		</div>
             </div>
@@ -40,6 +50,7 @@
  var config = {{content|tojson|safe}};
  var api_root = "{{config['EXTERNAL_API_ROOT']}}";
  var week = {{week.epi_week}};
+ $('#download-button').hide();
  $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
  url ='{{api_url|safe}}';
  var uuid = "";
@@ -53,11 +64,10 @@
                  if(data.success == 1){
 
                      t = i18n.gettext("Data set was sucesfully generated.")
-                     $("#spinner").html(
-                         '<a href="' + api_root +
-                         "/export/get/" + uuid +'">' +
-                          i18n.gettext("Download here") + '</a>'
-                     );
+
+                     $('#download-button').attr('href', api_root + "/export/get/" + uuid);
+                     $("#spinner").hide();
+                     $('#download-button').show();
                      $("#heading").html(t);
                      $("#status").html("Finished");
 
