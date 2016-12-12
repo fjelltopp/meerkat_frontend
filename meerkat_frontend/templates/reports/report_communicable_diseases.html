@@ -81,7 +81,7 @@
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
-$(function() {
+ i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
   {% for k, v in report.data.communicable_diseases|dictsort %}
   // {{ k }}
   $('#chart-{{ k|slugify }}').highcharts(
@@ -92,7 +92,6 @@ $(function() {
     )
   );
   {% endfor %}
-});
 </script>
 {% endblock extra_js %}
 

@@ -29,8 +29,8 @@ function drawMap( varID, containerID, location, start_date, end_date ){
 }
 
 function drawMapFromData( data, containerID ){
-    console.log( "DRAWING MAP" );
-    console.log( data );
+   // console.log( "DRAWING MAP" );
+   // console.log( data );
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
     map = L.mapbox.map( containerID, 'mrjb.143811c9', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
@@ -96,8 +96,8 @@ function drawMapFromData( data, containerID ){
         limit += binSize;
         limits.push(limit);
     }
-    console.log(binSize);
-    console.log(number);
+//    console.log(binSize);
+//    console.log(number);
     markers = [];
     //For each clinic, select the marker colour and add the marker to the map.
     for(i in data){
@@ -115,7 +115,7 @@ function drawMapFromData( data, containerID ){
             color: colour
         });
 
-        marker.bindPopup( "<b>" + i18n.gettext(data[i].clinic) + "</b><br/>" + data[i].value + " "+ i18n.gettext('cases'));
+		marker.bindPopup( "<b>" + data[i].clinic + "</b><br/>" + data[i].value + " "+ i18n.gettext('cases'));
         marker.addTo( map );
         markers[markers.length] = marker;
     }

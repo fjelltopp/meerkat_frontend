@@ -18,7 +18,6 @@ function map_from_data( data, map_centre, containerID){
     });
 
     if( map_centre ) map.setView([map_centre[0], map_centre[1]], map_centre[2]);
-
     //  Disable map dragging on touch devices to ensure scrolling works
     map.dragging.disable();
     //  However, if we're fullscreen let's allow devices to drag
@@ -33,7 +32,7 @@ function map_from_data( data, map_centre, containerID){
 
     var geoJsonLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(i18n.gettext(feature.properties.Name));
+            layer.bindPopup(feature.properties.Name);
         }
     });
 
@@ -44,6 +43,7 @@ function map_from_data( data, map_centre, containerID){
 
     markers.addLayer(geoJsonLayer);
     map.addLayer(markers);
+
     if( !map_centre ) map.fitBounds(markers.getBounds(), {padding: [30, 30]});
 }
 
