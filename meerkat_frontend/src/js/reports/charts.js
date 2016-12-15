@@ -150,7 +150,7 @@ function communicableDiseasesBarChart(categories, series, labels) {
     },{
       type: 'spline',
       name: i18n.gettext('Suspected'),
-      data: series[1],
+      data: series[1]
     }]
   };
 	return chart;

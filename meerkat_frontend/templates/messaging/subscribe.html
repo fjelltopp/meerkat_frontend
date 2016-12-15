@@ -44,7 +44,7 @@
 					  <div class="chartBox__heading">
 						  {{ _('Subscribe to Alerts and Reports') }}
 					  </div>
-					  <div class="chartBox__content" >  
+					  <div class="chartBox__content" >
 						  <div class="intro">
 						  {{ _('Use the form below to subscribe to E-mail and SMS notifications for Alerts and Reports.') }}
 						  </div>
@@ -106,7 +106,10 @@
 {% block pageJS %}
 <script src="{{ url_for('static', filename='js/intlTelInput.js') }}"></script>
 <script type="text/javascript" >
-  
+
+$('ul.navbar-nav .active').removeClass('active');
+$('.menu-notifications').addClass('active');
+
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
@@ -123,7 +126,7 @@ $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 //All three arguments can be left undefined if necessary - all reports will update with current locID and year.
 function drawCharts(locID, year, reports){
 
-	//locID (the id of the location) is an optional argument.  
+	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
 		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
@@ -191,10 +194,10 @@ $.getJSON( api_root+"/variables/alert?include_group_b=1", function( variables ){
 		//Draw the region selector
       var regSel = "<select id='region-selector'><option value='1'"+
 		             "selected='selected'>";
-      regSel += "All Regions </option>"  
+      regSel += "All Regions </option>"
       for( var k in locations.nodes ){
 	  regSel += "<option name='regions' value='" +
-                    locations.nodes[k].id + "' >" + i18n.gettext(locations.nodes[k].text) + "</option>"; 
+                    locations.nodes[k].id + "' >" + i18n.gettext(locations.nodes[k].text) + "</option>";
       }
       regSel += "</select>";
 		$('#region-select').html(regSel);
@@ -209,7 +212,7 @@ $.getJSON( api_root+"/variables/alert?include_group_b=1", function( variables ){
 			repSel += i18n.gettext(config.subscribe.reports[j].name) + "</div>";
 		}
 		repSel += "</div>";
-		$('#report-select').html(repSel);		
+		$('#report-select').html(repSel);
 
 	});
 });
@@ -264,13 +267,13 @@ $("#subscribe-form").submit(function(event) {
 	if( !checkSelected( document.getElementById('all-diseases') ) ){
 		checked = $('input[name=topics]').each( function(){
 			this.setCustomValidity(" {{_('You must tick at least one checkbox.') }}");
-		});		
+		});
 		valid = false;
 	}
 
 	if( !checkEqual() ) valid = false;
 
-	if( valid ){	
+	if( valid ){
 
 		//Get the formatted sms number, if it's not there remove it
 		var number = telInput.intlTelInput("getNumber")
@@ -282,7 +285,7 @@ $("#subscribe-form").submit(function(event) {
 
 		//Assemble the topic IDs
 		var prefix = '{{content.subscribe.topic_prefix}}';
-		//Get the region		   
+		//Get the region
 		var reg = history.state.locID
 
 		$( 'input[name=topics]:checked' ).each( function(){
@@ -299,12 +302,12 @@ $("#subscribe-form").submit(function(event) {
 				$(this).val( prefix + value );
 			}else{
 				$(this).val( prefix + reg + "-" + value );
-			}	
+			}
 
 		});
 
     return;
-		
+
 	}
 
 	event.preventDefault();

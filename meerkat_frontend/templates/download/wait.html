@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block menu %}
+{% endblock menu %}
+
+{% block body %}
+<!-- CONTENT -->
+<div class="container page-content">
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			{{_('Download Data') }}
+		</div>
+		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+			{{ _('Date not loaded.') }}
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="box chartBox">
+                    <div class="chartBox__heading" id='heading'>
+                        {{ _('Your data set is being prepared...') }}
+                    </div>
+                    <div class="chartBox__content" >
+                        <div class='breaker'></div>
+                        <div class='clearfix'>
+                            <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
+                                <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
+                            </div>
+                            <a id='download-button'
+                               class='btn btn-lg btn-default col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'
+                               href='#'>
+                                <span class='glyphicon glyphicon-download'></span>
+                                    {{ _('Download Here') }}
+                            </a>
+                        </div>
+                        <div class='breaker'></div>
+                        <p> <b>Current Status:</b> <span id="status"> </span></p>
+
+                    </div>
+        		</div>
+            </div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+ var config = {{content|tojson|safe}};
+ var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+ var week = {{week.epi_week}};
+ $('#download-button').hide();
+ $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
+ url ='{{api_url|safe}}';
+ var uuid = "";
+ interval = ""
+ console.log(url)
+ function check_status(){
+     $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
+         if(data){
+             console.log(data);
+             if(data.status == 1){
+                 if(data.success == 1){
+
+                     t = i18n.gettext("Data set was sucesfully generated.")
+
+                     $('#download-button').attr('href', api_root + "/export/get/" + uuid);
+                     $("#spinner").hide();
+                     $('#download-button').show();
+                     $("#heading").html(t);
+                     $("#status").html("Finished");
+
+                 }else{
+                     t = i18n.gettext("Data set generation was unsuccessful");
+                     $("#heading").html(t);
+                     $("#spinner").html("Please try again later.");
+                     $("#status").html("Finished");
+                 }
+                 clearInterval(interval)
+             }else{
+                 t = i18n.gettext("Dataset is still being prepared, please wait.")
+                 $("#status").html(t)
+             }
+
+         }
+     });
+ }
+
+ $.getJSON(url, function( data ){
+     uuid = data;
+
+     $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
+
+         interval = setInterval(function() {
+             check_status()
+         }, 5000);
+     });
+
+
+</script>
+
+{% endblock pageJS %}

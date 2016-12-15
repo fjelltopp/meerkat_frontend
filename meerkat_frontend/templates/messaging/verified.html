@@ -20,7 +20,7 @@
 					<div class="chartBox__heading">
 						{{ _('Verification Successful') }}
 					</div>
-					<div class="chartBox__content" >    
+					<div class="chartBox__content" >
 						<div class="intro">
 						    {{ _(message) }}
                                                     {{ _('<p>Your contact details have been successfully verified.</p>
@@ -36,7 +36,10 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
-  
+
+$('ul.navbar-nav .active').removeClass('active');
+$('.menu-notifications').addClass('active');
+
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
