@@ -14,7 +14,25 @@
     },
     "zoom":"9"
   },
-  
+
+
+
+    "completeness_denominator":{
+        "all": "7",
+        "cd": "4",
+        "ncd": "4",
+        "mh": "4"
+    },
+
+    "timeliness_denominator":{
+        "all": "4",
+        "cd": "4",
+        "ncd": "4",
+        "mh": "4"
+    },
+
+    "weekend" : [5,6],
+
   "tabs":[{
     "name":"Demographics",
     "template":"demographics.html" 

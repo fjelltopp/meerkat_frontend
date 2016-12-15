@@ -326,8 +326,10 @@ function drawTimeChart( varID, locID, containerID, alert_week){
    Draws a timeline line chart showing the percentage of overall completeness/timeliness and completeness/timeliness for each clinic in each epi week this current year.
    :param string containerID:
    The ID of the HTML element to hold the chart.
-   :param string locID:
+   :param string regionID:
    The ID of the location by which to filter the data.
+   :param string denomintor:
+   number of expected reporting days in a week
    :param Object locations:
    List of all locations from API.
    :param Object data:
@@ -336,21 +338,14 @@ function drawTimeChart( varID, locID, containerID, alert_week){
    Type of a graph to be ploted. `0` for completeness, `1` for timeliness
 */
 
-function drawCompletenessGraph( containerID, regionID, locations, data, start_week, graphtypeID){
-
-
-    console.log("this is it!");
-    console.log(data);
-    console.log("is it?!");
+function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID){
 
     var stringGraphType = 'data';
-    var multiplier = 1;
+    var multiplier = 100 / denominator;
     if(graphtypeID === 0){
         stringGraphType = 'Completeness';
-        multiplier = 25;
     }else if(graphtypeID ===1){
         stringGraphType = 'Timeliness';
-        multiplier = 25;
     }
 
     //create a data series for each location
