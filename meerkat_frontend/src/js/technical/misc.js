@@ -581,21 +581,28 @@ function stripEmptyRecords( dataObject ){
    The ID for the HTML element containg title of the non-reporting clinics table.
    :param string allclinisctableID:
    The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+   :param int start_week:
+   First week to calculate completeness.
+   :param string exclude:
+   A string specifing which type of case types should be excluded.
+   :param list of int weekend:
+   Specified weekend days in a comma separated string, for example [0, 2]
    */
-function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend){
     var completenessLocations;
     var completenessData;
-	if( start_week === undefined) start_week = 1;
+    if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             completenessLocations = data;
         })];
-	if(exclude){
-		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude,function( data ){completenessData = data;}));
-	}else{
-		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week,
-								   function( data ){completenessData = data; }));
-	}
+
+    if(exclude){
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){completenessData = data;}));
+    }else{
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend,
+                                   function( data ){completenessData = data; }));
+    }
 
     $.when.apply( $, deferreds ).then(function() {
         drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  );
@@ -624,19 +631,28 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    The ID for the HTML element that will hold the main timeliness table.  If empty, no table is drawn.
    :param string allclinisctableID:
    The ID for the HTML element that will hold the table for all clnics timeliness information.  If empty, this table isn't drawn.
+   :param int start_week:
+   First week to calculate completeness.
+   :param string exclude:
+   A string specifing which type of case types should be excluded.
+   :param list of int weekend:
+   Specified weekend days in a comma separated string, for example [0, 2]
    */
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend){
     var timelinessLocations;
     var timelinessData;
-	if( start_week === undefined) start_week = 1;
+    if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             timelinessLocations = data;
-        }),
-        $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week, function( data ){
-            timelinessData = data;
-        })
-    ];
+        })];
+
+    if(exclude){
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){timelinessData = data;}));
+    }else{
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend,
+                                   function( data ){timelinessData = data; }));
+    }
 
     $.when.apply( $, deferreds ).then(function() {
 
