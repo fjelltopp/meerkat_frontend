@@ -150,7 +150,9 @@ function drawDiseaseContent( varID, locID ){
 	$.getJSON( api_root + '/variable/' + varID, function( data ){
 	
 		$('#diseaseTitle').text(i18n.gettext(data.name));
-		name = i18n.gettext(data.name);
+	        name = i18n.gettext(data.name);
+                reDrawMap(locID);
+                drawDiseaseTable( varID, locID );
 		buildHTML( i18n.gettext('Classification'), i18n.gettext(data.classification_casedef), 'classification', 4 );
 		
 		buildHTML( i18n.gettext('Source'), i18n.gettext(data.source), 'source', 4 );
@@ -159,11 +161,11 @@ function drawDiseaseContent( varID, locID ){
 		buildHTML( i18n.gettext('Case Definition'), i18n.gettext(data.case_def), 'caseDefinition' );
 		buildHTML( i18n.gettext('Risk Factor(s)'), i18n.gettext(data.risk_factors), 'riskFactors' );
 		buildHTML( i18n.gettext('Sign(s)/Symptom(s)'), i18n.gettext(data.symptoms), 'signsSymptoms' );
-		// buildHTML( i18n.gettext('Labs/Diagnostics'), i18n.gettext(data.labs_diagnostics), 'labsDiagnostics' );
+		buildHTML( i18n.gettext('Labs/Diagnostics'), i18n.gettext(data.labs_diagnostics), 'labsDiagnostics' );
 
-		drawDiseaseTable( varID, locID );
 
-		reDrawMap(locID);
+
+		
 	});
 
 }
@@ -172,23 +174,21 @@ function drawDiseaseTable( varID, locID ){
 
 	$.getJSON( api_root + '/variable/' + varID, function( data ){
 
-		console.log( data )
 		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
 		if( data.id.indexOf('icc_') > -1 || data.id.indexOf('icb_') > -1){
-
-			$.getJSON( api_root+"/aggregate_category/" + data.name + "/" + locID, function( subdiseases ){
-				$.getJSON( api_root+"/variables/" + data.name, function( variables ){
-					console.log( Object.keys(subdiseases).length );
-                    
-                    var title = data.name.charAt(0).toUpperCase() + data.name.slice(1);
-                    if( Object.keys(subdiseases).length > 0){
+		    $.getJSON( api_root+"/aggregate_category/" + data.name + "/" + locID, function( subdiseases ){
+			$.getJSON( api_root+"/variables/" + data.name, function( variables ){
+			    console.log( Object.keys(subdiseases).length );
+                            
+                            var title = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+                            if( Object.keys(subdiseases).length > 0){
                    		var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), "ICD10 Sub-diseases" );
-          		 		dataObject = stripEmptyRecords( dataObject );
-						
-                        drawTable( 'disease-table', dataObject, true, 'loadDisease' );
-                    }
-				});
+          		 	dataObject = stripEmptyRecords( dataObject );
+				
+                                drawTable( 'disease-table', dataObject, true, 'loadDisease' );
+                            }
 			});
+		    });
 		}
 	});
 }
