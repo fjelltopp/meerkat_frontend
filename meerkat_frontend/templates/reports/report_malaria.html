@@ -94,10 +94,11 @@ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 
 //Draw the content using the functions below.
 drawTable1();
-//Draw Malaria Map
-drawMapFromData(content['map'], 'malaria-map-wrapper')
+ //Draw Malaria Map
+ i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
+ drawMapFromData(content['map'], 'malaria-map-wrapper')
 //Load a new translator in this template so that the source of translations can be loaded for pdfs.
-i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
+
 drawTable2();
 
 
@@ -162,7 +163,6 @@ function drawTable2(){
 
   var keys = Object.keys( content['malaria_prevention'] );
 
-  console.log( content['malaria_prevention'] );
   for( var i in keys ){
       var name = i18n.gettext(content['variables'][keys[i]].name);
       var value = content['malaria_prevention'][keys[i]];
