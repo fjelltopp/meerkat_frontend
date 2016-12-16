@@ -307,7 +307,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         if report_list[report]['default_period'] == 'month':
             subject = '{country} | {title} ({start_date} - {end_date})'.format(
                 country = gettext(country),
-                title = gettext(report_list[report]['title']),
+                title = gettext(report_list[report]['monthly_email_title']),
                 start_date = format_datetime(start_date, 'dd MMMM YYYY'),
                 end_date = format_datetime(end_date, 'dd MMMM YYYY')
             )
