@@ -4,14 +4,14 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
-    </span> 
+    </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    </span> 
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Communicable Disease Profile') }} 
+    </span>
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Communicable Disease Profile') }}
     <span class="report-week">
 	{{ report.data.start_date|datetime_from_json|datetime("dd MMMM YYYY") }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
@@ -28,14 +28,14 @@
               <li> {{ _('A total of <strong>  %(total_cases)s cases</strong> reported from %(clinic_num)s health facilities.', total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}</li>
 
               <li>{{ _('<strong> %(percent_female)s %% female</strong> and <strong> %(percent_lt_5yo)s %% five years</strong> of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}</li>
-			  
+
               <li>{{ _('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1)) }}</li>
           {% for disease in report.data.morbidity_communicable_cd_tab %}
 	  <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
           {% endfor %}
         </table>
 
-	  
+
           </ul>
             <h4>{{ _('Alerts') }}</h4>
         {% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
@@ -52,9 +52,6 @@
       <div class="chart-title">{{ _('Map') }}</div>
       <div class="chart-stage">
           <div id="map"></div>
-          <div id="map-print">
-            <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
       </div>
     </div>
   </div>
@@ -353,8 +350,7 @@ $(function() {
   );
 });
 // Draw map
-draw_report_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+map_from_data({{report.data.map|safe}})
 
 </script>
 {% endblock extra_js %}
-

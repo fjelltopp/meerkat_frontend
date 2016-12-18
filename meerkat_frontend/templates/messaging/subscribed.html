@@ -20,7 +20,7 @@
 					<div class="chartBox__heading">
 						{{ _('Please verify your contact details') }}
 					</div>
-					<div class="chartBox__content" >    
+					<div class="chartBox__content" >
 					    <div class="intro">
 						{{ _('<p>Hello %(firstname)s %(lastname)s,</p>
 							<p>Thank you for subscribing to receive our public health surveillance notifications.</p>
@@ -28,7 +28,7 @@
 							Before we can activate your subscription, we need to verify your contact details.
 							</b></p>
 							<p>
-							To do this, please follow the instructions in the e-mail we have sent to your address: 
+							To do this, please follow the instructions in the e-mail we have sent to your address:
 							%(email)s
 							</p>',firstname=data['first_name'], lastname=data['last_name'], email=data['email']) }}
 						</div>
@@ -41,9 +41,11 @@
 {% endblock body %}
 
 {% block pageJS %}
-
 <script type="text/javascript" >
-  
+
+$('ul.navbar-nav .active').removeClass('active');
+$('.menu-notifications').addClass('active');
+
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};

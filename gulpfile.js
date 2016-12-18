@@ -14,7 +14,6 @@ var rsync = require('gulp-rsync');
 var argv = require('yargs').argv;
 var po2json = require('gulp-po2json');
 var mainBowerFiles = require('main-bower-files');
-var runSequence = require('run-sequence');
 
 // ** SASS/SCSS/CSS PLUGINS ** //
 var sass = require('gulp-sass');
@@ -225,25 +224,3 @@ gulp.task('clean', function() {
 gulp.task('default', ['clean'], function() {
   gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales');
 });
-
-/*
-gulp.task('default', function (cb) {
-  runSequence(
-    ['clean'],
-    ['sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales'],
-    // this callback is executed at the end, if any of the previous tasks errored,
-    // the first param contains the error
-    function (err) {
-      //if any error happened in the previous tasks, exit with a code > 0
-      if (err) {
-        var exitCode = 1;
-        console.log('[ERROR] gulp build task failed', err);
-        console.log('[FAIL] gulp build task failed - exiting with code ' + exitCode);
-        return process.exit(exitCode);
-      }
-      else {
-        return cb();
-      }
-    }
-  );
-}); */

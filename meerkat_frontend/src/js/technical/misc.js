@@ -31,6 +31,19 @@ function get_date(){
     return date.getDate()+" "+monthNames[date.getMonth()]+" "+date.getFullYear();
 }
 
+/**:isInteger(num)
+
+    Returns a boolean stating whether or not the argument is an integer.
+    Number.isInteger() doesn't work in IE and more crucially Docraptor. Define
+    this little method here to use instead.
+    :param num:
+    :returns:
+        (boolean) True if the argument is an Integer type.
+
+*/
+function isInteger(num) {
+  return (num ^ 0) === num;
+}
 
 //Format a number with commas separating the thousands.
 function format(number){
@@ -569,6 +582,8 @@ function stripEmptyRecords( dataObject ){
    The ID of the location for which completeness shall be calculated.
    :param string reg_id:
    type of a non reporting registers. Can be `reg_10` for CD, `reg_11`  for NCD.
+   :param string denomintor:
+   number of expected reporting days in a week
    :param string graphID:
    The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
    :param string tableID:
@@ -579,23 +594,31 @@ function stripEmptyRecords( dataObject ){
    The ID for the HTML element containg title of the non-reporting clinics table.
    :param string allclinisctableID:
    The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+   :param int start_week:
+   First week to calculate completeness.
+   :param string exclude:
+   A string specifing which type of case types should be excluded.
+   :param list of int weekend:
+   Specified weekend days in a comma separated string, for example [0, 2]
    */
-function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend){
     var completenessLocations;
     var completenessData;
+    if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             completenessLocations = data;
         })];
-	if(exclude){
-		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4/" + exclude,function( data ){completenessData = data;}));
-	}else{
-		deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/4",
-								   function( data ){completenessData = data; }));
-	}
+
+    if(exclude){
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){completenessData = data;}));
+    }else{
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend,
+                                   function( data ){completenessData = data; }));
+    }
 
     $.when.apply( $, deferreds ).then(function() {
-        drawCompletenessGraph( graphID, locID, completenessLocations, completenessData, start_week, 0  );
+        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  );
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
@@ -613,28 +636,40 @@ function completenessPreparation( locID, reg_id, graphID, tableID, nonreportingt
    The ID of the location for which timeliness shall be calculated.
    :param string reg_id:
    type of a non reporting registers. It should be `reg_5` for general timeliness
+   :param string denomintor:
+   number of expected reporting days in a week
    :param string graphID:
    The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
    :param string tableID:
    The ID for the HTML element that will hold the main timeliness table.  If empty, no table is drawn.
    :param string allclinisctableID:
    The ID for the HTML element that will hold the table for all clnics timeliness information.  If empty, this table isn't drawn.
+   :param int start_week:
+   First week to calculate completeness.
+   :param string exclude:
+   A string specifing which type of case types should be excluded.
+   :param list of int weekend:
+   Specified weekend days in a comma separated string, for example [0, 2]
    */
-function timelinessPreparation( locID, reg_id, graphID, tableID, allclinisctableID, start_week){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend){
     var timelinessLocations;
     var timelinessData;
+    if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
             timelinessLocations = data;
-        }),
-        $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/5", function( data ){
-            timelinessData = data;
-        })
-    ];
+        })];
+
+    if(exclude){
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){timelinessData = data;}));
+    }else{
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend,
+                                   function( data ){timelinessData = data; }));
+    }
 
     $.when.apply( $, deferreds ).then(function() {
 
-        drawCompletenessGraph( graphID, locID, timelinessLocations, timelinessData, start_week, 1 );
+        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1 );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );

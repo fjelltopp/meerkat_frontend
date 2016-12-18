@@ -77,7 +77,7 @@
  var currrentlocation;
  $("#location_box").html(i18n.gettext("Location:"));
  $("#location_title").html(i18n.gettext("Not Loaded"));
- $("#title").html(i18n.gettext('Timeliness'));
+ $("#title").html(i18n.gettext('CD Timeliness'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('Timeliness')  + " (" + i18n.gettext('Week') + ' ' + (get_epi_week() -1) +")");
@@ -104,7 +104,7 @@
  //It's also called upon the first load of the page.
  function drawCharts( locID ){
      currentLocation = locID;
-     timelinessPreparation( currentLocation, 'reg_5', config.timeliness_denominator.all, 'timeliness-graph', 'timeliness-table', 'all-clinics-table', 1, "None", config.weekend );
+     timelinessPreparation( currentLocation, 'reg_6', config.timeliness_denominator.cd,  'timeliness-graph', 'timeliness-table', 'all-clinics-table',1, "None", config.weekend );
  }
 
  function toggleAllClinics(){
