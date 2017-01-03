@@ -54,9 +54,9 @@ def check_authentication(test_class, url, has_authentication):
     test_class.assertEqual(rv.status_code, 200)
 
 
-from meerkat_frontend.test.test_reports import *
-from meerkat_frontend.test.test_common import *
-from meerkat_frontend.test.test_messaging import *
+#from meerkat_frontend.test.test_reports import *
+#from meerkat_frontend.test.test_common import *
+#from meerkat_frontend.test.test_messaging import *
 
 
 class MeerkatFrontendTestCase(unittest.TestCase):
@@ -94,11 +94,16 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     def tearDown(self):
         self.patcher.stop()
 
+    # HOMEPAGE testing
     def test_index(self):
-        """Check the index page loads"""
+        """Ensure the config file is loading correctly"""
+        rv = self.app.get('/en/')
+        self.assertIn(b'Null Island', rv.data)
+
+    def test_lang_redirect(self):
+        """Check you are redirected to the langauge url."""
         rv = self.app.get('/')
-        self.assertEqual(rv.status_code, 200)
-        self.assertIn(b'WHO', rv.data)
+        self.assertEqual(rv.status_code, 302)
 
     def test_reports(self):
         """Check the Reports page loads"""

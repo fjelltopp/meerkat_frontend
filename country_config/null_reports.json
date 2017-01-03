@@ -53,7 +53,7 @@
             "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "week",
-            "test_json_payload": "meerkat_frontend/apiData/reports_public_health.json",
+            "test_json_payload": "meerkat_frontend/apiData/reports_public_health_jordan.json",
             "access": "registered"
         },
         "cd_public_health": {
@@ -91,7 +91,7 @@
             "email_from_name": "MOH Demo",
             "email_from_address": "demo@emro.info",
             "default_period": "year",
-            "test_json_payload": "meerkat_frontend/apiData/reports_communicable_diseases.json",
+            "test_json_payload": "meerkat_frontend/apiData/reports_communicable_diseases_jordan.json",
             "access": "registered"
         },
         "non_communicable_diseases": {
