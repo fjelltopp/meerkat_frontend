@@ -1,74 +1,86 @@
 {
     "data": {
         "clinic_num": 4,
-        "demographics": [
-            {
-                "age": "<5",
-                "female": {
-                    "percent": 0.0,
-                    "quantity": 0
-                },
-                "male": {
-                    "percent": 0.0,
-                    "quantity": 0
-                }
+        "demographics":[
+         {
+            "male":{
+               "quantity":2164,
+               "percent":56.93238621415417
             },
-            {
-                "age": "5-9",
-                "female": {
-                    "percent": 100.0,
-                    "quantity": 4
-                },
-                "male": {
-                    "percent": 0.0,
-                    "quantity": 0
-                }
+            "female":{
+               "quantity":1637,
+               "percent":43.06761378584583
             },
-            {
-                "age": "10-14",
-                "female": {
-                    "percent": 100.0,
-                    "quantity": 1
-                },
-                "male": {
-                    "percent": 0.0,
-                    "quantity": 0
-                }
+            "quantity":3801,
+            "age":"<5",
+            "percent":15.28
+         },
+         {
+            "male":{
+               "quantity":988,
+               "percent":54.585635359116026
             },
-            {
-                "age": "15-19",
-                "female": {
-                    "percent": 50.0,
-                    "quantity": 1
-                },
-                "male": {
-                    "percent": 50.0,
-                    "quantity": 1
-                }
+            "female":{
+               "quantity":822,
+               "percent":45.414364640883974
             },
-            {
-                "age": "20-59",
-                "female": {
-                    "percent": 46.15384615384615,
-                    "quantity": 12
-                },
-                "male": {
-                    "percent": 53.84615384615385,
-                    "quantity": 14
-                }
+            "quantity":1810,
+            "age":"5-9",
+            "percent":7.28
+         },
+         {
+            "male":{
+               "quantity":604,
+               "percent":61.569826707441386
             },
-            {
-                "age": ">60",
-                "female": {
-                    "percent": 60.0,
-                    "quantity": 18
-                },
-                "male": {
-                    "percent": 40.0,
-                    "quantity": 12
-                }
-            }
-        ],
+            "female":{
+               "quantity":377,
+               "percent":38.430173292558614
+            },
+            "quantity":981,
+            "age":"10-14",
+            "percent":3.94
+         },
+         {
+            "male":{
+               "quantity":328,
+               "percent":60.74074074074074
+            },
+            "female":{
+               "quantity":212,
+               "percent":39.25925925925926
+            },
+            "quantity":540,
+            "age":"15-19",
+            "percent":2.17
+         },
+         {
+            "male":{
+               "quantity":4674,
+               "percent":44.7187141216992
+            },
+            "female":{
+               "quantity":5778,
+               "percent":55.2812858783008
+            },
+            "quantity":10452,
+            "age":"20-59",
+            "percent":42.01
+         },
+         {
+            "male":{
+               "quantity":3016,
+               "percent":41.343385880740236
+            },
+            "female":{
+               "quantity":4279,
+               "percent":58.656614119259764
+            },
+            "quantity":7295,
+            "age":">60",
+            "percent":29.32
+         }
+      ],
         "end_date": "2016-02-23T15:29:26.711608",
 	"start_date": "2016-01-01T15:29:26.711608",
         "epi_week_num": 8,

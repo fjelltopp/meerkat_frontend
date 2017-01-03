@@ -1,0 +1,49 @@
+{{_('Dear Colleagues,
+  Welcome to the latest Non-Communicable Disease Epidemiological Report from the Public Health Surveillance project in %(project_region)s.',project_region=_(report.data.project_region))}}
+
+{{ _('View the latest report') }}
+{{report_url}}
+
+{{ _('The profile summarises epidemiological information reported from %(clinics)s reporting sites in Epidemiological Week
+ %(epi_week)s (%(start_date)s and 
+%(end_date)s).', 
+clinics=report.data.num_clinics, 
+project_region=_(report.data.project_region),
+epi_week=report.data.epi_week_num,
+start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+
+
+## {{ _('Key Findings') }} ##
+
+{{ _('A total of %(hypertension)s hypertension cases.',
+hypertension=report.hypertension.email_summary.cases
+) }}
+
+{{ _('%(ht_control)s%% hypertensive patients controlled (BP < 140/90).',
+ht_control=report.hypertension.email_summary.control|float|round(1)
+) }}
+
+{{ _('A total of %(diabetes)s diabetes cases.',
+diabetes=report.diabetes.email_summary.cases
+) }}
+
+{{ _('%(d_control)s%% diabetes patients controlled (HbA1C < 7%%).',
+d_control=report.diabetes.email_summary.control|float|round(1)
+) }}
+
+
+## {{ _('Project Overview') }} ##
+
+{{
+_('
+A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+',
+project_region=_(report.data.project_region)
+)
+}}
+
+{{
+_('
+The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+')
+}}

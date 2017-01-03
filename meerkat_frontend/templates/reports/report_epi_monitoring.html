@@ -1,0 +1,301 @@
+{% extends 'reports/base.html' %}
+
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('Weekly Epidemiological Surveillance Report') }}  &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-content">
+<div class="page-header">
+  <h2>
+    <span 
+      class="flag-icon flag-icon-{{report.flag}}"
+      style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+      >
+    </span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
+    <span> {{ _('Weekly Epidemiological Surveillance Report') }} </span>
+    <span class="report-week">
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
+    </span>
+  </h2>
+</div>
+
+
+<div class="row">
+  <!-- Table 1 -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 1: Summary of Deaths') }}  </div>
+      <div class="chart-stage">
+        <div class="table-wrapper table-responsive table1-wrapper"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <!-- 2. Mortality -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 2: Diseases, conditions and events under surveillance') }}</div>
+      <div class="chart-stage">
+        <div class="col-xs-12 col-md-6 no-padding-col">
+          <div class="table-title">{{ _('2.1 Diseases of epidemic potential') }}</div>
+          <div class="table-wrapper table-responsive table21-wrapper"></div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="table-title">{{ _('2.2 Diseases for eradication and elimination') }}</div>
+          <div class="table-wrapper table-responsive table22-wrapper"></div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="table-title">{{ _('2.3 Other diseases and events of public health importance') }}</div>
+          <div class="table-wrapper table-responsive table23-wrapper"> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Morbidity -->
+<div class="row">
+   <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 3: Notifiable Diseases') }}</div>  
+      <div class="chart-stage">
+        <div class="small-table-wrapper  table-responsive table3-wrapper">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('More Information') }}</div>
+      <div class="chart-stage">
+                    {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
+          <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Contact Information') }}</div>
+      <div class="chart-stage">
+        <address>
+	  {{address|safe}}
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+
+
+{% block extra_js %}
+
+<script>
+//Store the report content from the server.
+var content = {{report|tojson|safe}};
+//Load a new translator in this template so that the source of translations can be loaded for pdfs.
+i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
+
+//Draw the content using the functions below.
+prepareMortData();
+drawTable1();
+drawTable21();
+drawTable22();
+drawTable23();
+drawTable3();
+
+/*The mortality data value is the number of deaths for a given code.
+ *The name of each mortality code is "Deaths [code ID]". We need to match mortality data to
+ *code data so this function extracts the corresponding codeID from the name and stores its the data 
+ *value under that ID rather than the mortality ID. For example code "mor_1" has name "Deaths icd_17"
+ *so this function will restore the "data.mortality.mor_1" as "data.mortality.icd_17".  This makes data
+ *much easier to tabulate. */
+function prepareMortData(){
+  
+  var mort_keys = Object.keys(content.deaths);
+  for( var i=0; i< mort_keys.length; i++ ){
+    var new_key = content.variables[mort_keys[i]].name.replace("Deaths ", "");
+    content.deaths[new_key] = content.deaths[mort_keys[i]];
+    delete content.deaths[mort_keys[i]];
+  }
+}
+
+//Draw table 1
+function drawTable1(){
+
+  html = "<table class='reports-table centered table table-hover table-condensed'>" +
+    "<thead><th class='border-right'></th>";
+
+  mort_keys = Object.keys(content.tot_mortality);
+  for( var i=1; i<mort_keys.length; i++ ){
+    varTitle = content.variables[mort_keys[i]].name;
+    html += "<th>" + i18n.gettext(varTitle) + "</th>";
+  }
+
+  html += "<th class='total'>{{ _('Total') }}</th></thead>" +
+    "<tr><td class='border-right key'>{{ _('Number of deaths') }}</td>";
+
+  for( var i=1; i<mort_keys.length; i++ ){
+    datum = content.tot_mortality[ mort_keys[i] ]; 
+    html += "<td>" + datum + "</td>";
+  }  
+
+  html += "<td class='total'>" + content.tot_mortality[ mort_keys[0] ] + "</td></tr>";    
+  html += "<tr><td class='border-right key'>{{ _('Number of maternal deaths') }}</td>";
+
+  mat_keys = Object.keys(content.mat_mortality);
+  for( var i=1; i<mat_keys.length; i++ ){
+    datum = content.mat_mortality[ mat_keys[i] ]; 
+    html += "<td>" + datum + "</td>";
+  }  
+
+  html += "<td class='total'>" + content.mat_mortality[ mat_keys[0] ] + "</td></tr>";
+  html += "</table>";
+
+  $('.table1-wrapper').html(html);
+}
+
+//Draw table 2.1
+function drawTable21(){
+  
+  var struct = [
+    ["{{ _('Dysentery and bloody diarrhoea') }}", "cmd_4"],
+    ["{{ _('Influenza-like illness') }}", "cmd_18"],
+    ["{{ _('Arboviruses') }}", "cmd_13"],
+    ["{{ _('Meningitis') }}", "cmd_12"],
+    ["{{ _('Plague') }}", "cmd_7", "", "border-top"],
+    ["{{ _('RDT positive') }}", "epi_4", "lowlight no_deaths"],
+    ["{{ _('Bubonic plague') }}", "epi_5", "lowlight no_deaths"],
+    ["{{ _('Pulmonary plague') }}", "epi_6", "lowlight no_deaths"],
+    ["{{ _('Food Poisoning') }}", "cmd_5", "", "border-top"],
+    ["{{ _('Seafood poisoning') }}", "cmd_19"],
+    ["{{ _('Acute Jaundice Syndrome') }}", "cmd_16"],
+    ["{{ _('Animal Bite') }}", "cmd_27"],
+    ["{{ _('Rabies') }}", "cmd_11"]
+  ]
+
+  $('.table21-wrapper').html( drawFromStruct(struct) );
+}
+
+//Draw table 2.2
+function drawTable22(){
+  
+  var struct = [
+    ["{{ _('Acute flaccid paralysis') }}", "cmd_10"],
+    ["{{ _('Neonatal tetanus') }}", "cmd_9"],
+    ["{{ _('Suspected measles') }}", "cmd_15"],
+    ["{{ _('Leprosy') }}", "cmd_8"],
+    ["{{ _('Lymphatic filariasis') }}", "cmd_26"],
+  ]
+
+  $('.table22-wrapper').html( drawFromStruct(struct) );
+}
+
+//Draw table 2.3
+function drawTable23(){
+
+  var struct = [
+    ["{{ _('Fever Cases (T > 37.5 &#176;C)') }}", "reg_4", "no_deaths"],
+    ["{{ _('Malaria confirmed by rapid test or slide') }}", "epi_1"],
+    ["{{ _('Acute Respiratory Tract Infection') }}", "cmd_25"],
+    ["{{ _('Acute watery diarrhoea') }}", "cmd_1", "", "border-top"],
+    ["{{ _('Acute watery diarrhoea among those over five years of age') }}", "epi_7", "lowlight"],
+    ["{{ _('Sexually Transmitted Diseases other than HIV') }}", "cmd_20", "", "border-top"],
+    ["{{ _('Tuberculosis') }}", "cmd_6"],
+    ["{{ _('Moderate malnutrition') }}", "cmd_23"],
+    ["{{ _('Severe malnutrition') }}", "cmd_24"],
+    ["{{ _('Other diseases of public health importance') }}", "cmd_28"],
+  ]
+
+  $('.table23-wrapper').html( drawFromStruct(struct) );
+}
+
+//Draw table 3
+function drawTable3(){
+
+  html = "<table class='reports-table centered table table-hover table-condensed'>" +
+    "<thead><th class='border-right'></th><th>Cases</th></thead>" +
+    "<tr><td class='total'>{{ _('Number of alerts generated') }}</td><td>" + content.alerts.total + "</td></tr>" +
+    "<tr><td class='total'>{{ _('Number of alerts investigated') }}</td><td>" + content.alerts.investigated + 
+    "</td></tr></table>";  
+
+  $('.table3-wrapper').html( html );
+
+}
+
+/*Refactorisation: draw table from a two dimensional array.
+ *Takes an array of two or three element arrays, where:
+ *    1st element - is the textual label or key for the row.
+ *    2nd element - is the agg code for the row (both cases and deaths are shown)
+ *    3rd element (optional) - is a string containing display options.
+ *The resulting table is a three column table of key, cases and deaths. */
+function drawFromStruct( struct ){
+
+  html = "<table class='reports-table centered table table-hover table-condensed'>" +
+    "<thead><th class='border-right'></th><th>{{ _('Cases') }}</th><th>{{ _('Deaths') }}</th>" +
+    "<th class='total'>{{ _('Total') }}</th></thead>";
+
+  for( var i=0; i<struct.length; i++ ){
+
+    //If the "highlight no_deaths" option is sepcified in the third array element.
+    if( struct[i][2] == "lowlight no_deaths" ){
+
+      var cases = content.epi_monitoring[struct[i][1]];
+
+      html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
+        "<td class='lowlight' >" + cases + "</td>" +
+        "<td class='lowlight' > 0 </td>" +
+        "<td class='total lowlight border-left'>" + cases + "</td></tr>"
+
+    //If the "no_deaths" option is sepcified in the third array element.
+    }else if( struct[i][2] == "no_deaths" ){
+
+      var cases = content.epi_monitoring[struct[i][1]];
+
+      html += "<tr><td class='total key'>" + struct[i][0] + "</td>" +
+        "<td>" + cases + "</td>" +
+        "<td> 0 </td>" +
+        "<td class='total'>" + cases + "</td></tr>"
+
+    //If the "highlight" option is sepcified in the third array element.
+    }else if( struct[i][2] == "lowlight" ){
+
+      var deaths = content.deaths[struct[i][1]];
+      var cases = content.epi_monitoring[struct[i][1]];
+      var total = deaths + cases;
+
+      html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
+        "<td class='lowlight' >" + cases + "</td>" +
+        "<td class='lowlight' >" + deaths + "</td>" +
+        "<td class='total lowlight border-left'>" + total + "</td></tr>"
+
+    //Otherwise, just draw a standard table row using the first two elements of the array.
+    //For extra customisation allow DOMClasses to be specified in the fourth array element.
+    }else{
+
+      var deaths = content.deaths[struct[i][1]];
+      var cases = content.epi_monitoring[struct[i][1]];
+      var total = deaths + cases;
+      var domClass = struct[i][3];
+
+      html += "<tr><td class='total key " + domClass + "'>" + i18n.gettext(struct[i][0]) + "</td>" +
+        "<td class='" + domClass + "'>" + cases + "</td>" +
+        "<td class='" + domClass + "'>" + deaths + "</td>" +
+        "<td class='total " + domClass + "'>" + total + "</td></tr>"
+    } 
+  }
+    
+  html += "</table>";
+  return html
+}
+</script>
+{% endblock extra_js %}
+

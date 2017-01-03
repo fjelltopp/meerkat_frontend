@@ -1,15 +1,5 @@
 {% extends 'base.html' %}
 
-{% block menu %}
-<ul class="nav navbar-nav">
-    <li><a href="/technical/" >Dashboard</a></li>
-    <li><a href="/reports/" >Reports</a></li>
-    <li><a href="/messaging/" >Notifications</a></li>
-    <li class="active"><a href="/explore/" >Explore Data</a></li>
-    <li><a href="/download/" >Download Data</a></li>
-    <li><a href="/" >Log out</a></li>
-</ul>
-{% endblock %}
 
 {% block body %}
 <!-- CONTENT -->
@@ -19,18 +9,18 @@
         <div id="location-option" class="location-box box cross-option timeline-option" name="location" value="1">
             <a href="#menu-toggle" id="menu-toggle">
                 <div class="location-box__label">
-                    <div>Location:</div>
-                    <div id="location-title" class="location-title">Not Loaded</div>
+                    <div>{{ _('Location:') }}</div>
+                    <div id="location-title" class="location-title">{{ _('Not Loaded') }}</div>
                 </div>
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 <span class="glyphicon glyphicon-chevron-left hidden"></span>
             </a>
         </div>
         <div class="tab-title less-padding-col">
-            Explore Data 
+            {{ _('Explore Data') }}
         </div>
         <div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-            Date not loaded.
+           {{ _('Date not loaded.') }}
         </div>
     </div>
 
@@ -38,7 +28,7 @@
 
         <div id="sidebar-wrapper" >
             <div id="location-selector" class="location-selector">
-                Locations not loaded
+                {{ _('Locations not loaded') }}
             </div>
         </div>
 
@@ -46,7 +36,7 @@
             <div class="row">
                 <div class='col-xs-6 less-padding-col'>
                     <div class="form-group">
-                        <label> Start Date: </label>
+                        <label> {{_('Start Date:') }} </label>
                         <div class='input-group date cross-option timeline-option' id='start-date' name='start_date' value=''>
                             <input type='text' class="form-control "/>
                             <span class="input-group-addon">
@@ -57,7 +47,7 @@
                 </div>
                 <div class='col-xs-6 less-padding-col'>
                     <div class="form-group">
-                        <label> End Date: </label> 
+                        <label> {{ _('End Date:') }} </label> 
                         <div class='input-group date cross-option timeline-option' id='end-date' name='end_date' value=''>
                             <input type='text' class="form-control explore-date" />
                             <span class="input-group-addon">
@@ -82,26 +72,26 @@
                             <div class="options">
                                 <span class="glyphicon glyphicon-check" 
                                       id="toggle-selected" onClick="toggleSelected(this);" table="cross-table"
-                                      title="Hide not selected rows/Show hidden rows" value="shown" >
+                                      title="{{ _('Hide not selected rows/Show hidden rows') }}" value="shown" >
                                 </span>
                                 <span class="glyphicon glyphicon-resize-small cross-option" id="strip-button"
-                                      onClick="callStrip(this);" title="Hide/show empty records" table="cross-table"
+                                      onClick="callStrip(this);" title="{{ _('Hide/show empty records') }}" table="cross-table"
                                       value=true name="strip">
                                 </span>
                                 <span class="glyphicon glyphicon-pencil cross-option" id="colour-button"
-                                      onClick="callColour(this);" title="Colour the table" table="cross-table"
+                                      onClick="callColour(this);" title="{{ _('Colour the table') }}" table="cross-table"
                                       value=true name="colour">
                                 </span>
                                 <span class="glyphicon glyphicon-save cross-option" id="save-csv"
                                       onClick='$("#cross-table").tableExport({"type":"xls", "fileName": "data"});' 
-                                      title="Download Excel" value="" name="excel">
+                                      title="{{ _('Download Excel') }}" value="" name="excel">
                                 </span>
                             </div>
                             <div id="toolbox">
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="chart-row">
                         <div class="box yaxis" >
                             <div class="axis-selector">
                             </div>
@@ -120,16 +110,16 @@
                                           table="timeline-table" value="shown" >
                                     </span>
                                     <span class="glyphicon glyphicon-resize-small timeline-option" id="strip-button"
-                                          onClick="callStrip(this);" title="Hide/show empty records" 
+                                          onClick="callStrip(this);" title="{{ _('Hide/show empty records') }}" 
                                           table="timeline-table" value=true name="strip">
                                     </span>
                                     <span class="glyphicon glyphicon-pencil timeline-option" id="colour-button"
-                                          onClick="callColour(this);" title="Colour the table" 
+                                          onClick="callColour(this);" title="{{_('Colour the table') }}" 
                                           table="timeline-table" value=true name="colour">
                                     </span>
                                     <span class="glyphicon glyphicon-save" id="save-csv"
                                           onClick='$("#timeline-table").tableExport({"type":"xls", "fileName": "data"});' 
-                                          title="Download Excel" >
+                                          title="{{_('Download Excel') }}" >
                                     </span>
                                 </div>
                             </div>
@@ -150,6 +140,9 @@
 
 <script type="text/javascript" >
 
+$('ul.navbar-nav .active').removeClass('active');
+$('.menu-explore').addClass('active');
+
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
@@ -166,81 +159,87 @@ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 
 $( function(){
      moment().utc();
-    //Add a listener to the location selector.
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-        $(".location-box .glyphicon").toggleClass( "hidden" );
+     //Add a listener to the location selector.
+     $("#menu-toggle").click(function(e) {
+         e.preventDefault();
+         $("#wrapper").toggleClass("toggled");
+         $(".location-box .glyphicon").toggleClass( "hidden" );
+     });
+     
+     //Load the date/week
+     $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
+	 
+     //Draw axis category selectors.
+     var axisSelector = "<select>"
+     for( var i in config.categories ){
+         var cat = config.categories[i];
+         axisSelector += "<option value='" + cat[0] + "'>" + i18n.gettext(cat[1]) + "</option>";
+     }
+     axisSelector += "</select>";
+     $('.axis-selector').html(axisSelector);
+	 
+     //Draw date/time pickers.
+     d = new Date();
+     $('#start-date').datetimepicker({
+         useCurrent: false,
+         defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
+         format: "DD/MM/YYYY",
+         locale: language
+     });
+     $('#end-date').datetimepicker({
+         useCurrent: true,
+         defaultDate: d.toISOString(),
+         format: "DD/MM/YYYY",
+         locale: language
+     });
+	 
+     //Add a listener to the axis selectors, update table upon change.
+     $('.axis-selector').change( function(){
+         //If any of the axis change, we remove the timeline
+         $("#timeline-wrapper").html("");
+		 timelineDrawn = false;
+		 if($(this).parent().attr('class').indexOf("xaxis") > -1){
+			 keep_checked = true;
+		 }
+		 reDraw();
     });
-    
-    //Load the date/week
-    $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
-
-    //Draw axis category selectors.
-    var axisSelector = "<select>"
-    for( var i in config.categories ){
-        var cat = config.categories[i];
-        axisSelector += "<option value='" + cat[0] + "'>" + cat[1] + "</option>";
-    }
-    axisSelector += "</select>";
-    $('.axis-selector').html(axisSelector);
-
-    //Draw date/time pickers.
-    d = new Date();
-    $('#start-date').datetimepicker({
-        useCurrent: false,
-        defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
-        format: "DD/MM/YYYY",
-    });
-    $('#end-date').datetimepicker({
-        useCurrent: true,
-        defaultDate: d.toISOString(),
-        format: "DD/MM/YYYY"
-    });
-
-    //Add a listener to the axis selectors, update table upon change.
-    $('.axis-selector').change( function(){
-        //If any of the axis change, we remove the timeline
-        $("#timeline-wrapper").html("");
-	timelineDrawn = false;
-	if($(this).parent().attr('class').indexOf("xaxis") > -1){
-	    keep_checked = true;
-	}
-	reDraw();
-    });
+	 // We add one day to end-date to make the date interval closed
      var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").toISOString();
      $('#start-date').attr('value', value );
-     var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").toISOString();
+     var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").add(1, "days").toISOString();
      $('#end-date').attr('value', value );
-
-    //Add listeners to update table when date/pickers change. Store the chart state in the DOM element.
-    $('#start-date').on('dp.change', function() {
-        var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOString();
-        $('#start-date').attr('value', value );
-	keep_checked = true;
-        reDraw();
-    });
-    $('#end-date').on('dp.change', function() {
-        var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOString();
-        $('#end-date').attr('value', value );
-	keep_checked = true;
-        reDraw();
-    });
-
-    //Draw a default table.
-    $('.xaxis .axis-selector option[value="age"]').attr('selected',true);
-    $('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
-    reDraw();
+	 
+     //Add listeners to update table when date/pickers change. Store the chart state in the DOM element.
+     $('#start-date').on('dp.change', function() {
+         var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOString();
+         $('#start-date').attr('value', value );
+		 keep_checked = true;
+         reDraw();
+     });
+     $('#end-date').on('dp.change', function() {
+         var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").add(1, "days").toISOString();
+         $('#end-date').attr('value', value );
+		 keep_checked = true;
+         reDraw();
+     });
+	 
+     //Draw a default table.
+     $('.xaxis .axis-selector option[value="age"]').attr('selected',true);
+     $('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
+     // reDraw();
 });
 
 //This is called when a new location is loaded. 
 //It stores the desired location ID ready to be picked up by reDraw().
-function drawCharts( locID ){
-    $('#location-option').attr('value', locID );
-    keep_checked = true;
-    reDraw();
+ function drawCharts( locID ){
+     if( typeof locID == 'undefined' ){
+	 if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+	 else locID = history.state.locID;
+     }
+     $('#location-option').attr('value', locID );
+     keep_checked = true;
+     reDraw();
 }
-
 
 function createKeepRemoved(){
      
@@ -275,11 +274,9 @@ function createKeepRemoved(){
      return checkRemove
  }
 
-
-
-     
- var removed = false;
- function toggleSelected(element){
+  
+var removed = false;
+function toggleSelected(element){
      console.log("toggle")
      var table = $(element).attr('table');
      if( $(element).attr('value') == 'shown' ){ 
@@ -426,7 +423,7 @@ function prepareExploreTimeline(id, axis){
     $('.timeline-option').each( function(){
         options[$(this).attr('name')] = $(this).attr('value');
     });
-     console.log(options)
+    console.log(options)
     if( axis == "x"){
         category = $('.yaxis .axis-selector select').val();
     } else {
@@ -442,7 +439,7 @@ function prepareExploreTimeline(id, axis){
     timelineCategory = category;
     $('#timeline').show();
     // Scrolls down to the timeline
-    $('html, body').animate({ scrollTop: $('#timeline').offset().top }, 'slow');
+    $('html, body').animate({ scrollTop: $('#timeline-wrapper').offset().top }, 'slow');
  }
 
 

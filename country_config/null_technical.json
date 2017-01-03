@@ -14,19 +14,47 @@
     },
     "zoom":"9"
   },
-  
+
+
+
+    "completeness_denominator":{
+        "all": "7",
+        "cd": "4",
+        "ncd": "4",
+        "mh": "4"
+    },
+
+    "timeliness_denominator":{
+        "all": "4",
+        "cd": "4",
+        "ncd": "4",
+        "mh": "4"
+    },
+
+    "weekend" : [5,6],
+
   "tabs":[{
     "name":"Demographics",
     "template":"demographics.html" 
+  },{
+    "name":"Demographics CD",
+    "template":"demographicsCD.html", 
+    "access": "cd"
+  },{
+    "name":"Demographics NCD",
+    "template":"demographicsNCD.html", 
+    "access": "ncd" 
   },{
     "name":"Presenting Complaint",
     "template":"complaint.html" 
   },{
     "name":"Communicable Diseases",
-    "template":"diseases.html"
+    "template":"diseases.html",
+    "access":"cd"
   },{
     "name":"Non Communicable Diseases",
-    "template":"nc_diseases.html"
+    "template":"nc_diseases.html",
+    "access":"ncd"
   },{
     "name":"Alerts",
     "template":"alerts.html"
@@ -36,6 +64,9 @@
   },{
     "name":"Completeness",
     "template":"completeness.html"
+  },{
+    "name":"Timeliness",
+    "template":"timeliness.html"
   },{
     "name":"Map View",
     "template":"map.html"

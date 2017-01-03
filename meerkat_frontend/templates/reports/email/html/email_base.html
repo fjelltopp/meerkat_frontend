@@ -5,7 +5,7 @@
   <!-- NAME: 1 COLUMN -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOH Jordan | Epidemiological Week {{ email.data.epi_week_num }} {{ email.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y') }}</title>
+    <title>{{_(report.data.project_region|e)}} | {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}</title>
 
   <style type="text/css">
     body,
@@ -783,8 +783,9 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-left:18px; padding-bottom:9px; padding-right:0;">
-                                      <img align="none" height="56" src="https://gallery.mailchimp.com/db2beeeb47818eb521747f4cf/images/d7cb857c-e963-4d63-bc07-4af69316fded.png" style="width: 180px; height: 56px; margin: 0px;" width="180">
-                                      <img align="none" height="55" src="https://gallery.mailchimp.com/db2beeeb47818eb521747f4cf/images/2497bfa3-fe55-40fe-9bd4-96f5fa9af94b.png" style="width: 40px; height: 55px; margin: 0px; margin-left: 20px;" width="40">
+
+                                        <img align="none" height="55" src="{{ content_url +'img/' + content.footer.logos.country_partner }}" style="width: 55px; height: 55px; margin: 0px; margin-left: 15px;" width="40">
+                                        <img align="none" height="56" src="{{ content_url +'img/logo/' + 'who-logo-text.png' }}" style="width: 180px; height: 56px; margin: 0px;" width="180">
                                       <br> &nbsp;
                                     </td>
                                   </tr>
@@ -802,112 +803,16 @@
             </tr>
             <tr>
               <td align="center" valign="top">
-                <!-- BEGIN HEADER // -->
-                <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
-                  <tr>
-                    <td valign="top" class="headerContainer">
-                      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-                        <tbody class="mcnTextBlockOuter">
-                          <tr>
-                            <td valign="top" class="mcnTextBlockInner">
-                              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                                <tbody>
-                                  <tr>
-                                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <h2>Jordan Public Health Profile</h2>
-                                      <h3>Epi Week {{email.data.epi_week_num}} ({{email.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y')}})</h3>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-                <!-- // END HEADER -->
+
+              {% block header %}{% endblock %}
+
               </td>
             </tr>
             <tr>
               <td align="center" valign="top">
-                <!-- BEGIN BODY // -->
-                <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
-                  <tr>
-                    <td valign="top" class="bodyContainer">
-                      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-                        <tbody class="mcnTextBlockOuter">
-                          <tr>
-                            <td valign="top" class="mcnTextBlockInner">
-                              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                                <tbody>
-                                  <tr>
-                                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <p>Dear Colleagues,</p>
-                                      <p>Welcome to the latest public health epidemiological profile from the national public health surveillance program in Jordan.</p>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
-                        <tbody class="mcnButtonBlockOuter">
-                          <tr>
-                            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                              <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;background-color: #0098CB;">
-                                <tbody>
-                                  <tr>
-                                    <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
-                                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">View the latest report</a>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
-                        <tbody class="mcnTextBlockOuter">
-                          <tr>
-                            <td valign="top" class="mcnTextBlockInner">
-                              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
-                                <tbody>
-                                  <tr>
-                                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <p>The profile summarises the cumulative ICD-10 coded cases reported from {{email.data.global_clinic_num}} reporting sites until the end of Epidemiological Week {{email.data.epi_week_num}} ({{email.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y')}}).</p>
-                                      <h3>Key Findings</h3>
-                                      <ul>
-                                        <li>A total of <strong>{{ email.data.total_consultations|commas }} consultations</strong> and <strong>{{ email.data.total_cases|commas }} cases</strong> reported from {{ email.data.clinic_num|commas }} health facilities.</li>
-                                        <li><strong>{{ email.data.percent_cases_female|float|round(1) }}% female</strong> and <strong>{{ email.data.percent_cases_lt_5yo|float|round(1) }}% under five years</strong> of age.</li>
-                                        <li><strong>{{ extras.patient_status.jordanian.percent|float|round(1) }}% Jordanian national</strong> and <strong>{{ extras.patient_status.refugee.percent|float|round(1) }}% refugee status</strong>.</li>
-                                        <li><strong>{{ email.data.percent_morbidity_communicable|float|round(1) }}% morbidity due to communicable disease</strong>, including {% for disease in email.data.morbidity_communicable %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
-                                        <li><strong>{{ email.data.percent_morbidity_non_communicable|float|round(1) }}% morbidity due to non-communicable disease</strong>, including {% for disease in email.data.morbidity_non_communicable %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
-                                        <li><strong>{{ email.data.percent_morbidity_mental_health|float|round(1) }}% morbidity due to mental health conditions</strong>, including {% for disease in email.data.mental_health %}{% if loop.last and not loop.first %}and {{ disease.title|lower|e }}{% elif loop.first and loop.last %}{{ disease.title|lower|e }}{% else %}{{ disease.title|lower|e }}, {% endif %}{% endfor %}.</li>
-                                      </ul>
-                                      <h3>Alerts</h3>
-                                      <p>A total of {{email.data.alerts_total|commas}} suspected notifiable communicable disease alerts have been generated up to the end of Epidemiological Week {{email.data.epi_week_num}} ({{email.data.epi_week_date|datetime_from_json|datetime('%-d %B %Y')}}).</p>
-                                      <h3>Project Overview</h3>
-                                      <p>A program of public health surveillance is being implemented in {{email.data.global_clinic_num}} outpatient clinics in Jordan in partnership with WHO and Ministry of Health.</p>
-                                      <p>The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease with ICD-10 coding of disease classification. The clinician uses the system
-                                      within the consultation which introduces clinical-decision support, best practice prescribing guidance, and real-time reporting of information.</p>
-                                      <p>Information is made available within one hour via an online framework with automated generation of SMS and email alerts for suspected notifiable diseases.</p>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-                <!-- // END BODY -->
+
+              {% block body %}{% endblock %}
+
               </td>
             </tr>
             <tr>
@@ -924,9 +829,14 @@
                                 <tbody>
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                                      <p>Working with our partners:</p>
-                                      <img align="none" height="56" src="https://gallery.mailchimp.com/db2beeeb47818eb521747f4cf/images/d7cb857c-e963-4d63-bc07-4af69316fded.png" style="width: 180px; height: 56px; margin: 0px;" width="180">
-                                      <img align="none" height="55" src="https://gallery.mailchimp.com/db2beeeb47818eb521747f4cf/images/2497bfa3-fe55-40fe-9bd4-96f5fa9af94b.png" style="width: 40px; height: 55px; margin: 0px;" width="40">
+                                      <p>{{ _('Working with our partners:') }}</p>
+                                        <img src="{{ content_url +'img/' + content.footer.logos.country_partner }}"
+                                             id="countryLogo" width="50" style="padding-right:9px"></img> 
+                                        {% for logo in content.footer.logos.partners %}
+                                          <img src="{{ content_url +'img/' + logo }}" width="50" style="padding-right:9px"></img> 
+                                        {% endfor %}
+                                        <img src="{{ content_url +'img/logo/' + 'who-logo-no-text.png' }}" id="whoLogo" width="50" style="padding-right:9px"></img> 
+                                    </td>
                                     </td>
                                   </tr>
                                 </tbody>

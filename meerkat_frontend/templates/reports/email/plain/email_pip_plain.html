@@ -1,0 +1,53 @@
+{{_('Dear Colleagues,
+  Welcome to the latest Pandemic Influenza Preparedness (PIP) Report from the Public Health Surveillance project in %(project_region)s.',project_region=_(report.data.project_region))}}
+
+{{ _('View the latest report') }}
+{{report_url}}
+
+{{ _('The profile summarises epidemiological information reported from %(clinics)s reporting sites in Epidemiological Week
+ %(epi_week)s (%(start_date)s and 
+%(end_date)s).', 
+clinics=report.data.num_clinics, 
+project_region=_(report.data.project_region),
+epi_week=report.data.epi_week_num,
+start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+
+
+## {{ _('Key Findings') }} ##
+
+{{ _('A total of %(cases)s enrolled patients.',
+cases=report.data.total_cases
+) }}
+
+{{ _('%(male)s %% male and %(female)s %% female.',
+male=report.data.percent_cases_male|float|round(1),
+female=report.data.percent_cases_female|float|round(1)
+)}}
+
+{{_('%(chronic)s (%(chronic_per)s %%) patients with chronic conditions.', 
+chronic=report.data.cases_chronic, 
+chronic_per=report.data.percent_cases_chronic|float|round(1)
+)}}
+
+{{_('%(lab)s (%(lab_per)s %%) patients with laboratory results recorded.
+', 
+lab=report.data.email_summary.lab_recorded, 
+lab_per=report.data.email_summary.lab_recorded_per|float|round(1)
+)}}
+
+
+## {{ _('Project Overview') }} ##
+
+{{
+_('
+A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+',
+project_region=_(report.data.project_region)
+)
+}}
+
+{{
+_('
+The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+')
+}}

@@ -36,7 +36,7 @@ body.technical, body.messaging, body.download, body.explore{
 		margin: 10px 10px;
 		background: $blue;
 		padding: 10px 20px;
-		border-radius: 5px;		
+		border-radius: 5px;
 
 		a{
 			color: #FFF;
@@ -48,7 +48,7 @@ body.technical, body.messaging, body.download, body.explore{
 			text-decoration: none;
 		}
 	}
-	
+
 	li.active{
 		background: $highlight;
 	}
@@ -73,7 +73,7 @@ body.technical, body.messaging, body.download, body.explore{
 
 button.header,
 button.header:hover{
-	border: solid 1px #CCC; 
+	border: solid 1px #CCC;
 	text-align: left;
 	font-weight: bold;
 	color: $textGrey;
@@ -83,7 +83,7 @@ button.header:hover{
 
 	 padding: 6px 8px;
 	 font: 14px/16px Arial,Helvetica,sans-serif;
-	 background: rgba(255, 255, 255, 0.8) none repeat scroll 0% 0%;
+	 background: rgba(255, 255, 255, 0.8) none repeat scroll 0% 0% !important;
 	 box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 	 border-radius: 5px;
 
@@ -102,12 +102,17 @@ button.header:hover{
 		opacity: 1;
 		border-style: solid;
 	}
+
+	h4 {
+		margin: 0 0 5px;
+		color: #777;
+	}
 }
 .location-box{
-	
+
 	display: inline-block;
 	float: left;
-	
+
 	div {
 		display: inline;
 	}
@@ -118,12 +123,6 @@ button.header:hover{
 }
 
 .chartBox{
-	min-height: 300px;
-	padding: 0px;
-}
-
-.hiddenChartBox{
-	min-height: 50px;
 	padding: 0px;
 }
 
@@ -142,6 +141,7 @@ button.header:hover{
 .chartBox__content{
 	display: block;
 	padding: 10px 10px;
+    min-height: 260px
 }
 
 .chartBox__type-selector{
@@ -160,10 +160,6 @@ button.header:hover{
 
 .diseaseInfo__title{
 	font-weight: bold;
-}
-
-#disease-table{
-	padding: 10px 20px 0;
 }
 
 .table-percent{
@@ -190,7 +186,7 @@ button.header:hover{
 	}
 }
 
-.tab-title{ 
+.tab-title{
 	display: inline-block;
 	font-size: 24px;
 	line-height: 42px;
@@ -234,7 +230,7 @@ footer{
 }
 
 .footer__logos{
-	
+
 	text-align: right;
 
 	img{
@@ -324,5 +320,44 @@ footer{
 	position: relative;
 }
 
+.table.table-no-bordered{
+    border: none;
+}
 
 
+.chartBox__content div.table {
+    padding: 0 15px 15px;
+    position: relative;
+
+    .table-options{
+        position: absolute;
+        right: 20px;
+        top: 0px;
+        border-bottom: 1px solid #ddd;
+        padding: 0 10px 0 30px;
+
+        span{
+            font-size: 20px;
+            padding: 3px;
+            background: $lightGrey;
+            border: 1px solid #ddd;
+            border-radius: 3px 3px 0 0;
+            margin-right: 4px;
+            cursor: pointer;
+        }
+    }
+}
+
+.bootstrap-table .table.table-no-bordered thead tr th,
+.bootstrap-table .table.table-no-bordered tbody tr td {
+  border-left: none;
+  border-right: none;
+}
+
+#all_clinics_content{
+    min-height: 0px;
+}
+
+#missing_clinics_content{
+    min-height: 0px;
+}

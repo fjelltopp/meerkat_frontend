@@ -1,25 +1,14 @@
 {% extends 'base.html' %}
 
-{% block menu %}
-<ul class="nav navbar-nav">
-	<li><a href="/technical/" >Dashboard</a></li>
-	<li><a href="/reports/" >Reports</a></li>
-	<li><a href="/messaging/" >Notifications</a></li>
-	<li><a href="/explore/" >Explore Data</a></li>
-	<li class="active"><a href="/download/" >Download Data</a></li>
-	<li><a href="/" >Log out</a></li>
-</ul>
-{% endblock %}
-
 {% block body %}
 <!-- CONTENT -->
 <div class="container page-content">
 	<div class="top-bar row">
 		<div class="tab-title less-padding-col">
-			Download Data 
+			{{_('Download Data') }}
 		</div>
 		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-			Date not loaded.
+			{{ _('Date not loaded.') }}
 		</div>
 	</div>
 	<div id="page-content-wrapper">
@@ -27,11 +16,11 @@
 			<div class="col-xs-12 less-padding-col">
 				<div class="box chartBox">
 					<div class="chartBox__heading">
-						Download Data Set
+						{{ _('Download Data Set') }}
 					</div>
 					<div class="chartBox__content" >
 					  <div class="intro">
-					      								Choose prepared data set to download for analysis:
+					      								{{ _('Choose prepared data set to download for analysis:') }}
 							{# content.preparedIntro #}
 						</div>
 						<div class="breaker"></div>
@@ -40,14 +29,14 @@
 							<div class="row">
 								<select id="prepared-selector" class="col-sm-offset-3 prepared-data">
 								{% for button in content.prepared %}
-									<option value="{{loop.index0}}">{{button.title}}</option>
+									<option value="{{loop.index0}}">{{_(button.title)}}</option>
 								{% endfor %} 
 								</select>
 							</div>
 							<div class="row">
-								<input type="submit" 
+								<input type="button" 
 									     class="submit btn btn-default btn-lg col-sm-offset-3" 
-									     value="Download">
+									     value="{{ _('Download') }}">
 							</div>
 						</form>
 					</div>
@@ -57,14 +46,14 @@
 
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
-				<div class="box hiddenChartBox" id="raw_data_box">
-					<div class="chartBox__heading">
-						<a href="#" onclick='$("#raw_download").toggleClass("hidden");$("#raw_data_box").toggleClass("hiddenChartBox");$("#raw_data_box").toggleClass("chartBox");'> Download Raw Data</a>
+				<div class="chartBox box" id="raw_data_box">
+					<div class="chartBox__heading pointer no-border" onclick='toggleRawDownloader();return false;'>
+						{{ _('Download Raw Data') }}
 					</div>
-					<div class="chartBox__content hidden" id="raw_download" >
+					<div class="chartBox__content" id="raw_download" >
 						<div class="intro">
 						  {#content.rawIntro #}
-						  Choose raw data set to download for analysis:
+						  {{ _('Choose raw data set to download for analysis:') }}
 						</div>
 						<div class="breaker"></div>
 						<div class="row">
@@ -75,30 +64,30 @@
 								</div>
 								<div id="basic-selector" class="row box chartBox">
 									<div class="chartBox__heading">
-										Data Fields
+										{{ _('Data Fields') }}
 										<div class="pull-right">
 											<a href="#" onclick="selectAll('basic-fields'); return false;">
-												All
+												{{ _('All') }}
 											</a> /
 											<a href="#" onclick="selectNone('basic-fields'); return false;">
-												None
+												{{ _('None') }}
 											</a>
 										</div>
 									</div>
 									<div id="basic-fields" class="chartBox__content"></div>
 								</div>
 								<div class="row check">
-									<label><a id="show-fields" href="#">View advanced fields</a></label>
+									<label><a id="show-fields" href="#">{{ _('View advanced fields') }}</a></label>
 								</div>
 								<div id="advanced-selector" style="display:none;" class="row box chartBox">
 									<div class="chartBox__heading">
-										Advanced Fields
+										{{ _('Advanced Fields') }}
 										<div class="pull-right">
 											<a href="#" onclick="selectAll('advanced-fields'); return false;">
-												All
+												{{ _('All') }}
 											</a> /
 											<a href="#" onclick="selectNone('advanced-fields'); return false;">
-												None
+												{{ _('None') }}
 											</a>
 										</div>
 									</div>
@@ -123,15 +112,27 @@
 
 <script type="text/javascript" >
 
+$('ul.navbar-nav .active').removeClass('active');
+$('.menu-download').addClass('active');
+
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
-$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
-});
+
+ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+	 options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
+ });
+
+function toggleRawDownloader(){
+    $("#raw_data_box .chartBox__heading").toggleClass("no-border");
+    $("#raw_download").slideToggle("slow");
+	//$("#raw_download").toggleClass("hidden");
+	//$("#raw_data_box").toggleClass("hiddenChartBox");
+	//$("#raw_data_box").toggleClass("chartBox");
+}
 
 //Check that at least one checkbox is clicked
 function checkSelected( ) {
@@ -142,7 +143,7 @@ function checkSelected( ) {
 
 		boxes = document.getElementsByName('attributes')
 		for( var i=0; i<boxes.length; i++ ){
-			boxes[i].setCustomValidity('You must tick at least one checkbox.');
+			boxes[i].setCustomValidity("{{ _('You must tick at least one checkbox.') }}");
 		}
 
 		return false;
@@ -204,7 +205,9 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		var basicFieldsHtml = "";
 		var advancedFieldsHtml = "";
 
-		var allFields = data[form]; //All api fields, from which we take intersect and difference. 
+	    var allFields = data[form]; //All api fields, from which we take intersect and difference.
+            console.log(form)
+                console.log(config.forms)
 		var basicFields = getIntersect( allFields, config.forms[form].default ); 
 		var advancedFields = getDifference( allFields, basicFields ); 
 
@@ -251,7 +254,7 @@ $.getJSON( api_root+"/export/forms", function( data ){
 
 		//If the form is recorded in the config file, use the given "display name".
 		if( configForms.indexOf( apiForms[i] ) != -1 ){
-			formSelector += config.forms[ apiForms[i] ].name;
+			formSelector += i18n.gettext(config.forms[ apiForms[i] ].name);
 		}else{
 			formSelector += apiForms[i];		
 		}
@@ -285,22 +288,28 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		
 			url += "&api_key=" + config.api_key;
 
-			window.open( url );
+                       open_url = "wait?url=" + url
+                       window.open(open_url);
 		}else{
 			event.preventDefault();
 		}
 	});
 
-	$('#prepared-data-download').submit( function(event){
+	$('#prepared-data-download .submit').click( function(event){
+        
 		//Assemble the appropriate API call.
-	        var dataSet = config.prepared[$('#prepared-selector').val()];
-		if( "name_category" in dataSet){			      
-   	          var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
-		}else{
-		   var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields)
-		}			      
-		url += "&api_key=" + config.api_key;
-		window.open( url );
+	    var dataSet = config.prepared[$('#prepared-selector').val()];
+        for (key in dataSet.fields){
+            dataSet.fields[key][1] = i18n.gettext(dataSet.fields[key][1]);
+        }
+	    if( "name_category" in dataSet){			      
+   	        var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
+	    }else{
+		var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
+	    }
+	    open_url = "wait?url=" + url
+	    window.open(open_url);
+        console.log(open_url);
 	});
 
 });

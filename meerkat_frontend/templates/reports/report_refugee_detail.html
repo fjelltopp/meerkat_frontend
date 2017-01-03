@@ -117,9 +117,10 @@
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
     </span> 
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> North Eastern Border Detailed Report
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
   </h2>
 </div>
@@ -129,9 +130,9 @@
     <div class="chart-wrapper">
       <div class="chart-title">1. Population</div>
 			<div class="chart-stage">
-		    <div class="table-wrapper">
-		        {{ table(report.data.population, age_total=False, age_percentage=False) }}
-		    </div>
+		            <div class="table-wrapper">
+                              	{{ table(report.data.population, age_total=False, age_percentage=False) }}
+                            </div>
 			</div>
     </div>
   </div>
@@ -144,8 +145,8 @@
 			<div class="chart-stage">
 		    <div class="table-title">2.1 Mortality Data</div>
 		    <div class="table-wrapper table-responsive">
-		      {{ table(report.data.mortality_breakdown.diseases, age_gender=report.data.mortality_breakdown.age_gender, ages=report.data.mortality_breakdown.age,u5_percent=True) }}
-		    </div>
+		        {{ table(report.data.mortality_breakdown.diseases, age_gender=report.data.mortality_breakdown.age_gender, ages=report.data.mortality_breakdown.age,u5_percent=True) }}
+                    </div>
 		    <div class="table-title">2.2 Mortality Indicators</div>
 		    <div class="small-table-wrapper">
 		      {{ simple_table(report.data.mortality) }}

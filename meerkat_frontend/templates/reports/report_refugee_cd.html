@@ -4,14 +4,15 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
-    </span> 
+    </span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>North Eastern Border Communicable Disease Report
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
   </h2>
 </div>
@@ -21,12 +22,12 @@
     <div class="chart-wrapper">
       <div class="chart-title">Highlights</div>
       <div class="chart-stage">
-         <p>This Communicable Disease Report represents cumulative cases reported from {{ report.data.clinic_num }} clinics in {{ report.data.project_region|e }} between  between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
+         <p>This Communicable Disease Report represents cumulative cases reported from {{ report.data.clinic_num }} clinics in {{ report.data.project_region|e }} between  between {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} and {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}.</p>
       </div>
     </div>
   </div>
 </div>
- 
+
 {% for row in report.data.communicable_diseases|dictsort|batch(2) %}
 <div class="row">
   {% for cd in row %}
@@ -52,7 +53,7 @@
       <div class="chart-title">More Information</div>
       <div class="chart-stage">
  <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
-        <p>The clinician uses the system within the consultation, which introduces clinical-decision support for child health and mental health, as well as best practice prescribing guidance and and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
+        <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
       </div>
     </div>
   </div>
@@ -77,13 +78,13 @@ $(function() {
   // {{ k }}
   $('#chart-{{ k|slugify }}').highcharts(
     refugeeCommunicableDiseasesChart(
-      {{ v.weeks }},
-      [{{ v.suspected }}],
+      {{ v.weeks|safe }},
+      [{{ v.suspected|safe }}],
       { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
     )
   );
   {% endfor %}
+
 });
 </script>
 {% endblock extra_js %}
-

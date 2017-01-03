@@ -1,66 +1,108 @@
 {% extends 'reports/base.html' %}
 
-{% macro table(data) %}
+{% macro table(data, percent=False) %}
 {% set total=[] %}
-<table class="refugee centered table table-hover table-condensed"> 
+<table class="refugee centered table table-hover"> 
     <tr>
 	{% set counter=0 %}
+        {% set labels = {"reg": _("Health Directorates"),
+                        "tot": _("Total no. <br> of patients"),
+                        "gen_1": _("males"),
+                        "gen_2": _("females"),
+                        "lab_4": _("overweight <br> (25 &le; BMI &lt; 30)"),
+                        "lab_5": _("obese <br> (BMI &ge; 30)"),
+                        "lab_2": _('controlled patients <br> (BP &lt; 140/90)'),
+                        "lab_7": _('with controlled FBS <br>(Fasting Glucose <br >&lt; 7 mmol/l)'),
+                        "lab_9": _('with controlled <br >HbA1c (&lt; 7%%)'),
+                        "com_1": _('with diabetes'),
+                        "com_2": _("with <br> hypertension"),
+                        "smo_2": _('smokers'),
+                        "lab_11": _('with <br>complications')
+        } %}
 	{% for key in data.titles %}
-	{% if key == "Region" %}
-        <th class="key"> {{ key }} </th>
-	{% elif key == "Total" %}
-	<th class="total"> {{ key }} </th>
-	{% do total.append(counter) %}
-	{% else %}
-	<th> {{ key }} </th>
-	{% set counter = counter +1%}
-	{% endif %}
-	
+	 {% if key == "reg" %}
+    <th class="key"> {{ labels[key]|safe }} </th>
+	 {% elif key == "tot" %}
+    <th class="total"> {{ labels[key]|safe }} </th>
+	   {% do total.append(counter) %}
+   {% elif key == "Total" %}
+    <th class="total"> {{ key|safe }} </th>
+     {% do total.append(counter) %}
+	 {% else %}
+    <th class="key">
+    {% if key in labels.keys() %}
+      {{ labels[key]|safe }}
+    {% else %}
+      {{ key }}
+    {% endif %}
+    {% if percent %}
+      (%)
+    {% endif %}
+    </th>
+      {% set counter = counter +1%}
+	 {% endif %}
 	{% endfor %}
-    </tr>
-    {% for row in data["data"] %}
+  </tr>
+  {% for row in data["data"] %}
     <tr>
-	{% if row.title == "Total" %}
-	<td class="key total" style="text-align: center;"> {{ row.title  }}</td>
-	{% else %}
-	<td class="total"> {{ row.title  }}</td>
-	{% endif %}
-	{% for i in range(row["values"]|length) %}
-	{% if (total and i in total) or row.title == "Total" %}
-	<td class="total"> {{ row["values"][i] }} </td>
-	{% else %}
-	<td> {{ row["values"][i] }} </td>
-	{% endif %}
-	{% endfor %}
+	 {% if row.title == "Total" %}
+	 <td class="key total" style="text-align: center;"> {{ _(row.title)  }}</td>
+	 {% else %}
+    <td class="total"> {{ _(row.title)  }}</td>
+	 {% endif %}
+	 {% for i in range(row["values"]|length) %}
+      {% if (total and i in total)%}
+	     <td class="total"> {{ row["values"][i]}} </td>        
+      {% elif row.title == "Total" %}
+        {% if percent %}
+          <td class="total"> {{ row["values"][i][0] }} 
+          <span class="value-percentage">({{ row["values"][i][1]|float|round(1) }} %)</span></td>
+        {% else %}
+          <td class="total"> {{ row["values"][i] }} </td>
+        {% endif %}
+      {% else %}
+        {% if percent %}
+	         <td class="value"> {{ row["values"][i][0]}} <span class="value-percentage">({{row["values"][i][1]|float|round(1) }} %)</span> </td>
+        {% else %}
+	         <td class="value"> {{ row["values"][i] }} </td>
+        {% endif %}
+      {% endif %}
+	 {% endfor %}
     </tr>
-    {% endfor %}
+  {% endfor %}
 </table>
 {%- endmacro %}
 
 
 
-{% block title %}{{report.data.project_region|e}} &middot; Non-Commuinicable Diseases Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; Non-Communicable Diseases Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
-  <h2><span class="flag-icon flag-icon-{{report.flag}}"></span> <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> Non Communciable Diseases Report
+    <h2>     <span 
+	  class="flag-icon flag-icon-{{report.flag}}"
+	  style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+      >
+      </span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
+        <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _('Non Communicable Diseases Report') }}
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
   </h2>
 </div>
 <div class="row">
   <!-- Hypertension -->
-  <div class="cols-sm-12">
+  <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">Hypertension</div>
-      <div class="table-title">Table 1: Number of hypertension patients by age group</div>
+      <div class="chart-title">{{ _('Hypertension') }}</div>
+      <div class="table-title">{{ _('Table 1: Number of hypertension patients by age group') }}</div>
       <div class="table-wrapper table-responsive">
 	  {{ table(report["hypertension"]["age"]) }}
       </div>
-      <div class="table-title">Table 2: Distribution of hypertension patients</div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of hypertension patients') }}</div>
       <div class="table-wrapper table-responsive">
-	  {{ table(report["hypertension"]["complications"]) }}
+	  {{ table(report["hypertension"]["complications"], percent=True) }}
       </div>
     </div>
   </div>
@@ -68,16 +110,16 @@
 
 <!-- Diabetes -->
 <div class="row">
-   <div class="cols-sm-12">
+   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">Diabetes</div>
-      <div class="table-title">Table 1: Number of diabetes patients by age group</div>
+      <div class="chart-title">{{ _('Diabetes') }}</div>
+      <div class="table-title">{{ _('Table 1: Number of diabetes patients by age group') }}</div>
       <div class="table-wrapper table-responsive">
 	  {{ table(report["diabetes"]["age"]) }}
       </div>
-      <div class="table-title">Table 2: Distribution of diabetes patients </div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of diabetes patients') }} </div>
       <div class="table-wrapper table-responsive">
-	  {{ table(report["diabetes"]["complications"]) }}
+	  {{ table(report["diabetes"]["complications"], percent=True) }}
       </div>
     </div>
   </div>

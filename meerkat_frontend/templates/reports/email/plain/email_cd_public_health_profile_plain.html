@@ -1,0 +1,65 @@
+{{_('Dear Colleagues,
+  Welcome to the latest Communicable Disease Epidemiological Profile from the Public Health Surveillance project in %(project_region)s.',project_region=_(report.data.project_region))}}
+
+{{ _('View the latest report') }}
+{{report_url}}
+
+{{ _('The profile summarises epidemiological information reported from %(clinics)s reporting sites in Epidemiological Week
+ %(epi_week)s (%(start_date)s and 
+%(end_date)s).', 
+clinics=report.data.clinic_num, 
+project_region=_(report.data.project_region),
+epi_week=report.data.epi_week_num,
+start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+
+
+## {{ _('Key Findings') }} ##
+
+{{ _('A total of %(cases)s cases reported from %(clinic_num)s health facilities.',
+clinic_num=report.data.clinic_num|commas,
+cases=report.data.total_cases,
+) }}
+
+{{ _('%(female)s %% females and %(under_five)s %% under five years of age',
+female=report.data.percent_cases_female|float|round(1),
+under_five=report.data.percent_cases_lt_5yo|float|round(1)
+)}}
+
+
+{% for disease in report.data.morbidity_communicable_cd_tab %}
+{{ disease.percent|float|round(1) }}% {{ _('morbidity due to') }} {{ _(disease.title|e) }}
+{% endfor %}
+
+
+
+
+## {{ _('Alerts') }} ##
+
+{{
+_('
+A total of %(alerts)s  suspected notifiable communicable disease alerts were generated in Epidemiological Week 
+%(epi_week)s (%(start_date)s and 
+%(end_date)s).
+',
+alerts=report.data.alerts_total,
+epi_week=report.data.epi_week_num,
+start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), 
+end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')
+)
+}}
+
+## {{ _('Project Overview') }} ##
+
+{{
+_('
+A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+',
+project_region=_(report.data.project_region)
+)
+}}
+
+{{
+_('
+The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+')
+}}

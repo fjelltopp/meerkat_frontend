@@ -21,6 +21,10 @@ body.reports, body.htmlreport{
 		min-height: 450px;
 	}
 
+    footer{
+        padding-bottom:0px;
+    }
+
 }
 
 .page-content{
@@ -28,14 +32,14 @@ body.reports, body.htmlreport{
 	padding: 10px 0;
 }
 
-.centered, .centered th{
+.centered, table.centered th{
   text-align: center;
 }
 
 .reports-form{
 
 	margin-top: 40px;
-	margin-bottom: 20px;	
+	margin-bottom: 20px;
 
 	label{
 		text-align: left;
@@ -72,7 +76,7 @@ body.reports, body.htmlreport{
 
 		input{
 			position: absolute;
-			left: 0px;			
+			left: 0px;
 		}
 
 	}
@@ -91,19 +95,30 @@ form.reports-form .download-buttons input{
 	margin: 20px 0px;
 }
 
-.refugee th{
+.reports-table th, .refugee th{
   background: $lightGrey;
 }
 
-.key{
-  text-align: left;
-  border-right: 2px solid #ddd;
+table{
+    .key{
+      text-align: left;
+      border-right: 2px solid #ddd;
+    }
+
+    .value{
+      border-right: 2px solid #ddd;
+    }
+
+    .value-percentage{
+	    white-space: nowrap;
+    }
 }
 
 .total{
   border-right: 2px solid #ddd;
   border-left: 2px solid #ddd;
   background: $lightGrey;
+  font-weight: bold;
 }
 
 .total-row{
@@ -111,38 +126,9 @@ form.reports-form .download-buttons input{
   border-bottom: 2px solid #ddd;
   background: $lightGrey;
 }
-
-.border-left{
-  border-left: 2px solid #ddd;
-}
-
-.border-top{
-  border-top: 2px solid #ddd;
-}
-
-.border-right{
-  border-right: 2px solid #ddd;
-}
-
-.border-bottom{
-  border-bottom: 2px solid #ddd;
-}
-
-.table tbody td.highlight{
-  background: $highlight;
-  color: #FFF;
+.highlight{
   border: $highlight;
 }
-
-.table th.highlight{
-  background: $highlight;
-  color: #FFF;
-}
-
-.dark{
-  background: $darkGrey;
-}
-
 .table-wrapper{
   margin: 15px;
   border: 1px solid #DDD;
@@ -156,9 +142,10 @@ form.reports-form .download-buttons input{
   display: inline-block;
 }
 
-table.refugee.table{
+table.refugee.table,
+table.reports-table.table{
   margin-bottom: 0px;
-} 
+}
 
 table.refugee.small{
   width: initial;
@@ -171,7 +158,69 @@ table.refugee.small{
   font-size: 15px;
 }
 
-.htmlreport{ 
+.reports-table,
+.bootstrap-table .table.reports-table{
+
+    tbody td.highlight,
+    th.highlight{
+      background: $highlight;
+      color: #FFF;
+    }
+
+    th.lowlight,
+    tbody td.lowlight{
+      background: #FAFAFA;
+      color: $textGrey;
+      border-bottom: none;
+      border-top: none;
+    }
+
+    tbody tr td{
+      border-bottom: 1px solid #ddd;
+    }
+
+    tbody td.border-left,
+    thead th.border-left{
+      border-left: 2px solid #ddd;
+    }
+
+    tbody td.border-top,
+    thead th.border-top{
+      border-top: 2px solid #ddd;
+    }
+
+    tbody td.border-right,
+    thead th.border-right{
+      border-right: 2px solid #ddd;
+    }
+
+    tbody td.border-bottom,
+    thead th.border-bottom{
+      border-bottom: 2px solid #ddd;
+    }
+
+    tbody td.dark,
+    thead th.dark{
+      background: $lightGrey;
+      border: none;
+    }
+}
+
+.htmlreport .fixed-table-container.table-no-bordered {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.bootstrap-table .reports-table thead tr th{
+    border-bottom: 2px solid #ddd;
+}
+
+.right-align{
+  text-align: right;
+}
+
+.htmlreport{
 
     .navbar .container-fluid .navbar-brand{
         margin: 0 10px;
@@ -180,7 +229,7 @@ table.refugee.small{
     .page-header{
         margin: 40px 15px 20px;
     }
-	
+
 		.time-stamp{
 			margin-top: 20px;
 		}
@@ -199,8 +248,75 @@ table.refugee.small{
 	font-weight: normal;
 }
 
+#district-completeness-column{
+    display: none;
+}
+
 .reports-form-wrapper{
 	padding: 30px;
 	border: solid 1px $lightGrey;
 	border-radius: 3px;
+}
+
+#malaria-map-wrapper{
+   height: 350px;
+}
+
+.moh-title-logo{
+    height: 50px;
+    margin: 0 10px 0 15px;
+}
+
+.mapbox{
+  min-height: 700px;
+}
+
+.area-label{
+  .outer {
+      width: 35px;
+      height: 35px;
+      background: #4fbfec;
+      text-align: center;
+      line-height: 35px;
+      border-radius: 20px;
+  }
+
+  .inner {
+      width: 25px;
+      height: 25px;
+      background: $blue;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      border-radius: 20px;
+      line-height: 25px;
+      display: inline-block;
+  }
+}
+
+.chart-stage.map-padding{
+  padding: 0px 1px 1px;
+}
+
+.mapbox .info {
+    background: #0090ca;
+    padding: 10px;
+    color: white;
+    border-radius: 3px;
+    font-size: 1.2em;
+    text-align: right;
+    margin: 20px;
+}
+
+.figure-title-left{
+    float: left;
+    width: 80px;
+}
+
+.figure-title-right{
+    float: left;
+}
+
+#ncd-mapbox-panel .chart-stage{
+    height:600px;
 }

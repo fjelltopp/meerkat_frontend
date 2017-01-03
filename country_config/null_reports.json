@@ -8,39 +8,44 @@
         "introduction":"This report summarises the state of public health in the selected location.",
         "url":"public_health",
         "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"week"
+        "period":"week",
+        "access":"registered"
     },{
         "name":"Communicable Disease Profile",
         "introduction":"This report summarises the state of communicable disease public health in the selected location.",
         "url":"cd_public_health",
         "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"week"
+        "period":"week",
+        "access":"registered"
     },{
         "name":"Non-Communicable Disease Profile",
         "introduction":"This report summarises the state of non-communicable disease public health in the selected location.",
         "url":"ncd_public_health",
         "start_date":"2016-02-01T00:00:00.000Z",
-        "period":"month"
+        "period":"month",
+        "access":"registered"
     },{
         "name":"Communicable Disease Report",
         "introduction":"This report tracks the spread of communicable diseases across the selected location.",
         "url":"communicable_diseases",
         "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"year"
+        "period":"year",
+        "access":"registered"
     },{
         "name":"Non Communicable Disease Report",
         "introduction":"This report tracks the spread of non-communicable diseases across the selected location.",
         "url":"non_communicable_diseases",
         "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"month"
+        "period":"month",
+        "access":"registered"
     }],
 
     "report_list": {
         "public_health": {
             "title": "Public Health Profile",
             "template": "reports/report_public_health_profile.html",
-            "template_email_html": "reports/email_public_health_profile.html",
-            "template_email_plain": "reports/email_public_health_profile.txt",
+            "template_email_html": "reports/email/html/email_public_health_profile.html",
+            "template_email_plain": "reports/email/plain/email_public_health_profile_plain.html",
             "api_name": "public_health",
             "mailchimp_list_id": "",
             "mailchimp_dir_id": "7989",
@@ -48,37 +53,82 @@
             "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "week",
-            "test_json_payload": "meerkat_frontend/apiData/reports_public_health.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_public_health.json",
+            "access": "registered"
         },
         "cd_public_health": {
             "title": "Communicable Disease Profile Report",
             "template": "reports/report_cd_public_health_profile.html",
+            "template_email_html": "reports/email/html/email_cd_public_health_profile.html",
+            "template_email_plain": "reports/email/plain/email_cd_public_health_profile_plain.html",
             "api_name": "cd_public_health",
+            "email_from_name": "MOH Demo",
+            "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "week",
-            "test_json_payload": "meerkat_frontend/apiData/reports_cd_public_health.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_cd_public_health.json",
+            "access": "registered"
         },
        "ncd_public_health": {
             "title": "Non-Communicable Disease Profile Report",
             "template": "reports/report_ncd_public_health_profile.html",
+            "template_email_html": "",
+            "template_email_plain": "",
             "api_name": "ncd_public_health",
+            "email_from_name": "MOH Demo",
+            "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "month",
-            "test_json_payload": "meerkat_frontend/apiData/reports_ncd_public_health.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_ncd_public_health.json",
+            "access": "registered"
         },
         "communicable_diseases": {
             "title": "Communicable Diseases Report",
             "template": "reports/report_communicable_diseases.html",
+            "template_email_html": "",
+            "template_email_plain": "",
             "api_name": "cd_report",
+            "email_from_name": "MOH Demo",
+            "email_from_address": "demo@emro.info",
             "default_period": "year",
-            "test_json_payload": "meerkat_frontend/apiData/reports_communicable_diseases.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_communicable_diseases.json",
+            "access": "registered"
         },
         "non_communicable_diseases": {
             "title": "Non Communicable Diseases Report",
             "template": "reports/report_non_communicable_diseases.html",
+            "template_email_html": "reports/email/html/email_ncd_report.html",
+            "template_email_plain": "reports/email/plain/email_ncd_report_plain.html",
             "api_name": "ncd_report",
+            "email_from_name": "MOH Demo",
+            "email_from_address": "demo@emro.info",
             "default_period": "month",
-            "test_json_payload": "meerkat_frontend/apiData/reports_non_communicable_diseases.json"
+            "test_json_payload": "meerkat_frontend/apiData/reports_non_communicable_diseases.json",
+            "access": "registered"
+        },
+        "epi_monitoring": {
+            "title": "Epidemiological Monitoring Report",
+            "template": "reports/report_epi_monitoring.html",
+            "template_email_html": "reports/email/html/email_epi_monitoring.html",
+            "template_email_plain": "reports/email/plain/email_epi_monitoring_plain.html",
+            "api_name": "epi_monitoring",
+            "email_from_name": "MOH Demo",
+            "email_from_address": "demo@emro.info",
+            "test_json_payload": "meerkat_frontend/apiData/epi_monitoring.json",
+            "default_period": "week",
+            "access": "registered"
+        },
+        "vaccination": {
+            "title": "Vaccination Report",
+            "template": "reports/report_vaccination.html",
+            "template_email_html": "",
+            "template_email_plain": "",
+            "api_name": "vaccination",
+            "test_json_payload": "meerkat_frontend/apiData/reports_vaccination.json",
+            "default_period": "week",
+            "map_centre": [-21.70, 45.10, 6],
+            "access": "registered"
+
         }
     },
 

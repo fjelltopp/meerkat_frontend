@@ -1,4 +1,5 @@
 <script type="text/javascript">
+var auth_root = "{{content.auth_root}}";
 
 //SET THE SCREEN SIZE-----------------------------------------
 	//Make sure that objects with class screen don't over fill the screen due to the NavBar
@@ -69,15 +70,17 @@
 
    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/key_indicators", function( category ){
      $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( map ){
-	    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_alerts", function( alerts ){
+	 $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_alerts", function( alerts ){
+             $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_clinics", function( clinics ){
 
          $('#number_of_consultations').text(category['reg_2'].year);
          $('#number_of_cases').text(category['tot_1'].year);
          $('#number_of_alerts').text(alerts.num_alerts);
-         $('#number_of_facilities').text(Object.keys(map).length);
-		 });	 
+         $('#number_of_facilities').text(clinics.total);
+	     });	 
+         });
      });
-	});
+   });
 
 
 
@@ -129,7 +132,7 @@
       map.scrollWheelZoom.disable();
       // Disable tap handler, if present.
       if (map.tap) map.tap.disable();
-      $('.key .keyBody').text("Click here to explore");
+      $('.key .keyBody').text(i18n.gettext("Click here to explore"));
       //if( undefined != regionalLayer ) map.removeLayer(regionalLayer);
 		viewingMap = false;
          
@@ -148,7 +151,7 @@
 
 		    if( report.geolocation[0] && report.geolocation[1] ){
 		      var m = L.marker( [ report.geolocation[0], report.geolocation[1]] );
-		      m.name = report.clinic;
+		      m.name = i18n.gettext(report.clinic);
 		      m.cases = report.value;
 		      m.consultations = consultation.value;
 		      markers.addLayer( m );
@@ -188,6 +191,8 @@
          highlightedRegion = e.target;
       }else{
          regionalLayer.resetStyle( highlightedRegion ); 
+         console.log( highlightedRegion.toGeoJSON() );
+          console.log( e.target.toGeoJSON() );
          if( highlightedRegion.toGeoJSON().properties.name != e.target.toGeoJSON().properties.name ){
            highlightedRegion = e.target;
            $(".details .selection").html("");
@@ -204,7 +209,7 @@
       }
       
       if( govSiteClash === false ){
-         $("#regionName.value").text(highlightedRegion.toGeoJSON().properties.name);
+         $("#regionName.value").text( highlightedRegion.toGeoJSON().properties.name );
       }
 
     }
@@ -230,6 +235,7 @@
 
     //Attach the custom layer features to the kml data and display on map.
     var regionalLayer = omnivore.kml("{{url_for( 'static', filename='files/'+content.map.reg_data_file)}}", null, customLayer );
+    console.log(regionalLayer );
 
     function enterMap(){
          //Hide the overlay.
@@ -241,7 +247,7 @@
          map.scrollWheelZoom.enable();
          if (map.tap) map.tap.enable();
          // Show the key overlay/
-         $('.key .keyBody').text("Click here to finish.");
+         $('.key .keyBody').text(i18n.gettext("Click here to finish."));
 			viewingMap=true;
     }
 
@@ -256,15 +262,15 @@
          govSiteClash = true;
       }
 		
-      var info =  "<span id='name' class='label' > Facility Name: </span> <span id='name' class='value' > " +
+      var info =  "<span id='name' class='label' >" +i18n.gettext('Facility Name:') +" </span> <span id='name' class='value' > " +
                   a.layer.name + "</span></br>" +
-                  "<span id='cons' class='label' > # Consultations: </span> <span id='cons' class='value' > " +
+                  "<span id='cons' class='label' >" +i18n.gettext('# Consultations:') +" </span> <span id='cons' class='value' > " +
                   a.layer.consultations + "</span></br>" +
-                  "<span id='cases' class='label' > # Cases: </span> <span id='cases' class='value' > " +
+                  "<span id='cases' class='label' > "+i18n.gettext('# Cases:')+" </span> <span id='cases' class='value' > " +
                   a.layer.cases + "</span></br>" +
-                  "<span id='lat' class='label' > Lat: </span> <span id='lat' class='value' >" +
+                  "<span id='lat' class='label' >" +i18n.gettext('Lat:') +" </span> <span id='lat' class='value' >" +
                   Math.round(a.layer.getLatLng().lat*10000)/10000 + "</span>" +
-                  "<span id='lng' class='label' > Lng: </span> <span id='lng' class='value' >"  +
+                  "<span id='lng' class='label' >" +i18n.gettext('Lng:') +" </span> <span id='lng' class='value' >"  +
                   Math.round(a.layer.getLatLng().lng*10000)/10000+ "</span></br>";
       
       $("#map-home .details .selection").html(info);  

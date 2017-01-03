@@ -96,8 +96,8 @@ function loadTab( tabID, locID ){
 	//Record the page history.
 	currentState = { type: 'tab', dataID: tabID, locID: locID};
 	var url = currentState.locID == 1 ? 
-	          currentState.dataID : currentState.dataID + '/loc_' + currentState.locID;
-	history.pushState( currentState, $( '#'+tabID ).text(), '/technical/' + url );
+	        currentState.dataID : currentState.dataID + '/loc_' + currentState.locID;
+	history.pushState( currentState, $( '#'+tabID ).text(), "/" + language +"/technical/" + url );
 
 	loadTabContent( tabID, locID );
 }
@@ -125,7 +125,7 @@ function loadDisease( diseaseID, locID ){
 	//Record the page history.
 	currentState = { type: 'disease', dataID: diseaseID, locID: locID };
 	var url = 'diseases/' + currentState.dataID + '/loc_' + locID;
-	history.pushState( currentState, 'Disease #' + diseaseID, '/technical/' + url );
+	history.pushState( currentState, i18n.gettext('Disease #') + diseaseID,  "/" + language +"/technical/" + url);
 
 	loadDiseaseContent( diseaseID, locID );
 }
@@ -154,7 +154,7 @@ function loadAlert( alertID ){
 	//Record the page history.
 	currentState = { type: 'alert', dataID: alertID, locID: locID };
 	var url = 'alerts/' + currentState.dataID;
-	history.pushState( currentState, 'Alert #' + alertID, '/technical/' + url );
+	history.pushState( currentState, i18n.gettext('Alert #') + alertID,  "/" + language +"/technical/" + url);
 
 	loadAlertContent( alertID );
 }
@@ -177,7 +177,7 @@ function glossary(){
 		var word = $(this).attr('word');
 		var replacement = config.glossary[word];
 
-		if( $(this).hasClass('capitalised') ) replacement = capitalise(replacement);
+		if( $(this).hasClass('capitalised') ) replacement =i18n.gettext(capitalise(replacement));
 
 		$(this).html(replacement);
 

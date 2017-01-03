@@ -1,0 +1,115 @@
+<div class="top-bar row">
+  <div class="location-box box">
+    <a href="#menu-toggle" id="menu-toggle">
+      <div class="location-box__label">
+        <div id="location_box"></div>
+        <div id="location-title" class="location-title"></div>
+      </div>
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="glyphicon glyphicon-chevron-left hidden"></span>
+    </a>
+  </div>
+  <div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+  </div>
+  <div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+  </div>
+</div>
+
+<div class="demographics toggled" id="wrapper">
+  <div id="sidebar-wrapper" >
+    <div id="location-selector" class="location-selector">
+    </div>
+	</div>
+
+  <div id="page-content-wrapper">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4 less-padding-col">
+        <div class="chartBox box">
+          <div class="chartBox__heading" id="box_heading">
+            <div class="box__type-selector pull-right">
+              <a href="" class="csv" onclick="exportTableToCSV('timeliness-agg-table','timelinessSummary.csv', this);" > 
+                
+              </a> 
+            </div>
+          </div>
+          <div class="chartBox__content">
+            <div id="timeliness-table" class="table">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xs-12 col-md-8 less-padding-col">
+        <div class="chartBox box">
+          <div class="chartBox__heading" id="box_2_heading">
+          </div>
+          <div class="chartBox__content">
+            <div id="timeliness-graph" style="margin: 0 auto"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xs-12 col-md-12 less-padding-col">
+      <div class="chartBox box" id="all_clinics_box">
+        <div class="chartBox__heading pointer no-border" id="box_4_heading" onclick='toggleAllClinics();return false;'>
+          <div class="box__type-selector pull-right">
+            <a href="" class="csv" onclick="exportTableToCSV('timeliness-table','timeliness.csv', this);" > 
+            </a> 
+          </div>
+        </div>
+        <div class="chartBox__content" id="all_clinics_content">
+          <div id="all-clinics-table" class="table">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+ var currrentlocation;
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#title").html(i18n.gettext('CD Timeliness'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#location-selector").html(i18n.gettext('Locations not loaded'));
+ $("#box_heading").html(i18n.gettext('Timeliness')  + " (" + i18n.gettext('Week') + ' ' + (get_epi_week() -1) +")");
+ $("#box_2_heading").html(i18n.gettext('Timeliness by week'));
+ $("#box_4_heading").html(i18n.gettext('Timeliness by clinic') + " (" + i18n.gettext('Week') + ' ' + (get_epi_week() -1 )+")");
+ $(".csv").each(function(){
+     $(this).html(i18n.gettext('Excel'));
+ });
+
+ $("#menu-toggle").click(function(e) {
+     e.preventDefault();
+     $("#wrapper").toggleClass("toggled");
+     $(".location-box .glyphicon").toggleClass( "hidden" );
+
+     //Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+     var transitionEvent = whichTransitionEvent();
+     transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+         $(window).resize();
+     });
+ });
+
+ $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + get_date() );
+ //Every tab needs a draw charts function that is called when loading a new location.
+ //It's also called upon the first load of the page.
+ function drawCharts( locID ){
+     currentLocation = locID;
+     timelinessPreparation( currentLocation, 'reg_6', config.timeliness_denominator.cd,  'timeliness-graph', 'timeliness-table', 'all-clinics-table',1, "None", config.weekend );
+ }
+
+ function toggleAllClinics(){
+     $("#all_clinics_box .chartBox__heading").toggleClass("no-border");
+     $("#all_clinics_content").slideToggle("slow");
+ }
+
+</script>

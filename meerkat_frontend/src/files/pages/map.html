@@ -2,7 +2,6 @@
 
 
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-		Date not loaded.
 	</div>
 
 </div>
@@ -10,11 +9,18 @@
 <div class="map-view">
 
 	<div id="page-content-wrapper">
+		<div class="row"
+			<div class="col-xs-12 less-padding-col">
+				<div id="variable-selector" class="col-sm-offset-1 col-sm-11 no-padding-col"></div>
+				<div id="type-selector" class="col-sm-offset-1 col-sm-11 no-padding-col">
+				</div>
+
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						Map
+					<div class="chartBox__heading" id="box_heading">
 					</div>
 					<div id="total-map" class="chartBox__content map">
 
@@ -26,6 +32,68 @@
 </div>
 <div class="breaker"></div>
 <script>
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
-drawMap( 'tot_1', "total-map" );
+ $("#box_heading").html(i18n.gettext('Map'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
+
+
+ options = config.map_options.options
+ var html ="<p class='col-xs-4'>"+ i18n.gettext("Choose disease to map") + "</p><select class='report col-xs-4 no-padding-col' style='display:inline;'>";
+ for( var key in options ){
+	 option = options[key];
+	 html += "<option value='" + key + "'>" +
+		     i18n.gettext(option) + "</option>";
+ }
+ html += "</select>";
+ $('#variable-selector').html(html);
+
+ $('#variable-selector').change( function(){
+	 reDraw();
+ });
+
+ type_options = config.map_options.types
+
+ option_captions = {
+     "incidence_clinic": i18n.gettext("Incidence rate by clinic"),
+     "incidence_district": i18n.gettext("Incidence rate by district"),
+	 "incidence_region": i18n.gettext("Incidence rate by region"),
+     "cases_clinic": i18n.gettext("Cases by clinic"),
+	 "cases_region": i18n.gettext("Cases by region"),
+	 "cases_district": i18n.gettext("Cases by district")
+ }
+ type_html ="<p class='col-xs-4'>" + i18n.gettext("Choose map type")+  "</p><select class='report col-xs-4 no-padding-col' style='display:inline;'>"
+ for( var key in type_options ){
+     type = type_options[key];
+     type_html += "<option value='" + type + "'>" +
+	     option_captions[type] + "</option>";
+ }
+ type_html += "</select>"
+ $('#type-selector').html(type_html);
+
+ $('#type-selector').change( function(){
+	 reDraw();
+ });
+ function reDraw(){
+     if(map){
+         map.remove();
+	 }
+	 var variable = $('#variable-selector select').val();
+	 var map_type = $('#type-selector select').val();
+	 if( map_type == "incidence_clinic") {
+	     drawIncidenceMap( options[variable],  variable, "total-map" );
+	 }else if( map_type == "incidence_district") {
+	     drawIncidenceChoroplet(options[variable], variable, "total-map", "district", config.map_options.district_geo);
+	 }else if( map_type == "incidence_region") {
+	     drawIncidenceChoroplet(options[variable], variable, "total-map", "region", config.map_options.region_geo);
+	 }else if(map_type == "cases_clinic"){
+		 drawMap(variable, "total-map", 1)
+	 }else if( map_type == "cases_region") {
+	     drawCasesChoroplet(options[variable], variable, "total-map", "region", config.map_options.region_geo);
+	 }
+	 else if( map_type == "cases_district") {
+	     drawCasesChoroplet(options[variable], variable, "total-map", "district", config.map_options.district_geo);
+	 }
+ }
+ reDraw();
+
 </script>

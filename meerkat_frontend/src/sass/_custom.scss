@@ -50,6 +50,7 @@
 .report-week {
   @extend small;
   @extend .dropdown;
+  white-space: nowrap;
   a {
     color: $gray-light;
   }
@@ -141,3 +142,44 @@
       background-image:url(../img/fullscreen@2x.png);
     }
   }
+
+@media (max-width: 992px){
+    .nav li a{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.text-right{
+    text-align: right;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.cc_container .cc_btn, .cc_container .cc_btn:visited{
+    background: $blue;
+}
+
+.settings{
+    float: left;
+    margin-left: 20px;
+    margin: 15px -10px 0px 15px;
+    font-size: 14px;
+    color: white;
+    padding: 1px 4px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+    color: white;
+}
+
+.settings:hover, .settings:active{
+    background: $highlight;
+    border: $highlight 1px solid;
+    color: white;
+    text-decoration: none;
+}

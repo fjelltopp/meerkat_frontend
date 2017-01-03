@@ -3,11 +3,14 @@ WEBMASTER_EMAIL = 'webmaster@emro.info'
 SITE_TITLE = 'Null Island Public Health Surveillance'
 FLAGG_ABR = "null"
 
-AUTHENTICATION = {
-    'basic_auth':{
-        'username': '',
-        'password': ''
-    }
+AUTH = {
+    "technical": [['registered'], ['demo']],
+    "messaging": [['registered'], ['demo']],
+    "download": [['registered'], ['demo']],
+    "explore": [['registered'], ['demo']],
+    "reports": [['registered'], ['demo']],
+    "settings": [['personal'], ['demo']],
+    "report_emails": [['emails'], ['demo']]
 }
 
 # Configuration fields that are specific to each frontend component.
@@ -21,30 +24,45 @@ COMPONENT_CONFIGS = {
 }
 
 # Configuration fields that are shared across all the above components.
-# Any fields in the above files labelled with the same key path override the fields in this dictionary.
+# Fields in the above files with same key path override the fields here.
 SHARED_CONFIG = {
-    "country":"Null Island",
-    "titles":{
-        "full":"Null Island <br> Public Health Surveillance",
-        "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
-        "mob_nav":"Health Surveillance"
+    "country": "Null Island",
+    "auth_country": "demo",
+    "titles": {
+        "full": "Null Island <br> Public Health Surveillance",
+        "nav": "<b>Null Island </b> &middot; Public Health Surveillance",
+        "mob_nav": "Health Surveillance"
     },
-    "flag":"null.svg",
-    "footer":{
-        "logos":{
-	        "who":"transparent.png",
-	        "country_partner":"ni.png",
-	        "partners":[]
+    "flag": "null.svg",
+    "footer": {
+        "logos": {
+            "who": "transparent.png",
+            "country_partner": "ni.png",
+            "partners": []
         },
-        "partners":[
+        "partners": [
             "The Ministry of Health, Null Island"
         ],
-        "email":"nullisland@moh.int"
+        "email": "nullisland@moh.int"
     },
-    "glossary":{
-        "region":"kingdom"
+    "main_menu": [{
+        "text": "Dashboard",
+        "url": "/technical/",
+    }, {
+        "text": "Reports",
+        "url": "/reports/",
+    }, {
+        "text": "Notifications",
+        "url": "/messaging/",
+    }, {
+        "text": "Explore",
+        "url": "/explore/",
+    }, {
+        "text": "Download",
+        "url": "/download/",
+    }],
+    "glossary": {
+        "region": "kingdom"
     },
-   "api_key": "test-api"
+    "api_key": "test-api"
 }
-
-

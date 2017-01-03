@@ -4,14 +4,15 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-  <span 
+  <span
     class="flag-icon flag-icon-{{report.flag}}"
     style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
   >
-  </span> 
+  </span>
+  <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
   <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> North Eastern Border Public Health Profile
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} - {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
   </h2>
 </div>
@@ -21,7 +22,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">Key findings</div>
       <div class="chart-stage">
-	  <p>Information reported in this public health profile represents cumulative cases reported from {{ report.data.clinic_num }} outpatient clinics in {{ report.data.project_region|e }} between {{ report.data.start_date|datetime_from_json|datetime('%-d %B %Y') }} and {{ report.data.end_date|datetime_from_json|datetime('%-d %B %Y') }}.</p>
+	  <p>Information reported in this public health profile represents cumulative cases reported from {{ report.data.clinic_num }} outpatient clinics in {{ report.data.project_region|e }} between {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} and {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}.</p>
         <ul>
           <li>A total of <strong>{{ report.data.total_consultations|commas }} consultations</strong>  and <strong>{{ report.data.total_cases|commas }} cases</strong> reported from {{ report.data.clinic_num|commas }} health facilities.</li>
           <li><strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> and <strong>{{ report.data.percent_cases_lt_5yo|float|round(1) }}% under five years</strong> of age.</li>
@@ -32,7 +33,7 @@
 
         </table>
 
-	  
+
         </ul>
       </div>
     </div>
@@ -43,9 +44,6 @@
       <div class="chart-title">Map</div>
       <div class="chart-stage">
           <div id="map"></div>
-          <div id="map-print">
-            <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
       </div>
     </div>
   </div>
@@ -92,18 +90,54 @@
   <!-- DEMOGRAPHICS -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Demographics</div>
+      <div class="chart-title">{{ _('Age Group') }}</div>
       <div class="chart-stage">
         <div id="chart-demographics"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.age %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.age|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
   <!-- GENDER-->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">Gender</div>
+      <div class="chart-title">{{ _('Gender') }}</div>
       <div class="chart-stage">
         <div id="chart-gender"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.gender %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.title|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
@@ -262,7 +296,7 @@ var demographicsAges = {
     name: 'Female',
     data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
-  labels: { xAxis: { text: 'Age' }, yAxis: { text: null } }
+  labels: { xAxis: { text: "{{ _('Age Group') }}" }, yAxis: { text: "{{_('No of cases')}}" } }
 };
 // Gender
 var gender = [{% for item in report.data.gender %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
@@ -271,7 +305,7 @@ var communicableDiseases = [{% for item in report.data.morbidity_communicable %}
 // Non Communicable diseases
 
 var nonCommunicableDiseases = [{% for item in report.data.morbidity_non_communicable %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
-//Injury 
+//Injury
 var injury = [{% for item in report.data.injury %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 //Menta Health
 var mental_health = [{% for item in report.data.mental_health %}{name: "{{ item.title|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
@@ -307,8 +341,7 @@ $(function() {
   );
 });
 // Draw map
-draw_public_health_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+map_from_data({{report.data.map|safe}})
 
 </script>
 {% endblock extra_js %}
-

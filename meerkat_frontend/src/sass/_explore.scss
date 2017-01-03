@@ -59,11 +59,16 @@
 		margin-right: 5px;
 		position:relative;
 		text-align: center;
+        min-height: 320px;
 	}	
 
 	.chartBox{
-		width: calc(100% - 45px);
+		width: calc(100% - 60px);
 	}
+
+    .chart-row{
+        margin-top:5px;
+    }
 
 	.yaxis .axis-selector{
 
@@ -106,9 +111,9 @@
 	}
 }
 
-.bootstrap-table .fixed-table-toolbar{
-	display: none;
-}
+.explore .bootstrap-table .fixed-table-toolbar{
+		 	display: none;
+		 }
 
 #cross-table, #timeline-table{
 	margin-top: -2px !important;
@@ -120,7 +125,9 @@
 
     .spinner{
 	    display: inline-block;
-        margin-top: 50px;
+        margin-top: 49px;
+        margin-bottom: 49px;
+        height: 220px;
     }
 
 }

@@ -1,0 +1,125 @@
+{% extends 'reports/base.html' %}
+
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('Vaccination Report') }} {% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+    <h2>     <span 
+    class="flag-icon flag-icon-{{report.flag}}"
+    style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+      >
+      </span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
+        <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _('Vaccination Report') }}
+    <span class="report-week">
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
+    </span>
+  </h2>
+</div>
+
+<div class="row">
+  <!-- Vaccination sessions -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+        <div class="chart-title">{{ _('Vaccination sessions') }}</div>
+        <div class="chart-stage">{{ _('District: %(region)s',
+          region = report.data.project_region) }}</div>
+        <div class="chart-stage">{{ _('Vaccination sessions: %(sessions)s',
+          sessions = report.data.vaccination_sessions|int
+        ) }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <!-- Vaccination types -->
+    <div class="col-sm-12">
+        <div class="chart-wrapper">
+            <div class="chart-title">{{ _('Vaccinations') }}</div>
+            <div class="chart-stage">
+
+                <div class="col-xs-12 col-md-6">
+                    <div class="table-title">{{ _('Table 1: Number of infant vaccinations') }}</div>
+                    <div class="table-wrapper table-responsive">
+                        <table class="table table-striped">
+                            <th>
+                                <tr>
+                                    <th>{{_('Vaccine')}}</th>
+                                    <th>{{_('0-11 months')}}</th>
+                                    <th>{{_('>12 months')}}</th>
+                                    <th>{{_('Total')}}</th>
+                                </tr>
+                            </th>
+                            {% for item in report.data.infants %}
+                            <tr>
+                                <td>{{ _(item["name"]) }}</td>
+                                <td>{{ item["vaccinated_0_11_mo_infants"]|int}}</td>
+                                <td>{{ item["vaccinated_12_mo_infants"]|int}}</td>
+                                <td>{{ (item["vaccinated_0_11_mo_infants"] + item["vaccinated_12_mo_infants"])|int}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                    <div class="table-title">{{ _('Table 2: Number of female vaccinations') }}</div>
+                    <div class="table-wrapper table-responsive">
+
+                        <table class="table table-striped">
+                            <th>
+                                <tr>
+                                    <th>{{_('Vaccine')}}</th>
+                                    <th>{{_('Pregnant women')}}</th>
+                                    <th>{{_('Women of reproductive age')}}</th>
+                                    <th>{{_('Total')}}</th>
+                                </tr>
+                            </th>
+                            {% for item in report.data.females %}
+                            <tr>
+                                <td>{{ _(item["name"]) }}</td>
+                                <td>{{ item["vaccinated_pw"]|int }}</td>
+                                <td>{{ item["vaccinated_notpw"]|int }}</td>
+                                <td>{{ (item["vaccinated_pw"] + item["vaccinated_notpw"])|int }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                    <div class="table-title">{{ _('Table 3: Vials used') }}</div>
+                    <div class="table-wrapper table-responsive">
+
+                        <table class="table table-striped">
+                            <th>
+                                <tr>
+                                    <th>{{_('Vaccine')}}</th>
+                                    <th>{{_('Total doses')}}</th>
+                                    <th>{{_('Doses per vial')}}</th>
+                                    <th>{{_('Vials used')}}</th>
+                                </tr>
+                            </th>
+                            {% for item in report.data.vials %}
+                            <tr>
+                                <td>{{ _(item["name"]) }}</td>
+                                <td>{{ item["total_doses"]|int }}</td>
+                                <td>{{ item["doses_per_vial"]|int }}</td>
+                                <td>{{ (item["vials"])|int }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+{% endblock extra_js %}
+
