@@ -22,9 +22,8 @@ module.exports = function(config) {
 		'meerkat_frontend/static/js/leaflet.markercluster.js',
 		'meerkat_frontend/static/js/moment.js',
 		'meerkat_frontend/static/js/bootstrap-table.js',
-		
+        'meerkat_frontend/static/js/jed.js',
 		'meerkat_frontend/static/js/*.js',
-		
 		'meerkat_frontend/src/js/tests/unittests/*.js'
     ],
 
