@@ -93,23 +93,6 @@ def test(report):
             extras["map_api_call"] = (
                 current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1"
             )
-        elif report in ["refugee_public_health"]:
-            extras = {}
-            extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (
-                current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1/Refugee"
-            )
-        elif report in ["pip"]:
-            extras = {}
-            extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (
-                current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1/SARI"
-            )
-        elif report in ["malaria"]:
-            extras = {}
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/map/epi_1/1")
-            extras['map_centre'] = report_list[report]["map_centre"]
         else:
             extras = None
 

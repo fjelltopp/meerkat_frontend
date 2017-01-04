@@ -35,12 +35,12 @@ def api(url, api_key=False, params=None):
                 r = requests.get(
                     api_request,
                     headers={'authorization': 'Bearer ' + auth.get_token()},
-                    params={"other": params}
+                    params=params
                 )
             else:
                 r = requests.get(
                     api_request,
-                    params={"other": params}
+                    params=params
                 )
         except requests.exceptions.RequestException as e:
             abort(500, e)

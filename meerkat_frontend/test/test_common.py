@@ -20,20 +20,41 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
         """Setup for testing"""
         mk.app.config['TESTING'] = True
         self.app = mk.app.test_client()
-        mk.app.config["USERNAME"] = "admin"
-        mk.app.config["PASSWORD"] = "secret"
-        mk.app.config["AUTH"] = {}
-        cred = base64.b64encode(b"admin:secret").decode("utf-8")
-        self.header = {"Authorization": "Basic {cred}".format(cred=cred)}
+
+        # When check_auth is called, just allow the authentication and set a
+        # permissive payload.
+        def side_effect(roles, countries):
+            g.payload = {
+                u'acc': {
+                    u'demo': [u'root', u'admin', u'registered'],
+                    u'jordan': [
+                        u'root', u'central', u'directorate', u'clinic', u'reports',
+                        u'all', u'cd', u'ncd', u'mh', u'admin', u'personal'
+                    ],
+                    u'madagascar': [u'root', u'admin', u'registered'],
+                    u'rms': [u'root', u'admin', u'registered']
+                },
+                u'data': {u'name': u'Testy McTestface'},
+                u'usr': u'testUser',
+                # Lasts for 30 seconds
+                u'exp': calendar.timegm(time.gmtime()) + 30,
+                u'email': u'test@test.org.uk'
+            }
+
+        # Mock check_auth method. Authentication should be tested properly else
+        # where.
+        self.patcher = mock.patch(
+            'authorise.check_auth', side_effect=side_effect)
+        self.mock_auth = self.patcher.start()
 
     def tearDown(self):
-        pass
+        self.patcher.stop()
 
     @mock.patch("meerkat_frontend.common.requests.get")
     def test_api(self, mock_requests):
         """ Test the api function in common.py"""
         mk.app.config["TESTING"] = False
-        mk.app.config["INTERNAL_API_ROOT"] = "http://test"
+        mk.app.config["INTERNAL_API_ROOT"] = "http://test/"
         mk.app.config["TECHNICAL_CONFIG"]["api_key"] = "test-api"
         with mk.app.test_request_context("/"):
             data = {"value": 54}
@@ -44,14 +65,13 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             ret = mk.common.api("key_indicators")
             self.assertTrue(mock_requests.called)
             mock_requests.assert_called_with("http://test/key_indicators",
-                                             params={"api_key": "test-api"})
+                                             params=None)
             self.assertEqual(ret, data)
 
             mk.common.api("variables/category/category2", params={"test": "test2"})
             self.assertTrue(mock_requests.called)
             mock_requests.assert_called_with("http://test/variables/category/category2",
-                                             params={"api_key": "test-api",
-                                                     "test": "test2"})
+                                             params={"test": "test2"})
             # Check that abort(500) is called in a request error
             mock_requests.side_effect = requests.exceptions.RequestException()
             with self.assertRaises(werkzeug.exceptions.InternalServerError):
@@ -112,8 +132,7 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
     def test_epi_week_to_date(self, mock_requests):
         """ Test the epi_week_to_date function """
         mk.app.config["TESTING"] = False
-        mk.app.config["INTERNAL_API_ROOT"] = "http://test"
-        mk.app.config["TECHNICAL_CONFIG"]["api_key"] = "test-api"
+        mk.app.config["INTERNAL_API_ROOT"] = "http://test/"
         with mk.app.test_request_context("/"):
             data = {"start_date": datetime(2015, 1, 1).isoformat()}
             request_return = mock.MagicMock()
@@ -123,15 +142,14 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             self.assertEqual(date, datetime(2015, 1, 8))
             mock_requests.assert_called_with(
                 "http://test/epi_week_start/2015/10",
-                params={"api_key": "test-api"}
+                params=None
             )
 
     @mock.patch("meerkat_frontend.common.requests.get")
     def test_date_to_epi_week(self, mock_requests):
         """ Test the date to epi week function """
         mk.app.config["TESTING"] = False
-        mk.app.config["INTERNAL_API_ROOT"] = "http://test"
-        mk.app.config["TECHNICAL_CONFIG"]["api_key"] = "test-api"
+        mk.app.config["INTERNAL_API_ROOT"] = "http://test/"
         with mk.app.test_request_context("/"):
             data = {"epi_week": 10}
             request_return = mock.MagicMock()
@@ -142,5 +160,5 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             self.assertEqual(epi_week, 10)
             mock_requests.assert_called_with(
                 "http://test/epi_week/{}".format(date.isoformat()),
-                params={"api_key": "test-api"}
+                params=None
             )

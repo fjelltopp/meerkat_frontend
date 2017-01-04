@@ -174,6 +174,14 @@ def verified(subscriber_id):
     # Get the subscriber
     subscriber = c.hermes('/subscribe/' + subscriber_id, 'GET')['Item']
 
+    # If the subscriber isn't verified redirect to the verify stage.
+    if not subscriber['verified']:
+        return redirect(
+            '/' + g.get("language") +
+            '/messaging/subscribe/verify/' + subscriber_id,
+            code=302
+        )
+
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
     # Send a confirmation e-mail with the unsubscribe link.

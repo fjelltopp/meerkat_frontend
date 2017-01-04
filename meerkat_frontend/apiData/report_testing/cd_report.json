@@ -1,0 +1,156 @@
+{
+    "data": {
+        "clinic_num": 341,
+        "communicable_diseases": {
+            "Acute Flaccid Paralysis": {
+                "confirmed": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "suspected": [
+                    0,
+                    1,
+                    1,
+                    0,
+                    0
+                ],
+                "weeks": [
+                    48,
+                    49,
+                    50,
+                    51,
+                    52
+                ]
+            },
+            "Bacterial meningitis": {
+                "confirmed": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "suspected": [
+                    0,
+                    1,
+                    0,
+                    0,
+                    0
+                ],
+                "weeks": [
+                    48,
+                    49,
+                    50,
+                    51,
+                    52
+                ]
+            },
+            "Food Poisoning": {
+                "confirmed": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "suspected": [
+                    0,
+                    3,
+                    1,
+                    0,
+                    0
+                ],
+                "weeks": [
+                    48,
+                    49,
+                    50,
+                    51,
+                    52
+                ]
+            },
+            "Rubella": {
+                "confirmed": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "suspected": [
+                    0,
+                    1,
+                    0,
+                    0,
+                    0
+                ],
+                "weeks": [
+                    48,
+                    49,
+                    50,
+                    51,
+                    52
+                ]
+            },
+            "Scarlet fever": {
+                "confirmed": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "suspected": [
+                    0,
+                    0,
+                    1,
+                    0,
+                    0
+                ],
+                "weeks": [
+                    48,
+                    49,
+                    50,
+                    51,
+                    52
+                ]
+            },
+            "Whooping cough": {
+                "confirmed": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "suspected": [
+                    0,
+                    0,
+                    2,
+                    0,
+                    0
+                ],
+                "weeks": [
+                    48,
+                    49,
+                    50,
+                    51,
+                    52
+                ]
+            }
+        },
+        "end_date": "1990-07-01T00:00:00",
+        "epi_week_num": 26,
+        "project_epoch": "1990-06-01T00:00:00",
+        "project_region": "Jordan",
+        "start_date": "1990-06-01T00:00:00"
+    },
+    "meta": {
+        "generation_timestamp": "1990-07-01T00:00:00",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "blah"
+    }
+}
