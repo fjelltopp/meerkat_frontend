@@ -624,7 +624,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 1)
 
             elif period == "month":
-                start_date = datetime(today.year, today.month - 1, 1)
+                start_date = datetime(today.year, today.month, 1) - timedelta(months=1)
                 end_date = datetime(today.year, today.month, 1) - timedelta(days=1)
             elif period == "year":
                 start_date = datetime(today.year, 1, 1)
