@@ -110,13 +110,14 @@ function drawTable1(){
     for( var i=1; i<struct.length; i++ ){
       if( struct[i] == 0 ) ret += "<td class='dark'></td>";
       else{
-        ret += [1,5,8,11].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
+        ret += [1,5,7,11].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
         ret += content['malaria_situation']["mls_" + struct[i]] + "</td>";
       }
     }
     ret += "</tr>";
     return ret;
-  }
+}
+
 
   struct = [["{{_('Number of consultations')}}", 1 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
             ["{{_('Number of fever cases')}}", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
