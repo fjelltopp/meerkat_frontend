@@ -57,3 +57,4 @@ secret.cfg
 meerkat_frontend/translations/**/.po
 
 yarn.lock
+yarn-error.log
