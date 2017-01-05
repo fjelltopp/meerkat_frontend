@@ -1,8 +1,8 @@
 {
 
     "data": {
-        "end_date": "2016-10-16T14:05:59.514727",
-        "epi_week_num": 41,
+        "end_date": "1990-07-01T00:00:00",
+        "epi_week_num": 26,
         "females": [
             {
                 "name": "VAT1",
@@ -107,17 +107,17 @@
                 "vaccinated_12_mo_infants": 0
             }
         ],
-        "project_epoch": "2015-05-20T00:00:00",
+        "project_epoch": "1990-06-01T00:00:00",
         "project_region": "Demo",
         "project_region_id": "1",
-        "start_date": "2016-01-01T00:00:00",
+        "start_date": "1990-06-01T00:00:00",
         "vaccination_sessions": 1
     },
     "meta": {
-        "generation_timestamp": "2016-10-16T14:05:59.514792",
+        "generation_timestamp": "1990-07-01T00:00:00",
         "project_id": 1,
         "schema_version": 0.1,
-        "uuid": "4210b0eb-f921-4b0d-b78b-c183197f2634"
+        "uuid": "blah"
     }
 
 }

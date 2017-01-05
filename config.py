@@ -22,13 +22,14 @@ def from_env(env_var, default):
 
 class Config(object):
     DEBUG = False
-    TESTING = False
+    TESTING = bool(from_env("MEERKAT_TESTING", False))
 
     INTERNAL_API_ROOT = from_env("INTERNAL_API_ROOT", 'http://dev_nginx_1/api')
     EXTERNAL_API_ROOT = '/api'
     HERMES_ROOT = from_env("HERMES_API_ROOT", "")
     HERMES_API_KEY = from_env('HERMES_API_KEY', 'test-hermes')
     MAILING_KEY = from_env('MAILING_KEY', 'test-mailing')
+
     USE_BASIC_AUTH = int(from_env('USE_BASIC_AUTH', True))
     AUTH = {}
     INTERNAL_AUTH_ROOT = from_env(

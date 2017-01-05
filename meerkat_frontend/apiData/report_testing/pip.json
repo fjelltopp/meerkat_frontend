@@ -1,0 +1,321 @@
+{
+    "data": {
+        "cases_chronic": 69,
+        "cases_pcr": 0,
+        "demographics": [
+            {
+                "age": "<5",
+                "female": {
+                    "percent": 37.142857142857146,
+                    "quantity": 13
+                },
+                "male": {
+                    "percent": 62.857142857142854,
+                    "quantity": 22
+                },
+                "percent": 50.0,
+                "quantity": 35
+            },
+            {
+                "age": "5-9",
+                "female": {
+                    "percent": 16.666666666666664,
+                    "quantity": 1
+                },
+                "male": {
+                    "percent": 83.33333333333334,
+                    "quantity": 5
+                },
+                "percent": 8.57,
+                "quantity": 6
+            },
+            {
+                "age": "10-14",
+                "female": {
+                    "percent": 0.0,
+                    "quantity": 0
+                },
+                "male": {
+                    "percent": 0.0,
+                    "quantity": 0
+                },
+                "percent": 0.0,
+                "quantity": 0
+            },
+            {
+                "age": "15-19",
+                "female": {
+                    "percent": 0.0,
+                    "quantity": 0
+                },
+                "male": {
+                    "percent": 0.0,
+                    "quantity": 0
+                },
+                "percent": 0.0,
+                "quantity": 0
+            },
+            {
+                "age": "20-59",
+                "female": {
+                    "percent": 44.44444444444444,
+                    "quantity": 8
+                },
+                "male": {
+                    "percent": 55.55555555555556,
+                    "quantity": 10
+                },
+                "percent": 25.71,
+                "quantity": 18
+            },
+            {
+                "age": ">60",
+                "female": {
+                    "percent": 18.181818181818183,
+                    "quantity": 2
+                },
+                "male": {
+                    "percent": 81.81818181818183,
+                    "quantity": 9
+                },
+                "percent": 15.71,
+                "quantity": 11
+            }
+        ],
+        "email_summary": {
+            "lab_recorded": 0,
+            "lab_recorded_per": 0.0
+        },
+        "end_date": "1990-07-01T00:00:00",
+        "epi_week_num": 26,
+        "flu_type": [
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "B"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "H3"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "H1N1"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Mixed"
+            }
+        ],
+        "gender": [
+            {
+                "percent": 34.285714285714285,
+                "quantity": 24,
+                "title": "Female"
+            },
+            {
+                "percent": 65.71428571428571,
+                "quantity": 46,
+                "title": "Male"
+            }
+        ],
+        "map": {
+            "features": [
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.938001,
+                            31.984036
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Prince Hamza Hospital SARI Sentinel Site"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.08927,
+                            32.07158
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Zarqa Hospital SARI Sentinel Site"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.993746,
+                            32.499405
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "King Abdullah Moa'asses SARI Sentinel Site"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72437,
+                            31.14693
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Karak Governmental Hospital SARI Sentinel Site"
+                    },
+                    "type": "Feature"
+                }
+            ],
+            "type": "FeatureCollection"
+        },
+        "nationality": [
+            {
+                "percent": 100.0,
+                "quantity": 70,
+                "title": "Jordan"
+            }
+        ],
+        "num_clinic": 4,
+        "patient_status": [
+            {
+                "percent": 100.0,
+                "quantity": 70,
+                "title": "Jordanian"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Other"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Refugee"
+            }
+        ],
+        "percent_cases_chronic": 98.57142857142858,
+        "percent_cases_female": 34.285714285714285,
+        "percent_cases_male": 65.71428571428571,
+        "pip_indicators": [
+            {
+                "percent": 100,
+                "quantity": 70.0,
+                "title": "Total Cases"
+            },
+            {
+                "percent": 27.142857142857142,
+                "quantity": 19,
+                "title": "Patients followed up"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Laboratory results recorded"
+            },
+            {
+                "percent": 4.285714285714286,
+                "quantity": 3,
+                "title": "Patients admitted to ICU"
+            },
+            {
+                "percent": 1.4285714285714286,
+                "quantity": 1,
+                "title": "Patients ventilated"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Mortality"
+            }
+        ],
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Jordan",
+        "reporting_sites": [
+            {
+                "percent": 12.857142857142856,
+                "quantity": 9.0,
+                "title": "Prince Hamza Hospital SARI Sentinel Site"
+            },
+            {
+                "percent": 25.71428571428571,
+                "quantity": 18.0,
+                "title": "Zarqa Hospital SARI Sentinel Site"
+            },
+            {
+                "percent": 42.857142857142854,
+                "quantity": 30.0,
+                "title": "King Abdullah Moa'asses SARI Sentinel Site"
+            },
+            {
+                "percent": 18.571428571428573,
+                "quantity": 13.0,
+                "title": "Al-Karak Governmental Hospital SARI Sentinel Site"
+            }
+        ],
+        "start_date": "1990-06-01T00:00:00",
+        "timeline": {
+            "confirmed": {
+                "B": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "H1N1": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "H3": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "Mixed": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "suspected": [
+                3,
+                10,
+                5,
+                18,
+                33
+            ],
+            "weeks": [
+                48,
+                49,
+                50,
+                51,
+                52
+            ]
+        },
+        "total_cases": 70
+    },
+    "meta": {
+        "generation_timestamp": "1990-07-01T00:00:00",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "blah"
+    }
+}

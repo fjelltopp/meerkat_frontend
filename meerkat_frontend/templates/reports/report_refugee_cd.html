@@ -4,11 +4,11 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
-    </span> 
+    </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>North Eastern Border Communicable Disease Report
     <span class="report-week">
@@ -27,7 +27,7 @@
     </div>
   </div>
 </div>
- 
+
 {% for row in report.data.communicable_diseases|dictsort|batch(2) %}
 <div class="row">
   {% for cd in row %}
@@ -88,4 +88,3 @@ $(function() {
 });
 </script>
 {% endblock extra_js %}
-

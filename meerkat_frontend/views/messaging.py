@@ -67,7 +67,6 @@ def subscribed():
 
     # Call hermes subscribe method.
     subscribe_response = c.hermes('/subscribe', 'PUT', data)
-    current_app.logger.warning('Response is: ' + str(subscribe_response))
 
     # Assemble and send verification email.
     url = request.url_root + \
@@ -100,16 +99,13 @@ def subscribed():
         url=url
     )
 
-    email = {
+    c.hermes('/email', 'PUT', {
         'email': data['email'],
         'subject': gettext('Please verify your contact details'),
         'message': message,
         'html': html,
         'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
-    }
-
-    email_response = c.hermes('/email', 'PUT', email)
-    current_app.logger.warning('Response is: ' + str(email_response))
+    })
 
     # Set and send sms verification code.
     if 'sms' in data:
@@ -178,6 +174,14 @@ def verified(subscriber_id):
     # Get the subscriber
     subscriber = c.hermes('/subscribe/' + subscriber_id, 'GET')['Item']
 
+    # If the subscriber isn't verified redirect to the verify stage.
+    if not subscriber['verified']:
+        return redirect(
+            '/' + g.get("language") +
+            '/messaging/subscribe/verify/' + subscriber_id,
+            code=302
+        )
+
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
     # Send a confirmation e-mail with the unsubscribe link.
@@ -228,9 +232,8 @@ def verified(subscriber_id):
                            content=current_app.config['MESSAGING_CONFIG'],
                            week=c.api('/epi_week'))
 
+
 # Choose, set and check SMS verification codes.
-
-
 @messaging.route('/subscribe/sms_code/<string:subscriber_id>',
                  methods=['get', 'post'])
 def sms_code(subscriber_id):
@@ -274,7 +277,6 @@ def sms_code(subscriber_id):
         # Check that the new code was succesfully sent.
         success = True
         for r in response['messages']:
-
             current_app.logger.warning(
                 "Status: " + str(r['status']) + "\nStatement: " +
                 str(not r['status'] == '0')
@@ -350,7 +352,9 @@ def __set_code(subscriber_id, sms):
         'sms': sms,
         'message': message
     }
+
     response = c.hermes('/verify', 'PUT',
                         {'subscriber_id': subscriber_id, 'code': code})
     response = c.hermes('/sms', 'PUT', data)
+
     return response
