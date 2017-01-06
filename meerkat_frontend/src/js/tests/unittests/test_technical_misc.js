@@ -1,14 +1,14 @@
 describe( "Testing functions in misc.js", function(){
 
     describe("Get epi week: get_epi_week()", function() {
-          it("Get correct week value", function() {
+          it("Returns week value", function() {
                 week = 7;
                 expect(get_epi_week()).toBe(7);
           });
     });
 
     describe("Get date: get_date()", function() {
-          it("Get date in required text format", function() {
+          it("Returns date in required text format", function() {
                 date=new Date();
                 var monthNames = [
                     i18n.gettext("January"), i18n.gettext("February"),
@@ -48,20 +48,11 @@ describe( "Testing functions in misc.js", function(){
           });
     });
 
-    describe("Number formatter: format()", function() {
-          it("Correctly format the 5 digit number: 45321", function() {
-                expect(format(45321)).toBe('45,321');
-          });
-          it("Convert a 3 digit number to string", function() {
-                expect(format(453)).toBe('453');
-          });
-    });
-
     describe("Calc percent: calc_percent()", function() {
-        it("Get correct percent", function() {
+        it("Correctly calculates percent", function() {
             expect(calc_percent(1, 10)).toBe(10);
         });
-        it("Get correct percent with rounding", function() {
+        it("Correctly calculates percent with rounding", function() {
             expect(calc_percent(1, 7)).toBe(14);
         });
         it("Deal with zero denominator", function() {
@@ -70,28 +61,28 @@ describe( "Testing functions in misc.js", function(){
     });
 
     describe("Calc percent distribution: calc_percent_dist()", function() {
-        it("Calculate correct distribution for [1,2,1]", function() {
+        it("Correctly calculates distribution for [1,2,1]", function() {
             expect(calc_percent_dist([1,2,1])).toEqual([25,50,25]);
         });
     });
 
     describe("Round number: round()", function() {
-        it("Check correct rounding for 5.3457", function() {
+        it("Correctly rounds 5.3457 to 2dp", function() {
             expect(round(5.3467, 2)).toBe(5.35);
         });
     });
 
     describe("Default values for non-existant keys: if_exists()", function() {
-        it("Check returns value if key exists", function() {
+        it("Returns value if key exists", function() {
             expect(if_exists({a:5}, 'a')).toBe(5);
         });
-        it("Check returns 0 if key doesn't exist", function() {
+        it("Returns 0 if key doesn't exist", function() {
             expect(if_exists({a:5}, 'b')).toBe(0);
         });
     });
 
     describe("Sorting alphanumeric ids on just number: idSort()", function() {
-        it("Check correctly sorts jumbled id list", function() {
+        it("Correctly sorts jumbled id list", function() {
             var original = ['blah_13', 'blur_3', 'blub_34', 'blaf_30'];
             original.sort(idSort);
             expect(original).toEqual(['blur_3', 'blah_13', 'blaf_30', 'blub_34']);
