@@ -268,7 +268,7 @@ describe( "Testing functions in misc.js", function(){
     });
 
     //TODO: Write tests for category summation
-    //TODO: Write tests for exporting to csv
+    //TODO: Write tests for exporting to csv (or should it go in e2e tests?)
 
     describe("Get intersect of two arrays: getIntersect()", function() {
         it( "Correctly returns intersect of: [1,2,3] & [2,3,4]", function() {

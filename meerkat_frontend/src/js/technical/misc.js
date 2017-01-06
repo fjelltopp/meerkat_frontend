@@ -526,7 +526,8 @@ function getDifference( arr1, arr2 ){
 
 /**:stripEmptyRecords( dataObject )
 
-    Strips records from a data object that are empy - i.e. rows that are zero in all columns.
+    Strips records from a data object that are emtpy - i.e. rows that are zero
+    in all columns.
 
     :param object dataObject:
         A data object as built by the **misc.js** function `makeDataObject()`.
