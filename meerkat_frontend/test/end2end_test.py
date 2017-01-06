@@ -11,14 +11,18 @@ from selenium import webdriver
 from wsgi_liveserver import LiveServerTestCase
 import signal
 
+
 class MeerkatFrontendEnd2End(LiveServerTestCase):
+
     def create_app(self):
         app = meerkat_frontend.app
         app.config['TESTING'] = True
         return app
 
     def setUp(self):
-        self.browser = webdriver.PhantomJS("./node_modules/phantomjs-prebuilt/bin/phantomjs")
+        self.browser = webdriver.PhantomJS(
+            "./node_modules/phantomjs-prebuilt/bin/phantomjs"
+        )
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -26,7 +30,7 @@ class MeerkatFrontendEnd2End(LiveServerTestCase):
         # Work around so that we are not left with a lot of phantomjs process
         self.browser.service.process.send_signal(signal.SIGTERM)
         self.browser.quit()
-        
+
     def test_index(self):
         self.browser.get(self.url_base())
         time.sleep(3)
