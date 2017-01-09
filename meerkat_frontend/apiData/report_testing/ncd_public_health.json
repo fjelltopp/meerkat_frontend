@@ -1,98 +1,136 @@
 {
     "data": {
-        "alerts_total": 1,
         "clinic_num": 341,
         "demographics": [
             {
-                "age": "<5",
+                "age": "0-9",
                 "female": {
-                    "percent": 44.047619047619044,
-                    "quantity": 37
+                    "percent": 58.82352941176471,
+                    "quantity": 10
                 },
                 "male": {
-                    "percent": 55.952380952380956,
-                    "quantity": 47
+                    "percent": 41.17647058823529,
+                    "quantity": 7
                 },
-                "percent": 43.98,
-                "quantity": 84
+                "percent": 0.38,
+                "quantity": 17
             },
             {
-                "age": "5-9",
+                "age": "10-19",
                 "female": {
-                    "percent": 57.14285714285714,
-                    "quantity": 24
-                },
-                "male": {
-                    "percent": 42.857142857142854,
-                    "quantity": 18
-                },
-                "percent": 21.99,
-                "quantity": 42
-            },
-            {
-                "age": "10-14",
-                "female": {
-                    "percent": 34.61538461538461,
-                    "quantity": 9
-                },
-                "male": {
-                    "percent": 65.38461538461539,
+                    "percent": 41.46341463414634,
                     "quantity": 17
                 },
-                "percent": 13.61,
-                "quantity": 26
+                "male": {
+                    "percent": 58.536585365853654,
+                    "quantity": 24
+                },
+                "percent": 0.92,
+                "quantity": 41
             },
             {
-                "age": "15-19",
+                "age": "20-29",
                 "female": {
-                    "percent": 80.0,
-                    "quantity": 8
+                    "percent": 44.89795918367347,
+                    "quantity": 22
                 },
                 "male": {
-                    "percent": 20.0,
-                    "quantity": 2
+                    "percent": 55.10204081632652,
+                    "quantity": 27
                 },
-                "percent": 5.24,
-                "quantity": 10
+                "percent": 1.11,
+                "quantity": 49
             },
             {
-                "age": "20-59",
+                "age": "30-39",
                 "female": {
-                    "percent": 50.0,
-                    "quantity": 13
+                    "percent": 57.377049180327866,
+                    "quantity": 140
                 },
                 "male": {
-                    "percent": 50.0,
-                    "quantity": 13
+                    "percent": 42.62295081967213,
+                    "quantity": 104
                 },
-                "percent": 13.61,
-                "quantity": 26
+                "percent": 5.5,
+                "quantity": 244
             },
             {
-                "age": ">60",
+                "age": "40-49",
                 "female": {
-                    "percent": 33.33333333333333,
-                    "quantity": 1
+                    "percent": 59.289940828402365,
+                    "quantity": 501
                 },
                 "male": {
-                    "percent": 66.66666666666666,
-                    "quantity": 2
+                    "percent": 40.710059171597635,
+                    "quantity": 344
                 },
-                "percent": 1.57,
-                "quantity": 3
+                "percent": 19.06,
+                "quantity": 845
+            },
+            {
+                "age": "50-59",
+                "female": {
+                    "percent": 60.280029476787035,
+                    "quantity": 818
+                },
+                "male": {
+                    "percent": 39.71997052321297,
+                    "quantity": 539
+                },
+                "percent": 30.6,
+                "quantity": 1357
+            },
+            {
+                "age": "60-69",
+                "female": {
+                    "percent": 59.103641456582636,
+                    "quantity": 633
+                },
+                "male": {
+                    "percent": 40.896358543417364,
+                    "quantity": 438
+                },
+                "percent": 24.15,
+                "quantity": 1071
+            },
+            {
+                "age": "70-79",
+                "female": {
+                    "percent": 54.337152209492636,
+                    "quantity": 332
+                },
+                "male": {
+                    "percent": 45.662847790507364,
+                    "quantity": 279
+                },
+                "percent": 13.78,
+                "quantity": 611
+            },
+            {
+                "age": ">80",
+                "female": {
+                    "percent": 54.2713567839196,
+                    "quantity": 108
+                },
+                "male": {
+                    "percent": 45.7286432160804,
+                    "quantity": 91
+                },
+                "percent": 4.49,
+                "quantity": 199
             }
         ],
-        "end_date": "2016-12-31T00:00:00",
-        "epi_week_num": 52,
+        "end_date": "1990-07-01T00:00:00",
+        "epi_week_num": 26,
         "gender": [
             {
-                "percent": 48.167539267015705,
-                "quantity": 92,
+                "percent": 58.209291835814156,
+                "quantity": 2581,
                 "title": "Female"
             },
             {
-                "percent": 51.832460732984295,
-                "quantity": 99,
+                "percent": 41.79070816418584,
+                "quantity": 1853,
                 "title": "Male"
             }
         ],
@@ -4379,197 +4417,220 @@
             ],
             "type": "FeatureCollection"
         },
-        "morbidity_communicable_cd_tab": [
+        "morbidity_non_communicable_icd": [
             {
-                "percent": 55.64853556485355,
-                "quantity": 133.0,
-                "title": "Diarrhoea"
+                "percent": 55.342651036970246,
+                "quantity": 2455.0,
+                "title": "Hypertensive diseases"
             },
             {
-                "percent": 18.410041841004183,
-                "quantity": 44.0,
-                "title": "Chicken pox"
+                "percent": 39.85572587917042,
+                "quantity": 1768.0,
+                "title": "Diabetes mellitus"
             },
             {
-                "percent": 13.807531380753138,
-                "quantity": 33.0,
-                "title": "Severe Acute Respiratory Illness"
+                "percent": 4.711451758340847,
+                "quantity": 209.0,
+                "title": "Chronic lower respiratory diseases"
             },
             {
-                "percent": 6.2761506276150625,
-                "quantity": 15.0,
-                "title": "Animal Bite"
+                "percent": 0.045085662759242556,
+                "quantity": 2.0,
+                "title": "Inflammatory diseases of the central nervous system"
             },
             {
-                "percent": 1.6736401673640167,
-                "quantity": 4.0,
-                "title": "Scabies"
+                "percent": 0.045085662759242556,
+                "quantity": 2.0,
+                "title": "Renal failure"
             }
         ],
-        "morbidity_communicable_icd": [
+        "morbidity_non_communicable_ncd_tab": [
             {
-                "percent": 70.68062827225131,
-                "quantity": 135.0,
-                "title": "Intestinal infectious diseases"
+                "percent": 55.367613892647725,
+                "quantity": 2455.0,
+                "title": "Hypertension"
             },
             {
-                "percent": 23.56020942408377,
-                "quantity": 45.0,
-                "title": "Viral infections characterized by skin and mucous membrane lesions"
+                "percent": 39.87370320252593,
+                "quantity": 1768.0,
+                "title": "Diabetes mellitus"
             },
             {
-                "percent": 2.094240837696335,
-                "quantity": 4.0,
-                "title": "Pediculosis,acariasis and other infestations"
+                "percent": 4.668470906630582,
+                "quantity": 207.0,
+                "title": "Asthma"
             },
             {
-                "percent": 1.5706806282722512,
-                "quantity": 3.0,
-                "title": "Other viral diseases"
+                "percent": 0.04510599909788002,
+                "quantity": 2.0,
+                "title": "Chronic Obstructive Pulmonary Disease (COPD)"
             },
             {
-                "percent": 0.5235602094240838,
-                "quantity": 1.0,
-                "title": "Rickettsioses"
+                "percent": 0.04510599909788002,
+                "quantity": 2.0,
+                "title": "Other NCD"
             }
         ],
         "nationality": [
             {
-                "percent": 98.42931937172776,
-                "quantity": 188,
+                "percent": 98.84979702300406,
+                "quantity": 4383,
                 "title": "Jordan"
             },
             {
-                "percent": 1.5706806282722512,
-                "quantity": 3,
+                "percent": 0.8119079837618403,
+                "quantity": 36,
                 "title": "Syria"
+            },
+            {
+                "percent": 0.11276499774470004,
+                "quantity": 5,
+                "title": "Egypt"
+            },
+            {
+                "percent": 0.11276499774470004,
+                "quantity": 5,
+                "title": "Palestine"
+            },
+            {
+                "percent": 0.06765899864682003,
+                "quantity": 3,
+                "title": "Other Nationality"
+            },
+            {
+                "percent": 0.04510599909788002,
+                "quantity": 2,
+                "title": "Iraq"
             }
         ],
         "patient_status": [
             {
-                "percent": 98.42931937172776,
-                "quantity": 188,
+                "percent": 98.84979702300406,
+                "quantity": 4383,
                 "title": "Jordanian"
             },
             {
-                "percent": 1.0471204188481675,
-                "quantity": 2,
+                "percent": 0.9472259810554804,
+                "quantity": 42,
                 "title": "Refugee"
             },
             {
-                "percent": 0.5235602094240838,
-                "quantity": 1,
+                "percent": 0.20297699594046006,
+                "quantity": 9,
                 "title": "Other"
             }
         ],
-        "percent_cases_female": 48.167539267015705,
-        "percent_cases_lt_5yo": 43.97905759162304,
-        "percent_cases_male": 51.832460732984295,
+        "percent_cases_female": 58.209291835814156,
+        "percent_cases_lt_5yo": 0.20297699594046006,
+        "percent_cases_male": 41.79070816418584,
         "project_epoch": "2015-05-20T00:00:00",
         "project_region": "Jordan",
         "public_health_indicators": [
             {
                 "percent": 100,
-                "quantity": 191.0,
+                "quantity": 4434.0,
                 "title": "Cases Reported"
             },
             {
-                "percent": 0.0,
-                "quantity": 0,
+                "percent": 22.46278755074425,
+                "quantity": 996.0,
+                "title": "Patient have smoking status recorded"
+            },
+            {
+                "percent": 30.706363105662582,
+                "quantity": 526.0,
+                "title": "Diabetes mellitus patients have HbA1C recorded"
+            },
+            {
+                "percent": 85.630004214075,
+                "quantity": 2032.0,
+                "title": "Hypertension patients have BP recorded"
+            },
+            {
+                "percent": 97.74837511606313,
+                "quantity": 4211,
                 "title": "Availability of prescribed medicines"
-            },
-            {
-                "percent": 100,
-                "quantity": 1,
-                "title": "Alerts generated"
-            },
-            {
-                "percent": 100.0,
-                "quantity": 1,
-                "title": "Alerts investigated"
             }
         ],
         "reporting_sites": [
             {
-                "percent": 4.18848167539267,
-                "quantity": 8.0,
+                "percent": 8.976093820478123,
+                "quantity": 398.0,
                 "title": "Ajloun"
             },
             {
-                "percent": 10.471204188481675,
-                "quantity": 20.0,
+                "percent": 7.825890843482183,
+                "quantity": 347.0,
                 "title": "Amman"
             },
             {
-                "percent": 0.5235602094240838,
-                "quantity": 1.0,
+                "percent": 1.8944519621109608,
+                "quantity": 84.0,
                 "title": "Aqaba"
             },
             {
-                "percent": 21.465968586387437,
-                "quantity": 41.0,
+                "percent": 7.510148849797023,
+                "quantity": 333.0,
                 "title": "Balqa"
             },
             {
-                "percent": 16.230366492146597,
-                "quantity": 31.0,
+                "percent": 7.938655841226883,
+                "quantity": 352.0,
                 "title": "Irbid"
             },
             {
-                "percent": 3.664921465968586,
-                "quantity": 7.0,
+                "percent": 3.0672079386558413,
+                "quantity": 136.0,
                 "title": "Jarash"
             },
             {
-                "percent": 9.424083769633508,
-                "quantity": 18.0,
+                "percent": 17.81686964366261,
+                "quantity": 790.0,
                 "title": "Karak"
             },
             {
-                "percent": 0.0,
-                "quantity": 0,
+                "percent": 6.314839873703202,
+                "quantity": 280.0,
                 "title": "Ma'an"
             },
             {
-                "percent": 3.1413612565445024,
-                "quantity": 6.0,
+                "percent": 3.2025259359494815,
+                "quantity": 142.0,
                 "title": "Madaba"
             },
             {
-                "percent": 2.6178010471204187,
-                "quantity": 5.0,
+                "percent": 5.886332882273342,
+                "quantity": 261.0,
                 "title": "Mafraq"
             },
             {
-                "percent": 0.0,
-                "quantity": 0,
+                "percent": 2.9769959404600814,
+                "quantity": 132.0,
                 "title": "Petra"
             },
             {
-                "percent": 2.094240837696335,
-                "quantity": 4.0,
+                "percent": 6.788452864230942,
+                "quantity": 301.0,
                 "title": "Ramtha"
             },
             {
-                "percent": 3.1413612565445024,
-                "quantity": 6.0,
+                "percent": 6.585475868290483,
+                "quantity": 292.0,
                 "title": "Tafeileh"
             },
             {
-                "percent": 23.036649214659686,
-                "quantity": 44.0,
+                "percent": 13.216057735678847,
+                "quantity": 586.0,
                 "title": "Zarqa"
             }
         ],
-        "start_date": "2016-12-25T00:00:00",
-        "total_cases": 191,
-        "total_consultations": 2400,
-        "total_deaths": 0
+        "start_date": "1990-06-01T00:00:00",
+        "total_cases": 4434
     },
     "meta": {
-        "generation_timestamp": "2017-01-03T17:36:11.908835",
+        "generation_timestamp": "1990-07-01T00:00:00",
         "project_id": 1,
         "schema_version": 0.1,
-        "uuid": "5a57b73f-dfba-46a1-ac7e-8ea920c165b0"
+        "uuid": "blah"
     }
 }

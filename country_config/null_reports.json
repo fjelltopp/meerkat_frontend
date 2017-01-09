@@ -53,7 +53,7 @@
             "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "week",
-            "test_json_payload": "meerkat_frontend/apiData/reports_public_health.json",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/public_health.json",
             "access": "registered"
         },
         "cd_public_health": {
@@ -66,7 +66,7 @@
             "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "week",
-            "test_json_payload": "meerkat_frontend/apiData/reports_cd_public_health.json",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/cd_public_health.json",
             "access": "registered"
         },
        "ncd_public_health": {
@@ -79,7 +79,7 @@
             "email_from_address": "demo@emro.info",
             "map_centre": [0, 0, 7],
             "default_period": "month",
-            "test_json_payload": "meerkat_frontend/apiData/reports_ncd_public_health.json",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/ncd_public_health.json",
             "access": "registered"
         },
         "communicable_diseases": {
@@ -91,7 +91,7 @@
             "email_from_name": "MOH Demo",
             "email_from_address": "demo@emro.info",
             "default_period": "year",
-            "test_json_payload": "meerkat_frontend/apiData/reports_communicable_diseases.json",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/cd_report.json",
             "access": "registered"
         },
         "non_communicable_diseases": {
@@ -103,7 +103,7 @@
             "email_from_name": "MOH Demo",
             "email_from_address": "demo@emro.info",
             "default_period": "month",
-            "test_json_payload": "meerkat_frontend/apiData/reports_non_communicable_diseases.json",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/ncd_report.json",
             "access": "registered"
         },
         "epi_monitoring": {
@@ -114,7 +114,7 @@
             "api_name": "epi_monitoring",
             "email_from_name": "MOH Demo",
             "email_from_address": "demo@emro.info",
-            "test_json_payload": "meerkat_frontend/apiData/epi_monitoring.json",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/epi_monitoring.json",
             "default_period": "week",
             "access": "registered"
         },
@@ -124,11 +124,46 @@
             "template_email_html": "",
             "template_email_plain": "",
             "api_name": "vaccination",
-            "test_json_payload": "meerkat_frontend/apiData/reports_vaccination.json",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/vaccination.json",
             "default_period": "week",
             "map_centre": [-21.70, 45.10, 6],
             "access": "registered"
 
+        },
+        "pip": {
+            "title": "Pandemic Influenza Preparedness (PIP) Profile",
+            "template": "reports/report_pip.html",
+            "template_email_html": "reports/email/html/email_pip.html",
+            "template_email_plain": "reports/email/plain/email_pip_plain.html",
+            "api_name": "pip",
+            "default_period": "year",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/pip.json",
+            "access": "pip"
+        },
+        "refugee_public_health": {
+            "title": "North Eastern Border Public Health Profile",
+            "template": "reports/report_refugee_public_health_profile.html",
+            "api_name": "refugee_public_health",
+            "default_period": "week",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/refugee_public_health.json",
+            "access": "refugee"
+        },
+        "refugee_cd": {
+            "title": "North Eastern Border Communicable Disease Report",
+            "template": "reports/report_refugee_cd.html",
+            "api_name": "refugee_cd",
+            "default_period": "year",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/refugee_cd.json",
+            "access": "refugee"
+        },
+        "refugee_detail": {
+            "title": "North Eastern Border Detailed Report",
+            "template": "reports/report_refugee_detail.html",
+            "api_name": "refugee_detail",
+            "default_period": "week",
+            "test_json_payload": "meerkat_frontend/apiData/report_testing/refugee_detail.json",
+            "landscape":true,
+            "access": "refugee"
         }
     },
 

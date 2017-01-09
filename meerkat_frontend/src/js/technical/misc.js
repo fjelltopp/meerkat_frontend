@@ -24,9 +24,14 @@ function get_epi_week(){
 function get_date(){
 
     date=new Date();
-    var monthNames = [ i18n.gettext("January"), i18n.gettext("February"), i18n.gettext("March"), i18n.gettext("April"),
-                       i18n.gettext("May"), i18n.gettext("June"), i18n.gettext("July"), i18n.gettext("August"), i18n.gettext("September"),
-                       i18n.gettext("October"), i18n.gettext("November"), i18n.gettext("December") ];
+    var monthNames = [
+        i18n.gettext("January"), i18n.gettext("February"),
+        i18n.gettext("March"), i18n.gettext("April"),
+        i18n.gettext("May"), i18n.gettext("June"),
+        i18n.gettext("July"), i18n.gettext("August"),
+        i18n.gettext("September"), i18n.gettext("October"),
+        i18n.gettext("November"), i18n.gettext("December")
+    ];
 
     return date.getDate()+" "+monthNames[date.getMonth()]+" "+date.getFullYear();
 }
@@ -114,13 +119,12 @@ function whichTransitionEvent(){
 }
 
 /** idSort(a, b)
-   Sorts variable ids on the number
-
+    Sorts variable ids on the number
 **/
-
 function idSort(a,b){
-            return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]);
+    return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]);
 }
+
 //Capitalises the first character of a string.
 function capitalise( string ){
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -128,15 +132,18 @@ function capitalise( string ){
 
 /**:lastWeeks( week, n )
 
-    Gets the last n week numbers in an array, taking into account the change over between years.
+    Gets the last n week numbers in an array, taking into account the change
+    over between years.
 
     :param number week:
         The week from which to calulate previous weeks.
     :param number n:
-        The number of previous week numbers to get, including the specified week number.
+        The number of previous week numbers to get, including the specified week
+        number.
 
     :returns:
-        An array of week numbers formed as such: [week, week-1, week-2, ..., week-n]
+        An array of week numbers formed as such:
+        [week, week-1, week-2, ..., week-n-1]
 */
 function lastWeeks( week, n ){
 
@@ -171,8 +178,9 @@ function lastWeeks( week, n ){
         include the following properties:
 
         * **year** - the denominator used to calulate the percentage for the year total.
-        * **weeks** - an array specifying the denominators to be used for calulating each week's percentage.
-          The 0th element is the current week and the 2nd element is the previous-but-one week.
+        * **weeks** - an object specifying the denominators to be used for calulating each week's percentage.
+        The structure of this percent object should match the structure of the data
+        churnned out by aggregate_year resource of the api.
 
         **Can also be boolean:** if true, percentages are auto- calculated from the category distribution.
 
@@ -236,7 +244,6 @@ function makeDataObject( aggregation, variables, week, title, percent ){
         data.week2.push( if_exists( aggregation[label].weeks, weeks[2].toString() ) );
 
         if( typeof percent == 'object' ){
-
             //Do the "complicated" percent calulations
             data.yearPerc.push( calc_percent( aggregation[label].year, percent.year ) );
             data.weekPerc.push( calc_percent( aggregation[label].weeks[weeks[0]], percent.weeks[weeks[0]] ) );
@@ -430,9 +437,9 @@ function categorySummation( details ){
         The reformatted string with out HTML UTF-8 codes.
 */
 function htmlDecode(input){
-  var e = document.createElement('div');
-  e.innerHTML = input;
-  return e.childNodes[0].nodeValue;
+    var e = document.createElement('div');
+    e.innerHTML = input;
+    return e.childNodes[0].nodeValue;
 }
 
 /**:exportTableToCSV(tableID, filename, link)
@@ -519,7 +526,8 @@ function getDifference( arr1, arr2 ){
 
 /**:stripEmptyRecords( dataObject )
 
-    Strips records from a data object that are empy - i.e. rows that are zero in all columns.
+    Strips records from a data object that are emtpy - i.e. rows that are zero
+    in all columns.
 
     :param object dataObject:
         A data object as built by the **misc.js** function `makeDataObject()`.

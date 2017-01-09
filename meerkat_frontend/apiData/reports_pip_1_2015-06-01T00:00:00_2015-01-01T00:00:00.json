@@ -1,225 +1,181 @@
 {
     "data": {
-        "cases_chronic": 0,
-        "cases_pcr": 202,
+        "cases_chronic": 4,
+        "cases_pcr": 3,
         "demographics": [
             {
                 "age": "<5",
                 "female": {
                     "percent": 0.0,
-                    "quantity": 0
+                    "quantity": 3
                 },
                 "male": {
-                    "percent": 100.0,
-                    "quantity": 1
+                    "percent": 0.0,
+                    "quantity": 2
                 }
             },
             {
                 "age": "5-9",
                 "female": {
-                    "percent": 50.0,
-                    "quantity": 2
+                    "percent": 0.0,
+                    "quantity": 0
                 },
                 "male": {
-                    "percent": 50.0,
-                    "quantity": 2
+                    "percent": 0.0,
+                    "quantity": 0
                 }
             },
             {
                 "age": "10-14",
                 "female": {
-                    "percent": 50.0,
-                    "quantity": 1
+                    "percent": 0.0,
+                    "quantity": 0
                 },
                 "male": {
-                    "percent": 50.0,
-                    "quantity": 1
+                    "percent": 0.0,
+                    "quantity": 0
                 }
             },
             {
                 "age": "15-19",
                 "female": {
-                    "percent": 33.33333333333333,
-                    "quantity": 3
+                    "percent": 0.0,
+                    "quantity": 0
                 },
                 "male": {
-                    "percent": 66.66666666666666,
-                    "quantity": 6
+                    "percent": 0.0,
+                    "quantity": 0
                 }
             },
             {
                 "age": "20-59",
                 "female": {
-                    "percent": 28.000000000000004,
-                    "quantity": 7
+                    "percent": 0.0,
+                    "quantity": 0
                 },
                 "male": {
-                    "percent": 72.0,
-                    "quantity": 18
+                    "percent": 0.0,
+                    "quantity": 0
                 }
             },
             {
-                "age": ">65",
+                "age": ">60",
                 "female": {
-                    "percent": 51.11111111111111,
-                    "quantity": 23
+                    "percent": 0.0,
+                    "quantity": 0
                 },
                 "male": {
-                    "percent": 48.888888888888886,
-                    "quantity": 22
+                    "percent": 0.0,
+                    "quantity": 0
                 }
             }
         ],
-        "epi_week_date": "2016-03-29T15:22:58.019583",
-        "epi_week_num": 13,
+        "end_date": "2016-05-12T17:54:26.932488",
+        "epi_week_num": 19,
         "flu_type": [
             {
-                "percent": 4.444444444444445,
-                "quantity": 4,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "Influenza A"
             },
             {
-                "percent": 5.555555555555555,
-                "quantity": 5,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "Influenza B"
             },
             {
-                "percent": 13.333333333333334,
-                "quantity": 12,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "H1"
             },
             {
-                "percent": 3.3333333333333335,
-                "quantity": 3,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "H3"
             },
             {
-                "percent": 4.444444444444445,
-                "quantity": 4,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "H1N1"
             },
             {
-                "percent": 193.33333333333334,
-                "quantity": 174,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "Mixed"
             }
         ],
         "gender": [
             {
-                "percent": 40.0,
-                "quantity": 36,
+                "percent": 0.0,
+                "quantity": 4,
                 "title": "Female"
             },
             {
-                "percent": 55.55555555555556,
-                "quantity": 50,
+                "percent": 0.0,
+                "quantity": 2,
                 "title": "Male"
             }
         ],
-        "nationality": [
-            {
-                "percent": 53.48837209302325,
-                "quantity": 46,
-                "title": "Syria"
-            },
-            {
-                "percent": 46.51162790697674,
-                "quantity": 40,
-                "title": "Jordan"
-            }
-        ],
-        "num_clinic": 3,
+        "nationality": [],
+        "num_clinic": 0,
         "patient_status": [
             {
-                "percent": 54.65116279069767,
-                "quantity": 47,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "Jordanian"
-            },
-            {
-                "percent": 45.348837209302324,
-                "quantity": 39,
-                "title": "Refugee"
             },
             {
                 "percent": 0.0,
                 "quantity": 0,
                 "title": "Other"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Refugee"
             }
         ],
-        "percent_cases_chronic": 0.0,
-        "percent_cases_female": 40.0,
-        "percent_cases_male": 55.55555555555556,
+        "percent_cases_chronic": 35,
+        "percent_cases_female": 0.0,
+        "percent_cases_male": 0.0,
         "pip_indicators": [
             {
                 "percent": 100,
-                "quantity": 90,
+                "quantity": 0,
                 "title": "Total Cases"
             },
             {
-                "percent": 61.111111111111114,
-                "quantity": 55,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "Patients followed up"
             },
             {
-                "percent": 224.44444444444446,
-                "quantity": 202,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "Laboratory results recorded"
             },
             {
-                "percent": 33.33333333333333,
-                "quantity": 30,
-                "title": "Patients admitted to ICU  "
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Patients admitted to ICU"
             },
             {
-                "percent": 33.33333333333333,
-                "quantity": 30,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "Patients ventilated"
             },
             {
-                "percent": 26.666666666666668,
-                "quantity": 24,
+                "percent": 0.0,
+                "quantity": 0,
                 "title": "Mortality"
             }
         ],
         "project_epoch": "2015-05-20T00:00:00",
-        "project_region": "Jordan",
-        "reporting_sites": [
-            {
-                "percent": 0.0,
-                "quantity": 0,
-                "title": "Al-Karak Governmental Hospital SARI Sentinel Site"
-            },
-            {
-                "percent": 0.0,
-                "quantity": 0,
-                "title": "Prince Hamza Hospital SARI Sentinel Site"
-            },
-            {
-                "percent": 1.1111111111111112,
-                "quantity": 1,
-                "title": "King Abdullah Moa'asses SARI Sentinel Site"
-            }
-        ],
+        "project_region": "Demo",
+        "reporting_sites": [],
+        "start_date": "2016-01-01T00:00:00",
         "timeline": {
             "confirmed": [
-                {
-                    "title": "Mixed",
-                    "values": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        20,
-                        57,
-                        50,
-                        47
-                    ]
-                },
                 {
                     "title": "H1",
                     "values": [
@@ -232,15 +188,6 @@
                         0,
                         0,
                         0,
-                        1,
-                        4,
-                        3,
-                        4
-                    ]
-                },
-                {
-                    "title": "Influenza B",
-                    "values": [
                         0,
                         0,
                         0,
@@ -250,27 +197,6 @@
                         0,
                         0,
                         0,
-                        1,
-                        2,
-                        1,
-                        1
-                    ]
-                },
-                {
-                    "title": "Influenza A",
-                    "values": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        2,
-                        1,
-                        1,
                         0
                     ]
                 },
@@ -286,10 +212,16 @@
                         0,
                         0,
                         0,
-                        1,
                         0,
-                        1,
-                        2
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
                     ]
                 },
                 {
@@ -304,10 +236,88 @@
                         0,
                         0,
                         0,
-                        1,
                         0,
-                        1,
-                        1
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "title": "Influenza A",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "title": "Influenza B",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "title": "Mixed",
+                    "values": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
                     ]
                 }
             ],
@@ -321,13 +331,19 @@
                 0,
                 0,
                 0,
-                15,
-                28,
-                28,
-                15
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
             ],
             "weeks": [
-                1,
+                "Week 1, 2016",
                 2,
                 3,
                 4,
@@ -339,15 +355,21 @@
                 10,
                 11,
                 12,
-                13
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19
             ]
         },
-        "total_cases": 90
+        "total_cases": 35
     },
     "meta": {
-        "generation_timestamp": "2016-03-30T15:22:58.020612",
+        "generation_timestamp": "2016-05-12T17:54:26.933467",
         "project_id": 1,
         "schema_version": 0.1,
-        "uuid": "b1e20c70-3cef-447a-b8be-6a4ddf18a6fe"
+        "uuid": "9f870b81-4766-4f1b-b148-c4838b106acc"
     }
 }

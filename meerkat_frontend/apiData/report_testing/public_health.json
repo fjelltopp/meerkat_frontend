@@ -1,98 +1,147 @@
 {
     "data": {
-        "alerts_total": 1,
+        "alerts": [
+            {
+                "quantity": 5,
+                "subject": "cmd_12"
+            },
+            {
+                "quantity": 4,
+                "subject": "cmd_48"
+            },
+            {
+                "quantity": 4,
+                "subject": "cmd_4"
+            },
+            {
+                "quantity": 3,
+                "subject": "cmd_28"
+            },
+            {
+                "quantity": 1,
+                "subject": "cmd_27"
+            }
+        ],
+        "alerts_total": 19,
+        "child_health": [
+            {
+                "percent": 80.81632653061224,
+                "quantity": 396,
+                "title": "Intestinal infectious diseases"
+            },
+            {
+                "percent": 10.204081632653061,
+                "quantity": 50,
+                "title": "Viral infections characterized by skin and mucous membrane lesions"
+            },
+            {
+                "percent": 1.8367346938775513,
+                "quantity": 9,
+                "title": "Other viral diseases"
+            },
+            {
+                "percent": 1.6326530612244898,
+                "quantity": 8,
+                "title": "Viral infections of the central nervous system"
+            },
+            {
+                "percent": 1.4285714285714286,
+                "quantity": 7,
+                "title": "Chronic lower respiratory diseases"
+            }
+        ],
         "clinic_num": 341,
         "demographics": [
             {
                 "age": "<5",
                 "female": {
-                    "percent": 44.047619047619044,
-                    "quantity": 37
+                    "percent": 43.19419237749546,
+                    "quantity": 238.0
                 },
                 "male": {
-                    "percent": 55.952380952380956,
-                    "quantity": 47
+                    "percent": 56.80580762250453,
+                    "quantity": 313.0
                 },
-                "percent": 43.98,
-                "quantity": 84
+                "percent": 9.06,
+                "quantity": 551.0
             },
             {
                 "age": "5-9",
                 "female": {
-                    "percent": 57.14285714285714,
-                    "quantity": 24
+                    "percent": 45.67901234567901,
+                    "quantity": 185.0
                 },
                 "male": {
-                    "percent": 42.857142857142854,
-                    "quantity": 18
+                    "percent": 54.32098765432099,
+                    "quantity": 220.0
                 },
-                "percent": 21.99,
-                "quantity": 42
+                "percent": 6.66,
+                "quantity": 405.0
             },
             {
                 "age": "10-14",
                 "female": {
-                    "percent": 34.61538461538461,
-                    "quantity": 9
+                    "percent": 38.05309734513274,
+                    "quantity": 86.0
                 },
                 "male": {
-                    "percent": 65.38461538461539,
-                    "quantity": 17
+                    "percent": 61.94690265486725,
+                    "quantity": 140.0
                 },
-                "percent": 13.61,
-                "quantity": 26
+                "percent": 3.71,
+                "quantity": 226.0
             },
             {
                 "age": "15-19",
                 "female": {
-                    "percent": 80.0,
-                    "quantity": 8
+                    "percent": 45.614035087719294,
+                    "quantity": 52.0
                 },
                 "male": {
-                    "percent": 20.0,
-                    "quantity": 2
+                    "percent": 54.385964912280706,
+                    "quantity": 62.0
                 },
-                "percent": 5.24,
-                "quantity": 10
+                "percent": 1.87,
+                "quantity": 114.0
             },
             {
                 "age": "20-59",
                 "female": {
-                    "percent": 50.0,
-                    "quantity": 13
+                    "percent": 58.11814644499469,
+                    "quantity": 1643.0
                 },
                 "male": {
-                    "percent": 50.0,
-                    "quantity": 13
+                    "percent": 41.88185355500531,
+                    "quantity": 1184.0
                 },
-                "percent": 13.61,
-                "quantity": 26
+                "percent": 46.47,
+                "quantity": 2827.0
             },
             {
                 "age": ">60",
                 "female": {
-                    "percent": 33.33333333333333,
-                    "quantity": 1
+                    "percent": 56.552779194288625,
+                    "quantity": 1109.0
                 },
                 "male": {
-                    "percent": 66.66666666666666,
-                    "quantity": 2
+                    "percent": 43.447220805711375,
+                    "quantity": 852.0
                 },
-                "percent": 1.57,
-                "quantity": 3
+                "percent": 32.23,
+                "quantity": 1961.0
             }
         ],
-        "end_date": "2016-12-31T00:00:00",
-        "epi_week_num": 52,
+        "end_date": "1990-07-01T00:00:00",
+        "epi_week_num": 26,
         "gender": [
             {
-                "percent": 48.167539267015705,
-                "quantity": 92,
+                "percent": 9.960552268244575,
+                "quantity": 606,
                 "title": "Female"
             },
             {
-                "percent": 51.832460732984295,
-                "quantity": 99,
+                "percent": 12.015121630506245,
+                "quantity": 731,
                 "title": "Male"
             }
         ],
@@ -4379,197 +4428,327 @@
             ],
             "type": "FeatureCollection"
         },
-        "morbidity_communicable_cd_tab": [
+        "mental_health": [
             {
-                "percent": 55.64853556485355,
-                "quantity": 133.0,
-                "title": "Diarrhoea"
-            },
-            {
-                "percent": 18.410041841004183,
-                "quantity": 44.0,
-                "title": "Chicken pox"
-            },
-            {
-                "percent": 13.807531380753138,
-                "quantity": 33.0,
-                "title": "Severe Acute Respiratory Illness"
-            },
-            {
-                "percent": 6.2761506276150625,
-                "quantity": 15.0,
-                "title": "Animal Bite"
-            },
-            {
-                "percent": 1.6736401673640167,
-                "quantity": 4.0,
-                "title": "Scabies"
+                "percent": 100.0,
+                "quantity": 1.0,
+                "title": "Schizophrenia, schizotypal and delusional disorders"
             }
         ],
-        "morbidity_communicable_icd": [
+        "morbidity_communicable": [
             {
-                "percent": 70.68062827225131,
-                "quantity": 135.0,
+                "percent": 64.7940074906367,
+                "quantity": 865.0,
                 "title": "Intestinal infectious diseases"
             },
             {
-                "percent": 23.56020942408377,
-                "quantity": 45.0,
+                "percent": 25.54307116104869,
+                "quantity": 341.0,
                 "title": "Viral infections characterized by skin and mucous membrane lesions"
             },
             {
-                "percent": 2.094240837696335,
-                "quantity": 4.0,
-                "title": "Pediculosis,acariasis and other infestations"
-            },
-            {
-                "percent": 1.5706806282722512,
-                "quantity": 3.0,
+                "percent": 3.295880149812734,
+                "quantity": 44.0,
                 "title": "Other viral diseases"
             },
             {
-                "percent": 0.5235602094240838,
-                "quantity": 1.0,
-                "title": "Rickettsioses"
+                "percent": 1.647940074906367,
+                "quantity": 22.0,
+                "title": "Viral infections of the central nervous system"
+            },
+            {
+                "percent": 1.4981273408239701,
+                "quantity": 20.0,
+                "title": "Pediculosis,acariasis and other infestations"
+            }
+        ],
+        "morbidity_communicable_tab": [
+            {
+                "percent": 56.930358350236645,
+                "quantity": 842.0,
+                "title": "Diarrhoea"
+            },
+            {
+                "percent": 22.785665990534145,
+                "quantity": 337.0,
+                "title": "Chicken pox"
+            },
+            {
+                "percent": 4.86815415821501,
+                "quantity": 72.0,
+                "title": "Animal Bite"
+            },
+            {
+                "percent": 4.732927653820148,
+                "quantity": 70.0,
+                "title": "Severe Acute Respiratory Illness"
+            },
+            {
+                "percent": 2.974983096686951,
+                "quantity": 44.0,
+                "title": "Mumps"
+            }
+        ],
+        "morbidity_non_communicable": [
+            {
+                "percent": 55.342651036970246,
+                "quantity": 2455.0,
+                "title": "Hypertensive diseases"
+            },
+            {
+                "percent": 39.85572587917042,
+                "quantity": 1768.0,
+                "title": "Diabetes mellitus"
+            },
+            {
+                "percent": 4.711451758340847,
+                "quantity": 209.0,
+                "title": "Chronic lower respiratory diseases"
+            },
+            {
+                "percent": 0.045085662759242556,
+                "quantity": 2.0,
+                "title": "Inflammatory diseases of the central nervous system"
+            },
+            {
+                "percent": 0.045085662759242556,
+                "quantity": 2.0,
+                "title": "Renal failure"
+            }
+        ],
+        "morbidity_non_communicable_tab": [
+            {
+                "percent": 55.367613892647725,
+                "quantity": 2455.0,
+                "title": "Hypertension"
+            },
+            {
+                "percent": 39.87370320252593,
+                "quantity": 1768.0,
+                "title": "Diabetes mellitus"
+            },
+            {
+                "percent": 4.668470906630582,
+                "quantity": 207.0,
+                "title": "Asthma"
+            },
+            {
+                "percent": 0.04510599909788002,
+                "quantity": 2.0,
+                "title": "Chronic Obstructive Pulmonary Disease (COPD)"
+            },
+            {
+                "percent": 0.04510599909788002,
+                "quantity": 2.0,
+                "title": "Other NCD"
             }
         ],
         "nationality": [
             {
-                "percent": 98.42931937172776,
-                "quantity": 188,
+                "percent": 98.63576594345825,
+                "quantity": 6001.0,
                 "title": "Jordan"
             },
             {
-                "percent": 1.5706806282722512,
-                "quantity": 3,
+                "percent": 1.0190664036817882,
+                "quantity": 62.0,
                 "title": "Syria"
+            },
+            {
+                "percent": 0.11505588428665352,
+                "quantity": 7.0,
+                "title": "Egypt"
+            },
+            {
+                "percent": 0.11505588428665352,
+                "quantity": 7.0,
+                "title": "Palestine"
+            },
+            {
+                "percent": 0.0821827744904668,
+                "quantity": 5.0,
+                "title": "Other Nationality"
+            },
+            {
+                "percent": 0.03287310979618672,
+                "quantity": 2.0,
+                "title": "Iraq"
             }
         ],
         "patient_status": [
             {
-                "percent": 98.42931937172776,
-                "quantity": 188,
+                "percent": 98.63576594345825,
+                "quantity": 6001.0,
                 "title": "Jordanian"
             },
             {
-                "percent": 1.0471204188481675,
-                "quantity": 2,
+                "percent": 1.0683760683760684,
+                "quantity": 65.0,
                 "title": "Refugee"
             },
             {
-                "percent": 0.5235602094240838,
-                "quantity": 1,
+                "percent": 0.2958579881656805,
+                "quantity": 18.0,
                 "title": "Other"
             }
         ],
-        "percent_cases_female": 48.167539267015705,
-        "percent_cases_lt_5yo": 43.97905759162304,
-        "percent_cases_male": 51.832460732984295,
+        "percent_cases_female": 54.4543063773833,
+        "percent_cases_lt_5yo": 9.05654174884944,
+        "percent_cases_male": 45.5456936226167,
+        "percent_morbidity_communicable": 21.975673898750824,
+        "percent_morbidity_mental_health": 0.01643655489809336,
+        "percent_morbidity_non_communicable": 72.87968441814596,
+        "presenting_complaints": [
+            {
+                "percent": 73.52014591278395,
+                "quantity": 4434.0,
+                "title": "Non-communicable disease"
+            },
+            {
+                "percent": 22.1687945614326,
+                "quantity": 1337.0,
+                "title": "Communicable disease"
+            },
+            {
+                "percent": 3.1006466589288677,
+                "quantity": 187.0,
+                "title": "Other"
+            },
+            {
+                "percent": 1.1938318686784946,
+                "quantity": 72.0,
+                "title": "Injury"
+            },
+            {
+                "percent": 0.0165809981760902,
+                "quantity": 1.0,
+                "title": "Mental Health"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Reproductive Health"
+            }
+        ],
         "project_epoch": "2015-05-20T00:00:00",
         "project_region": "Jordan",
         "public_health_indicators": [
             {
                 "percent": 100,
-                "quantity": 191.0,
+                "quantity": 6084.0,
                 "title": "Cases Reported"
+            },
+            {
+                "percent": 0.6081525312294543,
+                "quantity": 37.0,
+                "title": "Mental Health (mhGAP) algorithm followed"
+            },
+            {
+                "percent": 0.18148820326678766,
+                "quantity": 1.0,
+                "title": "Child Health (IMCI) algorithm followed"
             },
             {
                 "percent": 0.0,
                 "quantity": 0,
-                "title": "Availability of prescribed medicines"
+                "title": "Reproductive Health screening"
             },
             {
-                "percent": 100,
-                "quantity": 1,
-                "title": "Alerts generated"
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Laboratory results recorded"
             },
             {
-                "percent": 100.0,
-                "quantity": 1,
-                "title": "Alerts investigated"
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Prescribing practice recorded"
+            },
+            {
+                "percent": 17.764471057884233,
+                "quantity": 801.0,
+                "title": "Smoking prevalence (current)"
             }
         ],
         "reporting_sites": [
             {
-                "percent": 4.18848167539267,
-                "quantity": 8.0,
+                "percent": 8.021038790269559,
+                "quantity": 488.0,
                 "title": "Ajloun"
             },
             {
-                "percent": 10.471204188481675,
-                "quantity": 20.0,
+                "percent": 9.401709401709402,
+                "quantity": 572.0,
                 "title": "Amman"
             },
             {
-                "percent": 0.5235602094240838,
-                "quantity": 1.0,
+                "percent": 1.4957264957264957,
+                "quantity": 91.0,
                 "title": "Aqaba"
             },
             {
-                "percent": 21.465968586387437,
-                "quantity": 41.0,
+                "percent": 11.01249178172255,
+                "quantity": 670.0,
                 "title": "Balqa"
             },
             {
-                "percent": 16.230366492146597,
-                "quantity": 31.0,
+                "percent": 9.59894806048652,
+                "quantity": 584.0,
                 "title": "Irbid"
             },
             {
-                "percent": 3.664921465968586,
-                "quantity": 7.0,
+                "percent": 3.0243261012491782,
+                "quantity": 184.0,
                 "title": "Jarash"
             },
             {
-                "percent": 9.424083769633508,
-                "quantity": 18.0,
+                "percent": 15.828402366863905,
+                "quantity": 963.0,
                 "title": "Karak"
             },
             {
-                "percent": 0.0,
-                "quantity": 0,
+                "percent": 4.848783694937541,
+                "quantity": 295.0,
                 "title": "Ma'an"
             },
             {
-                "percent": 3.1413612565445024,
-                "quantity": 6.0,
+                "percent": 3.3037475345167655,
+                "quantity": 201.0,
                 "title": "Madaba"
             },
             {
-                "percent": 2.6178010471204187,
-                "quantity": 5.0,
+                "percent": 5.571992110453649,
+                "quantity": 339.0,
                 "title": "Mafraq"
             },
             {
-                "percent": 0.0,
-                "quantity": 0,
+                "percent": 2.2518080210387903,
+                "quantity": 137.0,
                 "title": "Petra"
             },
             {
-                "percent": 2.094240837696335,
-                "quantity": 4.0,
+                "percent": 5.325443786982249,
+                "quantity": 324.0,
                 "title": "Ramtha"
             },
             {
-                "percent": 3.1413612565445024,
-                "quantity": 6.0,
+                "percent": 5.6048652202498355,
+                "quantity": 341.0,
                 "title": "Tafeileh"
             },
             {
-                "percent": 23.036649214659686,
-                "quantity": 44.0,
+                "percent": 14.710716633793558,
+                "quantity": 895.0,
                 "title": "Zarqa"
             }
         ],
-        "start_date": "2016-12-25T00:00:00",
-        "total_cases": 191,
-        "total_consultations": 2400,
-        "total_deaths": 0
+        "start_date": "1990-06-01T00:00:00",
+        "total_cases": 6084,
+        "total_consultations": 15369
     },
     "meta": {
-        "generation_timestamp": "2017-01-03T17:36:11.908835",
+        "generation_timestamp": "1990-06-01T00:00:00",
         "project_id": 1,
         "schema_version": 0.1,
-        "uuid": "5a57b73f-dfba-46a1-ac7e-8ea920c165b0"
+        "uuid": "blah"
     }
 }
