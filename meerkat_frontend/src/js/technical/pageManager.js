@@ -23,7 +23,7 @@
  */
 function loadPage( pageState, logHistory ){
 
-	if( typeof(pageState.type) != 'undefined'){
+	if( pageState !== null && typeof(pageState.type) != 'undefined'){
 
         //Each page type should have a `load<type>()` and `load<type>Content()` function.
         //The first sorts out the browser history and URL, the latter the page content.
@@ -184,10 +184,4 @@ function glossary(){
 	});
 
 }
-
-
-//Respond to the user pressing forward or back by loading the correct page content.
-window.onpopstate = function(event) {
-	loadPage( event.state, false );
-};
 

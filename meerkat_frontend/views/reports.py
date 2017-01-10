@@ -15,6 +15,7 @@ try:
 except ImportError:
     import json
 import dateutil.parser
+import dateutil.relativedelta
 import requests
 from .. import common as c
 import string
@@ -93,23 +94,6 @@ def test(report):
             extras["map_api_call"] = (
                 current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1"
             )
-        elif report in ["refugee_public_health"]:
-            extras = {}
-            extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (
-                current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1/Refugee"
-            )
-        elif report in ["pip"]:
-            extras = {}
-            extras['map_centre'] = report_list[report]["map_centre"]
-            extras["map_api_call"] = (
-                current_app.config['EXTERNAL_API_ROOT'] + "/clinics/1/SARI"
-            )
-        elif report in ["malaria"]:
-            extras = {}
-            extras["map_api_call"] = (current_app.config['EXTERNAL_API_ROOT'] +
-                                 "/map/epi_1/1")
-            extras['map_centre'] = report_list[report]["map_centre"]
         else:
             extras = None
 
@@ -122,6 +106,7 @@ def test(report):
         )
     else:
         abort(501)
+
 
 @reports.route('/view_email/<report>/')
 @reports.route('/view_email/<report>/<location>/')
@@ -465,7 +450,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
         client.usePrintMedia(True)
 
-	    # Allow reports to be set as portrait or landscape in the config files.
+        # Allow reports to be set as portrait or landscape in the config files.
         if(report_list[report].get('landscape', False)):
             client.setPageWidth('1697pt')
             client.setPageHeight('1200pt')
@@ -482,8 +467,6 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
     else:
         abort(501)
-
-
 # STATIC ROUTES
 # @reports.route('/assets/<path:filepath>/')
 # def serve_static(filepath):
@@ -529,48 +512,57 @@ def list_reports(region,
                  end=datetime.today()):
     """Returns a list of reports"""
 
-def validate_report_arguments(config, report, location=None, end_date=None, start_date=None):
-    """
-        Validates the data type of arguments given to a report.
-        TODO: Add error handling to allow API to throw exceptions if e.g. non-existing locations are called
-    """
 
+def validate_report_arguments(config, report,
+                              location=None, end_date=None, start_date=None):
+    """
+    Validates the data type of arguments given to a report. TODO: Add error
+    handling to allow API to throw exceptions if e.g. non-existing locations
+    are called
+    """
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
 
     # Validate report
     if report:
         if report not in report_list:
-            current_app.logger.warning( "Report param not valid: " + str(report) )
+            current_app.logger.warning(
+                "Report param not valid: " + str(report)
+            )
             return False
 
     # Validate location if given
     if location:
         try:
-            location_int = int(location)
+            int(location)
         except ValueError:
-            current_app.logger.warning( "Location param not valid: " + str(location) )
+            current_app.logger.warning(
+                "Location param not valid: " + str(location)
+            )
             return False
 
     # Validate start date if given
     if start_date:
         try:
-            valid_start_date = dateutil.parser.parse(start_date)
+            dateutil.parser.parse(start_date)
         except ValueError:
-            current_app.logger.warning( "Start date param not valid: " + str(start_date) )
+            current_app.logger.warning(
+                "Start date param not valid: " + str(start_date)
+            )
             return False
 
     # Validate end date if given
     if end_date:
         try:
-            valid_end_date = dateutil.parser.parse(end_date)
+            dateutil.parser.parse(end_date)
         except ValueError:
-            current_app.logger.warning( "End date param not valid: " + str(end_date) )
+            current_app.logger.warning(
+                "End date param not valid: " + str(end_date)
+            )
             return False
 
     # If all checks were successful, return True
     return True
-
 
 
 def create_report(config, report=None, location=None, end_date=None, start_date=None):
@@ -624,7 +616,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 1)
 
             elif period == "month":
-                start_date = datetime(today.year, today.month - 1, 1)
+                start_date = datetime(today.year, today.month, 1) - dateutil.relativedelta.relativedelta(months=1)
                 end_date = datetime(today.year, today.month, 1) - timedelta(days=1)
             elif period == "year":
                 start_date = datetime(today.year, 1, 1)
@@ -645,7 +637,6 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             params = None
 
     data = c.api(api_request, api_key=True, params=params)
-
     data["flag"] = config["FLAGG_ABR"]
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:

@@ -1,0 +1,101 @@
+{
+    "data": {
+        "clinic_num": 0,
+        "crude_mortality_rate": 0.0,
+        "demographics": [],
+        "end_date": "2016-05-12T17:59:07.055923",
+        "epi_week_num": 19,
+        "gender": [
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Female"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Male"
+            }
+        ],
+        "injury": [],
+        "mental_health": [],
+        "morbidity_communicable": [],
+        "morbidity_non_communicable": [],
+        "n_clinicians": 0,
+        "percent_cases_female": 0.0,
+        "percent_cases_lt_5yo": 0.0,
+        "percent_cases_male": 0.0,
+        "percent_morbidity_communicable": 0.0,
+        "percent_morbidity_injury_health": 0.0,
+        "percent_morbidity_mental_health": 0.0,
+        "percent_morbidity_non_communicable": 0.0,
+        "presenting_complaints": [
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Communicable Disease"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Non-Communicable Disease"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Mental Health"
+            },
+            {
+                "percent": 0.0,
+                "quantity": 0,
+                "title": "Injury"
+            }
+        ],
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Demo",
+        "public_health_indicators": [
+            {
+                "percent": null,
+                "quantity": 2.765151515151515,
+                "title": "Health Utilisation Rate"
+            },
+            {
+                "percent": null,
+                "quantity": 0.007575757575757576,
+                "title": "Number of consultations per clinician per day"
+            },
+            {
+                "percent": null,
+                "quantity": 0.0,
+                "title": "Hospitalisation rate"
+            },
+            {
+                "percent": null,
+                "quantity": 0.0,
+                "title": "Referral rate"
+            },
+            {
+                "percent": null,
+                "quantity": 0.0,
+                "title": "Crude Mortality Rate (CMR)"
+            },
+            {
+                "percent": null,
+                "quantity": 0.0,
+                "title": "Under-five Mortality Rate (U5MR)"
+            }
+        ],
+        "reporting_sites": [],
+        "start_date": "2016-01-01T00:00:00",
+        "total_cases": 43,
+        "total_consultations": 0,
+        "total_population": 0,
+        "u5_crude_mortality_rate": 0.0
+    },
+    "meta": {
+        "generation_timestamp": "2016-05-12T17:59:07.056545",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "093ae299-8e0f-477f-a8f5-8818e32986fa"
+    }
+}

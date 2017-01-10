@@ -35,12 +35,12 @@ def api(url, api_key=False, params=None):
                 r = requests.get(
                     api_request,
                     headers={'authorization': 'Bearer ' + auth.get_token()},
-                    params={"other": params}
+                    params=params
                 )
             else:
                 r = requests.get(
                     api_request,
-                    params={"other": params}
+                    params=params
                 )
         except requests.exceptions.RequestException as e:
             abort(500, e)
@@ -92,8 +92,8 @@ def epi_week_to_date(epi_week, year=datetime.today().year):
            to current year.
 
        Returns:
-           datetime: a datetime object for the given epiweek."""
-    api_request = "/epi_week_start/{}/{}".format(year, epi_week)
+           datetime: a datetime object for the end of the given epiweek."""
+    api_request = "epi_week_start/{}/{}".format(year, epi_week)
     data = api(api_request)
     return parse(data["start_date"]) + timedelta(days=7)
 
@@ -108,6 +108,6 @@ def date_to_epi_week(day=datetime.today()):
        Returns:
            int: the epi week number for the week that contains the given date.
     """
-    api_request = "/epi_week/{}".format(day.isoformat())
+    api_request = "epi_week/{}".format(day.isoformat())
     data = api(api_request)
     return data["epi_week"]

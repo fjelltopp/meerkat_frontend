@@ -30,6 +30,8 @@ var pngquant = require('imagemin-pngquant');
 var optipng = require('imagemin-optipng');
 var jpegoptim = require('imagemin-jpegoptim');
 
+
+
 // ** SETTINGS ** //
 var production = !!(argv.production);
 var throwError = true;
@@ -76,7 +78,7 @@ gulp.task('appJS', ['jshint'], function() {
       'meerkat_frontend/src/js/reports-navbar.js',
       'meerkat_frontend/src/js/mapbox-reports.js',
       'meerkat_frontend/src/js/charts/charts.js',
-      'meerkat_frontend/src/js/**/*.js'
+      'meerkat_frontend/src/js/**!(tests)/*.js'
     ])
     //.pipe(sourcemaps.init())
     .pipe(concat('app.js'))
@@ -219,6 +221,7 @@ gulp.task('clean', function() {
     'meerkat_frontend/static/translations/**/*.json'
   ]);
 });
+
 
 // DEFAULT TASK
 gulp.task('default', ['clean'], function() {
