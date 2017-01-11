@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2016 ORGANIZATION
+# Copyright (C) 2017 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-12-12 10:11+0000\n"
+"POT-Creation-Date: 2017-01-05 10:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/tableManager.js:413
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:143
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:244
-#: meerkat_frontend/templates/reports/report_malaria.html:131
+#: meerkat_frontend/templates/reports/report_malaria.html:136
 #: meerkat_frontend/templates/reports/report_vaccination.html:50
 #: meerkat_frontend/templates/reports/report_vaccination.html:75
 msgid "Total"
@@ -43,7 +43,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:307
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:249
 #: meerkat_frontend/templates/reports/report_cerf.html:222
-#: meerkat_frontend/templates/reports/report_malaria.html:142
+#: meerkat_frontend/templates/reports/report_malaria.html:146
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:279
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:362
 msgid "Female"
@@ -53,7 +53,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:304
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:246
 #: meerkat_frontend/templates/reports/report_cerf.html:219
-#: meerkat_frontend/templates/reports/report_malaria.html:141
+#: meerkat_frontend/templates/reports/report_malaria.html:145
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:276
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:359
 msgid "Male"
@@ -221,7 +221,7 @@ msgstr ""
 
 #: meerkat_frontend/src/files/pages/alert.html:97
 #: meerkat_frontend/src/files/pages/alerts.html:84
-#: meerkat_frontend/src/files/pages/disease.html:158
+#: meerkat_frontend/src/files/pages/disease.html:160
 #: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile.html:118
 #: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile_mad.html:118
 #: meerkat_frontend/templates/reports/email/html/email_cerf.html:121
@@ -492,7 +492,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/timelinessNCD.html:85
 #: meerkat_frontend/src/files/pages/timelinessNCD.html:102
 #: meerkat_frontend/src/js/explore/explore.js:338
-#: meerkat_frontend/src/js/technical/chartManager.js:405
+#: meerkat_frontend/src/js/technical/chartManager.js:400
 #: meerkat_frontend/src/js/technical/tableManager.js:34
 #: meerkat_frontend/src/js/technical/tableManager.js:35
 #: meerkat_frontend/src/js/technical/tableManager.js:139
@@ -692,24 +692,28 @@ msgstr ""
 msgid "Choose map type"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/disease.html:154
+#: meerkat_frontend/src/files/pages/disease.html:156
 msgid "Classification"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/disease.html:156
+#: meerkat_frontend/src/files/pages/disease.html:158
 msgid "Source"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/disease.html:159
+#: meerkat_frontend/src/files/pages/disease.html:161
 msgid "Case Definition"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/disease.html:160
+#: meerkat_frontend/src/files/pages/disease.html:162
 msgid "Risk Factor(s)"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/disease.html:161
+#: meerkat_frontend/src/files/pages/disease.html:163
 msgid "Sign(s)/Symptom(s)"
+msgstr ""
+
+#: meerkat_frontend/src/files/pages/disease.html:164
+msgid "Labs/Diagnostics"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/diseases.html:56
@@ -1069,7 +1073,7 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/tableManager.js:612
 #: meerkat_frontend/src/js/technical/tableManager.js:620
 #: meerkat_frontend/src/js/technical/tableManager.js:625
-#: meerkat_frontend/templates/reports/report_malaria.html:143
+#: meerkat_frontend/templates/reports/report_malaria.html:147
 msgid "Positive"
 msgstr ""
 
@@ -1077,7 +1081,7 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/tableManager.js:614
 #: meerkat_frontend/src/js/technical/tableManager.js:622
 #: meerkat_frontend/src/js/technical/tableManager.js:627
-#: meerkat_frontend/templates/reports/report_malaria.html:144
+#: meerkat_frontend/templates/reports/report_malaria.html:148
 msgid "Negative"
 msgstr ""
 
@@ -1884,7 +1888,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:102
 #: meerkat_frontend/templates/reports/report_cerf.html:102
 #: meerkat_frontend/templates/reports/report_cerf.html:225
-#: meerkat_frontend/templates/reports/report_malaria.html:132
+#: meerkat_frontend/templates/reports/report_malaria.html:137
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:90
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:282
 #: meerkat_frontend/templates/reports/report_pip.html:111
@@ -2226,80 +2230,88 @@ msgstr ""
 msgid "Figure 1: Map of Reported Malaria Cases"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_malaria.html:120
+#: meerkat_frontend/templates/reports/report_malaria.html:122
 msgid "Number of consultations"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_malaria.html:121
+#: meerkat_frontend/templates/reports/report_malaria.html:123
 msgid "Number of fever cases"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_malaria.html:122
+#: meerkat_frontend/templates/reports/report_malaria.html:124
 msgid "Number of RDT tests performed"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_malaria.html:123
-msgid "Number of cases of simple malaria"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_malaria.html:124
-msgid "Number of cases of severe malaria"
-msgstr ""
-
 #: meerkat_frontend/templates/reports/report_malaria.html:125
-msgid "Number of cases of unknown type"
+msgid "Number of positive RDT tests"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_malaria.html:126
-msgid "Number of malaria deaths"
+msgid "Number of negative RDT tests "
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_malaria.html:127
-msgid "Number of cases treated with ACT"
+msgid "Number of RDT tests not done"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_malaria.html:128
+msgid "Number of cases of simple malaria"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_malaria.html:129
+msgid "Number of cases of severe malaria"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_malaria.html:130
-#: meerkat_frontend/templates/reports/report_malaria.html:158
-msgid "Indicator"
+msgid "Number of cases of unknown type"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_malaria.html:133
-msgid "Sex"
+#: meerkat_frontend/templates/reports/report_malaria.html:131
+msgid "Number of malaria deaths"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_malaria.html:134
-msgid "RDT"
+#: meerkat_frontend/templates/reports/report_malaria.html:132
+msgid "Number of cases treated with ACT"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_malaria.html:135
-msgid "Pregnant Women"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_malaria.html:136
-msgid "0-1 Month"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_malaria.html:137
-msgid "2-12 Months"
+#: meerkat_frontend/templates/reports/report_malaria.html:162
+msgid "Indicator"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_malaria.html:138
-msgid "1-5 Years"
+msgid "Sex"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_malaria.html:139
-msgid "6-13 Years"
+msgid "RDT"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_malaria.html:140
+msgid "Pregnant Women"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_malaria.html:141
+msgid "0-11 Month"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_malaria.html:142
+msgid "12-59 Months"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_malaria.html:143
+msgid "6-13 Years"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_malaria.html:144
 msgid "14+ Years"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_malaria.html:145
+#: meerkat_frontend/templates/reports/report_malaria.html:149
 msgid "Not Done"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_malaria.html:159
+#: meerkat_frontend/templates/reports/report_malaria.html:163
 msgid "Value"
 msgstr ""
 
@@ -3141,12 +3153,12 @@ msgid ""
 "verify your contact details."
 msgstr ""
 
-#: meerkat_frontend/views/reports.py:197
+#: meerkat_frontend/views/reports.py:197 meerkat_frontend/views/reports.py:310
 msgid "monthly_email_title"
 msgstr ""
 
 #: meerkat_frontend/views/reports.py:211 meerkat_frontend/views/reports.py:305
-#: meerkat_frontend/views/reports.py:310 meerkat_frontend/views/reports.py:319
+#: meerkat_frontend/views/reports.py:319
 msgid "title"
 msgstr ""
 
