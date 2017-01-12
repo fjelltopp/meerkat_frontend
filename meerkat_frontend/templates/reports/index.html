@@ -51,29 +51,29 @@
 									</div>
 									<div class="title row">
 										<div class="col-sm-6 no-padding-col">{{ _('Choose which time period:') }}</div>
-										<div class="default-period col-sm-6 no-padding-col" > 
-											( {{ _('Default period') }}: 
-											<a class="period" 
+										<div class="default-period col-sm-6 no-padding-col" >
+											( {{ _('Default period') }}:
+											<a class="period"
 												 onclick="setDefaultPeriod( $('#report-selector select').find(':selected').attr('period' ));
 												         return false;" >
-											</a>) 
+											</a>)
 										</div>
-									</div>	
+									</div>
 									<div class="row">
 										<div class="col-sm-offset-1 col-sm-11 no-padding-col">
 											<div class="col-xs-12 col-sm-5 no-padding-col">
 												<div class="row"> {{ _('Start date:') }} </div>
-												<div class='input-group date row' 
+												<div class='input-group date row'
 													   id='start-date' name='start_date' value=''>
 													<input type='text' class="form-control "/>
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
-												</div>												
+												</div>
 											</div>
 											<div class="col-xs-12 col-sm-5 no-padding-col pull-right">
 												<div class="row" > {{ _('End date:') }} </div>
-												<div class='input-group date row' 
+												<div class='input-group date row'
 													 id='end-date' name='end_date' value=''>
 													<input type='text' class="form-control "/>
 													<span class="input-group-addon">
@@ -115,7 +115,7 @@ var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 var offset = {{week.offset}};
- 
+
 $(".menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -129,7 +129,7 @@ $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
      loadPage( event.state, false );
  };
 
- 
+
 setUpReportForm();
 
 function setUpReportForm(){
@@ -149,7 +149,7 @@ function setUpReportForm(){
 	});
 
 	$('#end-date').datetimepicker({
-		useCurrent: true,
+		useCurrent: false,
 		defaultDate: d.toISOString(),
 		format: "DD/MM/YYYY",
 		maxDate: d.toISOString(),
@@ -163,7 +163,6 @@ function setUpReportForm(){
 	 $("#report-selector select").on("change", function(element){
 		var startDate = new Date( $(this).find(':selected').attr('startdate' ) );
 		$('#start-date').data("DateTimePicker").minDate( dateToString(startDate) );
-		$('#start-date').data("DateTimePicker").date( dateToString(startDate) );
 		setDefaultPeriod( $(this).find(':selected').attr('period' ));
 	});
 
@@ -174,6 +173,7 @@ function setUpReportForm(){
 
 	//And you can't select an end date before the start date.
 	$("#start-date").on("dp.change", function (e) {
+        console.log( "e.date: " + e.date );
 		$('#end-date').data("DateTimePicker").minDate(e.date);
 	});
 
@@ -181,40 +181,44 @@ function setUpReportForm(){
 
 function setDefaultPeriod( period ){
 
+    console.log( "Period: " + period );
 	var now = new Date();
+    console.log( "Now: " + now );
+
 	var start_date = false;
 	var end_date = now;
 
 	switch( period ){
 
 		case 'week':
-			console.log( "Week" );
-			var weekDay = - now.getDay() - ( 7- offset); // Subtract epi-week change over day.
+			var weekDay = - now.getDay() - ( 7 - offset); // Subtract epi-week change over day.
 			if(weekDay < -7 ){
 				weekDay = weekDay + 7
-				}
+			}
 			start_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() - 6 + weekDay );
-			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate() + weekDay );	
-			$('.period').html('{{ _("last epi-week") }}');	
+			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate() + weekDay );
+			$('.period').html('{{ _("last epi-week") }}');
 			break;
 
 		case 'month':
-			console.log( "Month" );
 			start_date = new Date( now.getFullYear(), now.getMonth()-1, 1 ); //The first of prev month
 			end_date = new Date( now.getFullYear(), now.getMonth(),  0 ); //The last of prev month
 			$('.period').html('{{ _("last month") }}');
 			break;
-	
+
 		case 'year':
 			start_date = new Date( now.getFullYear(), 0, 1 )
+            console.log( start_date );
 			end_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() );
 			$('.period').html('{{ _("current year") }}');
 			break;
 
 	}
-
-	$('#start-date').data("DateTimePicker").date( dateToString(start_date) );
-	$('#end-date').data("DateTimePicker").date( dateToString(end_date) );	
+    console.log( dateToString(start_date) );
+    $('#start-date').data("DateTimePicker").maxDate(dateToString(end_date));
+    $('#end-date').data("DateTimePicker").minDate(dateToString(start_date));
+    $('#start-date').data("DateTimePicker").date( dateToString(start_date) );
+	$('#end-date').data("DateTimePicker").date( dateToString(end_date) );
 
 
 }
@@ -233,10 +237,10 @@ function drawReportSelect(){
 
 	for( var i in config.reports ){
 		var report = config.reports[i];
-        if( report.access && user.acc.{{content.auth_country}}.indexOf(report.access) != -1 ){ 
+        if( report.access && user.acc.{{content.auth_country}}.indexOf(report.access) != -1 ){
 		    html += "<option value='" + report.url + "'" +
 		            "startdate='" + report.start_date + "'" +
-		            "period='" + report.period + "'>" + 
+		            "period='" + report.period + "'>" +
 		            i18n.gettext(report.name) + "</option>";
         }
 	}
@@ -268,7 +272,7 @@ function openReport( type ){
 			url +=  report + "~" + location + "~" + endDate + "~" + startDate + ".pdf";
 			break;
 
-		case 'html':  
+		case 'html':
 			url +=  report + "/" + location + "/" + endDate + "/" + startDate;
 			break;
 	}
@@ -280,7 +284,7 @@ function openReport( type ){
 //All three arguments can be left undefined if necessary - all reports will update with current locID and year.
 function drawCharts(locID, year, reports){
 
-	//locID (the id of the location) is an optional argument.  
+	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
 		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
