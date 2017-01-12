@@ -40,7 +40,11 @@ def index(tab=None, locID=1):
         for t in current_app.config['TECHNICAL_CONFIG']['tabs']:
             country = current_app.config['TECHNICAL_CONFIG']['auth_country']
             tab_access = t.get('access', False)
-            if meerkat_frontend.in_array(tab_access, g.payload['acc'][country]) or not tab_access:
+            in_arr = meerkat_frontend.in_array(
+                tab_access,
+                g.payload['acc'][country]
+            )
+            if in_arr or not tab_access:
                 tab = slugify(t['name'])
                 break
 
