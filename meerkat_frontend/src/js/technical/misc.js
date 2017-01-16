@@ -628,7 +628,7 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
     $.when.apply( $, deferreds ).then(function() {
         drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  );
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
-        drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude); //this call makes one additional AJAX call
+        drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
     } );
 }

@@ -743,7 +743,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
 
  */
 
-function drawMissingCompletenessTable( module_var, containerID, headerID, regionID, locations,exclude){
+function drawMissingCompletenessTable( module_var, containerID, headerID, regionID, locations,exclude, completessData){
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
 
@@ -790,8 +790,9 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				
 			});
         }else{
-			$.getJSON( api_root+"/completeness/"+ module_var +"/" + regionID + "/4", function( data ){
-            for (var j=0; j<data.dates_not_reported.length;j++){
+			//$.getJSON( api_root+"/completeness/"+ module_var +"/" + regionID + "/4", function( data ){
+			data = completessData;
+			for (var j=0; j<data.dates_not_reported.length;j++){
                 strDat = data.dates_not_reported[j];
                     datum = {
                         "date": strDat.split('T')[0]
@@ -817,7 +818,7 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				});
 				return table;
 
-			});
+			
 		}
 
 
