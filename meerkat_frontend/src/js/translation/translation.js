@@ -1,5 +1,3 @@
-var language = 'en';
-
 function get_translator(translations_url){
 
 	if(language === undefined){
