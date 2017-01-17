@@ -359,12 +359,13 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
         var dt = [];
         var dtReady = [];
         var noWeeks = tl.weeks.length;
+        //Using week numbers instead of dates in tl.weeks
         var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
 
-        //dropping the very last week in the data since we can only estimate it's completeness
+        //dropping the current week (noWeeks) in the data since we can only estimate it's completeness
         for (var j = 0; j < noWeeks; j++){
             if( start_week ){
-                if(weeks[noWeeks - j] > start_week){
+                if(weeks[noWeeks - j] >= start_week){
                     dt = [weeks[noWeeks - j],Number(Number(multiplier * (tl.values[j])).toFixed(0))];
                     dtReady.push(dt);
                 }
