@@ -260,8 +260,9 @@ body.homepage{
 }
 .reports-button{
 
-	margin: 20px 0px 0px;
-	text-align: center;
+    margin: 20px auto 0px;
+    text-align: center;
+    width: 80%;
 
 	a,
 	a:hover,
@@ -461,7 +462,7 @@ a:hover{
 .selector-wrapper{
 	display:inline-block;
 	margin: 10px 10px;
-}	
+}
 
 .lang-sel{
   float:left;
@@ -491,7 +492,7 @@ a:hover{
 
 }
 
-.login{ 
+.login{
 
     label{
         display: block;
@@ -529,8 +530,8 @@ a:hover{
     }
 
     .login-box-holder{
-        .lang-sel{ 
-            margin: 0px;  
+        .lang-sel{
+            margin: 0px;
         }
 
         .lang{
@@ -593,7 +594,7 @@ body.blue{
 
 .login-title{
   color: white;
-  font-size: 40px; 
+  font-size: 40px;
   margin: 40px 0 0 40px;
 }
 
