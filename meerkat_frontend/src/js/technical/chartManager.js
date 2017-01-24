@@ -356,6 +356,9 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
     for (var i=0; i<scoreKeys.length;i++){
         index = scoreKeys[scoreKeys.length - i -1];
         tl = data.timeline[index];
+        if(locations[index].id != regionID){
+            continue;
+        }
         var dt = [];
         var dtReady = [];
         var noWeeks = tl.weeks.length;
