@@ -6,7 +6,7 @@
     <tr>
 	{% set counter=0 %}
         {% set labels = {"reg": _("Health Directorates"),
-                        "tot": _("Total no. <br> of patients"),
+                        "vis_0": _("Total no. <br> of visits"),
                         "visit_gen_1": _("males"),
                         "visit_gen_2": _("females"),
                         "visit_lab_4": _("overweight <br> (25 &le; BMI &lt; 30)"),
@@ -22,7 +22,7 @@
 	{% for key in data.titles %}
 	 {% if key == "reg" %}
     <th class="key"> {{ labels[key]|safe }} </th>
-	 {% elif key == "tot" %}
+	 {% elif key == "vis_0" %}
     <th class="total"> {{ labels[key]|safe }} </th>
 	   {% do total.append(counter) %}
    {% elif key == "Total" %}
@@ -96,11 +96,11 @@
   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Hypertension') }}</div>
-      <div class="table-title">{{ _('Table 1: Number of hypertension patients by age group') }}</div>
+      <div class="table-title">{{ _('Table 1: Number of hypertension visits by patient age group') }}</div>
       <div class="table-wrapper table-responsive">
 	  {{ table(report["hypertension"]["age"]) }}
       </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of hypertension patients') }}</div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of hypertension patient visits') }}</div>
       <div class="table-wrapper table-responsive">
 	  {{ table(report["hypertension"]["complications"], percent=True) }}
       </div>
@@ -113,11 +113,11 @@
    <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Diabetes') }}</div>
-      <div class="table-title">{{ _('Table 1: Number of diabetes patients by age group') }}</div>
+      <div class="table-title">{{ _('Table 1: Number of diabetes visits by patient age group') }}</div>
       <div class="table-wrapper table-responsive">
 	  {{ table(report["diabetes"]["age"]) }}
       </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of diabetes patients') }} </div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of diabetes patient visits') }} </div>
       <div class="table-wrapper table-responsive">
 	  {{ table(report["diabetes"]["complications"], percent=True) }}
       </div>
