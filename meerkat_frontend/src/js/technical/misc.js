@@ -659,9 +659,11 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    :param list of int weekend:
    Specified weekend days in a comma separated string, for example [0, 2]
    */
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend, non_reporting_variable){
     var timelinessLocations;
     var timelinessData;
+	if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
+		
     if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
@@ -669,9 +671,9 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
         })];
 
     if(exclude){
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){timelinessData = data;}));
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "/" + non_reporting_variable,function( data ){timelinessData = data;}));
     }else{
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend,
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "/" + non_reporting_variable,
                                    function( data ){timelinessData = data; }));
     }
 

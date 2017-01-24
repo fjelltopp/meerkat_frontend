@@ -145,7 +145,8 @@
 	     $('#alertTitle').html( alertID );
 	     $('#alertID').html( alertID );
 	     $('#reason').html( variables[alert.alert.variables.alert_reason].name );
-	     $('#date').html( alert.alert.date.split("T")[0] );
+		 $('#date').html( alert.alert.date.split("T")[0] );
+		 year = alert.alert.date.split("-")[0]
 	     $('#clinic').html( node.model.text );
 	     $('#region').html( parent.model.text );
 	     console.log(alert);
@@ -159,7 +160,7 @@
 			 $.getJSON( api_root + '/epi_week/' + alert.alert.date, function(data){
 				 alert_week = data["epi_week"]
 				 console.log(alert_week)
-				 drawTimeChart( alert.alert.variables.alert_reason, alert.alert.clinic, 'time-chart' ,alert_week)
+				 drawTimeChart( alert.alert.variables.alert_reason, alert.alert.clinic, 'time-chart' ,alert_week, year)
 			 });
 			 if(alert.alert.variables.alert_duration == 1){
 			     $('#type_info').html(i18n.gettext("Daily Threshold"));

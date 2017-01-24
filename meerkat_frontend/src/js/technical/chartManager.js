@@ -228,9 +228,15 @@ function drawPieCharts( containerID, data, percent ){
     :param string containerID:
         The ID of the HTML element to hold the chart.
  */
-function drawTimeChart( varID, locID, containerID, alert_week){
+function drawTimeChart( varID, locID, containerID, alert_week, year){
 
-  $.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
+	url = api_root + '/aggregate_year/' + varID + '/'+locID;
+	if (year !== undefined) {
+		url += "/" + year;
+	}
+	
+	
+  $.getJSON( url, function(data){
 
       console.log('DRAW TIME CHART');
       console.log('Time series data for diseases:');
