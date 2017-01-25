@@ -195,7 +195,9 @@ function setDefaultPeriod( period ){
 			if(weekDay < -7 ){
 				weekDay = weekDay + 7
 			}
+            console.log("weekDay: " + weekDay);
 			start_date = new Date( now.getFullYear(), now.getMonth(), now.getDate() - 6 + weekDay );
+            console.log("start_date: " + start_date)
 			end_date = new Date( now.getFullYear(), now.getMonth(),  now.getDate() + weekDay );
 			$('.period').html('{{ _("last epi-week") }}');
 			break;
@@ -237,7 +239,8 @@ function drawReportSelect(){
 
 	for( var i in config.reports ){
 		var report = config.reports[i];
-        if( report.access && user.acc.{{content.auth_country}}.indexOf(report.access) != -1 ){
+        if( !report.access ||
+            user.acc.{{content.auth_country}}.indexOf(report.access) != -1 ){
 		    html += "<option value='" + report.url + "'" +
 		            "startdate='" + report.start_date + "'" +
 		            "period='" + report.period + "'>" +
