@@ -26,15 +26,28 @@
                             <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
                                 <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
                             </div>
-                            <a id='download-button'
-                               class='btn btn-lg btn-default col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'
-                               href='#'>
-                                <span class='glyphicon glyphicon-download'></span>
-                                    {{ _('Download Here') }}
-                            </a>
+                            <div id='download-button' class='btn-group col-sm-offset-1'>
+                                <div id='download-label'
+                                   class='btn btn-lg btn-default'
+                                   href='#'>
+                                        {{ _('Download Here') }}:
+                                </div>
+                                <a id='download-csv-button'
+                                   class='btn btn-lg btn-default'
+                                   href='#'>
+                                   <span class='glyphicon glyphicon-download'></span>
+                                        {{ _('CSV') }}
+                                </a>
+                                <a id='download-xls-button'
+                                   class='btn btn-lg btn-default'
+                                   href='#'>
+                                   <span class='glyphicon glyphicon-download'></span>
+                                        {{ _('Excel') }}
+                                </a>
+                            </div>
                         </div>
                         <div class='breaker'></div>
-                        <p> <b>Current Status:</b> <span id="status"> </span></p>
+                        <p class='col-sm-offset-1'> <b>Current Status:</b> <span id="status"> </span></p>
 
                     </div>
         		</div>
@@ -65,7 +78,8 @@
 
                      t = i18n.gettext("Data set was sucesfully generated.")
 
-                     $('#download-button').attr('href', api_root + "/export/get/" + uuid);
+                     $('#download-csv-button').attr('href', api_root + "/export/get/csv/" + uuid);
+                     $('#download-xls-button').attr('href', api_root + "/export/get/xls/" + uuid);
                      $("#spinner").hide();
                      $('#download-button').show();
                      $("#heading").html(t);

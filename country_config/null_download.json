@@ -11,7 +11,7 @@
       "name_category": "individual_icd",
       "fields":[
           ["intro./visit","Visit Type"],
-          ["pt./visit_date","Visit Date"],
+          ["pt./visit_date$date","Visit Date"],
           ["pt./visit_date$year","Year"],
           ["pt./visit_date$month","Month"],
           ["pt./visit_date$epi_week","Epi Week"],
@@ -30,10 +30,10 @@
           ["cd./symptoms","Symptoms"],
           ["cd./risk","Risk Factors"],
           ["cd./prevvaccination","Previously Vaccinated"],
-          ["cd./onsetdate","Onset Date"],
-          ["cd./diagnosisdate","Diagnosis Date"],
+          ["cd./onsetdate$date","Onset Date"],
+          ["cd./diagnosisdate$date","Diagnosis Date"],
           ["cd./classification","Classification (Malaria)"],
-          ["cd./importdate","Import Date (Malaria)"],
+          ["cd./importdate$date","Import Date (Malaria)"],
           ["cd./importcountry","Import Country (Malaria)"],
           ["cd./hiv_vct","VCT received (HIV)"],
           ["cd./tb_hiv_status","HIV Status (TB)"],
@@ -47,7 +47,7 @@
       "name_category": "individual_icd",
       "fields":[
           ["intro./visit","Visit Type"],
-          ["pt./visit_date","Visit Date"],
+          ["pt./visit_date$date","Visit Date"],
           ["pt./visit_date$year","Year"],
           ["pt./visit_date$month","Month"],
           ["pt./visit_date$epi_week","Epi Week"],
@@ -83,7 +83,7 @@
       "name_category": "individual_icd",
       "fields":[
         ["intro./visit","Visit Type"],
-        ["pt./visit_date","Visit Date"],
+        ["pt./visit_date$date","Visit Date"],
         ["pt./visit_date$year","Year"],
         ["pt./visit_date$month","Month"],
         ["pt./visit_date$epi_week","Epi Week"],
@@ -106,7 +106,7 @@
       "name_category": "individual_icd",
       "fields":[
         ["intro./visit", "Visit Type"],
-        ["pt./visit_date", "Visit Date"],
+        ["pt./visit_date$date", "Visit Date"],
         ["pt./visit_date$year","Year"],
         ["pt./visit_date$month","Month"],
         ["pt./visit_date$epi_week","Epi Week"],
@@ -186,7 +186,7 @@
       "name_category": "individual_icd",
       "fields":[
 	  ["intro./visit","Visit Type"],
-	  ["pt./visit_date","Visit Date"],
+	  ["pt./visit_date$date","Visit Date"],
           ["pt./visit_date$year","Year"],
           ["pt./visit_date$month","Month"],
           ["pt./visit_date$epi_week","Epi Week"],
@@ -212,7 +212,7 @@
         "name_category": "individual_icd",
 	"fields":[
 	    ["intro./visit","Visit Type"],
-	    ["pt./visit_date","Visit Date"],
+	    ["pt./visit_date$date","Visit Date"],
             ["pt./visit_date$year","Year"],
             ["pt./visit_date$month","Month"],
             ["pt./visit_date$epi_week","Epi Week"],
@@ -235,7 +235,7 @@
       "name_category": "individual_icd",
       "fields":[
         ["intro./visit","Visit Type"],
-        ["pt./visit_date","Visit Date"],
+        ["pt./visit_date$date","Visit Date"],
         ["pt./visit_date$year","Year"],
         ["pt./visit_date$month","Month"],
         ["pt./visit_date$epi_week","Epi Week"],
@@ -312,8 +312,7 @@
         "name_category": "individual_icd",
 	"fields":[
 	    ["intro./visit","Visit Type"],
-	    ["pt./visit_date","Visit Date"],
-	    ["pt./visit_date","Visit Date"],
+	    ["pt./visit_date$date","Visit Date"],
             ["pt./visit_date$year","Year"],
             ["pt./visit_date$month","Month"],
             ["pt./visit_date$epi_week","Epi Week"],
@@ -407,4 +406,3 @@
     }
   }
 }
-
