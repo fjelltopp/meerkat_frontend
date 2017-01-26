@@ -78,8 +78,8 @@
 
                      t = i18n.gettext("Data set was sucesfully generated.")
 
-                     $('#download-csv-button').attr('href', api_root + "/export/get/csv/" + uuid);
-                     $('#download-xls-button').attr('href', api_root + "/export/get/xls/" + uuid);
+                     $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
+                     $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
                      $("#spinner").hide();
                      $('#download-button').show();
                      $("#heading").html(t);
