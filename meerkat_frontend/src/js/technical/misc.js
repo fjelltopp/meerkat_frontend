@@ -608,8 +608,10 @@ function stripEmptyRecords( dataObject ){
    A string specifing which type of case types should be excluded.
    :param list of int weekend:
    Specified weekend days in a comma separated string, for example [0, 2]
+   :param int compare_locations
+   Show lines to compare locations for completeness graph
    */
-function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations){
     var completenessLocations;
     var completenessData;
     if( start_week === undefined) start_week = 1;
@@ -626,7 +628,7 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
     }
 
     $.when.apply( $, deferreds ).then(function() {
-        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  );
+        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations);
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
