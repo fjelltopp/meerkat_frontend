@@ -139,27 +139,27 @@ function drawTable1(){
             ["{{_('Number of cases of simple malaria')}}", 12, 13, 15, 16, 17, 18, 19, 20, 23],
             ["{{_('Number of cases of severe malaria')}}", 24, 25, 27, 28, 29, 30, 31, 32, 35],
             ["{{_('Number of cases of unknown type')}}", 56, 57, 59, 60, 61, 62, 63, 64, 67],
-            ["{{_('Number of malaria deaths')}}", 36, 37, 39, 41, 42, 43, 44, 47],
+            ["{{_('Number of malaria deaths')}}", 36, 37, 39, 40, 41, 42, 43, 44, 47],
             ["{{_('Number of cases treated with ACT')}}", 48, 49, 51, 52, 53, 54, 55, 0, 0]];
 
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
     "<thead><tr><th class='border-right' rowspan='2'>{{_('Indicator')}}</th>" +
     "<th rowspan='2' class='border-right'>{{_('Total')}}</th>" +
     "<th colspan='4' class='border-right'>{{_('Age Group')}}</th>" +
-    "<th colspan='2' class='border-right'>{{_('Sex')}}</th>" + 
+    "<th colspan='2' class='border-right'>{{_('Sex')}}</th>" +
     "<th colspan='1'>{{_('RDT')}}</th>" +
     "<th rowspan='2' class='border-left'>{{_('Pregnant Women')}}</th></tr>" +
     "<tr><th>{{_('0-11 Month')}}</th>" +
-    "<th>{{_('12-59 Months')}}</th>" + 
-    "<th>{{_('6-13 Years')}}</th>" + 
+    "<th>{{_('12-59 Months')}}</th>" +
+    "<th>{{_('6-13 Years')}}</th>" +
     "<th class='border-right'>{{_('14+ Years')}}</th>" +
     "<th>{{_('Male')}}</th>" +
     "<th class='border-right'>{{_('Female')}}</th>" +
-    "<th>{{_('Positive')}}</th>" ;
+    "<th>{{_('Positive')}}</th></thead><tbody>" ;
 
   for( var j in struct ) html += drawRowFromStruct(struct[j]);
 
-  html + "</table>";
+  html + "</tbody></table>";
 
   $('.table1-wrapper').html(html);
 }

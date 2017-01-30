@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'meerkat_frontend/src/js/tests/settings.js',
+        'meerkat_frontend/test/js/settings.js',
 		'meerkat_frontend/static/js/jquery.js',
 		'meerkat_frontend/static/js/highcharts.js',
 		'meerkat_frontend/static/js/mapbox.js',
@@ -25,7 +25,7 @@ module.exports = function(config) {
 		'meerkat_frontend/static/js/bootstrap-table.js',
         'meerkat_frontend/static/js/jed.js',
 		'meerkat_frontend/static/js/*.js',
-		'meerkat_frontend/src/js/tests/unittests/*.js'
+		'meerkat_frontend/test/js/unittests/*.js'
     ],
 
 

@@ -1,0 +1,149 @@
+{% extends 'reports/email/html/email_base.html' %}
+
+{% block header %}
+<!-- BEGIN HEADER // -->
+<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
+  <tr>
+    <td valign="top" class="headerContainer">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+        <tbody class="mcnTextBlockOuter">
+          <tr>
+            <td valign="top" class="mcnTextBlockInner">
+              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <tbody>
+                  <tr>
+                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Non Communicable Disease Return Visits Report')}}
+                      </h2>
+                      <h3>{{ _('Monthly Report (%(start_date)s - %(end_date)s)',
+                      epi_week = report.data.epi_week_num,
+                      start_date = report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'),
+                      end_date = report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')
+                      ) }}
+                      </h3>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- // END HEADER -->
+{% endblock %}
+
+{% block body %}
+<!-- BEGIN BODY // -->
+<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+  <tr>
+    <td valign="top" class="bodyContainer">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+        <tbody class="mcnTextBlockOuter">
+          <tr>
+            <td valign="top" class="mcnTextBlockInner">
+              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <tbody>
+                  <tr>
+                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                      {{ _('<p>Dear Colleagues,</p>
+                      <p>Welcome to the latest Non-Communicable Disease Epidemiological Report from the Public Health Surveillance project in %(project_region)s.</p>',project_region=_(report.data.project_region)) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
+        <tbody class="mcnButtonBlockOuter">
+          <tr>
+            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
+              <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;background-color: #0098CB;">
+                <tbody>
+                  <tr>
+                    <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
+                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('View the latest report') }}</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+        <tbody class="mcnTextBlockOuter">
+          <tr>
+            <td valign="top" class="mcnTextBlockInner">
+              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <tbody>
+                  <tr>
+                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                      <p>
+                      {{ _('The profile summarises epidemiological information reported from %(clinics)s reporting sites in the previous month %(start_date)s to 
+                        %(end_date)s.', 
+                        clinics=report.data.clinic_num, 
+                        project_region=_(report.data.project_region),
+                        epi_week=report.data.epi_week_num,
+                        start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+                      </p>
+
+                      <h3>{{ _('Key Findings') }} </h3>
+
+                      <ul>
+
+                        <li>{{ _('A total of <strong>%(hypertension)s return visits regarding hypertension</strong>.',
+                        hypertension=report.hypertension.email_summary.cases
+                        ) }}</li>
+
+                        <li>{{ _('<strong>%(ht_control)s%%</strong> return visits for controlled hypertensive patients (BP < 140/90).',
+                        ht_control=report.hypertension.email_summary.control|float|round(1)
+                        ) }}</li>
+
+                        <li>{{ _('A total of <strong>%(diabetes)s return visits regarding diabetes</strong>.',
+                        diabetes=report.diabetes.email_summary.cases
+                        ) }}</li>
+
+                        <li>{{ _('<strong>%(d_control)s%% </strong> eturn visits for controlled diabetes patients (HbA1C < 7%%).',
+                        d_control=report.diabetes.email_summary.control|float|round(1)
+                        ) }}</li>
+
+                      </ul>
+
+                      <h3>{{ _('Project Overview') }}</h3>
+
+                      <p>
+                      {{
+                      _('
+                        A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.
+                      ',
+                      project_region=_(report.data.project_region)
+                      )
+                      }}
+                      </p>
+
+                      <p>
+                      {{
+                      _('
+                      The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.
+                      ')
+                      }}
+                      </p>
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- // END BODY -->
+{% endblock %}
