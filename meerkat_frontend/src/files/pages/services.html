@@ -28,11 +28,13 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_heading">
+					<div class="chartBox__heading">
+                        <p id="box_heading">
 						Childhood Vaccinations
+                        </p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToCSV('epi-table','vaccinations.csv', this);" class="csv"> 
-							</a> 
+							<a href="" onclick="exportTableToXLS('epi-table','vaccinations');return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
@@ -47,10 +49,11 @@
 		<div class="row">
 			<div class="col-xs-12 col-md-6 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_2_heading">
+					<div class="chartBox__heading">
+                        <p id="box_2_heading"></p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToCSV('use-table','use.csv', this);" class="csv"> 
-							</a> 
+							<a href="" onclick="exportTableToXLS('use-table','use');return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
@@ -63,8 +66,8 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading" id="box_3_heading">
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToCSV('visit-table','visit.csv', this);" class="csv"> 
-							</a> 
+							<a href="" onclick="exportTableToXLS('visit-table','visit');return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
@@ -129,29 +132,29 @@ function drawCharts( locID ){
 	var week = get_epi_week().toString();
 
 
-	categorySummation({ category: 'epi', 
+	categorySummation({ category: 'epi',
 	                    locID: locID,
-	                    week: week, 
-	                    tableID: 'epi-table', 
+	                    week: week,
+	                    tableID: 'epi-table',
 	                    no_total: true,
 	                    linkFunction: 'loadDisease',
 	                    title: i18n.gettext('Vaccination'),
 	                    percent: 'vac_1'
 	                   });
 
-	categorySummation({ category: 'use', 
+	categorySummation({ category: 'use',
 	                    locID: locID,
-	                    week: week, 
+	                    week: week,
 	                    tableID: 'use-table',
-	                    no_total: true, 
+	                    no_total: true,
 	                    linkFunction: 'loadDisease',
 						title: i18n.gettext('Health Utilisation')
 	                   });
 
-	categorySummation({ category: 'visit', 
+	categorySummation({ category: 'visit',
 	                    locID: locID,
-	                    week: week, 
-	                    tableID: 'visit-table', 
+	                    week: week,
+	                    tableID: 'visit-table',
 	                    percent: true,
 	                    linkFunction: 'loadDisease',
 						title: i18n.gettext('Visit Type')

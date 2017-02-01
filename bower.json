@@ -31,7 +31,7 @@
     "leaflet-omnivore": "0.3.2",
     "leaflet.markercluster": "~0.4.0",
     "mapbox.js": "~2.2.1",
-    "tableExport.jquery.plugin": "~1.5.0"
+    "tableExport.jquery.plugin": "table-export-jquery#~1.6.8"
   },
   "overrides": {
     "Leaflet.fullscreen": {
@@ -46,5 +46,8 @@
         "highcharts-more.js"
       ]
     }
+  },
+  "resolutions": {
+    "tableExport.jquery.plugin": "~1.6.8"
   }
 }
