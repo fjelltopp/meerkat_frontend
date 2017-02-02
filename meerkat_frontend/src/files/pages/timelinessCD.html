@@ -104,7 +104,13 @@
  //It's also called upon the first load of the page.
  function drawCharts( locID ){
      currentLocation = locID;
-     timelinessPreparation( currentLocation, 'reg_6', config.timeliness_denominator.cd,  'timeliness-graph', 'timeliness-table', 'all-clinics-table',1, "None", config.weekend );
+     reDraw();
+ }
+
+drawChartOptionsButtons('box_2_heading', 'reDraw');
+
+ function reDraw(){
+     timelinessPreparation( currentLocation, 'reg_6', config.timeliness_denominator.all, 'timeliness-graph', 'timeliness-table', 'all-clinics-table', 1, "None", config.weekend );
  }
 
  function toggleAllClinics(){
