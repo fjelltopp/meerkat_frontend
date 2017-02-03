@@ -495,6 +495,21 @@ function exportTableToCSV(tableID, filename, link) {
                  });
 }
 
+/**:exportTableToXLS(tableID, filename)
+
+    Exports a html table to XLS format.  Used to create the download table buttons in the
+    technical dashboard.
+
+    :param string tableID:
+        The ID of the HTML table container element to be exported.
+    :param string filename:
+        The file name of the XLS file to be downloaded.
+*/
+function exportTableToXLS(tableID, filename) {
+    $('#'+tableID + ' table').tableExport({type:'xls', fileName: filename});
+    return false;
+}
+
 //Function to get the intersect of two arrays.
 function getIntersect( arr1, arr2 ){
 

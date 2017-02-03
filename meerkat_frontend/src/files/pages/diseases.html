@@ -28,10 +28,11 @@
     <div class="row">
       <div class="col-xs-12 less-padding-col">
         <div class="chartBox box">
-          <div class="chartBox__heading" id="box_heading">
+          <div class="chartBox__heading">
+              <p id="box_heading"></p>
             <div class="box__type-selector pull-right">
-              <a href="" onclick="exportTableToCSV('disease-table','diseases.csv', this);" class="csv"> 
-              </a> 
+              <a href="" onclick="exportTableToXLS('disease-table','diseases');return false;" class="csv">
+              </a>
             </div>
           </div>
           <div class="chartBox__content">
@@ -96,10 +97,10 @@ function reDraw(){
   //In case we want the user to be able to select the weeks to view.
   var week = (get_epi_week()).toString();
 
-  categorySummation({ category: 'cd_tab', 
+  categorySummation({ category: 'cd_tab',
                       locID: currentLocation,
-                      week: week, 
-                      tableID: 'disease-table', 
+                      week: week,
+                      tableID: 'disease-table',
                       barID: 'disease-bar-chart',
                       percent: true,
                       linkFunction: 'loadDisease',
