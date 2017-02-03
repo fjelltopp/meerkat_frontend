@@ -48,15 +48,17 @@
     cursor:pointer;
 }
 
-#download-button{
+#download-csv-button,
+#download-xls-button,
+#download-label{
 
     display: inline-block;
     padding: 10px;
     font-size: 18px;
     background: $blue;
     color: white;
-    border-radius: 5px;
     border: $blue;
+    border-right: 1px solid;
 
     span{
         top:2px;
@@ -64,6 +66,24 @@
     }
 }
 
-#download-button:active{
+#download-csv-button:active,
+#download-xls-button:active,
+#download-csv-button:focus,
+#download-xls-button:focus{
     background: $highlight;
+}
+
+#download-csv-button:hover,
+#download-xls-button:hover{
+    border-right: white 1px solid;
+    background: #0081b6;
+}
+
+#download-label:hover{
+    border-right: white 1px solid;
+}
+
+#download-csv-button,
+#download-xls-button{
+    border-left: white 1px solid;
 }

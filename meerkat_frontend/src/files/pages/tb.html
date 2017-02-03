@@ -27,12 +27,13 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_heading">
+					<div class="chartBox__heading" >
+                        <p id="box_heading"></p>
 
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToCSV('pip-table','pip.csv', this);" class="csv"> 
+							<a href="" onclick="exportTableToXLS('tb-table','tb');return false;" class="csv">
 
-							</a> 
+							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
@@ -62,7 +63,7 @@ $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
-	
+
 	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
 	var transitionEvent = whichTransitionEvent();
 	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
@@ -70,13 +71,13 @@ $("#menu-toggle").click(function(e) {
 	});
 });
 
- 
+
  $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.
 function drawCharts( locID ){
-	
+
 	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
 
      drawTbTable("tb-table", locID)

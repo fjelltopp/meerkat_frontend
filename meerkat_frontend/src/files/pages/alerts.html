@@ -28,11 +28,12 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_heading">
+					<div class="chartBox__heading">
+                        <p id="box_heading"></p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToCSV('alert-agg-table','alertsSummary.csv', this);" class="csv"> 
-								Excel 
-							</a> 
+							<a href="" onclick="exportTableToXLS('alert-agg-table','alertsSummary');return false;" class="csv">
+								Excel
+							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
@@ -46,11 +47,12 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_2_heading">
+					<div class="chartBox__heading" >
+                        <p id="box_2_heading"></p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToCSV('alert-table','alerts.csv', this);" class="csv"> 
-								Excel 
-							</a> 
+							<a href="" onclick="exportTableToXLS('alert-table','alerts');return false;" class="csv">
+								Excel
+							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
@@ -95,15 +97,15 @@ $("#menu-toggle").click(function(e) {
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.
 function drawCharts( locID ){
-	
+
 	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
 	loadAlertTables(undefined, locID);
 
 }
 
 function loadAlertTables( reason, locID ){
-	
-	//locID (the id of the location) is an optional argument.  
+
+	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
      if( typeof locID == 'undefined' ){
 	 if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
@@ -130,7 +132,7 @@ function loadAlertTables( reason, locID ){
 		console.log( url );
 
 		$.getJSON( url, function( data ) {
-			
+
 			//Sort the alerts by date.
 			var alerts = data.alerts;
 			console.log(alerts);
