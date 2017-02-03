@@ -110,7 +110,7 @@ function loadAlertTables( reason, locID ){
 	 else locID = history.state.locID;
      }
 
-	$.getJSON( api_root+"/variables/cd_tab", function( variables ){
+	$.getJSON( api_root+"/variables/alert", function( variables ){
 		if(config.central_review){
 			url = api_root+"/aggregate_alerts/1?location="+locID
 		}else{
