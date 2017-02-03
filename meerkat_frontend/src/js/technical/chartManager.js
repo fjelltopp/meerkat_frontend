@@ -327,7 +327,7 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
 
 }
 
-/**:drawCompletenessGraph( containerID, regionID, locations, data, start_week, graphtypeID)
+/**:drawCompletenessGraph( containerID, regionID, locations, data, start_week, graphtypeID, compare_locations)
 
    Draws a timeline line chart showing the percentage of overall completeness/timeliness and completeness/timeliness for each clinic in each epi week this current year.
    :param string containerID:
@@ -342,9 +342,13 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
    Completeness data from API.
    :param int graphtypeID:
    Type of a graph to be ploted. `0` for completeness, `1` for timeliness
+   :param int compare_locations
+   Show lines to compare locations for completeness graph
 */
 
-function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID){
+function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID, compare_locations){
+
+    var comparevalue = $(compare_locations).attr("value");
 
     var stringGraphType = 'data';
     var multiplier = 100 / denominator;
@@ -362,6 +366,9 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
     for (var i=0; i<scoreKeys.length;i++){
         index = scoreKeys[scoreKeys.length - i -1];
         tl = data.timeline[index];
+        if((locations[index].id != regionID) && (comparevalue === "false") ){
+            continue;
+        }
         var dt = [];
         var dtReady = [];
         var noWeeks = tl.weeks.length;
@@ -498,3 +505,36 @@ Highcharts.setOptions({
   }
 
 });
+
+/**:drawChartOptionsButtons(tableID, redrawFunctionName)
+
+    Draws the table options buttons for tables in the dashboard created using bootstrap tables.
+    These options allow you to colour the cells according to their value and to strip empty records.
+
+    :param string objectID:
+        The ID attribute of the html element to hold the table assoiated with the buttons.
+    :param string redrawFunctionName:
+        Name of the local function which redraws the table
+ */
+function drawChartOptionsButtons(objectID, redrawFunctionName){
+
+    var html = "<div class='chart-options'>";
+    html += "<span class='glyphicon glyphicon-random " + objectID  + "-option pull-right' " + 
+        "id='compare_button' onClick='callChartOptionButton(this,\"" + redrawFunctionName + "\");' "+
+        "title='" + i18n.gettext('Compare sublocations')+
+        "' chart='completeness-graph' value=false name='compare'></span>";
+    html += "</div>";
+
+    $('#' + objectID ).prepend( html );
+}
+
+//Function that updates chart option button's values.
+function callChartOptionButton(element, redrawFunctionName){
+    var value = $(element).attr("value");
+    $(element).attr("value", value=="true" ? "false" : "true" );
+    //Check that the redraw function exists, if it does, call it.
+    var fn = window[redrawFunctionName];
+    if(typeof fn === 'function') {
+        fn();
+    }
+}

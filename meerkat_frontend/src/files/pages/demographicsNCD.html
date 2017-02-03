@@ -31,12 +31,12 @@
 					<div class="chartBox__heading">
 						<p id="box_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="showChartType('bar','gender-charts');return false;" class="bar"> 
+							<a href="" onclick="showChartType('bar','gender-charts');return false;" class="bar">
 							</a> /
-							<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie"> 
+							<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie">
 							</a> /
-							<a href="" onclick="exportTableToCSV('gender-table','gender.csv', this);" class="csv"> 
-							</a> 
+							<a href="" onclick="exportTableToXLS('gender-table', 'gender'); return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div id="gender-charts" class="chartBox__content">
@@ -51,12 +51,12 @@
 					<div class="chartBox__heading" >
 						<p id="box_2_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="showChartType('bar','nationality-charts');return false;" class="bar"> 
+							<a href="" onclick="showChartType('bar','nationality-charts');return false;" class="bar">
 							</a> /
-							<a href="" onclick="showChartType('pie','nationality-charts');return false;" class="pie"> 
+							<a href="" onclick="showChartType('pie','nationality-charts');return false;" class="pie">
 							</a>/
-							<a href="" onclick="exportTableToCSV('nationality-table','nationality.csv', this);" class="csv"> 
-							</a> 
+							<a href="" onclick="exportTableToXLS('nationality-table', 'nationality'); return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div id="nationality-charts" class="chartBox__content">
@@ -76,8 +76,8 @@
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="showChartType('bar','ncd_age-charts');return false;" class="bar"></a> /
 							<a href="" onclick="showChartType('pie','ncd_age-charts');return false;" class="pie"></a> /
-							<a href="" onclick="exportTableToCSV('ncd_age-table','age.csv', this);" class="csv"> 
-							</a> 
+							<a href="" onclick="exportTableToXLS('age-table','age'); return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div id="ncd_age-charts" class="chartBox__content">
@@ -94,8 +94,8 @@
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="showChartType('bar','status-charts');return false;" class="bar"></a> /
 							<a href="" onclick="showChartType('pie','status-charts');return false;" class="pie"></a> /
-							<a href="" onclick="exportTableToCSV('status-table','status.csv', this);" class="csv"> 
-							</a> 
+							<a href="" onclick="exportTableToXLS('status-table', 'status'); return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div id="status-charts" class="chartBox__content">
@@ -123,7 +123,7 @@
  $("#box_2_heading").html(i18n.gettext('Nationality'));
  $("#box_3_heading").html(i18n.gettext('Age'));
  $("#box_4_heading").html(i18n.gettext('Status'));
- 
+
  $(".csv").each(function(){
 	 $(this).html(i18n.gettext('Excel'));
  });
@@ -134,12 +134,12 @@
 	 $(this).html(i18n.gettext('Pie'));
  });
 
- 
+
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
-	
+
 	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
 	var transitionEvent = whichTransitionEvent();
 	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
@@ -167,7 +167,7 @@ function drawCharts( locID ){
 		                    pieID: categories[i]+'-pie-chart',
 		                    percent: true,
                         table_options: {'strip': 'false', 'colour':'false'},
-                        limit_to: 'prc_2' 
+                        limit_to: 'prc_2'
 		                  });
 	}
 	categorySummation({ category: 'nationality',
@@ -179,7 +179,7 @@ function drawCharts( locID ){
 		                 percent: true,
 	                   strip: true,
                      table_options: {'strip': 'false', 'colour':'false'},
-                     limit_to: 'prc_2' 
+                     limit_to: 'prc_2'
 		               });
 
 
