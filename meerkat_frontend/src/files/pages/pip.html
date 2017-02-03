@@ -27,12 +27,11 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_heading">
-
+					<div class="chartBox__heading">
+                        <p id="box_heading"></p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToCSV('pip-table','pip.csv', this);" class="csv"> 
-
-							</a> 
+							<a href="" onclick="exportTableToXLS('pip-table','pip');return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
@@ -61,7 +60,7 @@
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
 	$(".location-box .glyphicon").toggleClass( "hidden" );
-	
+
 	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
 	var transitionEvent = whichTransitionEvent();
 	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
@@ -74,10 +73,10 @@
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.
 function drawCharts( locID ){
-	
+
 	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
 
-     drawPipTable("pip-table", locID, "pip_2", "pip","pip_followup", "pip_1"); 
+     drawPipTable("pip-table", locID, "pip_2", "pip","pip_followup", "pip_1");
 }
 
 </script>

@@ -26,11 +26,12 @@
     <div class="row">
       <div class="col-xs-12 col-md-4 less-padding-col">
         <div class="chartBox box">
-          <div class="chartBox__heading" id="box_heading">
+          <div class="chartBox__heading" >
+              <p id="box_heading"></p>
             <div class="box__type-selector pull-right">
-              <a href="" class="csv" onclick="exportTableToCSV('timeliness-agg-table','timelinessSummary.csv', this);" > 
-                
-              </a> 
+              <a href="" class="csv" onclick="event.stopImmediatePropagation();exportTableToXLS('timeliness-table','location_timeliness');return false;" >
+
+              </a>
             </div>
           </div>
           <div class="chartBox__content">
@@ -55,10 +56,11 @@
 
     <div class="col-xs-12 col-md-12 less-padding-col">
       <div class="chartBox box" id="all_clinics_box">
-        <div class="chartBox__heading pointer no-border" id="box_4_heading" onclick='toggleAllClinics();return false;'>
+        <div class="chartBox__heading pointer" onclick='toggleAllClinics();return false;'>
+          <p  id="box_4_heading"> </p>
           <div class="box__type-selector pull-right">
-            <a href="" class="csv" onclick="exportTableToCSV('timeliness-table','timeliness.csv', this);" > 
-            </a> 
+            <a href="" class="csv" onclick="event.stopImmediatePropagation();exportTableToXLS('all-clinics-table','clinic_timeliness');return false;" >
+            </a>
           </div>
         </div>
         <div class="chartBox__content" id="all_clinics_content">
@@ -104,7 +106,15 @@
  //It's also called upon the first load of the page.
  function drawCharts( locID ){
      currentLocation = locID;
-     timelinessPreparation( currentLocation, 'reg_6', config.timeliness_denominator.cd,  'timeliness-graph', 'timeliness-table', 'all-clinics-table',1, "None", config.weekend );
+
+     reDraw();
+ }
+
+drawChartOptionsButtons('box_2_heading', 'reDraw');
+
+ function reDraw(){
+     timelinessPreparation( currentLocation, 'reg_6', config.timeliness_denominator.all, 'timeliness-graph', 'timeliness-table', 'all-clinics-table', 1, "None", config.weekend, '#compare_button', 'reg_10');
+
  }
 
  function toggleAllClinics(){

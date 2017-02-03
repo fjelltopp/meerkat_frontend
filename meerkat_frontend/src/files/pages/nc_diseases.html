@@ -21,7 +21,7 @@
 
 	<div id="sidebar-wrapper" >
 		<div id="location-selector" class="location-selector">
-	
+
 		</div>
 	</div>
 
@@ -29,11 +29,12 @@
 		<div class="row">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_heading">
-	
+					<div class="chartBox__heading">
+                        <p id="box_heading"></p>
+
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToCSV('disease-table','ncds.csv', this);" class="csv"> 
-							</a> 
+							<a href="" onclick="exportTableToXLS('disease-table','ncds');return false;" class="csv">
+							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
@@ -79,10 +80,10 @@ function drawCharts( locID ){
 	//In case we want the use to eb able to select the weeks to view.
 	var week = get_epi_week().toString();
 
-	categorySummation({ category: 'ncd_tab', 
+	categorySummation({ category: 'ncd_tab',
 	                    locID: locID,
-	                    week: week, 
-	                    tableID: 'nc_disease-table', 
+	                    week: week,
+	                    tableID: 'nc_disease-table',
 	                    barID: 'nc_disease-bar-chart',
 	                    percent: true,
 	                    linkFunction: 'loadDisease',
@@ -118,10 +119,10 @@ function reDraw(){
   //In case we want the user to be able to select the weeks to view.
   var week = (get_epi_week()).toString();
 
-	categorySummation({ category: 'ncd_tab', 
+	categorySummation({ category: 'ncd_tab',
 	                    locID: currentLocation,
-	                    week: week, 
-	                    tableID: 'nc_disease-table', 
+	                    week: week,
+	                    tableID: 'nc_disease-table',
 	                    barID: 'nc_disease-bar-chart',
 	                    percent: true,
 	                    linkFunction: 'loadDisease',

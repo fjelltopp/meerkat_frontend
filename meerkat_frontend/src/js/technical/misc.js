@@ -495,6 +495,21 @@ function exportTableToCSV(tableID, filename, link) {
                  });
 }
 
+/**:exportTableToXLS(tableID, filename)
+
+    Exports a html table to XLS format.  Used to create the download table buttons in the
+    technical dashboard.
+
+    :param string tableID:
+        The ID of the HTML table container element to be exported.
+    :param string filename:
+        The file name of the XLS file to be downloaded.
+*/
+function exportTableToXLS(tableID, filename) {
+    $('#'+tableID + ' table').tableExport({type:'xls', fileName: filename});
+    return false;
+}
+
 //Function to get the intersect of two arrays.
 function getIntersect( arr1, arr2 ){
 
@@ -608,8 +623,10 @@ function stripEmptyRecords( dataObject ){
    A string specifing which type of case types should be excluded.
    :param list of int weekend:
    Specified weekend days in a comma separated string, for example [0, 2]
+   :param int compare_locations
+   Show lines to compare locations for completeness graph
    */
-function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations){
     var completenessLocations;
     var completenessData;
     if( start_week === undefined) start_week = 1;
@@ -626,7 +643,7 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
     }
 
     $.when.apply( $, deferreds ).then(function() {
-        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  );
+        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations);
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
@@ -658,10 +675,14 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    A string specifing which type of case types should be excluded.
    :param list of int weekend:
    Specified weekend days in a comma separated string, for example [0, 2]
+   :param int compare_locations
+   Show lines to compare locations for completeness graph
    */
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable){
     var timelinessLocations;
     var timelinessData;
+	if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
+		
     if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
@@ -669,15 +690,15 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
         })];
 
     if(exclude){
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){timelinessData = data;}));
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "/" + non_reporting_variable,function( data ){timelinessData = data;}));
     }else{
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend,
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "/" + non_reporting_variable,
                                    function( data ){timelinessData = data; }));
     }
 
     $.when.apply( $, deferreds ).then(function() {
 
-        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1 );
+        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );
