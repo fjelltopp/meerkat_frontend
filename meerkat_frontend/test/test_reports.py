@@ -88,8 +88,8 @@ class MeerkatFrontendReportsTestCase(unittest.TestCase):
         rv = self.app.get('en/reports/test/communicable_diseases/')
         self.assertIn(rv.status_code, [200])
         self.assertIn(
-            b"There were 0 new confirmed cases and 1 new suspected " +
-            b"cases of Bacterial meningitis",
+            b"There were 0 new confirmed alerts and 1 new suspected " +
+            b"alerts of Bacterial meningitis",
             rv.data
         )
 

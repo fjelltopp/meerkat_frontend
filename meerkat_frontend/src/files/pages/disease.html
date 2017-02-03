@@ -217,16 +217,16 @@ function drawCharts( locID ){
 	 if( map_type == "incidence_clinic") {
 	     drawIncidenceMap( name,  disease, "disease-map" );
 	 }else if( map_type == "incidence_district") {
-	     drawIncidenceChoroplet(name, disease, "disease-map", "district", config.map_options.district_geo);
+	     drawIncidenceChoroplet(name, disease, "disease-map", "district");
 	 }else if( map_type == "incidence_region") {
-	     drawIncidenceChoroplet(name, disease, "disease-map", "region", config.map_options.region_geo);
+	     drawIncidenceChoroplet(name, disease, "disease-map", "region");
 	 }else if(map_type == "cases_clinic"){
 		 drawMap(disease, "disease-map", locID)
 	 }else if( map_type == "cases_region") {
-	     drawCasesChoroplet(name, disease, "disease-map", "region", config.map_options.region_geo);
+	     drawCasesChoroplet(name, disease, "disease-map", "region");
 	 }
 	 else if( map_type == "cases_district") {
-	     drawCasesChoroplet(name, disease, "disease-map", "district", config.map_options.district_geo);
+	     drawCasesChoroplet(name, disease, "disease-map", "district");
 	 }
 
  }

@@ -122,10 +122,12 @@ function prepareMortData(){
   
   var mort_keys = Object.keys(content.deaths);
   for( var i=0; i< mort_keys.length; i++ ){
-    var new_key = content.variables[mort_keys[i]].name.replace("Deaths ", "");
-    content.deaths[new_key] = content.deaths[mort_keys[i]];
+    var new_key = mort_keys[i].replace("mor", "cmd");
+      content.deaths[new_key] = content.deaths[mort_keys[i]];
     delete content.deaths[mort_keys[i]];
   }
+     content.deaths["epi_1"] = content.deaths["cmd_29"];
+     content.deaths["epi_7"] = content.deaths["cmd_30"];
 }
 
 //Draw table 1
