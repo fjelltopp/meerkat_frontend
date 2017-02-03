@@ -331,11 +331,17 @@ function drawAlertsTable(containerID, alerts, variables){
 		//For each alert in the given array of alerts create the html for a row of the table.
 		for( var i in alerts ){
 			alert = alerts[i];
+			if (alert.clinic) {
+				clinic_name = locations[alert.clinic].name;
+			}else{
+				clinic_name = i18n.gettext(alert.type_name);
+			}
+			
 			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.variables.alert_id + '\'); return false;">' + 
 			    alert.variables.alert_id + '</a></td><td>' + i18n.gettext(variables[ alert.variables.alert_reason ].name) + '</td>' +
 				'<td>' + capitalise(i18n.gettext(alert.variables.alert_type)) + '</td>' +
-			         '<td>' + i18n.gettext(locations[locations[alert.clinic].parent_location].name) + '</td>' +
-			    '<td>' + i18n.gettext(locations[alert.clinic].name) + '</td>' +
+			         '<td>' + i18n.gettext(locations[alert.region].name) + '</td>' +
+			    '<td>' + clinic_name + '</td>' +
 
 			'<td>' + alert.date.split("T")[0] + '</td>';
 
@@ -731,6 +737,114 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
         });
 	      return table;
 }
+
+
+function drawPlagueTable(containerID, cases, variables){
+	$.getJSON( api_root+"/locations", function( locations ){
+		//Create the table headers, using the central review flag from the cofiguration file.
+
+		columns = [
+			{
+				field: "alert_id",
+				title:  i18n.gettext('Alert ID'),
+				'searchable': true
+			},
+			{
+				field: "region",
+				title: i18n.gettext('Region')
+			},
+			{
+				field: "clinic", 
+				title: i18n.gettext('Clinic'),
+				'searchable': true
+			},
+			{
+				field: "report_date",
+				title: i18n.gettext('Date Reported')
+			},
+			{
+				field: "investigation_date",
+				title: i18n.gettext('Date Investigated')
+			},
+			{
+				field: "status",
+				title: i18n.gettext('Status')
+			},
+			{
+				field: "age",
+				title: i18n.gettext('Age')
+			},
+			{
+				field: "gender",
+				title: i18n.gettext('Gender')
+			},
+			{
+				field: "profession",
+				title: i18n.gettext('Profession') 
+			},
+			{
+				field: "status_2",
+				title: i18n.gettext('Status') 
+			}
+       ];
+        var data = [];
+		
+		for( var i in cases ){
+			c = cases[i];
+
+            var datum = {
+                alert_id: c.variables.alert_id,
+                region: i18n.gettext(locations[c.region].name),
+                report_date: c.date.split("T")[0],
+				investigation_date: c.variables.ale_1.split("T")[0],
+				age: c.variables.agv_1
+
+            };
+			if (c.clinic){
+				datum.clinic = i18n.gettext(locations[c.clinic].name);
+			}else{
+				datum.clinic = i18n.gettext(c.type_name);
+			}
+			if (c.variables.pla_2){
+				datum.profession = i18n.gettext(c.variables.pla_2);
+			}else{
+				datum.profession = "";
+			}
+			var gender = "";
+
+			if("gen_1" in c.variables){
+				datum.gender = i18n.gettext("Female");
+			}else if ("gen_2" in c.variables){
+				datum.gender = i18n.gettext("Male");
+			}
+
+			status = i18n.gettext("Pending");
+			if("ale_2" in c.variables){
+				status = i18n.gettext("Confirmed");
+			}else if("ale_3" in c.variables){
+				status = i18n.gettext("Disregarded");
+            }else if("ale_4" in c.variables){
+				status = i18n.gettext("Ongoing");
+			}
+			datum.status = status;
+			status_2 = i18n.gettext("Alive");
+			if("pla_3" in c.variables){
+				status_2 = i18n.gettext("Dead");
+			}
+			datum.status_2 = status_2;
+			data.push(datum);
+        }
+        $('#' + containerID).html("<table> </table>");
+		$('#' + containerID + ' table').bootstrapTable(
+			{
+				columns: columns,
+				data: data
+				//					pagination: true,
+				//					pageSize: 20
+			});
+	});
+}
+
 
 /**:drawMissingCompletenessTable( containerID, regionID)
  Displays list of clinics in given subregion which haven't reported in the last two weeks. If the specified region is a clinic, then dates when registers are not submitted are listed.
