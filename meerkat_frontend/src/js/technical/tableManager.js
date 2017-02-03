@@ -246,18 +246,20 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
 }
 
 
-/**:drawAlertsTable(containerID, alerts, variables)
+/**:drawOptionsButtons(tableID, redrawFunctionName)
 
     Draws the table options buttons for tables in the dashboard created using bootstrap tables.
     These options allow you to colour the cells according to their value and to strip empty records.
 
     :param string tableID:
         The ID attribute of the html element to hold the table assoiated with the buttons.
+    :param string redrawFunctionName:
+        Name of the local function which redraws the table
  */
 function drawOptionsButtons(tableID, redrawFunctionName){
 
     var html = "<div class='table-options'>";
-    
+
     html += "<span class='glyphicon glyphicon-resize-small " + tableID  + "-option pull-right' " + 
         "id='strip-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");' "+
         "title='" + i18n.gettext('Hide/show empty records')+
@@ -269,7 +271,7 @@ function drawOptionsButtons(tableID, redrawFunctionName){
             "' table='disease-table' value=false name='colour'></span>";
 
     html += "</div>";
-    
+
     $('#' + tableID ).attr( "style","padding-top: 28px" );
     $('#' + tableID ).prepend( html );
 }

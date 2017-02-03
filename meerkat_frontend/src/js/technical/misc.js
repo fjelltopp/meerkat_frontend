@@ -623,8 +623,10 @@ function stripEmptyRecords( dataObject ){
    A string specifing which type of case types should be excluded.
    :param list of int weekend:
    Specified weekend days in a comma separated string, for example [0, 2]
+   :param int compare_locations
+   Show lines to compare locations for completeness graph
    */
-function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations){
     var completenessLocations;
     var completenessData;
     if( start_week === undefined) start_week = 1;
@@ -641,7 +643,7 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
     }
 
     $.when.apply( $, deferreds ).then(function() {
-        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  );
+        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations);
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
@@ -673,8 +675,10 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    A string specifing which type of case types should be excluded.
    :param list of int weekend:
    Specified weekend days in a comma separated string, for example [0, 2]
+   :param int compare_locations
+   Show lines to compare locations for completeness graph
    */
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend, compare_locations){
     var timelinessLocations;
     var timelinessData;
     if( start_week === undefined) start_week = 1;
@@ -692,7 +696,7 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
 
     $.when.apply( $, deferreds ).then(function() {
 
-        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1 );
+        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );

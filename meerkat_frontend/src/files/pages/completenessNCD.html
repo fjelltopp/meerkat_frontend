@@ -117,11 +117,16 @@ $("#menu-toggle").click(function(e) {
 });
 
 $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + get_date() );
+drawChartOptionsButtons('box_2_heading', 'reDraw');
 //Every tab needs a draw charts function that is called when loading a new location.
 //It's also called upon the first load of the page.
 function drawCharts( locID ){
-	 currentLocation = locID;
-	 completenessPreparation( currentLocation, 'reg_11', config.completeness_denominator.ncd, 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table', 1, "None", config.weekend );
+     currentLocation = locID;
+     reDraw();
+}
+
+ function reDraw(){
+	 completenessPreparation( currentLocation, 'reg_11', config.completeness_denominator.ncd, 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table', 1, "None", config.weekend, '#compare_button');
  }
 
 

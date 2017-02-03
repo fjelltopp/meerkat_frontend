@@ -119,9 +119,15 @@ $("#menu-toggle").click(function(e) {
 $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + get_date() );
 //Every tab needs a draw charts function that is called when loading a new location.
 //It's also called upon the first load of the page.
+
+drawChartOptionsButtons('box_2_heading', 'reDraw');
 function drawCharts( locID ){
-	 currentLocation = locID;
-	 completenessPreparation( currentLocation, 'reg_10', config.completeness_denominator.cd, 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table', 1, "mental", config.weekend )
+     currentLocation = locID;
+     reDraw();
+}
+
+ function reDraw(){
+	 completenessPreparation( currentLocation, 'reg_10', config.completeness_denominator.cd, 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table', 1, "mental", config.weekend, '#compare_button');
 
  }
 
