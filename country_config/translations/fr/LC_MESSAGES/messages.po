@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-13 13:30+0000\n"
+"POT-Creation-Date: 2016-11-16 16:20+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -18,31 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-# null_config.py
+#: null_config.py:1
 msgid "Null Island <br> Public Health Surveillance"
 msgstr "Surveillance de la santé publique de l'Île Null"
 
-# null_config.py
+#: null_config.py:1
 msgid "<b>Null Island </b> &middot; Public Health Surveillance"
 msgstr "<B> Île Null </ b> & middot; Surveillance de la santé publique"
 
-# null_config.py
+#: null_config.py:1
 msgid "Health Surveillance"
 msgstr "Surveillance de la santé"
 
-# null_config.py
+#: null_config.py:1
 msgid "The Ministry of Health, Null Island"
 msgstr "Le ministère de la Santé, Île Null"
 
-# null_config.py
+#: null_config.py:1
 msgid "kingdom"
 msgstr "Roi"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "Overview"
 msgstr "Vue d'ensemble"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "<p>A national program of public health surveillance is being implemented "
 "in various sites across Null Island.</p><p>The project introduces case-"
@@ -70,11 +70,11 @@ msgstr ""
 "la Santé. </ P> < p> Vous pouvez vous inscrire pour recevoir des rapports"
 " et mises à jour épidémiologiques hebdomadaires. </ p>"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "Indicators"
 msgstr "Indicateurs"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "<p>The following indicators monitor the status and functioning of the "
 "health system in Null Island and are automatically updated from health "
@@ -84,11 +84,11 @@ msgstr ""
 "système de santé dans l'île Null et sont automatiquement mis à jour des "
 "établissements de santé: </ p>"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "Reports"
 msgstr "Rapports"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "<p>Weekly epidemiological public reports are published online and "
 "distributed via e-mail.  Access the most recent report for Null Island "
@@ -119,11 +119,11 @@ msgstr ""
 "non_communicable_diseases' = href target = '_ blank'> <br /> non-"
 "Communicable Disease Report </a> </ p> </ p>"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "Principles"
 msgstr "==Principes=="
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "<p>The project has the following principles of implementation (click to "
 "expand):</p>"
@@ -131,11 +131,11 @@ msgstr ""
 "<P> Le projet comporte les principes suivants de mise en œuvre (cliquez "
 "pour agrandir): </ p>"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "1. Routine surveillance"
 msgstr "1. La surveillance de routine"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "The project supports routine surveillance to ensure the national health "
 "system is strengthened and the capacity of the Ministry of Health is "
@@ -145,11 +145,11 @@ msgstr ""
 "système national de santé est renforcée et la capacité du ministère de la"
 " Santé est mis au point pour la propriété à long terme et la réponse."
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "2. Integrated, case based disease surveillance"
 msgstr "2. intégrée, la surveillance des maladies de cas basée"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "The project builds on existing national and international surveillance "
 "standards, guidelines and case definitions. Diseases, conditions and "
@@ -161,11 +161,11 @@ msgstr ""
 "cas. Les maladies, les conditions et les événements sont codés selon la "
 "Classification internationale des maladies (CIM-10)."
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "3. Clinical-decision support"
 msgstr "une aide cruciale à la décision clinique,"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "The system includes evidence-based clinical algorithms for integrated "
 "management of childhood illness (IMCI) for child health to support and "
@@ -176,11 +176,11 @@ msgstr ""
 " la santé des enfants pour soutenir et améliorer la prestation des soins "
 "cliniques."
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "4. Best practice prescribing"
 msgstr "4. Meilleure prescription de la pratique"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "The system includes the WHO essential medicines list that the clinician "
 "can use to prescribe against using best practice guidelines. Information "
@@ -192,11 +192,11 @@ msgstr ""
 "bonnes pratiques. Des informations sont également recueillies pour savoir"
 " si le médicament est disponible pour la prescription."
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "5. Public health screening and advice"
 msgstr "5. dépistage de la santé publique et des conseils"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "Patients are screened and advice is provided for vaccination status, "
 "nutrition, mosquito net ownership and use, maternal care and "
@@ -206,11 +206,11 @@ msgstr ""
 " vaccination, la nutrition, les moustiques participation nette et "
 "l'utilisation, les soins maternels et la contraception."
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "6. Alerts and notifications"
 msgstr "6. Alertes et notifications"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "Automated real-time notifications and alerts are generated for 20 "
 "notifiable communicable diseases, by SMS and email, within one hour of "
@@ -226,11 +226,11 @@ msgstr ""
 "d'alertes est généré automatiquement par le biais du cadre en ligne qui "
 "relie l'enquête et les résultats d'alerte ultérieure."
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "7. Real-time analysis and reporting"
 msgstr "7. en temps réel analyse et de reporting"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "The system shares structured, anonymised data via an online framework for"
 " geospatial data visualisation, generation of alerts, and automated "
@@ -240,11 +240,11 @@ msgstr ""
 " ligne pour la visualisation de données géospatiales, génération "
 "d'alertes et la génération automatique de rapports."
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid "Acknowledgements"
 msgstr "Remarques"
 
-# null_homepage.json
+#: null_homepage.json:1
 msgid ""
 "We gratefully acknowledge the support of <br> our partners in the "
 "development of this project."
@@ -252,51 +252,51 @@ msgstr ""
 "Nous tenons à remercier le soutien de <br> nos partenaires dans le "
 "développement de ce projet."
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "Total"
 msgstr "Total"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "Male"
 msgstr "Masculin"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "Female"
 msgstr "Femme"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "Null Island"
 msgstr "Null Island"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "Demo"
 msgstr "Démo"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "Other Nationality"
 msgstr "Autre Nationalité"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "<5"
 msgstr "<5"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "5-9"
 msgstr "5-9"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "10-14"
 msgstr "10-14"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "15-19"
 msgstr "15-19"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid "20-59"
 msgstr "20-59"
 
-# demo_codes.csv
+#: demo_codes.csv:1
 msgid ">60"
 msgstr ">60"
 
