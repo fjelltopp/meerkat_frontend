@@ -14,7 +14,7 @@ map = null;
     :param int location:
         The location ID to filter data by.
 */
-function drawMap( varID, containerID, location, start_date, end_date ){
+function drawMap( varID, containerID, location, start_date, end_date, satellite){
 
     location = location || 1 ;
 
@@ -24,11 +24,11 @@ function drawMap( varID, containerID, location, start_date, end_date ){
   console.log( url );
 
 	$.getJSON( url, function( data ){
-        drawMapFromData( data, containerID );
+        drawMapFromData( data, containerID, satellite );
 	});
 }
 
-function drawMapFromData( data, containerID ){
+function drawMapFromData( data, containerID, satellite ){
    // console.log( "DRAWING MAP" );
    // console.log( data );
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
@@ -40,6 +40,22 @@ function drawMapFromData( data, containerID ){
         scrollWheelZoom: false
     });
 
+	if(satellite !== undefined){
+		var sat_layer = L.mapbox.styleLayer('mapbox://styles/mrjb/ciymznczl00a12ro9cnd4v863');
+		map.addLayer(sat_layer);
+		sat_toggle = false;
+		$("#" + satellite).click(function (){
+			if(sat_toggle) {
+				map.addLayer(sat_layer);
+				sat_toggle = false;
+				$("#" + satellite).html(i18n.gettext("Map"));
+			}else{
+				map.removeLayer(sat_layer);
+				$("#" + satellite).html(i18n.gettext("Satellite"));
+				sat_toggle = true;
+			}
+		});
+	}
     if( config.map_centre ){
         map.setView(
             [config.map_centre[0], config.map_centre[1]],
@@ -101,7 +117,8 @@ function drawMapFromData( data, containerID ){
     markers = [];
     //For each clinic, select the marker colour and add the marker to the map.
     for(i in data){
-
+		console.log(i);
+		console.log(data[i]);
         var bin = Math.floor(data[i].value/binSize); //-1 because bins are inclusive of the upper-limit
 
 
@@ -251,14 +268,14 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 }
 
 
-function drawIncidenceChoroplet(var_name, varID, containerID, level, geojson_name){
+function drawIncidenceChoroplet(var_name, varID, containerID, level){
 
 
 	var url = api_root +'/incidence_rate/'+varID+'/'+ level;
 
 	$.getJSON( url, function( data ){
 		$.getJSON(api_root + "/locations", function (locations) {
-			$.getJSON("/static/files/" + geojson_name, function(geojson){
+			$.getJSON(api_root + "/geo_shapes/" + level, function(geojson){
 				geojson = geojson.features;
 				L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
 				map = L.mapbox.map( containerID, 'mrjb.143811c9', {
@@ -404,14 +421,14 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level, geojson_nam
 	});
 
 }
-function drawCasesChoroplet(var_name, varID, containerID, level, geojson_name){
+function drawCasesChoroplet(var_name, varID, containerID, level){
 
 
 	var url = api_root +'/query_variable/'+varID+'/locations:'+ level;
 
 	$.getJSON( url, function( data ){
 		$.getJSON(api_root + "/locations", function (locations) {
-			$.getJSON("/static/files/" + geojson_name, function(geojson){
+			$.getJSON(api_root + "/geo_shapes/" + level, function(geojson){
 				geojson = geojson.features;
 				L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
 				map = L.mapbox.map( containerID, 'mrjb.143811c9', {
