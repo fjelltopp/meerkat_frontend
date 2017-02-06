@@ -15,6 +15,15 @@
     "zoom":"9"
   },
 
+    "map_options": {
+        "options": {
+            "cmd_1":"Cholera",
+            "cmd_27":"Mealses",
+            "tot_1": "All cases"
+        },
+        "types": ["incidence_clinic", "incidence_district", "incidence_region", "cases_clinic", "cases_district", "cases_region"]
+        
+    },
 
 
     "completeness_denominator":{
