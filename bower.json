@@ -29,7 +29,7 @@
     "jquery": "~2.2.4",
     "js-cookie": "~2.1.3",
     "leaflet-omnivore": "0.3.2",
-    "leaflet.markercluster": "~0.4.0",
+    "leaflet.markercluster": "~1.0.3",
     "mapbox.js": "~3.0.1",
     "tableExport.jquery.plugin": "~1.5.0"
 
@@ -37,6 +37,9 @@
   "overrides": {
     "Leaflet.fullscreen": {
       "main": "src/Leaflet.fullscreen.js"
+    },
+	"leaflet.markercluster": {
+      "main": "dist/leaflet.markercluster.js"
     },
     "leaflet-omnivore": {
       "main": "leaflet-omnivore.js"
