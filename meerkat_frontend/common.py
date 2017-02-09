@@ -5,7 +5,7 @@ Shared functions for meerkat_frontend.
 """
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from flask import abort
+from flask import abort, request
 from meerkat_frontend import app
 import authorise as auth
 import requests
@@ -29,17 +29,17 @@ def api(url, api_key=False, params=None):
         with open(path+'.json') as data_file:
             return json.load(data_file)
     else:
-        api_request = ''.join([app.config['INTERNAL_API_ROOT'], url])
+        api_uri = ''.join([add_domain(app.config['INTERNAL_API_ROOT']), url])
         try:
             if api_key:
                 r = requests.get(
-                    api_request,
+                    api_uri,
                     headers={'authorization': 'Bearer ' + auth.get_token()},
                     params=params
                 )
             else:
                 r = requests.get(
-                    api_request,
+                    api_uri,
                     params=params
                 )
         except requests.exceptions.RequestException as e:
@@ -111,3 +111,11 @@ def date_to_epi_week(day=datetime.today()):
     api_request = "epi_week/{}".format(day.isoformat())
     data = api(api_request)
     return data["epi_week"]
+
+
+def add_domain(path):
+    domain = '/'.join(request.url_root.split('/')[0:2])
+    if path[0] is '/':
+        return domain + path
+    else:
+        return path
