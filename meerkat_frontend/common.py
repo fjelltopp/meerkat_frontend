@@ -114,8 +114,8 @@ def date_to_epi_week(day=datetime.today()):
 
 
 def add_domain(path):
-    domain = '/'.join(request.url_root.split('/')[0:2])
-    if path[0] is '/':
-        return domain + path
-    else:
+    if path:
         return path
+    else:
+        return request.url_root + "/api"
+    
