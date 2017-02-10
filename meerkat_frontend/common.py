@@ -118,8 +118,18 @@ def date_to_epi_week(day=datetime.today()):
 
 
 def add_domain(path):
+    """
+    Add's the domain from the request to the begining of the specified path.
+    Path shuld begin with a forward slash e.g. /index.html would become
+    jordan.emro.info/index.html for the jordan site.
+
+    Args:
+        path (str): The path of the url that you want to prefix with
+            the requests domain.
+    Returns:
+        string: The path prefixed with the request's domain.
+    """
     if path:
         return path
     else:
         return request.url_root + "/api"
-    
