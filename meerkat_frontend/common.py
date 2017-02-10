@@ -30,7 +30,7 @@ def api(url, api_key=False, params=None):
             return json.load(data_file)
     else:
         api_uri = ''.join([add_domain(app.config['INTERNAL_API_ROOT']), url])
-        app.logger.error(api_uri)
+        app.logger.error(app.config['INTERNAL_API_ROOT'])
         try:
             if api_key:
                 r = requests.get(
