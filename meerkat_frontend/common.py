@@ -29,7 +29,7 @@ def api(url, api_key=False, params=None):
         with open(path+'.json') as data_file:
             return json.load(data_file)
     else:
-        api_uri = ''.join([app.config['INTERNAL_API_ROOT'], url])
+        api_uri = add_domain(''.join([app.config['INTERNAL_API_ROOT'], url]))
         app.logger.error(api_uri)
         try:
             if api_key:
