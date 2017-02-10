@@ -125,11 +125,12 @@ def add_domain(path):
 
     Args:
         path (str): The path of the url that you want to prefix with
-            the requests domain.
+            the request's domain.
     Returns:
         string: The path prefixed with the request's domain.
     """
-    if path:
-        return path
-    else:
-        return request.url_root + "/api"
+    url = path
+    domain = '/'.join(request.url_root.split('/')[0:3])
+    if path[0] == '/':
+        url = domain + path
+    return url
