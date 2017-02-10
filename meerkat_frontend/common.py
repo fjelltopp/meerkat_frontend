@@ -30,6 +30,7 @@ def api(url, api_key=False, params=None):
             return json.load(data_file)
     else:
         api_uri = ''.join([add_domain(app.config['INTERNAL_API_ROOT']), url])
+        app.logger.error(api_uri)
         try:
             if api_key:
                 r = requests.get(
@@ -42,6 +43,8 @@ def api(url, api_key=False, params=None):
                     api_uri,
                     params=params
                 )
+            if r.status_code == 502:
+                abort(500, "Can not access the api at " + api_uri)
         except requests.exceptions.RequestException as e:
             abort(500, e)
         try:
@@ -79,6 +82,7 @@ def hermes(url, method, data={}):
         r = requests.request(method, url, json=data, headers=headers)
         logging.warning(r)
     except requests.exceptions.RequestException:
+        print("hei")
         abort(500, "request")
     return r.json()
 
