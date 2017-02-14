@@ -29,8 +29,7 @@ def api(url, api_key=False, params=None):
         with open(path+'.json') as data_file:
             return json.load(data_file)
     else:
-        api_uri = ''.join([add_domain(app.config['INTERNAL_API_ROOT']), url])
-        app.logger.error(app.config['INTERNAL_API_ROOT'])
+        api_uri = add_domain(''.join([app.config['INTERNAL_API_ROOT'], url]))
         try:
             if api_key:
                 r = requests.get(
@@ -118,8 +117,19 @@ def date_to_epi_week(day=datetime.today()):
 
 
 def add_domain(path):
-    if path:
-        return path
-    else:
-        return request.url_root + "/api"
-    
+    """
+    Add's the domain from the request to the begining of the specified path.
+    Path shuld begin with a forward slash e.g. /index.html would become
+    jordan.emro.info/index.html for the jordan site.
+
+    Args:
+        path (str): The path of the url that you want to prefix with
+            the request's domain.
+    Returns:
+        string: The path prefixed with the request's domain.
+    """
+    url = path
+    domain = '/'.join(request.url_root.split('/')[0:3])
+    if path[0] == '/':
+        url = domain + path
+    return url
