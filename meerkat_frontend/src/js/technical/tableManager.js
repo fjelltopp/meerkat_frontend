@@ -1128,3 +1128,54 @@ function stripRows(data){
 		//Remove all empty rows (starting from the last to avoid screwing up indexes).
 		return data;
 }
+
+function drawIndicatorsTable( containerID, locID, data, linkFunction, graphID ){
+
+
+
+    //Create a data entry for all indKeys
+    listOfIndKeys = Object.keys(data);
+    var dataPrepared = [];
+    var datum = [];
+    for(i = 0; i<listOfIndKeys.length; i++){
+        indKey = listOfIndKeys[i];
+        indDataCurrent = data[indKey].current;
+        indDataName = data[indKey].name;
+        if(typeof linkFunction != 'undefined'){
+            datum.name = "<a href='' onclick='" + linkFunction + "(\""+ graphID +"\"," + locID + ","  + data + "," + indKey +  ")' >" + i18n.gettext(indDataName)+"</a>";
+        }else{
+            datum.name=i18n.gettext(indDataName);
+        }
+        datum.value =  Number(indDataCurrent).toFixed(0);
+        dataPrepared.push(datum);
+    }
+
+    var columns = [
+        {
+            "field": "name",
+            "title": "Indicator",
+            "align": "center",
+            "class": "header",
+            sortable: true,
+            width : "50%"
+        },{
+            "field": "value",
+            "title": "Value",
+            "align": "center",
+            "class": "header",
+            sortable: true,
+            width : "50%"
+        }];
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID ).append('<table class="table"></table>');
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: dataPrepared,
+        classes: 'table-no-bordered table-hover',
+        sortName: 'name',
+        sortOrder: 'desc'
+    });
+    return table;
+}

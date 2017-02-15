@@ -538,3 +538,74 @@ function callChartOptionButton(element, redrawFunctionName){
         fn();
     }
 }
+
+function drawIndicatorsGraph( containerID, locID, data, indKey ){
+
+    indDataTimeline = data[indKey].timeline;
+    indDataTimelineKeys = Object.keys(indDataTimeline);
+    indDataName = data[indKey].name;
+
+    var noWeeks = indDataTimelineKeys.length;
+    var weeks = lastWeeks (get_epi_week(), noWeeks + 1 );
+    var timeseries = [];
+    var datapoint = [];
+
+    console.log(weeks);
+    for (var i=0; i<indDataTimelineKeys.length;i++){
+        //Using week numbers instead of dates
+        //dropping the current week (noWeeks)
+        datapoint = [weeks[noWeeks - i],Number(indDataTimeline[indDataTimelineKeys[i]])];
+        timeseries.push(datapoint);
+    }
+
+    $('#' + containerID).highcharts({
+        title: {
+            text: indDataName
+        },
+        xAxis: {
+            title: {
+                text: 'week'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'values'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+
+        series: [{
+            type: 'area',
+            name: indDataName,
+            data: timeseries
+        }]
+    });
+}
