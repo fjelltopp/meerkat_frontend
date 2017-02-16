@@ -118,7 +118,7 @@ $("#menu-toggle").click(function(e) {
 
  $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + get_date() );
 
-drawChartOptionsButtons('box_2_heading', 'reDraw');
+drawChartOptionsButtons('box_2_heading', 'reDraw', config.completeness_lines);
 
 //Every tab needs a draw charts function that is called when loading a new location.
 //It's also called upon the first load of the page.

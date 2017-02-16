@@ -165,7 +165,13 @@ var auth_root = "{{content.auth_root}}";
     map.addLayer( markers );
 
 //REGIONAL POLYGON DATA --------------------------
+ $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/geo_shapes/region", function( regions ){
+     var regionalLayer = L.geoJson(regions,
+								   {style: style,
+									onEachFeature: onEachFeature
+								   })
 
+		 regionalLayer.addTo(map);
     //Don't de-highlight region upon "mouseout" event as region de-highlights when hovering over a surveilance site.
     //Instead store the region in this variable on mouseover and de-highlight it upon mouseover a different region.
     var highlightedRegion;
@@ -191,9 +197,7 @@ var auth_root = "{{content.auth_root}}";
          highlightedRegion = e.target;
       }else{
          regionalLayer.resetStyle( highlightedRegion ); 
-         console.log( highlightedRegion.toGeoJSON() );
-          console.log( e.target.toGeoJSON() );
-         if( highlightedRegion.toGeoJSON().properties.name != e.target.toGeoJSON().properties.name ){
+         if( highlightedRegion.toGeoJSON().properties.Name != e.target.toGeoJSON().properties.Name ){
            highlightedRegion = e.target;
            $(".details .selection").html("");
            govSiteClash = false;
@@ -209,7 +213,7 @@ var auth_root = "{{content.auth_root}}";
       }
       
       if( govSiteClash === false ){
-         $("#regionName.value").text( highlightedRegion.toGeoJSON().properties.name );
+         $("#regionName.value").text( highlightedRegion.toGeoJSON().properties.Name );
       }
 
     }
@@ -233,9 +237,10 @@ var auth_root = "{{content.auth_root}}";
       onEachFeature: onEachFeature,
     });
 
-    //Attach the custom layer features to the kml data and display on map.
-    var regionalLayer = omnivore.kml("{{url_for( 'static', filename='files/'+content.map.reg_data_file)}}", null, customLayer );
-    console.log(regionalLayer );
+ //Attach the custom layer features to the kml data and display on map.
+
+ 
+
 
     function enterMap(){
          //Hide the overlay.
@@ -251,7 +256,7 @@ var auth_root = "{{content.auth_root}}";
 			viewingMap=true;
     }
 
-    regionalLayer.addTo(map);
+   
     //Upon clicking upon a cluster allow the user to explore the map.
     markers.on('clusterclick', enterMap); 
 
@@ -284,5 +289,55 @@ var auth_root = "{{content.auth_root}}";
 			else enterMap();
     });
 
+	 
+ });
 
+
+ function createCallback(overlay, map) {
+     return function(data) {
+         console.log(data)
+        if (overlay.type == "area"){
+            function style(feature){
+                return {
+                    fillColor: overlay.colour,
+                    color: '#537080',
+                    weight: 0,
+                    fillOpacity: overlay.opacity,
+                }
+            }
+            overlayLayer = L.geoJson(data,
+                                     {style: style,
+                                     })
+                
+            overlayLayer.addTo(map);
+        }else if(overlay.type == "marker") {
+            my_json = L.geoJson(data, {
+                pointToLayer: function(feature, latlng) {
+                    var Icon = new L.icon({
+                        iconUrl: "/static/" + overlay.markericon,
+                        iconSize:     [30, 30], // size of the icon
+                        iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
+                        popupAnchor:  [30, 30] // point from which the popup should open relative to the iconAnchor
+                    });
+                    return L.marker(latlng, {icon: Icon});
+                },
+                //onEachFeature: function (feature, layer) {
+                //    layer.bindPopup(feature.properties.name + '<br />'
+                //                  + feature.description);
+                //}
+            });
+          my_json.addTo(map);
+        }
+     }
+ }
+ 
+ overlays = {{content.map|safe}}
+ styles = []
+ if("overlay" in overlays){
+     for(o in overlays.overlay){
+         overlay = overlays.overlay[o];
+         $.getJSON("/static/" + overlay.file, createCallback(overlay, map))
+     }
+ }
+ 
 </script>

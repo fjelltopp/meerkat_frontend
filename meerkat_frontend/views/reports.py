@@ -140,14 +140,14 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                                 location=None,
                                 end_date=None,
                                 start_date=None)
-        report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
+        report_url = c.add_domain(relative_url)
 
 
         #Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:
-            content_url = current_app.config['ROOT_URL']  + '/static/'
+            content_url = c.add_domain('/static/')
 
 
         if email_format == 'html':
@@ -255,13 +255,13 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                                 end_date=end_date,
                                 start_date=start_date )
 
-        report_url = ''.join([current_app.config['ROOT_URL'], relative_url])
+        report_url = c.add_domain(relative_url)
 
         #Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:
-            content_url = current_app.config['ROOT_URL']  + '/static/'
+            content_url = c.add_domain('/static/')
 
         html_email_body = render_template(
                 ret['template_email_html'],
@@ -441,12 +441,12 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
         current_app.logger.warning( "USE EXTERNAL?" )
         current_app.logger.warning( int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1 )
-
+        current_app.logger.warning(html.replace("/static/", c.add_domain('/static/')))
         # Read env flag whether to tell pdfcrowd to read static files from an external source
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
             html = html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
         else:
-            html = html.replace("/static/", '{}{}'.format( current_app.config['ROOT_URL'],'/static/' ))
+            html = html.replace("/static/", c.add_domain('/static/'))
 
         client.usePrintMedia(True)
 

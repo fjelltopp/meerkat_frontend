@@ -23,8 +23,7 @@ def from_env(env_var, default):
 class Config(object):
     DEBUG = False
     TESTING = bool(from_env("MEERKAT_TESTING", False))
-
-    INTERNAL_API_ROOT = from_env("INTERNAL_API_ROOT", 'http://dev_nginx_1/api')
+    INTERNAL_API_ROOT = from_env("INTERNAL_API_ROOT", '')
     EXTERNAL_API_ROOT = '/api'
     HERMES_ROOT = from_env("HERMES_API_ROOT", "")
     HERMES_API_KEY = from_env('HERMES_API_KEY', 'test-hermes')

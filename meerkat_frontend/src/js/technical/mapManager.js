@@ -196,8 +196,9 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 
 		//Default to the 6 colour system.
 		//If fewer bins, due to smaller range, then change to fewer colours.
-		var colours = colours6;
-		number = 6;
+
+
+		
 		//Find the clinic with the maximum variable value.
 		var maximum = 0;
 		for( var i in data ){
@@ -205,7 +206,32 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 				maximum = data[i].value;
 			}
 		}
+		var colours = colours6;
+		number = 6;
+		if( maximum > 20 ){
+			
+			number = 6;
+			colours = colours6;
+			
+		}else if( maximum > 10 ){
+			
+			number = 4;
+			colours = colours4;
+			
+		}else if( maximum > 4 ){
+			
+			number = 3;
+			colours = colours3;
+			
+		}else{
+			
+			colours = colours2;
+        number = 2;
+		}
 
+
+
+		
 		//Populate limits[] with the upper-limit for each bin.
 		var binSize = (maximum+1)/number;  // +1 because the final bin limit > maximum
 		var limit = 0;
@@ -231,7 +257,7 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 				color: colour
 			});
 
-			marker.bindPopup( "<b>" + i18n.gettext(data[i].clinic) + "</b><br/>"+  i18n.gettext("Incidence Rate:")  + Math.round(data[i].value, 1));
+			marker.bindPopup( "<b>" + i18n.gettext(data[i].clinic) + "</b><br/>"+  i18n.gettext("Incidence Rate:")  + round(data[i].value, 1));
 			marker.addTo( map );
 			markers[markers.length] = marker;
 		}
@@ -256,8 +282,8 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 			var div = L.DomUtil.create( 'div', 'info_map legend' );
 			for ( i=1; i<limits.length; i++ ) {
 					div.innerHTML += '<i class="circle" style="background:' + colours[i-1] +
-					'; border-color:' + colours[i-1] + '"></i> ' + Math.round((limits[i-1]+1), 1) +
-					'-' + Math.round(limits[i], 1) + '<br/>';
+					'; border-color:' + colours[i-1] + '"></i>' +round(limits[i-1], 1) +
+					'-' + round(limits[i], 1)+ '<br />';
 			}
 
 			return div;
@@ -407,7 +433,7 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level){
 					for ( i=1; i<limits.length; i++ ) {
 						div.innerHTML += '<i class="circle" style="background:' + colours[i-1] +
 							'; border-color:' + colours[i-1] + '"></i> ' + round(limits[i-1],2) +
-							'-' + round(limits[i],2) + '<br/>';
+							'-' + round(limits[i],2) + '<br />';
 					}
 
 					return div;

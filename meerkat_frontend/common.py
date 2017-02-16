@@ -5,7 +5,7 @@ Shared functions for meerkat_frontend.
 """
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from flask import abort
+from flask import abort, request
 from meerkat_frontend import app
 import authorise as auth
 import requests
@@ -29,19 +29,21 @@ def api(url, api_key=False, params=None):
         with open(path+'.json') as data_file:
             return json.load(data_file)
     else:
-        api_request = ''.join([app.config['INTERNAL_API_ROOT'], url])
+        api_uri = add_domain(''.join([app.config['INTERNAL_API_ROOT'], url]))
         try:
             if api_key:
                 r = requests.get(
-                    api_request,
+                    api_uri,
                     headers={'authorization': 'Bearer ' + auth.get_token()},
                     params=params
                 )
             else:
                 r = requests.get(
-                    api_request,
+                    api_uri,
                     params=params
                 )
+            if r.status_code == 502:
+                abort(500, "Can not access the api at " + api_uri)
         except requests.exceptions.RequestException as e:
             abort(500, e)
         try:
@@ -79,6 +81,7 @@ def hermes(url, method, data={}):
         r = requests.request(method, url, json=data, headers=headers)
         logging.warning(r)
     except requests.exceptions.RequestException:
+        print("hei")
         abort(500, "request")
     return r.json()
 
@@ -111,3 +114,22 @@ def date_to_epi_week(day=datetime.today()):
     api_request = "epi_week/{}".format(day.isoformat())
     data = api(api_request)
     return data["epi_week"]
+
+
+def add_domain(path):
+    """
+    Add's the domain from the request to the begining of the specified path.
+    Path shuld begin with a forward slash e.g. /index.html would become
+    jordan.emro.info/index.html for the jordan site.
+
+    Args:
+        path (str): The path of the url that you want to prefix with
+            the request's domain.
+    Returns:
+        string: The path prefixed with the request's domain.
+    """
+    url = path
+    domain = '/'.join(request.url_root.split('/')[0:3])
+    if path[0] == '/':
+        url = domain + path
+    return url

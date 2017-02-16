@@ -1,0 +1,21 @@
+{ "type": "FeatureCollection",
+  "features": [
+      { "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": [45.31, 2.05]},
+        "properties": {"name": "Mogadishu", "description": "WHO Hub"}
+      },
+          { "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [48.48, 8.46]},
+        "properties": {"name": "Garoowe", "description": "WHO Hub"}
+      },
+          { "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [44.06, 9.56]},
+        "properties": {"name": "Hargeisa", "description": "WHO Hub"}
+      },
+      { "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": [43.65, 3.11]},
+        "properties": {"name": "Baidoa", "description": "WHO Hub"}
+      }
+    
+  ]
+}

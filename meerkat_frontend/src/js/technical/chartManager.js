@@ -516,13 +516,15 @@ Highcharts.setOptions({
     :param string redrawFunctionName:
         Name of the local function which redraws the table
  */
-function drawChartOptionsButtons(objectID, redrawFunctionName){
-
+function drawChartOptionsButtons(objectID, redrawFunctionName, default_on){
+	if (default_on === undefined){
+		default_on = "false";
+	}
     var html = "<div class='chart-options'>";
     html += "<span class='glyphicon glyphicon-random " + objectID  + "-option pull-right' " + 
         "id='compare_button' onClick='callChartOptionButton(this,\"" + redrawFunctionName + "\");' "+
         "title='" + i18n.gettext('Compare sublocations')+
-        "' chart='completeness-graph' value=false name='compare'></span>";
+        "' chart='completeness-graph' value=" + default_on +" false name='compare'></span>";
     html += "</div>";
 
     $('#' + objectID ).prepend( html );
