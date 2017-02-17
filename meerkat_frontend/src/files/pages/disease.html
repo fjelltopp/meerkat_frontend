@@ -38,16 +38,16 @@
 		</div>
 
 		<div class="row">
-			<div class="col-xs-12 less-padding-col">
-				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_2_heading">
-					</div>
-					<div class="chartBox__content">
-						<div id="time-chart" class="chart">
-						</div>
-					</div>
+		    <div class="col-xs-12 less-padding-col">
+			<div class="chartBox box">
+			    <div class="chartBox__heading" id="box_2_heading">
+			    </div>
+			    <div class="chartBox__content">
+				<div id="time-chart" class="chart">
 				</div>
+			    </div>
 			</div>
+		    </div>
 		</div>
 
 		<div class="row">
@@ -55,7 +55,13 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading" id="box_3_heading">
 					</div>
-					<div id="disease-map" class="chartBox__content map">
+					<div class="chartBox__content">
+						<div class="row">
+							<div id="type-selector" class="col-sm-offset-1 col-sm-11 no-padding-col"></div>
+						</div>
+						<div class="row">
+							<div id="disease-map" class="map"></div>
+						</div>
 						
 					</div>
 				</div>
@@ -76,6 +82,25 @@
  $("#box_2_heading").html(i18n.gettext('Time of reports'));
  $("#box_3_heading").html(i18n.gettext('Location of reports'));
 
+ type_options = config.map_options.types
+
+ option_captions = {
+     "incidence_clinic": i18n.gettext("Incidence rate by clinic"),
+     "incidence_district": i18n.gettext("Incidence rate by district"),
+	 "incidence_region": i18n.gettext("Incidence rate by region"),
+     "cases_clinic": i18n.gettext("Cases by clinic"),
+	 "cases_region": i18n.gettext("Cases by region"),
+	 "cases_district": i18n.gettext("Cases by district")
+ }
+ type_html ="<p class='col-xs-4'>" + i18n.gettext("Choose map type")+  "</p><select class='report col-xs-4 no-padding-col' style='display:inline;'>"
+ for( var key in type_options ){
+     type = type_options[key];
+     type_html += "<option value='" + type + "'>" +
+	     option_captions[type] + "</option>";
+ }
+ type_html += "</select>"
+ $('#type-selector').html(type_html);
+
  
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
@@ -92,7 +117,7 @@ $("#menu-toggle").click(function(e) {
 $("#epi-week-title").html( i18n.gettext("Week")+ " " + get_epi_week() + " · " + get_date() );
 
 var disease = 1;
-
+var name = 1;
 function buildHTML( title, data, id, colWidth ){
 
 	if( ( data != '' ) && ( typeof(data) != 'undefined' )  ){
@@ -117,24 +142,30 @@ function buildHTML( title, data, id, colWidth ){
 }
 
 function drawDiseaseContent( varID, locID ){
+	 
+	 disease = varID;
+	 name = varID;
 
-	disease = varID;
-
-    	drawMap( varID, 'disease-map', locID );	
 
 	$.getJSON( api_root + '/variable/' + varID, function( data ){
-
-		$('#diseaseTitle').text( i18n.gettext(data.name));
-
-		buildHTML( i18n.gettext('Classification'), i18n.gettext(data.classification_casedef), 'classification', 4 ); 
+	
+		$('#diseaseTitle').text(i18n.gettext(data.name));
+	        name = i18n.gettext(data.name);
+                reDrawMap(locID);
+                drawDiseaseTable( varID, locID );
+		buildHTML( i18n.gettext('Classification'), i18n.gettext(data.classification_casedef), 'classification', 4 );
+		
 		buildHTML( i18n.gettext('Source'), i18n.gettext(data.source), 'source', 4 );
+		
 		buildHTML( i18n.gettext('Alerts'), i18n.gettext(data.alert_desc), 'diseaseAlerts', 4 );
 		buildHTML( i18n.gettext('Case Definition'), i18n.gettext(data.case_def), 'caseDefinition' );
 		buildHTML( i18n.gettext('Risk Factor(s)'), i18n.gettext(data.risk_factors), 'riskFactors' );
 		buildHTML( i18n.gettext('Sign(s)/Symptom(s)'), i18n.gettext(data.symptoms), 'signsSymptoms' );
-		buildHTML( i18n.gettext('Labs/Diagnostics'), i18n.gettext(data.labs_diagnostics), 'signsSymptoms' );
-		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
-		drawDiseaseTable( varID, locID );
+		buildHTML( i18n.gettext('Labs/Diagnostics'), i18n.gettext(data.labs_diagnostics), 'labsDiagnostics' );
+
+
+
+		
 	});
 
 }
@@ -143,24 +174,21 @@ function drawDiseaseTable( varID, locID ){
 
 	$.getJSON( api_root + '/variable/' + varID, function( data ){
 
-		console.log( data )
 		//If the variable being called is a ICD10 "Chapter" show a table of sub diseases. 
 		if( data.id.indexOf('icc_') > -1 || data.id.indexOf('icb_') > -1){
-
-			$.getJSON( api_root+"/aggregate_category/" + data.name + "/" + locID, function( subdiseases ){
-				$.getJSON( api_root+"/variables/" + data.name, function( variables ){
-                                       
-					console.log( Object.keys(subdiseases).length );
-                                     
-                                        var title = data.name.charAt(0).toUpperCase() + data.name.slice(1);
-                                        if( Object.keys(subdiseases).length > 0){
-                   				var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), "ICD10 Sub-diseases" );
-          		 			dataObject = stripEmptyRecords( dataObject );
-
-                                                drawTable( 'disease-table', dataObject, true, 'loadDisease' );
-                                        }
-				});
+		    $.getJSON( api_root+"/aggregate_category/" + data.name + "/" + locID, function( subdiseases ){
+			$.getJSON( api_root+"/variables/" + data.name, function( variables ){
+			    console.log( Object.keys(subdiseases).length );
+                            
+                            var title = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+                            if( Object.keys(subdiseases).length > 0){
+                   		var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), "ICD10 Sub-diseases" );
+          		 	dataObject = stripEmptyRecords( dataObject );
+				
+                                drawTable( 'disease-table', dataObject, true, 'loadDisease' );
+                            }
 			});
+		    });
 		}
 	});
 }
@@ -168,17 +196,39 @@ function drawDiseaseTable( varID, locID ){
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
 	//Keep week abstracted out of the chart drawing process.
-	//In case we want the use to eb able to select the weeks to view.
+	 //In case we want the use to eb able to select the weeks to view.
+	 $('#type-selector').change( function(){
+		 reDrawMap(locID);
+	 });
 	var week = (get_epi_week()-1).toString();
-        drawTimeChart( disease, locID, 'time-chart' )
-        
-        if(map){
-            map.remove();
-            drawMap( disease, 'disease-map', locID );
-        }
+     drawTimeChart( disease, locID, 'time-chart' );
+	 if(name != disease){
+		 reDrawMap(locID);
+		 }
 	drawDiseaseTable( disease, locID );
 
 }
 
+ function reDrawMap(locID){
+	 if(map){
+         map.remove();
+	 }
+	 var map_type = $('#type-selector select').val();
+	 if( map_type == "incidence_clinic") {
+	     drawIncidenceMap( name,  disease, "disease-map" );
+	 }else if( map_type == "incidence_district") {
+	     drawIncidenceChoroplet(name, disease, "disease-map", "district");
+	 }else if( map_type == "incidence_region") {
+	     drawIncidenceChoroplet(name, disease, "disease-map", "region");
+	 }else if(map_type == "cases_clinic"){
+		 drawMap(disease, "disease-map", locID)
+	 }else if( map_type == "cases_region") {
+	     drawCasesChoroplet(name, disease, "disease-map", "region");
+	 }
+	 else if( map_type == "cases_district") {
+	     drawCasesChoroplet(name, disease, "disease-map", "district");
+	 }
+
+ }
 
 </script>

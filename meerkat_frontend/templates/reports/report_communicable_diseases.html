@@ -22,7 +22,7 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Highlights') }}</div>
       <div class="chart-stage">
-          <p> {{ _('Information reported in this communicable diseases report represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
+          <p> {{ _('Information reported in this communicable diseases report represents alerts reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
 
       </div>
     </div>
@@ -45,7 +45,7 @@
         {% if conf_cases == 0 %}
         {% set conf_cases = "no" %}
         {% endif %}
-        <p>{{ gettext('There were %(conf_cases)s new confirmed cases and %(susp_cases)s new suspected cases of %(disease)s between %(start_date)s and %(end_date)s.', conf_cases=conf_cases, susp_cases=susp_cases, disease=_(cd[0]|e), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
+        <p>{{ gettext('There were %(conf_cases)s new confirmed alerts and %(susp_cases)s new suspected alerts of %(disease)s between %(start_date)s and %(end_date)s.', conf_cases=conf_cases, susp_cases=susp_cases, disease=_(cd[0]|e), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
       </div>
     </div>
   </div>
@@ -81,18 +81,17 @@
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
-$(function() {
+ i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
   {% for k, v in report.data.communicable_diseases|dictsort %}
   // {{ k }}
   $('#chart-{{ k|slugify }}').highcharts(
     communicableDiseasesBarChart(
       {{ v.weeks|safe }},
       [{{ v.confirmed }}, {{ v.suspected }}],
-      { yAxis: { text: '{{ _("Cases") }}' }, xAxis: {text: '{{ _("Epi Week") }}'} }
+      { yAxis: { text: '{{ _("Alerts") }}' }, xAxis: {text: '{{ _("Epi Week") }}'} }
     )
   );
   {% endfor %}
-});
 </script>
 {% endblock extra_js %}
 

@@ -39,6 +39,12 @@
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
 	});
 	loadLocationTree( {{page | safe}} );
+ 
+        //Respond to the user pressing forward or back by loading the correct page content.
+        window.onpopstate = function(event) {
+            loadPage( event.state, false );
+         };
+
 
 </script>
 

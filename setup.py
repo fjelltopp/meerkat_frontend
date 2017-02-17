@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
+import uuid
 from setuptools import setup
+from pip.req import parse_requirements
+
+# parse_requirements() returns generator of pip.req.InstallRequirement objects
+install_reqs = parse_requirements("requirements.txt", session=uuid.uuid1())
+
+# reqs is a list of requirement
+# e.g. ['django==1.5.1', 'mezzanine==1.4.6']
+reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
     name='Meerkat Frontend',
@@ -8,19 +17,6 @@ setup(
     packages=['meerkat_frontend'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-        'Flask>=0.10.1',
-        'itsdangerous>=0.24',
-        'Jinja2>=2.8',
-        'MarkupSafe>=0.23',
-        'python-dateutil>=2.4.2',
-        'requests>=2.8.1',
-        'Werkzeug>=0.10.4',
-        'python-slugify>=1.1.4',
-        'pdfcrowd3>=2.7',
-        'flask-babel>=0.10',
-        'babel>=2.3.4',
-        'PyJWT>=1.4.1'
-    ],
+    install_requires=reqs,
     test_suite='meerkat_frontend.test'
 )

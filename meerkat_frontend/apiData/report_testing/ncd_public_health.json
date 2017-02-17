@@ -1,0 +1,4636 @@
+{
+    "data": {
+        "clinic_num": 341,
+        "demographics": [
+            {
+                "age": "0-9",
+                "female": {
+                    "percent": 58.82352941176471,
+                    "quantity": 10
+                },
+                "male": {
+                    "percent": 41.17647058823529,
+                    "quantity": 7
+                },
+                "percent": 0.38,
+                "quantity": 17
+            },
+            {
+                "age": "10-19",
+                "female": {
+                    "percent": 41.46341463414634,
+                    "quantity": 17
+                },
+                "male": {
+                    "percent": 58.536585365853654,
+                    "quantity": 24
+                },
+                "percent": 0.92,
+                "quantity": 41
+            },
+            {
+                "age": "20-29",
+                "female": {
+                    "percent": 44.89795918367347,
+                    "quantity": 22
+                },
+                "male": {
+                    "percent": 55.10204081632652,
+                    "quantity": 27
+                },
+                "percent": 1.11,
+                "quantity": 49
+            },
+            {
+                "age": "30-39",
+                "female": {
+                    "percent": 57.377049180327866,
+                    "quantity": 140
+                },
+                "male": {
+                    "percent": 42.62295081967213,
+                    "quantity": 104
+                },
+                "percent": 5.5,
+                "quantity": 244
+            },
+            {
+                "age": "40-49",
+                "female": {
+                    "percent": 59.289940828402365,
+                    "quantity": 501
+                },
+                "male": {
+                    "percent": 40.710059171597635,
+                    "quantity": 344
+                },
+                "percent": 19.06,
+                "quantity": 845
+            },
+            {
+                "age": "50-59",
+                "female": {
+                    "percent": 60.280029476787035,
+                    "quantity": 818
+                },
+                "male": {
+                    "percent": 39.71997052321297,
+                    "quantity": 539
+                },
+                "percent": 30.6,
+                "quantity": 1357
+            },
+            {
+                "age": "60-69",
+                "female": {
+                    "percent": 59.103641456582636,
+                    "quantity": 633
+                },
+                "male": {
+                    "percent": 40.896358543417364,
+                    "quantity": 438
+                },
+                "percent": 24.15,
+                "quantity": 1071
+            },
+            {
+                "age": "70-79",
+                "female": {
+                    "percent": 54.337152209492636,
+                    "quantity": 332
+                },
+                "male": {
+                    "percent": 45.662847790507364,
+                    "quantity": 279
+                },
+                "percent": 13.78,
+                "quantity": 611
+            },
+            {
+                "age": ">80",
+                "female": {
+                    "percent": 54.2713567839196,
+                    "quantity": 108
+                },
+                "male": {
+                    "percent": 45.7286432160804,
+                    "quantity": 91
+                },
+                "percent": 4.49,
+                "quantity": 199
+            }
+        ],
+        "end_date": "1990-07-01T00:00:00",
+        "epi_week_num": 26,
+        "gender": [
+            {
+                "percent": 58.209291835814156,
+                "quantity": 2581,
+                "title": "Female"
+            },
+            {
+                "percent": 41.79070816418584,
+                "quantity": 1853,
+                "title": "Male"
+            }
+        ],
+        "global_clinic_num": 341,
+        "map": {
+            "features": [
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.26502,
+                            32.12035
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Dleil"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.08678,
+                            32.05347
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Wadi Al-Hajar"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.01907,
+                            32.02944
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hai Al-Rasheed"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.96006,
+                            32.09415
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Bereen"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.004395,
+                            32.008789
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jabal Al-Amir Faisal"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.08259,
+                            32.06381
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Shbeeb"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.0971,
+                            32.07313
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hai Al-Ameer Abdullah - fin"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.09962,
+                            32.03845
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jabal Tareq"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.090027,
+                            32.074829
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hai Al-Ameer Mohammad"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.71906,
+                            32.04462
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Isskan Al-Amir Talal"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.06986,
+                            32.13062
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Sukhna"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.04528333,
+                            32.13488333
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Abu-Al-Zeighan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.06969,
+                            32.06612
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Zawahreh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.04346,
+                            32.0235
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Rousifeh Al-Shamali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.30734,
+                            32.18458
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Khalidiah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.07878,
+                            32.32669
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Bal'ama"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.17484,
+                            32.4104
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mansourah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.217136,
+                            32.347857
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mafraq Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.24006,
+                            32.46932
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sama Al-Sarhaan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.292945,
+                            32.132715
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Rihab"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.29823,
+                            32.31165
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Za'tari"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.10983,
+                            32.19391
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Khaled Bin Al-Walid"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.34325,
+                            32.36997
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ba'ej"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.22916,
+                            32.31776
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Gynecoloy & Obstetrics and Children Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.45576389,
+                            32.26654861
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Badiah Al-Shamali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.62263083,
+                            32.31615444
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Um Al-Qutein"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.83933833,
+                            32.26848389
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Deir Al-kahf"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            37.12284528,
+                            32.19076972
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Safawi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.00021,
+                            32.55962
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ramtha Al-Gharbi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.98833,
+                            32.63622
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Turra Al-Janoubi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.89548333,
+                            32.5112
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Sareeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.84885,
+                            32.54181667
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Dahiyat Al-Hussein"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.6835,
+                            32.50265
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Deir Abi Se'eid"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.01352,
+                            32.55444
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ramtha Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.86,
+                            32.59765
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Bait Ra'ass"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.75096,
+                            32.6718
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Malka"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.83476667,
+                            32.52861667
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Rahmah Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.873,
+                            32.56133333
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Razi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.94439,
+                            32.64795
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Shajrah Al-Shamali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.8531,
+                            32.58943333
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Tatweer Al-Hadari"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.90556667,
+                            32.41326667
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Na'imeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.73273333,
+                            32.51755
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Samou'e"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.99289,
+                            32.64626
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Turra Al-Shamali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.00635,
+                            32.55954
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ramtha Main"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.09305,
+                            32.0883
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Zarka Al-Jadidah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.04687,
+                            31.25806
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Qatranah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.64551,
+                            30.84137
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Eiss"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.61186,
+                            30.73182
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Bassirah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.928406,
+                            31.972229
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Nuzha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.91304,
+                            31.94839
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Amira Basma"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.97411537,
+                            31.97364224
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Marka Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.95465,
+                            31.96934
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hashimi Al-Shamali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.67615,
+                            32.42735
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Kufor Awan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.83804,
+                            32.6395
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Yarmouk Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.96761,
+                            32.63849
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sahel Houran"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.79078,
+                            30.59696
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Husseiniya"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.738533,
+                            30.199584
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Soumow Al-Amira Rahma Bent Al-Hasan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.17425,
+                            30.31657
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Jafer"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.541725,
+                            30.519103
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Shobak"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.59568,
+                            30.78942
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ein Al-Baidah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.58316,
+                            30.82042
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Arweem"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.61631,
+                            30.84606
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mansourah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.61483,
+                            30.93832
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Arhab"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.589233,
+                            32.393799
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Wadi Al-Rayyan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.78647,
+                            32.67733
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Samar"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.87516,
+                            32.62573
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hriema"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.88331667,
+                            32.59143333
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hakma"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.8364,
+                            32.64
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sama Al-Rousan Al-Awali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.7108,
+                            32.03982
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Bqei'e"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72597,
+                            32.10455
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Zay"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.90160514,
+                            32.0471309
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "National Addiction Center"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.84131972,
+                            32.09072665
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Prince Hussein Bin Abdullah Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.771,
+                            32.00036
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Fuheiss"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.691589,
+                            31.984802
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Yarqa"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.66383959,
+                            31.83133366
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Rawdah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.94026,
+                            32.38894
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Balila"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.83307,
+                            32.27842
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Razi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.87027,
+                            32.13739
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Mreisse'e"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.218811,
+                            30.224792
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Reesha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.45759972,
+                            32.36305528
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Kom Al-Raf"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.598265,
+                            32.327164
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Khasha' Al-Sleiteen"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.77770915,
+                            31.71650445
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al Nadeem Governmental Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.915222,
+                            31.931824
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Thira'a"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.9472,
+                            31.95077
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jabal Al-Jofeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.05719,
+                            32.477234
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Bweidah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.937805,
+                            32.683228
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Amrawa"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.01585,
+                            32.56678
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ramtha Public Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.65212667,
+                            32.29044611
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mkeifteh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.20629,
+                            32.34954
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hai Al-Hussein"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.734836,
+                            32.035438
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al Hussein Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.61997,
+                            31.90019
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al Shouneh Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.70758,
+                            32.14619
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Sbeihi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.76692,
+                            31.99681
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Mahess"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.61738826,
+                            32.16426544
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ma'adi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.77302,
+                            32.07886
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Wadi El-Hoor"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.78228,
+                            32.65987
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Abdar"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.83921667,
+                            32.55878333
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Princess Basma Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.67712,
+                            32.67512
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mkheibeah Al-Tahta"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.58944,
+                            32.4057
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Abi Obidah Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.90981667,
+                            31.9741
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Amman Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.9292,
+                            31.87043
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Khreibat Al-Souq"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.94304,
+                            31.93764
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Basheer Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.7669,
+                            32.33443
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ein Jana"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.7504,
+                            32.32792
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ajloun"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.73548,
+                            32.23316
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Safa Al-Jadeed (Al-Jabal Al-Akhdar)"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.81498333,
+                            32.35801667
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Abeen"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.69494,
+                            32.23701
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Rajeb"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.8397009,
+                            32.37905364
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sakhra"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.68818,
+                            32.38505
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Awsarah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72965598,
+                            32.3003051
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ein Albostan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.6154086,
+                            32.1524935
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Princess Iman Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.771,
+                            32.00036
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Fuhais Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.622986,
+                            32.190002
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Deir Alla"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.733643,
+                            32.035583
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Salalem"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.61378,
+                            30.83442
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Tafilah Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.63547,
+                            30.65327
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Qadissiah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.86326,
+                            30.68966
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Jarf"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.881836,
+                            32.052795
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Eskan Abu-Nsseir Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.82701,
+                            31.95508
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Wadi El-Seer"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.08927,
+                            32.07158
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Zarqa Governmental Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.06976,
+                            32.04976
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Prince Hamza Quarter"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.04604,
+                            32.03307
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Prince Faisal Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.81617,
+                            31.85132
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Azraq Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.01484,
+                            29.526
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Khazzan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.069,
+                            29.591
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Shameya"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.30399,
+                            29.79084
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Qweirah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.00261,
+                            29.55687
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Amira Basma"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.5828,
+                            32.31108
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Abu Seedo"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.83189,
+                            32.66879
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hibrass"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.60206,
+                            32.58532
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Manshiah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.60763,
+                            32.61231
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Mua\u2019ath Ben Jabal Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.4525,
+                            30.27094
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Queen Rania Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72828,
+                            30.19188
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ma'an Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.55053,
+                            30.28327
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Roudet Al-Amir Al-Rasheed"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.9978,
+                            31.85389
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jamil Totanji Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.9567,
+                            31.70293333
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Jeeza"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.79209468,
+                            31.50685761
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Princess Salma Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.92668,
+                            31.95516
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Weibdeh Al-Sharqi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.075012,
+                            32.036438
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Awajan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.01797,
+                            32.01361
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Msheirfeh Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.84762,
+                            32.69076
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hartha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.81955,
+                            32.68845
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Yabla"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.80001,
+                            32.68479
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Koufor Soum"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.13067,
+                            32.1323
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Isskan Al-Hashimieh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.84222,
+                            31.89901
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Marj Al-Hamam"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.96715,
+                            31.95226
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Nasser - Lost"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.938001,
+                            31.984036
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Prince Hamza Hospital SARI Sentinel Site"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.96715,
+                            31.95226
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Nasser"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.81495056,
+                            32.15608861
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Beshrieh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.6209475,
+                            32.21715833
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ashrafiah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.36281861,
+                            32.33306417
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Um Al-Jmal"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.76963,
+                            31.40703
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Talal"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.487183,
+                            31.042419
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ghoor Al-Safi Hospital(to be replaced)"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.70455,
+                            31.18734
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Karak"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.75399,
+                            32.32117
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al Iman Al Hokomi Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.70798,
+                            32.30102
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Amir Hasan (Kufranjah)"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.7561,
+                            32.30759
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Anjara"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.78553,
+                            32.35854
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Eshtafina"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.71682,
+                            32.266
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ameer Hashem"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72437,
+                            31.14693
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Karak Governmental Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.938001,
+                            31.984036
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Prince Hamza Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.927466,
+                            31.93414
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Marrekh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.03,
+                            29.564
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hai Al-Karamah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.50252,
+                            29.65702
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Deesah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.30399,
+                            29.79084
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Qreiqrah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.141785,
+                            29.914612
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Rahma"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.83302,
+                            32.05801
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ain Al-Basha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.59664,
+                            30.87624
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ayma"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.56844,
+                            30.8411
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sanfahah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.98119,
+                            30.82662
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hassa"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.4874399,
+                            31.0416487
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Princess Salha(Ghor Al-Safi)"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.64221,
+                            31.13168
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ay"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.6912,
+                            31.06583
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mazar Al-Janoubi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72963,
+                            30.19698
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ma'an"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.578159,
+                            31.95280343
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Karamah Al-Awali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.82102,
+                            32.23316
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Jazazah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.8724,
+                            32.29769
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Deir Al-Liyat"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.87952,
+                            32.18711
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jabbah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.85414,
+                            32.18369
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mastaba"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.71248333,
+                            32.5438
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Taibeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.83804,
+                            32.6395
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jamia'at Al-Yarmouk"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.69206667,
+                            32.50256667
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Raya Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.22712,
+                            32.26948
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Tharghrat Al-Jib"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.02265,
+                            32.3467
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Dejnieh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.75553472,
+                            32.25989722
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Rafa'yat"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.50120361,
+                            32.32249139
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sabha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.75759,
+                            32.40096
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Rasoun"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.65243,
+                            32.32412
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Wahadneh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.79478,
+                            32.40152
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "San'ar"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.6582,
+                            32.36436
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hashimiah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.97544,
+                            32.30716
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Nadrah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.05357,
+                            32.43467
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Harsh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.13311,
+                            32.1632
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mazrah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.08472,
+                            32.42312
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Fa'a"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.10262,
+                            32.45182
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hosha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.77142,
+                            32.7003
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sahem"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.77828,
+                            32.6462
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Hatem"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72103,
+                            32.64822
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mansourah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.58057,
+                            32.49348
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ma'abar Wadi Alordon"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.58994,
+                            32.51697
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Sheikh Hussein"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.056641,
+                            32.268433
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ein Bani Hasan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.43089306,
+                            32.30656944
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Amra wa Ameira"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.00154,
+                            31.87189
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sahab"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.95147,
+                            31.925
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Qweismeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.89058,
+                            32.66312
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Kharja"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.6835,
+                            32.50265
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Deir Abi Se'eid"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.46666,
+                            30.25252
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Taibeh Al-Janoubieh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.48472,
+                            30.32206
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Petra (Wadi Mousa)"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.83792,
+                            32.01711
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sweileh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.8268,
+                            31.87863
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Na'our"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.19833,
+                            32.34491
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al Mafraq Governmental Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.3127,
+                            32.42528
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Um Al-Sarb"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.28604,
+                            32.16089
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mabroukah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.5199123,
+                            31.2607465
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ghor Al-Mazra'a"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.73859631,
+                            31.26393921
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Rabba"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.5333259,
+                            31.2869075
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ghor Al-Haditha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.70304,
+                            31.182061
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Fouqou'e"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.56353167,
+                            32.31065306
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Dafyaneh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.20428,
+                            32.3311
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hai Al-Janoubi"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.90437,
+                            32.27698
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Qadissiah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.93809,
+                            32.34864
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Qafqafa"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.79274,
+                            32.21938
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Barma"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.85949,
+                            32.30339
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Souf"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.80675,
+                            32.72541
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Aqraba"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.835,
+                            32.5294
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Badee\u2019ah Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.60226,
+                            32.53357
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Waqass"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.76388044,
+                            31.60515894
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Lub"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.78095412,
+                            31.499237
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Theeban Al-Shamel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.79781911,
+                            31.71521676
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Madaba Al-Sharqy"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.51633,
+                            30.08627
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mreigha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.70203,
+                            32.29483
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Istiqlal"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.65627186,
+                            31.55033275
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Areed"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.79397096,
+                            31.74761045
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Shamal Madaba"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.01585,
+                            32.56678
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Thuneibeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.59878,
+                            32.44234
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mashare'e"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.61378,
+                            30.83442
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Tafilah Al-Shamel - fin"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.65985,
+                            32.38237
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Halawa"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72727,
+                            32.38363
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ba'aoun"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.73354,
+                            32.39601
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Arajan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.10008,
+                            31.81469
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Muagar"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.86419,
+                            31.64985
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Natel"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.37377778,
+                            32.29340028
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Rawdat Al-Amira Basma"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.12715,
+                            32.35297
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Um Al-Nia'am  Al awali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.4012075,
+                            32.36369944
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Kom Al-Ahmar"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.298218,
+                            32.311584
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Za'tari"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.00642,
+                            29.52186
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Baldah Al-Qadeemah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.01087102,
+                            29.53548718
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Aqaba"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.42357,
+                            29.57625
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Rum"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.08927,
+                            32.07158
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Zarqa Hospital SARI Sentinel Site"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.993746,
+                            32.499405
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "King Abdullah Moa'asses SARI Sentinel Site"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72437,
+                            31.14693
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Karak Governmental Hospital SARI Sentinel Site"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.78108854,
+                            31.7850621
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Areesh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.79067518,
+                            31.71619403
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Madaba Al-Gharby"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.792875,
+                            31.622734
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Dalilah Al-Hamaideh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.78646057,
+                            31.71107422
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Mukhayam Madaba"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.80693033,
+                            31.58438108
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Maleeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.69174,
+                            32.65258
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Um-Qais"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.051092,
+                            32.013915
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Amyra"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.82949,
+                            32.27516
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Nahla"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.85521,
+                            32.26153
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hadadah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.89728,
+                            32.28388
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jarash Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.97237,
+                            32.36975
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Msheirfeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.19536,
+                            32.50942
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jaber Al-Sarhaan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.15276,
+                            32.43715
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hamra'a"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.08172,
+                            32.3694
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Manshiat Bani Hasan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.1794,
+                            32.31114
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Aydoun Bani Hasan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.21617,
+                            32.34757
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mafraq"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.62156419,
+                            32.22189948
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Khazma"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.80862938,
+                            31.88290919
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Karamah Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.28561,
+                            32.37835
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Zbeidiah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.80426667,
+                            32.4848
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Farouq"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.61328,
+                            30.83474
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Tafilah Al-Awali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.60591,
+                            30.83801
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Wad Zaid"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.65358,
+                            30.71173
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ghrandal"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.68506,
+                            30.8752
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Abu Banna"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.195801,
+                            32.459595
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Mghayar Al-Sarhaan"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.68199,
+                            32.70492
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hemmeh Al-Ordounieh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.80737,
+                            32.27982
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sakeb"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.930766,
+                            32.2166458
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Kfeir"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.895203,
+                            32.286194
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Jarash"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.88265,
+                            32.35763
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Kufur Khal"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.487183,
+                            31.042419
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ghoor Al-Safi Hospital"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.451263,
+                            30.937862
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Fifa"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            38.674385,
+                            33.310305
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ar-Rukban"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            37.820726,
+                            32.856787
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hadalat"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            38.192798,
+                            32.505186
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Ruwayshid Camp"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.564636,
+                            30.55603
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Mqar'eieh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.54004,
+                            30.20483
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Eil"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.60559,
+                            30.37622
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Isteklal"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.57379,
+                            30.5224
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Muthalath Al-Shobak"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.50983,
+                            30.1886
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Farthakh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.60162,
+                            30.32739
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Athruh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.525024,
+                            30.450806
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Abdaliah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.41083,
+                            30.13043
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Dalagha"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.739197,
+                            31.189209
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Manshiat Abu Hammour"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.76141,
+                            31.20001
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Adar"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.44562,
+                            30.19159
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Rajef"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.71204,
+                            31.17743
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Marj"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.60541,
+                            31.05139
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Taibeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.721802,
+                            31.102783
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Mrawed"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.80823,
+                            31.25324
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Jadidah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.704834,
+                            31.291382
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Damnah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.705994,
+                            31.229797
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Rakeen"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.64264,
+                            31.09222
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Iraq"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.738403,
+                            31.316223
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Qsser"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.64581,
+                            31.1604
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Joza"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.723633,
+                            31.297791
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Yarout"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72864,
+                            31.03101
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Mu'aab"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.77301,
+                            30.991821
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "That Ra'ass"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.630615,
+                            31.133789
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Kuthraba"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.69379,
+                            31.08899
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Mou'ta"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.694397,
+                            31.121399
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Adnaniah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.65979,
+                            31.333801
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Sarfa"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.677612,
+                            31.028809
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Majra"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.859802,
+                            30.985229
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Muhee'"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.753784,
+                            31.140991
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ghweir"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.68103,
+                            31.348022
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Emre'e"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.797424,
+                            31.307983
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Samakiah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.661621,
+                            31.206787
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Wadi Al-Karak"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.728394,
+                            31.05719
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Soul"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.72699,
+                            31.164429
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Thnayah"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.721436,
+                            31.026428
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Husseiniya"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.752625,
+                            31.383789
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Jada'a"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.699219,
+                            31.144836
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Hewaya"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.687012,
+                            31.182007
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Shahaibeh"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.700195,
+                            31.264038
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Bteir"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            36.008606,
+                            32.56842
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Ramtha Al-Shamali"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.62323,
+                            32.212585
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Dirar Ibn Al-Azwar"
+                    },
+                    "type": "Feature"
+                },
+                {
+                    "geometry": {
+                        "coordinates": [
+                            35.792236,
+                            32.052612
+                        ],
+                        "type": "Point"
+                    },
+                    "properties": {
+                        "name": "Al-Sarou"
+                    },
+                    "type": "Feature"
+                }
+            ],
+            "type": "FeatureCollection"
+        },
+        "morbidity_non_communicable_icd": [
+            {
+                "percent": 55.342651036970246,
+                "quantity": 2455.0,
+                "title": "Hypertensive diseases"
+            },
+            {
+                "percent": 39.85572587917042,
+                "quantity": 1768.0,
+                "title": "Diabetes mellitus"
+            },
+            {
+                "percent": 4.711451758340847,
+                "quantity": 209.0,
+                "title": "Chronic lower respiratory diseases"
+            },
+            {
+                "percent": 0.045085662759242556,
+                "quantity": 2.0,
+                "title": "Inflammatory diseases of the central nervous system"
+            },
+            {
+                "percent": 0.045085662759242556,
+                "quantity": 2.0,
+                "title": "Renal failure"
+            }
+        ],
+        "morbidity_non_communicable_ncd_tab": [
+            {
+                "percent": 55.367613892647725,
+                "quantity": 2455.0,
+                "title": "Hypertension"
+            },
+            {
+                "percent": 39.87370320252593,
+                "quantity": 1768.0,
+                "title": "Diabetes mellitus"
+            },
+            {
+                "percent": 4.668470906630582,
+                "quantity": 207.0,
+                "title": "Asthma"
+            },
+            {
+                "percent": 0.04510599909788002,
+                "quantity": 2.0,
+                "title": "Chronic Obstructive Pulmonary Disease (COPD)"
+            },
+            {
+                "percent": 0.04510599909788002,
+                "quantity": 2.0,
+                "title": "Other NCD"
+            }
+        ],
+        "nationality": [
+            {
+                "percent": 98.84979702300406,
+                "quantity": 4383,
+                "title": "Jordan"
+            },
+            {
+                "percent": 0.8119079837618403,
+                "quantity": 36,
+                "title": "Syria"
+            },
+            {
+                "percent": 0.11276499774470004,
+                "quantity": 5,
+                "title": "Egypt"
+            },
+            {
+                "percent": 0.11276499774470004,
+                "quantity": 5,
+                "title": "Palestine"
+            },
+            {
+                "percent": 0.06765899864682003,
+                "quantity": 3,
+                "title": "Other Nationality"
+            },
+            {
+                "percent": 0.04510599909788002,
+                "quantity": 2,
+                "title": "Iraq"
+            }
+        ],
+        "patient_status": [
+            {
+                "percent": 98.84979702300406,
+                "quantity": 4383,
+                "title": "Jordanian"
+            },
+            {
+                "percent": 0.9472259810554804,
+                "quantity": 42,
+                "title": "Refugee"
+            },
+            {
+                "percent": 0.20297699594046006,
+                "quantity": 9,
+                "title": "Other"
+            }
+        ],
+        "percent_cases_female": 58.209291835814156,
+        "percent_cases_lt_5yo": 0.20297699594046006,
+        "percent_cases_male": 41.79070816418584,
+        "project_epoch": "2015-05-20T00:00:00",
+        "project_region": "Jordan",
+        "public_health_indicators": [
+            {
+                "percent": 100,
+                "quantity": 4434.0,
+                "title": "Cases Reported"
+            },
+            {
+                "percent": 22.46278755074425,
+                "quantity": 996.0,
+                "title": "Patient have smoking status recorded"
+            },
+            {
+                "percent": 30.706363105662582,
+                "quantity": 526.0,
+                "title": "Diabetes mellitus patients have HbA1C recorded"
+            },
+            {
+                "percent": 85.630004214075,
+                "quantity": 2032.0,
+                "title": "Hypertension patients have BP recorded"
+            },
+            {
+                "percent": 97.74837511606313,
+                "quantity": 4211,
+                "title": "Availability of prescribed medicines"
+            }
+        ],
+        "reporting_sites": [
+            {
+                "percent": 8.976093820478123,
+                "quantity": 398.0,
+                "title": "Ajloun"
+            },
+            {
+                "percent": 7.825890843482183,
+                "quantity": 347.0,
+                "title": "Amman"
+            },
+            {
+                "percent": 1.8944519621109608,
+                "quantity": 84.0,
+                "title": "Aqaba"
+            },
+            {
+                "percent": 7.510148849797023,
+                "quantity": 333.0,
+                "title": "Balqa"
+            },
+            {
+                "percent": 7.938655841226883,
+                "quantity": 352.0,
+                "title": "Irbid"
+            },
+            {
+                "percent": 3.0672079386558413,
+                "quantity": 136.0,
+                "title": "Jarash"
+            },
+            {
+                "percent": 17.81686964366261,
+                "quantity": 790.0,
+                "title": "Karak"
+            },
+            {
+                "percent": 6.314839873703202,
+                "quantity": 280.0,
+                "title": "Ma'an"
+            },
+            {
+                "percent": 3.2025259359494815,
+                "quantity": 142.0,
+                "title": "Madaba"
+            },
+            {
+                "percent": 5.886332882273342,
+                "quantity": 261.0,
+                "title": "Mafraq"
+            },
+            {
+                "percent": 2.9769959404600814,
+                "quantity": 132.0,
+                "title": "Petra"
+            },
+            {
+                "percent": 6.788452864230942,
+                "quantity": 301.0,
+                "title": "Ramtha"
+            },
+            {
+                "percent": 6.585475868290483,
+                "quantity": 292.0,
+                "title": "Tafeileh"
+            },
+            {
+                "percent": 13.216057735678847,
+                "quantity": 586.0,
+                "title": "Zarqa"
+            }
+        ],
+        "start_date": "1990-06-01T00:00:00",
+        "total_cases": 4434
+    },
+    "meta": {
+        "generation_timestamp": "1990-07-01T00:00:00",
+        "project_id": 1,
+        "schema_version": 0.1,
+        "uuid": "blah"
+    }
+}

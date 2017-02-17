@@ -228,9 +228,15 @@ function drawPieCharts( containerID, data, percent ){
     :param string containerID:
         The ID of the HTML element to hold the chart.
  */
-function drawTimeChart( varID, locID, containerID ){
+function drawTimeChart( varID, locID, containerID, alert_week, year){
 
-  $.getJSON( api_root + '/aggregate_year/' + varID + '/'+locID, function(data){
+	url = api_root + '/aggregate_year/' + varID + '/'+locID;
+	if (year !== undefined) {
+		url += "/" + year;
+	}
+	
+	
+  $.getJSON( url, function(data){
 
       console.log('DRAW TIME CHART');
       console.log('Time series data for diseases:');
@@ -258,6 +264,35 @@ function drawTimeChart( varID, locID, containerID ){
       plotWidth = $('#'+containerID).parent().width();
     }
 
+	  var series = [];
+	  if (alert_week){
+		  var alert_values = [];
+		  for( var j = 1; j <= 52; j++ ){
+
+			  if( j == alert_week  ){
+				  alert_values.push( data.weeks[j] );
+			  }else{
+				  alert_values.push( 0 );
+			  }
+
+		  }
+		  values[alert_week - 1 ] = 0;
+		  series = [{
+			  name: 'Year',
+			  data:  values,
+			  grouping: false
+		  },{
+			  name: 'Alert',
+			  data: alert_values,
+			  grouping: false
+		  }];
+	  } else{
+		  series = [{
+			  name: 'Year',
+			  data:  values
+		  }];
+
+	  }
 
     $('#'+containerID).highcharts({
     chart: {
@@ -283,10 +318,7 @@ function drawTimeChart( varID, locID, containerID ){
         overflow: 'justify'
       }
     },      
-    series: [{
-      name: 'Year',
-      data:  values
-    }],
+    series: series
     });
 
     //Get rid of the highcharts logo.
@@ -295,145 +327,165 @@ function drawTimeChart( varID, locID, containerID ){
 
 }
 
-/**:drawCompletenessGraph( containerID, locID )
+/**:drawCompletenessGraph( containerID, regionID, locations, data, start_week, graphtypeID, compare_locations)
 
-   Draws a timeline line chart showing the percentage of overall completeness and completeness for each clinic in each epi week this current year.
+   Draws a timeline line chart showing the percentage of overall completeness/timeliness and completeness/timeliness for each clinic in each epi week this current year.
    :param string containerID:
    The ID of the HTML element to hold the chart.
-   :param string locID:
+   :param string regionID:
    The ID of the location by which to filter the data.
+   :param string denomintor:
+   number of expected reporting days in a week
    :param Object locations:
    List of all locations from API.
    :param Object data:
    Completeness data from API.
+   :param int graphtypeID:
+   Type of a graph to be ploted. `0` for completeness, `1` for timeliness
+   :param int compare_locations
+   Show lines to compare locations for completeness graph
 */
 
-function drawCompletenessGraph( containerID, regionID, locations, data, start_week ){
+function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID, compare_locations){
 
-            //create a data series for each location
-            var dataPrepared = [];
-            var timeseries = [];
-            var scoreKeys = Object.keys(data.timeline);
-            var index = 0;
-            for (var i=0; i<scoreKeys.length;i++){
-                index = scoreKeys[scoreKeys.length - i -1];
-                tl = data.timeline[index];
-                var dt = [];
-                var dtReady = [];
-                var noWeeks = tl.weeks.length;
-                var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
-	
-                //dropping the very last week in the data since we can only estimate it's completeness
-                for (var j = 0; j < noWeeks; j++){
-					if( start_week ){
-						if(weeks[noWeeks - j] > start_week){
-							dt = [weeks[noWeeks - j],Number(Number(25 * (tl.values[j])).toFixed(0))];
-							dtReady.push(dt);
-						}
-					}else{
-						dt = [weeks[noWeeks - j],Number(Number(25 * (tl.values[j])).toFixed(0))];
-						dtReady.push(dt);
-					}
-                }
-				var datum = {
-                    name: locations[index].name,
-                    data: dtReady,
-                    color: 'lightgrey'
-                };
+    var comparevalue = $(compare_locations).attr("value");
 
-                if(locations[index].id === regionID){ //parent location
-                    datum.color= '#0090CA';
-                    datum.lineWidth='5';
+    var stringGraphType = 'data';
+    var multiplier = 100 / denominator;
+    if(graphtypeID === 0){
+        stringGraphType = 'Completeness';
+    }else if(graphtypeID ===1){
+        stringGraphType = 'Timeliness';
+    }
+
+    //create a data series for each location
+    var dataPrepared = [];
+    var timeseries = [];
+    var scoreKeys = Object.keys(data.timeline);
+    var index = 0;
+    for (var i=0; i<scoreKeys.length;i++){
+        index = scoreKeys[scoreKeys.length - i -1];
+        tl = data.timeline[index];
+        if((locations[index].id != regionID) && (comparevalue === "false") ){
+            continue;
+        }
+        var dt = [];
+        var dtReady = [];
+        var noWeeks = tl.weeks.length;
+        //Using week numbers instead of dates in tl.weeks
+        var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
+
+        //dropping the current week (noWeeks) in the data since we can only estimate it's completeness
+        for (var j = 0; j < noWeeks; j++){
+            if( start_week ){
+                if(weeks[noWeeks - j] >= start_week){
+                    dt = [weeks[noWeeks - j],Number(Number(multiplier * (tl.values[j])).toFixed(0))];
+                    dtReady.push(dt);
                 }
-                timeseries.push(datum);
+            }else{
+                dt = [weeks[noWeeks - j],Number(Number(multiplier * (tl.values[j])).toFixed(0))];
+                dtReady.push(dt);
             }
+        }
+        var datum = {
+            name: locations[index].name,
+            data: dtReady,
+            color: 'lightgrey'
+        };
 
-            //hovering should give all the information about given clinick and sublocation
-            $('#' + containerID).highcharts({
-                chart: {
-                    type: 'spline'
+        if(locations[index].id === regionID){ //parent location
+            datum.color= '#0090CA';
+            datum.lineWidth='5';
+        }
+        timeseries.push(datum);
+    }
+
+    //hovering should give all the information about given clinick and sublocation
+    $('#' + containerID).highcharts({
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: ''
+        },
+        legend:{ enabled:false },
+        xAxis: {
+            title: {
+                text: i18n.gettext('Week')
+            },
+            labels: {
+                overflow: 'justify'
+            },
+            allowDecimals: false
+        },
+        yAxis: {
+            max: 100,
+            min: 0,
+            title: {
+                text: i18n.gettext(stringGraphType)
+            },
+            labels: {
+                format: '{value}%'
+            },
+            minorGridLineWidth: 0,
+            gridLineWidth: 0,
+            alternateGridColor: null,
+            plotBands: [{ //RED
+                from: 0,
+                to: 50,
+                color: 'rgba(255, 0, 0, 0.5)'
+            }, { //YELLOW
+                from: 50,
+                to: 80,
+                color: 'rgba(255, 255, 0, 0.5)'
+            }, { // GREEN
+                from: 80,
+                to: 105,
+                color: 'rgba(0, 128, 0,0.5)'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        plotOptions: {
+            spline: {
+                lineWidth: 3,
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineWidth: 5
+                    }
                 },
-                title: {
-                    text: ''
+                marker: {
+                    enabled: false
                 },
-                legend:{ enabled:false },
-                xAxis: {
-                    title: {
-                        text: i18n.gettext('Week')
+                pointStart:0,
+                events: {
+                    mouseOver: function () {
+                        if(this.chart.series[this.index].color === 'lightgrey'){
+                            this.chart.series[this.index].update({
+                                color: '#D9692A'
+                            });
+                        }
                     },
-                    labels: {
-                        overflow: 'justify'
-                    },
-                    allowDecimals: false
-                },
-                yAxis: {
-                    max: 100,
-                    min: 0,
-                    title: {
-                        text: i18n.gettext('Completeness')
-                    },
-					labels: {
-						format: '{value}%'
-					},
-                    minorGridLineWidth: 0,
-                    gridLineWidth: 0,
-                    alternateGridColor: null,
-                    plotBands: [{ //RED
-                        from: 0,
-                        to: 50,
-                        color: 'rgba(255, 0, 0, 0.5)'
-                    }, { //YELLOW
-                        from: 50,
-                        to: 80,
-                        color: 'rgba(255, 255, 0, 0.5)'
-                    }, { // GREEN
-                        from: 80,
-                        to: 105,
-                        color: 'rgba(0, 128, 0,0.5)'
-                    }]
-                },
-                tooltip: {
-                    valueSuffix: '%'
-                },
-                plotOptions: {
-                    spline: {
-                        lineWidth: 3,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                lineWidth: 5
-                            }
-                        },
-                        marker: {
-                            enabled: false
-                        },
-                        pointStart:0,
-                        events: {
-                            mouseOver: function () {
-                                if(this.chart.series[this.index].color === 'lightgrey'){
-                                    this.chart.series[this.index].update({
-                                        color: '#D9692A'
-                                    });
-                                }
-                            },
-                            //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
-                            mouseOut: function () {
-                                if(this.chart.series[this.index].color === '#D9692A'){
-                                    this.chart.series[this.index].update({
-                                        color: "lightgrey"
-                                    });
-                                }
-                            }
+                    //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
+                    mouseOut: function () {
+                        if(this.chart.series[this.index].color === '#D9692A'){
+                            this.chart.series[this.index].update({
+                                color: "lightgrey"
+                            });
                         }
                     }
-                },
-                series: timeseries,
-                navigation: {
-                    menuItemStyle: {
-                        fontSize: '10px'
-                    }
                 }
-            }); //highchart
+            }
+        },
+        series: timeseries,
+        navigation: {
+            menuItemStyle: {
+                fontSize: '10px'
+            }
+        }
+    }); //highchart
 }
 
 Highcharts.setOptions({
@@ -453,3 +505,38 @@ Highcharts.setOptions({
   }
 
 });
+
+/**:drawChartOptionsButtons(tableID, redrawFunctionName)
+
+    Draws the table options buttons for tables in the dashboard created using bootstrap tables.
+    These options allow you to colour the cells according to their value and to strip empty records.
+
+    :param string objectID:
+        The ID attribute of the html element to hold the table assoiated with the buttons.
+    :param string redrawFunctionName:
+        Name of the local function which redraws the table
+ */
+function drawChartOptionsButtons(objectID, redrawFunctionName, default_on){
+	if (default_on === undefined){
+		default_on = "false";
+	}
+    var html = "<div class='chart-options'>";
+    html += "<span class='glyphicon glyphicon-random " + objectID  + "-option pull-right' " + 
+        "id='compare_button' onClick='callChartOptionButton(this,\"" + redrawFunctionName + "\");' "+
+        "title='" + i18n.gettext('Compare sublocations')+
+        "' chart='completeness-graph' value=" + default_on +" false name='compare'></span>";
+    html += "</div>";
+
+    $('#' + objectID ).prepend( html );
+}
+
+//Function that updates chart option button's values.
+function callChartOptionButton(element, redrawFunctionName){
+    var value = $(element).attr("value");
+    $(element).attr("value", value=="true" ? "false" : "true" );
+    //Check that the redraw function exists, if it does, call it.
+    var fn = window[redrawFunctionName];
+    if(typeof fn === 'function') {
+        fn();
+    }
+}

@@ -19,13 +19,13 @@
 					<div class="chartBox__heading">
 						{{ _('Please verify your contact details...') }}
 					</div>
-					<div class="chartBox__content"    
+					<div class="chartBox__content"
 						<div class="intro">
                   			            {% if data['sms'] %}
                                                     {{ _('We need to be sure that you have given the correct phone number: %(number)s.<br>
 						    To check this we have just sent you a text with a verification code. Please submit the code below.', number=data['sms']) }}
 							<div class="breaker"></div>
-							<form id="verify-sms" class="verify" method="POST" 
+							<form id="verify-sms" class="verify" method="POST"
                            action="/{{g.get('language')}}/messaging/subscribe/sms_code/{{data['id']}}">
 								<div class="left-part col-sm-12 col-md-6 more-padding-col">
 									<div class="row">
@@ -35,13 +35,13 @@
 									<div class="breaker"></div>
 									<div class="row">
 										<div class="col-xs-12 col-sm-3 no-padding-col col-sm-offset-6" >
-											<a class="btn btn-default" 
+											<a class="btn btn-default"
 											   href="/{{g.get('language')}}/messaging/subscribe/sms_code/{{data['id']}}" >
 												{{ _('Get New Code')}}
 											</a>
 										</div>
 										<div class="col-xs-12 col-sm-3 no-padding-col text-right" >
-											<input class="submit btn btn-primary bold" type='submit' value={{ _('"Submit Code"') }} >	
+											<input class="submit btn btn-primary bold" type='submit' value={{ _('"Submit Code"') }} >
 										</div>
 									</div>
 								</div>
@@ -59,7 +59,10 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
-  
+
+$('ul.navbar-nav .active').removeClass('active');
+$('.menu-notifications').addClass('active');
+
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};

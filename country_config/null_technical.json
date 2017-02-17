@@ -14,7 +14,34 @@
     },
     "zoom":"9"
   },
-  
+
+    "map_options": {
+        "options": {
+            "cmd_1":"Cholera",
+            "cmd_27":"Mealses",
+            "tot_1": "All cases"
+        },
+        "types": ["incidence_clinic", "incidence_district", "incidence_region", "cases_clinic", "cases_district", "cases_region"]
+        
+    },
+
+
+    "completeness_denominator":{
+        "all": "7",
+        "cd": "4",
+        "ncd": "4",
+        "mh": "4"
+    },
+
+    "timeliness_denominator":{
+        "all": "4",
+        "cd": "4",
+        "ncd": "4",
+        "mh": "4"
+    },
+
+    "weekend" : [5,6],
+
   "tabs":[{
     "name":"Demographics",
     "template":"demographics.html" 
@@ -46,6 +73,9 @@
   },{
     "name":"Completeness",
     "template":"completeness.html"
+  },{
+    "name":"Timeliness",
+    "template":"timeliness.html"
   },{
     "name":"Map View",
     "template":"map.html"

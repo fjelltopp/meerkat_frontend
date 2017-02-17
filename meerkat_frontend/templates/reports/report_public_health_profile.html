@@ -4,11 +4,11 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-      <span 
+      <span
 	  class="flag-icon flag-icon-{{report.flag}}"
 	  style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
-      </span> 
+      </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{_('Public Health Profile')}}
     <span class="report-week">
@@ -23,21 +23,21 @@
       <div class="chart-title">{{ _('Key findings') }}</div>
       <div class="chart-stage">
           {{ gettext('<p>Information reported in this public health profile represents cases reported from %(clinic_num)s reporting sites in %(project_region)s between %(start_date)s and %(end_date)s.</p>', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
-          
+
           <ul>
               <li> {{ _('A total of <strong> %(total_consultations)s consultations</strong> and <strong> %(total_cases)s cases</strong> reported from %(clinic_num)s health facilities.', total_consultations= report.data.total_consultations|commas, total_cases=report.data.total_cases|commas, clinic_num=report.data.clinic_num|commas) }}</li>
-              
+
               <li>{{ _('<strong> %(percent_female)s %% female</strong> and <strong> %(percent_lt_5yo)s %% five years</strong> of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}</li>
-              
+
               <li>{{ _('<strong>%(percent_national)s %% %(display_nationals)s nationals</strong> and <strong>%(percent_refugee)s %% refugee status</strong>.', percent_national=extras.patient_status.national.percent|float|round(1), display_nationals=extras.bullet_nationality_display, percent_refugee=extras.patient_status.refugee.percent|float|round(1)) }}</li>
-          
+
               <li>{{ _('<strong> %(percent_cd)s %% morbidity due to communicable disease</strong>, including ', percent_cd=report.data.percent_morbidity_communicable|float|round(1)) }}{% for disease in report.data.morbidity_communicable_tab %}{% if loop.last and not loop.first %} {{_('and') }} {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
 
-          
+
               <li>{{ _('<strong> %(percent_ncd)s %% morbidity due to non-communicable disease</strong>, including', percent_ncd=report.data.percent_morbidity_non_communicable|float|round(1)) }} {% for disease in report.data.morbidity_non_communicable_tab %}{% if loop.last and not loop.first %} {{_('and') }} {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
-              
+
               <li><strong>{{ _('%(percent_mh)s %% morbidity due to mental health conditions</strong>, including', percent_mh= report.data.percent_morbidity_mental_health|float|round(1))}} {% for disease in report.data.mental_health %}{% if loop.last and not loop.first %}{{ _('and') }} {{ _(disease.title|e) }}{% elif loop.first and loop.last %}{{ _(disease.title|e) }}{% else %}{{ _(disease.title|e) }}, {% endif %}{% endfor %}.</li>
-              
+
           </ul>
         <h4>{{ _('Alerts') }}</h4>
         {% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
@@ -45,7 +45,7 @@
         {% else %}
         <p>{{ _('No alerts were generated up to the end of Epidemiological Week %(epi_week)s (%(end_date)s) ', epi_week=report.data.epi_week_num, end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}.</p>
         {% endif %}
-      
+
       </div>
     </div>
   </div>
@@ -55,9 +55,6 @@
       <div class="chart-title">{{_('Map') }}</div>
       <div class="chart-stage">
           <div id="map"></div>
-          <div id="map-print">
-              <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
       </div>
     </div>
   </div>
@@ -426,7 +423,7 @@ $(function() {
   );
 });
 // Draw map
-draw_report_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+map_from_data({{report.data.map|safe}})
 
 </script>
 {% endblock extra_js %}

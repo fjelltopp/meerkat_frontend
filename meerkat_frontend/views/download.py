@@ -3,8 +3,9 @@ download.py
 
 A Flask Blueprint module for the download site.
 """
-from flask import Blueprint, render_template, current_app, request, Response
+from flask import Blueprint, render_template, current_app, request, Response, abort
 import json
+from urllib import parse
 from .. import common as c
 import authorise as auth
 
@@ -20,4 +21,17 @@ def requires_auth():
 def index():
     return render_template('download/index.html', 
                            content=current_app.config['DOWNLOAD_CONFIG'],
+                           week=c.api('/epi_week'))
+
+@download.route('/wait')
+def wait():
+    if "url" in request.args.keys():
+        url = request.args["url"]
+    else:
+        abort(500, "Did not get a url")
+    
+    url = url.replace("'", "%27")
+    return render_template('download/wait.html', 
+                           content=current_app.config['DOWNLOAD_CONFIG'],
+                           api_url=url,
                            week=c.api('/epi_week'))

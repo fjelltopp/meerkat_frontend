@@ -246,18 +246,20 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
 }
 
 
-/**:drawAlertsTable(containerID, alerts, variables)
+/**:drawOptionsButtons(tableID, redrawFunctionName)
 
     Draws the table options buttons for tables in the dashboard created using bootstrap tables.
     These options allow you to colour the cells according to their value and to strip empty records.
 
     :param string tableID:
         The ID attribute of the html element to hold the table assoiated with the buttons.
+    :param string redrawFunctionName:
+        Name of the local function which redraws the table
  */
 function drawOptionsButtons(tableID, redrawFunctionName){
 
     var html = "<div class='table-options'>";
-    
+
     html += "<span class='glyphicon glyphicon-resize-small " + tableID  + "-option pull-right' " + 
         "id='strip-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");' "+
         "title='" + i18n.gettext('Hide/show empty records')+
@@ -269,7 +271,7 @@ function drawOptionsButtons(tableID, redrawFunctionName){
             "' table='disease-table' value=false name='colour'></span>";
 
     html += "</div>";
-    
+
     $('#' + tableID ).attr( "style","padding-top: 28px" );
     $('#' + tableID ).prepend( html );
 }
@@ -314,13 +316,13 @@ function drawAlertsTable(containerID, alerts, variables){
 		//Create the table headers, using the central review flag from the cofiguration file.
 		//Central review is a third level of alert review requested by the Jordan MOH.
 		var table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th>' +
+		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th><th>' + i18n.gettext('Type') + '</th>'+ 
 		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') +' </span></th>' + 
-		            '<th>Clinic</th><th>' + i18n.gettext('Date Reported') + '</th><th>' + i18n.gettext('Date Investigated') + '</th><th>' +i18n.gettext('Status') + '</th>' +
+		            '<th>Clinic</th><th>' + i18n.gettext('Date Reported') + '</th><th>' +i18n.gettext('Date Investigated') + '</th><th>' +i18n.gettext('Status') + '</th>' +
 		            '</tr>';
 		if(config.central_review){
 			table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') + '</th>' +
+		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th><th>' + i18n.gettext('Type') + '</th>'+ 
 		            '<th><span class="glossary capitalised" word="region">'+ i18n.gettext('Region') + '</span></th>' + 
 		            '<th>Clinic</th><th>'+i18n.gettext('Date Reported')+'</th><th>'+ i18n.gettext('Date Investigated') + '</th>' +
                     '<th>'+ i18n.gettext('Central Review')+'</th><th>'+i18n.gettext('Status')+'</th></tr>';
@@ -329,11 +331,19 @@ function drawAlertsTable(containerID, alerts, variables){
 		//For each alert in the given array of alerts create the html for a row of the table.
 		for( var i in alerts ){
 			alert = alerts[i];
+			if (alert.clinic) {
+				clinic_name = locations[alert.clinic].name;
+			}else{
+				clinic_name = i18n.gettext(alert.type_name);
+			}
+			
 			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.variables.alert_id + '\'); return false;">' + 
-			         alert.variables.alert_id + '</a></td><td>' + i18n.gettext(variables[ alert.variables.alert_reason ].name) + '</td>' +
-			         '<td>' + i18n.gettext(locations[locations[alert.clinic].parent_location].name) + '</td>' +
-			         '<td>' + i18n.gettext(locations[alert.clinic].name) + '</td>' +
-			         '<td>' + alert.date.split("T")[0] + '</td>'; 
+			    alert.variables.alert_id + '</a></td><td>' + i18n.gettext(variables[ alert.variables.alert_reason ].name) + '</td>' +
+				'<td>' + capitalise(i18n.gettext(alert.variables.alert_type)) + '</td>' +
+			         '<td>' + i18n.gettext(locations[alert.region].name) + '</td>' +
+			    '<td>' + clinic_name + '</td>' +
+
+			'<td>' + alert.date.split("T")[0] + '</td>';
 
 			//Some countries(Jordan) has a central review in addition to alert_investigation
 			// If the alert has been investigated (and has a central review) we display that in the table
@@ -666,6 +676,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
         // if (locations[regionID].level === "clinic")
         //     return 0;//that should happen on data agregation level
 
+
         var scoreKeys = Object.keys(data.clinic_score);
         var dataPrepared = [];
         var index = 0;
@@ -673,7 +684,8 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
             index = scoreKeys[i];
             var datum = {
                 "location": locations[index].name,
-                "completeness": Number(data.clinic_score[index]).toFixed(0) + "%"
+                "completeness": Number(data.clinic_score[index]).toFixed(0) + "%",
+                "yearly": Number(data.clinic_yearly_score[index]).toFixed(0) + "%"
             };
             dataPrepared.push(datum);
         }
@@ -686,17 +698,27 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                width : "50%"
+                width : "34%"
             },{
                 "field": "completeness",
-                "title": "Completeness",
+                "title": "This Week",
                 "align": "center",
                 "class": "header",
                 sortable: true,
                 "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
-                width : "50%"
+                width : "33%"
+            },{
+                "field": "yearly",
+                "title": "This Year",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
+                width : "33%"
             }];
 
         for(var k = 0; k < columns.length; k++){
@@ -716,6 +738,141 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
 	      return table;
 }
 
+
+function drawPlagueTable(containerID, cases, variables){
+	$.getJSON( api_root+"/locations", function( locations ){
+		//Create the table headers, using the central review flag from the cofiguration file.
+
+		var columns = [
+			{
+				field: "alert_id",
+				title:  i18n.gettext('Alert ID'),
+				'searchable': true,
+				width : "10%", 
+				valign: "middle"
+			},
+			{
+				field: "region",
+				title: i18n.gettext('Region'),
+				width : "10%", 
+				valign: "middle"
+			},
+			{
+				field: "district",
+				title: i18n.gettext('District'),
+				width : "10%", 
+				valign: "middle"
+			},
+			{
+				field: "clinic", 
+				title: i18n.gettext('Clinic'),
+				'searchable': true,
+				width : "10%", 
+				valign: "middle"
+			},
+			{
+				field: "report_date",
+				title: i18n.gettext('Date <br /> Reported'),
+				width : "10%", 
+				valign: "middle"
+			},
+			{
+				field: "investigation_date",
+				title: i18n.gettext('Date <br /> Investigated'), 
+				valign: "middle"
+			},
+			{
+				field: "status",
+				title: i18n.gettext('Status'), 
+				valign: "middle"
+
+			},
+			{
+				field: "age",
+				title: i18n.gettext('Age'), 
+				valign: "middle"
+
+			},
+			{
+				field: "gender",
+				title: i18n.gettext('Gender'), 
+				valign: "middle"
+			},
+			{
+				field: "profession",
+				title: i18n.gettext('Profession'), 
+				valign: "middle"
+			},
+			{
+				field: "status_2",
+				title: i18n.gettext('Status'), 
+				valign: "middle"
+
+			}
+       ];
+        var data = [];
+		
+		for( var i in cases ){
+			c = cases[i];
+
+            var datum = {
+                alert_id: c.variables.alert_id,
+                region: i18n.gettext(locations[c.region].name),
+				district: i18n.gettext(locations[c.district].name),
+                report_date: c.date.split("T")[0],
+				investigation_date: c.variables.ale_1.split("T")[0],
+				age: c.variables.agv_1
+
+            };
+			if (c.clinic){
+				datum.clinic = i18n.gettext(locations[c.clinic].name);
+			}else{
+				datum.clinic = i18n.gettext(c.type_name);
+			}
+			if (c.variables.pla_2){
+				datum.profession = i18n.gettext(c.variables.pla_2);
+			}else{
+				datum.profession = "";
+			}
+			var gender = "";
+
+			if("gen_1" in c.variables){
+				datum.gender = i18n.gettext("Female");
+			}else if ("gen_2" in c.variables){
+				datum.gender = i18n.gettext("Male");
+			}
+
+			status = i18n.gettext("Pending");
+			if("ale_2" in c.variables){
+				status = i18n.gettext("Confirmed");
+			}else if("ale_3" in c.variables){
+				status = i18n.gettext("Disregarded");
+            }else if("ale_4" in c.variables){
+				status = i18n.gettext("Ongoing");
+			}
+			datum.status = status;
+			status_2 = i18n.gettext("Alive");
+			if("pla_3" in c.variables){
+				status_2 = i18n.gettext("Dead");
+			}
+			datum.status_2 = status_2;
+			data.push(datum);
+        }
+        $('#' + containerID).html("<table> </table>");
+		$('#' + containerID + ' table').bootstrapTable(
+			{
+				columns: columns,
+				width : "100%",
+				data: data,
+				"align": "center",
+				"classes": "table table-hover",
+				//					pagination: true,
+				//					pageSize: 20
+			});
+	});
+}
+
+
 /**:drawMissingCompletenessTable( containerID, regionID)
  Displays list of clinics in given subregion which haven't reported in the last two weeks. If the specified region is a clinic, then dates when registers are not submitted are listed.
 
@@ -729,7 +886,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
 
  */
 
-function drawMissingCompletenessTable( module_var, containerID, headerID, regionID, locations ){
+function drawMissingCompletenessTable( module_var, containerID, headerID, regionID, locations,exclude, completessData){
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
 
@@ -742,7 +899,10 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
         var columns = [];
         var datum = [];
         if(locations[regionID].level != "clinic"){//no information aboout reporting clinic
-			$.getJSON( api_root+"/non_reporting/" + module_var + "/" + regionID, function( data ){
+			url = api_root+"/non_reporting/" + module_var + "/" + regionID;
+
+			if(exclude) url += "/" + exclude;
+			$.getJSON(url , function( data ){
 				for (var i=0; i<data.clinics.length;i++){
 					datum = {
 						"location": locations[data.clinics[i]].name
@@ -751,7 +911,7 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				}
 
 
-				$(headerID).html(i18n.gettext('Clinics not reporting'));
+        $(headerID).html(i18n.gettext('Reporting sites never reported'));
 				columns = [
 					{
 						"field": "location",
@@ -773,8 +933,9 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				
 			});
         }else{
-			$.getJSON( api_root+"/completeness/reg_1/" + regionID + "/4", function( data ){
-            for (var j=0; j<data.dates_not_reported.length;j++){
+			//$.getJSON( api_root+"/completeness/"+ module_var +"/" + regionID + "/4", function( data ){
+			data = completessData;
+			for (var j=0; j<data.dates_not_reported.length;j++){
                 strDat = data.dates_not_reported[j];
                     datum = {
                         "date": strDat.split('T')[0]
@@ -800,7 +961,7 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				});
 				return table;
 
-			});
+			
 		}
 
 
@@ -827,6 +988,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
         var scoreKeys = Object.keys(data.score);
         var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name
         var index = 0;
+
         for (var i=0; i<scoreKeys.length;i++){
             index = scoreKeys[i];
             var loc;
@@ -834,9 +996,10 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
             //     ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
             loc = locations[index].name;
             var datum = {
-				"id": index,
+                "id": index,
                 "location": loc,
-                "completeness": Number(data.score[index]).toFixed(0) + "%"
+                "completeness": Number(data.score[index]).toFixed(0) + "%",
+                "yearly": Number(data.yearly_score[index]).toFixed(0) + "%"
             };
             dataPrepared.push(datum);
         }
@@ -848,17 +1011,27 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                width : "70%"
+                width : "50%"
             },{
                 "field": "completeness",
-                "title": "Completeness",
+                "title": "Week",
                 "align": "center",
                 "class": "header",
                 sortable: true,
                 "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
-                width : "30%"
+                width : "25%"
+            },{
+                "field": "yearly",
+                "title": "Year",
+                "align": "center",
+                "class": "header",
+                sortable: true,
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                                              b = Number(b.split('%')[0]);
+                                              if(a < b) return 1; if (a>b) return -1; return 0;},
+                width : "25%"
             }];
 
         for(var k = 0; k < columns.length; k++){

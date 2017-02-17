@@ -4,13 +4,13 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
-    </span> 
+    </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Communicable Disease Profile') }} 
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Communicable Disease Profile') }}
     <span class="report-week">
 	{{ report.data.start_date|datetime_from_json|datetime("dd MMMM YYYY") }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
@@ -28,13 +28,13 @@
               <li> {{ _('A total of <strong>%(total_cases)s cases</strong> and <strong>%(total_deaths)s deaths</strong> reported.', total_cases=report.data.total_cases|commas, total_deaths=report.data.total_deaths|commas) }}</li>
 
               <li>{{ _('<strong> %(percent_female)s %% female</strong> and <strong> %(percent_lt_5yo)s %% under five years</strong> of age.', percent_female=report.data.percent_cases_female|float|round(1), percent_lt_5yo=report.data.percent_cases_lt_5yo|float|round(1)) }}</li>
-			  
+
           {% for disease in report.data.morbidity_communicable_cd_tab %}
 	  <li><strong>{{ disease.percent|float|round(1) }}%</strong> {{ _('morbidity due to') }} {{ _(disease.title|e) }}
           {% endfor %}
         </table>
 
-	  
+
           </ul>
             <h4>{{ _('Alerts') }}</h4>
         {% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
@@ -51,9 +51,6 @@
       <div class="chart-title">{{ _('Map') }}</div>
       <div class="chart-stage">
           <div id="map"></div>
-          <div id="map-print">
-            <img src="{{extras.static_map_url}}" alt="Map">
-          </div>
       </div>
     </div>
   </div>
@@ -285,8 +282,7 @@ $(function() {
   );
 });
 // Draw map
-draw_report_map("{{ extras.map_api_call}}", {{extras.map_centre }})
+map_from_data({{report.data.map|safe}})
 
 </script>
 {% endblock extra_js %}
-

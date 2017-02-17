@@ -1,12 +1,20 @@
 $printedBlue: #337ab7;
 
-#map-print {
-	display: none;
+@page {
+  size: A4;
+  margin: 0;
+  padding: 1in;
+  background: #ffffff;
+}
+
+/* setup the footer */
+@page {
+  @bottom {
+    content: flow(footer);
+  }
 }
 
 @media print {
-
-
 
 	//We only want this CSS to apply to html report pages.
 	body.htmlreport{
@@ -25,7 +33,7 @@ $printedBlue: #337ab7;
 				border-radius: 3px;
 			}
 
-			.navbar-brand span, 
+			.navbar-brand span,
 			.navbar-brand span b{
 				 color: #fff !important;
 			}
@@ -40,35 +48,32 @@ $printedBlue: #337ab7;
 		}
 
 		// MAP
-
-		#map {
-			display: none;
-		}
-
-		#map-print {
-			display: block;
-			margin: -10px;
-		}
-
-	 	.leaflet-container img { 
-	 		max-width:none !important; 
+	 	.leaflet-container img {
+	 		max-width:none !important;
 	 	}
 
 	 	.leaflet-control-fullscreen a {
 			display: none;
 		}
 
-		#map .marker-cluster-small, #map .marker-cluster-medium, #map .marker-cluster-large {
-			color: rgba(181, 226, 140, 0.6) !important;
-			background-color: #EA9E72 !important;
+		#map .marker-cluster-small,
+        #map .marker-cluster-medium,
+        #map .marker-cluster-large {
+            background-color: #EA9E72 !important;
+            span{ color: #FFF !important; }
+            div{ background-color: $highlight !important; }
 		}
 
 		.chart-wrapper {
 
 			border: none;
 
+      .chart-title *{
+				color: #FFF !important;
+      }
+
 			.chart-title{
-				background: $printedBlue !important;
+        background: $printedBlue !important;
 				color: #FFF !important;
 				border-radius: 3px 3px 0px 0px;
 				border: 1px solid $printedBlue;
@@ -81,13 +86,25 @@ $printedBlue: #337ab7;
 				border-top:none;
 				padding: 10px;
 			}
-				
+
 		}
 
 		.row {
 			margin-bottom:20px;
 		 	page-break-inside: avoid;
 		}
+
+		.row.allow-breaks {
+		 	page-break-inside: auto;
+		}
+
+		footer.row{
+			margin-bottom: 0px;
+		}
+
+    tr{
+		 	page-break-inside: avoid;
+    }
 
 		// HEADER
 		.flag-icon {
@@ -140,13 +157,13 @@ $printedBlue: #337ab7;
 		}
 
 		//TABLES
-		.table{ 
+		.table{
 
       border: 2px solid #ddd !important;
 
       .table tbody tr td{
         border-bottom: 1px solid #ddd !important;
-      } 
+      }
 
       tbody td.border-left,
       thead th.border-left{
@@ -179,7 +196,7 @@ $printedBlue: #337ab7;
 					background: #cacaca !important;
           border-bottom: 2px solid #ddd !important;
 				}
-			
+
 			}
 			td{
 				background: $lightGrey !important;
@@ -202,15 +219,54 @@ $printedBlue: #337ab7;
 
 	}
 
-    #ncd-map-row{
-        height:0px;
-        overflow: hidden;
+  .fixed-table-container thead th .sortable{
+      padding: 2px;
+  }
+
+  .mapbox{
+      .info{
+        display: none;
+      }
+
+      .area-label{
+        .outer {
+            background: #87bbe8 !important;
+            color: white !important;
+        }
+
+        .inner {
+            background: #337ab7 !important;
+            color: white !important;
+        }
+      }
+
+  }
+
+  .reports-table{
+    font-size: 12px;
+  }
+
+  .reports-table.small {
+    font-size: 12px;
+
+    tbody tr td{
+      padding: 2px;
     }
+
+  }
+
+  .leaflet-control-zoom {
+    display: none;
+  }
 
 }
 
-    #ncd-chart-demographics{
-        height:300px;
-    }
 
 
+#district-completeness-column{
+    height: 350px;
+    display: block;
+}
+#ncd-chart-demographics{
+    height:300px;
+}
