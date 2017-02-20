@@ -84,12 +84,13 @@
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                       <p>
-                      {{ _('The profile summarises epidemiological information reported from %(clinics)s reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
-                        %(end_date)s).', 
-                        clinics=report.data.num_clinic, 
+                      {{ _('The profile summarises epidemiological information reported from %(clinics)s reporting sites in Epidemiological Week %(epi_week)s (from the %(start_date)s to the
+                        %(end_date)s).',
+                        clinics=report.data.num_clinic,
                         project_region=_(report.data.project_region),
                         epi_week=report.data.epi_week_num,
-                        start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+                        start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'),
+                        end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
                       </p>
 
                       <h3>{{ _('Key Findings') }} </h3>
@@ -106,14 +107,14 @@
                       female=report.data.percent_cases_female|float|round(1)
                       )}}</li>
 
-                      <li>{{_('<strong>%(chronic)s (%(chronic_per)s %%)</strong> patients with <strong>chronic conditions.</strong>', 
-                      chronic=report.data.cases_chronic, 
+                      <li>{{_('<strong>%(chronic)s (%(chronic_per)s %%)</strong> patients with <strong>chronic conditions.</strong>',
+                      chronic=report.data.cases_chronic,
                       chronic_per=report.data.percent_cases_chronic|float|round(1)
                       )}}</li>
 
                       <li>{{_('<strong>%(lab)s (%(lab_per)s %%)</strong> patients with <strong>laboratory results recorded.
-                      </strong>', 
-                      lab=report.data.email_summary.lab_recorded, 
+                      </strong>',
+                      lab=report.data.email_summary.lab_recorded,
                       lab_per=report.data.email_summary.lab_recorded_per|float|round(1)
                       )}}</li>
 
@@ -138,7 +139,7 @@
                       ')
                       }}
                       </p>
-                      
+
                     </td>
                   </tr>
                 </tbody>
