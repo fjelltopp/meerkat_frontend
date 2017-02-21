@@ -30,7 +30,6 @@ def api(url, api_key=False, params=None):
             return json.load(data_file)
     else:
         api_uri = add_domain(''.join([app.config['INTERNAL_API_ROOT'], url]))
-        app.logger.error(api_uri)
         try:
             if api_key:
                 r = requests.get(
@@ -46,10 +45,12 @@ def api(url, api_key=False, params=None):
             if r.status_code == 502:
                 abort(500, "Can not access the api at " + api_uri)
         except requests.exceptions.RequestException as e:
+            logging.error(e)
             abort(500, e)
         try:
             output = r.json()
         except Exception as e:
+            logging.error(e)
             abort(500, r)
         return output
 

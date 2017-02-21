@@ -743,48 +743,71 @@ function drawPlagueTable(containerID, cases, variables){
 	$.getJSON( api_root+"/locations", function( locations ){
 		//Create the table headers, using the central review flag from the cofiguration file.
 
-		columns = [
+		var columns = [
 			{
 				field: "alert_id",
 				title:  i18n.gettext('Alert ID'),
-				'searchable': true
+				'searchable': true,
+				width : "10%", 
+				valign: "middle"
 			},
 			{
 				field: "region",
-				title: i18n.gettext('Region')
+				title: i18n.gettext('Region'),
+				width : "10%", 
+				valign: "middle"
+			},
+			{
+				field: "district",
+				title: i18n.gettext('District'),
+				width : "10%", 
+				valign: "middle"
 			},
 			{
 				field: "clinic", 
 				title: i18n.gettext('Clinic'),
-				'searchable': true
+				'searchable': true,
+				width : "10%", 
+				valign: "middle"
 			},
 			{
 				field: "report_date",
-				title: i18n.gettext('Date Reported')
+				title: i18n.gettext('Date <br /> Reported'),
+				width : "10%", 
+				valign: "middle"
 			},
 			{
 				field: "investigation_date",
-				title: i18n.gettext('Date Investigated')
+				title: i18n.gettext('Date <br /> Investigated'), 
+				valign: "middle"
 			},
 			{
 				field: "status",
-				title: i18n.gettext('Status')
+				title: i18n.gettext('Status'), 
+				valign: "middle"
+
 			},
 			{
 				field: "age",
-				title: i18n.gettext('Age')
+				title: i18n.gettext('Age'), 
+				valign: "middle"
+
 			},
 			{
 				field: "gender",
-				title: i18n.gettext('Gender')
+				title: i18n.gettext('Gender'), 
+				valign: "middle"
 			},
 			{
 				field: "profession",
-				title: i18n.gettext('Profession') 
+				title: i18n.gettext('Profession'), 
+				valign: "middle"
 			},
 			{
 				field: "status_2",
-				title: i18n.gettext('Status') 
+				title: i18n.gettext('Status'), 
+				valign: "middle"
+
 			}
        ];
         var data = [];
@@ -795,6 +818,7 @@ function drawPlagueTable(containerID, cases, variables){
             var datum = {
                 alert_id: c.variables.alert_id,
                 region: i18n.gettext(locations[c.region].name),
+				district: i18n.gettext(locations[c.district].name),
                 report_date: c.date.split("T")[0],
 				investigation_date: c.variables.ale_1.split("T")[0],
 				age: c.variables.agv_1
@@ -838,7 +862,10 @@ function drawPlagueTable(containerID, cases, variables){
 		$('#' + containerID + ' table').bootstrapTable(
 			{
 				columns: columns,
-				data: data
+				width : "100%",
+				data: data,
+				"align": "center",
+				"classes": "table table-hover",
 				//					pagination: true,
 				//					pageSize: 20
 			});
