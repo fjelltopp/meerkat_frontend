@@ -1163,11 +1163,12 @@ function drawIndicatorsTable( containerID, locID, data, linkFunction, graphID ){
     //Create a data entry for all indKeys
     listOfIndKeys = Object.keys(data);
     var dataPrepared = [];
-    var datum = [];
+    var indDataCurrent;
+    var indDataName;
     for(i = 0; i<listOfIndKeys.length; i++){
-        indKey = listOfIndKeys[i];
-        indDataCurrent = data[indKey].current;
-        indDataName = data[indKey].name;
+        var datum = {};
+        indDataCurrent = data[i].current;
+        indDataName = data[i].name;
         if(typeof linkFunction != 'undefined'){
             datum.name = "<a href='' onclick='" + linkFunction + "(\""+ graphID +"\"," + locID + ","  + data + "," + indKey +  ")' >" + i18n.gettext(indDataName)+"</a>";
         }else{

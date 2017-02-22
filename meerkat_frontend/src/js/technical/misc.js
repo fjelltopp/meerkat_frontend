@@ -704,15 +704,10 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
     } );
 }
 
-function interceptData(i, data, indicatorsData){
-    indicatorsData[i] = data;
-}
-function test1(data){
-    console.log("test 1 test 1");
-}
 
-function prepareIndicators(indicatorsList, locID, graphID, tableID){
+function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
     /* This function is called once to gather indicators data for given location. It displays a table of indicators and a timeline for one of them. The graph however has data for all indicators and can be updated from the UI */
+    var indicatorsList = indicatorsInfo.list;
     console.log(indicatorsList);
     var indicatorsData = [];
     var deferred = [];
@@ -723,34 +718,23 @@ function prepareIndicators(indicatorsList, locID, graphID, tableID){
     // deferred.push($.getJSON( api_root+"/indicators/gen_" + indicatorsList[1] + "/" + locID, function(data){console.log("testestes");}));
     // deferred.push($.getJSON( api_root+"/indicators/gen_" + indicatorsList[1] + "/" + locID, test1(data)));
     // try mapping
-    // synchronous request
     //
-    deferred = indicatorsList.map(function(i, elem){
-        return $.getJSON( api_root+"/indicators/" + i +  "/" + locID, function( data ){
+    deferred = indicatorsList.map(function(elem, i){
+        return $.getJSON( api_root+"/indicators/" + elem.call.transforms + "/" +
+                          elem.call.variables +  "/" + locID, function( data ){
             indicatorsData[i] = data;
-            console.log("Hello" + i); });
+        });
     });
 
 
-    // for ( i=0; i < indicatorsList.length; i++ ){
-    //     // (function(i){
-    //     //     $.getJSON( api_root+"/indicators/" + "gen_1" +  "/" + locID, function( data ){ indicatorsData[i] = data; });
-    //     // })(i);
-    //     deferred.push_back ($.getJSON( api_root+"/indicators/" + indicatorsList[i] + "/" + locID, test1(data)));
-    //     // deferred.push_back ($.getJSON( api_root+"/indicators/" + indicatorsList[i] + "/" + locID, interceptData(i,  data, indicatorsData )));
-    // }
-
-
     $.when.apply( $, deferred ).then(function() {
-        console.log("Applied deffered");
         console.log("indicatorsData");
-        console.log(indicatorsData);
-        console.log("indicatorsData[0]");
-        console.log(indicatorsData[0]);
-        console.log("indicatorsData.gen_1");
-        console.log(indicatorsData.gen_1);
 
-        indKey = Object.keys(indicatorsData)[0];
+        for(i=0;i<indicatorsList.length;i++){
+            indicatorsData[i].name = indicatorsList[i].name;
+        }
+        console.log(indicatorsData);
+        indKey = 0;
 
         drawIndicatorsGraph( graphID, locID, indicatorsData, indKey);
         drawIndicatorsTable( tableID, locID, indicatorsData, "drawIndicatorsGraph", graphID ); //Indicators table must be able to redraw the graph

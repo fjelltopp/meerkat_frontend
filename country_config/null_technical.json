@@ -26,7 +26,10 @@
     },
 
     "indicators":{
-        "count":["gen_1","gen_2"]
+        "list":[
+            {"name":"Number of female patients","call":{"transforms":["n"], "variables":["reg_1"]}},
+            { "name":"Controlled visits for hypertension patients", "call":{"transforms":["d","n","r","r"], "variables":["visit_lab_2","visit_lab_1","visit_ncd_2", "vis_5"]} }
+         ]
     },
 
     "completeness_denominator":{
