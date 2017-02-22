@@ -27,8 +27,8 @@
 
     "indicators":{
         "list":[
-            {"name":"Number of female patients","call":{"transforms":["n"], "variables":["reg_1"]}},
-            { "name":"Controlled visits for hypertension patients", "call":{"transforms":["d","n","r","r"], "variables":["visit_lab_2","visit_lab_1","visit_ncd_2", "vis_5"]} }
+            {"name":"Number of female patients","call":{"flags":["n"], "variables":["reg_1"]}},
+            { "name":"Controlled visits for hypertension patients", "call":{"flags":["d","n","v","v","r"], "variables":["visit_lab_2","visit_lab_1","visit_ncd_2", "vis_5", "0"]} }
          ]
     },
 

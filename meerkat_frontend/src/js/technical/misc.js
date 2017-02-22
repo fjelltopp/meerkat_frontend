@@ -720,7 +720,7 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
     // try mapping
     //
     deferred = indicatorsList.map(function(elem, i){
-        return $.getJSON( api_root+"/indicators/" + elem.call.transforms + "/" +
+        return $.getJSON( api_root+"/indicators/" + elem.call.flags + "/" +
                           elem.call.variables +  "/" + locID, function( data ){
             indicatorsData[i] = data;
         });
