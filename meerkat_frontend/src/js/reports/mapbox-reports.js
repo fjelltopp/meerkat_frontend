@@ -93,7 +93,7 @@ function regional_map( data, map_centre, geojson, containerID ){
     };
     info.update = function (props) {
         this._div.innerHTML = (
-            props ? '<b>' + props.name + '</b><br />Value: ' +
+            props ? '<b>' + props.Name + '</b><br />Value: ' +
             parseFloat(data[props.Name].value).toFixed(4) :
             'Hover over an area'
         );
@@ -152,6 +152,7 @@ function regional_map( data, map_centre, geojson, containerID ){
         }
     }
 
+	
     // Create the geojson layer.
     var regionalLayer  = L.geoJson(geojson, {
         style: style,

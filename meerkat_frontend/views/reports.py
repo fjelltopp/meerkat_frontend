@@ -659,17 +659,13 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 'percent': item['percent'],
                 'quantity': item['quantity']
             }
-
+        extras['map_centre'] = report_list[report]['map_centre']
+        extras['reg_data'] = c.api("/geo_shapes/region")
     elif report in ['afro']:
         extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
-        extras['reg_data_file'] = report_list[report]['reg_data_file']
-        extras['dis_data_file'] = report_list[report]['dis_data_file']
-        base = path.dirname(path.realpath(__file__)) + '/../static/files/'
-        with open(base + report_list[report]['reg_data_file']) as data_file:
-            extras['reg_data'] = data_file.read()
-        with open(base + report_list[report]['dis_data_file']) as data_file:
-            extras['dis_data'] = data_file.read()
+        extras['reg_data'] = c.api("/geo_shapes/region")
+        extras['dis_data'] = c.api("/geo_shapes/district")
     else:
         extras = None
 
