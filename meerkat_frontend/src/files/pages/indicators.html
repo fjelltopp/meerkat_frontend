@@ -62,6 +62,8 @@
  $("#box_heading").html(i18n.gettext('Indicators')  + " (" + i18n.gettext('Week') + ' ' + prev_week + ")");
  $("#box_2_heading").html(i18n.gettext('Completeness by week'));
 
+ drawIndicatorsOptions('indicators-table');
+
  $("#epi-week-title").html( i18n.gettext("Week")+ " " +get_epi_week() + " · " + get_date() );
  //Every tab needs a draw charts function that is called when loading a new location.
  //It's also called upon the first load of the page.

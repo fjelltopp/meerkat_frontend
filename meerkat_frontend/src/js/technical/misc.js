@@ -734,10 +734,9 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
             indicatorsData[i].name = indicatorsList[i].name;
         }
         console.log(indicatorsData);
-        indKey = 0;
 
-        drawIndicatorsGraph( graphID, locID, indicatorsData, indKey);
-        drawIndicatorsTable( tableID, locID, indicatorsData, "drawIndicatorsGraph", graphID ); //Indicators table must be able to redraw the graph
+        drawIndicatorsGraph( graphID, locID, indicatorsData);
+        drawIndicatorsTable( tableID, locID, indicatorsData); //Indicators table must be able to redraw the graph
     });
 }
 

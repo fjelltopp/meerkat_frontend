@@ -541,7 +541,16 @@ function callChartOptionButton(element, redrawFunctionName){
     }
 }
 
-function drawIndicatorsGraph( containerID, locID, data, indKey ){
+function drawIndicatorsGraph( containerID, locID, data ){
+
+
+    var indKey = $('#choose-ind-id').attr("value");
+    if(indKey===undefined){
+        console.log("Undefined id");
+        indKey = 0;
+    }
+    console.log("The value is: ");
+    console.log(indKey);
 
     indDataTimeline = data[indKey].timeline;
     indDataTimelineKeys = Object.keys(indDataTimeline);

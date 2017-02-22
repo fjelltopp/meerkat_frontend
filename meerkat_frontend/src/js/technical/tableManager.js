@@ -1156,7 +1156,26 @@ function stripRows(data){
 		return data;
 }
 
-function drawIndicatorsTable( containerID, locID, data, linkFunction, graphID ){
+function drawIndicatorsOptions(tableID){
+    console.log("FIRST FRAWING OF IND");
+    var html = "<div class='table-options' id='choose-ind-id' value=0>";
+    html += "</div>";
+    $('#' + tableID ).prepend( html );
+}
+
+function chooseIndicator(i){
+    $('#choose-ind-id').attr("value", i);
+    console.log("setting ind to");
+    console.log(i);
+
+    var indKey = $('#choose-ind-id').attr("value");
+    console.log("The new value is: ");
+    console.log(indKey);
+
+    reDraw();
+}
+
+function drawIndicatorsTable( containerID, locID, data ){
 
 
 
@@ -1169,11 +1188,7 @@ function drawIndicatorsTable( containerID, locID, data, linkFunction, graphID ){
         var datum = {};
         indDataCurrent = data[i].current;
         indDataName = data[i].name;
-        if(typeof linkFunction != 'undefined'){
-            datum.name = "<a href='' onclick='" + linkFunction + "(\""+ graphID +"\"," + locID + ","  + data + "," + indKey +  ")' >" + i18n.gettext(indDataName)+"</a>";
-        }else{
-            datum.name=i18n.gettext(indDataName);
-        }
+        datum.name = "<a href='' onclick='chooseIndicator(\"" + i + "\");' >" + i18n.gettext(indDataName)+"</a>";
         datum.value =  Number(indDataCurrent).toFixed(0);
         dataPrepared.push(datum);
     }
