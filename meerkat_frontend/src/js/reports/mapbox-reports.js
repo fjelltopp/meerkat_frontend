@@ -47,7 +47,10 @@ function map_from_data( data, map_centre, containerID){
     if( !map_centre ) map.fitBounds(markers.getBounds(), {padding: [30, 30]});
 }
 
-function regional_map( data, map_centre, geojson, containerID ){
+function regional_map( data, map_centre, geojson, containerID, show_labels ){
+
+	if(show_labels === undefined){show_labels = true;}
+	
     console.log( "Creating regional map.");
     console.log( geojson );
     // If no containerID is provided, assume containerID "map".
@@ -84,6 +87,7 @@ function regional_map( data, map_centre, geojson, containerID ){
     console.log( "MinMax" );
     console.log( minimum );
     console.log( maximum );
+	console.log(data);
     // Create a div to store the region/district label and the value.
     var info = L.control();
     info.onAdd = function (map) {
@@ -94,7 +98,7 @@ function regional_map( data, map_centre, geojson, containerID ){
     info.update = function (props) {
         this._div.innerHTML = (
             props ? '<b>' + props.Name + '</b><br />Value: ' +
-            parseFloat(data[props.Name].value).toFixed(4) :
+            parseFloat(data[props.Name].value).toFixed(2) :
             'Hover over an area'
         );
     };
@@ -120,7 +124,13 @@ function regional_map( data, map_centre, geojson, containerID ){
             // Looks odd if min is 0 opacity though.
             var opacity = (data[feature.properties.Name].value-minimum)/(maximum-minimum);
             opacity = 0.8*opacity + 0.2;
-            style.opacity = 1;
+			style_opacity = 1;
+			if(data[feature.properties.Name].value === 0){
+				opacity=0;
+				style_opacity = 0;
+			}
+			
+            style.opacity = style_opacity;
             style.fillOpacity = opacity;
         }
         return style;
@@ -138,7 +148,6 @@ function regional_map( data, map_centre, geojson, containerID ){
 
     //  Find the centre of each region and store it in the data object.
     function onEachFeature(feature, layer){
-        console.log( feature );
         if( data[feature.properties.Name] ){
             //  Get bounds of polygon
             var bounds = layer.getBounds();
@@ -161,20 +170,74 @@ function regional_map( data, map_centre, geojson, containerID ){
 
     // Add the regions to the map.
     regionalLayer.addTo(map);
+	if(show_labels){
+		// Create the region labels. Locs contains data keys.
+		for( var x in locs ){
+			var location = data[locs[x]];
+			var value = location.value;
+			// Use technical/misc.js isInteger() because Number.isInteger()
+			// is incompatiable with docraptor.
+			if( !isInteger(value) ) value = value.toFixed(1);
+			var icon = L.divIcon({
+				className: 'area-label',
+				html: "<div class='outer'><div class='inner'>" + value +
+					"</div></div>"
+			});
+			// Only add the marker if both regional gemotry and api data exist.
+			if(location.centre && value !== 0) L.marker(location.centre, {icon: icon}).addTo(map);
 
-    // Create the region labels. Locs contains data keys.
-    for( var x in locs ){
-        var location = data[locs[x]];
-        var value = location.value;
-        // Use technical/misc.js isInteger() because Number.isInteger()
-        // is incompatiable with docraptor.
-        if( !isInteger(value) ) value = value.toFixed(1);
-        var icon = L.divIcon({
-            className: 'area-label',
-            html: "<div class='outer'><div class='inner'>" + value +
-                  "</div></div>"
-        });
-        // Only add the marker if both regional gemotry and api data exist.
-        if(location.centre) L.marker(location.centre, {icon: icon}).addTo(map);
-    }
+
+		}
+		if( maximum === 0){
+			var legend2 = L.control({position: 'bottomright'});
+
+			legend2.onAdd = function (map) {
+				var div = L.DomUtil.create('div', 'info legend');
+				div.innerHTML +=' No Cases';
+				return div;
+			};
+			legend2.addTo(map);
+		}
+	}else{
+		var legend = L.control({position: 'bottomright'});
+
+			legend.onAdd = function (map) {
+				
+				var div = L.DomUtil.create('div', 'info legend');
+				var grades = [];
+				var labels = [];
+				if(minimum == maximum){
+					grades = [maximum];
+					opacity = [0.2];
+				}else{
+					n = 6;
+					grades = [minimum];
+					opacity = [0.2];
+					step = (maximum + 1 - minimum ) / n;
+					for(var j=1;j<= n; j++){
+						grades.push(minimum + step * j);
+						opacity.push(0.8*j/n + 0.2);
+					}
+				}
+				// loop through our density intervals and generate a label with a colored square for each interval
+				if(grades.length == 1){
+					div.innerHTML +=
+						'No Cases';
+				
+				}else{
+					for (var i = 0; i < grades.length -1 ; i++) {
+						div.innerHTML +=
+							'<i style="background:#d9692a;opacity:'+opacity[i] + '"></i> ' +
+							parseFloat(grades[i]).toFixed(1) + '&ndash;' + parseFloat(grades[i + 1]).toFixed(1) + "<br />";
+					}
+				}
+				
+				return div;
+};
+
+legend.addTo(map);
+
+
+
+	}
 }
