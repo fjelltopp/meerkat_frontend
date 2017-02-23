@@ -1188,7 +1188,7 @@ function drawIndicatorsTable( containerID, locID, data ){
         var datum = {};
         indDataCurrent = data[i].current;
         indDataName = data[i].name;
-        datum.name = "<a href='' onclick='chooseIndicator(\"" + i + "\");' >" + i18n.gettext(indDataName)+"</a>";
+        datum.name = "<a href='' onclick='chooseIndicator(\"" + i + "\");return false;' >" + i18n.gettext(indDataName)+"</a>";
         datum.value =  Number(indDataCurrent).toFixed(0);
         dataPrepared.push(datum);
     }
