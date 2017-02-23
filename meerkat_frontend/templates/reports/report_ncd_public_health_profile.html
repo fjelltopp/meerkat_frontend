@@ -228,16 +228,25 @@
   </div>
 </div>
 <div class="row" id="ncd-map-row">
-  <!-- OVERVIEW MAP -->
-  <div class="col-sm-12" id="ncd-mapbox-panel">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Map') }}</div>
-      <div class="chart-stage">
-          <div id="map"></div>
-      </div>
-    </div>
-  </div>
+  <!-- DIABETES ROW -->
+	<div class="col-sm-6">
+		<div class="chart-wrapper">
+			<div class="chart-title clearfix">{{ _('Diabetes Incidence Rate per 1000') }}</div>
+			<div class="chart-stage map-padding">
+				<div id="diabetes-map" class="mapbox"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="chart-wrapper">
+			<div class="chart-title clearfix">{{ _('Hypertension Incidence Rate per 1000') }}</div>
+			<div class="chart-stage map-padding">
+				<div id="hypertension-map" class="mapbox"></div>
+			</div>
+		</div>
+	</div>
 </div>
+
 
 <div class="row">
   <div class="col-sm-6">
@@ -321,9 +330,23 @@ $(function() {
     pieChart(nonCommunicableDiseasesList)
   );
 });
-
+var reg_data = {{extras.reg_data|safe}};
+// Diabetes Map
+regional_map(
+    {{report.data.figure_diabetes_map|safe}},
+    {{extras.map_centre}},
+    reg_data,
+    'diabetes-map'
+);
+ regional_map(
+    {{report.data.figure_hyp_map|safe}},
+    {{extras.map_centre}},
+    reg_data,
+    'hypertension-map'
+);
+ 
 // Draw map
-map_from_data({{report.data.map|safe}})
+// map_from_data({{report.data.map|safe}})
 
 </script>
 {% endblock extra_js %}

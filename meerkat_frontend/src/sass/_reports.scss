@@ -307,7 +307,16 @@ table.refugee.small{
     text-align: right;
     margin: 20px;
 }
-
+.mapbox .legend {
+    line-height: 18px;
+}
+.mapbox .legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 1;
+}
 .figure-title-left{
     float: left;
     width: 80px;
