@@ -549,8 +549,6 @@ function drawIndicatorsGraph( containerID, locID, data ){
         console.log("Undefined id");
         indKey = 0;
     }
-    console.log("The value is: ");
-    console.log(indKey);
 
     indDataTimeline = data[indKey].timeline;
     indDataTimelineKeys = Object.keys(indDataTimeline);
@@ -561,7 +559,6 @@ function drawIndicatorsGraph( containerID, locID, data ){
     var timeseries = [];
     var datapoint = [];
 
-    console.log(weeks);
     for (var i=0; i<indDataTimelineKeys.length;i++){
         //Using week numbers instead of dates
         //dropping the current week (noWeeks)

@@ -705,20 +705,25 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
 }
 
 
+/**:prepareIndicators( details )
+
+   This function is called once to gather indicators data for a given location. It displays a table of indicators and a timeline for one of them (which can be chosen from the table).
+
+   Arguments:
+   :param string locID:
+   The ID of the location for which timeliness shall be calculated.
+   :param dict indicatorsInfo:
+   Definitions of indicators from country config file
+   :param string graphID:
+   The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
+   :param string tableID:
+   The ID for the HTML element that will hold the main timeliness table.  If empty, no table is drawn.
+   */
 function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
-    /* This function is called once to gather indicators data for given location. It displays a table of indicators and a timeline for one of them. The graph however has data for all indicators and can be updated from the UI */
     var indicatorsList = indicatorsInfo.list;
-    console.log(indicatorsList);
     var indicatorsData = [];
     var deferred = [];
 
-    //
-    // 1. define a function outside a loop
-    //Function which is a callback of a jquery call needs to take only one argument, but it also needs to be DEFINED in a ajax call
-    // deferred.push($.getJSON( api_root+"/indicators/gen_" + indicatorsList[1] + "/" + locID, function(data){console.log("testestes");}));
-    // deferred.push($.getJSON( api_root+"/indicators/gen_" + indicatorsList[1] + "/" + locID, test1(data)));
-    // try mapping
-    //
     deferred = indicatorsList.map(function(elem, i){
         return $.getJSON( api_root+"/indicators/" + elem.call.flags + "/" +
                           elem.call.variables +  "/" + locID, function( data ){
@@ -726,17 +731,13 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
         });
     });
 
-
     $.when.apply( $, deferred ).then(function() {
-        console.log("indicatorsData");
-
+        //Update indicators name which is not passed to the API:
         for(i=0;i<indicatorsList.length;i++){
             indicatorsData[i].name = indicatorsList[i].name;
         }
-        console.log(indicatorsData);
-
         drawIndicatorsGraph( graphID, locID, indicatorsData);
-        drawIndicatorsTable( tableID, locID, indicatorsData); //Indicators table must be able to redraw the graph
+        drawIndicatorsTable( tableID, locID, indicatorsData); 
     });
 }
 
