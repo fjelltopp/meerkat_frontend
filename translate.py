@@ -128,9 +128,10 @@ if __name__ == "__main__":
         else:
             print("Need to specify a two letter language code")
     elif args.action == "compile":
-        for lang in find_languages(["translations", "{}/translations".format(implementation_dir)]):
-            os.system("msgcat --use-first -o meerkat_frontend/translations/{}/LC_MESSAGES/messages.po translations/{}/LC_MESSAGES/messages.po {}/translations/{}/LC_MESSAGES/messages.po".format(lang, lang, implementation_dir, lang))
-        os.system("pybabel compile -d meerkat_frontend/translations")
-        
+        if os.path.exists("{}/translations".format(implementation_dir)):
+            for lang in find_languages(["translations", "{}/translations".format(implementation_dir)]):
+                os.system("msgcat --use-first -o meerkat_frontend/translations/{}/LC_MESSAGES/messages.po translations/{}/LC_MESSAGES/messages.po {}/translations/{}/LC_MESSAGES/messages.po".format(lang, lang, implementation_dir, lang))
+            os.system("pybabel compile -d meerkat_frontend/translations")
 
-
+        else:
+            print("No Language folder")
