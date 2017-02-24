@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-06 11:40+0000\n"
+"POT-Creation-Date: 2017-02-09 17:24+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -41,7 +41,7 @@ msgid "Total Cases"
 msgstr "Nombre total de cas"
 
 #: meerkat_frontend/reports.py:663
-#: meerkat_frontend/src/js/technical/tableManager.js:816
+#: meerkat_frontend/src/js/technical/tableManager.js:840
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:307
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:249
 #: meerkat_frontend/templates/reports/report_cerf.html:222
@@ -52,7 +52,7 @@ msgid "Female"
 msgstr "Féminin"
 
 #: meerkat_frontend/reports.py:666
-#: meerkat_frontend/src/js/technical/tableManager.js:818
+#: meerkat_frontend/src/js/technical/tableManager.js:842
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:304
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:246
 #: meerkat_frontend/templates/reports/report_cerf.html:219
@@ -290,7 +290,7 @@ msgstr "Alerte :"
 
 #: meerkat_frontend/src/files/pages/alert.html:103
 msgid "Case:"
-msgstr "Cas :"
+msgstr "Cas:"
 
 #: meerkat_frontend/src/files/pages/alert.html:104
 #: meerkat_frontend/src/js/technical/tableManager.js:522
@@ -571,7 +571,7 @@ msgstr "Complétude par semaine"
 #: meerkat_frontend/src/files/pages/completeness.html:101
 #: meerkat_frontend/src/files/pages/completenessCD.html:101
 #: meerkat_frontend/src/files/pages/completenessNCD.html:101
-#: meerkat_frontend/src/js/technical/tableManager.js:887
+#: meerkat_frontend/src/js/technical/tableManager.js:914
 msgid "Reporting sites never reported"
 msgstr "les sites rapportant n'ayant jamais rapporté"
 
@@ -591,7 +591,7 @@ msgstr "Démographie"
 #: meerkat_frontend/src/files/pages/demographicsMH.html:122
 #: meerkat_frontend/src/files/pages/demographicsNCD.html:122
 #: meerkat_frontend/src/files/pages/demographics_mad.html:87
-#: meerkat_frontend/src/js/technical/tableManager.js:779
+#: meerkat_frontend/src/js/technical/tableManager.js:798
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:130
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:129
 #: meerkat_frontend/templates/reports/report_cerf.html:129
@@ -616,7 +616,7 @@ msgstr "Nationalité"
 #: meerkat_frontend/src/files/pages/demographicsMH.html:124
 #: meerkat_frontend/src/files/pages/demographicsNCD.html:124
 #: meerkat_frontend/src/files/pages/demographics_mad.html:88
-#: meerkat_frontend/src/js/technical/tableManager.js:775
+#: meerkat_frontend/src/js/technical/tableManager.js:792
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:252
 msgid "Age"
 msgstr "Âge"
@@ -628,8 +628,8 @@ msgstr "Âge"
 #: meerkat_frontend/src/js/technical/tableManager.js:321
 #: meerkat_frontend/src/js/technical/tableManager.js:328
 #: meerkat_frontend/src/js/technical/tableManager.js:489
-#: meerkat_frontend/src/js/technical/tableManager.js:771
-#: meerkat_frontend/src/js/technical/tableManager.js:787
+#: meerkat_frontend/src/js/technical/tableManager.js:786
+#: meerkat_frontend/src/js/technical/tableManager.js:808
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:187
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:177
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:188
@@ -889,7 +889,7 @@ msgstr "Compte"
 #: meerkat_frontend/src/js/technical/tableManager.js:366
 #: meerkat_frontend/src/js/technical/tableManager.js:381
 #: meerkat_frontend/src/js/technical/tableManager.js:421
-#: meerkat_frontend/src/js/technical/tableManager.js:823
+#: meerkat_frontend/src/js/technical/tableManager.js:847
 msgid "Confirmed"
 msgstr "Confirmé"
 
@@ -940,33 +940,33 @@ msgstr "Satellite"
 msgid "cases"
 msgstr "Cas"
 
-#: meerkat_frontend/src/js/technical/mapManager.js:234
+#: meerkat_frontend/src/js/technical/mapManager.js:260
 msgid "Incidence Rate:"
 msgstr "Taux d'incidence :"
 
-#: meerkat_frontend/src/js/technical/mapManager.js:248
-#: meerkat_frontend/src/js/technical/mapManager.js:398
+#: meerkat_frontend/src/js/technical/mapManager.js:274
+#: meerkat_frontend/src/js/technical/mapManager.js:424
 msgid "Incidence Rates of"
 msgstr "Taux d'incidence de"
 
-#: meerkat_frontend/src/js/technical/mapManager.js:248
+#: meerkat_frontend/src/js/technical/mapManager.js:274
 msgid "per 1000."
 msgstr "pour 1000."
 
-#: meerkat_frontend/src/js/technical/mapManager.js:398
+#: meerkat_frontend/src/js/technical/mapManager.js:424
 msgid "per 1000"
 msgstr "pour 1000"
 
-#: meerkat_frontend/src/js/technical/mapManager.js:398
+#: meerkat_frontend/src/js/technical/mapManager.js:424
 msgid "Incidence Rate"
 msgstr "Taux d'incidence"
 
-#: meerkat_frontend/src/js/technical/mapManager.js:398
-#: meerkat_frontend/src/js/technical/mapManager.js:551
+#: meerkat_frontend/src/js/technical/mapManager.js:424
+#: meerkat_frontend/src/js/technical/mapManager.js:577
 msgid "Hover over a"
 msgstr "Survolez une"
 
-#: meerkat_frontend/src/js/technical/mapManager.js:551
+#: meerkat_frontend/src/js/technical/mapManager.js:577
 msgid "Number of cases of"
 msgstr "Nombre de cas de"
 
@@ -1053,22 +1053,20 @@ msgstr "Type"
 #: meerkat_frontend/src/js/technical/tableManager.js:320
 #: meerkat_frontend/src/js/technical/tableManager.js:326
 #: meerkat_frontend/src/js/technical/tableManager.js:488
-#: meerkat_frontend/src/js/technical/tableManager.js:754
+#: meerkat_frontend/src/js/technical/tableManager.js:756
 msgid "Region"
 msgstr "Région"
 
 #: meerkat_frontend/src/js/technical/tableManager.js:321
 #: meerkat_frontend/src/js/technical/tableManager.js:327
 #: meerkat_frontend/src/js/technical/tableManager.js:489
-#: meerkat_frontend/src/js/technical/tableManager.js:763
 msgid "Date Reported"
 msgstr "Date du rapport"
 
 #: meerkat_frontend/src/js/technical/tableManager.js:321
 #: meerkat_frontend/src/js/technical/tableManager.js:327
-#: meerkat_frontend/src/js/technical/tableManager.js:767
 msgid "Date Investigated"
-msgstr "Date d' investigation"
+msgstr "Date d'investigation"
 
 #: meerkat_frontend/src/js/technical/tableManager.js:328
 msgid "Central Review"
@@ -1078,7 +1076,7 @@ msgstr "Revue centrale"
 #: meerkat_frontend/src/js/technical/tableManager.js:389
 #: meerkat_frontend/src/js/technical/tableManager.js:420
 #: meerkat_frontend/src/js/technical/tableManager.js:530
-#: meerkat_frontend/src/js/technical/tableManager.js:821
+#: meerkat_frontend/src/js/technical/tableManager.js:845
 msgid "Pending"
 msgstr "En attente"
 
@@ -1087,7 +1085,7 @@ msgstr "En attente"
 #: meerkat_frontend/src/js/technical/tableManager.js:370
 #: meerkat_frontend/src/js/technical/tableManager.js:385
 #: meerkat_frontend/src/js/technical/tableManager.js:420
-#: meerkat_frontend/src/js/technical/tableManager.js:827
+#: meerkat_frontend/src/js/technical/tableManager.js:851
 msgid "Ongoing"
 msgstr "En cours"
 
@@ -1095,7 +1093,7 @@ msgstr "En cours"
 #: meerkat_frontend/src/js/technical/tableManager.js:368
 #: meerkat_frontend/src/js/technical/tableManager.js:383
 #: meerkat_frontend/src/js/technical/tableManager.js:421
-#: meerkat_frontend/src/js/technical/tableManager.js:825
+#: meerkat_frontend/src/js/technical/tableManager.js:849
 msgid "Disregarded"
 msgstr "Écartée"
 
@@ -1108,7 +1106,7 @@ msgid "NAMRU-ID"
 msgstr "NAMRU-ID"
 
 #: meerkat_frontend/src/js/technical/tableManager.js:489
-#: meerkat_frontend/src/js/technical/tableManager.js:758
+#: meerkat_frontend/src/js/technical/tableManager.js:768
 msgid "Clinic"
 msgstr "Centre de santé"
 
@@ -1167,19 +1165,32 @@ msgstr "Résultat VIH"
 msgid "Hepatitis B Result"
 msgstr " Résultat de l'hépatite B"
 
-#: meerkat_frontend/src/js/technical/tableManager.js:783
+#: meerkat_frontend/src/js/technical/tableManager.js:762
+#: meerkat_frontend/templates/reports/report_afro_bulletin.html:544
+msgid "District"
+msgstr "District"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:775
+msgid "Date <br /> Reported"
+msgstr "Date du <br />rapport"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:781
+msgid "Date <br /> Investigated"
+msgstr "Date <br />d'investigation"
+
+#: meerkat_frontend/src/js/technical/tableManager.js:803
 msgid "Profession"
 msgstr "Profession"
 
-#: meerkat_frontend/src/js/technical/tableManager.js:830
+#: meerkat_frontend/src/js/technical/tableManager.js:854
 msgid "Alive"
 msgstr "Vivant"
 
-#: meerkat_frontend/src/js/technical/tableManager.js:832
+#: meerkat_frontend/src/js/technical/tableManager.js:856
 msgid "Dead"
 msgstr "Mort"
 
-#: meerkat_frontend/src/js/technical/tableManager.js:918
+#: meerkat_frontend/src/js/technical/tableManager.js:945
 msgid "Dates not reported"
 msgstr "Dates non déclarées"
 
@@ -1675,10 +1686,8 @@ msgstr ""
 #, python-format
 msgid ""
 "%(cmd_10)s cases of acute flaccid paralysis were reported, with "
-"%(cmd_10_ale_2)s (%(cmd_10_ale_2_perc_cmd_10)s%%) cases investigated."
+"%(cmd_10_ale_1)s (%(cmd_10_ale_1_perc_cmd_10)s%%) cases investigated."
 msgstr ""
-"(%(cmd_10)s cas paralysie flasque aiguë ont été signalés, avec "
-"%(cmd_10_ale_2)s (%(cmd_10_ale_2_perc_cmd_10)s %%) cas investigés."
 
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:69
 #, python-format
@@ -1704,10 +1713,9 @@ msgstr ""
 #, python-format
 msgid ""
 "%(cmd_25)s cases of acute respiratory tract infection (ARTI) were "
-"reported, with %(cmd_18)s cases of influenza-like illness (ILI)."
+"reported, with %(cmd_18)s (%(cmd_18_perc_cmd_25)s%%) cases of influenza-"
+"like illness (ILI)."
 msgstr ""
-"de %(cmd_25)s cas d'infection respiratoires aiguë  (IRA) ont été "
-"signalés, avec %(cmd_18)s cas de syndrome grippal (SG)."
 
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:92
 #, python-format
@@ -1916,10 +1924,6 @@ msgstr "Décès dans les semaines"
 #, python-format
 msgid "CFR (%%) in weeks"
 msgstr "CFR ( %% ) dans les semaines"
-
-#: meerkat_frontend/templates/reports/report_afro_bulletin.html:544
-msgid "District"
-msgstr "District"
 
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:551
 msgid "No. of Health facilities"
@@ -3593,4 +3597,24 @@ msgstr "monthly_email_title"
 #: meerkat_frontend/views/reports.py:304
 msgid "title"
 msgstr "titre"
+
+#~ msgid ""
+#~ "%(cmd_10)s cases of acute flaccid "
+#~ "paralysis were reported, with %(cmd_10_ale_2)s"
+#~ " (%(cmd_10_ale_2_perc_cmd_10)s%%) cases investigated."
+#~ msgstr ""
+#~ "(%(cmd_10)s cas paralysie flasque aiguë "
+#~ "ont été signalés, avec %(cmd_10_ale_2)s "
+#~ "(%(cmd_10_ale_2_perc_cmd_10)s %%) cas investigés."
+
+#~ msgid ""
+#~ "%(cmd_25)s cases of acute respiratory "
+#~ "tract infection (ARTI) were reported, "
+#~ "with %(cmd_18)s cases of influenza-like"
+#~ " illness (ILI)."
+#~ msgstr ""
+#~ "de %(cmd_25)s cas d'infection respiratoires"
+#~ " aiguë  (IRA) ont été signalés, avec"
+#~ " %(cmd_18)s cas de syndrome grippal "
+#~ "(SG)."
 

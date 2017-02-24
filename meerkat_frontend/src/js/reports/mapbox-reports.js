@@ -99,7 +99,7 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
         this._div.innerHTML = (
             props ? '<b>' + props.Name + '</b><br />Value: ' +
             parseFloat(data[props.Name].value).toFixed(2) :
-            'Hover over an area'
+				i18n.gettext('Hover over an area')
         );
     };
     info.addTo(map);
@@ -188,54 +188,56 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
 
 
 		}
-		if( maximum === 0){
-			var legend2 = L.control({position: 'bottomright'});
+		var legend2 = L.control({position: 'bottomright'});
 
-			legend2.onAdd = function (map) {
-				var div = L.DomUtil.create('div', 'info legend');
-				div.innerHTML +=' No Cases';
-				return div;
-			};
-			legend2.addTo(map);
-		}
+		legend2.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend');
+			if( maximum === 0){
+				div.innerHTML +=i18n.gettext('No Cases');
+			}else{
+				div.innerHTML +=i18n.gettext('Areas without cases are not shown');
+			}
+			return div;
+		};
+		legend2.addTo(map);
 	}else{
 		var legend = L.control({position: 'bottomright'});
-
-			legend.onAdd = function (map) {
-				
-				var div = L.DomUtil.create('div', 'info legend');
-				var grades = [];
-				var labels = [];
-				if(minimum == maximum){
-					grades = [maximum];
-					opacity = [0.2];
-				}else{
-					n = 6;
-					grades = [minimum];
-					opacity = [0.2];
-					step = (maximum + 1 - minimum ) / n;
-					for(var j=1;j<= n; j++){
-						grades.push(minimum + step * j);
-						opacity.push(0.8*j/n + 0.2);
-					}
+		
+		legend.onAdd = function (map) {
+			
+			var div = L.DomUtil.create('div', 'info legend');
+			var grades = [];
+			var labels = [];
+			if(minimum == maximum){
+				grades = [maximum];
+				opacity = [0.2];
+			}else{
+				n = 6;
+				grades = [minimum];
+				opacity = [0.2];
+				step = (maximum + 1 - minimum ) / n;
+				for(var j=1;j<= n; j++){
+					grades.push(minimum + step * j);
+					opacity.push(0.8*j/n + 0.2);
 				}
-				// loop through our density intervals and generate a label with a colored square for each interval
-				if(grades.length == 1){
+			}
+			// loop through our density intervals and generate a label with a colored square for each interval
+			if(grades.length == 1){
+				div.innerHTML +=
+					'No Cases';
+				
+			}else{
+				for (var i = 0; i < grades.length -1 ; i++) {
 					div.innerHTML +=
-						'No Cases';
-				
-				}else{
-					for (var i = 0; i < grades.length -1 ; i++) {
-						div.innerHTML +=
-							'<i style="background:#d9692a;opacity:'+opacity[i] + '"></i> ' +
-							parseFloat(grades[i]).toFixed(1) + '&ndash;' + parseFloat(grades[i + 1]).toFixed(1) + "<br />";
-					}
+						'<i style="background:#d9692a;opacity:'+opacity[i] + '"></i> ' +
+						parseFloat(grades[i]).toFixed(1) + '&ndash;' + parseFloat(grades[i + 1]).toFixed(1) + "<br />";
 				}
-				
-				return div;
-};
+			}
+			
+			return div;
+		};
 
-legend.addTo(map);
+		legend.addTo(map);
 
 
 
