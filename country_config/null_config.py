@@ -32,6 +32,7 @@ COMPONENT_CONFIGS = {
 # Fields in the above files with same key path override the fields here.
 SHARED_CONFIG = {
     "country": "Null Island",
+    "application": "default",
     "auth_country": "demo",
     "titles": {
         "full": "Null Island <br> Public Health Surveillance",

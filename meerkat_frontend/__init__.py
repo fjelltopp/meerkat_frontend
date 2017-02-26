@@ -62,6 +62,16 @@ def get_locale():
     return g.get("language", app.config["DEFAULT_LANGUAGE"])
 
 
+# Show the blank template.
+@app.route("/template/")
+def location():
+    return render_template(
+        'template.html',
+        week=c.api('/epi_week'),
+        content=current_app.config['SHARED_CONFIG']
+    )
+
+
 @messaging.url_value_preprocessor
 @reports.url_value_preprocessor
 @download.url_value_preprocessor
