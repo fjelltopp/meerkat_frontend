@@ -1,138 +1,70 @@
 {% extends 'reports/base.html' %}
 
-{% macro table(data, percent=False) %}
-{% set total=[] %}
-<table class="refugee centered table table-hover"> 
+{% macro table(data, percent=True, p_keys="nationalities", s_keys="genders", it_names="gen_vals" ) %}
+<table class="refugee centered table table-hover">
+    <!-- header of a table -->
     <tr>
-	{% set counter=0 %}
-        {% set labels = {
-        "reg": _("Health Directorates"),
-        "tot": _("Total no. <br> of patients"),
-        "gen_3": _("males"),
-        "gen_4": _("females"),
-        "nat_10": _("Jordan"),
-        "nat_11": _("Syria"),
-        "nat_12": _("Egypt"),
-        "nat_13": _("Iraq"),
-        "nat_14": _("Iran"),
-        "nat_15": _("Saudi Arabia"),
-        "nat_16": _("Palestine"),
-        "nat_17": _("Other Nationality"),
-        "nat_1": _("Jordan"),
-        "nat_2": _("Syria"),
-        "nat_3": _("Egypt"),
-        "nat_4": _("Iraq"),
-        "nat_5": _("Iran"),
-        "nat_6": _("Saudi Arabia"),
-        "nat_7": _("Palestine"),
-        "nat_8": _("Other Nationality"),
-        "age_47": "0-9",
-        "age_48": "10-19",
-        "age_49": "20-29",
-        "age_50": "30-39",
-        "age_51": "40-49",
-        "age_52": "50-59",
-        "age_53": "60-69",
-        "age_54": "70-79",
-        "age_55": ">80",
-        "age_20": "0-9",
-        "age_21": "10-19",
-        "age_22": "20-29",
-        "age_23": "30-39",
-        "age_24": "40-49",
-        "age_25": "50-59",
-        "age_26": "60-69",
-        "age_27": "70-79",
-        "age_28": ">80",
-        "vis": _("Visit type"),
-        "vis_1": _("New Visit"),
-        "vis_2": _("Return Visit"),
-        "vis_3": _("Referral"),
-        "mhg_1": _("Moderate To Severe Depression"),
-        "mhg_2": _("Acute Psychosis"),
-        "mhg_3": _("Chronic Psychosis"),
-        "mhg_4": _("Mania"),
-        "mhg_5": _("Bipolar Depression"),
-        "mhg_6": _("Bipolar Depression Between Episodes"),
-        "mhg_7": _("Non-Convulsive Seizures Or Other Medical Condition"),
-        "mhg_8": _("Acute Aetiology"),
-        "mhg_9": _("Complex Febrile Disease"),
-        "mhg_10": _("Simple Febrile Seizure"),
-        "mhg_11": _("Epilepsy"),
-        "mhg_12": _("Delerium"),
-        "mhg_13": _("Dementia"),
-        "mhg_14": _("Alcohol Intoxication"),
-        "mhg_15": _("Alcohol Withdrawal"),
-        "mhg_16": _("Harmful Use Of Alcohol"),
-        "mhg_17": _("Alcohol Dependence"),
-        "mhg_18": _("Opioid Or Other Sedative Overdose"),
-        "mhg_19": _("Cocaine Or Amphetamine-Type Stimulant Intoxication Or Overdose"),
-        "mhg_20": _("Opioid Withdrawal"),
-        "mhg_21": _("Drug Dependence"),
-        "mhg_22": _("Risk Of Self-Harm Or Suicide"),
-        "mhg_23": _("Severe Pneumonia Or Very Severe Disease")
-        } %}
-	{% for key in data.titles %}
-	 {% if key == "reg" %}
-    <th class="key"> {{ labels[key]|safe }} </th>
-	 {% elif key == "vis" %}
-    <th class="key"> {{ labels[key]|safe }} </th>
-	 {% elif key == "tot" %}
-    <th class="total"> {{ labels[key]|safe }} </th>
-	   {% do total.append(counter) %}
-   {% elif key == "Total" %}
-    <th class="total"> {{ key|safe }} </th>
-     {% do total.append(counter) %}
-	 {% else %}
-    <th class="key">
-    {% if key in labels.keys() %}
-      {{ labels[key]|safe }}
-    {% else %}
-      {{ _(key) }}
-    {% endif %}
-    {% if percent %}
-      (%)
-    {% endif %}
-    </th>
-      {% set counter = counter +1%}
-	 {% endif %}
-	{% endfor %}
-  </tr>
-  {% for row in data["data"] %}
-    <tr>
-	 {% if row.title == "Total" %}
-    <td class="key total" style="text-align: center;"> {{ _(row.title)  }}</td>
-   {% else %}
-    {% if row.title in labels.keys() %}
-        <td class="total"> {{ labels[row.title]|safe }}</td>
-    {% else %}
-        <td class="key"> {{ _(row.title) }} </td>
-    {% endif %}
-   {% endif %}
-	 {% for i in range(row["values"]|length) %}
-      {% if (total and i in total)%}
-	     <td class="total"> {{ row["values"][i]}} </td>
-      {% elif row.title == "Total" %}
-        {% if percent %}
-          <td class="total"> {{ row["values"][i][0] }} 
-          <span class="value-percentage">({{ row["values"][i][1]|float|round(1) }} %)</span></td>
-        {% else %}
-          <td class="total"> {{ row["values"][i] }} </td>
-        {% endif %}
-      {% else %}
-        {% if percent %}
-	         <td class="value"> {{ row["values"][i][0]}} <span class="value-percentage">({{row["values"][i][1]|float|round(1) }} %)</span> </td>
-        {% else %}
-	         <td class="value"> {{ row["values"][i] }} </td>
-        {% endif %}
-      {% endif %}
-	 {% endfor %}
+        <th></th>
+        {% for p_key in data[0][p_keys] %}
+            <th class="key" colspan="5">{{p_key.name}}</th>
+        {% endfor %}
     </tr>
-  {% endfor %}
+    <tr>
+        <th></th>
+        {% for p_key in data[0][p_keys] %}
+            {% for sec_key in p_key[s_keys] %}
+                {% if sec_key == "Total" %}
+                    <th class="total">{{sec_key}}</th>
+                {% else %}
+                    <th class="key">{{sec_key}}</th>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </tr>
+    <!-- row values -->
+    {% for visit_type in data %}
+    <tr>
+        <td class="value"> {{visit_type.type}} </td>
+        {% for p_key in visit_type[p_keys] %}
+            {% for sec_key in p_key[it_names] %}
+                <td class="value">{{sec_key|int}}</td>
+            {% endfor %}
+        {% endfor %}
+    </tr>
+
+
+    {% endfor %}
 </table>
 {%- endmacro %}
 
 
+{% macro tableB(data, percent=True, p_keys="nationalities", s_keys="genders", it_names="gen_vals", row_it="region" ) %}
+{% if row_it=="region" %}
+{% set lab1 = _("Health Directorates") %}
+{% else %}
+{% set lab1 = _("Disease") %}
+{% endif %}
+<table class="refugee centered table table-hover">
+    <!-- header of a table -->
+    <tr>
+        <th>{{lab1}}</th>
+        {% for p_key in data[0][p_keys] %}
+            <th class="key">{{p_key[s_keys]}}</th>
+        {% endfor %}
+    </tr>
+    <!-- row values -->
+    {% for a_row in data %}
+    <tr>
+        <td class="value"> {{a_row[row_it]}} </td>
+        {% for p_key in a_row[p_keys] %}
+        <td class="value">{{p_key[it_names]}}</td>
+        {% endfor %}
+    </tr>
+
+
+    {% endfor %}
+</table>
+{%- endmacro %}
 
 {% block title %}{{report.data.project_region|e}} &middot; Mental Health Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
@@ -155,14 +87,10 @@
   <!-- Visit type / Nationality -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Visit type, nationality') }}</div>
-      <div class="table-title">{{ _('Table 1: Nationality of male patients on different visit types.') }}</div>
+      <div class="chart-title">{{ _('Visit type by nationality') }}</div>
+      <div class="table-title">{{ _('Table 1: Patients nationality on different visit types.') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ table(report["visit_nationality"]["gen_3"], percent=False) }}
-      </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Nationality of female patients on different visit types.') }}</div>
-      <div class="table-wrapper table-responsive">
-	        {{ table(report["visit_nationality"]["gen_4"]) }}
+          {{ table(report["table_1_data"], percent=True, p_keys="nationalities", s_keys="genders", it_names="gen_vals") }}
       </div>
     </div>
   </div>
@@ -172,31 +100,60 @@
   <!-- Visit type / Age -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Visit type, age') }}</div>
-      <div class="table-title">{{ _('Table 3: Age of male patients on different visit types.') }}</div>
+      <div class="chart-title">{{ _('Visit type by age') }}</div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Breakdown of patients age and gender') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ table(report["visit_age"]["gen_3"], percent=False) }}
-      </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 4: Age of male patients on different visit types.') }}</div>
-      <div class="table-wrapper table-responsive">
-	        {{ table(report["visit_age"]["gen_4"]) }}
+          {{ table(report["table_2_data"], percent=True, p_keys="age_categories", s_keys="genders", it_names="gen_vals") }}
       </div>
     </div>
   </div>
 </div>
 
 <div class="row">
+  <!-- Governate / nationality -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Nationality by governorate') }}</div>
+      <div class="table-title">{{ _('Table 3: Nationality of patients with reported mental health condition in each governate.') }}</div>
+      <div class="table-wrapper table-responsive">
+          {{ tableB(report["table_3_data"], percent=True, p_keys="nationalities", s_keys="nationality_name", it_names="cases", row_it="region") }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- Governate / age -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Age by governorate') }}</div>
+      <div class="table-title">{{ _('Table 4: Age of patients with reported mental health condition in each governate.') }}</div>
+      <div class="table-wrapper table-responsive">
+          {{ tableB(report["table_4_data"], percent=True, p_keys="age_categories", s_keys="age_name", it_names="cases") }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Diseases / nationality -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Nationality by condition') }}</div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 5: Patients nationality per disease.') }}</div>
+      <div class="table-wrapper table-responsive">
+          {{ tableB(report["table_5_data"], percent=True, p_keys="nationalities", s_keys="nationality", it_names="cases", row_it="disease") }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
   <!-- Diseases / age -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Patients age in different conditions and regions') }}</div>
-      <div class="table-title">{{ _('Table 5: Age of patients with reported condition.') }}</div>
+      <div class="chart-title">{{ _('Age by condition') }}</div>
+      <div class="table-title" style="page-break-before: always">{{ _('Table 6: Age of patients with different conditions.') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ table(report["ncd_age"]["gen_1"], percent=False) }}
-      </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 6: Age of patients in different regions.') }}</div>
-      <div class="table-wrapper table-responsive">
-	        {{ table(report["reg"]["ncd_age"]) }}
+          {{ tableB(report["table_6_data"], percent=True, p_keys="age_categories", s_keys="age_category", it_names="cases", row_it="disease") }}
       </div>
     </div>
   </div>
