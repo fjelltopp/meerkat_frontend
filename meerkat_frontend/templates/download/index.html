@@ -24,18 +24,21 @@
 							{# content.preparedIntro #}
 						</div>
 						<div class="breaker"></div>
-						<form id="prepared-data-download" 
+						<form id="prepared-data-download"
 						      class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-8 col-md-6">
 							<div class="row">
 								<select id="prepared-selector" class="col-sm-offset-3 prepared-data">
 								{% for button in content.prepared %}
+                                    {% if (('access' in button) and button.access|in_array(g.payload.acc[content.auth_country]))
+                                            or ('access' not in button) %}
 									<option value="{{loop.index0}}">{{_(button.title)}}</option>
-								{% endfor %} 
+                                    {% endif %}
+								{% endfor %}
 								</select>
 							</div>
 							<div class="row">
-								<input type="button" 
-									     class="submit btn btn-default btn-lg col-sm-offset-3" 
+								<input type="button"
+									     class="submit btn btn-default btn-lg col-sm-offset-3"
 									     value="{{ _('Download') }}">
 							</div>
 						</form>
@@ -57,7 +60,7 @@
 						</div>
 						<div class="breaker"></div>
 						<div class="row">
-							<form id="raw-data-download" 
+							<form id="raw-data-download"
 							      class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-8 col-md-6">
 								<div class="row">
 									<select class="col-sm-offset-3" id="form-selector"></select>
@@ -94,8 +97,8 @@
 									<div id="advanced-fields" class="chartBox__content"></div>
 								</div>
 								<div class="row">
-									<input type="submit" 
-									       class="submit btn btn-default btn-lg col-sm-offset-3" 
+									<input type="submit"
+									       class="submit btn btn-default btn-lg col-sm-offset-3"
 									       value="Download">
 								</div>
 							</form>
@@ -123,7 +126,7 @@ $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + ge
 
 
  $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-	 options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
+	 options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) //
  });
 
 function toggleRawDownloader(){
@@ -167,7 +170,7 @@ function selectAll( idTag ){
 	checkSelected( );
 }
 
-function selectNone( idTag ){	
+function selectNone( idTag ){
 	$('#' + idTag + ' input[name=attributes]').each(function(){
 		this.checked = false;
 	});
@@ -191,8 +194,8 @@ function selectDefault(){
 		selectNone();
 
 		//Finally set each default attribute checkbox to checked.
-		for( var k in defaultAttributes ){		
-		  $("input[value='" + defaultAttributes[k] + "']" ).prop('checked', true); 
+		for( var k in defaultAttributes ){
+		  $("input[value='" + defaultAttributes[k] + "']" ).prop('checked', true);
 		}
 	}
 	checkSelected( );
@@ -208,8 +211,8 @@ $.getJSON( api_root+"/export/forms", function( data ){
 	    var allFields = data[form]; //All api fields, from which we take intersect and difference.
             console.log(form)
                 console.log(config.forms)
-		var basicFields = getIntersect( allFields, config.forms[form].default ); 
-		var advancedFields = getDifference( allFields, basicFields ); 
+		var basicFields = getIntersect( allFields, config.forms[form].default );
+		var advancedFields = getDifference( allFields, basicFields );
 
 		//If there are no basic fields provided, then show all fields as basic fields.
 		if( basicFields.length == 0 ){
@@ -256,7 +259,7 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		if( configForms.indexOf( apiForms[i] ) != -1 ){
 			formSelector += i18n.gettext(config.forms[ apiForms[i] ].name);
 		}else{
-			formSelector += apiForms[i];		
+			formSelector += apiForms[i];
 		}
 
 		formSelector += "</option>"
@@ -275,7 +278,7 @@ $.getJSON( api_root+"/export/forms", function( data ){
 		drawAttributes( $(this).val() );
 	});
 
-	
+
 
 	$('#raw-data-download').submit( function(event){
 		//Validate the form.
@@ -285,7 +288,7 @@ $.getJSON( api_root+"/export/forms", function( data ){
 			$('input[name=attributes]:checked').each(function(){
 				url += $(this).val() + ",";
 			});
-		
+
 			url += "&api_key=" + config.api_key;
 
                        open_url = "wait?url=" + url
@@ -296,13 +299,13 @@ $.getJSON( api_root+"/export/forms", function( data ){
 	});
 
 	$('#prepared-data-download .submit').click( function(event){
-        
+
 		//Assemble the appropriate API call.
 	    var dataSet = config.prepared[$('#prepared-selector').val()];
         for (key in dataSet.fields){
             dataSet.fields[key][1] = i18n.gettext(dataSet.fields[key][1]);
         }
-	    if( "name_category" in dataSet){			      
+	    if( "name_category" in dataSet){
    	        var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
 	    }else{
 		var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
