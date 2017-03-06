@@ -820,10 +820,13 @@ function drawPlagueTable(containerID, cases, variables){
                 region: i18n.gettext(locations[c.region].name),
 				district: i18n.gettext(locations[c.district].name),
                 report_date: c.date.split("T")[0],
-				investigation_date: c.variables.ale_1.split("T")[0],
+
 				age: c.variables.agv_1
 
             };
+			if("ale_1" in c.variables){
+				datum.investigation_date = c.variables.ale_1.split("T")[0];
+			}
 			if (c.clinic){
 				datum.clinic = i18n.gettext(locations[c.clinic].name);
 			}else{
