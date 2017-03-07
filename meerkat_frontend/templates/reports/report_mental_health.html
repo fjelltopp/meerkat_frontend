@@ -37,35 +37,6 @@
 </table>
 {%- endmacro %}
 
-
-{% macro tableB(data, percent=True, p_keys="nationalities", s_keys="genders", it_names="gen_vals", row_it="region" ) %}
-{% if row_it=="region" %}
-{% set lab1 = _("Health Directorates") %}
-{% else %}
-{% set lab1 = _("Disease") %}
-{% endif %}
-<table class="refugee centered table table-hover">
-    <!-- header of a table -->
-    <tr>
-        <th>{{lab1}}</th>
-        {% for p_key in data[0][p_keys] %}
-            <th class="key">{{p_key[s_keys]}}</th>
-        {% endfor %}
-    </tr>
-    <!-- row values -->
-    {% for a_row in data %}
-    <tr>
-        <td class="value"> {{a_row[row_it]}} </td>
-        {% for p_key in a_row[p_keys] %}
-        <td class="value">{{p_key[it_names]}}</td>
-        {% endfor %}
-    </tr>
-
-
-    {% endfor %}
-</table>
-{%- endmacro %}
-
 {% block title %}{{report.data.project_region|e}} &middot; Mental Health Report  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
