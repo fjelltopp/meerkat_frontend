@@ -116,7 +116,7 @@
       <div class="chart-title">{{ _('Nationality by governorate') }}</div>
       <div class="table-title">{{ _('Table 3: Nationality of patients with reported mental health condition in each governate.') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ tableB(report["table_3_data"], percent=True, p_keys="nationalities", s_keys="nationality_name", it_names="cases", row_it="region") }}
+          {{ table(report["table_3_data"], percent=True, p_keys="nationalities", s_keys="genders", it_names="gen_vals") }}
       </div>
     </div>
   </div>
@@ -127,8 +127,8 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Age by governorate') }}</div>
       <div class="table-title">{{ _('Table 4: Age of patients with reported mental health condition in each governate.') }}</div>
+          {{ table(report["table_4_data"], percent=True, p_keys="age_categories", s_keys="genders", it_names="gen_vals") }}
       <div class="table-wrapper table-responsive">
-          {{ tableB(report["table_4_data"], percent=True, p_keys="age_categories", s_keys="age_name", it_names="cases") }}
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@
       <div class="chart-title">{{ _('Nationality by condition') }}</div>
       <div class="table-title" style="page-break-before: always">{{ _('Table 5: Patients nationality per disease.') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ tableB(report["table_5_data"], percent=True, p_keys="nationalities", s_keys="nationality", it_names="cases", row_it="disease") }}
+          {{ table(report["table_5_data"], percent=True, p_keys="nationalities", s_keys="genders", it_names="gen_vals") }}
       </div>
     </div>
   </div>
@@ -153,7 +153,7 @@
       <div class="chart-title">{{ _('Age by condition') }}</div>
       <div class="table-title" style="page-break-before: always">{{ _('Table 6: Age of patients with different conditions.') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ tableB(report["table_6_data"], percent=True, p_keys="age_categories", s_keys="age_category", it_names="cases", row_it="disease") }}
+          {{ table(report["table_6_data"], percent=True, p_keys="age_categories", s_keys="genders", it_names="gen_vals") }}
       </div>
     </div>
   </div>
