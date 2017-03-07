@@ -133,7 +133,8 @@ function communicableDiseasesBarChart(categories, series, labels) {
       title: {
         text: labels.xAxis.text,
         align: 'middle'
-      }
+      },
+      endOnTick: false
     },
     yAxis: {
       title: {
@@ -151,6 +152,11 @@ function communicableDiseasesBarChart(categories, series, labels) {
       type: 'spline',
       name: i18n.gettext('Suspected'),
       data: series[1]
+    },{
+      type: 'spline',
+      name: i18n.gettext('Previous Year'),
+	  data: series[2],
+	  dashStyle: 'longdash'
     }]
   };
 	return chart;

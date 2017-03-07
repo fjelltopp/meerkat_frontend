@@ -43,14 +43,33 @@
       </div>
     </div>
   </div>
-  <!-- OVERVIEW MAP -->
-  <div class="col-sm-6" id="mapbox-panel">
-    <div class="chart-wrapper">
-      <div class="chart-title">Map</div>
-      <div class="chart-stage">
-          <div id="map"></div>
+  <!-- Public Health Indicators -->
+  <div class="col-sm-6">
+	  <div class="chart-wrapper">
+		  <div class="chart-title">
+			  Public Health Indicators
+		  </div>
+		  <div class="chart-stage">
+			  <table class="table table-striped">
+				  <thead>
+					  <tr>
+						  <th></th>
+						  <th></th>
+						  <th>%</th>
+						  <th>#</th>
+					  </tr>
+				  </thead>
+				  {% for indicator in report.data.pip_indicators %}
+				  <tr>
+					  <td>{{ loop.index }}</td>
+					  <td>{{ indicator.title|e }}</td>
+					  <td>{{ indicator.percent|float|round(1) }}%</td>
+					  <td>{{ indicator.quantity|commas }}</td>
+				  </tr>
+				  {% endfor %}
+			  </table>
+		  </div>
       </div>
-    </div>
   </div>
 </div>
 <div class="row">
@@ -64,45 +83,6 @@
     </div>
 </div>
 
-<div class="row">
-  <!-- PUBLIC HEALTH INDICATORS -->
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">
-        Public Health Indicators
-      </div>
-      <div class="chart-stage">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th>%</th>
-              <th>#</th>
-            </tr>
-          </thead>
-          {% for indicator in report.data.pip_indicators %}
-          <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ indicator.title|e }}</td>
-            <td>{{ indicator.percent|float|round(1) }}%</td>
-            <td>{{ indicator.quantity|commas }}</td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-    </div>
-  </div>
-  <!-- REPORTING SITES -->
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">Sentinel Sites</div>
-      <div class="chart-stage">
-        <div id="chart-reporting-sites"></div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="row">
   <!-- DEMOGRAPHICS -->
@@ -216,6 +196,19 @@
     </div>
   </div>
 </div>
+<div class="row">
+
+  <!-- REPORTING SITES -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Sentinel Sites</div>
+      <div class="chart-stage">
+        <div id="chart-reporting-sites"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-sm-6">
     <div class="chart-wrapper">
