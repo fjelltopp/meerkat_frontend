@@ -31,7 +31,8 @@
     "leaflet-omnivore": "0.3.2",
     "leaflet.markercluster": "~1.0.3",
     "mapbox.js": "~3.0.1",
-    "tableExport.jquery.plugin": "~1.5.0"
+    "tableExport.jquery.plugin": "~1.5.0",
+    "raven-js": "~3.12.0"
 
   },
   "overrides": {

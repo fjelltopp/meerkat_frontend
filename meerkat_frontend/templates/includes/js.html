@@ -1,5 +1,10 @@
 <!-- JS -->
 <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/raven.js') }}"></script>
+
+{% if config.SENTRY_JS_DNS %}
+  <script>Raven.config('{{config.SENTRY_JS_DNS}}').install();</script>
+{% endif %}
 <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 <script src="{{ url_for('static', filename='js/mapbox.js') }}"></script>
 <script src="{{ url_for('static', filename='js/Leaflet.fullscreen.js') }}"></script>

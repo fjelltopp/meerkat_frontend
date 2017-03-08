@@ -28,7 +28,14 @@ class Config(object):
     HERMES_ROOT = from_env("HERMES_API_ROOT", "")
     HERMES_API_KEY = from_env('HERMES_API_KEY', 'test-hermes')
     MAILING_KEY = from_env('MAILING_KEY', 'test-mailing')
+    SENTRY_DNS = from_env('SENTRY_DNS', '')
 
+    if SENTRY_DNS:
+        # Generate javascript sentry_dns
+        end = SENTRY_DNS.split("@")[1]
+        begining = ":".join(SENTRY_DNS.split(":")[:-1])
+        SENTRY_JS_DNS = begining + "@" + end
+                            
     USE_BASIC_AUTH = int(from_env('USE_BASIC_AUTH', True))
     AUTH = {}
     INTERNAL_AUTH_ROOT = from_env(
