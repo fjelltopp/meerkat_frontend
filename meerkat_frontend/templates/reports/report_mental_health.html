@@ -5,8 +5,7 @@
 
     <!-- header of a table -->
     <tr>
-        <th>Nationality</th><!-- first column for main key -->
-        <th>Gender</th><!-- age breakdown  -->
+        <th class="key" colspan="2"></th><!-- first column for main key -->
         {% for p_key in data[0][p_keys] %}
             <th class="key">{{p_key.type}}</th>
         {% endfor %}
@@ -29,7 +28,13 @@
 
                 <!-- data in "sub rows" -->
                 {% for category in mh_row[p_keys] %}
-                    <td class="value">{{category[it_names][n]|int}}</td>
+                    {% if n==4 %}
+                        <td class="total">{{category[it_names][n]|int}}</td>
+                    {% elif category.type=="Totals" %}
+                        <td class="total">{{category[it_names][n]|int}}</td>
+                    {% else %}
+                        <td class="value">{{category[it_names][n]|int}}</td>
+                    {% endif %}
                 {% endfor %}
 
             </tr>
