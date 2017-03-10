@@ -5,9 +5,9 @@
 
     <!-- header of a table -->
     <tr>
-        <th class="key" colspan="2"></th><!-- first column for main key -->
+        <th class="key mh-cell" colspan="2"></th><!-- first column for main key -->
         {% for p_key in data[0][p_keys] %}
-            <th class="key">{{p_key.type}}</th>
+            <th class="key mh-cell">{{p_key.type}}</th>
         {% endfor %}
     </tr>
     <!-- row entries, e.g. nationalities -->
@@ -18,22 +18,22 @@
                 <!-- now we go through each column entry which contains a breakdown by gender... in rows -->
                 <!-- heading -->
                 {% if mh_row[p_keys][0][s_keys][n] == "Male" %}
-                    <th class="key" rowspan="5"> {{mh_row.name}} </th>
-                    <th class="key">{{mh_row[p_keys][0][s_keys][n]}}</th>
+                    <th class="key mh-cell" rowspan="5"> {{mh_row.name}} </th>
+                    <th class="key mh-cell">{{mh_row[p_keys][0][s_keys][n]}}</th>
                 {% elif mh_row[p_keys][0][s_keys][n] == "Total" %}
-                    <th class="total">{{mh_row[p_keys][0][s_keys][n]}}</th>
+                    <th class="total mh-cell">{{mh_row[p_keys][0][s_keys][n]}}</th>
                 {% else %}
-                    <th class="key">{{mh_row[p_keys][0][s_keys][n]}}</th>
+                    <th class="key mh-cell">{{mh_row[p_keys][0][s_keys][n]}}</th>
                 {% endif %}
 
                 <!-- data in "sub rows" -->
                 {% for category in mh_row[p_keys] %}
                     {% if n==4 %}
-                        <td class="total">{{category[it_names][n]|int}}</td>
+                        <td class="total mh-cell">{{category[it_names][n]|int}}</td>
                     {% elif category.type=="Totals" %}
-                        <td class="total">{{category[it_names][n]|int}}</td>
+                        <td class="total mh-cell">{{category[it_names][n]|int}}</td>
                     {% else %}
-                        <td class="value">{{category[it_names][n]|int}}</td>
+                        <td class="value mh-cell">{{category[it_names][n]|int}}</td>
                     {% endif %}
                 {% endfor %}
 
@@ -75,12 +75,12 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row mh-row">
   <!-- Visit type / Age -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Visit type by age') }}</div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Breakdown of patients age and gender') }}</div>
+      <div class="table-title">{{ _('Table 2: Breakdown of patients age and gender') }}</div>
       <div class="table-wrapper table-responsive">
           {{ table(report["table_2_data"], percent=True, p_keys="visit_types", s_keys="genders", it_names="gen_vals") }}
       </div>
@@ -88,7 +88,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row mh-row">
   <!-- Governate / nationality -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
@@ -100,7 +100,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row mh-row">
   <!-- Governate / age -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
@@ -113,24 +113,24 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row mh-row">
   <!-- Diseases / nationality -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Nationality by condition') }}</div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 5: Patients nationality per disease.') }}</div>
+      <div class="table-title">{{ _('Table 5: Patients nationality per disease.') }}</div>
       <div class="table-wrapper table-responsive">
           {{ table(report["table_5_data"], percent=True, p_keys="diseases", s_keys="genders", it_names="gen_vals") }}
       </div>
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row mh-row">
   <!-- Diseases / age -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Age by condition') }}</div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 6: Age of patients with different conditions.') }}</div>
+      <div class="table-title">{{ _('Table 6: Age of patients with different conditions.') }}</div>
       <div class="table-wrapper table-responsive">
           {{ table(report["table_6_data"], percent=True, p_keys="diseases", s_keys="genders", it_names="gen_vals") }}
       </div>
