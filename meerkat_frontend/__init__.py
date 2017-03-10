@@ -4,7 +4,7 @@ meerkat_frontend.py
 This module runs as the Flask app from app.py and mounts component Flask apps
 for different services such as the API and Reports.
 """
-from .app import app, babel
+from .app import app, babel, sentry
 from slugify import slugify
 from flask import render_template, request, Blueprint
 from flask import current_app, abort, flash, g, redirect
@@ -155,6 +155,8 @@ def error500(error):
        Args:
            error (int): The error code given by the error handler.
     """
+    if sentry:
+        sentry.captureException()
     flash("Sorry, something appears to have gone wrong.", "error")
     return render_template(
         'error.html',

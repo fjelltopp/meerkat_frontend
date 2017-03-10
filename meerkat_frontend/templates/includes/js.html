@@ -1,5 +1,10 @@
 <!-- JS -->
 <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/raven.js') }}"></script>
+
+{% if config.SENTRY_JS_DNS %}
+  <script>Raven.config('{{config.SENTRY_JS_DNS}}').install();</script>
+{% endif %}
 <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 <script src="{{ url_for('static', filename='js/mapbox.js') }}"></script>
 <script src="{{ url_for('static', filename='js/Leaflet.fullscreen.js') }}"></script>
@@ -53,9 +58,10 @@
   $( document ).ajaxError(
     function(error_event, jqXHR, ajaxSettings, thrownError ) {
       console.log("AJAX ERROR " + jqXHR.status + " " + thrownError );
-      console.log(ajaxSettings);
       if(jqXHR.status == 403){
-          window.location.reload(false);
+          new_url = "/" + language + "/login?url=" + window.location.href +
+                    "&error=" + jqXHR.responseJSON.message
+          window.location.href = new_url;
       }
     }
   );

@@ -1,0 +1,135 @@
+{% extends 'reports/base.html' %}
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('Plague Report') }} &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+  <h2>
+    <span 
+      class="flag-icon flag-icon-{{report.flag}}"
+      style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+    >
+    </span> 
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Plague Report') }}
+    <span class="report-week">
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
+    </span>
+  </h2>
+</div>
+
+<div class="row">
+    <div class="col-sm-8 no-padding-col">
+        <div class="row">
+            <!-- HIGHLIGHTS -->
+            <div class="col-sm-12">
+                <div class="chart-wrapper">
+                    <div class="chart-title">{{ _('Highlights') }}</div>
+                    <div class="chart-stage">
+                        <p> {{ _('Information reported in this plague report represents plague reported from %(clinic_num)s reporting sites and from investigations in %(project_region)s between %(start_date)s and %(end_date)s.', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
+						<p> {{ _('During the season <b> %(total_cases)s cases of plague </b>were recorded where <b> %(confirmed)s have been confirmed </b>. Out of these cases <b> %(deaths)s were fatal </b> giving a mortality rate of %(rate)s per 1000 cases.' ,total_cases=report.data.total, confirmed=report.data.confirmed, deaths=report.data.deaths, rate=report.data.mortality_rate|int) }} </p>
+						<p> {{_('The three districts with largest number of plague cases were')}}
+							{% if report.data.top_plague_dists%}
+                            {% for reg in report.data.top_plague_dists %}
+                            {% if loop.first and loop.last  %}
+                            "{{reg.district}}"
+                            {% elif not loop.last %}
+                            "{{reg.district}}",
+                            {% else %}
+                            and "{{reg.district}}" districts.
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            .
+							{% endif %}
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+	    <div class="col-sm-12">
+		<div class="chart-wrapper">
+                    <div class="chart-title clearfix"><div class='figure-title-left'> {{ _('Figure 1.') }}</div> <div class='figure-title-right'>{{_('Plague cases epi curve')}}</div></div>
+		    <div class="chart-stage">
+			<div id="fig-2"></div>
+		    </div>
+		</div>
+	    </div>
+        </div>
+       
+    </div>
+    <div class="col-sm-4">
+        <div class="chart-wrapper">
+            <div class="chart-title">Contexte</div>
+            <div class="chart-stage">
+            <p> La peste est une maladie endémique à Madagascar où elle est une maladie à déclaration obligatoire.La saison pesteuse s’étale généralement entre le mois de septembre et le mois d’avril. Elle touche surtout les hautes terres centrales, à plus de 800 m d’altitude. Chaque année, une épidémiede peste est observée à Madagascar. Dans ce contexte, des bulletins sont réalisés afin de partager les informations sur l’évolution de la situation chaque semaine.</p>
+            </div>
+        </div>
+        <div class="chart-wrapper">
+            <div class="chart-title">Définition de cas (Rappel)</div>
+            <div class="chart-stage">
+                <p> <b>Peste bubonique:</b> caractérisée par une fièvre, bubon (adénopathie) douloureux, de siège inguinal ou crural, parfois axillaire, cervical, sous-maxillaire</p>
+                <p> <b>Peste pulmonaire:</b> caractérisée par une fièvre, une toux, des douleurs thoraciques et des crachats sanguinolents Cas suspect de peste: toute personne présentant un tableau clinique évocateur de la peste avec un contexte épidémiologique favorable (résidence ou voyage en zone endémique ou notion de mortalité murine ou évidence de piqûre de puces dans les 10 jours précé-dents) </p>
+                <p> <b>Cas probable de peste:</b> toute personne suspecte de peste avec TDR F1 ou sérologie ou PCR positif </p>
+                <p> <b>Cas confirmés de peste:</b> toute personne suspecte de peste chez laquelle Yersinia pestis a été isolée, OU le TDR F1 est positif en zone d’endémie au cas où il n’y a pas d’autres tests possibles OU une séroconversion a été observée (augmentation du titre en anticorps IgG de 4 fois) </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="chart-wrapper">
+            <div class="chart-title clearfix"><div class='figure-title-left'> {{ _('Figure 2.') }}</div> <div class='figure-title-right'>{{_('Plague cases by district')}}</div></div>
+            <div class="chart-stage map-padding">
+                <div id="plague-map" class="mapbox"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MORE INFO AND CONTACT -->
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('More Information') }}</div>
+      <div class="chart-stage">
+                    {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
+          <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Contact Information') }}</div>
+      <div class="chart-stage">
+        <address>
+	  {{address|safe}}
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+<script>
+    i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
+    $('#fig-2').highcharts(
+    PlagueBarChart(
+    {{ report.data.epi_curve.weeks|safe }},
+    [{{ report.data.status.suspected }}, {{ report.data.status.confirmed }}],
+    { yAxis: { text: '{{ _("Plague Cases") }}' }, xAxis: {text: '{{ _("Epi Week") }}'} }
+    ));
+    var dis_data = {{extras.dis_data|safe}};
+    regional_map(
+    {{report.data.plague_map|safe}},
+    {{extras.map_centre}},
+    dis_data,
+    'plague-map'
+	);
+</script>
+{% endblock extra_js %}
+
