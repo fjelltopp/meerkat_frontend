@@ -576,7 +576,7 @@ function drawTbTable(containerID, location_id){
 			},
 			{
 				field: "lab",
-				title: i18n.gettext('Labratory Results Date')
+				title: i18n.gettext('Labratory <br />Results Date')
 			},
 			{
 				field: "cxr",
@@ -588,7 +588,11 @@ function drawTbTable(containerID, location_id){
 			},
 			{
 				field: "hep_b",
-				title: i18n.gettext('Hepatitis B Result') 
+				title: i18n.gettext('Hepatitis B <br />Result') 
+			},
+			{
+				field: "certificate",
+				title: i18n.gettext('Certificate <br /> Received') 
 			}
        ];
 
@@ -634,6 +638,9 @@ function drawTbTable(containerID, location_id){
                         } else {
 							datum.hep_b = i18n.gettext('Negative');
                         }
+					}
+					if("tb_certificate" in c.variables){
+						datum.certificate = c.variables.tb_certificate.split("T")[0];
 					}
 					data.push(datum);
                }
