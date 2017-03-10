@@ -30,13 +30,12 @@
                 {% for category in mh_row[p_keys] %}
                     {% if n==4 %}
                         <td class="total mh-cell">{{category[it_names][n]|int}}</td>
-                    {% elif category.type=="Totals" %}
+                    {% elif category.type=="Totals" and (n==1 or n==3) %}
+                        <td class="total mh-cell">{{category[it_names][n]|float|round(1)}}%</td>
+                    {% elif category.type=="Totals" and (n==0 or n==2) %}
                         <td class="total mh-cell">{{category[it_names][n]|int}}</td>
-                    {% elif n==1 %}
+                        {% elif n==1 or n==3 %}
                         <td class="value mh-cell">{{category[it_names][n]|float|round(1)}}%</td>
-                    {% elif n==3 %}
-                        <td class="value mh-cell">{{category[it_names][n]|float|round(1)}}%</td>
-                        <!-- One might wonder why I made the same statements for n=1 and n=3. Spend few days with jinja template and you'll know never to follow best practice. -->
                     {% else %}
                         <td class="value mh-cell">{{category[it_names][n]|int}}</td>
                     {% endif %}
