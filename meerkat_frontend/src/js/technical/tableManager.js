@@ -576,7 +576,7 @@ function drawTbTable(containerID, location_id){
 			},
 			{
 				field: "lab",
-				title: i18n.gettext('Labratory Results Date')
+				title: i18n.gettext('Labratory <br />Results Date')
 			},
 			{
 				field: "cxr",
@@ -588,7 +588,11 @@ function drawTbTable(containerID, location_id){
 			},
 			{
 				field: "hep_b",
-				title: i18n.gettext('Hepatitis B Result') 
+				title: i18n.gettext('Hepatitis B <br />Result') 
+			},
+			{
+				field: "certificate",
+				title: i18n.gettext('Certificate <br /> Received') 
 			}
        ];
 
@@ -634,6 +638,9 @@ function drawTbTable(containerID, location_id){
                         } else {
 							datum.hep_b = i18n.gettext('Negative');
                         }
+					}
+					if("tb_certificate" in c.variables){
+						datum.certificate = c.variables.tb_certificate.split("T")[0];
 					}
 					data.push(datum);
                }
@@ -820,10 +827,13 @@ function drawPlagueTable(containerID, cases, variables){
                 region: i18n.gettext(locations[c.region].name),
 				district: i18n.gettext(locations[c.district].name),
                 report_date: c.date.split("T")[0],
-				investigation_date: c.variables.ale_1.split("T")[0],
+
 				age: c.variables.agv_1
 
             };
+			if("ale_1" in c.variables){
+				datum.investigation_date = c.variables.ale_1.split("T")[0];
+			}
 			if (c.clinic){
 				datum.clinic = i18n.gettext(locations[c.clinic].name);
 			}else{

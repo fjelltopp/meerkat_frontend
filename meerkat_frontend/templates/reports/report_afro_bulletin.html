@@ -26,9 +26,11 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Weekly Highlights') }}</div>
       <div class="chart-stage"><ul>
+        {% if report.data.weekly_highlights.get('comp_week', False) %}
         <li>
           {{ _('Completeness of daily reporting was %(comp_week)s%% across %(clinic_num)s health facilities in Week %(epi_week_num)s, compared to %(comp_year)s%% cumulatively this year.', comp_week=report.data.weekly_highlights.comp_week|round(1), clinic_num=report.data.weekly_highlights.clinic_num, epi_week_num=report.data.epi_week_num, comp_year=report.data.weekly_highlights.comp_year|round(1)) }}
         </li>
+        {% endif %}
         <li>
           {{ _('%(dea_0)s reported deaths in total.', dea_0=report.data.weekly_highlights.dea_0|int ) }}
           {% if report.data.weekly_highlights.mortality %}

@@ -10,7 +10,8 @@ from flask.ext.babel import Babel
 import jinja2
 import os
 import json
-
+from raven.contrib.flask import Sentry
+from werkzeug.contrib.fixers import ProxyFix
 # Create the Flask app
 app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.do')
@@ -19,6 +20,13 @@ app.config.from_object('config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
+app.wsgi_app = ProxyFix(app.wsgi_app)
+
+if app.config["SENTRY_DNS"]:
+    
+    sentry = Sentry(app, dsn=app.config["SENTRY_DNS"])
+else:
+    sentry = None
 
 if app.config.get('TEMPLATE_FOLDER', None):
     my_loader = jinja2.ChoiceLoader([

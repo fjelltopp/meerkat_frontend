@@ -4,7 +4,7 @@ homepage.py
 A Flask Blueprint module for the homepage.
 """
 from flask import Blueprint, render_template, current_app, g
-from flask import request, make_response, redirect
+from flask import request, make_response, redirect, flash
 from meerkat_frontend import app
 from .. import common as c
 import requests
@@ -25,7 +25,13 @@ def index():
 
 @homepage.route('/login')
 def login():
+    # Enable url get args.
     url = request.args.get('url', '/en/technical')
+    error = request.args.get('error', '')
+    # If a mesage is specified show it.
+    if error:
+        flash(error, "error")
+    # Return the login page.
     return render_template(
         'homepage/login.html',
         content=current_app.config['HOMEPAGE_CONFIG'],

@@ -12,3 +12,4 @@ wsgi_liveserver>=0.3
 flask-babel>=0.10
 babel>=2.3.4
 PyJWT>=1.4.1
+raven[flask]>=6.0.0

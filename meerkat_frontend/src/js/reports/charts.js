@@ -105,9 +105,26 @@ function genderBarChart(categories, series, labels) {
   };
   return chart;
 }
-
 function communicableDiseasesBarChart(categories, series, labels) {
+	plot_series = [{
+      type: 'column',
+      name: i18n.gettext('Confirmed'),
+      data: series[0]
+    },{
+      type: 'spline',
+      name: i18n.gettext('Suspected'),
+      data: series[1]
+    }];
 
+	if (series.length == 3){
+		plot_series.push(
+			{
+				type: 'spline',
+				name: i18n.gettext('Previous Year'),
+				data: series[2],
+				dashStyle: 'longdash'
+			});
+	}
   var chart = {
     chart: {
       animation: false
@@ -127,13 +144,15 @@ function communicableDiseasesBarChart(categories, series, labels) {
           enabled: false
         }
       }
+	
     },
     xAxis: {
       categories: categories,
       title: {
         text: labels.xAxis.text,
         align: 'middle'
-      }
+      },
+      endOnTick: false
     },
     yAxis: {
       title: {
@@ -143,15 +162,66 @@ function communicableDiseasesBarChart(categories, series, labels) {
       allowDecimals: false,
       min: 0
     },
-    series: [{
+    series: plot_series
+  };
+	return chart;
+}
+
+
+
+
+
+function PlagueBarChart(categories, series, labels) {
+	var plot_series = [{
       type: 'column',
-      name: i18n.gettext('Confirmed'),
+      name: i18n.gettext('Suspected'),
       data: series[0]
     },{
-      type: 'spline',
-      name: i18n.gettext('Suspected'),
+      type: 'column',
+      name: i18n.gettext('Confirmed'),
       data: series[1]
-    }]
+    }];
+
+  var chart = {
+    chart: {
+      animation: false
+    },
+    title: {
+      text: null
+    },
+    legend: {
+      enabled: true,
+      style: {
+        fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+      }
+    },
+    plotOptions: {
+      spline: {
+        marker: {
+          enabled: false
+        }
+      },
+		series: {
+			stacking: 'normal'
+		}
+    },
+    xAxis: {
+      categories: categories,
+      title: {
+        text: labels.xAxis.text,
+        align: 'middle'
+      },
+      endOnTick: false
+    },
+    yAxis: {
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      },
+      allowDecimals: false,
+      min: 0
+    },
+    series: plot_series
   };
 	return chart;
 }
@@ -281,6 +351,137 @@ function refugeeCommunicableDiseasesChart(categories, series, labels) {
   };
 	return chart;
 }
+
+
+function PipBarChart(weeks, suspected, confirmed, labels) {
+
+	var series = [];
+		series.push({
+			type: 'spline',
+			name: i18n.gettext('Suspected'),
+			data: suspected,
+			color: "#365286"
+		});
+	colors = {"B": '#0F79BD',
+			  "H3": "#E8E801",
+			  "H1N1": "#D22727",
+			  "Mixed": "#8F908E"
+			 };
+	for(var serie in confirmed){
+		series.push( {
+			'type': 'column',
+			'name': confirmed[serie].title,
+			'data': confirmed[serie].values,
+			'color': colors[confirmed[serie].title]
+		});
+	}
+
+  var chart = {
+		chart: {
+			animation: false
+		},
+		title: {
+			text: null
+		},
+		legend: {
+			enabled: true,
+			style: {
+				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+			}
+		},
+		plotOptions: {
+			spline: {
+				marker: {
+					enabled: false
+				}
+			},
+			series: {
+                stacking: 'normal',
+				lineWidth: 5
+            },
+			 column: {
+				 pointPadding: 0,
+				 borderWidth: 0,
+				 groupPadding: 0,
+				 shadow: false
+			 }
+		},
+		xAxis: {
+			categories: weeks,
+			title: {
+				text: labels.xAxis.text,
+				align: 'middle'
+			}
+		},
+		yAxis: {
+			title: {
+				text: labels.yAxis.text,
+				align: 'middle'
+			},
+			allowDecimals: false,
+			min: 0
+		},
+		series: series
+	};
+	return chart;
+}
+
+
+function refugeeCommunicableDiseasesChart(categories, series, labels) {
+  var chart = {
+    chart: {
+      animation: false
+    },
+    title: {
+      text: null
+    },
+    legend: {
+      enabled: false,
+      style: {
+        fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+      }
+    },
+    plotOptions: {
+      spline: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+    xAxis: {
+      categories: categories,
+      title: {
+        text: labels.xAxis.text,
+        align: 'middle'
+      }
+    },
+    yAxis: {
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      },
+	  labels: {
+        formatter: function () {
+          return this.value;
+        }
+	  },
+      allowDecimals: true,
+	  min: 0
+    },
+      series: [
+		  {
+			  type: 'column',
+			  name: i18n.gettext('Suspected'),
+			  data: series[0],
+			  lineWidth: 5
+		  }]
+  };
+	return chart;
+}
+
+
+
+
 
 //Completeness bar chart for the AFRO Bulletin
 function completenessBarChart(categories, series, labels, type) {

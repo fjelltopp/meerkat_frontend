@@ -9,6 +9,7 @@
       "title":"Communicable Diseases",
       "api":"/api/export/category/demo_case/cd_tab/communicable_diseases",
       "name_category": "individual_icd",
+      "access":"cd",
       "fields":[
           ["intro./visit","Visit Type"],
           ["pt./visit_date$date","Visit Date"],
@@ -45,6 +46,7 @@
       "title":"Non-Communicable Diseases",
       "api":"/api/export/category/demo_case/ncd_tab/non_communicable_diseases",
       "name_category": "individual_icd",
+      "access":"ncd",
       "fields":[
           ["intro./visit","Visit Type"],
           ["pt./visit_date$date","Visit Date"],
@@ -78,12 +80,13 @@
           ["smoke_ever","Ever smoked?"],
           ["smoke_now","Smoke now?"]
 
-		  
+
       ]
   },{
       "title":"Non-Communicable Diseases Cases",
       "api":"/api/export/category/demo_case/ncd_tab/non_communicable_diseases/case",
       "name_category": "individual_icd",
+      "access":"ncd",
       "fields":[
           ["intro./visit","Visit Type"],
           ["pt./visit_date$date","Visit Date"],
@@ -120,7 +123,7 @@
 	      ["pt./visit_date$date","Visit Date"],
 	      ["results./bp_systolic","Systolic BP"]
 	  ]]
-		  
+
       ]
     },{
       "title":"Mental Health",
@@ -147,7 +150,7 @@
       ]
     },{
       "title":"IMCI",
-       "api":"/api/export/category/demo_case/imci/imci",
+      "api":"/api/export/category/demo_case/imci/imci",
       "name_category": "individual_icd",
       "fields":[
         ["intro./visit", "Visit Type"],
@@ -232,9 +235,9 @@
       "fields":[
 	  ["intro./visit","Visit Type"],
 	  ["pt./visit_date$date","Visit Date"],
-          ["pt./visit_date$year","Year"],
-          ["pt./visit_date$month","Month"],
-          ["pt./visit_date$epi_week","Epi Week"],
+      ["pt./visit_date$year","Year"],
+      ["pt./visit_date$month","Month"],
+      ["pt./visit_date$epi_week","Epi Week"],
 	  ["region","Region"],
 	  ["district","District"],
 	  ["clinic","Clinic"],
@@ -254,13 +257,13 @@
     },{
 	"title": "Vaccination",
 	"api":"/api/export/category/demo_case/under_five/vaccination",
-        "name_category": "individual_icd",
+    "name_category": "individual_icd",
 	"fields":[
 	    ["intro./visit","Visit Type"],
 	    ["pt./visit_date$date","Visit Date"],
-            ["pt./visit_date$year","Year"],
-            ["pt./visit_date$month","Month"],
-            ["pt./visit_date$epi_week","Epi Week"],
+        ["pt./visit_date$year","Year"],
+        ["pt./visit_date$month","Month"],
+        ["pt./visit_date$epi_week","Epi Week"],
 	    ["region","Region"],
 	    ["district","District"],
 	    ["clinic","Clinic"],
@@ -358,9 +361,9 @@
 	"fields":[
 	    ["intro./visit","Visit Type"],
 	    ["pt./visit_date$date","Visit Date"],
-            ["pt./visit_date$year","Year"],
-            ["pt./visit_date$month","Month"],
-            ["pt./visit_date$epi_week","Epi Week"],
+        ["pt./visit_date$year","Year"],
+        ["pt./visit_date$month","Month"],
+        ["pt./visit_date$epi_week","Epi Week"],
 	    ["region","Region"],
 	    ["district","District"],
 	    ["clinic","Clinic"],
