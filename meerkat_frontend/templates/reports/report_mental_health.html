@@ -7,7 +7,7 @@
     <tr>
         <th class="key mh-cell" colspan="2"></th><!-- first column for main key -->
         {% for p_key in data[0][p_keys] %}
-            <th class="key mh-cell">{{p_key.type}}</th>
+            <th class="key mh-column-title">{{p_key.type}}</th>
         {% endfor %}
     </tr>
     <!-- row entries, e.g. nationalities -->
@@ -31,11 +31,11 @@
                     {% if n==4 %}
                         <td class="total mh-cell">{{category[it_names][n]|int}}</td>
                     {% elif category.type=="Totals" and (n==1 or n==3) %}
-                        <td class="total mh-cell">{{category[it_names][n]|float|round(1)}}%</td>
+                        <td class="total mh-cell">{{category[it_names][n]|int}}%</td>
                     {% elif category.type=="Totals" and (n==0 or n==2) %}
                         <td class="total mh-cell">{{category[it_names][n]|int}}</td>
                         {% elif n==1 or n==3 %}
-                        <td class="value mh-cell">{{category[it_names][n]|float|round(1)}}%</td>
+                        <td class="value mh-cell">{{category[it_names][n]|int}}%</td>
                     {% else %}
                         <td class="value mh-cell">{{category[it_names][n]|int}}</td>
                     {% endif %}

@@ -280,7 +280,13 @@ $printedBlue: #337ab7;
 			font-size:11px !important;
 			padding: 0px !important;
 		}
+
 		.mh-row{
 			page-break-before: always;
 		}
-}
+
+		.mh-column-title{
+			font-size:9px !important;
+			padding: 0px !important;
+		}
+	}
