@@ -10,7 +10,8 @@ AUTH = {
     "explore": [['registered'], ['demo']],
     "reports": [['registered'], ['demo']],
     "settings": [['personal'], ['demo']],
-    "report_emails": [['emails'], ['demo']]
+    "report_emails": [['emails'], ['demo']],
+    "fault-report": [['registered'], ['rms']]
 }
 
 
