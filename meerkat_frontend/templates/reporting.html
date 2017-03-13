@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block menu %}
+{% endblock menu %}
+{% block body %}
+<!-- CONTENT -->
+<div class="container page-content">
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			Page Title Here
+		</div>
+		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+			Data Not Loaded
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+	<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="box chartBox">
+					<div class="chartBox__heading">
+						Box Title Here
+					</div>
+					<div class="chartBox__content" >
+                        Box Content Here
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+
+// Useful data passed from the server
+var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+var week = {{week.epi_week}};
+
+// Get the epi week and date and insert into the api.
+$("#epi-week-title").html( i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date() );
+
+</script>
+
+{% endblock pageJS %}
