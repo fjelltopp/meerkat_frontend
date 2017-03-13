@@ -28,7 +28,7 @@
         <ul class="nav navbar-nav">
             {% for item in content.main_menu %}
                 {% if (('access' in item) and ("payload" in g and item.access in g.payload.acc[content.auth_country]))
-                    or ('access' not in item) %}  
+                    or ('access' not in item) %}
                 <li class="menu-{{item.text|slugify}}">
                     <a href="/{{g.get('language')}}{{item.url}}" >{{ _(item.text) }}</a>
                 </li>
@@ -72,26 +72,29 @@
 {% endwith %}
 
     {% block body %}{% endblock %}
+    <div id='report-fault-link'>
+        <a href='/{{g.language}}/fault?url={{request.path}}' target='_blank'>{{_('Report Faulty Page')}}</a>
+    </div>
     <!-- FOOTER -->
     <footer class="row">
       {% block footer %}
       <div class="container">
 	      <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
 		      <p class="footer__title">{{_(content.titles.nav)|safe}}</p>
-		      <p>{{ _('Working with our partners:') }}</p> 
+		      <p>{{ _('Working with our partners:') }}</p>
 		      <ul class="footer__supporters" >
 			      {% for partner in content.footer.partners %}
 				      <li>{{_(partner)}}</li>
-			      {% endfor %} 
+			      {% endfor %}
 		      </ul>
 		      <p>{{ _('For more information, please e-mail:') }} {{content.footer.email|safe}} </p>
 	      </div>
 	      <div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
-		  <img src="{{ url_for('static', filename='img/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img> 
+		  <img src="{{ url_for('static', filename='img/' + content.footer.logos.country_partner) }}" id="countryLogo" ></img>
 		      {% for logo in content.footer.logos.partners %}
-			      <img src="{{ url_for('static', filename='img/' + logo) }}" ></img> 
+			      <img src="{{ url_for('static', filename='img/' + logo) }}" ></img>
               {% endfor %}
-                  <img src="{{ url_for('static', filename='img/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+                  <img src="{{ url_for('static', filename='img/' + content.footer.logos.who) }}" id="whoLogo" ></img>
 	      </div>
       </div>
       {% endblock %}

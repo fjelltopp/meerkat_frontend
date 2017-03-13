@@ -95,3 +95,14 @@ def account_settings():
         url = current_app.config['INTERNAL_AUTH_ROOT'] + "/api/update_user"
         r = requests.post(url, json=request.json)
         return (r.text, r.status_code, r.headers.items())
+
+
+@homepage.route('/fault')
+@auth.authorise(*app.config['AUTH'].get('fault-report', [['BROKEN'], ['']]))
+def report_fault():
+    url = request.args.get('url', '')
+    return render_template(
+        'reporting.html',
+        content=current_app.config['TECHNICAL_CONFIG'],
+        url=url
+    )

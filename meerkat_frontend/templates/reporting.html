@@ -6,10 +6,7 @@
 <div class="container page-content">
 	<div class="top-bar row">
 		<div class="tab-title less-padding-col">
-			Page Title Here
-		</div>
-		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
-			Data Not Loaded
+			{{_('Report a faulty page')}}
 		</div>
 	</div>
 	<div id="page-content-wrapper">
@@ -17,10 +14,12 @@
 			<div class="col-xs-12 less-padding-col">
 				<div class="box chartBox">
 					<div class="chartBox__heading">
-						Box Title Here
+						{{_('Fault Details')}}
 					</div>
 					<div class="chartBox__content" >
                         Box Content Here
+                        {{url}}
+
 					</div>
 				</div>
 			</div>
@@ -35,7 +34,6 @@
 
 // Useful data passed from the server
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
-var week = {{week.epi_week}};
 
 // Get the epi week and date and insert into the api.
 $("#epi-week-title").html( i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date() );
