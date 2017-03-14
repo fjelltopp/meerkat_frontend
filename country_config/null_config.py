@@ -13,6 +13,10 @@ AUTH = {
     "report_emails": [['emails'], ['demo']]
 }
 
+
+DEFAULT_LANGUAGE = "en"
+
+SUPPORTED_LANGUAGES = ["en", "fr"]
 # Configuration fields that are specific to each frontend component.
 COMPONENT_CONFIGS = {
     'HOMEPAGE_CONFIG': 'country_config/null_homepage.json',
