@@ -70,7 +70,7 @@
   <!-- Visit type / Nationality -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Visit type by nationality') }}</div>
+      <div class="chart-title mh-chart-title">{{ _('Visit type by nationality') }}</div>
       <div class="table-title">{{ _('Table 1: Patients nationality on different visit types.') }}</div>
       <div class="table-wrapper table-responsive">
           {{ table(report["table_1_data"], percent=True, p_keys="visit_types", s_keys="genders", it_names="gen_vals") }}
@@ -83,7 +83,7 @@
   <!-- Visit type / Age -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Visit type by age') }}</div>
+      <div class="chart-title mh-chart-title">{{ _('Visit type by age') }}</div>
       <div class="table-title">{{ _('Table 2: Breakdown of patients age and gender') }}</div>
       <div class="table-wrapper table-responsive">
           {{ table(report["table_2_data"], percent=True, p_keys="visit_types", s_keys="genders", it_names="gen_vals") }}
@@ -96,7 +96,7 @@
   <!-- Governate / nationality -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Nationality by governorate') }}</div>
+      <div class="chart-title mh-chart-title">{{ _('Nationality by governorate') }}</div>
       <div class="table-title">{{ _('Table 3: Nationality of patients with reported mental health condition in each governate.') }}</div>
       <div class="table-wrapper table-responsive">
           {{ table(report["table_3_data"], percent=True, p_keys="regions", s_keys="genders", it_names="gen_vals") }}
@@ -108,7 +108,7 @@
   <!-- Governate / age -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Age by governorate') }}</div>
+      <div class="chart-title mh-chart-title">{{ _('Age by governorate') }}</div>
       <div class="table-title">{{ _('Table 4: Age of patients with reported mental health condition in each governate.') }}</div>
           {{ table(report["table_4_data"], percent=True, p_keys="regions", s_keys="genders", it_names="gen_vals") }}
       <div class="table-wrapper table-responsive">
@@ -121,7 +121,7 @@
   <!-- Diseases / nationality -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Nationality by condition') }}</div>
+      <div class="chart-title mh-chart-title">{{ _('Nationality by condition') }}</div>
       <div class="table-title">{{ _('Table 5: Patients nationality per disease.') }}</div>
       <div class="table-wrapper table-responsive">
           {{ table(report["table_5_data"], percent=True, p_keys="diseases", s_keys="genders", it_names="gen_vals") }}
@@ -133,7 +133,7 @@
   <!-- Diseases / age -->
   <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Age by condition') }}</div>
+      <div class="chart-title mh-chart-title">{{ _('Age by condition') }}</div>
       <div class="table-title">{{ _('Table 6: Age of patients with different conditions.') }}</div>
       <div class="table-wrapper table-responsive">
           {{ table(report["table_6_data"], percent=True, p_keys="diseases", s_keys="genders", it_names="gen_vals") }}
