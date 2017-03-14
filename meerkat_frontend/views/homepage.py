@@ -5,11 +5,13 @@ A Flask Blueprint module for the homepage.
 """
 from flask import Blueprint, render_template, current_app, g
 from flask import request, make_response, redirect, flash
+from flask.ext.babel import gettext
 from meerkat_frontend import app
 from .. import common as c
 import requests
+import logging
 import authorise as auth
-
+import datetime
 
 # Register the homepage blueprint.
 homepage = Blueprint('homepage', __name__, url_prefix='/<language>')
@@ -97,12 +99,46 @@ def account_settings():
         return (r.text, r.status_code, r.headers.items())
 
 
-@homepage.route('/fault')
+@homepage.route('/fault', methods=['GET', 'POST'])
 @auth.authorise(*app.config['AUTH'].get('fault-report', [['BROKEN'], ['']]))
 def report_fault():
-    url = request.args.get('url', '')
-    return render_template(
-        'reporting.html',
-        content=current_app.config['TECHNICAL_CONFIG'],
-        url=url
-    )
+    logging.warning(request.method)
+    # If a post request is made to the url, process the form's data.
+    if request.method == 'POST':
+        # Get the data from the POST request
+        data = request.form
+        logging.warning(data)
+
+        # Log the time of the fault.
+        now = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+
+        # Create a simple string that displays the submitted data
+        details = "<b>"
+        for key, value in data.items():
+            details = ''.join([
+                details, key.capitalize(), ':</b> ', value, '<br/><br/><b>'
+            ])
+
+        # Send an email
+        # TODO: Direct github issue creation if from a personal account.
+        c.hermes('/email', 'PUT', data={
+            'subject': gettext('Fault Report') + ' - {}'.format(data['url']),
+            'message': gettext('There was a fault reported at {}. Here are the'
+                               ' details...\n\n{}'.format(now, details)),
+            'email': 'meerkatrequest@gmail.com'
+        })
+
+        return render_template(
+            'homepage/fault_report_response.html',
+            content=current_app.config['TECHNICAL_CONFIG'],
+            details=details.replace('\n', '<br/>')
+        )
+
+    # If a get request is made to the url, display the form
+    elif request.method == 'GET':
+        url = request.args.get('url', '')
+        return render_template(
+            'homepage/fault_report_form.html',
+            content=current_app.config['TECHNICAL_CONFIG'],
+            url=url
+        )
