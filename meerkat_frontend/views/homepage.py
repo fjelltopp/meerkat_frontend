@@ -102,7 +102,11 @@ def account_settings():
 @homepage.route('/fault', methods=['GET', 'POST'])
 @auth.authorise(*app.config['AUTH'].get('fault-report', [['BROKEN'], ['']]))
 def report_fault():
-    logging.warning(request.method)
+    """
+    Enables users to directly report faults to the developer. This page
+    displays a fault report form and generates a fault report email from the
+    data it posts to the server.
+    """
     # If a post request is made to the url, process the form's data.
     if request.method == 'POST':
 
@@ -149,7 +153,7 @@ def report_fault():
     elif request.method == 'GET':
         url = request.args.get('url', '')
         return render_template(
-            'homepage/fault_report_form.html',
-            content=current_app.config['TECHNICAL_CONFIG'],
-            url=url
+             'homepage/fault_report_form.html',
+             content=current_app.config['TECHNICAL_CONFIG'],
+             url=url
         )
