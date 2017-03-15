@@ -4,7 +4,7 @@ homepage.py
 A Flask Blueprint module for the homepage.
 """
 from flask import Blueprint, render_template, current_app, g
-from flask import request, make_response, redirect, flash
+from flask import request, make_response, redirect, flash, abort
 from flask.ext.babel import gettext
 from meerkat_frontend import app
 from .. import common as c
@@ -105,6 +105,7 @@ def report_fault():
     logging.warning(request.method)
     # If a post request is made to the url, process the form's data.
     if request.method == 'POST':
+
         # Get the data from the POST request and initialise variables.
         data = request.form
         now = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
@@ -119,16 +120,22 @@ def report_fault():
 
         # Send an email
         # TODO: Direct github issue creation if from a personal account.
-        c.hermes('/email', 'PUT', data={
-            'subject': gettext('Fault Report') + ' | {} | {}'.format(
-                deployment,
-                data['url']
-            ),
-            'message': gettext('There was a fault reported at {} in '
-                               'the {} deployment. Here are the details'
-                               '...\n\n{}').format(now, deployment, details),
-            'email': 'meerkatrequest@gmail.com'
-        })
+        try:
+            c.hermes('/email', 'PUT', data={
+                'email': 'meerkatrequest@gmail.com',
+                'subject': gettext('Fault Report') + ' | {} | {}'.format(
+                    deployment,
+                    data['url']
+                ),
+                'message': gettext('There was a fault reported at {} in the '
+                                   '{} deployment. Here are the details...'
+                                   '\n\n{}').format(now, deployment, details)
+            })
+        except Exception as e:
+            logging.warning("Error sending email through hermes...")
+            logging.warning(e)
+            flash('Could not notify developers. Please try again.', 'error')
+            abort(502)
 
         return render_template(
             'homepage/fault_report_response.html',
