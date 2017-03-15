@@ -682,7 +682,7 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
     var timelinessLocations;
     var timelinessData;
 	if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
-		
+
     if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
@@ -702,4 +702,30 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );
+}
+
+/**:get_browser()
+
+    Get's the browser name and version.  This code was lifted from the web.
+    http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
+
+   :returns:
+       A string including the browser name followed by the browser version.
+   */
+function get_browser(){
+    var ua= navigator.userAgent, tem,
+    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1] === 'Chrome'){
+        tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if(tem !== null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem = ua.match(/version\/(\d+)/i))!== null) M.splice(1, 1, tem[1]);
+
+    return M;
+
 }

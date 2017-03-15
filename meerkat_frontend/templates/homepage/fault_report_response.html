@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block menu %}
+{% endblock menu %}
+{% block body %}
+<!-- CONTENT -->
+<div class="container page-content">
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			{{_('Report a Faulty Page')}}
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+	<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="box chartBox">
+					<div class="chartBox__heading">
+						{{_('Success')}}
+					</div>
+					<div class="chartBox__content" >
+                        {{_('Your fault has successfully been reported.  We will endevour to respond to all faults within two weeks.')}}
+                        <div class='breaker'></div>
+                        <div class="col-sm-offset-1">
+                        {{details|safe}}
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+
+function default_values(){
+
+    var defaults = {
+        url: '{{url}}',
+        browser: get_browser()[0],
+        version: get_browser()[1],
+        name: '',
+        email: ''
+    };
+
+    // Get the username and email if the account is a personal account
+    {% if 'personal'|in_array(g.payload.acc[content.auth_country]) %}
+    defaults.email = '{{g.payload.email}}';
+    defaults.name = '{{g.payload.usr}}';
+    {% endif %}
+
+    for (var field in defaults) {
+        if (defaults.hasOwnProperty(field)) {
+            $('#'+field).val(defaults[field]);
+        }
+    }
+
+}
+
+default_values();
+
+</script>
+
+{% endblock pageJS %}
