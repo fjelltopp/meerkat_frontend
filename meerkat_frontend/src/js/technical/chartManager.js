@@ -361,6 +361,10 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
     //create a data series for each location
     var dataPrepared = [];
     var timeseries = [];
+	if (data.timeline === undefined){
+
+		$('#' + containerID).html("<h3> No " + stringGraphType + " data week for last week </h3>");
+	}
     var scoreKeys = Object.keys(data.timeline);
     var index = 0;
     for (var i=0; i<scoreKeys.length;i++){

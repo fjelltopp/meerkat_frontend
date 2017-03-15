@@ -183,3 +183,17 @@
     color: white;
     text-decoration: none;
 }
+
+#report-fault-link{
+    padding:15px;
+    text-align: center;
+    a{
+        color: $textGrey;
+    }
+}
+
+.btn-default:focus{
+  background: $highlight;
+  border: $highlight 1px solid;
+  color: #FFF;
+}

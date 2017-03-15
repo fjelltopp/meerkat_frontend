@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block menu %}
+{% endblock menu %}
+{% block body %}
+<!-- CONTENT -->
+<div class="container page-content">
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			{{_('Report a Faulty Page')}}
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+	<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="box chartBox">
+					<div class="chartBox__heading">
+						{{_('Fault Details')}}
+					</div>
+					<div class="chartBox__content" >
+
+                        <div class="row">
+                            <div class="breaker"> </div>
+                            <form id='fault-report-form' class='col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2' action="{{request.path}}" method="post">
+                                <div class='row'>
+                                    <div class='form-group col-xs-12'>
+                                        <label for="name">{{_('Name')}}:</label>
+                                        <input type="text" class="form-control" id="name" name="name"/>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='form-group col-xs-12'>
+                                        <label for="email">{{_('Email (so we can contact you if we can\'t reproduce the fault)')}}:</label>
+                                        <input type="text" class="form-control" id="email" name="email"/>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='form-group col-xs-12'>
+                                        <label for="url">{{_('Faulty page URL')}}:</label>
+                                        <input value="{{url}}" type="text" class="form-control" id="url" name="url" />
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='form-group col-xs-12 col-md-8'>
+                                        <label for="browser">{{_('Web Browser (Chrome/Firefox/etc...)')}}:</label>
+                                        <input type="text" class="form-control" id="browser" name="browser" />
+                                    </div>
+                                    <div class='form-group col-xs-12 col-md-4'>
+                                        <label for="version">{{_('Browser Version (if known)')}}:</label>
+                                        <input type="text" class="form-control" id="version" name="version" />
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='form-group col-xs-12'>
+                                        <label for="details">{{_('Fault details (please be as specific as possible)')}}:</label>
+                                        <textarea class="form-control" id="details" style='resize:vertical' name="details"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class='col-xs-12'>
+                                        <input type="submit"
+                                               class="submit btn btn-default btn-lg"
+                                               value="{{ _('Submit') }}">
+                                    </div>
+                                </div>
+                                <div class="breaker"> </div>
+                            </form>
+
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+
+function default_values(){
+
+    var defaults = {
+        url: '{{url}}',
+        browser: get_browser()[0],
+        version: get_browser()[1],
+        name: '',
+        email: ''
+    };
+
+    // Get the username and email if the account is a personal account
+    {% if 'personal'|in_array(g.payload.acc[content.auth_country]) %}
+    defaults.email = '{{g.payload.email}}';
+    defaults.name = '{{g.payload.usr}}';
+    {% endif %}
+
+    for (var field in defaults) {
+        if (defaults.hasOwnProperty(field)) {
+            $('#'+field).val(defaults[field]);
+        }
+    }
+
+}
+
+default_values();
+
+</script>
+
+{% endblock pageJS %}
