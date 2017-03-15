@@ -134,7 +134,9 @@ def report_fault():
         except Exception as e:
             logging.warning("Error sending email through hermes...")
             logging.warning(e)
-            flash('Could not notify developers. Please try again.', 'error')
+            flash(gettext(
+                'Could not notify developers. Please contact them directly.'
+            ), 'error')
             abort(502)
 
         return render_template(
