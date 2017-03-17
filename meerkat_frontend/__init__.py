@@ -19,7 +19,6 @@ import authorise as auth
 import os
 import json
 
-
 # App has been imported at the top of this file. We now add crucial services...
 
 # Paths specified in config file

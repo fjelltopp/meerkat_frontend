@@ -109,7 +109,8 @@ if __name__ == "__main__":
     implementation_csv = implementation_dir + "/translation.csv"
 
     if args.action == "update-po":
-        shutil.copy("../meerkat_api/meerkat_api/resources/reports.py", "meerkat_frontend/reports.py")
+        shutil.copy("../meerkat_api/meerkat_api/resources/reports.py",
+                    "meerkat_frontend/reports.py")
         os.system("pybabel extract -F babel.cfg -o messages.pot .")
         os.system("pybabel update -i messages.pot -d translations")
         os.remove("meerkat_frontend/reports.py")
@@ -118,13 +119,16 @@ if __name__ == "__main__":
         os.system("pybabel update -i {} -d {}/translations".format(tmp_file, implementation_dir))
     elif args.action == "insert-translations":
         if args.l and len(args.l) == 2:
-            insert_translation("{}/translations/{}/LC_MESSAGES/messages.po".format(implementation_dir, args.l), implementation_csv,args.l)
+            insert_translation("{}/translations/{}/LC_MESSAGES/messages.po".format(implementation_dir,
+                                                                                   args.l),
+                               implementation_csv,args.l)
         else:
             print("Need to specify a two letter language code")
     elif args.action == "initialise":
         if args.l and len(args.l) == 2:
             #os.system("pybabel init -i messages.pot -d translations -l {}".format(args.l))
-            os.system("pybabel init -i messages.pot -d {}/translations -l {}".format(implementation_dir,args.l))
+            os.system("pybabel init -i messages.pot -d {}/translations -l {}".format(implementation_dir,
+                                                                                     args.l))
         else:
             print("Need to specify a two letter language code")
     elif args.action == "compile":
@@ -132,6 +136,7 @@ if __name__ == "__main__":
             for lang in find_languages(["translations", "{}/translations".format(implementation_dir)]):
                 os.system("msgcat --use-first -o meerkat_frontend/translations/{}/LC_MESSAGES/messages.po translations/{}/LC_MESSAGES/messages.po {}/translations/{}/LC_MESSAGES/messages.po".format(lang, lang, implementation_dir, lang))
             os.system("pybabel compile -d meerkat_frontend/translations")
-
+            os.system("pybabel compile -d {}".format(
+                implementation_dir + "/translations"))
         else:
             print("No Language folder")
