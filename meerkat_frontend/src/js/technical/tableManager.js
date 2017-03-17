@@ -537,7 +537,136 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 	});
 }
 
-/**:drawPipTable(containerID, aggData, variables)
+/**:drawEbsTable(containerID, aggData, variables)
+
+    ??
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+    :param string variable_id:
+        ??
+    :param string link_def_id_labs:
+        ??
+    :param string link_def_id_return:
+        ??
+    :param string links_variable:
+        ??
+ */
+function drawEbsTable(containerID, location_id){
+	$.getJSON( api_root+"/locations", function( locations ){
+		columns = [
+			{
+				field: "alert_id",
+				title:  i18n.gettext('Alert ID'),
+				'searchable': true
+			},
+			{
+				field: "region",
+				title: '<span class="glossary capitalised" word="region">' + i18n.gettext('Governorate') + '</span>',
+				'searchable': true
+			},
+			{
+				field: "clinic", 
+				title: i18n.gettext('Centre'),
+				'searchable': true
+			},
+			{
+				field: "event_date",
+				title: i18n.gettext('Event Reported')
+			},
+			{
+				field: "initial_investigation",
+				title: i18n.gettext('Initial <br />Investigation')
+			},
+			{
+				field: "last_followup",
+				title: i18n.gettext('Last Followup')
+			},
+			{
+				field: "central_review",
+				title: i18n.gettext('Central <br /> Review Date')
+			},
+			{
+				field: "outcome",
+				title: i18n.gettext('Outcome')
+			},
+			{
+				field: "risk",
+				title: i18n.gettext('Risk')
+			}
+			
+       ];
+		$.getJSON( api_root + "/variables/ebs_risk_level", function( variables){
+			$.getJSON( api_root + "/records/ebs_1/" + location_id, function( case_dict ){
+				var cases = case_dict.records;
+				cases.sort( function(a, b){
+					return new Date(b.date).valueOf()-new Date(a.date).valueOf();
+				});
+
+                var data = [];
+
+				for( var i in cases ){
+					c = cases[i];
+					console.log(c);
+                    var datum = {
+                        alert_id: '<a href="" onclick="loadAlert(\'' + c.variables.alert_id + '\'); return false;">'+ c.variables.alert_id + '</a>',
+                        region: i18n.gettext(locations[c.region].name),
+                        clinic: i18n.gettext(locations[c.clinic].name),
+                        event_date: c.date.split("T")[0],
+                        initial_investigation: "-",
+                        last_followup: "-",
+                        central_review: "-",
+                        outcome: "-",
+                        risk: "-"
+                    };
+
+					if ("ebs_initial" in c.variables){
+						datum.initial_investigation = c.variables.ebs_initial.split("T")[0];
+					}
+					if ("ebs_followup" in c.variables){
+						datum.last_followup = c.variables.ebs_followup.split("T")[0];
+					}
+					if ("ebs_central_review" in c.variables){
+						datum.central_review = c.variables.ebs_central_review.split("T")[0];
+						outcome = i18n.gettext("Pending");
+						if( "ebs_confirmed" in c.variables){
+							outcome = i18n.gettext("Confirmed");
+						}
+						if ("ebs_no_confirm" in c.variables){
+							outcome = i18n.gettext("Disregarded");
+						}
+						datum.outcome = outcome;
+						risk = i18n.gettext("Not Done");
+						if( "ebs_risk_performed" in c.variables){
+							risk = variables[c.categories.ebs_risk_level].name;
+						}
+						datum.risk = risk;
+					}
+						
+					data.push(datum);
+				}
+			
+            $('#' + containerID).html("<table> </table>");
+			$('#' + containerID + ' table').bootstrapTable(
+				{
+					columns: columns,
+					data: data,
+					search: true
+//					pagination: true,
+//					pageSize: 20
+				});
+			});
+		});
+	});
+
+
+
+	
+}
+
+/**:drawTBTable(containerID, aggData, variables)
 
     ??
 
