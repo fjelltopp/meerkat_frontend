@@ -53,12 +53,12 @@
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
-    <h2>     <span 
+    <h2>     <span
 	  class="flag-icon flag-icon-{{report.flag}}"
 	  style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
       </span>
-    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
         <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> {{ _('Mental Health Report') }}
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
@@ -110,8 +110,8 @@
     <div class="chart-wrapper">
       <div class="chart-title mh-chart-title">{{ _('Age by governorate') }}</div>
       <div class="table-title">{{ _('Table 4: Age of patients with reported mental health condition in each governate.') }}</div>
-          {{ table(report["table_4_data"], percent=True, p_keys="regions", s_keys="genders", it_names="gen_vals") }}
       <div class="table-wrapper table-responsive">
+          {{ table(report["table_4_data"], percent=True, p_keys="regions", s_keys="genders", it_names="gen_vals") }}
       </div>
     </div>
   </div>
@@ -146,4 +146,3 @@
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 {% endblock extra_js %}
-
