@@ -4,7 +4,7 @@ homepage.py
 A Flask Blueprint module for the homepage.
 """
 from flask import Blueprint, render_template, current_app, g
-from flask import request, make_response, redirect, flash
+from flask import request, make_response, redirect, flash, abort
 from flask.ext.babel import gettext
 from meerkat_frontend import app
 from .. import common as c
@@ -102,15 +102,18 @@ def account_settings():
 @homepage.route('/fault', methods=['GET', 'POST'])
 @auth.authorise(*app.config['AUTH'].get('fault-report', [['BROKEN'], ['']]))
 def report_fault():
-    logging.warning(request.method)
+    """
+    Enables users to directly report faults to the developer. This page
+    displays a fault report form and generates a fault report email from the
+    data it posts to the server.
+    """
     # If a post request is made to the url, process the form's data.
     if request.method == 'POST':
-        # Get the data from the POST request
-        data = request.form
-        logging.warning(data)
 
-        # Log the time of the fault.
+        # Get the data from the POST request and initialise variables.
+        data = request.form
         now = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        deployment = current_app.config['DEPLOYMENT']
 
         # Create a simple string that displays the submitted data
         details = "<b>"
@@ -121,12 +124,24 @@ def report_fault():
 
         # Send an email
         # TODO: Direct github issue creation if from a personal account.
-        c.hermes('/email', 'PUT', data={
-            'subject': gettext('Fault Report') + ' - {}'.format(data['url']),
-            'message': gettext('There was a fault reported at {}. Here are the'
-                               ' details...\n\n{}'.format(now, details)),
-            'email': 'meerkatrequest@gmail.com'
-        })
+        try:
+            c.hermes('/email', 'PUT', data={
+                'email': 'meerkatrequest@gmail.com',
+                'subject': gettext('Fault Report') + ' | {} | {}'.format(
+                    deployment,
+                    data['url']
+                ),
+                'message': gettext('There was a fault reported at {} in the '
+                                   '{} deployment. Here are the details...'
+                                   '\n\n{}').format(now, deployment, details)
+            })
+        except Exception as e:
+            logging.warning("Error sending email through hermes...")
+            logging.warning(e)
+            flash(gettext(
+                'Could not notify developers. Please contact them directly.'
+            ), 'error')
+            abort(502)
 
         return render_template(
             'homepage/fault_report_response.html',
@@ -138,7 +153,7 @@ def report_fault():
     elif request.method == 'GET':
         url = request.args.get('url', '')
         return render_template(
-            'homepage/fault_report_form.html',
-            content=current_app.config['TECHNICAL_CONFIG'],
-            url=url
+             'homepage/fault_report_form.html',
+             content=current_app.config['TECHNICAL_CONFIG'],
+             url=url
         )
