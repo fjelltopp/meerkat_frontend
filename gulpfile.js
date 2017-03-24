@@ -118,8 +118,7 @@ gulp.task('mapbox-rename-css-to-scss', function() {
       'bower_components/intl-tel-input/build/css/intltelInput.css',
       'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
       'bower_components/bootstrap-table/src/bootstrap-table.css',
-      'bower_components/featherlight/src/featherlight.css',
-	  'bower_components/leaflet.awesome-markers/dist/leaflet.awesome-markers.css'
+      'bower_components/featherlight/src/featherlight.css'
     ])
     .pipe(rename(function(path) {
       path.extname = ".scss"
@@ -151,9 +150,7 @@ gulp.task('copyFlags', function() {
 });
 
 gulp.task('copyMapMarkers', function() {
-	return gulp.src(['bower_components/mapbox.js/images/**/*',
-					 'bower_components/leaflet.awesome-markers/dist/images/**/*'
-					])
+  return gulp.src(['bower_components/mapbox.js/images/**/*'])
     .pipe(gulp.dest('meerkat_frontend/static/css/images'));
 });
 
