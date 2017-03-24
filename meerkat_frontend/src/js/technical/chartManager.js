@@ -364,6 +364,7 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
 	if (data.timeline === undefined){
 
 		$('#' + containerID).html("<h3> No " + stringGraphType + " data week for last week </h3>");
+		return undefined;
 	}
     var scoreKeys = Object.keys(data.timeline);
     var index = 0;
