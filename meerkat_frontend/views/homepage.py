@@ -16,8 +16,10 @@ import datetime
 # Register the homepage blueprint.
 homepage = Blueprint('homepage', __name__, url_prefix='/<language>')
 
-
-@homepage.route('/')
+homepage_route = app.config.get("HOMEPAGE_ROUTE", "")
+    
+print(homepage_route)
+@homepage.route('/' + homepage_route)
 def index():
     return render_template(
         'homepage/index.html',
