@@ -53,9 +53,11 @@ def get():
         content_types = {
             "csv": "text/csv",
             "pdf": "application/pdf",
-            "html": "text/html"
+            "html": "text/html",
+            "txt": "text/txt"
             }
-        output.headers["Content-type"] = content_types[filename.split(".")[-1]]
+        output.headers["Content-type"] = content_types.get(filename.split(".")[-1],
+                                                           "")
         return output
     else:
         abort(404)
