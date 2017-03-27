@@ -64,6 +64,8 @@ class Config(object):
     SUPPORTED_LANGUAGES = ["en"]
     SUPPORTED_LANGAUGES_FLAGS = ["gb"]
 
+    DROPBOX = {}
+    
     # Auth secret settings file from which to import required config.
     # File must define JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY.
     filename = os.environ.get('MEERKAT_AUTH_SETTINGS')

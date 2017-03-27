@@ -812,7 +812,10 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
         // if (locations[regionID].level === "clinic")
         //     return 0;//that should happen on data agregation level
 
-
+	if (data.clinic_score === undefined){
+		return undefined;
+	}
+		
         var scoreKeys = Object.keys(data.clinic_score);
         var dataPrepared = [];
         var index = 0;
@@ -1123,7 +1126,10 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
  */
 
 function drawCompletenessTable( containerID, regionID, locations, data ){
-        var dataPrepared = [];
+    var dataPrepared = [];
+	if (data.score === undefined){
+		return undefined;
+	}
         var scoreKeys = Object.keys(data.score);
         var parentLocation  = regionID; //locations[scoreKeys[0]].name; //string containg parentLocation name
         var index = 0;
