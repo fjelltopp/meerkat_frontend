@@ -639,7 +639,7 @@ function drawEbsTable(containerID, location_id){
 						}
 						datum.outcome = outcome;
 						risk = i18n.gettext("Not Done");
-						if( "ebs_risk_performed" in c.variables){
+						if( "ebs_risk_performed" in c.variables || "ebs_risk_level" in c.categories){
 							risk = variables[c.categories.ebs_risk_level].name;
 						}
 						datum.risk = risk;
