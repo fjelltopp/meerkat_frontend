@@ -1,0 +1,115 @@
+{% extends 'reports/base.html' %}
+
+
+{% macro table(data) %}
+{% set total=[] %}
+<table class="table table-hover">
+	<tr> <th> {{_('Date') }} </th><th> {{_('Clinic') }} </th><th> {{_('Governorate') }} </th>
+		<th>{{ _('Type') }}</th><th> {{_('Initial Investigation')}}</th>
+		<th> {{_('Last Followup') }} </th><th> {{_('Central Review') }} </th>
+		<th> {{_('Risk Level')}}</th><th> {{_('Outcome')}}</th>
+	</tr>
+	{% set keys = ["reported_date", "clinic", "region", "event_type", "initial_investigation", "followup_date", "central_review_date", "risk_level", "outcome"]
+	%}
+	{% for row in data %}
+	<tr>
+		{% for key in keys %}
+		<td> {{ row[key] }} </td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+{%- endmacro %}
+
+{% block title %}{{report.data.project_region|e}} &middot; Event Based Surveillance (EBS) Profile  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+    <h2>
+	<span
+	    class="flag-icon flag-icon-{{report.flag}}"
+	    style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+	>
+	</span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
+	<span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Event Based Surveillance (EBS) Profile
+    <span class="report-week">
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
+    </span>
+    </h2>
+
+</div>
+<div class="row">
+  <!-- KEY FINDINGS -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Key findings</div>
+      <div class="chart-stage">
+
+          <p>Information reported in this event based surveillance (EBS) profile represents cumulative events reported from {{ report.data.num_clinic }} sites between {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} and {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}.</p>
+        <ul>
+			<li>A total of <strong> {{ report.data.total_events|commas }} </strong> events have been registered with a total of <strong> {{ report.data.total_cases|commas }} </strong>cases </li>
+
+			<li> <strong> {{ report.data.confirmed_events|commas }} </strong> events were confirmed by central review and <strong> {{ report.data.disregarded_events|commas }} </strong> events were disregarded. </li>
+          <li> Of these events <strong>{{ report.data.event_types[report.data.event_types_top_2[0]]|commas }} </strong> were of the type {{ report.data.event_types_top_2[0] }} and <strong>{{ report.data.event_types[report.data.event_types_top_2[01]]|commas }} </strong> were of the type {{ report.data.event_types_top_2[1] }}.</li>
+          <li> <strong>{{ report.data.event_risk_level[report.data.event_risk_level_top_2[0]]|commas }} </strong> of the events had risk level {{ report.data.event_risk_level_top_2[0] }} and <strong>{{ report.data.event_risk_level[report.data.event_risk_level_top_2[1]]|commas }} </strong> had risk level {{ report.data.event_risk_level_top_2[1] }}.</li>
+		  
+	</ul>
+      </div>
+    </div>
+  </div>
+  <!-- Public Health Indicators -->
+  <div class="col-sm-6" id="mapbox-panel">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Map of Events') }}</div>
+      <div class="chart-stage">
+          <div id="map"></div>
+      </div>
+    </div>
+  </div>
+<div class="row pip-table">
+    <div class="col-sm-12">
+	<div class="chart-wrapper">
+	    <div class="chart-title">Events</div>
+	    <div class="chart-stage">
+		<div id="events-table"></div>
+		{{ table(report.data.records) }}
+	    </div>
+	</div>
+    </div>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">More Information</div>
+      <div class="chart-stage">
+        <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
+        <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">Contact Information</div>
+      <div class="chart-stage">
+        <address>
+	  {{address|safe}}
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+<script>
+
+ // Draw map
+ config = {"map_centre": [0,0,8]}
+ 
+ drawMapFromData({{report.data.map|safe}}, "map")
+
+</script>
+{% endblock extra_js %}
