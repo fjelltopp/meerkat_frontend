@@ -25,25 +25,138 @@
 
 	<div id="page-content-wrapper">
 		<div class="row">
-			<div class="col-xs-12 less-padding-col">
+			<div class="col-xs-12 col-md-6 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading" >
-                        <p id="box_heading"></p>
-
+					<div class="chartBox__heading">
+						<p id="box_1_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToXLS('tb-table','tb');return false;" class="csv">
-
+							<a href="" onclick="exportTableToXLS('result-table','results');return false;" class="csv">
 							</a>
 						</div>
 					</div>
 					<div class="chartBox__content">
-						<div id="tb-table" class="table" >
-							<table></table>
+						<div id="result-table" class="table">
+						</div>
+					</div>
+				</div>
+				<br />
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						<p id="box_1a_heading" style="display: inline"> </p>
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToXLS('occupation_table-table','results');return false;" class="csv">
+							</a>
+						</div>
+					</div>
+					<div class="chartBox__content">
+						<div id="occupation-table" class="table">
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-6 less-padding-col">
+					<div class="chartBox box">
+						<div class="chartBox__heading" >
+							<p id="box_2_heading" style="display: inline"> </p>
+							<div class="box__type-selector pull-right">
+								<a href="" onclick="showChartType('bar','tb_type-charts');return false;" class="bar"></a> /
+								<a href="" onclick="showChartType('pie','tb_type-charts');return false;" class="pie"></a> /
+								<a href="" onclick="exportTableToXLS('tb_type-table', 'status'); return false;" class="csv">
+								</a>
+							</div>
+						</div>
+						<div id="tb_type-charts" class="chartBox__content">
+							<div id="tb_type-bar-chart" class="bar chart"></div>
+					<div id="tb_type-pie-chart" class="pie chart hidden" ></div>
+					<div id="tb_type-table" class="table" ></div>
+						</div>
+					</div>
+				</div>
+
+		
+		<div class="row">
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						<p id="box_3_heading" style="display: inline"> </p>
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','tb_gender-charts');return false;" class="bar">
+							</a> /
+							<a href="" onclick="showChartType('pie','tb_gender-charts');return false;" class="pie">
+							</a> /
+							<a href="" onclick="exportTableToXLS('tb_gender-table', 'gender'); return false;" class="csv">
+							</a>
+						</div>
+					</div>
+					<div id="tb_gender-charts" class="chartBox__content">
+						<div id="tb_gender-bar-chart" class="bar chart"></div>
+						<div id="tb_gender-pie-chart" class="pie chart hidden" ></div>
+						<div id="tb_gender-table" class="table" ></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						<p id="box_4_heading" style="display: inline"> </p>
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','tb_age-charts');return false;" class="bar"></a> /
+							<a href="" onclick="showChartType('pie','tb_age-charts');return false;" class="pie"></a> /
+							<a href="" onclick="exportTableToXLS('tb_age-table','age'); return false;" class="csv">
+							</a>
+						</div>
+					</div>
+					<div id="tb_age-charts" class="chartBox__content">
+						<div id="tb_age-bar-chart" class="bar chart"></div>
+						<div id="tb_age-pie-chart" class="pie chart hidden" ></div>
+						<div id="tb_age-table" class="table" ></div>
+					</div>
+				</div>
+			</div>
+			</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-md-6 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading" >
+						<p id="box_5_heading" style="display: inline"> </p>
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="showChartType('bar','nationality-charts');return false;" class="bar">
+							</a> /
+							<a href="" onclick="showChartType('pie','nationality-charts');return false;" class="pie">
+							</a>/
+							<a href="" onclick="exportTableToXLS('nationality-table', 'nationality'); return false;" class="csv">
+							</a>
+						</div>
+					</div>
+					<div id="nationality-charts" class="chartBox__content">
+						<div id="nationality-bar-chart" class="bar chart"></div>
+						<div id="nationality-pie-chart" class="pie chart hidden" ></div>
+						<div id="nationality-table" class="table" ></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-6 less-padding-col">
+			<div class="chartBox box">
+				<div class="chartBox__heading" >
+					<p id="box_6_heading" style="display: inline"> </p>
+					<div class="box__type-selector pull-right">
+						<a href="" onclick="showChartType('bar','tb_status-charts');return false;" class="bar"></a> /
+						<a href="" onclick="showChartType('pie','tb_status-charts');return false;" class="pie"></a> /
+						<a href="" onclick="exportTableToXLS('tb_status-table', 'status'); return false;" class="csv">
+						</a>
+					</div>
+				</div>
+				<div id="tb_status-charts" class="chartBox__content">
+					<div id="tb_status-bar-chart" class="bar chart"></div>
+					<div id="tb_status-pie-chart" class="pie chart hidden" ></div>
+					<div id="tb_status-table" class="table" ></div>
+				</div>
+			</div>
 		</div>
+		</div>
+
 
 	</div>
 </div>
@@ -57,8 +170,24 @@
  $("#title").html(i18n.gettext('Foreigner Screening Program'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
- $("#box_heading").html(i18n.gettext('Foreigner Screening Table'));
+ $("#box_1_heading").html(i18n.gettext('Lab Results'));
+ $("#box_1a_heading").html(i18n.gettext('Employment'));
+ $("#box_2_heading").html(i18n.gettext('TB Type'));
+ $("#box_3_heading").html(i18n.gettext('Gender'));
+ $("#box_4_heading").html(i18n.gettext('Age'));
+ $("#box_5_heading").html(i18n.gettext('Nationality'));
+ $("#box_6_heading").html(i18n.gettext('Status'));
 
+ 
+$(".csv").each(function(){
+	 $(this).html(i18n.gettext('Excel'));
+ });
+ $(".bar").each(function(){
+	 $(this).html(i18n.gettext('Bar'));
+ });
+ $(".pie").each(function(){
+	 $(this).html(i18n.gettext('Pie'));
+ });
 $("#menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -78,9 +207,51 @@ $("#menu-toggle").click(function(e) {
 //Any location-dependant content should be redrawn through this function.
 function drawCharts( locID ){
 
-	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
+	 //Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
+	 categorySummation({ category: 'tb_result',
+						 locID: locID,
+						 week: week,
+						 tableID: 'result-table',
+	                     percent: "tub_1",
+						 no_total: "true",
+                         title: i18n.gettext('Lab results')
+	 });
+     categorySummation({ category: 'tb_employment',
+						 locID: locID,
+						 week: week,
+						 tableID: 'occupation-table',
+	                     percent: true,
+                         title: i18n.gettext('Employment')
+	 });
+     
+	 
+	 var categories = ["tb_type",'tb_age', "tb_gender", 'tb_status'];
+	 var titles = ["TB Type", "Age", "Gender", "Status" ];
+	for( var i in categories ){
+	categorySummation({ category:categories[i] ,
+		                    locID: locID,
+		                    week: week,
+		                    tableID: categories[i]+'-table',
+		                    barID: categories[i]+'-bar-chart',
+		                    pieID: categories[i]+'-pie-chart',
+		                percent: true,
+						title: i18n.gettext(titles[i]),
+                            table_options: {'strip': 'false', 'colour':'false'}
+		                  });
+	}
+	categorySummation({ category: 'tb_nationality',
+		                 locID: locID,
+		                 week: week,
+		                 tableID: 'nationality-table',
+		                 barID: 'nationality-bar-chart',
+		                 pieID: 'nationality-pie-chart',
+		                 percent: true,
+	                    strip: true,
+						title: i18n.gettext("Nationality"),
+                         table_options: {'strip': 'false', 'colour':'false'}
+	});
 
-     drawTbTable("tb-table", locID)
+
 }
 
 </script>
