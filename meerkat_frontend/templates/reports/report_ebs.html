@@ -3,7 +3,7 @@
 
 {% macro table(data) %}
 {% set total=[] %}
-<table class="table table-hover">
+<table class="table table-hover reports-table small">
 	<tr> <th> {{_('Date') }} </th><th> {{_('Clinic') }} </th><th> {{_('Governorate') }} </th>
 		<th>{{ _('Type') }}</th><th> {{_('Initial Investigation')}}</th>
 		<th> {{_('Last Followup') }} </th><th> {{_('Central Review') }} </th>
@@ -53,7 +53,7 @@
 			<li> <strong> {{ report.data.confirmed_events|commas }} </strong> events were confirmed by central review and <strong> {{ report.data.disregarded_events|commas }} </strong> events were disregarded. </li>
           <li> Of these events <strong>{{ report.data.event_types[report.data.event_types_top_2[0]]|commas }} </strong> were of the type {{ report.data.event_types_top_2[0] }} and <strong>{{ report.data.event_types[report.data.event_types_top_2[01]]|commas }} </strong> were of the type {{ report.data.event_types_top_2[1] }}.</li>
           <li> <strong>{{ report.data.event_risk_level[report.data.event_risk_level_top_2[0]]|commas }} </strong> of the events had risk level {{ report.data.event_risk_level_top_2[0] }} and <strong>{{ report.data.event_risk_level[report.data.event_risk_level_top_2[1]]|commas }} </strong> had risk level {{ report.data.event_risk_level_top_2[1] }}.</li>
-		  
+
 	</ul>
       </div>
     </div>
@@ -67,18 +67,19 @@
       </div>
     </div>
   </div>
-<div class="row pip-table">
-    <div class="col-sm-12">
-	<div class="chart-wrapper">
-	    <div class="chart-title">Events</div>
-	    <div class="chart-stage">
-		<div id="events-table"></div>
-		{{ table(report.data.records) }}
-	    </div>
-	</div>
-    </div>
 </div>
 
+<div class="row">
+    <div class="col-sm-12">
+    	<div class="chart-wrapper">
+    	    <div class="chart-title">Events</div>
+    	    <div class="chart-stage">
+    		<div id="events-table"></div>
+    		{{ table(report.data.records) }}
+    	    </div>
+    	</div>
+    </div>
+</div>
 
 <div class="row">
   <div class="col-sm-6">
@@ -101,15 +102,28 @@
     </div>
   </div>
 </div>
+<pre id='log'></pre>
 {% endblock body %}
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
 
- // Draw map
- config = {"map_centre": [0,0,8]}
- 
- drawMapFromData({{report.data.map|safe}}, "map")
+var old = console.log;
+var logger = document.getElementById('log');
+console.log = function () {
+  for (var i = 0; i < arguments.length; i++) {
+    if (typeof arguments[i] == 'object') {
+        logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
+    } else {
+        logger.innerHTML += arguments[i] + '<br />';
+    }
+  }
+}
+console.log("this is a log");
+
+// Draw map
+config = {"map_centre": [0,0,8]};
+drawMapFromData({{report.data.map|safe}}, "map");
 
 </script>
 {% endblock extra_js %}
