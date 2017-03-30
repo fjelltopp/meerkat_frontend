@@ -15,10 +15,10 @@ from .views.reports import reports
 from .views.messaging import messaging
 from .views.download import download
 from .views.explore import explore
+from .views.dropbox_bp import dropbox_bp
 import authorise as auth
 import os
 import json
-
 
 # App has been imported at the top of this file. We now add crucial services...
 
@@ -69,6 +69,7 @@ def get_locale():
 @technical.url_value_preprocessor
 @homepage.url_value_preprocessor
 @extra_pages.url_value_preprocessor
+@dropbox_bp.url_value_preprocessor
 def pull_lang_code(endpoint, values):
     language = values.pop('language')
     if language not in app.config["SUPPORTED_LANGUAGES"]:
@@ -83,6 +84,7 @@ def pull_lang_code(endpoint, values):
 @homepage.url_defaults
 @technical.url_defaults
 @extra_pages.url_defaults
+@dropbox_bp.url_defaults
 def add_language_code(endpoint, values):
     values.setdefault('language', app.config["DEFAULT_LANGUAGE"])
 
@@ -95,6 +97,7 @@ app.register_blueprint(reports, url_prefix='/<language>/reports')
 app.register_blueprint(messaging, url_prefix='/<language>/messaging')
 app.register_blueprint(download, url_prefix='/<language>/download')
 app.register_blueprint(explore, url_prefix='/<language>/explore')
+app.register_blueprint(dropbox_bp, url_prefix='/<language>/files')
 
 
 @app.template_filter('slugify')

@@ -1,14 +1,14 @@
 # Translations template for Meerkat.
-# Copyright (C) 2016 Meerkat Developers
+# Copyright (C) 2017 Meerkat Developers
 # This file is distributed under the same license as the Meerkat project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Meerkat 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-11-16 16:20+0000\n"
+"POT-Creation-Date: 2017-03-13 10:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,103 +17,167 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: null_config.py:1
-msgid "Null Island <br> Public Health Surveillance"
+#: mad_config.py:1
+msgid "Madagascar <br> Public Health Surveillance"
 msgstr ""
 
-#: null_config.py:1
-msgid "<b>Null Island </b> &middot; Public Health Surveillance"
+#: mad_config.py:1
+msgid "<b>Madagascar </b> &middot; Public Health Surveillance"
 msgstr ""
 
-#: null_config.py:1
-msgid "Health Surveillance"
+#: mad_config.py:1
+msgid "Madagascar Public Health Surveillance"
 msgstr ""
 
-#: null_config.py:1
-msgid "The Ministry of Health, Null Island"
+#: mad_config.py:1
+msgid "Public Health Surveillance"
 msgstr ""
 
-#: null_config.py:1
-msgid "kingdom"
+#: mad_config.py:1
+msgid "The World Health Organisation"
 msgstr ""
 
-#: null_homepage.json:1
-msgid "Overview"
+#: mad_config.py:1
+msgid "The Ministry of Health, Madagascar"
 msgstr ""
 
-#: null_homepage.json:1
-msgid ""
-"<p>A national program of public health surveillance is being implemented "
-"in various sites across Null Island.</p><p>The project introduces case-"
-"based, integrated disease surveillance that is coded according to the "
-"International Classification of Disease (ICD-10).</p><p>The clinician "
-"uses the system within the consultation, which introduces clinical-"
-"decision support, as well as best practice prescribing guidance and and "
-"real-time reporting of information. </p><p>Information is made available "
-"within one hour via an online framework with automated generation of SMS "
-"and email alerts and support for mapping and reporting, that is accessed "
-"at all levels of the Ministry of Health.</p><p>You can sign up to receive"
-" weekly epidemiological reports and updates.</p>"
+#: mad_config.py:1
+msgid "Direction of Health Monitoring and Disease Surveillance (DVSSE)"
 msgstr ""
 
-#: null_homepage.json:1
-msgid "Indicators"
+#: mad_config.py:1
+msgid "Dashboard"
 msgstr ""
 
-#: null_homepage.json:1
-msgid ""
-"<p>The following indicators monitor the status and functioning of the "
-"health system in Null Island and are automatically updated from health "
-"facilities:</p>"
-msgstr ""
-
-#: null_homepage.json:1
+#: mad_config.py:1 mad_homepage.json:1
 msgid "Reports"
 msgstr ""
 
-#: null_homepage.json:1
-msgid ""
-"<p>Weekly epidemiological public reports are published online and "
-"distributed via e-mail.  Access the most recent report for Null Island "
-"here: </p><p class='reports-button'><a type='button' class='btn btn-lg "
-"btn-default ' href='reports/public_health' target='_blank'> Public "
-"Health<br>Profile</a><a type='button' class='btn btn-lg btn-default ' "
-"href='reports/cd_public_health' target='_blank'>Communicable Disease<br "
-"/>Profile </a><a type='button' class='btn btn-lg btn-default ' "
-"href='reports/ncd_public_health' target='_blank'> Non-Communicable<br "
-"/>Disease Profile </a><a type='button' class='btn btn-lg btn-default ' "
-"href='reports/communicable_diseases' target='_blank'>Communicable "
-"Disease<br>Report</a><a type='button' class='btn btn-lg btn-default ' "
-"href='reports/non_communicable_diseases' target='_blank'>Non-Communicable"
-" <br />Disease Report</a></p></p>"
+#: mad_config.py:1
+msgid "Notifications"
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_config.py:1
+msgid "Explore"
+msgstr ""
+
+#: mad_config.py:1
+msgid "Download"
+msgstr ""
+
+#: mad_config.py:1
+msgid "Log out"
+msgstr ""
+
+#: mad_technical.json:1
+msgid "Demographics"
+msgstr ""
+
+#: mad_explore.json:1 mad_technical.json:1
+msgid "Communicable Diseases"
+msgstr ""
+
+#: mad_technical.json:1
+msgid "Alerts"
+msgstr ""
+
+#: mad_technical.json:1
+msgid "Completeness"
+msgstr ""
+
+#: mad_technical.json:1
+msgid "Map View"
+msgstr ""
+
+#: data_types.csv:1
+msgid "Outbreak Investigation"
+msgstr ""
+
+#: mad_reports.json:1
+msgid ""
+"<strong>Directorate of Health Monitoring and Surveillance</strong><br "
+"/>Ministry of Health<br /> Antananarivo<br />Madagascar<br /><abbr "
+"title='Website'>W:</abbr> <a "
+"href='https://dvsse.sante.gov.mg'>https://dvsse.sante.gov.mg</a>"
+msgstr ""
+
+#: mad_reports.json:1
+msgid "Communicable Disease Profile Report"
+msgstr ""
+
+#: mad_reports.json:1
+msgid "Communicable Disease Report"
+msgstr ""
+
+#: mad_reports.json:1
+msgid "Epidemiological Monitoring Report"
+msgstr ""
+
+#: mad_reports.json:1
+msgid "Malaria Epidemiological Surveillance Report"
+msgstr ""
+
+#: mad_download.json:1 mad_homepage.json:1
+msgid "Region"
+msgstr ""
+
+#: mad_homepage.json:1
+msgid "Overview"
+msgstr ""
+
+#: mad_homepage.json:1
+msgid ""
+"<p>Madagascar is implementing an integrated, electronic public health "
+"surveillance system. The system is case-based and integrated and employs "
+"mobile information technology to aid collection of real-time, "
+"standardised data to inform and improve decision-making at different "
+"levels of the health system.<p>Information is made available within one "
+"hour via an online framework with automated generation of SMS and email "
+"alerts and support for mapping and reporting, that is accessed at all "
+"levels of the Ministry of Health.</p>"
+msgstr ""
+
+#: mad_homepage.json:1
+msgid "Indicators"
+msgstr ""
+
+#: mad_homepage.json:1
+msgid ""
+"<p class='reports-button'><a type='button' class='btn btn-lg btn-default "
+"' href='reports/public_health' target='_blank'>Public "
+"Health<br/>Profile</a><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/communicable_diseases' target='_blank'>Communicable "
+"Disease<br/>Report</a><a type='button' class='btn btn-lg btn-default ' "
+"href='reports/epi_monitoring' "
+"target='_blank'>Epidemiological<br/>Monitoring Report</a></p>"
+msgstr ""
+
+#: mad_homepage.json:1
 msgid "Principles"
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid ""
 "<p>The project has the following principles of implementation (click to "
 "expand):</p>"
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid "1. Routine surveillance"
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid ""
 "The project supports routine surveillance to ensure the national health "
 "system is strengthened and the capacity of the Ministry of Health is "
 "developed for long-term ownership and response."
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid "2. Integrated, case based disease surveillance"
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid ""
 "The project builds on existing national and international surveillance "
 "standards, guidelines and case definitions. Diseases, conditions and "
@@ -121,45 +185,22 @@ msgid ""
 " (ICD-10)."
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid "3. Clinical-decision support"
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid ""
 "The system includes evidence-based clinical algorithms for integrated "
 "management of childhood illness (IMCI) for child health to support and "
 "improve the provision of clinical care."
 msgstr ""
 
-#: null_homepage.json:1
-msgid "4. Best practice prescribing"
+#: mad_homepage.json:1
+msgid "4. Alerts and notifications"
 msgstr ""
 
-#: null_homepage.json:1
-msgid ""
-"The system includes the WHO essential medicines list that the clinician "
-"can use to prescribe against using best practice guidelines. Information "
-"is also collected as to whether the medicine is available for "
-"prescribing."
-msgstr ""
-
-#: null_homepage.json:1
-msgid "5. Public health screening and advice"
-msgstr ""
-
-#: null_homepage.json:1
-msgid ""
-"Patients are screened and advice is provided for vaccination status, "
-"nutrition, mosquito net ownership and use, maternal care and "
-"contraception."
-msgstr ""
-
-#: null_homepage.json:1
-msgid "6. Alerts and notifications"
-msgstr ""
-
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid ""
 "Automated real-time notifications and alerts are generated for 20 "
 "notifiable communicable diseases, by SMS and email, within one hour of "
@@ -169,72 +210,2916 @@ msgid ""
 "alert investigation and outcomes."
 msgstr ""
 
-#: null_homepage.json:1
-msgid "7. Real-time analysis and reporting"
+#: mad_homepage.json:1
+msgid "5. Real-time analysis and reporting"
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid ""
 "The system shares structured, anonymised data via an online framework for"
 " geospatial data visualisation, generation of alerts, and automated "
 "generation of reports."
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid "Acknowledgements"
 msgstr ""
 
-#: null_homepage.json:1
+#: mad_homepage.json:1
 msgid ""
 "We gratefully acknowledge the support of <br> our partners in the "
 "development of this project."
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_download.json:1 mad_explore.json:1
+msgid "Gender"
+msgstr ""
+
+#: mad_explore.json:1
+msgid "Age"
+msgstr ""
+
+#: mad_explore.json:1
+msgid "Age and Gender"
+msgstr ""
+
+#: mad_explore.json:1
+msgid "Regions"
+msgstr ""
+
+#: mad_explore.json:1
+msgid "Districts"
+msgstr ""
+
+#: mad_explore.json:1
+msgid "Clinics"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Communicable Disease"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Nutrition"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Vaccination"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Public Health"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Case Report"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Alert"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Register"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Visit Type"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Visit Date"
+msgstr ""
+
+#: mad_download.json:1
+msgid "District"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Clinic"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Status"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Age (Years)"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Age (Months)"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Nationality"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Name"
+msgstr ""
+
+#: mad_download.json:1
+msgid "ICD 10 Code"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Alert Investigation Steps"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Signal Events"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Check if the patient has any of the following symptoms"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Check if the patient has any of the following risk factors"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Onset Date"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Previously Vaccinated"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Date of onset of AFP paralysis"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Date of polio first dose"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Date of polio second dose"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Date of AFP notification"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Date of AFP investigation"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Date of previous measles vaccination"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Date of measles sample collection"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Malaria patient has fever"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Malaria RDT result"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Malaria Slide result"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Plague RDT result"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Type of plague"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Did the patient receive HIV counselling and testing?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "What is the HIV status of the patient?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Number of medicines prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Name of Medicine 1 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Dose of Medicine 1 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Availability of Medicine 1 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Name of Medicine 2 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Dose of Medicine 2 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Availability of Medicine 2 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Name of Medicine 3 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Dose of Medicine 3 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Availability of Medicine 3 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Name of Medicine 4 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Dose of Medicine 4 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Availability of Medicine 4 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Name of Medicine 5 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Dose of Medicine 5 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Availability of Medicine 5 prescribed"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Epi Week"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Month"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Year"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Disease"
+msgstr ""
+
+#: mad_download.json:1
+msgid "ASK: Does the mother breastfeed the child?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "ASK: Does the mother exclusively breastfeed the child?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "ASK: Why not?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "ASK: Is the mother providing an infant formula?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "ASK: What type of formula is the baby using?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "ASK: Has the child ever been vaccinated?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "ASK: What vaccinations has the child received?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Ever smoked?"
+msgstr ""
+
+#: mad_download.json:1
+msgid "Smoke now?"
+msgstr ""
+
+#: mad_links.py:1
+msgid "Ongoing"
+msgstr ""
+
+#: mad_links.py:1
+msgid "Confirmed"
+msgstr ""
+
+#: mad_links.py:1
+msgid "Disregarded"
+msgstr ""
+
+#: mad_codes.csv:1 mad_links.py:1
+msgid "Referral"
+msgstr ""
+
+#: mad_links.py:1
+msgid "Case Managment"
+msgstr ""
+
+#: mad_links.py:1
+msgid "Contact Tracing"
+msgstr ""
+
+#: mad_links.py:1
+msgid "Laboratory Diagnosis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "No of pregnant women who received IPT during first ANC visit"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"No of pregnant women who received IPT during first ANC visit within 16 "
+"weeks"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "No of pregnant women who received IPT 1"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "No of pregnant women who received IPT 2"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "No of pregnant women who received IPT 3"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "No of children under five who received a LLIN during routine distribution "
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "No of pregnant women who received a LLIN during routine distribution "
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"No of children under five  who received a LLIN during another mode of "
+"distribution "
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"No of pregnant women who received a LLIN during another mode of "
+"distribution "
+msgstr ""
+
+#: mad_codes.csv:1
 msgid "Total"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid "Male"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid "Female"
 msgstr ""
 
-#: demo_codes.csv:1
-msgid "Null Island"
+#: mad_codes.csv:1
+msgid "Madagascar"
 msgstr ""
 
-#: demo_codes.csv:1
-msgid "Demo"
+#: mad_codes.csv:1
+msgid "Kenya"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid "Other Nationality"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid "<5"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid "5-9"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid "10-14"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid "15-19"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid "20-59"
 msgstr ""
 
-#: demo_codes.csv:1
+#: mad_codes.csv:1
 msgid ">60"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Female <5"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Female 5-9"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Female 10-14"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Female 15-19"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Female 20-59"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Female >60"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Male <5"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Male 5-9"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Male 10-14"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Male 15-19"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Male 20-59"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Male >60"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Child under 24 months"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Communicable disease"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Non-communicable disease"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Mental Health"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Reproductive Health"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injury"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Acute Diarrhoea"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Typhoid Fever"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Bloody Diarrhoea"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Food Poisoning"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Tuberculosis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Plague"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Leprosy"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Neonatal Tetanus"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Acute Flaccid Paralysis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Rabies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Meningitis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Arbovirus"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Acute Haemorrhagic Fever"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Measles / Rubella"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Acute Jaundice Syndrome"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malaria"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Influenza-like illness "
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Seafood Poisoning"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Sexually Transmitted Infection"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Death"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Neonatal Death"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Moderate malnutrition"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Severe malnutrition"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Acute Respiratory Tract Infection"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Lymphatic Filariasis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Animal Bite"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other / Alert"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Vaccinated"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "BCG"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Hepatitis B"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diptheria"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Tetanus"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Pertussis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Polio"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Haemophilus influenzae type B (HiB)"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Measles"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Mumps"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Rubella"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Mental Health (mhGAP)"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Child Health (IMCI)"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Laboratory Results"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Prescribing"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Pregnant women"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Complications in pregnancy"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Child is breastfed"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Child is exclusively breastfed"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Child is provided an infant formula"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "New Visit"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Return Visit"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Daily Forms"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Total Consultations"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Refugee Consultations"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Active Surveillence Fever"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "<29 days"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "29 days-12 months"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "1-4 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "5-9 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "10-14 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "15-24 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "25-49 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "50-59 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ">60 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths <29 days"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 29 days-12 months"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 1-4 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 5-9 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 10-14 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 15-24 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 25-49 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths 50-59 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Maternal Deaths >60 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_17"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_4183"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_461"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_421"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_113"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_35"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_9643"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_530"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_9225"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_391"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_380"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_488"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_804"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_68"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_321"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_91"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths cmd_43"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_2194"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths cmd_48"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_168"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_188"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_4177"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_2189"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths epi_1"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths icd_1"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deaths epi_7"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malaria RDT"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malaria Slide"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Plague RDT"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Plague Type ICD A20.0"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Plague Type ICD A20.2"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Cholera >5 years"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "01. Certain infectious and parasitic diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "02. Neoplasms"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"03. Diseases of the blood and blood-forming organs and certain disorders "
+"involving the immune mechanism"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "04. Endocrine, nutritional and metabolic diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "05. Mental and behavioural disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "06. Diseases of the nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "07. Diseases of the eye and adnexa"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "08. Diseases of the ear and mastoid process"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "09. Diseases of the circulatory system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "10. Diseases of the respiratory system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "11. Diseases of the digestive system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "12. Diseases of the skin and subcutaneous tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "13. Diseases of the musculoskeletal system and connective tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "14. Diseases of the genitourinary system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "15. Pregnancy, childbirth and the puerperium"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "16. Certain conditions originating in the perinatal period"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "17. Congenital malformations,deformations and chromosomal abnormalities"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"18. Symptoms, signs and abnormal clinical and laboratory findings, not "
+"elsewhere classified"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "19. Injury, poisoning and certain other consequences of external causes"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "20. External causes of morbidity and mortality"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "21. Factors influencing health status and contact with health services"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "22. Codes for special purposes"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "23. Other (not ICD-10 coded)"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Intestinal infectious diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Certain zoonotic bacterial diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other bacterial diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Infections with a predominantly sexual mode of transmission"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other spirochaetal diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other diseases caused by chlamydiae"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Rickettsioses"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Viral infections of the central nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Arthropod-borne viral fevers and viral haemorrhagic fevers"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Viral infections characterized by skin and mucous membrane lesions"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Viral hepatitis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Human immunodeficiency virus [HIV] disease"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other viral diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Mycoses"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Protozoal diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Helminthiases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Pediculosis,acariasis and other infestations"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Sequelae of infectious and parasitic diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Bacterial,viral and other infectious agents"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other infectious diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of lip,oral cavity and pharynx"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of digestive organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of respiratory and intrathoracic organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of bone and articular cartilage"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Melanoma and other malignant neoplasms of skin"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of mesothelial and soft tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasm of breast"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of female genital organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of male genital organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of urinary tract"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of eye,brain and other parts of central nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of thyroid and other endocrine glands"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of ill-defined,secondary and unspecified sites"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Malignant neoplasms,stated or presumed to be primary,of lymphoid, "
+"haematopoietic and related tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malignant neoplasms of independent (primary) multiple sites"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "In situ neoplasms"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Benign neoplasms"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Neoplasms of uncertain or unknown behaviour"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Nutritional anaemias"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Haemolytic anaemias"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Aplastic and other anaemias"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Coagulation defects, purpura and other haemorrhagic conditions"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other diseases of blood and blood-forming organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Certain disorders involving the immune mechanism"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of thyroid gland"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diabetes mellitus"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders of glucose regulation and pancreatic internal secretion"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of other endocrine glands"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Malnutrition"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other nutritional deficiencies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Obesity and other hyperalimentation"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Metabolic disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Organic,including symptomatic, mental disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Mental and behavioural disorders due to psychoactive substance use"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Schizophrenia, schizotypal and delusional disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Mood [affective] disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Neurotic,stress-related and somatoform disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Behavioural syndromes associated with physiological disturbances and "
+"physical factors"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of adult personality and behaviour"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Mental retardation"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of psychological development"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Behavioural and emotional disorders with onset usually occurring in "
+"childhood and adolescence"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Unspecified mental disorder"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Inflammatory diseases of the central nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Systemic atrophies primarily affecting the central nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Extrapyramidal and movement disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other degenerative diseases of the nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Demyelinating diseases of the central nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Episodic and paroxysmal disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Nerve,nerve root and plexus disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Polyneuropathies and other disorders of the peripheral nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of myoneural junction and muscle"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Cerebral palsy and other paralytic syndromes"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders of the nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of eyelid,lacrimal system and orbit"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of conjunctiva"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of sclera,cornea,iris and ciliary body"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of lens"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of choroid and retina"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Glaucoma"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of vitreous body and globe"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of optic nerve and visual pathways"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Disorders of ocular muscles,binocular movement,accommodation and "
+"refraction"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Visual disturbances and blindness"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders of eye and adnexa"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of external ear"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of middle ear and mastoid"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of inner ear"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders of ear"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Acute rheumatic fever"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Chronic rheumatic heart diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Hypertensive diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Ischaemic heart diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Pulmonary heart disease and diseases of pulmonary circulation"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other forms of heart disease"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Cerebrovascular diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of arteries,arterioles and capillaries"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Diseases of veins, lymphatic vessels and lymph nodes,not elsewhere "
+"classified"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other and unspecified disorders of the circulatory system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Acute upper respiratory infections"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Influenza and pneumonia"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other acute lower respiratory infections"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other diseases of upper respiratory tract"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Chronic lower respiratory diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Lung diseases due to external agents"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other respiratory diseases principally affecting the interstitium"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Suppurative and necrotic conditions of lower respiratory tract"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other diseases of pleura"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other diseases of the respiratory system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of oral cavity,salivary glands and jaws"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of oesophagus,stomach and duodenum"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of appendix"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Hernia"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Noninfective enteritis and colitis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other diseases of intestines"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of peritoneum"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of liver"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of gallbladder, biliary tract and pancreas"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other diseases of the digestive system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Infections of the skin and subcutaneous tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Bullous disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Dermatitis and eczema"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Papulosquamous disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Urticaria and erythema"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Radiation-related disorders of the skin and subcutaneous tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of skin appendages"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders of the skin and subcutaneous tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Infectious arthropathies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Inflammatory polyarthropathies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Arthrosis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other joint disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Systemic connective tissue disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Deforming dorsopathies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Spondylopathies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other dorsopathies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of muscles"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of synovium and tendon"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other soft tissue disorders"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of bone density and structure"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other osteopathies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Chondropathies"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders of the musculoskeletal system and connective tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Glomerular diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Renal tubulo-interstitial diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Renal failure"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Urolithiasis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders of kidney and ureter"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other diseases of urinary system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Diseases of male genital organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders of breast"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Inflammatory diseases of female pelvic organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Noninflammatory disorders of female genital tract"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders of the genitourinary system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Pregnancy with abortive outcome"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Oedema, proteinuria and hypertensive disorders in pregnancy,childbirth "
+"and the puerperium"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other maternal disorders predominantly related to pregnancy"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Maternal care related to the fetus and amniotic cavity and possible "
+"delivery problems"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Complications of labour and delivery"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Delivery"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Complications predominantly related to the puerperium"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other obstetric conditions,not elsewhere classified"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Fetus and newborn affected by maternal factors and by complications of "
+"pregnancy,labour and delivery"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Disorders related to length of gestation and fetal growth"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Birth trauma"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Respiratory and cardiovascular disorders specific to the perinatal period"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Infections specific to the perinatal period"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Haemorrhagic and haematological disorders of fetus and newborn"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Transitory endocrine and metabolic disorders specific to fetus and newborn"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Digestive system disorders of fetus and newborn"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Conditions involving the integument and temperature regulation of fetus "
+"and newborn"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other disorders originating in the perinatal period"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of the nervous system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of eye,ear,face and neck"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of the circulatory system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of the respiratory system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Cleft lip and cleft palate"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other congenital malformations of the digestive system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of genital organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Congenital malformations of the urinary system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Congenital malformations and deformations of the musculoskeletal system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other congenital malformations"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Chromosomal abnormalities,not elsewhere classified"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the circulatory and respiratory systems"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the digestive system and abdomen"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the skin and subcutaneous tissue"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the nervous and musculoskeletal systems"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving the urinary system"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Symptoms and signs involving cognition, perception, emotional state and "
+"behaviour"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Symptoms and signs involving speech and voice"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "General symptoms and signs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Abnormal findings on examination of blood,without diagnosis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Abnormal findings on examination of urine,without diagnosis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Abnormal findings on examination of other body fluids, substances and "
+"tissues, without diagnosis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Abnormal findings on diagnostic imaging and in function studies, without "
+"diagnosis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Ill-defined and unknown causes of mortality"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the head"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the neck"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the thorax"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the abdomen, lower back, lumbar spine and pelvis"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the shoulder and upper arm"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the elbow and forearm"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the wrist and hand"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the hip and thigh"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the knee and lower leg"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to the ankle and foot"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries involving multiple body regions"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Injuries to unspecified part of trunk, limb or body region"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Effects of foreign body entering through natural orifice"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Burns and corrosions of external body surface,specified by site"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Burns and corrosions confined to eye and internal organs"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Burns and corrosions of multiple and unspecified body regions"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Frostbite"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Poisoning by drugs,medicaments and biological substances"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Toxic effects of substances chiefly nonmedicinal as to source"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other and unspecified effects of external causes"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Certain early complications of trauma"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Complications of surgical and medical care, not elsewhere classified"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Sequelae of injuries,of poisoning and of other consequences of external "
+"causes"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Pedestrian injured in transport accident"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Pedal cyclist injured in transport accident"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Motorcycle rider injured in transport accident"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Occupant of three-wheeled motor vehicle injured in transport accident"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Car occupant injured in transport accident"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Occupant of pick-up truck or van injured in transport accident"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Occupant of heavy transport vehicle injured in transport accident"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Bus occupant injured in transport accident"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other land transport accidents"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Water transport accidents"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Air and space transport accidents"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other and unspecified transport accidents"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Falls"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Exposure to inanimate mechanical forces"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Exposure to animate mechanical forces"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Accidental drowning and submersion"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other accidental threats to breathing"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Exposure to electric current,radiation and extreme ambient air "
+"temperature and pressure"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Exposure to smoke,fire and flames"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Contact with heat and hot substances"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Contact with venomous animals and plants"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Exposure to forces of nature"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Accidental poisoning by and exposure to noxious substances"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Overexertion,travel and privation"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Accidental exposure to other and unspecified factors"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Intentional self-harm"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Assault"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Event of undetermined intent"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Legal intervention and operations of war"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Drugs,medicaments and biological substances causing adverse effects in "
+"therapeutic use"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Misadventures to patients during surgical and medical care"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Medical devices associated with adverse incidents in diagnostic and "
+"therapeutic use"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Surgical and other medical procedures as the cause of abnormal reaction "
+"of the patient, or of later complication, without mention of misadventure"
+" at the time of the procedure"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Sequelae of external causes of morbidity and mortality"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Supplementary factors related to causes of morbidity and mortality "
+"classified elsewhere"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Persons encountering health services for examination and investigation"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Persons with potential health hazards related to communicable diseases"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Persons encountering health services in circumstances related to "
+"reproduction"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Persons encountering health services for specific procedures and health "
+"care"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Persons with potential health hazards related to socioeconomic and "
+"psychosocial circumstances"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Persons encountering health services in other circumstances"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Persons with potential health hazards related to family and personal "
+"history and certain conditions influencing health status"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Provisional assignment of new diseases of uncertain etiology"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Bacterial agents resistant to antibiotics"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Other (Not categorised)"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "International Classification of Disease (ICD-10)"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Suspected"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A disease characterized by acute painless watery diarrhea with or without"
+" vomiting or dehydration.\n"
+"\n"
+"Probable case\n"
+"Anyone of 5 years or more with severe dehydration or death from acute "
+"diarrhea (3 or more abnormally loose or watery stools in the last 24 "
+"hours). Any person 2 years or older with acute diarrhea (3 or more "
+"abnormally loose or watery stools in the last 24 hours) with or without "
+"dehydration in an area where there is a cholera epidemic.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness and fills the laboratory test."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A disease characterized by the insidious onset of persistent fever, "
+"headache, malaise, cough, bradycardia, splenomegaly or pink stain on the "
+"trunk with or without gastrointestinal symptoms.\n"
+"  \n"
+"Probable case\n"
+"A clinically compatible case BE\n"
+"• Following Salmonella Typhi title Widal O antibody test of 200 or more, "
+"or\n"
+"• Epidemiological link to a Confirmed case\n"
+"\n"
+"Confirmed case\n"
+"A clinical compatible case with Laboratory confirmation."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Anyone suffering from diarrhea (appeared for less than 15 days) with "
+"visible blood in the stool, with or without mucus or abdominal pain, with"
+" or without signs of dehydration.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible case without Laboratory confirmation, but "
+"epidemiologically linked to a Confirmed case.\n"
+"\n"
+"Confirmed case\n"
+"A clinical compatible case with Laboratory confirmation."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Anyone coughing for at least 3 weeks.\n"
+"\n"
+"Confirmed case\n"
+"Direct examination of sputum or GeneXpert cases confirmed by radiography,"
+" culture for extrapulmonary."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Anyone with a high fever of sudden onset, with chills, headache, malaise "
+"importantly, prostration and very painful swelling of lymph nodes, or "
+"cough with blood-stained sputum, chest pain, and difficulty breathing.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible illness with the results of TDR positive.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness with laboratory results to confirm."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"People with the cardinal signs of leprosy (depigmented patches with or "
+"without sensory disturbances, or nodules or enlarged nerve trunks) and "
+"have not yet taken the treatment with multidrug therapy (MDT).\n"
+"\n"
+"Confirmed case\n"
+"A person with at least two of the cardinal signs.\n"
+"Leprosy Pucibacillaire (PB) if the number of spots is less than 5\n"
+"Leprosy Multibacillary (MB) if the number of spots is greater than 5 or "
+"nodules.de laboratory and confirmed."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Every newborn normally able to suck or cry over the first two days after "
+"birth and between 3 to 28 days loses this ability and / or suffers from "
+"convulsions.\n"
+"\n"
+"Probable case\n"
+"A person with at least one of the following: the inability to open the "
+"mouth or prolonged spasm of the facial muscles; OR painful muscle "
+"contractions.\n"
+"Tetanus requires an injury or a wound, but patients may be unable to "
+"recall a specific event."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Acute flaccid paralysis (AFP) is a syndrome characterized by paralysis "
+"(weakness, decrease or loss of movement) which is flange (loss of muscle "
+"tone, soft or flaccid member, not spasmadique) and acute (sudden onset). "
+"Paralysis of one or more members suddenly occurring in children of senior"
+" age 15 or case diagnosed as such by the clinician.\n"
+"\n"
+"Probable case\n"
+"Any child <15 years of age with acute flaccid paralysis, including "
+"Guillain-Barré syndrome or any paralytic illness in a person of any age "
+"or a person of any age in whom the clinician suspects polio."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Anyone who has been bitten or licked by an animal to wild or domestic hot"
+" blood, with respiratory gene with hydrophobic or Aerophobia spasm or "
+"paralysis.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible illness, plus the history of contact with a "
+"suspected rabid animal or epidemiologically linked to a Confirmed case.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness that is laboratory confirmed."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"An acute illness characterized by sudden onset of fever (> 38.0 ° C "
+"axillary or> 38.5 ° C rectal) and one of the following signs: neck "
+"stiffness; altered consciousness or other meningeal signs. In children <1"
+" year, meningitis is suspected when fever is accompanied by a bulging "
+"fontanelle.\n"
+" \n"
+"Probable case\n"
+"A clinically compatible illness with Gram negative diplococci identified "
+"in sterile liquids such as CSF.\n"
+"\n"
+"Confirmed case\n"
+"A compatible clinical laboratory Confirmed case"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Fever and at least 2 of the following signs: headache, myalgia, "
+"arthralgia, rash, retro orbital pain, hemorrhagic manifestations."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Viral haemorrhagic fever (VHF) refers to a systemic mild group to "
+"potentially fatal viral infection often complicated by bleeding "
+"disorders. Early symptoms include marked fever, malaise, dizziness, "
+"myalgia, loss of strength, and exhaustion. Severe cases may show signs of"
+" bleeding under the skin, in internal organs, or from body orifices like "
+"the mouth, eyes or ears. Some cases may even show shock, nervous system "
+"dysfunction, coma, delirium, and convulsions.\n"
+"\n"
+"Probable case\n"
+"A clinical case compatible with any of the epidemiological evidence that:"
+"\n"
+"• Travel History in an endemic / epidemic region in the incubation period"
+" of disease onset, or\n"
+"• Making contact with a Confirmed case, or\n"
+"• Exposure to viral haemorrhagic fever infected blood or tissues\n"
+"\n"
+"Confirmed case\n"
+"A laboratory Confirmed case. "
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A disease characterized by all of the following:\n"
+"• generalized rash lasting 3 days\n"
+"• temperature and a ≥38.3oC\n"
+"• cough, coryza or conjunctivitis\n"
+"\n"
+"Probable case\n"
+"Anyone presenting a rash maculopapular generalized with fever and one of "
+"the following: cough or coryza (runny nose) or conjunctivitis (red eyes);"
+" or any person in whom the clinician suspects measles. A measles deaths "
+"is deaths occurring within 30 days of onset of the rash.\n"
+"\n"
+"Confirmed case\n"
+"• A laboratory-Confirmed case. A laboratory-Confirmed case does not need "
+"to meet the clinical case definition; OR\n"
+"• A clinically compatible case that is epidemiologically linked to a "
+"confirmed case"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Viral hepatitis is characterized by features of an acute infectious "
+"hepatitis including fever, malaise, anorexia, nausea, abdominal "
+"discomfort, dark urine, and jaundice. \n"
+" \n"
+"Probable case\n"
+"Any person with acute onset of jaundice (yellowing of whites of eyes or "
+"skin or dark/brown urine) AND severe illness with or without fever AND "
+"the absence of any known precipitating factors. Acute hepatitis often "
+"presents as acute jaundice syndrome.\n"
+"\n"
+"Confirmed case \n"
+"A clinically compatible illness with laboratory confirmation"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Fever without signs of other diseases. Other common symptoms include "
+"headache, back pain, chills, sweat, myalgia, nausea, vomiting.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness with a rapid diagnostic test for malaria "
+"or laboratory confirmation by smear positive blood\n"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A person with an acute respiratory infection with:\n"
+"• measured fever> = 38 ° C; and\n"
+"•Cough; with\n"
+"• Appearance in the last 10 days.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible illness in the context epidemiologist.\n"
+"\n"
+"Confirmed case\n"
+"A compatible clinical laboratory Confirmed case"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"A person ingests food or other agents that cause an infectious order "
+"reached or toxic mainly the gastrointestinal tract but may be of interest"
+" to other systems (eg, neurological, immunological). Some Probable cases "
+"have typical clinical symptoms of the disease without Laboratory "
+"confirmation. By against some suspected cases are under clinical or "
+"atypical symptoms.\n"
+"\n"
+"Differential diagnosis: acute watery diarrhea (suspected cholera), bloody"
+" diarrhea (suspected shigellosis), acute jaundice syndrome (suspected "
+"hepatitis)\n"
+"\n"
+"Probable case\n"
+"Occurrence of clinical symptoms varied with the waning of the consumption"
+" of a marine animal, usually affecting at least 2 people who consumed "
+"this animal."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Any man with an ulcer of the penis, scrotum or rectum, with or without "
+"lymphadenopathy or inguinal and genital discharge, or any woman with an "
+"ulcer lips, vagina or rectum, with or without inguinal lymphadenopathy.\n"
+"\n"
+"Probable case\n"
+"A clinically compatible illness\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness that is laboratory confirmed.\n"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Death of a woman while pregnancy or within 42 days of his term, whatever "
+"the duration or location, from any cause related to or aggravated by "
+"pregnancy or its management but not from accidental or incidental causes."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Death of a newborn from 0 to 28 days."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Children aged under 5 years with weight for height (P / T) between -2 and"
+" -3 Z-scores below the median or MUAC (PB) from 115 to 125mm."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Children aged under 5 years with weight on size below the -3 Z-score line"
+" scores or presence of edema of both feet or arm circumference (PB) is "
+"less than 115 mm."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Cough and colds with increased respiratory rate and fever.\n"
+"\n"
+"Confirmed case\n"
+"A clinically compatible illness and fulfils the laboratory test."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Person with clinical signs of hydrocele or lymphedema, and lives in an "
+"area\n"
+"endemic, after exclusion of other causes.\n"
+"\n"
+"Confirmed case\n"
+"Person with a diagnosis of positive laboratory: microfilaria in blood "
+"smear, wired antigens or positive ultrasound."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Suspected case\n"
+"Any case of scratch, bite or lick on any part of the body inflicted by a "
+"warm-blooded animal (dog, cat, monkey, ...)."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"The description\n"
+"A case or group of cases that could indicate the emergence of a serious "
+"public health event or epidemic, including:\n"
+"• A case of unusual disease\n"
+"• A sudden increase in the number of cases of a disease or condition.\n"
+"• A cluster of cases\n"
+"• A change in the presentation of a known disease"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Contaminated water sources, Contaminated food sources, Cholera outbreak, "
+"Low environmental sanitation, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Work in or travel to areas where typhoid fever is endemic, Close contact "
+"with someone who is infected or has recently been infected with typhoid "
+"fever, Drink water contaminated by sewage that contains S. typhi, Other, "
+"None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Contaminated water, Contaminated food, Malnourished, Age (under 5, older "
+"adults), Children who have had measles in the past 6 weeks, Shigellosis "
+"outbreak, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Consumption of contaminated food, Consumption of contaminated water, "
+"Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Promiscuity, Exposure to known case of TB, HIV positive, Lack of hygiene,"
+" Malnutrition, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Location (endemic rural areas and in urban areas characterized by "
+"overcrowding, Poor hygiene and a high rat population, Occupation "
+"(veterinarians), Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Close contact with someone with leprosy, Displacement, Overcrowded "
+"conditions, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Injury or wound, Cutting the umbilical cord in a non-sterile manner "
+"(pregnant women during childbirth), Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Age (children under 5), Source of contaminated water, Another case of AFP"
+" reported in the same area, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Exposure to rabies-carrying vectors (e.g. bats, etc.), Other, None of the"
+" above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Close and prolonged contact with individual suspected of having "
+"meningitis, High rates of acute respiratory infection (ARI), Overcrowding"
+" conditions, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"People living or traveling in tropical regions, A prior infection with "
+"dengue virus, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Reside in or move to an endemic area, Exposure to vectors (ticks, "
+"rodents, livestock, mosquitoes, camels, horses etc.), Other, None of the "
+"above"
+msgstr ""
+
+#: mad_codes.csv:1
+#, python-format
+msgid ""
+"Age (children between 9 months and 5 years), Overcrowding conditions, "
+"Measles immunization coverage rate known to be <80% in area of "
+"origin/residence, Malnutrition, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Endemic Hepatitis A, Contaminated water sources, Contaminated food "
+"sources, Presence of other known cases, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Exposure to areas where mosquito vector is present, Stagnant water "
+"sources, Movement to/from malaria endemic areas, Children, Pregnant "
+"woman, Immune compromised individuals, Malnutrition, Other, None of the "
+"above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Person living with HIV, Person with active TB, Person with other chronic "
+"illness, Influenza outbreak/seasonal influenza, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Unprotected vaginal and/or anal intercourse, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Inadequate food availability at household level, Children's diseases, "
+"Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Inadequate food availability at household level, Lack of appetite, Small "
+"birth weight, Low educational level of mothers, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Long exposure to mosquito bites transmitting the parasite in endemic "
+"areas."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Travel History in areas where there is circulating a new pathogen that "
+"can have a serious impact on public health (eg avian influenza, cholera ,"
+" …), Illness in a health care worker who takes care of patients with "
+"respiratory disease, Illness in a person working in a slaughterhouse, "
+"farmer or a person in close contact with livestock ( eg chickens ), "
+"Patient is admitted to ICU, History of illness in the family or close "
+"contact"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Watery diarrhoea (3 or more abnormally loose or fluid stools in the past "
+"24 hours, Rice stools with or without vommitting, Severe dehydration "
+"(including any of the following loss of skin turgor, malaise, tachypnoea,"
+" hypotension), Fever (more common in children), Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Fever, Headache, Malaise, Cough, Bradycardia, Splenomegaly, Rose spot on "
+"the trunk, Gastrointestinal symptoms, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Malnourished, Bloody diarrhoea (3 or more abnormally loose or fluid "
+"stools in past 24 hours with visible blood), Fever, Abdominal cramps, "
+"Rectal pain, Seizures, Sepsis, Rectal prolapsed, Toxic megacolon, "
+"Hemolytic uraemic syndrome, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Nausea, Vomiting, Mucoid diarrhoea (fatty stools), Other diarrhoea (non-"
+"watery and non-bloody type), Abdominal pain, Headache, Dizziness, Loss of"
+" consciousness, Coma, Thirst, Dehydration, Dyspnoea, Weakness, Malaise, "
+"Sore throat, Fever, Chills, Gastroenteritis, Blurred vision, "
+"Twitching/convulsions, Tingling/numbness, Dilated pupils, Constricted "
+"pupils, Difficulty swallowing/speaking/breathing, Rash, Itching of skin, "
+"Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Cough of long duration (>2 weeks), Coughing blood , Chest pain, Shortness"
+" of breath, Fever/night sweats, Tiredness, Loss of appetite, Weight loss,"
+" Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"High fever, Painful inflammation and suppuration in the lymph nodes in "
+"the area of the bite, Headache, Vomiting, Delirium, Shortness of breath, "
+"Cough, Bloody sputum, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Cutaneous lesions, Nodules, Nerve issues, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Inability to open the mouth ( \"lockjaw\"), spasm sustained facial "
+"muscles, including the jaw, painful muscle contractions, inability to "
+"breastfeed (newborn), stiff body or arc (newborn ), inability to breathe"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Asymptomatic, Rapid onset (weeks), Loss of muscle tone (floppy), Muscle "
+"weakness (paralysis), One or more limbs involved, Other, None of the "
+"above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Spasms in response to tactile, auditory, visual or olfactory stimuli, "
+"paralysis or Guillain-Barré-like syndrome, myoedema on percussion sites, "
+"encephalitis\n"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Sudden onset of intense headache, Suddepn onset of fever, Sudden onset of"
+" nausea, Sudden onset of vomiting, Sudden onset of photophobia, Sudden "
+"onset of stiff neck, Lethargy, Delirium, Coma, Purpura, Shock symptoms, "
+"Other"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Headache, retro-orbital pain, myalgia, arthralgia, rash, haemorrhagic "
+"manifestations, leukopenia or thrombocytopenia"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"High fever, rash, runny nose, cough, conjunctivitis, Koplik spots (small "
+"white spots on buccal mucosa), red maculopapular (blotchy) rash 3 to 7 "
+"days after onset starting behind the ears and hairline"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Fever, hepatitis, albuminuria, renal failure, shock, haemorrhage"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Fever with or without chills, headaches, widespread pain in the back and "
+"joints, nausea or vomiting, increased spleen and liver, anemia"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Fever, cough, sore throat, runny/stuffy nose, body ache, headache, "
+"fatigue, vomiting, diarrhea"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Nausea, Vomiting, Mucoid diarrhoea (fatty stools), Other diarrhoea (non-"
+"watery and non-bloody type), Abdominal pain, Headache, Dizziness, Loss of"
+" consciousness, Coma, Thirst, Dehydration, Dyspnoea, Weakness, Malaise, "
+"Sore throat, Fever, Chills, Gastroenteritis, Blurred vision, "
+"Twitching/convulsions, Tingling/numbness, Dilated pupils, Constricted "
+"pupils, Difficulty swallowing/speaking/breathing, Rash, Itching of skin"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Fever, lymphadenopathy, genital discharge"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Small relative to size."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Presence of oedema in both feet, marasmus (visible weight loss and "
+"severe), combination of the two forms"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Runny nose, cough, fever, Other, None of the above"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Lymphedema (elephantiasis) and chronic form acute attack, hydrocele"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Unusual clinical presentation, Change in treatment response"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Blurred vision, Headache, Shortness of breath, Nose bleeds"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Isolation of vibrio cholera 01 or 0139 from stool sample (at least 5 "
+"grams or pea sized) or rectal swab"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"• Salmonella Typhi isolated from any clinical specimen \n"
+"• Widal test result of a four-fold or greater rise in the titre of "
+"Salmonella Typhi O antibody in paired sera "
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Isolation of Shigella dysenteriae type 1 from stool samples (at least 5 "
+"grams or pea sized)"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Isolation of suspected causative agent/s (refer to MOH guidelines) AND "
+"detailed risk assessment"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"At least one positive plate of 3 sputum specimens by direct examination "
+"by light microscopy (samples early in the morning are more likely to "
+"contain the TB germ in the body), a positive result by the GeneXpert "
+"technology, culture result positive despite a negative direct "
+"examination, radiography. Intradermal (IDR) with pediatric score in "
+"children."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Any one of the following:  \n"
+"• Isolation of Yersinia pestis from a clinical specimen \n"
+"• Four-fold or greater change in serum antibody titre to Y. pestis "
+"fraction 1 (F1) antigen"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"• Multibacillary leprosy: demonstration of acid-fast bacilli in skin or "
+"dermal nerve, obtained either by skin biopsy, slit skin smear examination"
+" or nerve biopsy of a lepromatous lesion.\n"
+"• Paucibacillary leprosy: characteristic presence of epithelioid cell "
+"granulomas within or around peripheral nerves."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Not applicable.  The organism is rarely recovered from the site of "
+"infection and usually there is no detectable antibody response."
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"• With a spatula, take two stool samples from 8 to 10 grams (thumb-sized "
+"adult) of the case in the range of 24 to 48 hours maximum in two "
+"different tubes and close them well\n"
+"• Enter on the tubes the following information: name and first names of "
+"the event, date and time of sampling and the sample Number (num 1 for the"
+" first saddle and the num 2 for 2nd seat)\n"
+"• Take an older saddle sample of each of the three contacts of the case "
+"of 15 years and put them in 3 different tubes properly labeled\n"
+"• Put all 5 tubes in a bag and close it well\n"
+"• Put the bag in a vaccine carrier with frozen storage\n"
+"• Put the busy notification form into another plastic bag, place it above"
+" known accumulators\n"
+"• Close the door and send vaccine has IPM in less than 72 hours after the"
+" second sample\n"
+"• All AFP cases must be validated the focal point of the district before "
+"routing to IPM"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Antigen detection using the FA test on skin biopsies from patients with "
+"clinical rabies, virus isolation using neuroblastoma cells (preferably "
+"performed on saliva samples or other biological fluids such as tears or "
+"cerebrospinal fluid), RFFIT or FAVN test antibody tests for non-"
+"vaccinated patients"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Conduct lumbar puncture of first 25 cases during an epidemic to confirm "
+"diagnosis and serogroup"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Any one of the following:  \n"
+"• Isolation of dengue virus from serum and/or autopsy samples \n"
+"• Demonstration of a four-fold or greater change in antibody titres to "
+"one or more dengue virus antigens in paired serum samples \n"
+"• Detection of dengue virus genomic sequences in autopsy tissue or serum "
+"samples by polymerase chain reaction (PCR) \n"
+"• Demonstration of dengue virus antigen in serum samples "
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"• Take a sample of 5 ml of blood by venipuncture 1st contact with the "
+"case between the 3rd and the 28th day after the start of the eruption in "
+"a sterile tube\n"
+"• Mark on the tube containing blood, the following information: name and "
+"patient names, name of the CSB, district name, collection date\n"
+"• Allow the blood to rest for at least 60 minutes (without shaking or "
+"transported in a vehicle) and then pour the serum into a clean tube\n"
+"• If a refrigerator is available, put the serum (4-6 hours) until clot "
+"retracts and then take the serum\n"
+"• Place the serum in a vaccine carrier with frozen storage\n"
+"• Send the sample to the IPM within 72 hours after collection with the "
+"investigation forms filled well\n"
+"• Ask a family if there are other people with similar signs in the house "
+"or the neighborhood. If this is the case, visit these families to detect "
+"suspected cases of measles that have not been notified"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid "Blood smear or rapid diagnostic malaria test"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Conventional or RT •  PCR OR viral antigen detection by "
+"immunofluorescence or enzyme immunoassay \n"
+"OR viral culture with second identification step to identify influenza "
+"viruses \n"
+"OR four-fold rise in antibody titre in paired acute and convalescent sera"
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"• Weight\n"
+"• Cut\n"
+"• MUAC "
+msgstr ""
+
+#: mad_codes.csv:1
+msgid ""
+"Positive blood smear for the search for microfilariémie\n"
+"immunocartographique Test (ICT)\n"
+"Ultrasound"
 msgstr ""
 
