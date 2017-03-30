@@ -1,11 +1,16 @@
 {% extends 'reports/base.html' %}
 
-{% macro table(data, percent=True, p_keys="nationalities", s_keys="genders", it_names="gen_vals", transpose_inner=False ) %}
+{% macro table(data, percent=True, p_keys="nationalities", s_keys="genders", it_names="gen_vals", transpose_inner=False, title1=None, title2=None,title3=None ) %}
 <table class="refugee centered table table-hover">
 
     <!-- header of a table -->
     <tr>
+		{% if title1 and title2 %}
+        <th class="key mh-cell">{{title1}}</th> 
+		<th class="key mh-cell">{{title2}}</th> 
+		{% else %}
         <th class="key mh-cell" colspan="2"></th><!-- first column for main key -->
+		{% endif %}
 		{% if transpose_inner %}
 		{% for p_key in data[0][p_keys] %}
         <th class="key mh-column-title">{{p_key.type}}</th>
@@ -25,7 +30,7 @@
 				{% if transpose_inner %}
 				{% set length =  mh_row[p_keys][0][s_keys]|length %}
 				{% if not percent %}
-				   {% set length = (length - 1) / 2 + 1 %} {# Only support 2 genders for now #}
+				   {% set length = (length - 1) / 2 + 1 %} 
 				{% endif %}
 				
 				<th class="key mh-cell" rowspan="{{length}}"> {{mh_row.name}} </th>
@@ -93,9 +98,9 @@
   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title mh-chart-title">{{ _('Visit type by nationality') }}</div>
-      <div class="table-title">{{ _('Table 1: Patients nationality on different visit types.') }}</div>
+      <div class="table-title">{{ _('Table 1: Patient nationality by visit type and gender.') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ table(report["table_1_data"], percent=True, p_keys="visit_types", s_keys="visit_gender", it_names="visit_gender_values") }}
+          {{ table(report["table_1_data"], percent=True, p_keys="visit_types", s_keys="visit_gender", it_names="visit_gender_values", title1="Nationality", title2="Visit type") }}
       </div>
     </div>
   </div>
@@ -106,9 +111,9 @@
   <div class="col-sm-12">
     <div class="chart-wrapper">
       <div class="chart-title mh-chart-title">{{ _('Visit type by age') }}</div>
-      <div class="table-title">{{ _('Table 2: Breakdown of patients age and gender') }}</div>
+      <div class="table-title">{{ _('Table 2: Patient age by visit type and gender') }}</div>
       <div class="table-wrapper table-responsive">
-          {{ table(report["table_2_data"], percent=True, p_keys="visit_types", s_keys="visit_gender", it_names="visit_gender_values") }}
+          {{ table(report["table_2_data"], percent=True, p_keys="visit_types", s_keys="visit_gender", it_names="visit_gender_values", title1="Age", title2="Visit type") }}
       </div>
     </div>
   </div>
@@ -119,22 +124,21 @@
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
 			<div class="chart-title mh-chart-title">{{ _('Nationality by governorate') }}</div>
-			<div class="table-title">{{ _('Table 3: Nationality of patients with reported mental health condition in each governate.') }}</div>
+			<div class="table-title">{{ _('Table 3: Patient nationality by governorate for new visits.') }}</div>
 			<div class="table-wrapper table-responsive">
-				{{ table(report["table_3_data"], percent=False, p_keys="regions", s_keys="gender", it_names="gender_values", transpose_inner=True) }}
+				{{ table(report["table_3_data"], percent=False, p_keys="regions", s_keys="gender", it_names="gender_values", transpose_inner=True, title1="Nationality", title2="Gender") }}
 			</div>
 		</div>
 	</div>
 </div>
 <div class="row mh-row">
-<<<<<<< HEAD
 	<!-- Governate / nationality -->
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
-			<div class="chart-title mh-chart-title">{{ _('Nationality by governorate') }}</div>
+			<div class="chart-title mh-chart-title">{{ _('Nationality by Governorate') }}</div>
 			<div class="table-title">{{ _('Table 4: Nationality and visit type by Governorate') }}</div>
 			<div class="table-wrapper table-responsive">
-				{{ table(report["table_4_data"], percent=False, p_keys="regions", s_keys="visit", it_names="visit_values", transpose_inner=True) }}
+				{{ table(report["table_4_data"], percent=False, p_keys="regions", s_keys="visit", it_names="visit_values", transpose_inner=True,title1="Nationality", title2="Visit Type") }}
 			</div>
 		</div>
 	</div>
@@ -143,8 +147,8 @@
 	<!-- Governate / nationality -->
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
-			<div class="chart-title mh-chart-title">{{ _('Nationality by governorate') }}</div>
-			<div class="table-title">{{ _('Table 5: Age and gender type by Governorate') }}</div>
+			<div class="chart-title mh-chart-title">{{ _('Age and gender by Governorate') }}</div>
+			<div class="table-title">{{ _('Table 5: Age and gender type by Governorate for new visits') }}</div>
 			<div class="table-wrapper table-responsive">
 				{{ table(report["table_5_data"], percent=False, p_keys="regions", s_keys="gender", it_names="gender_values", transpose_inner=True) }}
 			</div>
@@ -155,25 +159,14 @@
 	<!-- Governate / nationality -->
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
-			<div class="chart-title mh-chart-title">{{ _('Nationality by governorate') }}</div>
+			<div class="chart-title mh-chart-title">{{ _('Age and visit type by Governorate') }}</div>
 			<div class="table-title">{{ _('Table 6: Age and visit type by Governorate') }}</div>
 			<div class="table-wrapper table-responsive">
-				{{ table(report["table_6_data"], percent=False, p_keys="regions", s_keys="visit", it_names="visit_values", transpose_inner=True) }}
+				{{ table(report["table_6_data"], percent=False, p_keys="regions", s_keys="visit", it_names="visit_values", transpose_inner=True, title1="Age", title2="Visit Type") }}
 			</div>
 		</div>
 	</div>
-=======
-  <!-- Governate / age -->
-  <div class="col-sm-12">
-    <div class="chart-wrapper">
-      <div class="chart-title mh-chart-title">{{ _('Age by governorate') }}</div>
-      <div class="table-title">{{ _('Table 4: Age of patients with reported mental health condition in each governate.') }}</div>
-      <div class="table-wrapper table-responsive">
-          {{ table(report["table_4_data"], percent=True, p_keys="regions", s_keys="genders", it_names="gen_vals") }}
-      </div>
-    </div>
-  </div>
->>>>>>> development
+
 </div>
 
 
@@ -181,9 +174,9 @@
 	<!-- Governate / age -->
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
-			<div class="chart-title mh-chart-title">{{ _('Age by governorate') }}</div>
-			<div class="table-title">{{ _('Table 7: Nationality Mhgap') }}</div>
-			{{ table(report["table_7_data"], transpose_inner=True, percent=True, p_keys="mhgap", s_keys="gender", it_names="gender_values") }}
+			<div class="chart-title mh-chart-title">{{ _('Nationality by MHGAP diagnosis') }}</div>
+			<div class="table-title">{{ _('Table 7: Nationality by Mhgap diagnosis for new visits') }}</div>
+			{{ table(report["table_7_data"], transpose_inner=True, percent=True, p_keys="mhgap", s_keys="gender", it_names="gender_values", title1="Nationality", title2="Gender") }}
 			<div class="table-wrapper table-responsive">
 			</div>
 		</div>
@@ -194,10 +187,10 @@
 	<!-- Diseases / nationality -->
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
-			<div class="chart-title mh-chart-title">{{ _('Nationality by condition') }}</div>
-			<div class="table-title">{{ _('Table 8: Age MHGAP.') }}</div>
+			<div class="chart-title mh-chart-title">{{ _('Age by MHGAP diagnosis') }}</div>
+			<div class="table-title">{{ _('Table 8: Age by MHGAP diagnosis for new visits') }}</div>
 			<div class="table-wrapper table-responsive">
-				{{ table(report["table_8_data"], transpose_inner=True, percent=True, p_keys="mhgap", s_keys="gender", it_names="gender_values") }}
+				{{ table(report["table_8_data"], transpose_inner=True, percent=True, p_keys="mhgap", s_keys="gender", it_names="gender_values", title1="Age", title2="Gender") }}
 			</div>
 		</div>
 	</div>
@@ -205,9 +198,9 @@
 	<!-- Governate / age -->
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
-			<div class="chart-title mh-chart-title">{{ _('Age by governorate') }}</div>
-			<div class="table-title">{{ _('Table 9: Nationality Mhgap') }}</div>
-			{{ table(report["table_9_data"], transpose_inner=True, percent=True, p_keys="mh_icd_block", s_keys="gender", it_names="gender_values") }}
+			<div class="chart-title mh-chart-title">{{ _('Nationality by ICD 10 diagnosis') }}</div>
+			<div class="table-title">{{ _('Table 9: Nationality by ICD 10 diagnosis new visits') }}</div>
+			{{ table(report["table_9_data"], transpose_inner=True, percent=True, p_keys="mh_icd_block", s_keys="gender", it_names="gender_values", title1="Nationality", title2="Gender") }}
 			<div class="table-wrapper table-responsive">
 			</div>
 		</div>
@@ -218,10 +211,35 @@
 	<!-- Diseases / nationality -->
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
-			<div class="chart-title mh-chart-title">{{ _('Nationality by condition') }}</div>
-			<div class="table-title">{{ _('Table 10: Age MHGAP.') }}</div>
+			<div class="chart-title mh-chart-title">{{ _('Age by ICD 10 diagnosis') }}</div>
+			<div class="table-title">{{ _('Table 10: Age by ICD 10 diagnosis for new visits') }}</div>
 			<div class="table-wrapper table-responsive">
-				{{ table(report["table_10_data"], transpose_inner=True, percent=True, p_keys="mh_icd_block", s_keys="gender", it_names="gender_values") }}
+				{{ table(report["table_10_data"], transpose_inner=True, percent=True, p_keys="mh_icd_block", s_keys="gender", it_names="gender_values", title1="Age", title2="Gender") }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row mh-row">
+	<!-- Diseases / nationality -->
+	<div class="col-sm-12">
+		<div class="chart-wrapper">
+			<div class="chart-title mh-chart-title">{{ _('Result of visit by by age') }}</div>
+			<div class="table-title">{{ _('Table 11: Result of visit by by age for new visits') }}</div>
+			<div class="table-wrapper table-responsive">
+				{{ table(report["table_11_data"], transpose_inner=True, percent=True, p_keys="mh_result_new", s_keys="gender", it_names="gender_values", title1="Age", title2="Gender") }}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row mh-row">
+	<!-- Diseases / nationality -->
+	<div class="col-sm-12">
+		<div class="chart-wrapper">
+			<div class="chart-title mh-chart-title">{{ _('Result of visit by by age') }}</div>
+			<div class="table-title">{{ _('Table 12: Result of visit by by age for return visits') }}</div>
+			<div class="table-wrapper table-responsive">
+				{{ table(report["table_12_data"], transpose_inner=True, percent=True, p_keys="mh_result_return", s_keys="gender", it_names="gender_values", title1="Age", title2="Gender") }}
 			</div>
 		</div>
 	</div>
@@ -231,10 +249,10 @@
 	<!-- Diseases / age -->
 	<div class="col-sm-12">
 		<div class="chart-wrapper">
-			<div class="chart-title mh-chart-title">{{ _('Age by condition') }}</div>
-			<div class="table-title">{{ _('Table 12: Service Provider') }}</div>
+			<div class="chart-title mh-chart-title">{{ _('Service Provider by Age') }}</div>
+			<div class="table-title">{{ _('Table 13: Service Provider by Age for new visits') }}</div>
 			<div class="table-wrapper table-responsive">
-				{{ table(report["table_12_data"], transpose_inner=True, percent=True, p_keys="service_provider", s_keys="gender", it_names="gender_values") }}
+				{{ table(report["table_13_data"], transpose_inner=True, percent=True, p_keys="service_provider", s_keys="gender", it_names="gender_values", title1="Age", title2="Gender") }}
 			</div>
 		</div>
 	</div>
