@@ -293,4 +293,12 @@ $printedBlue: #337ab7;
 		.mh-chart-title{
 			display: none !important;
 		}
+
+		.pip-table{
+			page-break-before: always;
+		}
+
+        .break-after{
+            page-break-after: always;
+        }
 	}
