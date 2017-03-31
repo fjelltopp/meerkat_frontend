@@ -57,16 +57,17 @@ function format(number){
 }
 
 //Calculate no as a percentage of denom. Returns 0 if denom <= 0.
-function calc_percent(no,denom){
+function calc_percent(no,denom,round){
     if (denom>0){
-        return Math.round(no/denom*100);
+        if(round) return Math.round(no/denom*100);
+        else return no/denom*100;
     }else{
         return 0;
     }
 }
 
 //Given an array of values, calulate what percentage each value is of the total.
-function calc_percent_dist( array ){
+function calc_percent_dist(array, round){
 
     var total = 0;
     var ret = [];
@@ -76,7 +77,7 @@ function calc_percent_dist( array ){
     }
 
     for( var j=0; j<array.length; j++ ){
-        ret[j] = calc_percent(array[j], total);
+        ret[j] = calc_percent(array[j], total, round);
     }
 
     return ret;

@@ -20,7 +20,9 @@ import authorise as auth
 import os
 import json
 
+
 # App has been imported at the top of this file. We now add crucial services...
+
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):
@@ -188,4 +190,9 @@ def error401(error):
 
 # Main
 if __name__ == "__main__":
-    app.run(host="localhost", port="8080", debug=True, reloader=True)
+    app.run(
+        host="localhost",
+        port="8080",
+        debug=True,
+        reloader=True
+    )
