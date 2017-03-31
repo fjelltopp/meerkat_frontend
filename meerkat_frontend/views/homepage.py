@@ -161,6 +161,7 @@ def report_fault():
 
 
 @homepage.route('/cdchart')
+@auth.authorise(['central', 'cd', 'personal'], ['jordan'])
 def cdchart():
     return render_template(
         'cdcharts.html',

@@ -58,6 +58,8 @@ function format(number){
 
 //Calculate no as a percentage of denom. Returns 0 if denom <= 0.
 function calc_percent(no,denom,round){
+    // Want the default to be rounded numbers.
+    if(round===undefined) round = true;
     if (denom>0){
         if(round) return Math.round(no/denom*100);
         else return no/denom*100;
