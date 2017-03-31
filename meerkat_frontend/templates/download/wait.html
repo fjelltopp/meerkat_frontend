@@ -18,11 +18,12 @@
             <div class="col-xs-12 less-padding-col">
                 <div class="box chartBox">
                     <div class="chartBox__heading" id='heading'>
-                        {{ _('Your data set is being prepared...') }}
+                        {{ _('Your data set is being prepared. I dont know if it really is..') }}
                     </div>
                     <div class="chartBox__content" >
                         <div class='breaker'></div>
                         <div class='clearfix'>
+														<div id="progressbar"></div>
                             <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
                                 <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
                             </div>
@@ -47,6 +48,7 @@
                             </div>
                         </div>
                         <div class='breaker'></div>
+
                         <p class='col-sm-offset-1'> <b>Current Status:</b> <span id="status"> </span></p>
 
                     </div>
@@ -70,8 +72,15 @@
  interval = ""
 
  url += "&language=" + language;
- 
+
  console.log(url)
+	//Function to call progress bar
+  $( function() {
+    $( "#progressbar" ).progressbar({
+      value: 22
+    });
+  } );
+
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
          if(data){
@@ -96,7 +105,9 @@
                  }
                  clearInterval(interval)
              }else{
-                 t = i18n.gettext("Dataset is still being prepared, please wait.")
+							 	 //progressbar added here
+							 	 $("#progressbar").show();
+                 t = i18n.gettext("Dataset is still being prepared, please wait. and wait and wait")
                  $("#status").html(t)
              }
 
@@ -105,12 +116,12 @@
  }
 
 
- 
+
  $.getJSON(url, function( data ){
      uuid = data;
-     url 
-     $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
-
+     url
+     $("#status").html(i18n.gettext("Preparation of data set has started. and starte and started Please note that this can take some time."))
+		 $("#progressbar").show();
          interval = setInterval(function() {
              check_status()
          }, 5000);
