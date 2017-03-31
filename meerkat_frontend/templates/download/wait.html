@@ -18,12 +18,12 @@
             <div class="col-xs-12 less-padding-col">
                 <div class="box chartBox">
                     <div class="chartBox__heading" id='heading'>
-                        {{ _('Your data set is being prepared. I dont know if it really is..') }}
+                        {{ _('Your data set is being prepared.') }}
                     </div>
                     <div class="chartBox__content" >
                         <div class='breaker'></div>
                         <div class='clearfix'>
-														<div id="progressbar"></div>
+							<div id="progressbar"></div>
                             <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
                                 <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
                             </div>
@@ -75,11 +75,6 @@
 
  console.log(url)
 	//Function to call progress bar
-  $( function() {
-    $( "#progressbar" ).progressbar({
-      value: 22
-    });
-  } );
 
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
@@ -106,8 +101,7 @@
                  clearInterval(interval)
              }else{
 							 	 //progressbar added here
-							 	 $("#progressbar").show();
-                 t = i18n.gettext("Dataset is still being prepared, please wait. and wait and wait")
+                 t = i18n.gettext("Dataset is still being prepared, please wait. Currently it is " +Math.round(data.status * 100) + " % finished.")
                  $("#status").html(t)
              }
 
