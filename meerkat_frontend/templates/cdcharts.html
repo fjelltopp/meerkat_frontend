@@ -89,7 +89,25 @@
 					</div>
 				</div>
 			</div>
+
     	</div>
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="box chartBox">
+                    <div class="chartBox__heading">
+                        Logarithmic Axis Bar Chart
+                    </div>
+                    <div class="chartBox__content" >
+                        <div>
+                        The y-axis scale is logarithmic.  Best way of showing complete large-scale data range without losing visual fidelity - even the smallest values are clearly shown.
+                        <div class='breaker'></div>
+                        <div class='bar-chart' id='logarithmic-bar-chart'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 {% endblock body %}
@@ -132,11 +150,13 @@ for( l in labels ){
         'name': labels[l],
         'value': weekDataPerc[l]
     })
+    yearDataPerc[l] = yearDataPerc[l] ? yearDataPerc[l] : null;
+    weekDataPerc[l] = weekDataPerc[l] ? weekDataPerc[l] : null;
 }
 
 console.log(labels);
-console.log(yearData);
-console.log(weekData);
+console.log(yearDataPerc);
+console.log(weekDataPerc);
 console.log(treemapYear);
 console.log(treemapWeek);
 
@@ -294,6 +314,40 @@ $('#broken-bar-chart').highcharts({
         events: {
             pointBreak: pointBreakColumn
         },
+        lineColor: 'black',
+        lineWidth: 2,
+    },
+    series: [{
+        name: i18n.gettext('This Year'),
+        data:  yearDataPerc
+    },{
+        name: i18n.gettext('This Week'),
+        data: weekDataPerc
+  }],
+});
+
+
+$('#logarithmic-bar-chart').highcharts( {
+    chart: {
+        type: 'column'
+    },
+    title: '',
+    tooltip: {
+        formatter: function (){
+          return this.series.name + ': <b>' + Math.round(this.point.y*1000)/1000 + '%</b>';
+        }
+    },
+    xAxis: {
+        categories: labels,
+        title: {text: null},
+        lineColor: 'black',
+        lineWidth: 2,
+    },
+    yAxis: {
+        title: {text: i18n.gettext('Percent %'), align: 'high'},
+        labels: {overflow: 'justify'},
+        max: 68,
+        type: 'logarithmic',
         lineColor: 'black',
         lineWidth: 2,
     },
