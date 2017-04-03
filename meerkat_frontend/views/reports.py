@@ -296,7 +296,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 start_date = format_datetime(start_date, 'dd MMMM YYYY'),
                 end_date = format_datetime(end_date, 'dd MMMM YYYY')
             )
-            email_id = ( topic + "-" + end_date.strftime('%M') + "-" +
+            email_id = ( topic + "-" + end_date.strftime('%m') + "-" +
                          end_date.strftime('%Y') +"-" + report + test_id )
         else:
             subject = '{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(

@@ -1,0 +1,371 @@
+{% extends 'base.html' %}
+{% block head %}
+<style>
+.treemaps span{
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.treemaps span.highlighted{
+    background: #D9692A;
+    color: #FFF;
+    cursor: default;
+}
+.bar-chart{
+    height: 500px;
+}
+</style>
+{% endblock head %}
+
+{% block menu %}
+{% endblock menu %}
+{% block body %}
+<!-- CONTENT -->
+<div class="container page-content">
+	<div class="top-bar row">
+		<div class="tab-title less-padding-col">
+			CD Charts
+		</div>
+		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+			Data Not Loaded
+		</div>
+	</div>
+	<div id="page-content-wrapper">
+	<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="box chartBox">
+					<div class="chartBox__heading">
+						Zoomable Bar Chart
+					</div>
+					<div class="chartBox__content" >
+                        <div>
+                        Click and drag on an area to zoom in on that area.  Only diseases for which cases exist are shown.  This has the benefit that you can zoom right in to see diseases with a very small number of cases.  This lets you explore the data with absolutly no loss of data fidelity. e.g. you can zoom right in to see "whooping cough" at 0.02% of the distribution.
+                        </div>
+                        <div class='breaker'></div>
+                        <div class='bar-chart' id='bar-chart'>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="box chartBox">
+                    <div class="chartBox__heading">
+                        Treemap
+                    </div>
+                    <div class="chartBox__content treemaps" >
+                        <div>
+                        The area shows the percentage of cases. It helps improve visual fidelity when viewing large-range data, but whooping cough (0.02%) is still completely indistinguishable.
+                        </div>
+                        <div class='breaker'></div>
+                        <div class='clearfix'>
+                            <span class='highlighted pull-right option'>Year</span>
+                            <span class='selectable pull-right option'>Week</span>
+                        </div>
+                        <div>
+                            <div class='tree-map' id='tree-map-year'></div>
+                            <div class='tree-map hidden' id='tree-map-week'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="box chartBox">
+					<div class="chartBox__heading">
+						Broken Axis Bar Chart
+					</div>
+					<div class="chartBox__content" >
+                        <div>
+                        The y-axis scale is broken, to reduce the apparent range of the data. Again, like the tree map, it helps to improve visual fidelity when viewing large-range data,  but the smallest values are still lost.
+                        </div>
+                        <div class='breaker'></div>
+                        <div class='bar-chart' id='broken-bar-chart'>
+                        </div>
+					</div>
+				</div>
+			</div>
+
+    	</div>
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="box chartBox">
+                    <div class="chartBox__heading">
+                        Logarithmic Axis Bar Chart
+                    </div>
+                    <div class="chartBox__content" >
+                        <div>
+                        The y-axis scale is logarithmic.  Best way of showing complete large-scale data range without losing visual fidelity - even the smallest values are clearly shown.
+                        <div class='breaker'></div>
+                        <div class='bar-chart' id='logarithmic-bar-chart'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block pageJS %}
+
+<script type="text/javascript" >
+
+// Useful data passed from the server
+var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+var week = {{week.epi_week}};
+console.log(cdData);
+
+
+
+// Structure the data.
+var diseases = Object.keys(cdData);
+var labels = [];
+var weekData = [];
+var yearData = [];
+var treemapYear = [];
+var treemapWeek = [];
+
+for(k in diseases){
+    if( cdData[diseases[k]].weeks[week] || cdData[diseases[k]].year){
+        labels.push(cdVariables[diseases[k]].name);
+        weekData.push(cdData[diseases[k]].weeks[week] || 0);
+        yearData.push(cdData[diseases[k]].year);
+    }
+}
+yearDataPerc = calc_percent_dist(yearData, false);
+weekDataPerc = calc_percent_dist(weekData, false);
+
+for( l in labels ){
+    treemapYear.push({
+        'name': labels[l],
+        'value': yearDataPerc[l]
+    })
+    treemapWeek.push({
+        'name': labels[l],
+        'value': weekDataPerc[l]
+    })
+    yearDataPerc[l] = yearDataPerc[l] ? yearDataPerc[l] : null;
+    weekDataPerc[l] = weekDataPerc[l] ? weekDataPerc[l] : null;
+}
+
+console.log(labels);
+console.log(yearDataPerc);
+console.log(weekDataPerc);
+console.log(treemapYear);
+console.log(treemapWeek);
+
+
+$('#bar-chart').highcharts({
+    chart: {
+        type: 'column',
+        zoomType: 'y'
+    },
+    title: '',
+    tooltip: {
+        formatter: function (){
+          return this.series.name + ': <b>' + Math.round(this.point.y*1000)/1000 + '%</b>';
+        }
+    },
+    xAxis: {
+        categories: labels,
+        title: {text: null}
+    },
+    yAxis: {
+        min: 0,
+        title: {text: i18n.gettext('Percent %'), align: 'high'},
+        labels: {overflow: 'justify'}
+    },
+    series: [{
+        name: i18n.gettext('This Year'),
+        data:  yearDataPerc
+    },{
+        name: i18n.gettext('This Week'),
+        data: weekDataPerc
+  }],
+});
+
+$('#tree-map-year').highcharts({
+    series: [{
+        type: 'treemap',
+        layoutAlgorithm: 'squarified',
+        data: treemapYear
+    }],
+    title: {text: ''}
+});
+console.log($('#tree-map-week').parent().width());
+$('#tree-map-week').highcharts({
+    series: [{
+        type: 'treemap',
+        layoutAlgorithm: 'squarified',
+        data: treemapWeek,
+        color: '#D9692A'
+    }],
+    title: {text: ''},
+
+});
+
+$('.treemaps span.option').click(function(){
+    if( $(this).hasClass('selectable')){
+        console.log('clicked');
+        $('.treemaps span.option').toggleClass('highlighted');
+        $('.treemaps span.option').toggleClass('selectable');
+        $('.treemaps .tree-map').toggleClass('hidden');
+        $(window).trigger('resize');
+    }
+});
+
+$('#tree-map-year').highcharts({
+    series: [{
+        type: 'treemap',
+        layoutAlgorithm: 'squarified',
+        data: treemapYear
+    }],
+    title: {text: ''}
+});
+
+/**
+ * Extend the Axis.getLinePath method in order to visualize breaks with two parallel
+ * slanted lines. For each break, the slanted lines are inserted into the line path.
+ */
+Highcharts.wrap(Highcharts.Axis.prototype, 'getLinePath', function (proceed, lineWidth) {
+    var axis = this,
+        path = proceed.call(this, lineWidth),
+        x = path[1],
+        y = path[2];
+
+    Highcharts.each(this.breakArray || [], function (brk) {
+        if (axis.horiz) {
+            x = axis.toPixels(brk.from);
+            path.splice(3, 0,
+                'L', x - 4, y, // stop
+                'M', x - 9, y + 5, 'L', x + 1, y - 5, // left slanted line
+                'M', x - 1, y + 5, 'L', x + 9, y - 5, // higher slanted line
+                'M', x + 4, y
+            );
+        } else {
+            y = axis.toPixels(brk.from);
+            path.splice(3, 0,
+                'L', x, y - 4, // stop
+                'M', x + 5, y - 9, 'L', x - 5, y + 1, // lower slanted line
+                'M', x + 5, y - 1, 'L', x - 5, y + 9, // higher slanted line
+                'M', x, y + 4
+            );
+        }
+    });
+    return path;
+});
+
+/**
+ * On top of each column, draw a zigzag line where the axis break is.
+ */
+function pointBreakColumn(e) {
+    var point = e.point,
+        brk = e.brk,
+        shapeArgs = point.shapeArgs,
+        x = shapeArgs.x,
+        y = this.translate(brk.from, 0, 1, 0, 1),
+        w = shapeArgs.width,
+        key = ['brk', brk.from, brk.to],
+        path = ['M', x, y, 'L', x + w * 0.25, y + 4, 'L', x + w * 0.75, y - 4, 'L', x + w, y];
+
+    if (!point[key]) {
+        point[key] = this.chart.renderer.path(path)
+            .attr({
+                'stroke-width': 2,
+                stroke: point.series.options.borderColor
+            })
+            .add(point.graphic.parentGroup);
+    } else {
+        point[key].attr({
+            d: path
+        });
+    }
+}
+
+$('#broken-bar-chart').highcharts({
+    chart: {
+        type: 'column'
+    },
+    title: '',
+    tooltip: {
+        formatter: function (){
+          return this.series.name + ': <b>' + Math.round(this.point.y*1000)/1000 + '%</b>';
+        }
+    },
+    xAxis: {
+        categories: labels,
+        title: {text: null},
+        lineColor: 'black',
+        lineWidth: 2,
+    },
+    yAxis: {
+        min: 0,
+        title: {text: i18n.gettext('Percent %'), align: 'high'},
+        labels: {overflow: 'justify'},
+        breaks: [{from: 15, to: 60, breakSize: 0}],
+        max: 68,
+        tickInterval: 2,
+        events: {
+            pointBreak: pointBreakColumn
+        },
+        lineColor: 'black',
+        lineWidth: 2,
+    },
+    series: [{
+        name: i18n.gettext('This Year'),
+        data:  yearDataPerc
+    },{
+        name: i18n.gettext('This Week'),
+        data: weekDataPerc
+  }],
+});
+
+
+$('#logarithmic-bar-chart').highcharts( {
+    chart: {
+        type: 'column'
+    },
+    title: '',
+    tooltip: {
+        formatter: function (){
+          return this.series.name + ': <b>' + Math.round(this.point.y*1000)/1000 + '%</b>';
+        }
+    },
+    xAxis: {
+        categories: labels,
+        title: {text: null},
+        lineColor: 'black',
+        lineWidth: 2,
+    },
+    yAxis: {
+        title: {text: i18n.gettext('Percent %'), align: 'high'},
+        labels: {overflow: 'justify'},
+        max: 68,
+        type: 'logarithmic',
+        lineColor: 'black',
+        lineWidth: 2,
+    },
+    series: [{
+        name: i18n.gettext('This Year'),
+        data:  yearDataPerc
+    },{
+        name: i18n.gettext('This Week'),
+        data: weekDataPerc
+  }],
+});
+
+// Get the epi week and date and insert into the api.
+$("#epi-week-title").html( i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date() );
+
+
+
+
+</script>
+
+{% endblock pageJS %}

@@ -20,7 +20,9 @@ import authorise as auth
 import os
 import json
 
+
 # App has been imported at the top of this file. We now add crucial services...
+
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):
@@ -60,6 +62,16 @@ def root():
 @babel.localeselector
 def get_locale():
     return g.get("language", app.config["DEFAULT_LANGUAGE"])
+
+
+# Show the blank template.
+@app.route("/template/")
+def location():
+    return render_template(
+        'template.html',
+        week=c.api('/epi_week'),
+        content=current_app.config['SHARED_CONFIG']
+    )
 
 
 @messaging.url_value_preprocessor
@@ -178,4 +190,9 @@ def error401(error):
 
 # Main
 if __name__ == "__main__":
-    app.run(host="localhost", port="8080", debug=True, reloader=True)
+    app.run(
+        host="localhost",
+        port="8080",
+        debug=True,
+        reloader=True
+    )

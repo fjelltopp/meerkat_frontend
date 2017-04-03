@@ -12,6 +12,8 @@
 <script src="{{ url_for('static', filename='js/leaflet-omnivore.js') }}"></script>
 <script src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
 <script src="{{ url_for('static', filename='js/highcharts-more.js') }}"></script>
+<script src="{{ url_for('static', filename='js/treemap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/broken-axis.js') }}"></script>
 <script src="{{ url_for('static', filename='js/TreeModel-min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jed.js') }}"></script>
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
@@ -46,7 +48,7 @@
 
   //Draw the langauge selector.
   var languages = {{ config["SUPPORTED_LANGUAGES"]|tojson|safe }};
-  var language = {{g.get("language")|tojson|safe}};
+  var language = {{g.get("language", config['DEFAULT_LANGUAGE'])|tojson|safe}};
   var index = languages.indexOf( language );
   var nextLang = index == languages.length-1 ? languages[0] : languages[index+1];
   var nextLangHref = window.location.href.replace( '/' + language + '/', '/' + nextLang + '/' );
