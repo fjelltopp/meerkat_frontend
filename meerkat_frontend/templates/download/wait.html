@@ -114,7 +114,7 @@
  $.getJSON(url, function( data ){
      uuid = data;
      url
-     $("#status").html(i18n.gettext("Preparation of data set has started. and starte and started Please note that this can take some time."))
+     $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
 		 $("#progressbar").show();
          interval = setInterval(function() {
              check_status()

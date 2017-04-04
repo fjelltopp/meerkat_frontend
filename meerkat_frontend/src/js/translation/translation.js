@@ -5,7 +5,7 @@ function get_translator(translations_url){
 		language = "en";
 	}
     if(translations_url === undefined){
-        translations_url = "/static/trSanslations/"+language+"/LC_MESSAGES/messages.json";
+        translations_url = "/static/translations/"+language+"/LC_MESSAGES/messages.json";
     }
 
 	console.log( language );
