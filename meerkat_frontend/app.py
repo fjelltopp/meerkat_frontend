@@ -16,14 +16,14 @@ from werkzeug.contrib.fixers import ProxyFix
 app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.do')
 babel = Babel(app)
-app.config.from_object('config.Development')
+app.config.from_object('meerkat_frontend.config.Development')
 app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
 app.wsgi_app = ProxyFix(app.wsgi_app)
 
 if app.config["SENTRY_DNS"]:
-    
+
     sentry = Sentry(app, dsn=app.config["SENTRY_DNS"])
 else:
     sentry = None
