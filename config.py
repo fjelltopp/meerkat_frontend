@@ -65,7 +65,10 @@ class Config(object):
     SUPPORTED_LANGAUGES_FLAGS = ["gb"]
 
     DROPBOX = {}
-    
+    LOGGING_URL = "http://nginx/logging"
+    LOGGING_SOURCE = "frontend"
+    LOGGING_SOUCRE_TYPE = "frontend"
+    LOGGING_IMPLEMENTAION = "demo"
     # Auth secret settings file from which to import required config.
     # File must define JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY.
     filename = os.environ.get('MEERKAT_AUTH_SETTINGS')
