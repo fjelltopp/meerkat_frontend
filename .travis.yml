@@ -19,7 +19,9 @@ install:
 - pip install -r meerkat_auth/requirements.txt
 - git clone https://github.com/meerkat-code/meerkat_libs.git
 - pip install -r meerkat_libs/requirements.txt
-- pip install meerkat_libs
+- cd meerkat_libs
+- pip install .
+- cd ..
 
 before_script:
 - export PYTHONPATH=$HOME/build/meerkat-code/meerkat_frontend/meerkat_auth/meerkat_auth
