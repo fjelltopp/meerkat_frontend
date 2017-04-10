@@ -6,7 +6,7 @@ python:
 env:
   - TRAVIS_NODE_VERSION="6.9.1"
     MEERKAT_FRONTEND_SETTINGS="/home/travis/build/meerkat-code/meerkat_frontend/country_config/null_config.py"
-    MEERKAT_AUTH_SETTINGS="/home/travis/build/meerkat-code/meerkat_frontend/meerkat_libs/auth_client/auth.cfg"
+    MEERKAT_AUTH_SETTINGS="/home/travis/build/meerkat-code/meerkat_frontend/meerkat_libs/meerkat_libs/auth_client/auth.cfg"
 
 install:
   - pip install .
@@ -16,7 +16,7 @@ install:
   - npm install -g yarn gulp bower
   - yarn install
   - git clone https://github.com/meerkat-code/meerkat_libs.git
-  - pip install -r meerkat_auth/requirements.txt
+  - pip install -r meerkat_libs/requirements.txt
 
 before_script:
   - export PYTHONPATH=$HOME/build/meerkat-code/meerkat_frontend/meerkat_libs
