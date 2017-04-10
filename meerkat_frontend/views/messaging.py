@@ -7,7 +7,7 @@ from flask.ext.babel import gettext
 from flask import Blueprint, render_template
 from flask import redirect, flash, request, current_app, g
 import random
-import authorise as auth
+from meerkat_frontend import auth
 from .. import common as c
 
 
