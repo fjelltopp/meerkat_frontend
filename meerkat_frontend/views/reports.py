@@ -3,24 +3,17 @@ reports.py
 
 A Flask Blueprint module for reports.
 """
-from flask import Blueprint, render_template, abort, redirect, g
-from flask import url_for, request, send_file, current_app, Response
+from flask import Blueprint, render_template, abort, g
+from flask import url_for, current_app, Response
 from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
 from meerkat_frontend import app
-import authorise as auth
-
-try:
-    import simplejson as json
-except ImportError:
-    import json
+from meerkat_frontend import auth
+from meerkat_frontend import common as c
 import dateutil.parser
 import dateutil.relativedelta
-import requests
-from .. import common as c
-import string
 import pdfcrowd
-from os import path
+import json
 
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
@@ -211,27 +204,29 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
     else:
         abort(501)
 
-#Need to handle authentication to this url seperately to the rest of the reports system
+
+# Need to handle authentication to this url seperately to the rest of the reports system
 @app.route('/reports/email/<report>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/<start_date>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/<start_date>/<email_format>', methods=['POST'])
-@auth.authorise( *app.config['AUTH'].get('report_emails', [['BROKEN'],['']]) )
+@auth.authorise(*app.config['AUTH'].get('report_emails', [['BROKEN'], ['']]))
 def send_email_report(report, location=None, end_date=None, start_date=None):
     """Sends an email via Hermes with the latest report.
 
        Args:
-           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+           report (str): The report ID, from the REPORTS_LIST configuration
+                file parameter.
     """
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
-    #TESTING
-    #If the report requested begins with "test_" then we send the email to the test topic.
-    #E.g. /api/reports/test_communicable_diseases would send cd report to "test-emails" topic.
-    if report.startswith( "test_" ):
+    # TESTING
+    # If the report requested begins with "test_" then send to the test topic.
+    # E.g. test_communicable_diseases would send cd report to "test-emails".
+    if report.startswith("test_"):
         topic = "test-emails"
         test_id = "-" + str(datetime.now().time().isoformat())
         report = report[5:]
