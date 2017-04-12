@@ -447,7 +447,7 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level){
 	});
 
 }
-function drawCasesChoroplet(var_name, varID, containerID, level){
+function drawCasesChoroplet(var_name, varID, containerID, level, centre_lat, centre_lng, zoom){
 
 
 	var url = api_root +'/query_variable/'+varID+'/locations:'+ level;
@@ -463,8 +463,9 @@ function drawCasesChoroplet(var_name, varID, containerID, level){
 						'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 	 				maxZoom: 18,
 					scrollWheelZoom: false,
-	 				center: new L.LatLng( config.map.center.lat, config.map.center.lng ),
-	 				zoom: config.map.zoom
+	 				center: new L.LatLng( centre_lat ? centre_lat : config.map.center.lat,
+										  centre_lng ? centre_lng : config.map.center.lng ),
+	 				zoom: zoom ? zoom : config.map.zoom
 				});
 
 				var loc_data = {};
