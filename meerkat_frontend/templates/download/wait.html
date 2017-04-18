@@ -74,20 +74,23 @@
  url += "&language=" + language;
 
  console.log(url)
-	//Function to call progress bar
 
+//Function to call progress bar
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
          if(data){
              console.log(data);
+						// data progree generation=1 its finished if its 15 its 15%
              if(data.status == 1){
                  if(data.success == 1){
-
-                     t = i18n.gettext("Data set was sucesfully generated.")
-
+					 elem.style.width = 100 +'%';
+			 		 elem.innerHTML = 100  + '%';
+					 t = i18n.gettext("Data set was sucesfully generated.");
                      $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
                      $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
-                     $("#spinner").hide();
+                     //$("#spinner").hide();
+					 $("#myprogress").hide();
+					 $("#myBar").hide();
                      $('#download-button').show();
                      $("#heading").html(t);
                      $("#status").html("Finished");
@@ -95,12 +98,12 @@
                  }else{
                      t = i18n.gettext("Data set generation was unsuccessful");
                      $("#heading").html(t);
-                     $("#spinner").html("Please try again later.");
+                     $("#myprogress").html("Please try again later.");
                      $("#status").html("Finished");
                  }
                  clearInterval(interval)
              }else{
-							 	 //progressbar added here
+				 //progressbar added here
                  t = i18n.gettext("Dataset is still being prepared, please wait. Currently it is " +Math.round(data.status * 100) + " % finished.")
                  $("#status").html(t)
              }
