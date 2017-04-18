@@ -316,7 +316,7 @@ function createTimeline(id, cat, options){
 		for( var y in yKeys.sort(idSort) ){
 
 			var datum ={
-				"cases": category[yKeys[y]].name
+				"cases": i18n.gettext(category[yKeys[y]].name)
 			};
 			var total = 0;
 			for( var x in xKeys ){

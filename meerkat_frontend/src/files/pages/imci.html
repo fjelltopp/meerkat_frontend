@@ -54,7 +54,7 @@ var currentLocation;
 
 $("#location_box").html(i18n.gettext("Location:"));
 $("#location_title").html(i18n.gettext("Not Loaded"));
-$("#title").html(i18n.gettext(config.com_tab_title ? config.com_tab_title:'Communicable Diseases'));
+$("#title").html(i18n.gettext('IMCI'));
 $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
 $("#location-selector").html(i18n.gettext('Locations not loaded'));
 $(".csv").each(function(){
@@ -97,15 +97,15 @@ function reDraw(){
   //In case we want the user to be able to select the weeks to view.
   var week = (get_epi_week()).toString();
 
-  categorySummation({ category: 'cd_tab',
+  categorySummation({ category: 'imci',
                       locID: currentLocation,
                       week: week,
                       tableID: 'disease-table',
                       barID: 'disease-bar-chart',
                       percent: true,
                       linkFunction: 'loadDisease',
-                      strip: false,
-                      title: i18n.gettext(config.com_tab_title ? config.com_tab_title:'Communicable Diseases'),
+                      strip: true,
+                      title: i18n.gettext('IMCI'),
                       table_options: tableOptions
                      });
   }
