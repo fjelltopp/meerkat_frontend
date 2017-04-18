@@ -18,15 +18,16 @@
             <div class="col-xs-12 less-padding-col">
                 <div class="box chartBox">
                     <div class="chartBox__heading" id='heading'>
-                        {{ _('Your data set is being prepared. I dont know if it really is..') }}
+                        {{ _('Your data set is being prepared.') }}
                     </div>
                     <div class="chartBox__content" >
                         <div class='breaker'></div>
                         <div class='clearfix'>
-														<div id="progressbar"></div>
-                            <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
-                                <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
-                            </div>
+
+														<div id="myProgress">
+															<div id="myBar"></div>
+													  </div>
+
                             <div id='download-button' class='btn-group col-sm-offset-1'>
                                 <div id='download-label'
                                    class='btn btn-lg btn-default'
@@ -74,25 +75,25 @@
  url += "&language=" + language;
 
  console.log(url)
-	//Function to call progress bar
-  $( function() {
-    $( "#progressbar" ).progressbar({
-      value: 22
-    });
-  } );
+ //Progress bar variables
+ var width = 0;
+ var elem = document.getElementById("myBar");
 
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
          if(data){
              console.log(data);
+						// data progree generation=1 its finished if its 15 its 15%
              if(data.status == 1){
                  if(data.success == 1){
-
-                     t = i18n.gettext("Data set was sucesfully generated.")
-
+										 elem.style.width = 100 +'%';
+								 		 elem.innerHTML = 100  + '%';
+										 t = i18n.gettext("Data set was sucesfully generated.");
                      $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
                      $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
-                     $("#spinner").hide();
+                     //$("#spinner").hide();
+										 $("#myprogress").hide();
+										 $("#myBar").hide();
                      $('#download-button').show();
                      $("#heading").html(t);
                      $("#status").html("Finished");
@@ -100,14 +101,17 @@
                  }else{
                      t = i18n.gettext("Data set generation was unsuccessful");
                      $("#heading").html(t);
-                     $("#spinner").html("Please try again later.");
+                     $("#myprogress").html("Please try again later.");
                      $("#status").html("Finished");
                  }
                  clearInterval(interval)
              }else{
-							 	 //progressbar added here
-							 	 $("#progressbar").show();
-                 t = i18n.gettext("Dataset is still being prepared, please wait. and wait and wait")
+
+								//Progress -here
+						 		 width=Math.round(data.status*100);
+						 		 elem.style.width = width + '%';
+						 		 elem.innerHTML = width * 1  + '%';
+								 t = i18n.gettext("Dataset is still being prepared, please wait.")
                  $("#status").html(t)
              }
 
@@ -120,12 +124,12 @@
  $.getJSON(url, function( data ){
      uuid = data;
      url
-     $("#status").html(i18n.gettext("Preparation of data set has started. and starte and started Please note that this can take some time."))
-		 $("#progressbar").show();
-         interval = setInterval(function() {
-             check_status()
-         }, 5000);
-     });
+     $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
+
+     interval = setInterval(function() {
+         check_status()
+     }, 500);
+ });
 
 
 </script>
