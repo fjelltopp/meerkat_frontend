@@ -42,7 +42,12 @@
 
     "weekend" : [5,6],
 
-  "tabs":[{
+  "tabs":[
+    {
+      "name":"OverView",
+      "template":"overview.html"
+    },
+    {
     "name":"Demographics",
     "template":"demographics.html"
   },{
@@ -83,6 +88,66 @@
     "name":"Template",
     "template":"template.html"
   }],
+
+  "overviewDataStructure": {
+      "ConsultationsAndCases": [
+        {
+          "NCD_Api": "/api/aggregate/tot_1/<loc_id>",
+          "NCD_Value:": ""
+        },
+        {
+          "CD_Api": "/api/aggregate/tot_1/<loc_id>",
+          "CD_Value:": ""
+        },
+        {
+          "HM_Api": "/api/aggregate/tot_1/<loc_id>",
+          "HM_Value:": ""
+        }
+      ],
+      "Morbidity": [
+        {
+          "Measles_Api": "/api/aggregate_category/cd_tab/1",
+          "Measles_value": ""
+        },
+        {
+          "Diabetes_Api": "",
+          "Diabetes_value": ""
+        },
+        {
+          "Alerts": "/api/alerts",
+          "value": ""
+        }
+      ],
+      "Mortality": [
+        {
+          "Measles": "",
+          "value": ""
+        },
+        {
+          "Maternal Death": "",
+          "value": ""
+        }
+      ],
+      "Indicators": [
+        {
+          "NCD_Api":"",
+          "value": [
+            "% Diabetes visits with measured FG",
+            "% Diabetes visits with controlled FG"
+
+            ]
+        },
+        {
+          "CD_Api": "",
+          "value": ""
+        }
+      ]
+
+    },
+
+
+
+
   "central_review": 0,
   "flag":"null.svg",
 
