@@ -115,9 +115,10 @@ function drawTable1(){
         ret += [1,5,7,8].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
         ret += content['malaria_situation']["mls_3"] - content['malaria_situation']["mls_68"] + "</td>";
       }
-      else if(struct[i] == 70){
+        else if(struct[i] == 70){
+            not_done = content['malaria_situation']["mls_2"] - content['malaria_situation']["mls_3"]
         ret += [1,5,7,8].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
-        ret += content['malaria_situation']["mls_2"] - content['malaria_situation']["mls_3"] + "</td>";
+        ret += not_done > 0 ? not_done: 0  + "</td>";
       }
 
       else{

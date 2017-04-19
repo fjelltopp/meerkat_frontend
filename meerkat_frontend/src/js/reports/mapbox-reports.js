@@ -4,6 +4,28 @@ function draw_report_map(api_call, map_centre, containerID){
     });
 }
 
+
+function ctc_point_map(point, containerID, map_centre){
+	console.log(point, containerID, map_centre);
+	L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
+        'KQCTcMow5165oToazo4diQ';
+	map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+	      zoomControl: false,
+	      fullscreenControl: true,
+        scrollWheelZoom: false
+    }).setView([map_centre[0], map_centre[1]], map_centre[2]);
+	var ctcMarker = L.AwesomeMarkers.icon({
+		icon: 'plus',
+		markerColor: 'red'
+	});
+	
+	var m = L.marker( [ point[0], point[1]], {icon: ctcMarker} );
+	m.addTo(map);
+	return map;
+}
+
+
+
 function map_from_data( data, map_centre, containerID){
 
     if( !containerID ) containerID = 'map';

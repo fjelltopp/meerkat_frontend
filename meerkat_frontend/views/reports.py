@@ -4,7 +4,7 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, g
-from flask import url_for, current_app, Response
+from flask import url_for, current_app, Response, request
 from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
 from meerkat_frontend import app
@@ -14,7 +14,12 @@ import dateutil.parser
 import dateutil.relativedelta
 import pdfcrowd
 import json
-
+import os
+import shutil
+from zipfile import ZipFile
+import uuid
+import requests
+from bs4 import BeautifulSoup
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 
@@ -434,15 +439,58 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             content=current_app.config['REPORTS_CONFIG']
         )
 
-        current_app.logger.warning( "USE EXTERNAL?" )
-        current_app.logger.warning( int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1 )
-        # current_app.logger.warning(html.replace("/static/", c.add_domain('/static/')))
-        # Read env flag whether to tell pdfcrowd to read static files from an external source
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
-            html = html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
-        else:
-            html = html.replace("/static/", c.add_domain('/static/'))
+        # We want to find all the static assets in html
+        # Then we want to combine all these assets into
+        # a zip file that we can send to docraptor
 
+        soup = BeautifulSoup(html, 'html.parser')
+        files = {}
+        # Go through the different types of static assets
+        for img in soup.find_all("img"):
+            src = img.get("src")
+            if "s3_files" in src:
+                files[src] = "/" + src.split("?path=")[-1]
+            else:
+                files[src] = src
+        for link in soup.find_all("link"):
+            href = link.get("href")
+            files[href] = href
+        for script in soup.find_all("script"):
+            src = script.get("src")
+            if src:
+                files[src] = src
+        for span in soup.find_all("span"):
+            style = span.get("style")
+            if style and "url(" in style:
+                img = style.split("url(")[-1].split(")")[0]
+                files[img] = img
+
+        
+        tmp_folder = str(uuid.uuid4())
+        os.mkdir(tmp_folder)
+        os.chdir(tmp_folder)
+        # Change paths to work in the zip file
+        html = html.replace("/en/s3_files/get?path=", "")
+        html = html.replace("/static", "static")
+        with open("report.html", "w") as f:
+            f.write(html)
+
+        with ZipFile("report.zip", mode="w") as z:
+            z.write("report.html")
+            for f in files.keys():
+                if "http" not in f:  # Acutally external files
+                    url =  current_app.config["INTERNAL_ROOT"] + f
+                    folder = os.path.dirname(files[f])[1:]
+                    if not os.path.exists(folder):
+                        os.makedirs(folder)
+                    r = requests.get(url, stream=True)
+                    if r.status_code == 200:
+                        with open(files[f][1:], 'wb') as fi:
+                            r.raw.decode_content = True
+                            shutil.copyfileobj(r.raw, fi)
+                    z.write(files[f][1:])
+
+        
         client.usePrintMedia(True)
 
         # Allow reports to be set as portrait or landscape in the config files.
@@ -457,7 +505,11 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         client.setHtmlZoom(400)
         client.setPdfScalingFactor(1.5)
 
-        pdf = client.convertHtml(html)
+        pdf = client.convertFile("report.zip")
+
+        os.chdir("..")
+        shutil.rmtree(tmp_folder)
+        
         return Response(pdf, mimetype='application/pdf')
 
     else:
@@ -656,7 +708,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             }
         extras['map_centre'] = report_list[report].get('map_centre', ())
         extras['reg_data'] = c.api("/geo_shapes/region")
-    elif report in ['afro', 'plague']:
+    elif report in ['afro', 'plague', 'ctc']:
         extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
         extras['reg_data'] = c.api("/geo_shapes/region")
