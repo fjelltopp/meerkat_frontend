@@ -207,7 +207,7 @@ function drawCharts(locID){
 		});
 	 });
 	 
-	 non_reporting_url = api_root + "/non_reporting/ctc_1/" + locID + "/0/1/CTC"
+	 non_reporting_url = api_root + "/non_reporting/ctc_1/" + locID + "/0/1/CTC/0"
 	 $.getJSON(non_reporting_url, function( data ){
 		 $.getJSON(api_root + "/locations", function( locations ){
 	         var dataPrepared = [];
