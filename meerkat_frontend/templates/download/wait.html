@@ -23,11 +23,18 @@
                     <div class="chartBox__content" >
                         <div class='breaker'></div>
                         <div class='clearfix'>
+<<<<<<< HEAD
 
 														<div id="myProgress">
 															<div id="myBar"></div>
 													  </div>
 
+=======
+							<div id="progressbar"></div>
+                            <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
+                                <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
+                            </div>
+>>>>>>> 07f99097b5a2234fa1b82cb64e84b138b6217fad
                             <div id='download-button' class='btn-group col-sm-offset-1'>
                                 <div id='download-label'
                                    class='btn btn-lg btn-default'
@@ -75,9 +82,13 @@
  url += "&language=" + language;
 
  console.log(url)
+<<<<<<< HEAD
  //Progress bar variables
  var width = 0;
  var elem = document.getElementById("myBar");
+=======
+	//Function to call progress bar
+>>>>>>> 07f99097b5a2234fa1b82cb64e84b138b6217fad
 
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
@@ -106,12 +117,17 @@
                  }
                  clearInterval(interval)
              }else{
+<<<<<<< HEAD
 
 								//Progress -here
 						 		 width=Math.round(data.status*100);
 						 		 elem.style.width = width + '%';
 						 		 elem.innerHTML = width * 1  + '%';
 								 t = i18n.gettext("Dataset is still being prepared, please wait.")
+=======
+							 	 //progressbar added here
+                 t = i18n.gettext("Dataset is still being prepared, please wait. Currently it is " +Math.round(data.status * 100) + " % finished.")
+>>>>>>> 07f99097b5a2234fa1b82cb64e84b138b6217fad
                  $("#status").html(t)
              }
 
