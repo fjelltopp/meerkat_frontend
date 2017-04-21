@@ -51,8 +51,8 @@ gulp.task('vendorJS', function() {
     'node_modules/tree-model/dist/TreeModel-min.js',
     'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
     'bower_components/jed/jed.js',
-
-    ]))
+    'bower_components/highcharts/modules/treemap.js',
+    'bower_components/highcharts/modules/broken-axis.js']))
     .pipe(filter('*.js'))
  //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))

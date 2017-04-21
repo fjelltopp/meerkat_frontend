@@ -346,7 +346,7 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
    Show lines to compare locations for completeness graph
 */
 
-function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID, compare_locations){
+function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID, compare_locations, x_axis_max){
 
     var comparevalue = $(compare_locations).attr("value");
 
@@ -362,7 +362,7 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
     var dataPrepared = [];
     var timeseries = [];
 	if (data.timeline === undefined){
-
+		
 		$('#' + containerID).html("<h3> No " + stringGraphType + " data week for last week </h3>");
 		return undefined;
 	}
@@ -421,7 +421,8 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
             labels: {
                 overflow: 'justify'
             },
-            allowDecimals: false
+            allowDecimals: false,
+			max:x_axis_max
         },
         yAxis: {
             max: 100,

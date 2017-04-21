@@ -6,19 +6,17 @@ A Flask Blueprint module for the homepage.
 from flask import Blueprint, render_template, current_app, g
 from flask import request, make_response, redirect, flash, abort
 from flask.ext.babel import gettext
-from meerkat_frontend import app
-from .. import common as c
+from meerkat_frontend import app, auth
+from meerkat_frontend import common as c
 import requests
 import logging
-import authorise as auth
 import datetime
 
 # Register the homepage blueprint.
 homepage = Blueprint('homepage', __name__, url_prefix='/<language>')
-
 homepage_route = app.config.get("HOMEPAGE_ROUTE", "")
-    
-print(homepage_route)
+
+
 @homepage.route('/' + homepage_route)
 def index():
     return render_template(
@@ -159,3 +157,13 @@ def report_fault():
              content=current_app.config['TECHNICAL_CONFIG'],
              url=url
         )
+
+
+@homepage.route('/cdchart')
+@auth.authorise(['central', 'cd', 'personal'], ['jordan'])
+def cdchart():
+    return render_template(
+        'cdcharts.html',
+        content=current_app.config['TECHNICAL_CONFIG'],
+        week=c.api('/epi_week'),
+    )

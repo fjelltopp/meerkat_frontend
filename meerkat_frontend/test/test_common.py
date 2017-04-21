@@ -7,12 +7,13 @@ Unit tests for the Meerkat frontend
 import meerkat_frontend as mk
 import unittest
 from datetime import datetime
-import json
 import werkzeug
-from werkzeug.datastructures import Headers
-import base64
 from unittest import mock
 import requests
+import calendar
+import time
+from flask import g
+
 
 class MeerkatFrontendCommonTestCase(unittest.TestCase):
 
@@ -28,8 +29,9 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
                 u'acc': {
                     u'demo': [u'root', u'admin', u'registered'],
                     u'jordan': [
-                        u'root', u'central', u'directorate', u'clinic', u'reports',
-                        u'all', u'cd', u'ncd', u'mh', u'admin', u'personal'
+                        u'root', u'central', u'directorate',
+                        u'clinic', u'reports', u'all', u'cd',
+                        u'ncd', u'mh', u'admin', u'personal'
                     ],
                     u'madagascar': [u'root', u'admin', u'registered'],
                     u'rms': [u'root', u'admin', u'registered']
@@ -44,7 +46,9 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
         # Mock check_auth method. Authentication should be tested properly else
         # where.
         self.patcher = mock.patch(
-            'authorise.check_auth', side_effect=side_effect)
+            'meerkat_libs.auth_client.auth.check_auth',
+            side_effect=side_effect
+        )
         self.mock_auth = self.patcher.start()
 
     def tearDown(self):
@@ -68,10 +72,15 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
                                              params=None)
             self.assertEqual(ret, data)
 
-            mk.common.api("variables/category/category2", params={"test": "test2"})
+            mk.common.api(
+                "variables/category/category2",
+                params={"test": "test2"}
+            )
             self.assertTrue(mock_requests.called)
-            mock_requests.assert_called_with("http://test/variables/category/category2",
-                                             params={"test": "test2"})
+            mock_requests.assert_called_with(
+                "http://test/variables/category/category2",
+                params={"test": "test2"}
+            )
             # Check that abort(500) is called in a request error
             mock_requests.side_effect = requests.exceptions.RequestException()
             with self.assertRaises(werkzeug.exceptions.InternalServerError):

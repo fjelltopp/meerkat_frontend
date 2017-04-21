@@ -125,11 +125,19 @@
      uuid = data;
      url
      $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
+<<<<<<< HEAD
 
      interval = setInterval(function() {
          check_status()
      }, 500);
  });
+=======
+		 $("#progressbar").show();
+         interval = setInterval(function() {
+             check_status()
+         }, 5000);
+     });
+>>>>>>> origin/development
 
 
 </script>

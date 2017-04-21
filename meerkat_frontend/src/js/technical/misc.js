@@ -57,16 +57,19 @@ function format(number){
 }
 
 //Calculate no as a percentage of denom. Returns 0 if denom <= 0.
-function calc_percent(no,denom){
+function calc_percent(no,denom,round){
+    // Want the default to be rounded numbers.
+    if(round===undefined) round = true;
     if (denom>0){
-        return Math.round(no/denom*100);
+        if(round) return Math.round(no/denom*100);
+        else return no/denom*100;
     }else{
         return 0;
     }
 }
 
 //Given an array of values, calulate what percentage each value is of the total.
-function calc_percent_dist( array ){
+function calc_percent_dist(array, round){
 
     var total = 0;
     var ret = [];
@@ -76,7 +79,7 @@ function calc_percent_dist( array ){
     }
 
     for( var j=0; j<array.length; j++ ){
-        ret[j] = calc_percent(array[j], total);
+        ret[j] = calc_percent(array[j], total, round);
     }
 
     return ret;
@@ -626,7 +629,7 @@ function stripEmptyRecords( dataObject ){
    :param int compare_locations
    Show lines to compare locations for completeness graph
    */
-function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations, x_axis_max){
     var completenessLocations;
     var completenessData;
     if( start_week === undefined) start_week = 1;
@@ -643,7 +646,7 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
     }
 
     $.when.apply( $, deferreds ).then(function() {
-        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations);
+        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations, x_axis_max);
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
@@ -678,7 +681,7 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    :param int compare_locations
    Show lines to compare locations for completeness graph
    */
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max){
     var timelinessLocations;
     var timelinessData;
 	if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
@@ -698,7 +701,7 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
 
     $.when.apply( $, deferreds ).then(function() {
 
-        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations );
+        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations,x_axis_max );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
     } );
