@@ -465,7 +465,6 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                 img = style.split("url(")[-1].split(")")[0]
                 files[img] = img
 
-        
         tmp_folder = str(uuid.uuid4())
         os.mkdir(tmp_folder)
         os.chdir(tmp_folder)
@@ -479,7 +478,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             z.write("report.html")
             for f in files.keys():
                 if "http" not in f:  # Acutally external files
-                    url =  current_app.config["INTERNAL_ROOT"] + f
+                    url = current_app.config["INTERNAL_ROOT"] + f
                     folder = os.path.dirname(files[f])[1:]
                     if not os.path.exists(folder):
                         os.makedirs(folder)
@@ -490,7 +489,6 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                             shutil.copyfileobj(r.raw, fi)
                     z.write(files[f][1:])
 
-        
         client.usePrintMedia(True)
 
         # Allow reports to be set as portrait or landscape in the config files.
@@ -501,15 +499,15 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             client.setPageWidth('1200pt')
             client.setPageHeight('1697pt')
 
-        client.setPageMargins('70pt','40pt','55pt','40pt')
+        client.setPageMargins('70pt', '40pt', '55pt', '40pt')
         client.setHtmlZoom(400)
         client.setPdfScalingFactor(1.5)
 
         pdf = client.convertFile("report.zip")
 
         os.chdir("..")
-        shutil.rmtree(tmp_folder)
-        
+#        shutil.rmtree(tmp_folder)
+
         return Response(pdf, mimetype='application/pdf')
 
     else:

@@ -4,11 +4,11 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
-    </span> 
+    </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Cholera Treatment Centre Report') }}
     <span class="report-week">
@@ -25,24 +25,26 @@
           <p> {{ _('Information reported in this cholera report includes data reported from %(clinic_num)s CTCs in %(project_region)s between %(start_date)s and %(end_date)s.', clinic_num=report.data.clinic_num, project_region=_(report.data.project_region), start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
 		  <p>{{ _('In total there have been <strong>%(cases)s </strong> cases with <strong>%(u5_cases)s </strong> cases under 5 years and <strong>%(deaths)s </strong> deaths.', cases=report.summary.cholera_cases.total|int, u5_cases=report.summary.cholera_cases_u5.total|int, deaths=report.summary.cholera_deaths.total|int) }}</p>
 		  <p> {{_('Out of the %(num_clinics)s CTCs %(surveyed)s CTCs have been surveyed in the previous week. Of the survyed CTCs %(case_management)s %% had case management protocols, %(ipc)s %% had IPC protocls, %(wash)s %% had wash protocols and %(lab)s %% had lab protocols.',  num_clinics=report.data.clinic_num, surveyed=report.summary.surveyed|int, case_management=report.summary.ctc_case_management|int, ipc=report.summary.ctc_ipc|int, wash=report.summary.ctc_wash|int, lab=report.summary.ctc_lab_protocol|int) }} </p>
-		  
+
 
       </div>
     </div>
   </div>
 </div>
 <div class="row">
-	<div class="col-sm-7">
-		<div class="chart-wrapper">
-			<div class="chart-title clearfix"><div class='figure-title-left'> {{ _('Figure 1.') }}</div> <div class='figure-title-right'>{{_('Cholera Cases')}}</div></div>
-		    <div class="chart-stage">
-				<div id="fig-1"></div>
-		    </div>
-		</div>
-	</div>
-	<div class="col-sm-5">
-		<div class="chart-wrapper">
-			<div class="chart-title clearfix"><div class='figure-title-left'> {{ _('Figure 2.') }}</div> <div class='figure-title-right'>{{_('Map of Cholera Cases')}}</div></div>
+  <div class="col-sm-12">
+      <div class="chart-wrapper cholera-chart">
+          <div class="chart-title clearfix">{{_('Cholera Cases')}}</div>
+          <div class="chart-stage">
+              <div id="fig-1" class='chart'></div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="chart-wrapper country-map">
+			<div class="chart-title clearfix">{{_('Map of Cholera Cases')}}</div>
 		    <div class="chart-stage">
 				<div id="cholera-map"  class="mapbox"></div>
 		    </div>
@@ -51,62 +53,135 @@
 </div>
 
 {% for ctc in report.clinic_data %}
+<div style='page-break-inside:avoid'>
+<div class='row'>
+    <div class='col-xs-12'>
+        <div class='facility-title'>
+            <div class='left-part'>
+                <div class='facility-title-name title'>{{ ctc.name }}</div>
+                <div class='facility-title-location'>
+                {{ ctc.district }} | {{ ctc.region }} <br />
+                {{_('Latitude: ')}} 2.14456732, {{_('Longitude: ')}} 45.11804395
+                </div>
+            </div>
+            <div class='right-part'>
+                <div class='facility-title-partner title'>
+                    {{_('Partner: ')}} QRCS
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
- <div class="col-sm-4">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ ctc.name }}</div>
+ <div class="col-sm-6">
+	{% if ctc.status == "Surveyed" %}
+    <div class="chart-wrapper infrastructure">
+      <div class="chart-title">{{_('Infrastructure')}}</div>
 	  <div class="chart-stage">
-		  <table class="table">
-			  <tr> <td> Region </td> <td> {{ ctc.region }} </td></tr>
-			  <tr> <td> District </td> <td> {{ ctc.district }} </td></tr>
-			  {% if ctc.status == "Surveyed" %}
-			  <tr> <td> Last Surveyed </td> <td> {{ ctc.latest_date }} </td></tr>
-			  <tr> <td> Number of Patients</td> <td> {{ ctc.latest_data.ctc_patients|int }} </td></tr>
-			  <tr> <td> Number of Beds  </td> <td> {{ ctc.latest_data.ctc_beds|int }} </td></tr>
-			  <tr> <td> Number of Doctors  </td> <td> {{ ctc.latest_data.ctc_doctors|int }} </td></tr>
-			  <tr> <td> Number of Nurses  </td> <td> {{ ctc.latest_data.ctc_nurses|int }} </td></tr>
-			  <tr> <td> Case Management Protocols </td> <td> {{ "Yes" if "ctc_case_management" in ctc.latest_data else "No" }} </td></tr>
-			  <tr> <td> IPC Protocols </td> <td> {{ "Yes" if "ctc_ipc" in ctc.latest_data else "No" }} </td></tr>
-			  <tr> <td> Lab Protocols </td> <td> {{ "Yes" if "ctc_lab_protocol" in ctc.latest_data else "No" }} </td></tr>
-			  <tr> <td> WASH Protocols </td> <td> {{ "Yes" if "ctc_wash" in ctc.latest_data else "No" }} </td></tr>
-			  
+		  <table class="table small">
+              <tr> <td> {{_('Beds available:')}}  </td> <td> X </td></tr>
+    		  <tr> <td> {{_('Patients in the CTC today:')}}  </td> <td> X </td></tr>
+    		  <tr> <td> {{_('Doctors working in the CTC today:')}}  </td> <td> X </td></tr>
+              <tr> <td> {{_('Nurses working in the CTC today:')}}  </td> <td> X </td></tr>
 		  </table>
-		  {% else %}
-		  </table>
-		  Never Surveyed
-		  {% endif %}
 	 </div>
     </div>
-	{% if ctc.status == "Surveyed" %}
-	<div class="chart-wrapper">
-		<div class="chart-title clearfix">{{_('Cholera Cases in ') + ctc.name }}</div>
+
+	<div class="chart-wrapper caseload">
+		<div class="chart-title clearfix">{{_('Caseload')}}</div>
 		<div class="chart-stage">
-			<div id="timeline-{{ctc.name|slugify}}"></div>
+            <table class="table small">
+                <tr> <td> {{_('Patients treated in the laste week:')}}  </td> <td> X </td></tr>
+			    <tr> <td> {{_('Children under five treated in the last week:')}}  </td> <td> X </td></tr>
+                <tr> <td> {{_('Deaths recorded in the last week:')}}  </td> <td> X </td></tr>
+            </table>
 		</div>
      </div>
-	{% endif %}
-	
+    <div class="chart-wrapper case-management">
+      <div class="chart-title">{{_('Case Management')}}</div>
+      <div class="chart-stage">
+          <table class="table small">
+              <tr> <td> {{_('Case Management protocol available:')}}  </td> <td> yes </td></tr>
+              <tr> <td> {{_('Training and Case Management taken place:')}}  </td> <td> no </td></tr>
+              <tr> <td> {{_('Oral Rehyration Salts (ORS) available:')}}  </td> <td> yes </td></tr>
+              <tr> <td> {{_('IV and Infusion Sets available:')}}  </td> <td> no </td></tr>
+              <tr> <td> {{_('Antibiotics Available:')}}  </td> <td> yes </td></tr>
+          </table>
+      </div>
+    </div>
+    <div class="chart-wrapper infection-prevention">
+      <div class="chart-title">{{_('Infection Prevention Control')}}</div>
+      <div class="chart-stage">
+          <table class="table small">
+              <tr> <td> {{_('IPC protocols available:')}}  </td> <td> yes </td></tr>
+              <tr> <td> {{_('Hand gloves, gowns and aprons available:')}}  </td> <td> no </td></tr>
+          </table>
+      </div>
+    </div>
+    <div class="chart-wrapper water-sanitation">
+      <div class="chart-title">{{_('Water and Sanitation')}}</div>
+      <div class="chart-stage">
+          <table class="table small">
+              <tr> <td> {{_('Safe water protocols available:')}}  </td> <td> yes </td></tr>
+              <tr> <td> {{_('Latrine facilities available:')}}  </td> <td> no </td></tr>
+              <tr> <td> {{_('Latrine type:')}}  </td> <td> pit_latrine_no_slab </td></tr>
+              <tr> <td> {{_('Water points available:')}}  </td> <td> no </td></tr>
+              <tr> <td> {{_('Hand soap available:')}}  </td> <td> yes </td></tr>
+              <tr> <td> {{_('Safe water storage:')}}  </td> <td> no </td></tr>
+          </table>
+      </div>
+    </div>
+    <div class="chart-wrapper laboratory">
+      <div class="chart-title">{{_('Laboratory')}}</div>
+      <div class="chart-stage">
+          <table class="table small">
+              <tr> <td> {{_('Laboratory protocols available:')}}  </td> <td> yes </td></tr>
+              <tr> <td> {{_('Cary Balir Transport medium available:')}}  </td> <td> no </td></tr>
+              <tr> <td> {{_('Specimen plated within 24 hours:')}}  </td> <td> yes </td></tr>
+          </table>
+      </div>
+    </div>
+    {% else %}
+    <div class="chart-wrapper never">
+      <div class="chart-title">{{_('Information')}}</div>
+      <div class="chart-stage">
+          This facility has never been surveyed.
+      </div>
+    </div>
+    {% endif %}
  </div>
- <div class="col-sm-4">
-	 <div class="chart-wrapper">
-		 <div class="chart-title clearfix"><div class='figure-title-left'> {{ _('Figure 2.') }}</div> <div class='figure-title-right'>{{'Location of ' + ctc.name}}</div></div>
-		 <div class="chart-stage">
-			 <div id="map-{{ctc.name|slugify}}"  class="mapbox"></div>
-		 </div>
-	 </div>
- </div>
- 	{% if ctc.status == "Surveyed" %}
-  <div class="col-sm-4">
-	 <div class="chart-wrapper">
-		 <div class="chart-title clearfix"><div class='figure-title-left'> {{ _('Figure 3.') }}</div> <div class='figure-title-right'>{{'Facility Photo of ' + ctc.name}}</div></div>
-		 <div class="chart-stage">
-			 <img src="/en/s3_files/get?path={{ctc.latest_data.ctc_facility_photo}}" />
-		 </div>
-	 </div>
-	 {% endif %}
+
+ <div class="col-sm-6">
+    {% if ctc.status == "Surveyed" %}
+    <div class="chart-wrapper facility-image">
+        <div class="chart-title clearfix">{{_('Facility Photo')}}</div>
+        <div class="chart-stage">
+            <img src="/en/s3_files/get?path={{ctc.latest_data.ctc_facility_photo}}" />
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="chart-wrapper facility-map">
+    <div class="chart-title clearfix">{{_('Facility Location')}}</div>
+        <div class="chart-stage">
+            <div id="map-{{ctc.name|slugify}}"  class="map"></div>
+        </div>
+    </div>
+
+    {% if ctc.status == "Surveyed" %}
+    <div class="chart-wrapper facility-recommendations">
+        <div class="chart-title clearfix">{{_('Recommendations')}}</div>
+        <div class="chart-stage">
+            <p>1. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            <p>2. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            <p>3. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            <p>4. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+        </div>
+    </div>
+    {% endif %}
  </div>
 </div>
-
+</div>
 
 
 
@@ -146,13 +221,13 @@
 <script>
 	i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
  // Measles
- 
+
 	var cholera_data = [{% for week, value in report.summary.cholera_cases_o5.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{report.summary.cholera_cases_u5.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
-	
+
 	cholera_data.sort(function(a,b){
 		return a.week - b.week;
 	});
-	
+
 	var cholera = {
 		categories: cholera_data.map( function(a){ return a.week}),
 		series: [
@@ -161,7 +236,7 @@
 		],
 		labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
 	};
-	
+
 	$('#fig-1').highcharts(
 		measlesBarChart(
 			cholera.categories,
@@ -181,11 +256,11 @@
 
  {% if ctc.status == "Surveyed" %}
  	var cholera_data = [{% for week, value in ctc.cases_o5_history.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{ctc.cases_u5_history.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
-	
+
 	cholera_data.sort(function(a,b){
 		return a.week - b.week;
 	});
-	
+
 	var cholera = {
 		categories: cholera_data.map( function(a){ return a.week}),
 		series: [
@@ -194,7 +269,7 @@
 		],
 		labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
 	};
-	
+
 	$('#timeline-{{ctc.name|slugify}}').highcharts(
 		measlesBarChart(
 			cholera.categories,
@@ -203,10 +278,9 @@
 		)
 	);
  {% endif %}
- 
+
  {% endfor %}
 
- 
+
  </script>
 {% endblock extra_js %}
-
