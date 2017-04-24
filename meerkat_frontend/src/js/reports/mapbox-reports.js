@@ -16,7 +16,7 @@ function ctc_point_map(point, containerID, map_centre){
     }).setView([map_centre[0], map_centre[1]], map_centre[2]);
 	var ctcMarker = L.AwesomeMarkers.icon({
 		icon: 'plus',
-		markerColor: 'red'
+		markerColor: 'blue'
 	});
 	
 	var m = L.marker( [ point[0], point[1]], {icon: ctcMarker} );
