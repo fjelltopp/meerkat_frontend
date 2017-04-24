@@ -146,31 +146,32 @@
 
 function drawCharts(locID){
      drawLatestTimeChart( "ctc_cases", "ctc_1", locID, 'time-chart', undefined, undefined, 1)
-		 drawCasesChoropletLatestWeekly("Cholera Cases", "ctc_cases", "ctc_1", "case-map", "region", config.map_options.region_geo, 43.10,5, 5);
-
-	
-
-	 protocol_url = api_root + "/aggregate_latest_category/ctc_protocol/ctc_1/" + locID
-	
-	 $.getJSON(protocol_url, function( data ){
-		 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID,  function( base ){
-			 $.getJSON(api_root + "/variables/ctc_protocol", function( variables ){
-				 table = '<table class="table table-no-bordered table-hover">'
-				 table += "<tr> <th> Protocol </th> <th> Fractions of clinics with protocol </th> "
-				 for(var key in data){
-					 table += "<tr><td>" + variables[key].name +"</td>"
-					 table += "<td>" + round(data[key].weeks[week - 1] / base.weeks[week - 1] * 100, 0) +" %</td>"
-
-
-					 table += "</tr>"
-					 
-				 }
-				 
-				 table += "</table>"
-				 $("#indicators").html(table)
-			 });
-		 });
+     drawCasesChoropletLatestWeekly("Cholera Cases", "ctc_cases", "ctc_1", "case-map", "region", config.map_options.region_geo, 43.10,5, 5);
+     protocol_url = api_root + "/aggregate_latest_category/ctc_protocol/ctc_1/" + locID
+     
+     $.getJSON(protocol_url, function( data ){
+	 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID,  function( base ){
+             total = base.weeks[week - 1] * 100
+             if( total == 0){
+                 total = 1;
+             }
+	     $.getJSON(api_root + "/variables/ctc_protocol", function( variables ){
+		 table = '<table class="table table-no-bordered table-hover">'
+		 table += "<tr> <th> Protocol </th> <th> Fractions of clinics with protocol </th> "
+		 for(var key in data){
+		     table += "<tr><td>" + variables[key].name +"</td>"
+		     table += "<td>" + round(data[key].weeks[week - 1] / base.weeks[week - 1] * 100, 0) +" %</td>"
+                     
+                     
+		     table += "</tr>"
+		     
+		 }
+		 
+		 table += "</table>"
+		 $("#indicators").html(table)
+	     });
 	 });
+     });
 	caseload_url = api_root + "/aggregate_latest_category/ctc_caseload/ctc_1/" + locID
 	$.getJSON(caseload_url, function( data ){
 		$.getJSON(api_root + "/variables/ctc_caseload", function( variables ){
@@ -189,22 +190,22 @@ function drawCharts(locID){
 			$("#caseload").html(table)
 		});
 	});
-	caseload_url = api_root + "/aggregate_latest_category/ctc_structure/ctc_1/" + locID 
-	$.getJSON(caseload_url, function( data ){
+	structure_url = api_root + "/aggregate_latest_category/ctc_structure/ctc_1/" + locID
+     $.getJSON(structure_url, function( data ){
 	$.getJSON(api_root + "/variables/ctc_structure", function( variables ){
 			table = '<table class="table table-no-bordered table-hover">'
 			table += "<tr> <th> Type </th> <th> Number </th> "
-			for(var key in data){
-				table += "<tr><td>" + variables[key].name +"</td>"
-				table += "<td>" +data[key].weeks[week] +" </td>"
-				
-				
-				table += "</tr>"
-				
-			}
-			table += "</table>"
-			$("#details").html(table)
-		});
+	    for(var key in data){
+		table += "<tr><td>" + variables[key].name +"</td>"
+		table += "<td>" +data[key].weeks[week - 1 ] +" </td>"
+		
+		
+		table += "</tr>"
+		
+	    }
+	    table += "</table>"
+	    $("#details").html(table)
+	});
 	 });
 	 
 	 non_reporting_url = api_root + "/non_reporting/ctc_1/" + locID + "/0/1/CTC/0"

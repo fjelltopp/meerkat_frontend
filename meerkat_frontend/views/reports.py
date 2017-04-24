@@ -449,7 +449,8 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         for img in soup.find_all("img"):
             src = img.get("src")
             if "s3_files" in src:
-                files[src] = "/" + src.split("?path=")[-1]
+                if src.split("?path=")[-1]:
+                    files[src] = "/" + src.split("?path=")[-1]
             else:
                 files[src] = src
         for link in soup.find_all("link"):
