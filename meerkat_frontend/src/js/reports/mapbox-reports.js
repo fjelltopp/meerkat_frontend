@@ -25,6 +25,51 @@ function ctc_point_map(point, containerID, map_centre){
 }
 
 
+function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, containerID, map_centre){
+    // Build the basic map using mapbox.
+    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
+                           'KQCTcMow5165oToazo4diQ';
+    map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+          zoomControl: false,
+          fullscreenControl: true,
+        scrollWheelZoom: false
+    }).setView([map_centre[0], map_centre[1]], map_centre[2]);
+
+    // Setup map options.
+    map.dragging.disable();
+    map.on('fullscreenchange', function(){
+        if (map.isFullscreen()) {
+            map.dragging.enable();
+        } else {
+            map.dragging.disable();
+        }
+    });
+
+    // Add surveyed clinics to map
+    for(var s_point in surveyed_points){
+        var s_ctcMarker = L.AwesomeMarkers.icon({
+            icon: 'plus',
+            markerColor: 'blue'
+        });
+        
+        var s_m = L.marker( [ surveyed_points[s_point][0], surveyed_points[s_point][1]], {icon: s_ctcMarker} );
+        s_m.addTo(map);
+    }
+
+    // Add non-surveyed clinics to map
+    for(var n_point in non_surveyed_points){
+        var n_ctcMarker = L.AwesomeMarkers.icon({
+            icon: 'plus',
+            markerColor: 'red'
+        });
+        
+        var n_m = L.marker( [ non_surveyed_points[n_point][0], non_surveyed_points[n_point][1]], {icon: n_ctcMarker} );
+        n_m.addTo(map);
+    }
+
+    return map;
+}
+
 
 function map_from_data( data, map_centre, containerID){
 

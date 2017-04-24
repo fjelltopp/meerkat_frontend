@@ -124,6 +124,14 @@
 		    </div>
 		</div>
 	</div>
+    <div class="col-sm-6">
+        <div class="chart-wrapper country-map">
+            <div class="chart-title clearfix">{{_('Map of Surveyed Clinics')}}</div>
+            <div class="chart-stage">
+            <div id="surveyed-clinic-map"  class="mapbox"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% for ctc in report.clinic_data %}
@@ -327,6 +335,13 @@
 		reg_data,
 		'cholera-map'
 	);
+    ctc_surveyed_clinics_map(
+        {{report.data.surveyed_clinics_map.surveyed|safe}},
+        {{report.data.surveyed_clinics_map.non_surveyed|safe}},
+        'surveyed-clinic-map',
+        {{extras.map_centre}}
+    );
+
  {% for ctc in report.clinic_data %}
   {% if ctc.status == "Surveyed" %}
  ctc_point_map({{ctc.gps|safe}}, "map-{{ctc.name|slugify}}", {{extras.map_centre}})
