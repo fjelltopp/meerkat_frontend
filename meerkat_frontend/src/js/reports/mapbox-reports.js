@@ -53,6 +53,7 @@ function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, container
         });
         
         var s_m = L.marker( [ surveyed_points[s_point][0], surveyed_points[s_point][1]], {icon: s_ctcMarker} );
+        s_m.bindPopup(surveyed_points[s_point][2]);
         s_m.addTo(map);
     }
 
@@ -64,8 +65,19 @@ function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, container
         });
         
         var n_m = L.marker( [ non_surveyed_points[n_point][0], non_surveyed_points[n_point][1]], {icon: n_ctcMarker} );
+        n_m.bindPopup(non_surveyed_points[n_point][2]);
         n_m.addTo(map);
     }
+
+    var legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function( map ){
+        var div = L.DomUtil.create( 'div', 'legend' );
+        div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-blue awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">Clinic surveyed</h2></tr></table>';
+        div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-red awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">Clinic not surveyed</h2></tr></table>';
+    return div;
+    };
+    legend.addTo(map);
+
 
     return map;
 }
