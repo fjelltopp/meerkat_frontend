@@ -5,7 +5,8 @@ A Flask Blueprint module for the explore data page.
 """
 from ..app import app
 from functools import partial
-from flask import redirect, g, Blueprint, jsonify
+from meerkat_frontend import auth
+from flask import redirect, g, Blueprint, jsonify, current_app
 from flask import make_response, request, abort
 from io import BytesIO
 import dropbox
@@ -84,6 +85,18 @@ if "DROPBOX" in app.config and app.config["DROPBOX"]:
             partial(all_files_json, folder["folder_name"])
         )
 s3_files_bp = Blueprint('s3_file_bp', __name__, url_prefix="/<language>")
+@s3_files_bp.before_request
+def requires_auth():
+    """
+    Checks that the user has authenticated before returning any page from
+    this Blueprint.
+    """
+    # We load the arguments for check_auth function from the config files.
+    auth.check_auth(
+        *current_app.config['AUTH'].get('technical', [['BROKEN'], ['']])
+    )
+
+
 
 s3_enabled = False
 if "S3_FILES" in app.config and app.config["S3_FILES"]:

@@ -474,7 +474,8 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         html = html.replace("/static", "static")
         with open("report.html", "w") as f:
             f.write(html)
-
+        
+        current_token = request.cookies
         with ZipFile("report.zip", mode="w") as z:
             z.write("report.html")
             for f in files.keys():
@@ -483,7 +484,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                     folder = os.path.dirname(files[f])[1:]
                     if not os.path.exists(folder):
                         os.makedirs(folder)
-                    r = requests.get(url, stream=True)
+                    r = requests.get(url, stream=True, cookies=current_token)
                     if r.status_code == 200:
                         with open(files[f][1:], 'wb') as fi:
                             r.raw.decode_content = True

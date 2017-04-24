@@ -19,7 +19,7 @@
     >
     </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('CTC QUALITY AND OUTCOMES MONITORING') }}
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('CTC Quality  and Outcomes Monitoring') }}
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
@@ -28,15 +28,25 @@
 <div class="row">
   <!-- HIGHLIGHTS -->
     <div class="col-sm-6">
+		<div class="chart-wrapper infrastructure">
+			<div class="chart-title">{{_('Survey')}}</div>
+			<div class="chart-stage">
+				<table class="table small">
+					<tr> <td> {{_('Facilitities surveyed at baseline:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
+					<tr> <td> {{_('Facilities surveyed last week:')}}  </td> <td>{{ format_percent(report.overview.surveyed_last_week) }} </td></tr>
+				</table>
+			</div>
+		</div>
+		
      <div class="chart-wrapper infrastructure">
          <div class="chart-title">{{_('Infrastructure')}}</div>
 	 <div class="chart-stage">
 	     <table class="table small">
                  <tr> <td> {{_('Bed capacity:')}}  </td> <td>{{ format_percent(report.overview.ctc_beds_sufficient) }} sufficent capacity </td></tr>
                <tr> <td> {{_('Beds available:')}}  </td> <td> {{report.overview.get("ctc_beds", 0)|int}} </td></tr>
-    	      <tr> <td> {{_('Patients in the CTC today:')}}  </td> <td> {{report.overview.get("ctc_patients", 0)|int}} </td></tr>
-    	      <tr> <td> {{_('Doctors working in the CTC today:')}}  </td> <td> {{report.overview.get("ctc_doctors", 0)|int}} </td></tr>
-              <tr> <td> {{_('Nurses working in the CTC today:')}}  </td> <td> {{report.overview.get("ctc_nurses", 0)|int}} </td></tr>
+    	      <tr> <td> {{_('Patients in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_patients", 0)|int}} </td></tr>
+    	      <tr> <td> {{_('Doctors working in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_doctors", 0)|int}} </td></tr>
+              <tr> <td> {{_('Nurses working in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_nurses", 0)|int}} </td></tr>
 	     </table>
 	 </div>
      </div>
@@ -103,7 +113,7 @@
      </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col-sm-12">
       <div class="chart-wrapper cholera-chart">
           <div class="chart-title clearfix">{{_('Cholera Cases')}}</div>
@@ -114,7 +124,7 @@
   </div>
 
   
-</div>
+</div> -->
 <div class="row">
 	<div class="col-sm-6">
 		<div class="chart-wrapper country-map">
@@ -138,7 +148,7 @@
                 <div class='facility-title-location'>
                 {{ ctc.district }} | {{ ctc.region }} <br />
                     {{_('Latitude: ')}} {{ctc.gps[0]}}, {{_('Longitude: ')}} {{ctc.gps[1]}} <br />
-                    {{_('Surevedy on') }} {{ctc.latest_date}}
+                    {{_('Surveyed on') }} {{ctc.latest_date}}
                 </div>
             </div>
             <div class='right-part'>
@@ -157,9 +167,9 @@
 	 <div class="chart-stage">
 	     <table class="table small">
               <tr> <td> {{_('Beds available:')}}  </td> <td> {{ctc.latest_data.get("ctc_beds", 0)|int}} </td></tr>
-    	      <tr> <td> {{_('Patients in the CTC today:')}}  </td> <td> {{ctc.latest_data.get("ctc_patients", 0)|int}} </td></tr>
-    	      <tr> <td> {{_('Doctors working in the CTC today:')}}  </td> <td> {{ctc.latest_data.get("ctc_doctors", 0)|int}} </td></tr>
-              <tr> <td> {{_('Nurses working in the CTC today:')}}  </td> <td> {{ctc.latest_data.get("ctc_nurses", 0)|int}} </td></tr>
+    	      <tr> <td> {{_('Patients in the CTC at time of survey:')}}  </td> <td> {{ctc.latest_data.get("ctc_patients", 0)|int}} </td></tr>
+    	      <tr> <td> {{_('Doctors working in the CTC at time of survey:')}}  </td> <td> {{ctc.latest_data.get("ctc_doctors", 0)|int}} </td></tr>
+              <tr> <td> {{_('Nurses working in the CTC at time of survey:')}}  </td> <td> {{ctc.latest_data.get("ctc_nurses", 0)|int}} </td></tr>
 	     </table>
 	 </div>
      </div>
@@ -263,32 +273,6 @@
 
 {% endfor %}
 
-
-
-
-
-<!-- MORE INFO AND CONTACT -->
-<div class="row">
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('More Information') }}</div>
-      <div class="chart-stage">
-                    {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
-          <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Contact Information') }}</div>
-      <div class="chart-stage">
-        <address>
-	  {{address|safe}}
-        </address>
-      </div>
-    </div>
-  </div>
-</div>
 </div>
 <div id="map" style="display: hidden;"></div>
 {% endblock body %}
