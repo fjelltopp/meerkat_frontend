@@ -16,7 +16,7 @@ import pdfcrowd
 import json
 import os
 import shutil
-from zipfile import ZipFile
+from zipfile import ZipFile, ZIP_DEFLATED
 import uuid
 import requests
 from bs4 import BeautifulSoup
@@ -476,7 +476,10 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             f.write(html)
         
         current_token = request.cookies
-        with ZipFile("report.zip", mode="w") as z:
+        shutil.copytree("../meerkat_frontend/static/img", "static/img")
+        shutil.copytree("../meerkat_frontend/static/css/images", "static/css/images")
+        shutil.copytree("../meerkat_frontend/static/fonts", "static/fonts")
+        with ZipFile("report.zip", "w", ZIP_DEFLATED) as z:
             z.write("report.html")
             for f in files.keys():
                 if "http" not in f:  # Acutally external files
@@ -490,7 +493,10 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                             r.raw.decode_content = True
                             shutil.copyfileobj(r.raw, fi)
                     z.write(files[f][1:])
-
+            for root, dirs, files in os.walk("static"):
+                for file in files:
+                    if os.path.join(root, file) not in z.namelist():
+                        z.write(os.path.join(root, file))
         client.usePrintMedia(True)
 
         # Allow reports to be set as portrait or landscape in the config files.
