@@ -30,7 +30,7 @@
     "js-cookie": "~2.1.3",
     "leaflet-omnivore": "0.3.2",
     "leaflet.markercluster": "~1.0.3",
-    "leaflet.awesome-markers": "^2.0.2",  
+    "leaflet.awesome-markers": "^2.0.2",
     "mapbox.js": "~3.0.1",
     "tableExport.jquery.plugin": "~1.5.0",
     "raven-js": "~3.12.0"
@@ -45,6 +45,13 @@
     },
     "leaflet-omnivore": {
       "main": "leaflet-omnivore.js"
+    },
+    "mapbox.js":{
+        "main": [
+          "mapbox.css",
+          "mapbox.uncompressed.js",
+          "images/*"
+        ]
     },
     "highcharts": {
       "main": [
