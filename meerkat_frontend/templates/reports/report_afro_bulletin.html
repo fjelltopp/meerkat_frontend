@@ -70,14 +70,14 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
         <li>
           {{ _('%(cmd_24)s cases of severe and %(cmd_23)s cases of moderate malnutrition were reported during the week', cmd_24=report.data.weekly_highlights.cmd_24|int, cmd_23=report.data.weekly_highlights.cmd_23|int)}}
           {% if report.data.weekly_highlights.malnutrition %}
-            {{_(, with most cases reported from)}}
+            {{_(', with most cases reported from')}}
             {% for reg in report.data.weekly_highlights.malnutrition %}
               {% if loop.first and loop.last  %}
                 "{{reg.region}}"
               {% elif not loop.last %}
                 "{{reg.region}}",
               {% else %}
-               {{_( and "{{reg.region}}" regions.)}}
+               {{_(' and ')}} "{{reg.region}}" {{_('regions.')}}
               {% endif %}
             {% endfor %}
           {% else %}
