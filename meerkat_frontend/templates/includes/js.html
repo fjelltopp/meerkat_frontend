@@ -6,7 +6,7 @@
   <script>Raven.config('{{config.SENTRY_JS_DNS}}').install();</script>
 {% endif %}
 <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-<script src="{{ url_for('static', filename='js/mapbox.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mapbox.uncompressed.js') }}"></script>
 <script src="{{ url_for('static', filename='js/Leaflet.fullscreen.js') }}"></script>
 <script src="{{ url_for('static', filename='js/leaflet.markercluster.js') }}"></script>
 <script src="{{ url_for('static', filename='js/leaflet-omnivore.js') }}"></script>

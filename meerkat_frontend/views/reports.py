@@ -222,17 +222,18 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+    topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
 
     # TESTING
-    # If the report requested begins with "test_" then send to the test topic.
-    # E.g. test_communicable_diseases would send cd report to "test-emails".
+    # If report requested begins with "test_" then send to the test topic
+    # E.g. test_communicable_diseases would send cd report to "test-emails"
+    test_id = ""
+    test_sub = ""
     if report.startswith("test_"):
+        report = report[5:]
         topic = "test-emails"
         test_id = "-" + str(datetime.now().time().isoformat())
-        report = report[5:]
-    else:
-        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
-        test_id = ""
+        test_sub = "TEST {} | ".format(current_app.config['DEPLOYMENT'])
 
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
@@ -244,16 +245,16 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date=start_date
         )
 
-        relative_url = url_for( 'reports.report',
-                                report=report,
-                                location=location,
-                                end_date=end_date,
-                                start_date=start_date )
+        relative_url = url_for('reports.report',
+                               report=report,
+                               location=location,
+                               end_date=end_date,
+                               start_date=start_date)
 
         report_url = c.add_domain(relative_url)
 
-        #Use env variable to determine whether to fetch image content from external source or not
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
+        # Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:
             content_url = c.add_domain('/static/')
@@ -282,30 +283,31 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         start_date = datetime_from_json(ret['report']['data']['start_date'])
         end_date = datetime_from_json(ret['report']['data']['end_date'])
 
-        title = gettext(report_list[report]['title'])
 
         if report_list[report]['default_period'] == 'month':
-            subject = '{country} | {title} ({start_date} - {end_date})'.format(
-                country = gettext(country),
-                title = gettext(report_list[report]['monthly_email_title']),
-                start_date = format_datetime(start_date, 'dd MMMM YYYY'),
-                end_date = format_datetime(end_date, 'dd MMMM YYYY')
+            subject = '{test_subject}{country} | {title} ({start_date} - {end_date})'.format(
+                test_subject=test_sub,
+                country=gettext(country),
+                title=gettext(report_list[report]['monthly_email_title']),
+                start_date=format_datetime(start_date, 'dd MMMM YYYY'),
+                end_date=format_datetime(end_date, 'dd MMMM YYYY')
             )
-            email_id = ( topic + "-" + end_date.strftime('%m') + "-" +
-                         end_date.strftime('%Y') +"-" + report + test_id )
+            email_id = ''.join([topic, "-", end_date.strftime('%m'), "-",
+                                end_date.strftime('%Y'), "-", report, test_id])
         else:
-            subject = '{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(
-                country = gettext(country),
-                title = gettext(report_list[report]['title']),
-                epi_week_text = gettext('Epi Week'),
-                epi_week = epi_week,
-                start_date = format_datetime(start_date, 'dd MMMM YYYY'),
-                end_date = format_datetime(end_date, 'dd MMMM YYYY')
+            subject = '{test_subject}{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(
+                test_subject=test_sub,
+                country=gettext(country),
+                title=gettext(report_list[report]['title']),
+                epi_week_text=gettext('Epi Week'),
+                epi_week=epi_week,
+                start_date=format_datetime(start_date, 'dd MMMM YYYY'),
+                end_date=format_datetime(end_date, 'dd MMMM YYYY')
             )
-            email_id = (topic + "-" + str(epi_week) + "-" +
-                         end_date.strftime('%Y') + "-" + report + test_id)
+            email_id = ''.join([topic, "-", str(epi_week), "-",
+                                end_date.strftime('%Y'), "-", report, test_id])
 
-        #Assemble the message data in a manner hermes will understand.
+        # Assemble the message data in a manner hermes will understand.
         message = {
             "id": email_id,
             "topics": topic,
@@ -315,25 +317,25 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             "from": current_app.config['MESSAGING_CONFIG']['messages']['from']
         }
 
-        #Publish the message to hermes
-        r = c.hermes( '/publish', 'PUT', message )
+        # Publish the message to hermes
+        r = c.hermes('/publish', 'PUT', message)
 
         print(r)
-        succ=0
-        fail=0
+        succ = 0
+        fail = 0
 
         for resp in r:
             try:
                 resp['ResponseMetadata']['HTTPStatusCode']
             except KeyError:
-                current_app.logger.warning( "Hermes return value error:" + str(resp['message']) )
+                current_app.logger.warning("Hermes return value error:" + str(resp['message']) )
                 fail += 1
             except TypeError:
-                current_app.logger.warning( "Hermes job error:" + str(r['message']) )
+                current_app.logger.warning("Hermes job error:" + str(r['message']))
                 abort(502)
             else:
                 if resp['ResponseMetadata']['HTTPStatusCode'] == 200:
-                    succ =+ 1
+                    succ += 1
                 else:
                     current_app.logger.warning( "Hermes error while sending message:" + str(resp['message']) )
                     fail += 1
