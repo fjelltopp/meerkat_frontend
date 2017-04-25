@@ -1,6 +1,6 @@
 {% extends 'reports/base.html' %}
 {% block title %}{{report.data.project_region|e}} &middot; {{ _('Cholera Treatment Centre Report') }} &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
-{% block body %}
+
 
 {% macro format_percent(input) %}
   {{ input.Y }} ({{ (input.Y / input.N * 100 )|int}} %)
@@ -9,7 +9,7 @@
 
 
 {% set yesnodk = {"yes": "Yes", "no": "No", "dnk": "Don't Know", "blank": "Don't Know"} %}
-
+{% block body %}
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
@@ -38,45 +38,6 @@
 			</div>
 		</div>
 		
-     <div class="chart-wrapper infrastructure">
-         <div class="chart-title">{{_('Infrastructure')}}</div>
-	 <div class="chart-stage">
-	     <table class="table small">
-                 <tr> <td> {{_('Bed capacity:')}}  </td> <td>{{ format_percent(report.overview.ctc_beds_sufficient) }} sufficent capacity </td></tr>
-               <tr> <td> {{_('Beds available:')}}  </td> <td> {{report.overview.get("ctc_beds", 0)|int}} </td></tr>
-    	      <tr> <td> {{_('Patients in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_patients", 0)|int}} </td></tr>
-    	      <tr> <td> {{_('Doctors working in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_doctors", 0)|int}} </td></tr>
-              <tr> <td> {{_('Nurses working in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_nurses", 0)|int}} </td></tr>
-	     </table>
-	 </div>
-     </div>
-     
-
-     <div class="chart-wrapper case-management">
-         <div class="chart-title">{{_('Case Management')}}</div>
-         <div class="chart-stage">
-             <table class="table small">
-                 <tr> <td> {{_('Case Management protocol available:')}}  </td> <td>{{ format_percent(report.overview.ctc_case_management_value) }} </td></tr>
-                 <tr> <td> {{_('Training and Case Management taken place:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_training)}}</td></tr>
-                 <tr> <td> {{_('Oral Rehyration Salts (ORS) available:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_ors)}} </td></tr>
-                 <tr> <td> {{_('IV and Infusion Sets available:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_iv)}} </td></tr>
-                 <tr> <td> {{_('Antibiotics Available:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_abx)}} </td></tr>
-             </table>
-         </div>
-     </div>
-     <div class="chart-wrapper infection-prevention">
-         <div class="chart-title">{{_('Infection Prevention Control')}}</div>
-         <div class="chart-stage">
-             <table class="table small">
-                 <tr> <td> {{_('IPC protocols available:')}}  </td> <td>  {{ format_percent(report.overview.ctc_ipc_value) }} </td></tr>
-                 <tr> <td> {{_('Hand gloves, gowns and aprons available:')}}  </td> <td>  {{ format_percent(report.overview.ctc_ipc_apron)}} </td></tr>
-             </table>
-         </div>
-     </div>
-
-
-    </div>
-    <div class="col-sm-6">
      <div class="chart-wrapper caseload">
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
 	 <div class="chart-stage">
@@ -88,16 +49,15 @@
              </table>
 	 </div>
      </div>
+     
 
-     <div class="chart-wrapper water-sanitation">
-         <div class="chart-title">{{_('Water and Sanitation')}}</div>
+   
+     <div class="chart-wrapper infection-prevention">
+         <div class="chart-title">{{_('Infection Prevention Control')}}</div>
          <div class="chart-stage">
              <table class="table small">
-                 <tr> <td> {{_('Safe water protocols available:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_value)}} </td></tr>
-                 <tr> <td> {{_('Latrine facilities available:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_lat)}} </td></tr>
-                 <tr> <td> {{_('Water points available:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_wp)}} </td></tr>
-                 <tr> <td> {{_('Hand soap available:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_soap)}} </td></tr>
-                 <tr> <td> {{_('Safe water storage:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_safe_storage)}} </td></tr>
+                 <tr> <td> {{_('IPC protocols available:')}}  </td> <td>  {{ format_percent(report.overview.ctc_ipc_value) }} </td></tr>
+                 <tr> <td> {{_('Hand gloves, gowns and aprons available:')}}  </td> <td>  {{ format_percent(report.overview.ctc_ipc_apron)}} </td></tr>
              </table>
          </div>
      </div>
@@ -111,6 +71,48 @@
              </table>
          </div>
      </div>
+
+    </div>
+    <div class="col-sm-6">
+
+     <div class="chart-wrapper infrastructure">
+         <div class="chart-title">{{_('Infrastructure')}}</div>
+		 <div class="chart-stage">
+			 <table class="table small">
+                 <tr> <td> {{_('Bed capacity:')}}  </td> <td>{{ format_percent(report.overview.ctc_beds_sufficient) }} sufficent capacity </td></tr>
+				 <tr> <td> {{_('Beds available:')}}  </td> <td> {{report.overview.get("ctc_beds", 0)|int}} </td></tr>
+    			 <tr> <td> {{_('Patients in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_patients", 0)|int}} </td></tr>
+    			 <tr> <td> {{_('Doctors working in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_doctors", 0)|int}} </td></tr>
+				 <tr> <td> {{_('Nurses working in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_nurses", 0)|int}} </td></tr>
+			 </table>
+		 </div>
+     </div>
+  <div class="chart-wrapper case-management">
+         <div class="chart-title">{{_('Case Management')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('Case Management protocol available:')}}  </td> <td>{{ format_percent(report.overview.ctc_case_management_value) }} </td></tr>
+                 <tr> <td> {{_('Training and Case Management taken place:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_training)}}</td></tr>
+                 <tr> <td> {{_('Oral Rehyration Salts (ORS) available:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_ors)}} </td></tr>
+                 <tr> <td> {{_('IV and Infusion Sets available:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_iv)}} </td></tr>
+                 <tr> <td> {{_('Antibiotics Available:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_abx)}} </td></tr>
+             </table>
+         </div>
+     </div>
+	 
+     <div class="chart-wrapper water-sanitation">
+         <div class="chart-title">{{_('Water and Sanitation')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('Safe water protocols available:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_value)}} </td></tr>
+                 <tr> <td> {{_('Latrine facilities available:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_lat)}} </td></tr>
+                 <tr> <td> {{_('Water points available:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_wp)}} </td></tr>
+                 <tr> <td> {{_('Hand soap available:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_soap)}} </td></tr>
+                 <tr> <td> {{_('Safe water storage:')}}  </td> <td> {{ format_percent(report.overview.ctc_wash_safe_storage)}} </td></tr>
+             </table>
+         </div>
+     </div>
+
     </div>
 </div>
 <!-- <div class="row">
@@ -143,7 +145,9 @@
         </div>
     </div>
 </div>
+{% endblock body%}
 
+{% block second_body %}
 {% for ctc in report.clinic_data %}
 {% set dat = ctc.latest_data %}
 {% if ctc.status == "Surveyed" %}
@@ -283,7 +287,7 @@
 
 </div>
 <div id="map" style="display: hidden;"></div>
-{% endblock body %}
+{% endblock second_body %}
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>

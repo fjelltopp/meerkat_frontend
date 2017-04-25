@@ -71,7 +71,7 @@ function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, container
 
     var legend = L.control({ position: 'bottomright' });
     legend.onAdd = function( map ){
-        var div = L.DomUtil.create( 'div', 'legend' );
+        var div = L.DomUtil.create( 'div', 'marker-legend' );
         div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-blue awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">Clinic surveyed</h2></tr></table>';
         div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-red awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">Clinic not surveyed</h2></tr></table>';
     return div;

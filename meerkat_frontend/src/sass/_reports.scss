@@ -310,6 +310,16 @@ table.refugee.small{
 .mapbox .legend {
     line-height: 18px;
 }
+
+.mapbox .marker-legend {
+	padding: 10px 10px;
+    font: 10px sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+
+}
 .mapbox .legend i {
     width: 18px;
     height: 18px;
@@ -389,3 +399,4 @@ table.refugee.small{
 .cholera-chart .chart-stage .chart{
         height: 350px;
 }
+
