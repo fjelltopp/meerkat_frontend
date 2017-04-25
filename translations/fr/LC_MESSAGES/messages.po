@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-04-25 09:56+0000\n"
+"POT-Creation-Date: 2017-04-25 11:16+0000\n"
 "PO-Revision-Date: 2016-06-02 09:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -1953,6 +1953,18 @@ msgstr ""
 "%(cmd_24)s cas de malnutrition sévère et %(cmd_23)s cas de malnutrition "
 "modérée ont été signalés au cours de la semaine"
 
+#: meerkat_frontend/templates/reports/report_afro_bulletin.html:73
+msgid ", with most cases reported from"
+msgstr ", avec la plupart des cas rapportés de"
+
+#: meerkat_frontend/templates/reports/report_afro_bulletin.html:80
+msgid " and "
+msgstr " et "
+
+#: meerkat_frontend/templates/reports/report_afro_bulletin.html:80
+msgid "regions."
+msgstr "."
+
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:88
 #, python-format
 msgid ""
@@ -1971,9 +1983,8 @@ msgid ""
 "reported, with %(cmd_18)s (%(cmd_18_perc_cmd_25)s%%) cases of influenza-"
 "like illness (ILI)."
 msgstr ""
-"%(cmd_25)s cas de Infection Respiratoires Aiguë (IRA) ont été  "
-"rapportés, avec %(cmd_18)s (%(cmd_18_perc_cmd_25)s%%) cas de "
-"grippe."
+"%(cmd_25)s cas de Infection Respiratoires Aiguë (IRA) ont été  rapportés,"
+" avec %(cmd_18)s (%(cmd_18_perc_cmd_25)s%%) cas de grippe."
 
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:94
 #, python-format
