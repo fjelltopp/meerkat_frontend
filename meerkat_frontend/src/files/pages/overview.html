@@ -27,7 +27,9 @@
 	<div id="page-content-wrapper">
 
 		<div class="row">
-			<div class="col-xs-12 col-md-6 less-padding-col">
+			<div id="FirstColumn" class="col-xs-12 col-md-6 less-padding-col">
+
+
 				<div class="row" style="padding-bottom: 10px;">
 					<div class="chartBox box">
 						<div class="chartBox__heading">
@@ -176,7 +178,7 @@
 	$("#box_3_heading").html(i18n.gettext('Mortality'));
 	$("#box_4_heading").html(i18n.gettext('Indicators'));
 
-	
+
 
 
 	$("#menu-toggle").click(function(e) {
@@ -192,4 +194,55 @@
 	});
 
 	$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
+
+	$(function() {debugger;
+		build_overview_page();
+
+	});
+
+	function build_overview_page() {
+		overview_list = config.overviewDataStructure;
+		//Create the Html for the boxes ...
+		var html_builder;
+		for (int i = 0; i <= overview_list.lenght() - 1; i++) {
+			html_builder = html_builder + html_box_builder(i);
+
+		}
+		//Inject the HTML ...
+		$('#FirstColumn').append(html_builder);
+	}
+
+
+	function html_box_builder(currentObj) {
+		//Build the header for the box ..
+		var html_box = "<div class='row style='padding-bottom: 10 px;'> <div class='chartBox box' >" +
+			"<div class = 'chartBox__heading' > <p id = '#box_heading'>" + currentObj.title + "</p> </div>" +
+			"<div class = 'chartBox__content' > " +
+			"<div id = 'use-table' class = 'table' >" +
+			"<table class = 'table table-hover table-condensed' > <tbody> ";
+
+		//Build the body for the box ...
+		for (int i = 0; i <= currentObj.contents.lenght() - 1; i++) {
+			api_value = GetJson(i.api);
+
+			html_box = html_box + "<tr> <th scope = 'row' colspan = '2' >" + i.label + "</th> </tr> <tr> <th scope = 'row' colspan = '2' >" + i.label + "</th> </tr> <tr> ";
+			html_box = html_box + "<td>" + i.label + "< /td> <td>" + api_value + "< /td> </tr>"
+		}
+
+		//Build the box footer ...
+		html_box = html_box + "</tbody> </table> </div> </div> </div> </div>";
+		return html_box;
+	}
+
+
+	function GetJson(apiUrl) {
+		var result;
+		var api_root = "http://localhost/";
+		locationId = 1;
+		apiUrl = apiUrl.replace("<loc_id>", locationId);
+		$.getJSON(api_root + apiUrl + 1, function(data) {
+			result = data;
+		})
+		return result;
+	}
 </script>

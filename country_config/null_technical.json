@@ -1,24 +1,24 @@
 {
-  "application":"technical",
+    "application": "technical",
 
-  "titles":{
-    "full":"Null Island <br> Public Health Surveillance",
-    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
-    "mob_nav":"Health Surveillance"
-  },
-  "api_key": "test-api",
-  "map":{
-    "center":{
-      "lng":"0",
-      "lat":"0"
+    "titles": {
+        "full": "Null Island <br> Public Health Surveillance",
+        "nav": "<b>Null Island </b> &middot; Public Health Surveillance",
+        "mob_nav": "Health Surveillance"
     },
-    "zoom":"9"
-  },
+    "api_key": "test-api",
+    "map": {
+        "center": {
+            "lng": "0",
+            "lat": "0"
+        },
+        "zoom": "9"
+    },
 
     "map_options": {
         "options": {
-            "cmd_1":"Cholera",
-            "cmd_27":"Mealses",
+            "cmd_1": "Cholera",
+            "cmd_27": "Mealses",
             "tot_1": "All cases"
         },
         "types": ["incidence_clinic", "incidence_district", "incidence_region", "cases_clinic", "cases_district", "cases_region"]
@@ -26,148 +26,145 @@
     },
 
 
-    "completeness_denominator":{
+    "completeness_denominator": {
         "all": "7",
         "cd": "4",
         "ncd": "4",
         "mh": "4"
     },
 
-    "timeliness_denominator":{
+    "timeliness_denominator": {
         "all": "4",
         "cd": "4",
         "ncd": "4",
         "mh": "4"
     },
 
-    "weekend" : [5,6],
+    "weekend": [5, 6],
 
-  "tabs":[
-    {
-      "name":"OverView",
-      "template":"overview.html"
-    },
-    {
-    "name":"Demographics",
-    "template":"demographics.html"
-  },{
-    "name":"Demographics CD",
-    "template":"demographicsCD.html",
-    "access": "cd"
-  },{
-    "name":"Demographics NCD",
-    "template":"demographicsNCD.html",
-    "access": "ncd"
-  },{
-    "name":"Presenting Complaint",
-    "template":"complaint.html"
-  },{
-    "name":"Communicable Diseases",
-    "template":"diseases.html",
-    "access":"cd"
-  },{
-    "name":"Non Communicable Diseases",
-    "template":"nc_diseases.html",
-    "access":"ncd"
-  },{
-    "name":"Alerts",
-    "template":"alerts.html"
-  },{
-    "name":"Health Services",
-    "template":"services.html"
-  },{
-    "name":"Completeness",
-    "template":"completeness.html"
-  },{
-    "name":"Timeliness",
-    "template":"timeliness.html"
-  },{
-    "name":"Map View",
-    "template":"map.html"
-  },{
-    "name":"Template",
-    "template":"template.html"
-  }],
+    "tabs": [{
+            "name": "OverView",
+            "template": "overview.html"
+        },
+        {
+            "name": "Demographics",
+            "template": "demographics.html"
+        }, {
+            "name": "Demographics CD",
+            "template": "demographicsCD.html",
+            "access": "cd"
+        }, {
+            "name": "Demographics NCD",
+            "template": "demographicsNCD.html",
+            "access": "ncd"
+        }, {
+            "name": "Presenting Complaint",
+            "template": "complaint.html"
+        }, {
+            "name": "Communicable Diseases",
+            "template": "diseases.html",
+            "access": "cd"
+        }, {
+            "name": "Non Communicable Diseases",
+            "template": "nc_diseases.html",
+            "access": "ncd"
+        }, {
+            "name": "Alerts",
+            "template": "alerts.html"
+        }, {
+            "name": "Health Services",
+            "template": "services.html"
+        }, {
+            "name": "Completeness",
+            "template": "completeness.html"
+        }, {
+            "name": "Timeliness",
+            "template": "timeliness.html"
+        }, {
+            "name": "Map View",
+            "template": "map.html"
+        }, {
+            "name": "Template",
+            "template": "template.html"
+        }
+    ],
 
-  "overviewDataStructure": {
-      "ConsultationsAndCases": [
-        {
-          "NCD_Api": "/api/aggregate/tot_1/<loc_id>",
-          "NCD_Value:": ""
-        },
-        {
-          "CD_Api": "/api/aggregate/tot_1/<loc_id>",
-          "CD_Value:": ""
-        },
-        {
-          "HM_Api": "/api/aggregate/tot_1/<loc_id>",
-          "HM_Value:": ""
-        }
-      ],
-      "Morbidity": [
-        {
-          "Measles_Api": "/api/aggregate_category/cd_tab/1",
-          "Measles_value": ""
-        },
-        {
-          "Diabetes_Api": "",
-          "Diabetes_value": ""
-        },
-        {
-          "Alerts": "/api/alerts",
-          "value": ""
-        }
-      ],
-      "Mortality": [
-        {
-          "Measles": "",
-          "value": ""
-        },
-        {
-          "Maternal Death": "",
-          "value": ""
-        }
-      ],
-      "Indicators": [
-        {
-          "NCD_Api":"",
-          "value": [
-            "% Diabetes visits with measured FG",
-            "% Diabetes visits with controlled FG"
-
+    "overviewDataStructure": [{
+            "title": "Consultations and Cases",
+            "html_class": "col-xs-6",
+            "contents": [{
+                    "api": "/api/aggregate/reg_1/<loc_id>",
+                    "label": "Consultations",
+                    "prep_function": "simple_row",
+                    "access": "cd"
+                },
+                {
+                    "api": "/api/aggregate/tot_1/<loc_id>",
+                    "label": "Cases",
+                    "prep_function": "simple_row",
+                    "access": "cd"
+                }
             ]
         },
         {
-          "CD_Api": "",
-          "value": ""
+            "title": "Morbidity",
+            "html_class": "col-xs-6",
+            "contents": [{
+                    "api": "/api/aggregate_category/cd_tab/1",
+                    "label": "Top 3 most common causes of morbidity",
+                    "prep_function": "top_three",
+                    "access": "cd"
+                },
+                {
+                    "api": "/api/alerts",
+                    "label": "Last 3 Alerts",
+                    "prep_function": "top_three",
+                    "access": "cd"
+                }
+            ]
+        },
+        {
+            "title": "Indicators",
+            "html_class": "col-xs-6",
+            "contents": [{
+                    "api": "/api/indicators/blah/blah",
+                    "label": "% Diabetes visits with measured FG",
+                    "prep_function": "indicator",
+                    "access": "cd"
+                },
+                {
+                    "api": "/api/indicators/blah/blah",
+                    "label": "% Diabetes visits with controlled FG",
+                    "prep_function": "indicator",
+                    "access": "cd"
+                }
+            ]
         }
-      ]
-
-    },
-
-
-
-
-  "central_review": 0,
-  "flag":"null.svg",
-
-  "footer":{
-    "logos":{
-		 "who":"transparent.png",
-		 "country_partner":"ni.png",
-		 "partners":[]
-    },
-
-    "partners":[
-		  "The Ministry of Health, Null Island"
     ],
 
-    "email":"nullisland@moh.int"
-  },
 
-  "central_review":false,
 
-  "glossary":{
-    "region":"kingdom"
-  }
+
+    "central_review": 0,
+    "flag": "null.svg",
+
+    "footer": {
+        "logos": {
+            "who": "transparent.png",
+            "country_partner": "ni.png",
+            "partners": []
+        },
+
+        "partners": [
+            "The Ministry of Health, Null Island"
+        ],
+
+        "email": "nullisland@moh.int"
+    },
+
+    "central_review": false,
+
+    "glossary": {
+        "region": "kingdom"
+    }
 }
