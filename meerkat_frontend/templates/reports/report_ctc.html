@@ -291,38 +291,42 @@
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
+ try{
 	i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
  // Measles
 
-	var cholera_data = [{% for week, value in report.summary.cholera_cases_o5.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{report.summary.cholera_cases_u5.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
+	 /* var cholera_data = [{% for week, value in report.summary.cholera_cases_o5.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{report.summary.cholera_cases_u5.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
 
-	cholera_data.sort(function(a,b){
+		cholera_data.sort(function(a,b){
 		return a.week - b.week;
-	});
+		});
 
-	var cholera = {
+		var cholera = {
 		categories: cholera_data.map( function(a){ return a.week}),
 		series: [
-			{ name: i18n.gettext('Under 5 yrs'), data: cholera_data.map( function(a){ return a.under}) },
-			{ name: i18n.gettext('Over 5 yrs'), data: cholera_data.map( function(a){ return a.over}) }
+		{ name: i18n.gettext('Under 5 yrs'), data: cholera_data.map( function(a){ return a.under}) },
+		{ name: i18n.gettext('Over 5 yrs'), data: cholera_data.map( function(a){ return a.over}) }
 		],
 		labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
-	};
+		};
 
-	$('#fig-1').highcharts(
+		$('#fig-1').highcharts(
 		measlesBarChart(
-			cholera.categories,
-			cholera.series,
-			cholera.labels
+		cholera.categories,
+		cholera.series,
+		cholera.labels
 		)
-	);
-    var reg_data = {{extras.reg_data|safe}};
+		); */
+ var reg_data = {{extras.reg_data|safe}};
+
+ 
 	regional_map(
 		{{report.data.cholera_map|safe}},
 		{{extras.map_centre}},
 		reg_data,
 		'cholera-map'
 	);
+
     ctc_surveyed_clinics_map(
         {{report.data.surveyed_clinics_map.surveyed|safe}},
         {{report.data.surveyed_clinics_map.non_surveyed|safe}},
@@ -333,32 +337,45 @@
  {% for ctc in report.clinic_data %}
   {% if ctc.status == "Surveyed" %}
  ctc_point_map({{ctc.gps|safe}}, "map-{{ctc.name|slugify}}", {{extras.map_centre}})
- 	var cholera_data = [{% for week, value in ctc.cases_o5_history.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{ctc.cases_u5_history.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
+ 		 /* var cholera_data = [{% for week, value in ctc.cases_o5_history.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{ctc.cases_u5_history.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
 
-	cholera_data.sort(function(a,b){
-		return a.week - b.week;
-	});
+			cholera_data.sort(function(a,b){
+			return a.week - b.week;
+			});
 
-	var cholera = {
-		categories: cholera_data.map( function(a){ return a.week}),
-		series: [
+			var cholera = {
+			categories: cholera_data.map( function(a){ return a.week}),
+			series: [
 			{ name: i18n.gettext('Under 5 yrs'), data: cholera_data.map( function(a){ return a.under}) },
 			{ name: i18n.gettext('Over 5 yrs'), data: cholera_data.map( function(a){ return a.over}) }
-		],
-		labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
-	};
+			],
+			labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
+			};
 
-	$('#timeline-{{ctc.name|slugify}}').highcharts(
-		measlesBarChart(
+			$('#timeline-{{ctc.name|slugify}}').highcharts(
+			measlesBarChart(
 			cholera.categories,
 			cholera.series,
 			cholera.labels
-		)
-	);
+			)
+			); */
  {% endif %}
 
- {% endfor %}
-
+	 {% endfor %}
+	function pausecomp(millis)
+	{
+    var date = new Date();
+    var curDate = null;
+    do { curDate = new Date(); }
+    while(curDate-date < millis);
+	}
+ 
+	pausecomp(3000);
+	  $("#error").html("finished")
+ }
+ catch(err) {
+	 $("#error").html(err.message + "<br />")
+ } 
 
  </script>
 {% endblock extra_js %}
