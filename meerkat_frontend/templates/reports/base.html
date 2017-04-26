@@ -9,7 +9,7 @@
     <div class="container-fluid navmenu">
       <div class="navbar-header pull-right">
         <a class="navbar-brand scroll-top" href="#">
-          <!--<img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> 
+          <!--<img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}">
               </img> -->
           <span class="hidden-xs">{{_(content.titles.nav)|safe}} {{ _('Reports') }}</span>
           <span class="visible-xs">{{_(content.titles.mob_nav)|safe}}</span>
@@ -30,32 +30,28 @@
 		<div class="row">
 		  <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
 		    <p class="footer__title">{{_(content.titles.nav)|safe}}</p>
-		    <p>{{ _('Working with our partners:') }}</p> 
+		    <p>{{ _('Working with our partners:') }}</p>
 		    <ul class="footer__supporters" >
 			    {% for partner in content.footer.partners %}
 				    <li>{{_(partner)}}</li>
-			    {% endfor %} 
+			    {% endfor %}
 		    </ul>
 		    <p>{{ _('For more information, please e-mail') }}: {{content.footer.email|safe}} </p>
 		  </div>
 		  <div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
 
 		    <img src="{{ url_for('static', filename='img/' + content.footer.logos.country_partner) }}"
-		         id="countryLogo" ></img> 
+		         id="countryLogo" ></img>
 		    {% for logo in content.footer.logos.partners %}
-			    <img src="{{ url_for('static', filename='img/' + logo) }}" ></img> 
+			    <img src="{{ url_for('static', filename='img/' + logo) }}" ></img>
                     {% endfor %}
-                    <img src="{{ url_for('static', filename='img/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+                    <img src="{{ url_for('static', filename='img/' + content.footer.logos.who) }}" id="whoLogo" ></img>
 		  </div>
 			<p class="time-stamp pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">{{ _('This report is up to date as of %(generation_time)s on %(generation_date)s UTC.', generation_time=report.meta.generation_timestamp|datetime_from_json|datetime('HH:mm'), generation_date=report.meta.generation_timestamp|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
 		</div>
   </div>
 </footer>
-
-{% block second_body %} {% endblock %}
-
-
-
+{% block second_body %}{% endblock %}
 
 </body>
 </html>
@@ -63,4 +59,3 @@
 {% block pageJS %}
     {% block extra_js %}{% endblock %}
 {% endblock %}
-
