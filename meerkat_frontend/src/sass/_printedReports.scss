@@ -337,8 +337,12 @@ $printedBlue: #337ab7;
 	}
 
 @media print{
-		//Somalia CTC report glyphs
-		.gyplicon-plus{
-			color: white !important;
+		.awesome-marker .icon-white {
+			color: #fff !important;
 		}
+
+		.awesome-marker .icon-white:before {
+			color: #fff !important;
+		}
+
 }
