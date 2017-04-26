@@ -335,3 +335,10 @@ $printedBlue: #337ab7;
             margin: 20px 0px 20px;
         }
 	}
+
+@media print{
+		//Somalia CTC report glyphs
+		.gyplicon-plus{
+			color: white !important;
+		}
+}
