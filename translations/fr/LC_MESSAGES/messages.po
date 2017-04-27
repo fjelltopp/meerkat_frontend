@@ -1053,7 +1053,7 @@ msgstr ""
 
 #: meerkat_frontend/src/js/reports/mapbox-reports.js:102
 msgid "Hover over an area"
-msgstr ""
+msgstr "passez la souris au-dessus d’une zone"
 
 #: meerkat_frontend/src/js/reports/mapbox-reports.js:196
 msgid "No Cases"
@@ -1061,7 +1061,7 @@ msgstr ""
 
 #: meerkat_frontend/src/js/reports/mapbox-reports.js:198
 msgid "Areas without cases are not shown"
-msgstr ""
+msgstr "les zones sans cas ne sont pas montrées"
 
 #: meerkat_frontend/src/js/technical/chartManager.js:65
 #: meerkat_frontend/src/js/technical/chartManager.js:159
@@ -2923,6 +2923,9 @@ msgid ""
 "from %(clinic_num)s reporting sites and from investigations in "
 "%(project_region)s between %(start_date)s and %(end_date)s."
 msgstr ""
+"Les informations présentées dans ce rapport sur la peste représentent tous les cas de peste notifiés "
+"par les %(clinic_num)s sites rapportant et lors d’enquêtes menées à "
+"%(project_region)s entre le %(start_date)s et le %(end_date)s."
 
 #: meerkat_frontend/templates/reports/report_plague.html:29
 #, python-format
@@ -2932,10 +2935,14 @@ msgid ""
 "%(deaths)s were fatal </b> giving a mortality rate of %(rate)s per 1000 "
 "cases."
 msgstr ""
+"Au cours de la saison pesteuse, <b> %(total_cases)s cas de peste </b>ont été enregistrés "
+"dont <b> %(confirmed)s ont été confirmés </b>. Parmi ces cas,  <b> "
+"%(deaths)s ont été mortels </b> donnant un taux de mortalité de %(rate)s pour 1000 "
+"cas."
 
 #: meerkat_frontend/templates/reports/report_plague.html:30
 msgid "The three districts with largest number of plague cases were"
-msgstr ""
+msgstr "Les trois districts ayant eu le plus grand nombre de cas de peste étaient les districts de "
 
 #: meerkat_frontend/templates/reports/report_plague.html:52
 msgid "Figure 1."
@@ -2943,11 +2950,11 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/report_plague.html:52
 msgid "Plague cases epi curve"
-msgstr ""
+msgstr "Tendance épidémiologique des cas de peste"
 
 #: meerkat_frontend/templates/reports/report_plague.html:82
 msgid "Plague cases by district"
-msgstr ""
+msgstr "Cas de peste par district"
 
 #: meerkat_frontend/templates/reports/email/html/email_public_health_profile.html:817
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:2
