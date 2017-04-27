@@ -113,7 +113,8 @@ def get():
     if "path" in request.args:
         path = request.args["path"]
         folder = path.split("/")[0]
-        if folder in app.config["S3_FILES"]["folders"]:
+        if folder in app.config["S3_FILES"]["folders"] and path:
+            print(path)
             with BytesIO() as data:
                 try: 
                     s3.download_fileobj(bucket, path, data)
@@ -138,6 +139,7 @@ def get():
                     ""
                 )
                 return output
+        else:
+            abort(404)        
     else:
-        print("hei")
         abort(404)
