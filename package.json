@@ -9,6 +9,7 @@
     "del": "^1.2.0",
     "duplexer2": "^0.0.2",
     "gulp": "^3.9.0",
+    "gulp-add-src": "^0.2.0",
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^2.0.1",
     "gulp-filter": "^2.0.2",
