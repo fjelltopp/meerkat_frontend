@@ -432,7 +432,8 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         # We therefore first visist the api and then real url
         initial_url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], "/api/epi_week"]))
         url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], normal_path]))
-
+        print(url)
+        print(initial_url)
         driver = webdriver.PhantomJS(
             "./node_modules/phantomjs-prebuilt/bin/phantomjs"
         )
