@@ -11,6 +11,7 @@ from meerkat_frontend import app
 from meerkat_frontend import auth
 from meerkat_frontend import common as c
 import dateutil.parser
+from ..common import add_domain
 import dateutil.relativedelta
 import pdfcrowd
 import json
@@ -18,8 +19,10 @@ import os
 import shutil
 from zipfile import ZipFile, ZIP_DEFLATED
 import uuid
+import time
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 
@@ -417,107 +420,73 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         start_date used to filter the report's data, in ISO format.
     """
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
-    client = pdfcrowd.Client(
-        current_app.config['PDFCROWD_API_ACCOUNT'],
-        current_app.config['PDFCROWD_API_KEY']
-    )
-    current_app.logger.warning('Report: ' + report)
-
+   
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
-        ret = create_report(
-            config=current_app.config,
-            report=report,
-            location=location,
-            end_date=end_date,
-            start_date=start_date
+        cookie = request.cookies
+        normal_path = request.path.replace("~", "/")[:-4]
+        # Get the standard html path for the report
+
+        # In phantomjs we need to first visit the url before we can add the cookie
+        # We therefore first visist the api and then real url
+        initial_url = add_domain(''.join([current_app.config['INTERNAL_API_ROOT'], "/epi_week"]))
+        url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], normal_path]))
+
+        driver = webdriver.PhantomJS(
+            "./node_modules/phantomjs-prebuilt/bin/phantomjs"
         )
-
-        html = render_template(
-            ret['template'],
-            report=ret['report'],
-            extras=ret['extras'],
-            address=ret['address'],
-            content=current_app.config['REPORTS_CONFIG']
-        )
-
-        # We want to find all the static assets in html
-        # Then we want to combine all these assets into
-        # a zip file that we can send to docraptor
-
-        soup = BeautifulSoup(html, 'html.parser')
-        files = {}
-        # Go through the different types of static assets
-        for img in soup.find_all("img"):
-            src = img.get("src")
-            if "s3_files" in src:
-                if src.split("?path=")[-1]:
-                    files[src] = "/" + src.split("?path=")[-1]
-            else:
-                files[src] = src
-        for link in soup.find_all("link"):
-            href = link.get("href")
-            files[href] = href
-        for script in soup.find_all("script"):
-            src = script.get("src")
-            if src:
-                files[src] = src
-        for span in soup.find_all("span"):
-            style = span.get("style")
-            if style and "url(" in style:
-                img = style.split("url(")[-1].split(")")[0]
-                files[img] = img
-
-        tmp_folder = str(uuid.uuid4())
-        os.mkdir(tmp_folder)
-        os.chdir(tmp_folder)
-        # Change paths to work in the zip file
-        html = html.replace("/en/s3_files/get?path=", "")
-        html = html.replace("/static", "static")
-        with open("report.html", "w") as f:
-            f.write(html)
         
-        current_token = request.cookies
-        shutil.copytree("../meerkat_frontend/static/img", "static/img")
-        shutil.copytree("../meerkat_frontend/static/css/images", "static/css/images")
-        shutil.copytree("../meerkat_frontend/static/fonts", "static/fonts")
-        with ZipFile("report.zip", "w", ZIP_DEFLATED) as z:
-            z.write("report.html")
-            for f in files.keys():
-                if "http" not in f:  # Acutally external files
-                    url = current_app.config["INTERNAL_ROOT"] + f
-                    folder = os.path.dirname(files[f])[1:]
-                    if not os.path.exists(folder):
-                        os.makedirs(folder)
-                    r = requests.get(url, stream=True, cookies=current_token)
-                    if r.status_code == 200:
-                        with open(files[f][1:], 'wb') as fi:
-                            r.raw.decode_content = True
-                            shutil.copyfileobj(r.raw, fi)
-                    z.write(files[f][1:])
-            for root, dirs, files in os.walk("static"):
-                for file in files:
-                    if os.path.join(root, file) not in z.namelist():
-                        z.write(os.path.join(root, file))
-        client.usePrintMedia(True)
-
-        # Allow reports to be set as portrait or landscape in the config files.
+        def execute(script, args):
+            driver.execute('executePhantomScript', {'script': script, 'args' : args })
+        width = 1200
+        height = 1697
+        orientation = "portrait"
+        
         if(report_list[report].get('landscape', False)):
-            client.setPageWidth('1697pt')
-            client.setPageHeight('1200pt')
-        else:
-            client.setPageWidth('1200pt')
-            client.setPageHeight('1697pt')
+            width = 1697
+            height = 1200
+            orientation = "landscape"
 
-        client.setPageMargins('70pt', '40pt', '55pt', '40pt')
-        client.setHtmlZoom(400)
-        client.setPdfScalingFactor(1.5)
+        margins = ''' {top: '70px',
+                   left: '40px',
+                  bottom: '55px',
+                  right: '40px'}'''
+            
+        driver.set_window_size(width - 80, height - 125)  # height, width)
 
-        pdf = client.convertFile("report.zip")
+        # hack while the python interface lags
+        driver.command_executor._commands['executePhantomScript'] = ('POST', '/session/$sessionId/phantom/execute')
+        driver.get(initial_url) # Get the api url
+        domain = url.split("://")[-1].split("/")[0]
+        cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
+                      "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
 
-        os.chdir("..")
-#        shutil.rmtree(tmp_folder)
+        driver.add_cookie(cookie_sel)
+        driver.get(url)
 
+        time.sleep(3)  # TODO: Something better here
+        # To make sure everything has rendered properly
+
+
+        # Page format
+        pageFormat = '''this.paperSize = {{width: {}, height: {} ,format: "{}px*{}px", orientation: "{}" , margin: {} }};'''.format(width,
+                                                                                                                                    height,
+                                                                                                                                    width,
+                                                                                                                                    height,
+                                                                                                                                    orientation,
+                                                                                                                                    margins)
+
+        execute(pageFormat, [])
+        
+        # render current page and save in tmp_file.pdf
+        tmp_file = str(uuid.uuid4())
+        render = '''this.render("{}.pdf")'''.format(tmp_file)
+        execute(render, [])
+        # Read and delete file
+        with open("{}.pdf".format(tmp_file), "rb") as f:
+            pdf = f.read()
+        os.remove(tmp_file + ".pdf")
+            
         return Response(pdf, mimetype='application/pdf')
 
     else:

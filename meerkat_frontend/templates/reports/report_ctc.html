@@ -12,17 +12,23 @@
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
-  <h2>
+
+	<h2>
+
     <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
     </span>
+
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('CTC Quality  and Outcomes Monitoring') }}
-    <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
-    </span>
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot;</span>
+	{{ _('Cholera Quality and Outcomes Monitoring') }}    <br /> 
+	<span class="report-week">Facility-based survey of cholera treatment centres and units</span>
+	<span class="report-week"><br />
+
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}  </span>
+		</div>
   </h2>
 </div>
 <div class="row">
@@ -32,8 +38,7 @@
 			<div class="chart-title">{{_('Survey')}}</div>
 			<div class="chart-stage">
 				<table class="table small">
-					<tr> <td> {{_('Facilitities surveyed at baseline:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
-					<tr> <td> {{_('Facilities surveyed last week:')}}  </td> <td>{{ format_percent(report.overview.surveyed_last_week) }} </td></tr>
+					<tr> <td> {{_('Facilitities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
 				</table>
 			</div>
 		</div>
@@ -42,10 +47,10 @@
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
 	 <div class="chart-stage">
              <table class="table small">
-                 <tr> <td> {{_('Patients treated in the last week:')}}  </td> <td> {{report.overview.get("cases_last_week", 0)|int}}</td></tr>
-		 <tr> <td> {{_('Children under five treated in the last week:')}}  </td> <td>{{report.overview.get("cases_u5_last_week", 0)|int}} </td></tr>
-                 <tr> <td> {{_('Deaths recorded in the last week:')}}  </td> <td> {{report.overview.get("deaths_last_week", 0)|int}}</td></tr>
-                 <tr> <td> {{_('Case fatality Rate:')}}  </td> <td> {{report.overview.cfr[0]|round(1)}} ( {{ report.overview.cfr[1]|round(1) }} - {{ report.overview.cfr[2]|round(1) }} )</td></tr>
+                 <tr> <td> {{_('Patients treated:')}}  </td> <td> {{report.overview.get("cases_total", 0)|int}}</td></tr>
+				 <tr> <td> {{_('Children under five treated:')}}  </td> <td>{{report.overview.get("cases_u5_total", 0)|int}} </td></tr>
+                 <tr> <td> {{_('Deaths recorded:')}}  </td> <td> {{report.overview.get("deaths_total", 0)|int}}</td></tr>
+                 <tr> <td> {{_('Average case fatality rate (minimum - maximum) :')}}  </td> <td> {{report.overview.cfr[0]|round(1)}} % ( {{ report.overview.cfr[1]|round(1) }}% - {{ report.overview.cfr[2]|round(1) }}% )</td></tr>
              </table>
 	 </div>
      </div>
@@ -66,7 +71,7 @@
          <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('Laboratory protocols available:')}}  </td> <td> {{ format_percent(report.overview.ctc_lab_protocol_value)}} </td></tr>
-                 <tr> <td> {{_('Cary Balir Transport medium available:')}}  </td> <td> {{ format_percent(report.overview.ctc_lab_transport)}} </td></tr>
+                 <tr> <td> {{_('Cary Blair Transport medium available:')}}  </td> <td> {{ format_percent(report.overview.ctc_lab_transport)}} </td></tr>
                  <tr> <td> {{_('Specimen plated within 24 hours:')}}  </td> <td> {{ format_percent(report.overview.ctc_lab_24h)}} </td></tr>
              </table>
          </div>
@@ -79,11 +84,10 @@
          <div class="chart-title">{{_('Infrastructure')}}</div>
 		 <div class="chart-stage">
 			 <table class="table small">
-                 <tr> <td> {{_('Bed capacity:')}}  </td> <td>{{ format_percent(report.overview.ctc_beds_sufficient) }} sufficent capacity </td></tr>
+                 <tr> <td> {{_('Facilities with sufficient bed capacity:')}}  </td> <td>{{ format_percent(report.overview.ctc_beds_sufficient) }}</td></tr>
 				 <tr> <td> {{_('Beds available:')}}  </td> <td> {{report.overview.get("ctc_beds", 0)|int}} </td></tr>
-    			 <tr> <td> {{_('Patients in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_patients", 0)|int}} </td></tr>
-    			 <tr> <td> {{_('Doctors working in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_doctors", 0)|int}} </td></tr>
-				 <tr> <td> {{_('Nurses working in the CTC at time of survey:')}}  </td> <td> {{report.overview.get("ctc_nurses", 0)|int}} </td></tr>
+    			 <tr> <td> {{_('Doctors working in the facilities (per facility):')}}  </td> <td> {{report.overview.get("ctc_doctors", 0)|int}} ({{report.overview.get("ctc_doctors_per_facility", 0)|round(1)}})</td></tr>
+				 <tr> <td> {{_('Nurses working in the facilities (per facility):')}}  </td> <td> {{report.overview.get("ctc_nurses", 0)|int}} ({{report.overview.get("ctc_nurses_per_facility", 0)|round(1)}})</td></tr>
 			 </table>
 		 </div>
      </div>
@@ -130,7 +134,7 @@
 <div class="row">
 	<div class="col-sm-6">
 		<div class="chart-wrapper country-map">
-			<div class="chart-title clearfix">{{_('Map of Cholera Cases')}}</div>
+			<div class="chart-title clearfix">{{_('Map of Cholera Cases from surveyed facilties')}}</div>
 		    <div class="chart-stage">
 			<div id="cholera-map"  class="mapbox"></div>
 		    </div>
@@ -190,9 +194,9 @@
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
 	 <div class="chart-stage">
              <table class="table small">
-                 <tr> <td> {{_('Patients treated in the last week:')}}  </td> <td> {{ctc.latest_data.get("ctc_cases", 0)|int}}</td></tr>
-		 <tr> <td> {{_('Children under five treated in the last week:')}}  </td> <td>{{ctc.latest_data.get("ctc_cases_u5", 0)|int}} </td></tr>
-                 <tr> <td> {{_('Deaths recorded in the last week:')}}  </td> <td> {{ctc.latest_data.get("ctc_deaths", 0)|int}}</td></tr>
+                 <tr> <td> {{_('Patients treated:')}}  </td> <td> {{ctc.latest_data.get("ctc_cases", 0)|int}}</td></tr>
+		 <tr> <td> {{_('Children under five treated :')}}  </td> <td>{{ctc.latest_data.get("ctc_cases_u5", 0)|int}} </td></tr>
+                 <tr> <td> {{_('Deaths recorded:')}}  </td> <td> {{ctc.latest_data.get("ctc_deaths", 0)|int}}</td></tr>
              </table>
 	 </div>
      </div>
@@ -337,7 +341,7 @@
  {% for ctc in report.clinic_data %}
   {% if ctc.status == "Surveyed" %}
  ctc_point_map({{ctc.gps|safe}}, "map-{{ctc.name|slugify}}", {{extras.map_centre}})
- 		 /* var cholera_data = [{% for week, value in ctc.cases_o5_history.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{ctc.cases_u5_history.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
+ 		 /* var cholera_data = [{# for week, value in ctc.cases_o5_history.weeks.items() #}{"week":"{# week|safe #}", "over": {# value|safe #}, "under": {#ctc.cases_u5_history.weeks[week]}#} {# if not loop.last #},{# endif #}{# endfor #}];
 
 			cholera_data.sort(function(a,b){
 			return a.week - b.week;
@@ -362,16 +366,7 @@
  {% endif %}
 
 	 {% endfor %}
-	function pausecomp(millis)
-	{
-    var date = new Date();
-    var curDate = null;
-    do { curDate = new Date(); }
-    while(curDate-date < millis);
-	}
- 
-	pausecomp(3000);
-	  $("#error").html("finished")
+
  }
  catch(err) {
 	 $("#error").html(err.message + "<br />")
