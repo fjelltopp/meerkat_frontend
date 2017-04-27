@@ -19,6 +19,7 @@ import os
 import shutil
 from zipfile import ZipFile, ZIP_DEFLATED
 import uuid
+import subprocess
 import time
 import requests
 from bs4 import BeautifulSoup
@@ -479,13 +480,23 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         execute(pageFormat, [])
         
         # render current page and save in tmp_file.pdf
-        tmp_file = str(uuid.uuid4())
-        render = '''this.render("{}.pdf")'''.format(tmp_file)
+        tmp_file = str(uuid.uuid4())+".pdf"
+        render = '''this.render("{}")'''.format(tmp_file)
         execute(render, [])
         # Read and delete file
-        with open("{}.pdf".format(tmp_file), "rb") as f:
+        if os.path.getsize(tmp_file) > 1024 * 1000:  # 1 MB
+            subprocess.run(["gs", "-sDEVICE=pdfwrite",
+                            "-dCompatibilityLevel=1.4",
+                            "-dPDFSETTINGS=/default", "-dNOPAUSE", "-dQUIET",
+                            "-dBATCH", "-dDetectDuplicateImages",
+                            "-dCompressFonts=true", "-r100",
+                            "-sOutputFile={}".format(tmp_file + "_small"),
+                            tmp_file])
+            os.remove(tmp_file)
+            tmp_file = tmp_file + "_small"
+        with open(tmp_file, "rb") as f:
             pdf = f.read()
-        os.remove(tmp_file + ".pdf")
+        os.remove(tmp_file)
             
         return Response(pdf, mimetype='application/pdf')
 
