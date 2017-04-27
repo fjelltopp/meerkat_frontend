@@ -46,7 +46,7 @@ class Config(object):
     AUTH_ROOT = from_env('MEERKAT_AUTH_ROOT', '/auth')
     USERNAME = "admin"
     PASSWORD = "secret"
-    INTERNAL_ROOT = from_env("INTENAL_ROOT", "http://nginx")
+    INTERNAL_ROOT = from_env("INTERNAL_ROOT", "http://nginx")
     EXTRA_PAGES = {}
     TEMPLATE_FOLDER = None
     PDFCROWD_API_ACCOUNT = from_env('PDFCROWD_API_ACCOUNT', '')
