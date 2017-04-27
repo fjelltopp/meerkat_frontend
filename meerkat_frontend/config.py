@@ -41,7 +41,7 @@ class Config(object):
     USE_BASIC_AUTH = int(from_env('USE_BASIC_AUTH', True))
     AUTH = {}
     INTERNAL_AUTH_ROOT = from_env(
-        'MEERKAT_AUTH_ROOT', 'http://dev_nginx_1/auth'
+        'MEERKAT_AUTH_ROOT', 'http://nginx/auth'
     )
     AUTH_ROOT = from_env('MEERKAT_AUTH_ROOT', '/auth')
     USERNAME = "admin"

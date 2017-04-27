@@ -430,7 +430,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
         # In phantomjs we need to first visit the url before we can add the cookie
         # We therefore first visist the api and then real url
-        initial_url = add_domain(''.join([current_app.config['INTERNAL_API_ROOT'], "/epi_week"]))
+        initial_url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], "/api/epi_week"]))
         url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], normal_path]))
 
         driver = webdriver.PhantomJS(
