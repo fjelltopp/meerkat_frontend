@@ -14,6 +14,7 @@ var rsync = require('gulp-rsync');
 var argv = require('yargs').argv;
 var po2json = require('gulp-po2json');
 var mainBowerFiles = require('main-bower-files');
+var addsrc = require('gulp-add-src');
 
 // ** SASS/SCSS/CSS PLUGINS ** //
 var sass = require('gulp-sass');
@@ -162,9 +163,9 @@ gulp.task('img', function() {
   return gulp.src([
     'meerkat_frontend/src/img/**/*.{gif,jpg,png,svg}',
     'bower_components/Leaflet.fullscreen/src/*.png',
-    'bower_components/intl-tel-input/build/img/*.png'
-  ])
-    .pipe(imagemin({
+    'bower_components/intl-tel-input/build/img/*.png',
+    '!meerkat_frontend/src/img/optimised/*.{gif,jpg,png,svg}'
+  ]).pipe(imagemin({
       optimizationLevel: 3,
       progressive: true,
       svgoPlugins: [{
@@ -173,15 +174,15 @@ gulp.task('img', function() {
       use: [
         pngquant(),
         optipng({
-          optimizationLevel: 3
+        optimizationLevel: 3
         }),
         jpegoptim({
           max: 50,
           progressive: true
         }),
       ]
-    }))
-    .pipe(gulp.dest('meerkat_frontend/static/img/'));
+  })).pipe(addsrc('meerkat_frontend/src/img/optimised/*.{gif,jpg,png,svg}'))
+  .pipe(gulp.dest('meerkat_frontend/static/img/'));
 });
 
 //COPY OTHER FILES

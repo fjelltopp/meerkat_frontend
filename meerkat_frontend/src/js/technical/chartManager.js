@@ -217,6 +217,42 @@ function drawPieCharts( containerID, data, percent ){
 
 }
 
+function drawLatestTimeChart( varID, identiferID, locID, containerID, alert_week, year, week_offset){
+	url = api_root + '/aggregate_latest_year/' + varID + '/' + identiferID + "/" +locID;
+	if (year !== undefined) {
+		url += "/" + year;
+	}
+	
+	
+	$.getJSON( url, function(data){
+		new_data = {"weeks": {}};
+		if(week_offset !== undefined){
+			for( var i = week_offset; i <= 52; i++ ){
+				if( typeof(data.weeks[i]) !== 'undefined' ){
+					new_data.weeks[i - week_offset] = data.weeks[i];
+				}
+			}
+			data = new_data;
+		}
+		
+		drawTimeChartData(data, containerID, alert_week);
+  });
+
+}
+
+function drawTimeChart( varID, locID, containerID, alert_week, year){
+	url = api_root + '/aggregate_year/' + varID + '/'+locID;
+	if (year !== undefined) {
+		url += "/" + year;
+	}
+	
+	
+  $.getJSON( url, function(data){
+	  drawTimeChartData(data, containerID, alert_week);
+  });
+
+}
+
 /**:drawTimeCharts( varID, locID, containerID )
 
     Draws a timeline bar chart showing the number of cases in each epi week this current year.
@@ -227,23 +263,19 @@ function drawPieCharts( containerID, data, percent ){
         The ID of the location by which to filter the data.
     :param string containerID:
         The ID of the HTML element to hold the chart.
+
+
+
+
  */
-function drawTimeChart( varID, locID, containerID, alert_week, year){
+function drawTimeChartData(data, containerID, alert_week){
 
-	url = api_root + '/aggregate_year/' + varID + '/'+locID;
-	if (year !== undefined) {
-		url += "/" + year;
-	}
-	
-	
-  $.getJSON( url, function(data){
-
-      console.log('DRAW TIME CHART');
-      console.log('Time series data for diseases:');
-      console.log(data);
+    console.log('DRAW TIME CHART');
+    console.log('Time series data for diseases:');
+    console.log(data);
     var labels = [];
     var values = [];
-
+	
     for( var i = 1; i <= 52; i++ ){
 
       labels.push(i.toString());
@@ -255,7 +287,7 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
       }
 
     }
-
+	console.log(values);
     //Hack to get plot to size correctly when being drawn into a hidden object.
     //If the object is hidden, set the plot width to the inner width of the parent.
     //Otherwise, leave as undefined as specified in the highcharts api.
@@ -264,7 +296,7 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
       plotWidth = $('#'+containerID).parent().width();
     }
 
-	  var series = [];
+	var series = [];
 	  if (alert_week){
 		  var alert_values = [];
 		  for( var j = 1; j <= 52; j++ ){
@@ -323,7 +355,7 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
 
     //Get rid of the highcharts logo.
     $( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
-  });
+ 
 
 }
 
