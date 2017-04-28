@@ -89,9 +89,10 @@
         }
     ],
 
-    "overviewDataStructure": [{
+    "overview": [{
             "title": "Consultations and Cases",
             "html_class": "col-xs-6",
+            "html_col_position": "1",
             "contents": [{
                     "api": "/api/aggregate/reg_1/<loc_id>",
                     "label": "Consultations",
@@ -109,6 +110,25 @@
         {
             "title": "Morbidity",
             "html_class": "col-xs-6",
+            "html_col_position": "1",
+            "contents": [{
+                    "api": "/api/aggregate_category/cd_tab/1",
+                    "label": "Top 3 most common causes of morbidity",
+                    "prep_function": "top_three",
+                    "access": "cd"
+                },
+                {
+                    "api": "/api/alerts",
+                    "label": "Last 3 Alerts",
+                    "prep_function": "top_three",
+                    "access": "cd"
+                }
+            ]
+        },
+        {
+            "title": "Mortality",
+            "html_class": "col-xs-6",
+            "html_col_position": "1",
             "contents": [{
                     "api": "/api/aggregate_category/cd_tab/1",
                     "label": "Top 3 most common causes of morbidity",
@@ -126,6 +146,7 @@
         {
             "title": "Indicators",
             "html_class": "col-xs-6",
+            "html_col_position": "1",
             "contents": [{
                     "api": "/api/indicators/blah/blah",
                     "label": "% Diabetes visits with measured FG",
@@ -141,8 +162,6 @@
             ]
         }
     ],
-
-
 
 
     "central_review": 0,

@@ -166,25 +166,20 @@
 </div>
 <div class="breaker"></div>
 
+
+
+
+<!-- Menu Toggle Script -->
 <!-- Menu Toggle Script -->
 <script>
-	$("#location_box").html(i18n.gettext("Location:"));
-	$("#location_title").html(i18n.gettext("Not Loaded"));
-	$("#title").html(i18n.gettext('overview'));
-	$("#epi-week-title").html(i18n.gettext('Date not loaded.'));
-	$("#location-selector").html(i18n.gettext('Locations not loaded'));
-	$("#box_heading").html(i18n.gettext('Consultations and Cases'));
-	$("#box_2_heading").html(i18n.gettext('Morbidity'));
-	$("#box_3_heading").html(i18n.gettext('Mortality'));
-	$("#box_4_heading").html(i18n.gettext('Indicators'));
-
-
+	$("#title").html(i18n.gettext('Overview'));
 
 
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
 		$("#wrapper").toggleClass("toggled");
 		$(".location-box .glyphicon").toggleClass("hidden");
+
 
 		//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
 		var transitionEvent = whichTransitionEvent();
@@ -195,23 +190,31 @@
 
 	$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
 
-	$(function() {debugger;
-		build_overview_page();
+	//Every tab needs a draw charts function that is called when loading a new location.
+	function drawCharts(locID) {
 
-	});
+	}
+</script>
+
+
+
+<script>
+	//$(function() {
+ //	build_overview_page();
+ //	});
+
 
 	function build_overview_page() {
-		overview_list = config.overviewDataStructure;
+		var overview_list = config.overviewDataStructure;
 		//Create the Html for the boxes ...
 		var html_builder;
-		for (int i = 0; i <= overview_list.lenght() - 1; i++) {
-			html_builder = html_builder + html_box_builder(i);
+		for (i = 0; i <= overview_list.length - 1; i++) {
+			html_builder = html_builder + html_box_builder(overview_list[i].contents);
 
 		}
 		//Inject the HTML ...
 		$('#FirstColumn').append(html_builder);
 	}
-
 
 	function html_box_builder(currentObj) {
 		//Build the header for the box ..
@@ -220,10 +223,11 @@
 			"<div class = 'chartBox__content' > " +
 			"<div id = 'use-table' class = 'table' >" +
 			"<table class = 'table table-hover table-condensed' > <tbody> ";
-
+		alert(html_box);
+		alert(currentObj.contents.length);
 		//Build the body for the box ...
-		for (int i = 0; i <= currentObj.contents.lenght() - 1; i++) {
-			api_value = GetJson(i.api);
+		for (i = 0; i <= currentObj.contents.length - 1; i++) {
+			api_value = GetJson(currentObj.contents[i].api);
 
 			html_box = html_box + "<tr> <th scope = 'row' colspan = '2' >" + i.label + "</th> </tr> <tr> <th scope = 'row' colspan = '2' >" + i.label + "</th> </tr> <tr> ";
 			html_box = html_box + "<td>" + i.label + "< /td> <td>" + api_value + "< /td> </tr>"
@@ -233,7 +237,6 @@
 		html_box = html_box + "</tbody> </table> </div> </div> </div> </div>";
 		return html_box;
 	}
-
 
 	function GetJson(apiUrl) {
 		var result;
