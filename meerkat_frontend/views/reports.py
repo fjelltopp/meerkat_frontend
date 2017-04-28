@@ -448,6 +448,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         print(initial_url)
         driver = webdriver.PhantomJS(
             "./node_modules/phantomjs-prebuilt/bin/phantomjs",
+            service_args=["--webdriver-loglevel=DEBUG"],
             service_log_path="/var/www/meerkat_frontend/phantom.log"
         )
         
