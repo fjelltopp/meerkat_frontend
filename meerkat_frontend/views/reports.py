@@ -448,8 +448,6 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         print(initial_url)
         driver = webdriver.PhantomJS(
             "./node_modules/phantomjs-prebuilt/bin/phantomjs",
-            service_args=["--webdriver-loglevel=DEBUG"],
-            service_log_path="/var/www/meerkat_frontend/phantom.log"
         )
         
         def execute(script, args):
@@ -482,7 +480,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.add_cookie(cookie_sel)
         driver.get(url)
 
-        time.sleep(1)  # TODO: Something better here
+        time.sleep(3)  # TODO: Something better here
         # To make sure everything has rendered properly
 
 
