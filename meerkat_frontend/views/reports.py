@@ -427,10 +427,22 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         cookie = request.cookies
         normal_path = request.path.replace("~", "/")[:-4]
         # Get the standard html path for the report
+        import logging
+        import sys
+        import logging
+        import sys
 
+        root = logging.getLogger()
+        root.setLevel(logging.DEBUG)
+
+        ch = logging.StreamHandler(sys.stdout)
+        ch.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        ch.setFormatter(formatter)
+        root.addHandler(ch)
         # In phantomjs we need to first visit the url before we can add the cookie
         # We therefore first visist the api and then real url
-        initial_url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], "/api/epi_week"]))
+        initial_url = add_domain(''.join([current_app.config['INTERNAL_API_ROOT'], "/api/epi_week"]))
         url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], normal_path]))
         print(url)
         print(initial_url)
@@ -466,7 +478,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.add_cookie(cookie_sel)
         driver.get(url)
 
-        time.sleep(3)  # TODO: Something better here
+        time.sleep(1)  # TODO: Something better here
         # To make sure everything has rendered properly
 
 
@@ -485,6 +497,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         render = '''this.render("{}")'''.format(tmp_file)
         execute(render, [])
         # Read and delete file
+        print(os.path.getsize(tmp_file))
         if os.path.getsize(tmp_file) > 1024 * 1000:  # 1 MB
             subprocess.run(["gs", "-sDEVICE=pdfwrite",
                             "-dCompatibilityLevel=1.4",
@@ -497,7 +510,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             tmp_file = tmp_file + "_small"
         with open(tmp_file, "rb") as f:
             pdf = f.read()
-        os.remove(tmp_file)
+        #os.remove(tmp_file)
             
         return Response(pdf, mimetype='application/pdf')
 
