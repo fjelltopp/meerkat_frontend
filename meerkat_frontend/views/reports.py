@@ -470,6 +470,8 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
         # hack while the python interface lags
         driver.command_executor._commands['executePhantomScript'] = ('POST', '/session/$sessionId/phantom/execute')
+
+        driver.implicitly_wait(2)
         driver.get(initial_url) # Get the api url
         domain = url.split("://")[-1].split("/")[0]
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
