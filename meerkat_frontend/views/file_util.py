@@ -105,41 +105,24 @@ if "S3_FILES" in app.config and app.config["S3_FILES"]:
     s3 = boto3.client('s3')
     s3_enabled = True
     bucket = app.config["S3_FILES"]["bucket"]
-
+import time
 @s3_files_bp.route('/get')
 def get():
+    start = time.time()
     if not s3_enabled:
         abort(404)
     if "path" in request.args:
         path = request.args["path"]
         folder = path.split("/")[0]
         if folder in app.config["S3_FILES"]["folders"] and path:
-            print(path)
-            with BytesIO() as data:
-                try: 
-                    s3.download_fileobj(bucket, path, data)
-                except botocore.exceptions.ClientError:
+            
+            try:
+                url = s3.generate_presigned_url(ClientMethod='get_object', Params={'Bucket': 'meerkat-somalia', 'Key': path}, ExpiresIn=3)
+
+            except botocore.exceptions.ClientError:
                     abort(404)
-                data.seek(0)
-                filename = path.split("/")[-1]
-                output = make_response(data.read())
-                output.headers["Content-Disposition"] = (
-                    "attachment; filename={}".format(filename)
-                )
-                content_types = {
-                    "csv": "text/csv",
-                    "pdf": "application/pdf",
-                    "html": "text/html",
-                    "txt": "text/txt",
-                    "jpg": "image/jpeg",
-                    "jpeg": "image/jpeg"
-                }
-                output.headers["Content-type"] = content_types.get(
-                    filename.split(".")[-1],
-                    ""
-                )
-                return output
+            return redirect(url)
         else:
-            abort(404)        
+            abort(404)
     else:
         abort(404)
