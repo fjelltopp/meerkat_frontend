@@ -4,17 +4,26 @@ reports.py
 A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, g
-from flask import url_for, current_app, Response
+from flask import url_for, current_app, Response, request
 from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
 from meerkat_frontend import app
 from meerkat_frontend import auth
 from meerkat_frontend import common as c
 import dateutil.parser
+from ..common import add_domain
 import dateutil.relativedelta
 import pdfcrowd
 import json
-
+import os
+import shutil
+from zipfile import ZipFile, ZIP_DEFLATED
+import uuid
+import subprocess
+import time
+import requests
+from bs4 import BeautifulSoup
+from selenium import webdriver
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 
@@ -412,54 +421,86 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         start_date used to filter the report's data, in ISO format.
     """
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
-    client = pdfcrowd.Client(
-        current_app.config['PDFCROWD_API_ACCOUNT'],
-        current_app.config['PDFCROWD_API_KEY']
-    )
-    current_app.logger.warning('Report: ' + report)
-
+   
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
-        ret = create_report(
-            config=current_app.config,
-            report=report,
-            location=location,
-            end_date=end_date,
-            start_date=start_date
+        cookie = request.cookies
+        normal_path = request.path.replace("~", "/")[:-4]
+        # Get the standard html path for the report
+
+        # In phantomjs we need to first visit the url before we can add the cookie
+        # We therefore first visist the api and then real url
+        initial_url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], "/api/epi_week"]))
+        url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], normal_path]))
+
+        driver = webdriver.PhantomJS(
+            "./node_modules/phantomjs-prebuilt/bin/phantomjs",
         )
-
-        html = render_template(
-            ret['template'],
-            report=ret['report'],
-            extras=ret['extras'],
-            address=ret['address'],
-            content=current_app.config['REPORTS_CONFIG']
-        )
-
-        current_app.logger.warning( "USE EXTERNAL?" )
-        current_app.logger.warning( int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1 )
-        # current_app.logger.warning(html.replace("/static/", c.add_domain('/static/')))
-        # Read env flag whether to tell pdfcrowd to read static files from an external source
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
-            html = html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
-        else:
-            html = html.replace("/static/", c.add_domain('/static/'))
-
-        client.usePrintMedia(True)
-
-        # Allow reports to be set as portrait or landscape in the config files.
+        
+        def execute(script, args):
+            driver.execute('executePhantomScript', {'script': script, 'args' : args })
+        width = 1200
+        height = 1697
+        orientation = "portrait"
+        
         if(report_list[report].get('landscape', False)):
-            client.setPageWidth('1697pt')
-            client.setPageHeight('1200pt')
-        else:
-            client.setPageWidth('1200pt')
-            client.setPageHeight('1697pt')
+            width = 1697
+            height = 1200
+            orientation = "landscape"
 
-        client.setPageMargins('70pt','40pt','55pt','40pt')
-        client.setHtmlZoom(400)
-        client.setPdfScalingFactor(1.5)
+        margins = ''' {top: '70px',
+                   left: '40px',
+                  bottom: '55px',
+                  right: '40px'}'''
+            
+        driver.set_window_size(width - 80, height - 125)  # height, width)
 
-        pdf = client.convertHtml(html)
+        # hack while the python interface lags
+        driver.command_executor._commands['executePhantomScript'] = ('POST', '/session/$sessionId/phantom/execute')
+
+        driver.implicitly_wait(2)
+        driver.get(initial_url) # Get the api url
+        domain = url.split("://")[-1].split("/")[0]
+        cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
+                      "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
+
+        driver.add_cookie(cookie_sel)
+        driver.get(url)
+
+        time.sleep(3)  # TODO: Something better here
+        # To make sure everything has rendered properly
+
+
+        # Page format
+        pageFormat = '''this.paperSize = {{width: {}, height: {} ,format: "{}px*{}px", orientation: "{}" , margin: {} }};'''.format(width,
+                                                                                                                                    height,
+                                                                                                                                    width,
+                                                                                                                                    height,
+                                                                                                                                    orientation,
+                                                                                                                                    margins)
+
+        execute(pageFormat, [])
+        
+        # render current page and save in tmp_file.pdf
+        tmp_file = str(uuid.uuid4())+".pdf"
+        render = '''this.render("{}")'''.format(tmp_file)
+        execute(render, [])
+        # Read and delete file
+        print(os.path.getsize(tmp_file))
+        if os.path.getsize(tmp_file) > 1024 * 1000:  # 1 MB
+            subprocess.run(["gs", "-sDEVICE=pdfwrite",
+                            "-dCompatibilityLevel=1.4",
+                            "-dPDFSETTINGS=/default", "-dNOPAUSE", "-dQUIET",
+                            "-dBATCH", "-dDetectDuplicateImages",
+                            "-dCompressFonts=true", "-r100",
+                            "-sOutputFile={}".format(tmp_file + "_small"),
+                            tmp_file])
+            os.remove(tmp_file)
+            tmp_file = tmp_file + "_small"
+        with open(tmp_file, "rb") as f:
+            pdf = f.read()
+        #os.remove(tmp_file)
+            
         return Response(pdf, mimetype='application/pdf')
 
     else:
@@ -658,7 +699,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             }
         extras['map_centre'] = report_list[report].get('map_centre', ())
         extras['reg_data'] = c.api("/geo_shapes/region")
-    elif report in ['afro', 'plague']:
+    elif report in ['afro', 'plague', 'ctc']:
         extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
         extras['reg_data'] = c.api("/geo_shapes/region")
