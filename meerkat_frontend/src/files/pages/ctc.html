@@ -24,19 +24,7 @@
 
   <div id="page-content-wrapper">
     <div class="row">
-		<div class="col-xs-8 less-padding-col">
-			<div class="chartBox box">
-				<div class="chartBox__heading">
-					<p id="box_heading"></p>
-				</div>
-				<div class="chartBox__content">
-					<div id="time-chart" class="chart">
-					</div>
-				</div>
-			</div>
-        </div>
-
-		<div class="col-xs-4 less-padding-col">
+		<div class="col-xs-12 less-padding-col">
 			<div class="chartBox box">
 				<div class="chartBox__heading">
 					<p id="box_heading_2"></p>
@@ -128,30 +116,30 @@
 
 
  $("#location_box").html(i18n.gettext("Location:"));
- $("#title").html(i18n.gettext('CTC Reports'));
+ $("#title").html(i18n.gettext('Cholera Facility Monitoring'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  week = get_epi_week()
  $("#epi-week-title").html( "Week "+ week + " · " + get_date() );
  $("#box_heading").html(i18n.gettext('Number of Cholera Cases by Week'));
  $("#box_heading_2").html(i18n.gettext('Number of Cholera Cases by Region'));
- $("#box_heading_3").html('Percentage of CTC surveyed that have implement protocols in Week ' + (week - 1));
- $("#box_heading_4").html(i18n.gettext('CTC Caseload this Year'));
- $("#box_heading_5").html(i18n.gettext('CTC Facilities last week'));
- $("#box_heading_6").html(i18n.gettext('CTCs not surveyed last week'));
- $("#box_heading_7").html(i18n.gettext('CTCs without Case Management Protocols'));
- $("#box_heading_8").html(i18n.gettext('CTCs without WASH protocols'));
+ $("#box_heading_3").html('Percentage of Facilities Surveyed that have implement');
+ $("#box_heading_4").html(i18n.gettext('Cholera Caseload'));
+ $("#box_heading_5").html(i18n.gettext('Facilitiy Information'));
+ $("#box_heading_6").html(i18n.gettext('Facilities not surveyed'));
+ $("#box_heading_7").html(i18n.gettext('Facilitiess without Case Management Protocols'));
+ $("#box_heading_8").html(i18n.gettext('Faclilitiess without WASH protocols'));
  $(".alertInfo").each(function(){
      $(this).html(i18n.gettext('No data loaded'));
  });
 
 function drawCharts(locID){
-     drawLatestTimeChart( "ctc_cases", "ctc_1", locID, 'time-chart', undefined, undefined, 1)
+     //drawLatestTimeChart( "ctc_cases", "ctc_1", locID, 'time-chart', undefined, undefined, 1)
      drawCasesChoropletLatestWeekly("Cholera Cases", "ctc_cases", "ctc_1", "case-map", "region", config.map_options.region_geo, 43.10,5, 5);
-     protocol_url = api_root + "/aggregate_latest_category/ctc_protocol/ctc_1/" + locID
+     protocol_url = api_root + "/aggregate_latest_category/ctc_protocol/ctc_1/" + locID + "/0"
      
      $.getJSON(protocol_url, function( data ){
-	 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID,  function( base ){
-             total = base.weeks[week - 1] * 100
+	 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID +"/0",  function( base ){
+             total = base.year
              if( total == 0){
                  total = 1;
              }
@@ -160,7 +148,7 @@ function drawCharts(locID){
 		 table += "<tr> <th> Protocol </th> <th> Fractions of clinics with protocol </th> "
 		 for(var key in data){
 		     table += "<tr><td>" + variables[key].name +"</td>"
-		     table += "<td>" + round(data[key].weeks[week - 1] / base.weeks[week - 1] * 100, 0) +" %</td>"
+		     table += "<td>" + round(data[key].total / total * 100, 0) +" %</td>"
                      
                      
 		     table += "</tr>"
@@ -185,30 +173,35 @@ function drawCharts(locID){
 				table += "</tr>"
 				
 			}
-			table += "<tr> <td> Crude Mortality rate per 1000 </td> <td>" + round(data["ctc_deaths"].year / data["ctc_cases"].year * 1000, 0) + "</td> "
+			table += "<tr> <td> Case Fatality Rate </td> <td>" + round(data["ctc_deaths"].year / data["ctc_cases"].year * 100, 1) + "%</td> "
 			table += "</table>"
 			$("#caseload").html(table)
 		});
 	});
-	structure_url = api_root + "/aggregate_latest_category/ctc_structure/ctc_1/" + locID
+	structure_url = api_root + "/aggregate_latest_category/ctc_structure/ctc_1/" + locID +"/0"
      $.getJSON(structure_url, function( data ){
-	$.getJSON(api_root + "/variables/ctc_structure", function( variables ){
-			table = '<table class="table table-no-bordered table-hover">'
-			table += "<tr> <th> Type </th> <th> Number </th> "
-	    for(var key in data){
-		table += "<tr><td>" + variables[key].name +"</td>"
-		table += "<td>" +data[key].weeks[week - 1 ] +" </td>"
-		
-		
-		table += "</tr>"
-		
-	    }
-	    table += "</table>"
-	    $("#details").html(table)
-	});
+		 $.getJSON(api_root + "/variables/ctc_structure", function( variables ){
+			 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID +"/0",  function( base ){
+				 total = base.year
+				 table = '<table class="table table-no-bordered table-hover">'
+				 table += "<tr> <th> Type </th> <th> Number </th> "
+				 table += "<tr><td> Facilities Surveyed</td>"
+				 table += "<td>" +total +" </td> </tr>"
+				 for(var key in data){
+					 table += "<tr><td>" + variables[key].name +"</td>"
+					 table += "<td>" +data[key].total +" </td>"
+					 
+					 
+					 table += "</tr>"
+					 
+				 }
+				 table += "</table>"
+				 $("#details").html(table)
+			 });
+		 });
 	 });
 	 
-	 non_reporting_url = api_root + "/non_reporting/ctc_1/" + locID + "/0/1/CTC/0"
+	 non_reporting_url = api_root + "/non_reporting/ctc_1/" + locID + "/1/0/CTC/0"
 	 $.getJSON(non_reporting_url, function( data ){
 		 $.getJSON(api_root + "/locations", function( locations ){
 	         var dataPrepared = [];
@@ -237,14 +230,13 @@ function drawCharts(locID){
 				 data: dataPrepared,
 				 classes: 'table-no-bordered table-hover'
 			 });
-			 $.getJSON(api_root + "/aggregate_latest_level/ctc_case_management/ctc_1/clinic/1/" + locID,
+			 $.getJSON(api_root + "/aggregate_latest_level/ctc_case_management/ctc_1/clinic/0/" + locID,
 					   function( cm_data ){
 						   var dataPrepared = [];
 						   var columns = [];
 						   names = Object.keys(cm_data);
 						   for (var i=0; i<names.length; i++){
-							   console.log(cm_data[names[i]].weeks[week -1])
-							   if(cm_data[names[i]].weeks[week -1] == 0){
+							   if(cm_data[names[i]].total == 0){
 								   datum = {
 									   "location": names[i]
 								   };
@@ -269,14 +261,13 @@ function drawCharts(locID){
 							   classes: 'table-no-bordered table-hover'
 						   });
 					   });
-			 $.getJSON(api_root + "/aggregate_latest_level/ctc_wash/ctc_1/clinic/1/" + locID,
+			 $.getJSON(api_root + "/aggregate_latest_level/ctc_wash/ctc_1/clinic/0/" + locID,
 					   function( wash_data ){
 						   var dataPrepared = [];
 						   var columns = [];
 						   names = Object.keys(wash_data);
 						   for (var i=0; i<names.length; i++){
-							   console.log(wash_data[names[i]].weeks[week -1])
-							   if(wash_data[names[i]].weeks[week -1] == 0){
+							   if(wash_data[names[i]].total == 0){
 								   datum = {
 									   "location": names[i]
 								   };
