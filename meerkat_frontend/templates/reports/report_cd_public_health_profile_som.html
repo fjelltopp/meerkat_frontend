@@ -123,63 +123,7 @@
       </div>
     </div>
   </div>
-  <!-- GENDER-->
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Gender') }}</div>
-      <div class="chart-stage">
-        <div id="chart-gender"></div>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th>%</th>
-              <th>#</th>
-            </tr>
-          </thead>
-          {% for item in report.data.gender %}
-          <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ _(item.title|e) }}</td>
-            <td>{{ item.percent|float|round(1) }}%</td>
-            <td>{{ item.quantity|commas }}</td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="row">
-  <!-- MORBIDITY COMMUNICABLE DISEASE -->
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('ICD-10 Classification') }}</div>
-      <div class="chart-stage">
-        <div id="chart-mor-communicable-disease"></div>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th>{{ _('%% morbidity') }}</th>
-              <th>{{ _('# of cases') }}</th>
-            </tr>
-          </thead>
-          {% for disease in report.data.morbidity_communicable_icd %}
-          <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ _(disease.title)|e }}</td>
-            <td>{{ disease.percent|float|round(1) }}%</td>
-            <td>{{ disease.quantity|commas }}</td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
-    </div>
-  </div>
   <!-- MORBIDITY COMMUNICABLE DISEASE CD TAB-->
   <div class="col-sm-6">
     <div class="chart-wrapper">
