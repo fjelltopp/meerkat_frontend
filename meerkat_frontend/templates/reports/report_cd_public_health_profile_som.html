@@ -152,6 +152,17 @@
     </div>
   </div>
 </div>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="chart-wrapper country-map">
+			<div class="chart-title clearfix">{{_('Incidence rate of Severe Malnutrition per 10 000')}}</div>
+		    <div class="chart-stage">
+				<div id="malnutrition-map"  class="mapbox"></div>
+		    </div>
+		</div>
+	</div>
+</div>
+
 
 <div class="row">
   <div class="col-sm-6">
@@ -224,7 +235,16 @@ $(function() {
   $('#chart-mor-communicable-disease-list').highcharts(
     pieChart(CommunicableDiseasesList)
   );
-});
+ });
+ var dis_data = {{extras.dis_data|safe}};
+ // Malnutrition map
+ regional_map(
+	 {{report.data.figure_malnutrition_map|safe}},
+	 {{extras.map_centre}},
+	 dis_data,
+	 'malnutrition-map'
+ );
+ 
 // Draw map
 map_from_data({{report.data.map|safe}})
 
