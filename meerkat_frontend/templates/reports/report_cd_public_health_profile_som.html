@@ -119,6 +119,36 @@
             <td>{{ item.quantity|commas }}</td>
           </tr>
           {% endfor %}
+          <tr>
+            <td></td>
+            <td>{{_('Total')}}</td>
+            <td>100.0%</td>
+            <td>{{report.data.gender_totals}}</td>
+          </tr>
+        </table>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>%</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          {% for item in report.data.gender %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(item.title|e) }}</td>
+            <td>{{ item.percent|float|round(1) }}%</td>
+            <td>{{ item.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td></td>
+            <td>{{_('Total')}}</td>
+            <td>100.0%</td>
+            <td>{{report.data.gender_totals}}</td>
+          </tr>
         </table>
       </div>
     </div>
