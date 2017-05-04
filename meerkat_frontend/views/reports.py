@@ -699,6 +699,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             }
         extras['map_centre'] = report_list[report].get('map_centre', ())
         extras['reg_data'] = c.api("/geo_shapes/region")
+        extras['dis_data'] = c.api("/geo_shapes/district")
     elif report in ['afro', 'plague', 'ctc']:
         extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
