@@ -84,12 +84,23 @@
       </div>
     </div>
   </div>
+</div> 
   <!-- REPORTING SITES -->
+<div class="row">
   <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Reporting Sites') }}</div>
       <div class="chart-stage">
         <div id="chart-reporting-sites"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+   <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 1. District completeness of reporting for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+        <div id="district-completeness-column"></div>
       </div>
     </div>
   </div>
@@ -282,6 +293,13 @@ var communicableDiseases = {
   labels: { yAxis: { text: null } } };
 // Non-communicable diseases
 var CommunicableDiseasesList = [{% for item in report.data.morbidity_communicable_cd_tab %}{name: "{{ _(item.title)|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+var completenessSites = {
+  categories: [{% for site in report.data.figure_completeness %}"{{ site.district|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
+  series: [{
+    name: i18n.gettext('Percentage Completeness'),
+    data: [{% for site in report.data.figure_completeness %}{{ site.value }}{% if not loop.last %},{% endif %}{% endfor %}]
+  }],
+  labels: { yAxis: { text: null } } };
 // Plots charts for report
 $(function() {
   $('#chart-reporting-sites').highcharts(
@@ -321,6 +339,14 @@ $(function() {
       communicableDiseasesIMCI.categories,
       communicableDiseasesIMCI.series,
       communicableDiseasesIMCI.labels
+      )
+  );
+  $('#district-completeness-column').highcharts(
+      completenessBarChart(
+        completenessSites.categories,
+        completenessSites.series,
+        completenessSites.labels,
+        'column'
       )
   );
  });
