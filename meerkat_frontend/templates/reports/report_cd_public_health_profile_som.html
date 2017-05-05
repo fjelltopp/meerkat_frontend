@@ -182,7 +182,36 @@
     </div>
   </div>
 </div>
+
+<!-- SEVERE MALNUTRITION MAP -->
 <div class="row">
+  <!-- MORBIDITY COMMUNICABLE DISEASE CD TAB-->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('IMCI Priority Conditions and Events') }}</div>
+      <div class="chart-stage">
+        <div id="chart-imci-communicable-disease-list"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>{{ _('%% morbidity') }}</th>
+              <th>{{ _('# of cases') }}</th>
+            </tr>
+          </thead>
+          {% for disease in report.data.morbidity_communicable_imci %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ _(disease.title)|e }}</td>
+            <td>{{ disease.percent|float|round(1) }}%</td>
+            <td>{{ disease.quantity|commas }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
 	<div class="col-sm-6">
 		<div class="chart-wrapper country-map">
 			<div class="chart-title clearfix">{{_('Incidence rate of Severe Malnutrition per 10 000')}}</div>
@@ -239,7 +268,12 @@ var demographicsAges = {
 // Gender
 var gender = [{% for item in report.data.gender %}{name: "{{ _(item.title)|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Communicable diseases
-// var communicableDiseases = [{% for item in report.data.morbidity_communicable_icd %}{name: "{{ _(item.title)|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+var communicableDiseasesIMCI = {
+  categories: [{% for item in report.data.morbidity_communicable_imci %}"{{ item.title }}"{% if not loop.last %},{% endif %}{% endfor %}],
+  series:[{
+  name: "{{(_('Cases'))}}" ,
+  data:[{% for item in report.data.morbidity_communicable_imci %}{{ item.quantity }}{% if not loop.last %},{% endif %}{% endfor %}] }],
+  labels: { yAxis: { text: null } } };
 var communicableDiseases = {
   categories: [{% for item in report.data.morbidity_communicable_icd %}"{{ item.title }}"{% if not loop.last %},{% endif %}{% endfor %}],
   series:[{
@@ -279,6 +313,14 @@ $(function() {
       communicableDiseases.categories,
       communicableDiseases.series,
       communicableDiseases.labels
+      )
+  );
+  $('#chart-imci-communicable-disease-list').highcharts(
+    // pieChart(CommunicableDiseasesList)
+    verticalCdBarChart(
+      communicableDiseasesIMCI.categories,
+      communicableDiseasesIMCI.series,
+      communicableDiseasesIMCI.labels
       )
   );
  });
