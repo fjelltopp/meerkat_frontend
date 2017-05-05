@@ -294,6 +294,7 @@ function callTableOptionButton(element, redrawFunctionName){
     }
 }
 
+
 /**:drawAlertsTable(containerID, alerts, variables)
 
     Draws the table of alerts used on the Alerts tab. Lists each alert according to date
@@ -309,225 +310,105 @@ function callTableOptionButton(element, redrawFunctionName){
         An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
         Specifically used to print the variable name instead of ID.
  */
-function drawOldAlertsTable(containerID, alerts, variables){
-
-	$.getJSON( api_root+"/locations", function( locations ){
-
-		//Create the table headers, using the central review flag from the cofiguration file.
-		//Central review is a third level of alert review requested by the Jordan MOH.
-		var table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th><th>' + i18n.gettext('Type') + '</th>'+
-		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') +' </span></th>' +
-		            '<th>Clinic</th><th>' + i18n.gettext('Date Reported') + '</th><th>' +i18n.gettext('Date Investigated') + '</th><th>' +i18n.gettext('Status') + '</th>' +
-		            '</tr>';
-		if(config.central_review){
-			table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th><th>' + i18n.gettext('Type') + '</th>'+
-		            '<th><span class="glossary capitalised" word="region">'+ i18n.gettext('Region') + '</span></th>' +
-		            '<th>Clinic</th><th>'+i18n.gettext('Date Reported')+'</th><th>'+ i18n.gettext('Date Investigated') + '</th>' +
-                    '<th>'+ i18n.gettext('Central Review')+'</th><th>'+i18n.gettext('Status')+'</th></tr>';
-
-		}
-		//For each alert in the given array of alerts create the html for a row of the table.
-		for( var i in alerts ){
-			alert = alerts[i];
-			if (alert.clinic) {
-				clinic_name = locations[alert.clinic].name;
-			}else{
-				clinic_name = i18n.gettext(alert.type_name);
-			}
-
-			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.variables.alert_id + '\'); return false;">' +
-			    alert.variables.alert_id + '</a></td><td>' + i18n.gettext(variables[ alert.variables.alert_reason ].name) + '</td>' +
-				'<td>' + capitalise(i18n.gettext(alert.variables.alert_type)) + '</td>' +
-			         '<td>' + i18n.gettext(locations[alert.region].name) + '</td>' +
-			    '<td>' + clinic_name + '</td>' +
-
-			'<td>' + alert.date.split("T")[0] + '</td>';
-
-			//Some countries(Jordan) has a central review in addition to alert_investigation
-			// If the alert has been investigated (and has a central review) we display that in the table
-			if(config.central_review){
-				var investigation_date = "-";
-				status = i18n.gettext("Pending");
-				if( "ale_1" in alert.variables ){
-					if ("ale_2" in alert.variables){
-						status = i18n.gettext("Ongoing");
-					}else if( "ale_3" in alert.variables){
-						status = i18n.gettext("Disregarded");
-					} else {
-						status = i18n.gettext("Ongoing");
-					}
-					investigation_date = alert.variables.ale_1.split("T")[0];
-				}
-				central_review_date = "-";
-				if ("cre_1" in alert.variables){
-					if ("cre_2" in alert.variables){
-						status = i18n.gettext("Confirmed");
-					}else if( "cre_3" in alert.variables){
-						status = i18n.gettext("Disregarded");
-					}else {
-						status = i18n.gettext("Ongoing");
-					}
-					central_review_date = alert.variables.cre_1.split("T")[0] ;
-
-
-				}
-				table += '<td>' + investigation_date+ '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
-
-			}else{
-				if("ale_1" in  alert.variables ){
-					if ("ale_2" in alert.variables){
-						status = i18n.gettext("Confirmed");
-					}else if("ale_3" in alert.variables){
-						status = i18n.gettext("Disregarded");
-					} else {
-						status = i18n.gettext("Ongoing");
-					}
-					table += '<td>' + alert.variables.ale_1.split("T")[0] + '</td><td>' + status + '</td></tr>';
-				}else{
-					table += '<td>-</td><td>'+i18n.gettext('Pending')+'</td></tr>';
-				}
-			}
-		}
-
-		table+="</table>";
-
-		$('#'+containerID).html(table);
-
-	});
-}
-
-/**:drawImprovedTable(containerID, data, no_total, linkFunction, tableOptions)
-
-    Creates epi tables with data from: current week, last two weeks and the year.
-    Takes the same data object as the chart drawing functions. Rather than loading JSON
-    data inside the method, it is passed as arguments to the method so that JSON requests
-    can be shared across multiple drawings. This is the most generic table drawing function
-    called primarily from the misc.js function `categorySummation()`.
-
-    :param string containerID:
-        The ID of the html element to hold the table.
-    :param object data:
-        The data to be tabulated, built by the misc.js function `buildDataObject()`.
-    :param boolean no_total:
-        Set to true if no total row should be included.
-    :param string linkfunction:
-        The function name to be added "onclick" to each table row header.
-        The linkfunction is given the row's variable ID as an argument (such as "gender_1").
-        e.g. We write a function `uslessAlert( varID ){ alert(varID); }`, and set the
-        linkFunction argument to "uselessAlert" to create a link in each row header that flashes
-        up the variable ID in a javascript alert dialouge.
-    :param array tableOptions:
-        Additional options for a table to be created.
-*/
 function drawAlertsTable(containerID, alerts, variables){
 
 	$.getJSON( api_root + "/locations", function( locations ){
+
+        // Prep the data for display in the table.
+        // HACK? Should this be done in the api?
+
+        for(var a in alerts){
+            // Appears to be a bug with bootstrap table search
+            // All searchable parameters are required to be in the parent object
+            alerts[a].display_alert_id = '<a href="" onclick="loadAlert(\'' +
+                alerts[a].variables.alert_id + '\'); return false;">' +
+			    alerts[a].variables.alert_id + '</a>';
+            alerts[a].display_reason = i18n.gettext(variables[alerts[a].variables.alert_reason ].name);
+            alerts[a].display_type = capitalise(i18n.gettext(alerts[a].variables.alert_type));
+            alerts[a].display_region = i18n.gettext(locations[alerts[a].region].name);
+            alerts[a].display_clinic = locations[alerts[a].clinic].name || i18n.gettext(alerts[a].type_name);
+            alerts[a].display_date = alerts[a].date.split("T")[0];
+            alerts[a].display_date_investigated = "ale_1" in alerts[a].variables ? alerts[a].variables.ale_1.split("T")[0] : "-";
+            alerts[a].display_central_review = "cre_1" in alerts[a].variables ? alerts[a].variables.cre_1.split("T")[0] : "-";
+
+            var status = 'Pending';
+            if(config.central_review){
+                if( "ale_1" in alerts[a].variables ){
+                    if ("ale_2" in alerts[a].variables) status = i18n.gettext("Ongoing");
+                    else if( "ale_3" in alerts[a].variables) status = i18n.gettext("Disregarded");
+                    else status = i18n.gettext("Ongoing");
+                }
+                if ("cre_1" in alerts[a].variables){
+                    if ("cre_2" in alerts[a].variables) status = i18n.gettext("Confirmed");
+                    else if( "cre_3" in alerts[a].variables) status = i18n.gettext("Disregarded");
+                    else status = i18n.gettext("Ongoing");
+                }
+            }else{
+                if("ale_1" in  alerts[a].variables ){
+                    if ("ale_2" in alerts[a].variables) status = i18n.gettext("Confirmed");
+                    else if("ale_3" in alerts[a].variables) status = i18n.gettext("Disregarded");
+                    else status = i18n.gettext("Ongoing");
+                }
+            }
+            alerts[a].display_status = status;
+        }
+
         var columns = [
             {
-                field: "variables.alert_id",
+                field: "display_alert_id",
                 title: i18n.gettext('Alert ID'),
                 align: "center",
                 class: "header",
-                sortable: true
+                sortable: true,
+                sortName: "variables.alert_id",
             },{
-                field: "variables.alert_reason",
+                field: "display_reason",
                 title: i18n.gettext('Alert'),
                 align: "center",
                 class: "header",
                 sortable: true,
-                searchFormatter: true,
-                formatter: function(value, row, index){return i18n.gettext(variables[value].name);},
             },{
-                field: "variables.alert_type",
+                field: "display_type",
                 title: i18n.gettext('Type'),
                 align: "center",
                 class: "header",
                 sortable: true,
-                searchFormatter: true,
-                formatter: function(value, row, index){return capitalise(i18n.gettext(value));},
             },{
-                field: "region",
+                field: "display_region",
                 title: i18n.gettext('Region'),  // TODO: use glossary.
                 align: "center",
                 class: "header",
                 sortable: true,
-                searchFormatter: true,
-                formatter: function(value, row, index){return i18n.gettext(locations[value].name);},
             },{
-                field: "clinic",
+                field: "display_clinic",
                 title: i18n.gettext('Clinic'),
                 align: "center",
                 class: "header",
-                visible:"false",
-                searchFormatter: true,
-                formatter: function(value, row, index){
-                    if(row.clinic) return locations[row.clinic].name;
-        			else return i18n.gettext(row.type_name);
-                },
                 sortable: true
             },{
-                field: "date",
+                field: "display_date",
                 title: i18n.gettext('Date Reported'),
                 align: "center",
                 class: "header",
-                visible:"false",
-                searchFormatter: true,
-                formatter: function(value, row, index){return value.split("T")[0];},
                 sortable: true
             },{
+                field: 'display_date_investigated',
                 title: i18n.gettext('Date Investigated'),
                 align: "center",
                 class: "header",
-                visible:"false",
-                searchFormatter: true,
-                formatter: function(value, row, index){
-                    if ("ale_1" in row.variables) return row.variables.ale_1.split("T")[0];
-                    else return "-";
-                },
                 sortable: true
             }, {
+                field: 'display_central_review',
                 title: i18n.gettext('Central Review'),
                 align: "center",
                 class: "header",
-                visible:"false",
                 sortable: true,
-                searchFormatter: true,
-                formatter: function(value, row, index){
-                    if ("cre_1" in row.variables) return row.variables.cre_1.split("T")[0];
-                    else return "-";
-                }
             }, {
+                field: 'display_status',
                 title: i18n.gettext('Status'),
                 align: "center",
                 class: "header",
-                visible:"false",
-                sortable: true,
-                searchFormatter: true,
-                formatter: function (value, row, index){
-                    if(config.central_review){
-                        if( "ale_1" in row.variables ){
-                            if ("ale_2" in row.variables) return i18n.gettext("Ongoing");
-                            else if( "ale_3" in row.variables) return i18n.gettext("Disregarded");
-                            else return i18n.gettext("Ongoing");
-                        }else if ("cre_1" in row.variables){
-                            if ("cre_2" in row.variables) return i18n.gettext("Confirmed");
-                            else if( "cre_3" in row.variables) return i18n.gettext("Disregarded");
-                            else return i18n.gettext("Ongoing");
-                        }else{
-                            return i18n.gettext("Pending");
-                        }
-                    }else{
-                        if("ale_1" in  row.variables ){
-                            if ("ale_2" in row.variables) return i18n.gettext("Confirmed");
-                            else if("ale_3" in row.variables) return i18n.gettext("Disregarded");
-                            else return i18n.gettext("Ongoing");
-                        }else{
-                            return i18n.gettext("Pending");
-                        }
-                    }
-                }
+                sortable: true
             }
         ];
 
@@ -538,10 +419,10 @@ function drawAlertsTable(containerID, alerts, variables){
         table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: alerts,
-            classes: 'table-no-bordered table-hover',
+            search: true,
+            classes: 'table table-no-bordered table-hover',
             pagination: true,
             pageSize: 50,
-            search: true
         });
 
     });
