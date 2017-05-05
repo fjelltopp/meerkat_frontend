@@ -286,10 +286,10 @@ var communicableDiseasesIMCI = {
   data:[{% for item in report.data.morbidity_communicable_imci %}{{ item.quantity }}{% if not loop.last %},{% endif %}{% endfor %}] }],
   labels: { yAxis: { text: null } } };
 var communicableDiseases = {
-  categories: [{% for item in report.data.morbidity_communicable_icd %}"{{ item.title }}"{% if not loop.last %},{% endif %}{% endfor %}],
+  categories: [{% for item in report.data.morbidity_communicable_cd_tab %}"{{ item.title }}"{% if not loop.last %},{% endif %}{% endfor %}],
   series:[{
   name: "{{(_('Cases'))}}" ,
-  data:[{% for item in report.data.morbidity_communicable_icd %}{{ item.quantity }}{% if not loop.last %},{% endif %}{% endfor %}] }],
+  data:[{% for item in report.data.morbidity_communicable_cd_tab %}{{ item.quantity }}{% if not loop.last %},{% endif %}{% endfor %}] }],
   labels: { yAxis: { text: null } } };
 // Non-communicable diseases
 var CommunicableDiseasesList = [{% for item in report.data.morbidity_communicable_cd_tab %}{name: "{{ _(item.title)|e }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
