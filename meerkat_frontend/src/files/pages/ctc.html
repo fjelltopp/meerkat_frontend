@@ -116,7 +116,7 @@
 
 
  $("#location_box").html(i18n.gettext("Location:"));
- $("#title").html(i18n.gettext('Cholera Facility Monitoring'));
+ $("#title").html(i18n.gettext('Cholera Treatment Centre Quality and Outcomes'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  week = get_epi_week()
  $("#epi-week-title").html( "Week "+ week + " · " + get_date() );
@@ -139,7 +139,7 @@ function drawCharts(locID){
      
      $.getJSON(protocol_url, function( data ){
 	 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID +"/0",  function( base ){
-             total = base.year
+             total = base.total
              if( total == 0){
                  total = 1;
              }
@@ -182,10 +182,10 @@ function drawCharts(locID){
      $.getJSON(structure_url, function( data ){
 		 $.getJSON(api_root + "/variables/ctc_structure", function( variables ){
 			 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID +"/0",  function( base ){
-				 total = base.year
+				 total = base.total
 				 table = '<table class="table table-no-bordered table-hover">'
 				 table += "<tr> <th> Type </th> <th> Number </th> "
-				 table += "<tr><td> Facilities Surveyed</td>"
+				 table += "<tr><td> Facilities Surveyed this year</td>"
 				 table += "<td>" +total +" </td> </tr>"
 				 for(var key in data){
 					 table += "<tr><td>" + variables[key].name +"</td>"
