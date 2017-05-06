@@ -116,18 +116,17 @@
 
 
  $("#location_box").html(i18n.gettext("Location:"));
- $("#title").html(i18n.gettext('Cholera Treatment Centre Quality and Outcomes'));
+ $("#title").html(i18n.gettext('Cholera Quality and Outcomes'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  week = get_epi_week()
  $("#epi-week-title").html( "Week "+ week + " · " + get_date() );
- $("#box_heading").html(i18n.gettext('Number of Cholera Cases by Week'));
- $("#box_heading_2").html(i18n.gettext('Number of Cholera Cases by Region'));
- $("#box_heading_3").html('Percentage of Facilities Surveyed that have implement');
+ $("#box_heading_2").html(i18n.gettext('Number of Facility-based Cholera Cases by Region'));
+ $("#box_heading_3").html('Availability of protocols');
  $("#box_heading_4").html(i18n.gettext('Cholera Caseload'));
- $("#box_heading_5").html(i18n.gettext('Facilitiy Information'));
+ $("#box_heading_5").html(i18n.gettext('Facility Infrastructure'));
  $("#box_heading_6").html(i18n.gettext('Facilities not surveyed'));
- $("#box_heading_7").html(i18n.gettext('Facilitiess without Case Management Protocols'));
- $("#box_heading_8").html(i18n.gettext('Faclilitiess without WASH protocols'));
+ $("#box_heading_7").html(i18n.gettext('Facilities without Case Management Protocols'));
+ $("#box_heading_8").html(i18n.gettext('Facilities without WASH protocols'));
  $(".alertInfo").each(function(){
      $(this).html(i18n.gettext('No data loaded'));
  });
