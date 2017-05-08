@@ -6,33 +6,33 @@
     can be shared across multiple drawings. This is the most generic table drawing function
     called primarily from the misc.js function `categorySummation()`.
 
-    :param string containerID: 
+    :param string containerID:
         The ID of the html element to hold the table.
-    :param object data: 
+    :param object data:
         The data to be tabulated, built by the misc.js function `buildDataObject()`.
-    :param boolean no_total: 
+    :param boolean no_total:
         Set to true if no total row should be included.
-    :param string linkfunction: 
+    :param string linkfunction:
         The function name to be added "onclick" to each table row header.
-        The linkfunction is given the row's variable ID as an argument (such as "gender_1"). 
-        e.g. We write a function `uslessAlert( varID ){ alert(varID); }`, and set the 
+        The linkfunction is given the row's variable ID as an argument (such as "gender_1").
+        e.g. We write a function `uslessAlert( varID ){ alert(varID); }`, and set the
         linkFunction argument to "uselessAlert" to create a link in each row header that flashes
-        up the variable ID in a javascript alert dialouge.       
+        up the variable ID in a javascript alert dialouge.
 */
 function drawTable( containerID, data, no_total, linkFunction ){
-	
+
 	//We want to work with a clone of the data, not the data itself.
 	data = $.extend(true, {}, data);
 
 	//Initialise an array to store the summation values for the table.
 	var sum=[0,0,0,0];
 
-	var weeks = lastWeeks( get_epi_week(), 3 );	
-	
+	var weeks = lastWeeks( get_epi_week(), 3 );
+
 	//Table headers.
 	table = '<table class="table table-hover table-condensed"><tr>' +
 	    '<th>' + data.title + '</th><th>' +i18n.gettext('Week') +' '+ weeks[0] + '</th>' +
-	    '<th>' +i18n.gettext('Week') +' '+ weeks[1] + '</th><th>' +i18n.gettext('Week') +' '+ weeks[2] + '</th>' + 
+	    '<th>' +i18n.gettext('Week') +' '+ weeks[1] + '</th><th>' +i18n.gettext('Week') +' '+ weeks[2] + '</th>' +
 	    '<th>' + i18n.gettext('This Year') +'</th></tr>';
 
 	//For each data category, assemble a html string listing data for the three weeks and the year.
@@ -48,20 +48,20 @@ function drawTable( containerID, data, no_total, linkFunction ){
 		}
 
 		if(data.yearPerc){
-		
-			table += "<td>" + format(data.week[i]) + " <div class='table-percent'>(" + 
-			                                             data.weekPerc[i] + "%)</div></td>" + 
-			         "<td>" + format(data.week1[i]) + " <div class='table-percent'>(" + 
-			                                             data.week1Perc[i] + "%)</div></td>" + 
-			         "<td>" + format(data.week2[i]) + " <div class='table-percent'>(" + 
-			                                             data.week2Perc[i] + "%)</div></td>" + 
-			         "<td>" + format(data.year[i]) + " <div class='table-percent'>(" + 
+
+			table += "<td>" + format(data.week[i]) + " <div class='table-percent'>(" +
+			                                             data.weekPerc[i] + "%)</div></td>" +
+			         "<td>" + format(data.week1[i]) + " <div class='table-percent'>(" +
+			                                             data.week1Perc[i] + "%)</div></td>" +
+			         "<td>" + format(data.week2[i]) + " <div class='table-percent'>(" +
+			                                             data.week2Perc[i] + "%)</div></td>" +
+			         "<td>" + format(data.year[i]) + " <div class='table-percent'>(" +
 			                                             data.yearPerc[i] + "%)</div></td></tr>";
 		}else{
 
-			table += "<td>" + format(data.week[i]) + "</td><td>" + 
-			         format(data.week1[i]) + "</td><td>" + 
-			         format(data.week2[i]) + "</td><td>" + 
+			table += "<td>" + format(data.week[i]) + "</td><td>" +
+			         format(data.week1[i]) + "</td><td>" +
+			         format(data.week2[i]) + "</td><td>" +
 			         format(data.year[i]) + "</td></tr>";
 		}
 
@@ -85,7 +85,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 
 	//Draw it!
 	$('#'+containerID).html(table);
-	
+
 	return table;
 }
 
@@ -97,16 +97,16 @@ function drawTable( containerID, data, no_total, linkFunction ){
     can be shared across multiple drawings. This is the most generic table drawing function
     called primarily from the misc.js function `categorySummation()`.
 
-    :param string containerID: 
+    :param string containerID:
         The ID of the html element to hold the table.
-    :param object data: 
+    :param object data:
         The data to be tabulated, built by the misc.js function `buildDataObject()`.
-    :param boolean no_total: 
+    :param boolean no_total:
         Set to true if no total row should be included.
-    :param string linkfunction: 
+    :param string linkfunction:
         The function name to be added "onclick" to each table row header.
-        The linkfunction is given the row's variable ID as an argument (such as "gender_1"). 
-        e.g. We write a function `uslessAlert( varID ){ alert(varID); }`, and set the 
+        The linkfunction is given the row's variable ID as an argument (such as "gender_1").
+        e.g. We write a function `uslessAlert( varID ){ alert(varID); }`, and set the
         linkFunction argument to "uselessAlert" to create a link in each row header that flashes
         up the variable ID in a javascript alert dialouge.
     :param array tableOptions:
@@ -122,8 +122,8 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
 	//Initialise an array to store the summation values for the table.
 	var sum=[0,0,0,0];
 
-	var weeks = lastWeeks( get_epi_week(), 3 );	
-	
+	var weeks = lastWeeks( get_epi_week(), 3 );
+
 
     var columns = [
         {
@@ -260,7 +260,7 @@ function drawOptionsButtons(tableID, redrawFunctionName){
 
     var html = "<div class='table-options'>";
 
-    html += "<span class='glyphicon glyphicon-resize-small " + tableID  + "-option pull-right' " + 
+    html += "<span class='glyphicon glyphicon-resize-small " + tableID  + "-option pull-right' " +
         "id='strip-button' onClick='callTableOptionButton(this,\"" + redrawFunctionName + "\");' "+
         "title='" + i18n.gettext('Hide/show empty records')+
         "' table='disease-table' value=false name='strip'></span>";
@@ -284,8 +284,8 @@ function callTableOptionButton(element, redrawFunctionName){
     //If the option called is strip rows, we want to swap between two glyph icons.
     if( $(element).attr("name") == "strip" ){
         $(element).toggleClass("glyphicon-resize-small");
-        $(element).toggleClass("glyphicon-resize-full");   
-    }  
+        $(element).toggleClass("glyphicon-resize-full");
+    }
 
     //Check that the redraw function exists, if it does, call it.
     var fn = window[redrawFunctionName];
@@ -294,12 +294,13 @@ function callTableOptionButton(element, redrawFunctionName){
     }
 }
 
+
 /**:drawAlertsTable(containerID, alerts, variables)
 
     Draws the table of alerts used on the Alerts tab. Lists each alert according to date
     and provides links to the individual Alert Investigation reports. Rather than loading JSON
     data inside the method, it is passed as arguments to the method so that JSON requests
-    can be shared across multiple drawings. 
+    can be shared across multiple drawings.
 
     :param string containerID:
         The ID attribute of the html element to hold the table.
@@ -307,104 +308,135 @@ function callTableOptionButton(element, redrawFunctionName){
         An array of alert objects as returned by Meerkat API `/alerts`.
     :param object variables:
         An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
-        Specifically used to print the variable name instead of ID. 
+        Specifically used to print the variable name instead of ID.
  */
 function drawAlertsTable(containerID, alerts, variables){
-    
-	$.getJSON( api_root+"/locations", function( locations ){
 
-		//Create the table headers, using the central review flag from the cofiguration file.
-		//Central review is a third level of alert review requested by the Jordan MOH.
-		var table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th><th>' + i18n.gettext('Type') + '</th>'+ 
-		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') +' </span></th>' + 
-		            '<th>Clinic</th><th>' + i18n.gettext('Date Reported') + '</th><th>' +i18n.gettext('Date Investigated') + '</th><th>' +i18n.gettext('Status') + '</th>' +
-		            '</tr>';
-		if(config.central_review){
-			table = '<table class="table table-hover table-condensed">' +
-		            '<tr><th>' + i18n.gettext('Alert ID') + '</th><th>' + i18n.gettext('Alert') +'</th><th>' + i18n.gettext('Type') + '</th>'+ 
-		            '<th><span class="glossary capitalised" word="region">'+ i18n.gettext('Region') + '</span></th>' + 
-		            '<th>Clinic</th><th>'+i18n.gettext('Date Reported')+'</th><th>'+ i18n.gettext('Date Investigated') + '</th>' +
-                    '<th>'+ i18n.gettext('Central Review')+'</th><th>'+i18n.gettext('Status')+'</th></tr>';
+	$.getJSON( api_root + "/locations", function( locations ){
 
-		}
-		//For each alert in the given array of alerts create the html for a row of the table.
-		for( var i in alerts ){
-			alert = alerts[i];
-			if (alert.clinic) {
-				clinic_name = locations[alert.clinic].name;
-			}else{
-				clinic_name = i18n.gettext(alert.type_name);
-			}
-			
-			table += '<tr><td><a href="" onclick="loadAlert(\'' + alert.variables.alert_id + '\'); return false;">' + 
-			    alert.variables.alert_id + '</a></td><td>' + i18n.gettext(variables[ alert.variables.alert_reason ].name) + '</td>' +
-				'<td>' + capitalise(i18n.gettext(alert.variables.alert_type)) + '</td>' +
-			         '<td>' + i18n.gettext(locations[alert.region].name) + '</td>' +
-			    '<td>' + clinic_name + '</td>' +
+        // Prep the data for display in the table.
+        // HACK? Should this be done in the api?
 
-			'<td>' + alert.date.split("T")[0] + '</td>';
+        for(var a in alerts){
+            // Appears to be a bug with bootstrap table search
+            // All searchable parameters are required to be in the parent object
+            alerts[a].display_alert_id = '<a href="" onclick="loadAlert(\'' +
+                alerts[a].variables.alert_id + '\'); return false;">' +
+			    alerts[a].variables.alert_id + '</a>';
+            alerts[a].display_reason = i18n.gettext(variables[alerts[a].variables.alert_reason ].name);
+            alerts[a].display_type = capitalise(i18n.gettext(alerts[a].variables.alert_type));
+            alerts[a].display_region = i18n.gettext(locations[alerts[a].region].name);
+            alerts[a].display_clinic = locations[alerts[a].clinic].name || i18n.gettext(alerts[a].type_name);
+            alerts[a].display_date = alerts[a].date.split("T")[0];
+            alerts[a].display_date_investigated = "ale_1" in alerts[a].variables ? alerts[a].variables.ale_1.split("T")[0] : "-";
+            alerts[a].display_central_review = "cre_1" in alerts[a].variables ? alerts[a].variables.cre_1.split("T")[0] : "-";
 
-			//Some countries(Jordan) has a central review in addition to alert_investigation
-			// If the alert has been investigated (and has a central review) we display that in the table
-			if(config.central_review){
-				var investigation_date = "-";
-				status = i18n.gettext("Pending");
-				if( "ale_1" in alert.variables ){
-					if ("ale_2" in alert.variables){
-						status = i18n.gettext("Ongoing");
-					}else if( "ale_3" in alert.variables){
-						status = i18n.gettext("Disregarded");
-					} else {
-						status = i18n.gettext("Ongoing");
-					}
-					investigation_date = alert.variables.ale_1.split("T")[0];
-				}
-				central_review_date = "-";
-				if ("cre_1" in alert.variables){
-					if ("cre_2" in alert.variables){
-						status = i18n.gettext("Confirmed");
-					}else if( "cre_3" in alert.variables){
-						status = i18n.gettext("Disregarded");
-					}else {
-						status = i18n.gettext("Ongoing");
-					}
-					central_review_date = alert.variables.cre_1.split("T")[0] ;
+            var status = 'Pending';
+            if(config.central_review){
+                if( "ale_1" in alerts[a].variables ){
+                    if ("ale_2" in alerts[a].variables) status = i18n.gettext("Ongoing");
+                    else if( "ale_3" in alerts[a].variables) status = i18n.gettext("Disregarded");
+                    else status = i18n.gettext("Ongoing");
+                }
+                if ("cre_1" in alerts[a].variables){
+                    if ("cre_2" in alerts[a].variables) status = i18n.gettext("Confirmed");
+                    else if( "cre_3" in alerts[a].variables) status = i18n.gettext("Disregarded");
+                    else status = i18n.gettext("Ongoing");
+                }
+            }else{
+                if("ale_1" in  alerts[a].variables ){
+                    if ("ale_2" in alerts[a].variables) status = i18n.gettext("Confirmed");
+                    else if("ale_3" in alerts[a].variables) status = i18n.gettext("Disregarded");
+                    else status = i18n.gettext("Ongoing");
+                }
+            }
+            alerts[a].display_status = status;
+        }
 
+        var columns = [
+            {
+                field: "display_alert_id",
+                title: i18n.gettext('Alert ID'),
+                align: "center",
+                class: "header",
+                sortable: true,
+                sortName: "variables.alert_id",
+            },{
+                field: "display_reason",
+                title: i18n.gettext('Alert'),
+                align: "center",
+                class: "header",
+                sortable: true,
+            },{
+                field: "display_type",
+                title: i18n.gettext('Type'),
+                align: "center",
+                class: "header",
+                sortable: true,
+            },{
+                field: "display_region",
+                title: i18n.gettext('Region'),  // TODO: use glossary.
+                align: "center",
+                class: "header",
+                sortable: true,
+            },{
+                field: "display_clinic",
+                title: i18n.gettext('Clinic'),
+                align: "center",
+                class: "header",
+                sortable: true
+            },{
+                field: "display_date",
+                title: i18n.gettext('Date Reported'),
+                align: "center",
+                class: "header",
+                sortable: true
+            },{
+                field: 'display_date_investigated',
+                title: i18n.gettext('Date Investigated'),
+                align: "center",
+                class: "header",
+                sortable: true
+            }, {
+                field: 'display_central_review',
+                title: i18n.gettext('Central Review'),
+                align: "center",
+                class: "header",
+                sortable: true,
+            }, {
+                field: 'display_status',
+                title: i18n.gettext('Status'),
+                align: "center",
+                class: "header",
+                sortable: true
+            }
+        ];
 
-				}
-				table += '<td>' + investigation_date+ '</td><td>'+ central_review_date +'</td><td>' + status + '</td></tr>';
-			
-			}else{
-				if("ale_1" in  alert.variables ){
-					if ("ale_2" in alert.variables){
-						status = i18n.gettext("Confirmed");
-					}else if("ale_3" in alert.variables){
-						status = i18n.gettext("Disregarded");
-					} else {
-						status = i18n.gettext("Ongoing");
-					}
-					table += '<td>' + alert.variables.ale_1.split("T")[0] + '</td><td>' + status + '</td></tr>';
-				}else{
-					table += '<td>-</td><td>'+i18n.gettext('Pending')+'</td></tr>';
-				}
-			}
-		}
+        // Some countries(Jordan) has a central review in addition to alert_investigation
+        // If the alert has been investigated (and has a central review) we display that in the table
+        if(!config.central_review) columns.splice(7,1);
 
-		table+="</table>";
+        table = $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: alerts,
+            search: true,
+            classes: 'table table-no-bordered table-hover',
+            pagination: true,
+            pageSize: 50,
+        });
 
-		$('#'+containerID).html(table);
-
-	});
+    });
 }
+
+
 
 /**:drawAlertAggTable(containerID, aggData, variables)
 
     Draws the table of alert aggregation used on the Alerts tab. Lists the number of
-    alerts for each cause (e.g. Viral Meningitis) and provides links that filter the 
+    alerts for each cause (e.g. Viral Meningitis) and provides links that filter the
     alerts table (as specified by drawAlertsTable() ) by cause. Rather than loading JSON
     data inside the method, it is passed as arguments to the method so that JSON requests
-    can be shared across multiple drawings. 
+    can be shared across multiple drawings.
 
     :param string containerID:
         The ID attribute of the html element to hold the table.
@@ -412,7 +444,7 @@ function drawAlertsTable(containerID, alerts, variables){
         An alert aggregation data object as returned by Meerkat API `/aggregate_alerts`.
     :param object variables:
         An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
-        Specifically used to print the variable name instead of ID. 
+        Specifically used to print the variable name instead of ID.
  */
 function drawAlertAggTable( containerID, aggData, variables ){
 
@@ -432,9 +464,9 @@ function drawAlertAggTable( containerID, aggData, variables ){
 	for( var i in reasons ){
 
 		var reason = reasons[i];
-		var total = 0;		
-										
-		table += '<tr><td><a href="" onclick="loadAlertTables(\'' + reason + '\');return false;">' + 
+		var total = 0;
+
+		table += '<tr><td><a href="" onclick="loadAlertTables(\'' + reason + '\');return false;">' +
 		         i18n.gettext(variables[reason].name) + '</a></td>';
 
 		for( var j in statusList ){
@@ -444,9 +476,9 @@ function drawAlertAggTable( containerID, aggData, variables ){
 			sum[j] += value;
 			total += value;
 			table += '<td>' + value + '</td>';
-		} 
+		}
 
-		table += '<td>' + total + '</td></tr>';			
+		table += '<td>' + total + '</td></tr>';
 	}
 
 	//Create the total row.
@@ -476,8 +508,8 @@ function drawAlertAggTable( containerID, aggData, variables ){
         ??
  */
 function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, link_def_id_return, link_variable){
-    
-    
+
+
 
 	$.getJSON( api_root+"/locations", function( locations ){
 
@@ -485,7 +517,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 		//Central review is a third level of alert review requested by the Jordan MOH.
 		var table = '<table class="table table-hover table-condensed">' +
 		            '<tr><th>' + i18n.gettext('NAMRU-ID') + '</th>' +
-		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') + '</span></th>' + 
+		            '<th><span class="glossary capitalised" word="region">' + i18n.gettext('Region') + '</span></th>' +
 		            '<th>' + i18n.gettext('Clinic') + '</th><th>' +i18n.gettext('Date Reported') +'</th><th>' + i18n.gettext('Follow-up completed') +'</th><th>' + i18n.gettext('Laboratory Results') + '</th><th>' + i18n.gettext('Status') +'</th>' + '</tr>';
 
 		$.getJSON( api_root + "/records/" + variable_id + "/" + location_id, function( case_dict ){
@@ -523,7 +555,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
                         } else {
                             status = i18n.gettext("Negative");
                         }
-                               
+
 						table += '<td>' + c.variables.pil_1.split("T")[0] + '</td>' +
 								'<td>' + status + '</td>';
 					}else{
@@ -531,7 +563,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 					}
                  }
 				table+="</table>";
-				
+
 			$('#'+containerID).html(table);
 		});
 	});
@@ -568,7 +600,7 @@ function drawEbsTable(containerID, location_id){
 				'searchable': true
 			},
 			{
-				field: "clinic", 
+				field: "clinic",
 				title: i18n.gettext('Centre'),
 				'searchable': true
 			},
@@ -596,7 +628,7 @@ function drawEbsTable(containerID, location_id){
 				field: "risk",
 				title: i18n.gettext('Risk')
 			}
-			
+
        ];
 		$.getJSON( api_root + "/variables/ebs_risk_level", function( variables){
 			$.getJSON( api_root + "/records/ebs_1/" + location_id, function( case_dict ){
@@ -644,10 +676,10 @@ function drawEbsTable(containerID, location_id){
 						}
 						datum.risk = risk;
 					}
-						
+
 					data.push(datum);
 				}
-			
+
             $('#' + containerID).html("<table> </table>");
 			$('#' + containerID + ' table').bootstrapTable(
 				{
@@ -663,7 +695,7 @@ function drawEbsTable(containerID, location_id){
 
 
 
-	
+
 }
 
 /**:drawTBTable(containerID, aggData, variables)
@@ -695,7 +727,7 @@ function drawTbTable(containerID, location_id){
 				'searchable': true
 			},
 			{
-				field: "clinic", 
+				field: "clinic",
 				title: i18n.gettext('Centre'),
 				'searchable': true
 			},
@@ -717,11 +749,11 @@ function drawTbTable(containerID, location_id){
 			},
 			{
 				field: "hep_b",
-				title: i18n.gettext('Hepatitis B <br />Result') 
+				title: i18n.gettext('Hepatitis B <br />Result')
 			},
 			{
 				field: "certificate",
-				title: i18n.gettext('Certificate <br /> Received') 
+				title: i18n.gettext('Certificate <br /> Received')
 			}
        ];
 
@@ -798,7 +830,7 @@ function drawTbTable(containerID, location_id){
  the id attribute of the html element to hold the table.
  :param int regionID:
  All clinics in this region (and its subregions) will be included in that table
- the id of the region from w.hich all clinics will 
+ the id of the region from w.hich all clinics will
     :param Object locations:
         List of all locations from API.
     :param Object data:
@@ -815,7 +847,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
 	if (data.clinic_score === undefined){
 		return undefined;
 	}
-		
+
         var scoreKeys = Object.keys(data.clinic_score);
         var dataPrepared = [];
         var index = 0;
@@ -844,7 +876,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]);
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
                 width : "33%"
@@ -854,7 +886,7 @@ function drawAllClinicsCompleteness( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]);
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
                 width : "33%"
@@ -887,70 +919,70 @@ function drawPlagueTable(containerID, cases, variables){
 				field: "alert_id",
 				title:  i18n.gettext('Alert ID'),
 				'searchable': true,
-				width : "10%", 
+				width : "10%",
 				valign: "middle"
 			},
 			{
 				field: "region",
 				title: i18n.gettext('Region'),
-				width : "10%", 
+				width : "10%",
 				valign: "middle"
 			},
 			{
 				field: "district",
 				title: i18n.gettext('District'),
-				width : "10%", 
+				width : "10%",
 				valign: "middle"
 			},
 			{
-				field: "clinic", 
+				field: "clinic",
 				title: i18n.gettext('Clinic'),
 				'searchable': true,
-				width : "10%", 
+				width : "10%",
 				valign: "middle"
 			},
 			{
 				field: "report_date",
 				title: i18n.gettext('Date <br /> Reported'),
-				width : "10%", 
+				width : "10%",
 				valign: "middle"
 			},
 			{
 				field: "investigation_date",
-				title: i18n.gettext('Date <br /> Investigated'), 
+				title: i18n.gettext('Date <br /> Investigated'),
 				valign: "middle"
 			},
 			{
 				field: "status",
-				title: i18n.gettext('Status'), 
+				title: i18n.gettext('Status'),
 				valign: "middle"
 
 			},
 			{
 				field: "age",
-				title: i18n.gettext('Age'), 
+				title: i18n.gettext('Age'),
 				valign: "middle"
 
 			},
 			{
 				field: "gender",
-				title: i18n.gettext('Gender'), 
+				title: i18n.gettext('Gender'),
 				valign: "middle"
 			},
 			{
 				field: "profession",
-				title: i18n.gettext('Profession'), 
+				title: i18n.gettext('Profession'),
 				valign: "middle"
 			},
 			{
 				field: "status_2",
-				title: i18n.gettext('Status'), 
+				title: i18n.gettext('Status'),
 				valign: "middle"
 
 			}
        ];
         var data = [];
-		
+
 		for( var i in cases ){
 			c = cases[i];
 
@@ -1072,7 +1104,7 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 					classes: 'table-no-bordered table-hover'
 				});
 				return table;
-				
+
 			});
         }else{
 			//$.getJSON( api_root+"/completeness/"+ module_var +"/" + regionID + "/4", function( data ){
@@ -1103,7 +1135,7 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 				});
 				return table;
 
-			
+
 		}
 
 
@@ -1163,7 +1195,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]);
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
                 width : "25%"
@@ -1173,7 +1205,7 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 "align": "center",
                 "class": "header",
                 sortable: true,
-                "sorter": function percs(a,b){a = Number(a.split('%')[0]); 
+                "sorter": function percs(a,b){a = Number(a.split('%')[0]);
                                               b = Number(b.split('%')[0]);
                                               if(a < b) return 1; if (a>b) return -1; return 0;},
                 width : "25%"

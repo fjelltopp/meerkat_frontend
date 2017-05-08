@@ -70,28 +70,22 @@
  url ='{{api_url|safe}}';
  var uuid = "";
  interval = ""
-
  url += "&language=" + language;
-
  console.log(url)
 	//Function to call progress bar
-
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
          if(data){
              console.log(data);
              if(data.status == 1){
                  if(data.success == 1){
-
                      t = i18n.gettext("Data set was sucesfully generated.")
-
                      $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
                      $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
                      $("#spinner").hide();
                      $('#download-button').show();
                      $("#heading").html(t);
                      $("#status").html("Finished");
-
                  }else{
                      t = i18n.gettext("Data set generation was unsuccessful");
                      $("#heading").html(t);
@@ -104,13 +98,9 @@
                  t = i18n.gettext("Dataset is still being prepared, please wait. Currently it is " +Math.round(data.status * 100) + " % finished.")
                  $("#status").html(t)
              }
-
          }
      });
  }
-
-
-
  $.getJSON(url, function( data ){
      uuid = data;
      url
@@ -120,8 +110,6 @@
              check_status()
          }, 5000);
      });
-
-
 </script>
 
 {% endblock pageJS %}
