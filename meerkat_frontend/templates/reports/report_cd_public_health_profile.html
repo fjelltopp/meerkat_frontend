@@ -48,12 +48,12 @@
   </div>
   <!-- OVERVIEW MAP -->
   <div class="col-sm-6" id="mapbox-panel">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Map') }}</div>
-      <div class="chart-stage">
-          <div id="map"></div>
+      <div class="chart-wrapper">
+		  <div class="chart-title">{{ _('Map') }}</div>
+		  <div class="chart-stage">
+			  <div id="map"></div>
+		  </div>
       </div>
-    </div>
   </div>
 </div>
 <div class="row">
@@ -295,7 +295,7 @@ var d= {{report.data.demographics|safe}};
 // Reporting Sites
 var reportingSites = {
   categories: [{% for site in report.data.reporting_sites %}"{{ site.title|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
-  series: [{name: 'Percent new cases', data: [{% for site in report.data.reporting_sites %}{{ site.percent }}{% if not loop.last %},{% endif %}{% endfor %}]}],
+  series: [{name: 'Number of new cases', data: [{% for site in report.data.reporting_sites %}{{ site.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]}],
   labels: { yAxis: { text: null } } };
 // Demographics
 var demographicsAges = {
@@ -322,7 +322,7 @@ var CommunicableDiseasesList = [{% for item in report.data.morbidity_communicabl
 // Plots charts for report
 $(function() {
   $('#chart-reporting-sites').highcharts(
-    sitesBarChart(
+    sitesBarChartQuantity(
       reportingSites.categories,
       reportingSites.series,
       reportingSites.labels

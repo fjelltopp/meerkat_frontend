@@ -70,6 +70,36 @@ function sitesBarChart(categories, series, labels) {
   return chart;
 }
 
+function sitesBarChartQuantity(categories, series, labels) {
+  var chart = {
+    chart: {
+      type: 'bar',
+      animation: false
+    },
+	  tooltip: {
+		  valueDecimals: 0,
+	  },
+    title: {
+      text: null
+    },
+    xAxis: {
+      categories: categories,
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      }
+		
+     
+    },
+    series: series
+  };
+  return chart;
+}
+
+
 function genderBarChart(categories, series, labels) {
   var chart = {
     chart: {
