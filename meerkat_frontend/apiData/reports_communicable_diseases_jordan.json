@@ -7,7 +7,30 @@
   },
   "data": {
     "project_epoch": "2015-05-20T00:00:00",
-    "epi_week_num": 49,
+      "epi_week_num": 49,
+
+	  "variables": {
+		  "Brucellosis": "individual",
+		  "Pertussis": "individual",
+		  "Typhoid fever": "individual",
+		  "Hepatitis A": "individual",
+		  "Measles": "individual",
+		  "German measles (Rubella)": "individual",
+		  "Syphilis": "individual",
+		  "Meningicoccal meningitis": "individual",
+		  "Acute Flaccid Paralysis": "individual",
+		  "Echinococcosis": "individual",
+		  "Influenza-like illness": "individual",
+		  "Bloody diarrhoea": "individual",
+		  "Non-meningicoccal meningitis": "indivdual"
+		  "Mumps": "individual",
+		  "Hepatitis B": "individual",
+		  "Hepatitis C": "individual",
+		  "Food Poisoning": "individual",
+		  "Viral meningitis": "individual",
+		  "Cholera": "individual",
+		  "Scarlet fever": "individual",
+	  },
     "communicable_diseases": {
       "Brucellosis": {
         "suspected": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 4, 0, 2, 3, 0, 1, 1, 4, 0, 2, 0, 0, 1, 3, 0, 2, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 2],
