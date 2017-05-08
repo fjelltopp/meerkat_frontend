@@ -77,7 +77,11 @@
             <td>{{ loop.index }}</td>
             <td>{{ _(indicator.title)|e }}</td>
             <td>{{ indicator.percent|float|round(1) }}%</td>
+            {% if indicator.quantity == "-" %}
+            <td>-</td>
+            {% else %}
             <td>{{ indicator.quantity|commas }}</td>
+            {% endif %}
           </tr>
           {% endfor %}
         </table>
