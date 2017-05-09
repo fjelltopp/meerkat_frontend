@@ -3,7 +3,7 @@ var locationsTree = new TreeModel({childrenPropertyName:"nodes"});
 /**:var locations
 
     A global variable to store the location tree as built by Tree Model (a component installed
-    through NPM) when calling the function `loadLocationTree()`. This location tree is used 
+    through NPM) when calling the function `loadLocationTree()`. This location tree is used
     through out the site for drawing the location selector and executing other tasks that require
     navigating through the tree model.
 */
@@ -33,7 +33,7 @@ function loadLocationTree( initialPageState ){
 
     Called when wishing to filter a page's contents by location. This function assembles the new correct
     URL and updates the page state in the history object.  Finally, it calls the `loadLocationContent()`
-    function that actually updates the page HTML content to reflect the new location. 
+    function that actually updates the page HTML content to reflect the new location.
 
     :param number locID:
         The location ID for the desired location.
@@ -44,7 +44,7 @@ function loadLocation( locID ){
 	if( typeof(history.state) != 'undefined'){
 		currentState = $.extend(true, {}, history.state);
 	}else{
-		currentState = {};	
+		currentState = {};
 	}
 
 	//Record the page history.
@@ -81,11 +81,11 @@ function loadLocation( locID ){
 
     Called  when wishing to filter a page's contents by location (usually in-directly through
     the function `loadLocation()`). This function draws the location selector for any given node
-    in the location tree. **NOTE:** doesn't handle updating the page state or URL 
+    in the location tree. **NOTE:** doesn't handle updating the page state or URL
     (see function `loadLocation()`).
 
     This function looks specifically for HTML elements with the class "location-selector", into
-    which it will draw the location selector, and "location-title" into which it will load the 
+    which it will draw the location selector, and "location-title" into which it will load the
     currently selected location title. It then further calls the function `drawCharts()` that
     updates any specific page content that is location dependant.  This function should specified
     in the HTML file for each page that is dependant on location.
@@ -101,7 +101,7 @@ function loadLocationContent( locID ){
 	var nodePath = node.getPath();
 
 	//Get children
-	var childNodes = node.model.nodes; 
+	var childNodes = node.model.nodes;
 
 	//Build the location selector
 	var html = "";
@@ -119,6 +119,16 @@ function loadLocationContent( locID ){
 	if( childNodes.length > 0){
 		html += "<div class='btn-group-vertical btn-block'>";
 		html += "<button type='button' class='btn header'>Sub-locations:</button>";
+
+        // Sort locations by name.
+        childNodes.sort(function(a, b) {
+            var nameA = a.text.toUpperCase(); // ignore upper and lowercase
+            var nameB = b.text.toUpperCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+        });
+
 		for( var j=0; j<childNodes.length; j++ ){
 			html += "<button type='button' class='btn btn-default' onclick='loadLocation(" +
 				childNodes[j].id + ");'>"+i18n.gettext(childNodes[j].text)+"</button>";
@@ -135,10 +145,7 @@ function loadLocationContent( locID ){
 
 	//Call the tab's draw charts function.
 	//EVERY TAB SHOULD HAVE A DRAW CHARTS FUNCTION.
-	//TODO: More approaite name for drawCharts? Maybe drawLocation? updateContent?
+	//TODO: More apropriate name for drawCharts? Maybe drawLocation? updateContent?
 	if( typeof drawCharts === 'function' ) drawCharts( locID );
 
 }
-
-
-

@@ -326,12 +326,16 @@ function drawAlertsTable(containerID, alerts, variables){
             alerts[a].display_reason = i18n.gettext(variables[alerts[a].variables.alert_reason ].name);
             alerts[a].display_type = capitalise(i18n.gettext(alerts[a].variables.alert_type));
             alerts[a].display_region = i18n.gettext(locations[alerts[a].region].name);
-            alerts[a].display_clinic = locations[alerts[a].clinic].name || i18n.gettext(alerts[a].type_name);
+			if(alerts[a].clinic){
+				alerts[a].display_clinic = locations[alerts[a].clinic].name || i18n.gettext(alerts[a].type_name);
+			}else{
+				alerts[a].display_clinic = i18n.gettext(alerts[a].type_name);
+			}
             alerts[a].display_date = alerts[a].date.split("T")[0];
             alerts[a].display_date_investigated = "ale_1" in alerts[a].variables ? alerts[a].variables.ale_1.split("T")[0] : "-";
             alerts[a].display_central_review = "cre_1" in alerts[a].variables ? alerts[a].variables.cre_1.split("T")[0] : "-";
 
-            var status = 'Pending';
+            var status = i18n.gettext('Pending');
             if(config.central_review){
                 if( "ale_1" in alerts[a].variables ){
                     if ("ale_2" in alerts[a].variables) status = i18n.gettext("Ongoing");
@@ -416,6 +420,10 @@ function drawAlertsTable(containerID, alerts, variables){
         // If the alert has been investigated (and has a central review) we display that in the table
         if(!config.central_review) columns.splice(7,1);
 
+        // First destroyany pre-existing table.
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
         table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: alerts,
@@ -1021,7 +1029,7 @@ function drawPlagueTable(containerID, cases, variables){
 				status = i18n.gettext("Confirmed");
 			}else if("ale_3" in c.variables){
 				status = i18n.gettext("Disregarded");
-            }else if("ale_4" in c.variables){
+            }else if("ale_1" in c.variables){
 				status = i18n.gettext("Ongoing");
 			}
 			datum.status = status;
@@ -1038,10 +1046,10 @@ function drawPlagueTable(containerID, cases, variables){
 				columns: columns,
 				width : "100%",
 				data: data,
-				"align": "center",
-				"classes": "table table-hover",
-				//					pagination: true,
-				//					pageSize: 20
+				align: "center",
+				classes: "table table-hover",
+				pagination: true,
+				pageSize: 50
 			});
 	});
 }
