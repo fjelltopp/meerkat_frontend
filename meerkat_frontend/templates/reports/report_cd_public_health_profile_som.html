@@ -233,8 +233,13 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('More Information') }}</div>
       <div class="chart-stage small-text">
-                    <p style="font-size:12px"> {{ _('A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.
-          <br /> The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }} </p>
+          <p style="font-size:12px"> {{ _('A program of case-based, electronic reporting of priority diseases, conditions and events is ongoing with Ministry of Health in %(project_region)s, supported by WHO, UNICEF and Save the Children / NGO consortium.
+          <br />
+          The clinician uses the system within the consultation, which introduces clinical-decision support using an electronic integrated management of childhood illness (IMCI) algorithm as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of mapping and reporting.
+          <br />
+          The project is supporting long-term health management information system (HMIS) strengthening work with Ministry of Health in %(project_region)s.',
+          project_region=_(report.data.project_region|e)
+          )}}</p>
       </div>
     </div>
   </div>
