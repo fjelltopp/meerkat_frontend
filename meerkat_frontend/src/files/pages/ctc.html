@@ -69,7 +69,7 @@
 			</div>
         </div>
 	</div>
-	
+
 
 	<div class="row">
 		<div class="col-xs-4 less-padding-col">
@@ -133,9 +133,9 @@
 
 function drawCharts(locID){
      //drawLatestTimeChart( "ctc_cases", "ctc_1", locID, 'time-chart', undefined, undefined, 1)
-     drawCasesChoropletLatestWeekly("Cholera Cases", "ctc_cases", "ctc_1", "case-map", "region", config.map_options.region_geo, 43.10,5, 5);
+     drawCasesChoropletLatestWeekly("Cholera", "ctc_cases", "ctc_1", "case-map", "region", config.map_options.region_geo, 43.10,5, 5);
      protocol_url = api_root + "/aggregate_latest_category/ctc_protocol/ctc_1/" + locID + "/0"
-     
+
      $.getJSON(protocol_url, function( data ){
 	 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID +"/0",  function( base ){
              total = base.total
@@ -148,12 +148,12 @@ function drawCharts(locID){
 		 for(var key in data){
 		     table += "<tr><td>" + variables[key].name +"</td>"
 		     table += "<td>" + round(data[key].total / total * 100, 0) +" %</td>"
-                     
-                     
+
+
 		     table += "</tr>"
-		     
+
 		 }
-		 
+
 		 table += "</table>"
 		 $("#indicators").html(table)
 	     });
@@ -167,10 +167,10 @@ function drawCharts(locID){
 			for(var key in data){
 				table += "<tr><td>" + variables[key].name +"</td>"
 				table += "<td>" +data[key].year +" </td>"
-				
-				
+
+
 				table += "</tr>"
-				
+
 			}
 			table += "<tr> <td> Case Fatality Rate </td> <td>" + round(data["ctc_deaths"].year / data["ctc_cases"].year * 100, 1) + "%</td> "
 			table += "</table>"
@@ -189,17 +189,17 @@ function drawCharts(locID){
 				 for(var key in data){
 					 table += "<tr><td>" + variables[key].name +"</td>"
 					 table += "<td>" +data[key].total +" </td>"
-					 
-					 
+
+
 					 table += "</tr>"
-					 
+
 				 }
 				 table += "</table>"
 				 $("#details").html(table)
 			 });
 		 });
 	 });
-	 
+
 	 non_reporting_url = api_root + "/non_reporting/ctc_1/" + locID + "/1/0/CTC/0"
 	 $.getJSON(non_reporting_url, function( data ){
 		 $.getJSON(api_root + "/locations", function( locations ){
@@ -290,13 +290,13 @@ function drawCharts(locID){
 							   data: dataPrepared,
 							   classes: 'table-no-bordered table-hover'
 						   });
-					   });	 
-						   
+					   });
 
-			 
+
+
 		 });
 	 });
-	 
-	 
+
+
 }
 </script>
