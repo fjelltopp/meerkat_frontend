@@ -26,7 +26,7 @@ function html_box_builder(currentObj,locID) {
     //Build the body for the box ...
     $.each(currentObj.contents, function(index, value) {
         // Get the inner value for the boxes by calling the APIs ...
-        var api_result = GetJson(value.api,locID);
+        var api_result = get_JSON(value.api,locID);
         var apiValue;
         if(typeof api_result == 'undefined'){
             apiValue = 0;
@@ -45,9 +45,8 @@ function html_box_builder(currentObj,locID) {
 
 
 //This is a general method and will be use  to return Json result...
-function GetJson(apiUrl,locID) {
+function get_JSON(apiUrl,locID) {
     var result;
-    var api_root = "http://localhost/"; // ToDo: This Value should be replaced with the current URL Header ex: http:WhoSite/..
     apiUrl = apiUrl.replace("<loc_id>", locID);
 
     $.ajax({

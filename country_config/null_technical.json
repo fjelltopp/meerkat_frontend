@@ -93,12 +93,12 @@
             "title": "Consultations and Cases",
             "html_class": "col-md-6",
             "contents": [{
-                    "api": "/api/aggregate/reg_1/<loc_id>",
+                    "api": "/aggregate/reg_1/<loc_id>",
                     "label": "Consultations",
                     "access": "cd"
                 },
                 {
-                    "api": "/api/aggregate/tot_1/<loc_id>",
+                    "api": "/aggregate/tot_1/<loc_id>",
                     "label": "Cases",
                     "access": "cd"
                 }
@@ -108,12 +108,12 @@
             "title": "Morbidity",
             "html_class": "col-md-6",
             "contents": [{
-                    "api": "/api/aggregate_category/cd_tab/<loc_id>",
+                    "api": "/aggregate_category/cd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity",
                     "access": "cd"
                 },
                 {
-                    "api": "/api/alerts",
+                    "api": "/alerts",
                     "label": "Last 3 Alerts",
                     "access": "cd"
                 }
@@ -123,12 +123,12 @@
             "title": "Mortality",
             "html_class": "col-md-6",
             "contents": [{
-                    "api": "/api/aggregate_category/cd_tab/<loc_id>",
+                    "api": "/aggregate_category/cd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity",
                     "access": "cd"
                 },
                 {
-                    "api": "/api/alerts",
+                    "api": "/alerts",
                     "label": "Last 3 Alerts",
                     "access": "cd"
                 }
@@ -138,12 +138,12 @@
             "title": "Indicators",
             "html_class": "col-md-6",
             "contents": [{
-                    "api": "/api/aggregate/reg_1/<loc_id>",
+                    "api": "/aggregate/reg_1/<loc_id>",
                     "label": "% Diabetes visits with measured FG",
                     "access": "cd"
                 },
                 {
-                    "api": "/api/aggregate/tot_1/<loc_id>",
+                    "api": "/aggregate/tot_1/<loc_id>",
                     "label": "% Diabetes visits with controlled FG",
                     "access": "cd"
                 }
