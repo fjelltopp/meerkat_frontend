@@ -416,6 +416,10 @@ function drawAlertsTable(containerID, alerts, variables){
         // If the alert has been investigated (and has a central review) we display that in the table
         if(!config.central_review) columns.splice(7,1);
 
+        // First destroyany pre-existing table.
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
         table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: alerts,
