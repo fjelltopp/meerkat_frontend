@@ -297,12 +297,16 @@ function makeDataObject( aggregation, variables, week, title, percent ){
           no pie charts are drawn.
         * **tableID** - (string) The ID for the HTML element that will hold the table. If empty,
           no table will be drawn.
+        * **barChartOptions** - (object) The options object to be passed to the bar chart renderer.
+          See the docs for drawBarChart for more info.
         * **no_total** - (boolean) If true, no total row will be drawn in the table.
         * **link_function** - The function name to be added "onclick" to each table row header. See
           the docs for `drawTable()` from the file *tableManager.js* for more information.
         * **table_options** - (json) An options object for drawing a bootstrap table, if this isn't
           supplied then a standard table is drawn.
         * **limit_to** - (string) An optional argument to limit results to a specific category: 'ncd', 'cd'.
+        * **callback** - (function) An optional callback function to run after data has been loaded and drawn.
+          It takes one argument - the prepared data object.
 
 */
 function categorySummation( details ){
@@ -407,7 +411,7 @@ function categorySummation( details ){
             var dataObject = makeDataObject(catData, variables, details.week, title, details.percent );
             if( details.strip ) dataObject = stripEmptyRecords( dataObject );
 
-            if( details.barID ) drawBarChart( details.barID, dataObject, true);
+            if( details.barID ) drawBarChart( details.barID, dataObject, details.barChartOptions);
             if( details.pieID ) drawPieCharts( details.pieID, dataObject, true );
             if( details.tableID && !details.table_options ){
                 drawTable( details.tableID, dataObject, details.no_total, details.linkFunction );
@@ -419,10 +423,13 @@ function categorySummation( details ){
                                    details.linkFunction,
                                    details.table_options );
             }
+            // If a callback obejct is specified, execute it.
+            if(typeof(details.callback) == 'function') details.callback(dataObject);
         }else {
             //Failed
             console.error( "Ajax request for the category aggregation and variable information failed.");
         }
+
     });
 }
 
