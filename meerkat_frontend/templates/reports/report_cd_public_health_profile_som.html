@@ -36,12 +36,6 @@
 
 
           </ul>
-            <h4>{{ _('Alerts') }}</h4>
-        {% if report.data.alerts_total is defined and report.data.alerts_total > 0 %}
-        <p>{{ _('A total of %(alerts_total)s alerts generated between %(start_date)s and %(end_date)s.', alerts_total = report.data.alerts_total|commas, start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'),  end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
-        {% else %}
-        <p>{{ _('No alerts generated between %(start_date)s and %(end_date)s.', start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'),  end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}.</p>
-        {% endif %}
       </div>
     </div>
   </div>
