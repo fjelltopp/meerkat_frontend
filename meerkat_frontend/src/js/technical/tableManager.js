@@ -1029,7 +1029,7 @@ function drawPlagueTable(containerID, cases, variables){
 				status = i18n.gettext("Confirmed");
 			}else if("ale_3" in c.variables){
 				status = i18n.gettext("Disregarded");
-            }else if("ale_4" in c.variables){
+            }else if("ale_1" in c.variables){
 				status = i18n.gettext("Ongoing");
 			}
 			datum.status = status;
@@ -1046,10 +1046,10 @@ function drawPlagueTable(containerID, cases, variables){
 				columns: columns,
 				width : "100%",
 				data: data,
-				"align": "center",
-				"classes": "table table-hover",
-				//					pagination: true,
-				//					pageSize: 20
+				align: "center",
+				classes: "table table-hover",
+				pagination: true,
+				pageSize: 50
 			});
 	});
 }
