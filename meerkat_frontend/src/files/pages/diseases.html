@@ -167,10 +167,7 @@ function reDraw(){
       table_options: tableOptions,
       callback: function(data){
 
-          // Intelligently calculate the max value for the y axis.
-          var tick = 500;
-          var max = Math.max.apply(null, data.year);
-          max = max + tick - (max % tick);
+
 
           //Intelligently calculate the best parameters for the axis break
           var differences = [];
@@ -188,6 +185,14 @@ function reDraw(){
                   breakFrom = values[i+1];
               }
           }
+
+          // Intelligently calculate the max value for the y axis.
+          var max = Math.max.apply(null, data.year);
+          max = max + 100 - (max % 100);
+          console.log(max);
+          console.log(maxDiff);
+          var tick = 100*Math.round((max - maxDiff)/300);
+          console.log(tick);
           breakFrom  = breakFrom + tick - (breakFrom % tick);
           breakTo = breakTo - tick/2 - ((breakTo - tick/2) % tick ) ;
 
