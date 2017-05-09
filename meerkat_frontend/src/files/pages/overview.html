@@ -1,5 +1,4 @@
 <div class="top-bar row">
-
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
 			<div class="location-box__label">
@@ -14,163 +13,24 @@
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 	</div>
-
 </div>
 
 <div class="demographics toggled" id="wrapper">
-
 	<div id="sidebar-wrapper">
 		<div id="location-selector" class="location-selector">
 		</div>
 	</div>
 
 	<div id="page-content-wrapper">
-
-		<div class="row">
-			<div id="FirstColumn" class="col-xs-12 col-md-6 less-padding-col">
-
-
-				<div class="row" style="padding-bottom: 10px;">
-					<div class="chartBox box">
-						<div class="chartBox__heading">
-							<p id="#box_heading">Consultations and Cases</p>
-						</div>
-						<div class="chartBox__content">
-							<div id="use-table" class="table">
-								<table class="table table-hover table-condensed">
-									<tbody>
-										<tr>
-											<th scope="row" colspan="2">NCD</th>
-										</tr>
-										<tr>
-											<td>New Visit</td>
-											<td>76</td>
-										</tr>
-										<tr>
-											<td scope="row">Return Visit</td>
-											<td>67</td>
-										</tr>
-										<tr>
-											<th colspan="2">CD</th>
-										</tr>
-										<tr>
-											<td scope="row">Visit</td>
-											<td>80</td>
-										</tr>
-										<tr>
-											<th colspan="2">MH</th>
-										</tr>
-										<tr>
-											<td scope="row">Visit</td>
-											<td>990</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row" style="padding-bottom: 10px;">
-					<div class="chartBox box">
-						<div class="chartBox__heading">
-							<p id="#box_2_heading">Morbidity</p>
-						</div>
-						<div class="chartBox__content">
-							<div id="use-table" class="table">
-								<table class="table table-hover table-condensed">
-									<tbody>
-										<tr>
-											<th scope="row">Measles</th>
-											<td>10</td>
-										</tr>
-										<tr>
-											<th scope="row">Diabetes</th>
-											<td>5</td>
-										</tr>
-										<tr>
-											<th scope="row">Alerts</th>
-											<td>23 June 2017 Measles Comfirmed</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row" style="padding-bottom: 10px;">
-					<div class="chartBox box">
-						<div class="chartBox__heading">
-							<p id="#box_3_heading">Mortality</p>
-						</div>
-						<div class="chartBox__content">
-							<div id="use-table" class="table">
-								<table class="table table-hover table-condensed">
-									<tbody>
-										<tr>
-											<th scope="row">Measles</th>
-											<td>10</td>
-										</tr>
-										<tr>
-											<th scope="row">Maternal Death</th>
-											<td>5</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-xs-12 col-md-6 less-padding-col">
-				<div class="chartBox box">
-					<div class="chartBox__heading">
-						<p id="#box_4_heading">Indicators</p>
-					</div>
-					<div class="chartBox__content">
-						<div id="use-table" class="table">
-							<table class="table table-hover table-condensed">
-								<tbody>
-									<tr>
-										<th scope="row">NCD</th>
-									</tr>
-									<tr>
-										<td>% Diabetes visits with measured FG</td>
-										<td><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></td>
-									</tr>
-									<tr>
-										<td>
-											% Diabetes visits with controlled FG
-										</td>
-										<td><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></td>
-									</tr>
-									<tr>
-										<td>% Hypertension visits with measured BP</td>
-										<td><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></td>
-									</tr>
-									<tr>
-										<td>% Hypertension visits with controlled BP</td>
-										<td><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="row" id="div_Overview_Content">
+			<!-- The Created HTML from function will insert here... -->
 		</div>
-
 	</div>
 </div>
 <div class="breaker"></div>
 
 
 
-
-<!-- Menu Toggle Script -->
-<!-- Menu Toggle Script -->
 <script>
 	$("#title").html(i18n.gettext('Overview'));
 
@@ -190,62 +50,8 @@
 
 	$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
 
-	//Every tab needs a draw charts function that is called when loading a new location.
+	//This Method will call the main function that will be responsible for building the Overview page ....
 	function drawCharts(locID) {
-
-	}
-</script>
-
-
-
-<script>
-	//$(function() {
- //	build_overview_page();
- //	});
-
-
-	function build_overview_page() {
-		var overview_list = config.overviewDataStructure;
-		//Create the Html for the boxes ...
-		var html_builder;
-		for (i = 0; i <= overview_list.length - 1; i++) {
-			html_builder = html_builder + html_box_builder(overview_list[i].contents);
-
-		}
-		//Inject the HTML ...
-		$('#FirstColumn').append(html_builder);
-	}
-
-	function html_box_builder(currentObj) {
-		//Build the header for the box ..
-		var html_box = "<div class='row style='padding-bottom: 10 px;'> <div class='chartBox box' >" +
-			"<div class = 'chartBox__heading' > <p id = '#box_heading'>" + currentObj.title + "</p> </div>" +
-			"<div class = 'chartBox__content' > " +
-			"<div id = 'use-table' class = 'table' >" +
-			"<table class = 'table table-hover table-condensed' > <tbody> ";
-		alert(html_box);
-		alert(currentObj.contents.length);
-		//Build the body for the box ...
-		for (i = 0; i <= currentObj.contents.length - 1; i++) {
-			api_value = GetJson(currentObj.contents[i].api);
-
-			html_box = html_box + "<tr> <th scope = 'row' colspan = '2' >" + i.label + "</th> </tr> <tr> <th scope = 'row' colspan = '2' >" + i.label + "</th> </tr> <tr> ";
-			html_box = html_box + "<td>" + i.label + "< /td> <td>" + api_value + "< /td> </tr>"
-		}
-
-		//Build the box footer ...
-		html_box = html_box + "</tbody> </table> </div> </div> </div> </div>";
-		return html_box;
-	}
-
-	function GetJson(apiUrl) {
-		var result;
-		var api_root = "http://localhost/";
-		locationId = 1;
-		apiUrl = apiUrl.replace("<loc_id>", locationId);
-		$.getJSON(api_root + apiUrl + 1, function(data) {
-			result = data;
-		})
-		return result;
+		build_overview_page(locID);
 	}
 </script>
