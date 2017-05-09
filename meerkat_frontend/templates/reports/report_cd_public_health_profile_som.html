@@ -160,8 +160,8 @@
   <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Reporting Sites') }}</div>
-      <div class="chart-stage">
-        <div id="chart-reporting-sites"></div>
+      <div class="chart-stage ">
+        <div id="chart-reporting-sites" class="reporting-sites-small"></div>
       </div>
     </div>
   </div>
@@ -170,7 +170,7 @@
    <div class="chart-wrapper">
       <div class="chart-title">{{ _('District completeness of reporting for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-        <div id="district-completeness-column"></div>
+        <div id="district-completeness-column-cd-report"></div>
       </div>
     </div>
   </div>
@@ -184,13 +184,12 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Priority Conditions and Events') }}</div>
       <div class="chart-stage">
-        <div id="chart-mor-communicable-disease-list"></div>
-        <table class="table table-striped">
+        <div id="chart-mor-communicable-disease-list" class="diseases-small"></div>
+        <table class="table table-striped reports-table small">
           <thead>
             <tr>
               <th></th>
-              <th></th>
-              <th>{{ _('%% morbidity') }}</th>
+              <th colspan="2" style="text-align:right">{{ _('%% morbidity') }}</th>
               <th>{{ _('# of cases') }}</th>
             </tr>
           </thead>
@@ -212,13 +211,12 @@
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('IMCI Priority Conditions and Events') }}</div>
       <div class="chart-stage">
-        <div id="chart-imci-communicable-disease-list"></div>
-        <table class="table table-striped">
+        <div id="chart-imci-communicable-disease-list" class="diseases-small"></div>
+        <table class="table table-striped reports-table small">
           <thead>
             <tr>
               <th></th>
-              <th></th>
-              <th>{{ _('%% morbidity') }}</th>
+              <th colspan="2" style="text-align:right">{{ _('%% morbidity') }}</th>
               <th>{{ _('# of cases') }}</th>
             </tr>
           </thead>
@@ -240,9 +238,9 @@
   <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('More Information') }}</div>
-      <div class="chart-stage">
-                    {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
-          <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
+      <div class="chart-stage small-text">
+                    <p style="font-size:12px"> {{ _('A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.
+          <br /> The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }} </p>
       </div>
     </div>
   </div>
@@ -343,7 +341,7 @@ $(function() {
       communicableDiseasesIMCI.labels
       )
   );
-  $('#district-completeness-column').highcharts(
+  $('#district-completeness-column-cd-report').highcharts(
       completenessBarChart(
         completenessSites.categories,
         completenessSites.series,

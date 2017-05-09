@@ -464,6 +464,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
                       "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
 
+        current_app.logger.info("Getting URL")
         driver.add_cookie(cookie_sel)
         driver.get(url)
 
@@ -478,7 +479,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                                                                                                                                     height,
                                                                                                                                     orientation,
                                                                                                                                     margins)
-
+        current_app.logger.info("Rendering URL")
         execute(pageFormat, [])
         
         # render current page and save in tmp_file.pdf
@@ -486,6 +487,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         render = '''this.render("{}")'''.format(tmp_file)
         execute(render, [])
         # Read and delete file
+        current_app.logger.info("Minifying if needed")
         print(os.path.getsize(tmp_file))
         if os.path.getsize(tmp_file) > 1024 * 1000:  # 1 MB
             subprocess.run(["gs", "-sDEVICE=pdfwrite",
