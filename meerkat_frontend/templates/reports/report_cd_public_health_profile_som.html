@@ -1,5 +1,5 @@
 {% extends 'reports/base.html' %}
-{% block title %}{{_(report.data.project_region|e)}} &middot;{{ _('Communicable Disease Profile') }}  &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{_(report.data.project_region|e)}} &middot;{{ _('Public Health Profile') }}  &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
@@ -10,7 +10,7 @@
     >
     </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Communicable Disease Profile') }}
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _(' Public Health Profile') }}
     <span class="report-week">
   {{ report.data.start_date|datetime_from_json|datetime("dd MMMM YYYY") }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
