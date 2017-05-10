@@ -15,7 +15,7 @@ function build_overview_page(locID) {
     $('#div_Overview_Content').append(html_builder);
 }
 
-function html_box_builder(currentObj,locID) {
+function html_box_builder(currentObj, locID) {
     //Build the header for the box ...
     var html_box = "<div class='col-xs-12 " +  currentObj.html_class + " less-padding-col'> <div class='chartBox box' >" +
         "<div class = 'chartBox__heading' > <p id = '#box_heading'>" + currentObj.title + "</p> </div>" +
@@ -25,37 +25,22 @@ function html_box_builder(currentObj,locID) {
 
     //Build the body for the box ...
     $.each(currentObj.contents, function(index, value) {
-        // Get the inner value for the boxes by calling the APIs ...
-        var api_result = get_JSON(value.api,locID);
-        var apiValue;
-        if(typeof api_result == 'undefined'){
-            apiValue = 0;
-        } else {
-            apiValue = api_result.value;
-        }
 
-        //html_box = html_box + "<tr> <th scope = 'row' colspan = '2' >" + value.label + "</th> </tr>";
-        html_box = html_box + "<tr><td>" + value.label + "</td> <td>" + apiValue + "</td> </tr>";
+        // Get the inner value for the boxes by calling the APIs ...
+        $.getJSON( api_root + value.api, function(data ){
+            var apiValue;
+            if(typeof api_result == 'undefined'){
+                apiValue = 0;
+            } else {
+                apiValue = api_result.value;
+            }
+            //TODO: Prepare and draw html.
+            //html_box = html_box + "<tr> <th scope = 'row' colspan = '2' >" + value.label + "</th> </tr>";
+            //html_box = html_box + "<tr><td>" + value.label + "</td> <td>" + apiValue + "</td> </tr>";
+        })
     });
 
     //Build the box footer ...
     html_box = html_box + "</tbody> </table> </div> </div> </div> </div>";
     return html_box;
-}
-
-
-//This is a general method and will be use  to return Json result...
-function get_JSON(apiUrl,locID) {
-    var result;
-    apiUrl = apiUrl.replace("<loc_id>", locID);
-
-    $.ajax({
-        url: api_root + apiUrl,
-        dataType: 'json',
-        async: false,
-        success: function(data) {
-            result = data;
-        }
-    });
-    return result;
 }
