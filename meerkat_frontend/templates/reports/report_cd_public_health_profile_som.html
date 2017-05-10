@@ -9,7 +9,8 @@
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
     </span>
-    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
+      {% set country_logo = report.data.logo if "logo" in report.data else content.footer.logos.country_partner %}
+    <img class="moh-title-logo" src="/static/img/{{country_logo}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _(' Public Health Profile') }}
     <span class="report-week">
   {{ report.data.start_date|datetime_from_json|datetime("dd MMMM YYYY") }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
