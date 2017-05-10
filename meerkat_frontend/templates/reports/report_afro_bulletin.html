@@ -164,7 +164,8 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 </div>
 <div class="row">
   <!-- PRIORITY DISEASES TABLE -->
-  <div class="col-sm-12">
+    <div class="col-sm-12">
+        <div style="page-break-after: always"></div>
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 1: Reported Priority Diseases, Conditions and Events by District, Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -175,7 +176,8 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
 </div>
 <div class="row">
   <!-- PRIORITY DISEASES SUMMARY -->
-  <div class="col-sm-12">
+    <div class="col-sm-12">
+    <div style="page-break-after: always"></div>
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 2: Summary of Priority Diseases, Conditions and Events for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
@@ -350,7 +352,8 @@ regional_map(
      "Androy",
      "Anosy",
      "Atsimo Andrefana",
-     "Atsimo Atsinana",
+     "Atsimo Atsinanana",
+     "Ihorombe",
      "Boeny",
      "Bongolava",
      "Menabe",
@@ -416,7 +419,7 @@ regional_map(
                $('#table_priority_diseases_id table').bootstrapTable({
                    columns: table_priority_diseases_setup,
                    data: table_priority_diseases_data_prepared,
-                   classes: 'table-no-bordered table-hover reports-table table-condensed',
+                   classes: 'table-no-bordered table-hover reports-table table-condensed small',
                    sortName: 'disease',
                    sortOrder: 'desc'
                });
@@ -514,7 +517,7 @@ regional_map(
      $('#table_priority_diseases_cumulative_id table').bootstrapTable({
                        columns: table_priority_diseases_cumulative_setup.columns,
      data: table_priority_diseases_cumulative_data_prepared,
-     classes: 'table-no-bordered table-hover reports-table table-condensed',
+     classes: 'table-no-bordered table-hover reports-table table-condensed small',
      sortName: 'disease',
      sortOrder: 'desc'
  });
