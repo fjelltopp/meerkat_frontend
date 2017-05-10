@@ -167,11 +167,6 @@ function reDraw(){
       table_options: tableOptions,
       callback: function(data){
 
-          // Intelligently calculate the max value for the y axis.
-          var tick = 500;
-          var max = Math.max.apply(null, data.year);
-          max = max + tick - (max % tick);
-
           //Intelligently calculate the best parameters for the axis break
           var differences = [];
           var maxDiff = 0;
@@ -179,7 +174,7 @@ function reDraw(){
           var breakTo = values[0];
           var breakFrom = values[1];
 
-          // Find the maximum difference between to bars and put the break in between
+          // Find the maximum difference between two bars and put the break in-between
           for(var i=0; i<values.length-1; i++){
               differences[i] = values[i]-values[i+1];
               if(differences[i] > maxDiff){
@@ -188,6 +183,11 @@ function reDraw(){
                   breakFrom = values[i+1];
               }
           }
+
+          // Intelligently calculate the max value and the tick interval for the y axis.
+          var max = Math.max.apply(null, data.year);
+          max = max + 100 - (max % 100);
+          var tick = 100*Math.round((max - maxDiff)/300);
           breakFrom  = breakFrom + tick - (breakFrom % tick);
           breakTo = breakTo - tick/2 - ((breakTo - tick/2) % tick ) ;
 
@@ -195,6 +195,9 @@ function reDraw(){
           barChartOptions = {
               percent: false,
               week: false,
+              chart:{
+                  height: 500
+              },
               xAxis: {
                   title: {text: null},
                   lineColor: 'black',
