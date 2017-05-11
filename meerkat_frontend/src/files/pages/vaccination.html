@@ -109,8 +109,8 @@ function reDraw(){
   //In case we want the user to be able to select the weeks to view.
   var week = (get_epi_week()).toString();
 
-     $.getJSON(api_root + "/aggregate_category/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
-	 $.getJSON(api_root + "/aggregate_category/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
+     $.getJSON(api_root + "/aggregate_category_sum/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
+	 $.getJSON(api_root + "/aggregate_category_sum/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
              $.getJSON(api_root + "/variables/vaccinated_12_mo_infants",  function( variables ){
              
                  table = '<table class="table table-no-bordered table-hover">';
@@ -125,9 +125,9 @@ function reDraw(){
                      vaccine = vaccines[v]
                      vaccine_u_12 = vaccine.replace("i12", "i0")
                      table += "<tr> <td>" + i18n.gettext(variables[vaccine].name) +"</td>"
-                     table += "<td>" + data_u_12[vaccine_u_12].year +"</td>"
-                     table += "<td>" + data_12[vaccine].year +"</td>"
-                     table += "<td>" + (data_u_12[vaccine_u_12].year+ data_12[vaccine].year) +"</td>"
+                     table += "<td>" + format(data_u_12[vaccine_u_12].year) +"</td>"
+                     table += "<td>" + format(data_12[vaccine].year) +"</td>"
+                     table += "<td>" + format(data_u_12[vaccine_u_12].year+ data_12[vaccine].year) +"</td>"
                      table += "</tr>"
                      
                  }
@@ -138,8 +138,8 @@ function reDraw(){
          });
      });
 
-     $.getJSON(api_root + "/aggregate_category/vaccinated_pw/" + currentLocation, function( data_pw ){
-	 $.getJSON(api_root + "/aggregate_category/vaccinated_notpw/" + currentLocation,  function( data_not_pw ){
+     $.getJSON(api_root + "/aggregate_category_sum/vaccinated_pw/" + currentLocation, function( data_pw ){
+	 $.getJSON(api_root + "/aggregate_category_sum/vaccinated_notpw/" + currentLocation,  function( data_not_pw ){
              $.getJSON(api_root + "/variables/vaccinated_pw",  function( variables ){
              
                  table = '<table class="table table-no-bordered table-hover">';
@@ -153,9 +153,9 @@ function reDraw(){
                      vaccine = vaccines[v]
                      vaccine_notpw = vaccine.replace("_pw", "_notpw")
                      table += "<tr> <td>" + i18n.gettext(variables[vaccine].name) +"</td>"
-                     table += "<td>" + data_pw[vaccine].year +"</td>"
-                     table += "<td>" + data_not_pw[vaccine_notpw].year +"</td>"
-                     table += "<td>" + (data_not_pw[vaccine_notpw].year+ data_pw[vaccine].year) +"</td>"
+                     table += "<td>" + format(data_pw[vaccine].year) +"</td>"
+                     table += "<td>" + format(data_not_pw[vaccine_notpw].year) +"</td>"
+                     table += "<td>" + format(data_not_pw[vaccine_notpw].year+ data_pw[vaccine].year) +"</td>"
                      table += "</tr>"
                      
                  }
