@@ -111,7 +111,7 @@ function loadLocationContent( locID ){
 		html += "<button type='button' class='btn header'>" + i18n.gettext('Parent Locations') + ":</button>";
 		for( var i=0; i<nodePath.length-1; i++ ){
 			html += "<button type='button' class='btn btn-default btn-block' onclick='loadLocation(" +
-				nodePath[i].model.id + ");'>" + i18n.gettext(nodePath[i].model.text) + "</button>";
+				nodePath[i].model.id + ");'>" + nodePath[i].model.text + "</button>";
 		}
 		html += "</div>";
 	}
@@ -131,7 +131,7 @@ function loadLocationContent( locID ){
 
 		for( var j=0; j<childNodes.length; j++ ){
 			html += "<button type='button' class='btn btn-default' onclick='loadLocation(" +
-				childNodes[j].id + ");'>"+i18n.gettext(childNodes[j].text)+"</button>";
+				childNodes[j].id + ");'>"+childNodes[j].text+"</button>";
 		}
 		html += "</div>";
 	}
