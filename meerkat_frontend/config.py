@@ -10,6 +10,7 @@ class Config(object):
     DEBUG = False
     TESTING = bool(os.environ.get("MEERKAT_TESTING", False))
     DEPLOYMENT = os.environ.get("DEPLOYMENT", "UNKNOWN")
+    LIVE_URL = os.environ.get("MEERKAT_LIVE_URL", "http://127.0.0.1/")
     INTERNAL_API_ROOT = os.environ.get("INTERNAL_API_ROOT", '')
     EXTERNAL_API_ROOT = '/api'
 
@@ -51,7 +52,7 @@ class Config(object):
     SUPPORTED_LANGAUGES_FLAGS = ["gb"]
 
     DROPBOX = {}
-    
+
     # Auth secret settings file from which to import required config.
     # File must define JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY.
     filename = os.environ.get('MEERKAT_AUTH_SETTINGS')
