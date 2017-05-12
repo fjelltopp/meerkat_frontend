@@ -266,7 +266,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:
-            content_url = c.add_domain('/static/')
+            content_url = current_app.config['LIVE_URL'] + 'static/'
 
         html_email_body = render_template(
                 ret['template_email_html'],
@@ -421,7 +421,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         start_date used to filter the report's data, in ISO format.
     """
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
-   
+
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
         cookie = request.cookies
@@ -436,13 +436,13 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver = webdriver.PhantomJS(
             "./node_modules/phantomjs-prebuilt/bin/phantomjs",
         )
-        
+
         def execute(script, args):
             driver.execute('executePhantomScript', {'script': script, 'args' : args })
         width = 1200
         height = 1697
         orientation = "portrait"
-        
+
         if(report_list[report].get('landscape', False)):
             width = 1697
             height = 1200
@@ -452,7 +452,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                    left: '40px',
                   bottom: '55px',
                   right: '40px'}'''
-            
+
         driver.set_window_size(width - 80, height - 125)  # height, width)
 
         # hack while the python interface lags
@@ -481,7 +481,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
                                                                                                                                     margins)
         current_app.logger.info("Rendering URL")
         execute(pageFormat, [])
-        
+
         # render current page and save in tmp_file.pdf
         tmp_file = str(uuid.uuid4())+".pdf"
         render = '''this.render("{}")'''.format(tmp_file)
@@ -502,7 +502,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         with open(tmp_file, "rb") as f:
             pdf = f.read()
         #os.remove(tmp_file)
-            
+
         return Response(pdf, mimetype='application/pdf')
 
     else:
