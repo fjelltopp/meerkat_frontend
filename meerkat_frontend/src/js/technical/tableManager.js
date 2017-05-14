@@ -1192,9 +1192,6 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         whole_loc_timeline = data.timeline[index];
         // console.log("XXX: whole_loc_timeline:");
         // console.log(whole_loc_timeline);
-        if(locations[index].id == regionID){//Total
-            continue;
-        }
         var loc_record = [];//whole data for location
         var loc_entry = [];//entry for one week
         //dropping the current week (noWeeks) in the data since we can only estimate it's completeness
@@ -1211,16 +1208,23 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
                 loc_record.push(loc_entry);
             }
         }
-        table_datum = {
-            "name": locations[index].name,
-            "region": locations[locations[index].parent_location].name
-            // "data": loc_record
-        };
+        if(locations[index].id !== regionID){//Total
+            table_datum = {
+                "name": locations[index].name,
+                "region": locations[locations[index].parent_location].name
+                // "data": loc_record
+            };
+        }else{
+            table_datum = {
+                "name": "Madagascar",
+                "region": "-Total-"
+            };
+        }
 
         //push every week separately now to the datum
 
-        console.log("XXX: loc_record:");
-        console.log(loc_record);
+        // console.log("XXX: loc_record:");
+        // console.log(loc_record);
         for (var l = 0; l < loc_record.length; l++)
         {
             table_datum["week" + l] = loc_record[l][1];
@@ -1229,20 +1233,20 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         // console.log(table_datum);
         table_data.push(table_datum);
     }
-    console.log("XXX: processed data:");
-    console.log(table_data);
+    // console.log("XXX: processed data:");
+    // console.log(table_data);
 
     var columns = [
         {
             "field": "region",
             "title": "Region",
             "align": "center",
-            "class": "header",
+            "class": "header"
         },{
             "field": "name",
             "title": "District",
             "align": "center",
-            "class": "header",
+            "class": "header"
         }];
 
     //Add column for every previous week:
@@ -1253,7 +1257,7 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
                     "field": "week" + k,
                     "title": "S" + k,
                     "align": "center",
-                    "class": "header",
+                    "class": "value",
                     "cellStyle": createCompletenessMatrixCellTab()
                 });
             }
@@ -1262,7 +1266,7 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
                 "field": "week" + k,
                 "title": "S" + k,
                 "align": "center",
-                "class": "header",
+                "class": "value",
                 "cellStyle": createCompletenessMatrixCellTab()
             });
         }
@@ -1275,10 +1279,46 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
 		var table = $('#' + containerID + ' table').bootstrapTable({
 				columns: columns,
 				data: table_data,
-				classes: 'table-bordered table-hover',
+				classes: 'table-responsive table-bordered ',
         sortName: 'region',
-        sortOrder: 'desc'
+        sortOrder: 'asc'
 		});
+
+    console.log(table[0]);
+    var rowLength = table[0].rows.length;
+    var count = 0;
+    var row = table[0].rows[1].cells[0].innerHTML;
+    var saveIndex = 0;
+    
+    console.log(rowLength, row);
+    
+    for (i = 1; i < rowLength; i++) {        
+        if (row === table[0].rows[i].cells[0].innerHTML) {
+            console.log('yes, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
+            count++;
+            
+            if(i == rowLength - 1)
+            {
+                console.log('last entry, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
+            	  mergeRows('#' + containerID + ' table',saveIndex, count);
+            }
+                
+        } else {
+            mergeRows('#' + containerID + ' table',saveIndex, count);
+            
+            row = table[0].rows[i].cells[0].innerHTML;
+            saveIndex = i - 1;
+            count = 1;
+            
+            console.log('no, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
+            /*
+            */
+        }
+    }
+
+
+
+
 		return table;
 
 }
@@ -1491,4 +1531,13 @@ function createCompletenessMatrixCellTab(){
     }
 
     return ccmct;
+}
+
+function mergeRows(contener, index, rowspan) {
+    console.log('merging,', index + ',', rowspan);
+    $(contener).bootstrapTable('mergeCells', {
+        index: index,
+        field: 'region',
+        rowspan: rowspan
+    });
 }

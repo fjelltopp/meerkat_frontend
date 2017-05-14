@@ -53,20 +53,21 @@
 
     </div>
     <div class="row">
-      <div class="col-xs-12 col-md-12 less-padding-col">
-        <div class="chartBox box" id="completeness-matrix-box">
-          <div class="chartBox__heading pointer" id="box_5_heading" onclick='toggleMatrix();return false;'>
-            <div class="box__type-selector pull-right">
-                <a href="" onclick="event.stopImmediatePropagation();$('#completeness-matrix table').tableExport({type:'xls', fileName: 'completeness_matrix'});return false;" class="csv">
-                </a>
+        <div class="col-xs-12 col-md-12 less-padding-col">
+            <div class="chartBox box" id="completeness-matrix-box">
+                <div class="chartBox__heading pointer" onclick='toggleMatrix();return false;'>
+                    <p id="box_5_heading" style="display: inline"> </p>
+                    <div class="box__type-selector pull-right">
+                        <a href="" onclick="event.stopImmediatePropagation();$('#completeness-matrix').tableExport({type:'xls', fileName: 'completeness_matrix'});return false;" class="csv">
+                        </a>
+                    </div>
+                </div>
+                <div class="chartBox__content" id="completeness-matrix-content">
+                    <div id="completeness-matrix" class="table">
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="chartBox__content", id="completeness-matrix-content">
-            <div id="completeness-matrix" style="margin: 0 auto"></div>
-          </div>
         </div>
-      </div>
-
     </div>
 
     <div class="row">
