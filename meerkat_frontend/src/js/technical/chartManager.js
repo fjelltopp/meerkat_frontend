@@ -298,9 +298,6 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
  */
 function drawTimeChartData(data, containerID, alert_week){
 
-    console.log('DRAW TIME CHART');
-    console.log('Time series data for diseases:');
-    console.log(data);
     var labels = [];
     var values = [];
 
@@ -315,7 +312,6 @@ function drawTimeChartData(data, containerID, alert_week){
       }
 
     }
-	console.log(values);
     //Hack to get plot to size correctly when being drawn into a hidden object.
     //If the object is hidden, set the plot width to the inner width of the parent.
     //Otherwise, leave as undefined as specified in the highcharts api.
@@ -408,6 +404,11 @@ function drawTimeChartData(data, containerID, alert_week){
 
 function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID, compare_locations, x_axis_max){
 
+    console.log("Data in for graph");
+    console.log(data);
+    console.log("start_week");
+    console.log(start_week);
+
     var comparevalue = $(compare_locations).attr("value");
 
     var stringGraphType = 'data';
@@ -464,6 +465,9 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
         }
         timeseries.push(datum);
     }
+
+    console.log("timeseries");
+    console.log(timeseries);
 
     //hovering should give all the information about given clinick and sublocation
     $('#' + containerID).highcharts({
