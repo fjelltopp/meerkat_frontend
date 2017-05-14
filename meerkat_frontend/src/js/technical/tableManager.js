@@ -1145,9 +1145,141 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 
 
 		}
+}
 
+/**:drawCompletenessMatrix(containerID, regionID, locations, data)
 
+   Draws the completeness matrix, showing the number of case reports and daily
+   registers submitted in each district over the course of the last year.
 
+   :param string containerID:
+   The ID attribute of the html element to hold the table.
+   :param string regionID:
+   The ID of the region by which to filter the completeness data.
+   :param Object locations:
+   List of all locations from API.
+   :param Object data:
+   Completeness data from API.
+*/
+
+function drawCompletenessMatrix( containerID, regionID, denominator, locations, data, start_week, graphtypeID ){
+
+    // console.log("XXX Data in:");
+    // console.log(data);
+    // console.log("XXX Locations:");
+    // console.log(locations);
+
+    var stringGraphType = 'data';
+    var multiplier = 100 / denominator;
+    var noWeeks;
+    if(graphtypeID === 0){
+        stringGraphType = 'Completeness';
+    }else if(graphtypeID ===1){
+        stringGraphType = 'Timeliness';
+    }
+
+    var scoreKeys = Object.keys(data.timeline);
+    // console.log("XXX: ScoreKeys:");
+    // console.log(scoreKeys);
+    var index = 0;
+    //Using week numbers instead of dates
+    var table_data = [];
+    var table_datum = [];
+    for (var i=0; i<scoreKeys.length;i++){
+        index = scoreKeys[scoreKeys.length - i -1];
+        // console.log("XXX: index:");
+        // console.log(index);
+        whole_loc_timeline = data.timeline[index];
+        // console.log("XXX: whole_loc_timeline:");
+        // console.log(whole_loc_timeline);
+        if(locations[index].id == regionID){//Total
+            continue;
+        }
+        var loc_record = [];//whole data for location
+        var loc_entry = [];//entry for one week
+        //dropping the current week (noWeeks) in the data since we can only estimate it's completeness
+        noWeeks = whole_loc_timeline.weeks.length;
+        var weeks = lastWeeks (get_epi_week(), noWeeks +1 ); //last completeness is from previous week
+        for (var j = 0; j < noWeeks; j++){
+            if( start_week ){
+                if(weeks[noWeeks - j] >= start_week){
+                    loc_entry = [weeks[noWeeks - j],Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
+                    loc_record.push(loc_entry);
+                }
+            }else{
+                loc_entry = [weeks[noWeeks - j],Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
+                loc_record.push(loc_entry);
+            }
+        }
+        table_datum = {
+            "name": locations[index].name,
+            "region": locations[locations[index].parent_location].name
+            // "data": loc_record
+        };
+
+        //push every week separately now to the datum
+
+        console.log("XXX: loc_record:");
+        console.log(loc_record);
+        for (var l = 0; l < loc_record.length; l++)
+        {
+            table_datum["week" + l] = loc_record[l][1];
+        }
+        // console.log("XXX: table datum:");
+        // console.log(table_datum);
+        table_data.push(table_datum);
+    }
+    console.log("XXX: processed data:");
+    console.log(table_data);
+
+    var columns = [
+        {
+            "field": "region",
+            "title": "Region",
+            "align": "center",
+            "class": "header",
+        },{
+            "field": "name",
+            "title": "District",
+            "align": "center",
+            "class": "header",
+        }];
+
+    //Add column for every previous week:
+    for (var k = 0; k < noWeeks; k++){
+        if( start_week ){
+            if(k >= start_week){
+                columns.push({
+                    "field": "week" + k,
+                    "title": "S" + k,
+                    "align": "center",
+                    "class": "header",
+                    "cellStyle": createCompletenessMatrixCellTab()
+                });
+            }
+        }else{
+            columns.push({
+                "field": "week" + k,
+                "title": "S" + k,
+                "align": "center",
+                "class": "header",
+                "cellStyle": createCompletenessMatrixCellTab()
+            });
+        }
+    }
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID ).append('<table class="table"></table>');
+
+		var table = $('#' + containerID + ' table').bootstrapTable({
+				columns: columns,
+				data: table_data,
+				classes: 'table-bordered table-hover',
+        sortName: 'region',
+        sortOrder: 'desc'
+		});
+		return table;
 
 }
 /**:drawCompletenessTable(containerID, regionID)
@@ -1219,6 +1351,8 @@ function drawCompletenessTable( containerID, regionID, locations, data ){
                 width : "25%"
             }];
 
+    console.log("comp data");
+    console.log(dataPrepared);
         for(var k = 0; k < columns.length; k++){
             columns[k].cellStyle = createCompletenessCellTab(parentLocation);
         }
@@ -1339,4 +1473,22 @@ function stripRows(data){
 
 		//Remove all empty rows (starting from the last to avoid screwing up indexes).
 		return data;
+}
+
+function createCompletenessMatrixCellTab(){
+    // Returns a function that colours in the cells according to their value
+    function ccmct(value, row, index){
+        if(isNaN(value)){
+            return {css: {"background-color": "rgba(0, 0, 0, 1)"}};
+        }
+        if(value < 50){//red
+            return {css: {"background-color": "rgba(255, 0, 0, 0.5)", "font-weight": "bold"}};
+        }
+        if(value < 80){//yellow
+            return {css: {"background-color": "rgba(255, 255, 0, 0.5)", "font-weight": "bold"}};
+        }
+        return {css: {"background-color": "rgba(0, 128, 0, 0.5)", "font-weight": "bold"}};
+    }
+
+    return ccmct;
 }
