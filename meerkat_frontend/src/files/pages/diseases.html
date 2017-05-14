@@ -167,10 +167,13 @@ function reDraw(){
       table_options: tableOptions,
       callback: function(data){
 
+          data.year = data.week;
+          data = stripEmptyRecords(data);
+
           //Intelligently calculate the best parameters for the axis break
           var differences = [];
           var maxDiff = 0;
-          var values = data.year.slice().sort(function(a,b){return b-a;});
+          var values = data.week.slice().sort(function(a,b){return b-a;});
           var breakTo = values[0];
           var breakFrom = values[1];
 
@@ -185,7 +188,7 @@ function reDraw(){
           }
 
           // Intelligently calculate the max value and the tick interval for the y axis.
-          var max = Math.max.apply(null, data.year);
+          var max = Math.max.apply(null, data.week);
           max = max + 100 - (max % 100);
           var tick = 100*Math.round((max - maxDiff)/300);
           breakFrom  = breakFrom + tick - (breakFrom % tick);
@@ -194,7 +197,7 @@ function reDraw(){
           // Draw the CD Chart
           barChartOptions = {
               percent: false,
-              week: false,
+              year: false,
               chart:{
                   height: 500
               },
