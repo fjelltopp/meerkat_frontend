@@ -368,11 +368,11 @@ regional_map(
      index = table_priority_diseases_keys[i];
      var datum = {
          "disease":i18n.gettext( table_priority_diseases_data[index].name),
-         "mortality": table_priority_diseases_data[index].mortality,
-         "cfr": (isNaN(table_priority_diseases_data[index].cfr) ? table_priority_diseases_data[index].cfr:Number(table_priority_diseases_data[index].cfr).toFixed(0) + "%")
+         "mortality": format(table_priority_diseases_data[index].mortality),
+         "cfr": (isNaN(table_priority_diseases_data[index].cfr) ? table_priority_diseases_data[index].cfr:Number(table_priority_diseases_data[index].cfr).toFixed(1) + "%")
      };
      for (var loc_ind = 0; loc_ind < loc_list.length; loc_ind++){
-         datum[loc_ind] = table_priority_diseases_data[index][loc_list[loc_ind]];
+         datum[loc_ind] = format(table_priority_diseases_data[index][loc_list[loc_ind]]);
      }
      table_priority_diseases_data_prepared.push(datum);
  }
@@ -442,12 +442,12 @@ regional_map(
 	}
      var datum = {
          "disease": name,
-         "cases": table_priority_diseases_cumulative_data[index].cases,
-         "mortality": table_priority_diseases_cumulative_data[index].mortality,
-         "cfr": (isNaN(table_priority_diseases_cumulative_data[index].cfr) ? table_priority_diseases_cumulative_data[index].cfr:Number(table_priority_diseases_cumulative_data[index].cfr).toFixed(0) + "%"),
-         "cases_cumulative": table_priority_diseases_cumulative_data[index].cases_cumulative,
-         "mortality_cumulative": table_priority_diseases_cumulative_data[index].mortality_cumulative,
-         "cfr_cumulative":  (isNaN(table_priority_diseases_cumulative_data[index].cfr_cumulative) ? table_priority_diseases_cumulative_data[index].cfr_cumulative:Number(table_priority_diseases_cumulative_data[index].cfr_cumulative).toFixed(0) + "%")
+         "cases": format(table_priority_diseases_cumulative_data[index].cases),
+         "mortality": format(table_priority_diseases_cumulative_data[index].mortality),
+         "cfr": (isNaN(table_priority_diseases_cumulative_data[index].cfr) ? table_priority_diseases_cumulative_data[index].cfr:Number(table_priority_diseases_cumulative_data[index].cfr).toFixed(1) + "%"),
+         "cases_cumulative": format(table_priority_diseases_cumulative_data[index].cases_cumulative),
+         "mortality_cumulative": format(table_priority_diseases_cumulative_data[index].mortality_cumulative),
+         "cfr_cumulative":  (isNaN(table_priority_diseases_cumulative_data[index].cfr_cumulative) ? table_priority_diseases_cumulative_data[index].cfr_cumulative:Number(table_priority_diseases_cumulative_data[index].cfr_cumulative).toFixed(1) + "%")
      };
      table_priority_diseases_cumulative_data_prepared.push(datum);
  }
