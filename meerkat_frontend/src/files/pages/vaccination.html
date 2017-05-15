@@ -25,10 +25,28 @@
   </div>
 
   <div id="page-content-wrapper">
-      <div class="row">
+	   <div class="row">
           <div class="col-xs-12 less-padding-col">
               <div class="chartBox box">
                   <div class="chartBox__heading">
+                      <p id="box_heading"></p>
+                      <div class="box__type-selector pull-right">
+                          <a href="" onclick="exportTableToXLS('timeline-table','vaccination');return false;" class="csv">
+                          </a>
+                      </div>
+                  </div>
+                  <div class="chartBox__content">
+                      <div id="timeline-wrapper" class="table">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+      <div class="row">
+          <div class="col-xs-12 less-padding-col">
+              <div class="chartBox box">
+                  <div class="chartBox__heading_2">
                       <p id="box_heading"></p>
                       <div class="box__type-selector pull-right">
                           <a href="" onclick="exportTableToXLS('vaccination-table','vaccination');return false;" class="csv">
@@ -47,7 +65,7 @@
       <div class="col-xs-12 less-padding-col">
           <div class="chartBox box">
               <div class="chartBox__heading">
-                  <p id="box_heading_2"></p>
+                  <p id="box_heading_3"></p>
                   <div class="box__type-selector pull-right">
                       <a href="" onclick="exportTableToXLS('vaccination-female-table','vaccination');return false;" class="csv">
                       </a>
@@ -72,8 +90,9 @@ var currentLocation;
 $("#location_box").html(i18n.gettext("Location:"));
 $("#location_title").html(i18n.gettext("Not Loaded"));
  $("#title").html(i18n.gettext('Vaccination'));
- $("#box_heading").html(i18n.gettext('Infant vaccinations this year'));
- $("#box_heading_2").html(i18n.gettext('Female vaccinations this year'));
+ $("#box_heading").html(i18n.gettext('Vaccination sessions this year'));
+ $("#box_heading_2").html(i18n.gettext('Infant vaccinations this year'));
+ $("#box_heading_3").html(i18n.gettext('Female vaccinations this year'));
 $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
 $("#location-selector").html(i18n.gettext('Locations not loaded'));
 $(".csv").each(function(){
@@ -109,6 +128,8 @@ function reDraw(){
   //In case we want the user to be able to select the weeks to view.
   var week = (get_epi_week()).toString();
 
+
+	 createTimeline("vac_ses", "locations:district", {"strip":true, "colour": "true"}, i18n.gettext("Vaccination Sessions"))
      $.getJSON(api_root + "/aggregate_category_sum/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
 	 $.getJSON(api_root + "/aggregate_category_sum/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
              $.getJSON(api_root + "/variables/vaccinated_12_mo_infants",  function( variables ){

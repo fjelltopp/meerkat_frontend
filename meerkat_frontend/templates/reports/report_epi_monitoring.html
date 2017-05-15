@@ -6,16 +6,15 @@
 <div class="page-content">
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
       >
     </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}"> 
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
     <span> {{ _('DVSSE Epidemiological Monitoring Report') }} </span>
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
+        {{_(report.data.project_region|e)}} &middot; {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
     </span>
   </h2>
 </div>
@@ -61,10 +60,10 @@
 <div class="row">
    <div class="col-sm-12">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Table 3: Notifiable Diseases') }}</div>  
+      <div class="chart-title">{{ _('Table 3: Notifiable Diseases') }}</div>
       <div class="chart-stage">
         <div class="small-table-wrapper  table-responsive table3-wrapper">
-          
+
         </div>
       </div>
     </div>
@@ -114,18 +113,20 @@ drawTable3();
 
 /*The mortality data value is the number of deaths for a given code.
  *The name of each mortality code is "Deaths [code ID]". We need to match mortality data to
- *code data so this function extracts the corresponding codeID from the name and stores its the data 
+ *code data so this function extracts the corresponding codeID from the name and stores its the data
  *value under that ID rather than the mortality ID. For example code "mor_1" has name "Deaths icd_17"
  *so this function will restore the "data.mortality.mor_1" as "data.mortality.icd_17".  This makes data
  *much easier to tabulate. */
 function prepareMortData(){
-  
+
   var mort_keys = Object.keys(content.deaths);
-  for( var i=0; i< mort_keys.length; i++ ){
-    var new_key = mort_keys[i].replace("mor", "cmd");
-      content.deaths[new_key] = content.deaths[mort_keys[i]];
-    delete content.deaths[mort_keys[i]];
-  }
+	 for( var i=0; i< mort_keys.length; i++ ){
+		 if( mort_keys[i] != "mor_29" && mort_keys[i] != "mor_30"){
+			 var new_key = mort_keys[i].replace("mor", "cmd");
+			 content.deaths[new_key] = content.deaths[mort_keys[i]];
+			 delete content.deaths[mort_keys[i]];
+		 }
+	 }
      content.deaths["epi_1"] = content.deaths["mor_29"];
      content.deaths["epi_7"] = content.deaths["mor_30"];
 }
@@ -146,20 +147,20 @@ function drawTable1(){
     "<tr><td class='border-right key'>{{ _('Number of deaths') }}</td>";
 
   for( var i=1; i<mort_keys.length; i++ ){
-    datum = content.tot_mortality[ mort_keys[i] ]; 
+    datum = content.tot_mortality[ mort_keys[i] ];
     html += "<td>" + datum + "</td>";
-  }  
+  }
 
-  html += "<td class='total'>" + content.tot_mortality[ mort_keys[0] ] + "</td></tr>";    
+  html += "<td class='total'>" + content.tot_mortality[ mort_keys[0] ] + "</td></tr>";
   html += "<tr><td class='border-right key'>{{ _('Number of maternal deaths') }}</td>";
 
   mat_keys = Object.keys(content.mat_mortality);
   for( var i=1; i<mat_keys.length; i++ ){
-    datum = content.mat_mortality[ mat_keys[i] ]; 
+    datum = content.mat_mortality[ mat_keys[i] ];
     html += "<td>" + datum + "</td>";
-  }  
+  }
 
-  html += "<td class='total'>" + content.mat_mortality[ mat_keys[0] ] + "</td></tr>";
+  html += "<td class='total'>" + format(content.mat_mortality[ mat_keys[0] ]) + "</td></tr>";
   html += "</table>";
 
   $('.table1-wrapper').html(html);
@@ -167,7 +168,7 @@ function drawTable1(){
 
 //Draw table 2.1
 function drawTable21(){
-  
+
   var struct = [
     ["{{ _('Dysentery and bloody diarrhoea') }}", "cmd_4"],
     ["{{ _('Influenza-like illness') }}", "cmd_18"],
@@ -189,7 +190,7 @@ function drawTable21(){
 
 //Draw table 2.2
 function drawTable22(){
-  
+
   var struct = [
     ["{{ _('Acute flaccid paralysis') }}", "cmd_10"],
     ["{{ _('Neonatal tetanus') }}", "cmd_9"],
@@ -226,8 +227,8 @@ function drawTable3(){
   html = "<table class='reports-table centered table table-hover table-condensed'>" +
     "<thead><th class='border-right'></th><th>Cases</th></thead>" +
     "<tr><td class='total'>{{ _('Number of alerts generated') }}</td><td>" + content.alerts.total + "</td></tr>" +
-    "<tr><td class='total'>{{ _('Number of alerts investigated') }}</td><td>" + content.alerts.investigated + 
-    "</td></tr></table>";  
+    "<tr><td class='total'>{{ _('Number of alerts investigated') }}</td><td>" + content.alerts.investigated +
+    "</td></tr></table>";
 
   $('.table3-wrapper').html( html );
 
@@ -263,9 +264,9 @@ function drawFromStruct( struct ){
       var cases = content.epi_monitoring[struct[i][1]];
 
       html += "<tr><td class='total key'>" + struct[i][0] + "</td>" +
-        "<td>" + cases + "</td>" +
+        "<td>" + format(cases) + "</td>" +
         "<td> 0 </td>" +
-        "<td class='total'>" + cases + "</td></tr>"
+        "<td class='total'>" + format(cases) + "</td></tr>"
 
     //If the "highlight" option is sepcified in the third array element.
     }else if( struct[i][2] == "lowlight" ){
@@ -275,9 +276,9 @@ function drawFromStruct( struct ){
       var total = deaths + cases;
 
       html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
-        "<td class='lowlight' >" + cases + "</td>" +
-        "<td class='lowlight' >" + deaths + "</td>" +
-        "<td class='total lowlight border-left'>" + total + "</td></tr>"
+        "<td class='lowlight' >" + format(cases - deaths) + "</td>" +
+        "<td class='lowlight' >" + format(deaths) + "</td>" +
+        "<td class='total lowlight border-left'>" + format(cases) + "</td></tr>"
 
     //Otherwise, just draw a standard table row using the first two elements of the array.
     //For extra customisation allow DOMClasses to be specified in the fourth array element.
@@ -289,15 +290,14 @@ function drawFromStruct( struct ){
       var domClass = struct[i][3];
 
       html += "<tr><td class='total key " + domClass + "'>" + i18n.gettext(struct[i][0]) + "</td>" +
-        "<td class='" + domClass + "'>" + cases + "</td>" +
-        "<td class='" + domClass + "'>" + deaths + "</td>" +
-        "<td class='total " + domClass + "'>" + total + "</td></tr>"
-    } 
+        "<td class='" + domClass + "'>" + format(cases - deaths) + "</td>" +
+        "<td class='" + domClass + "'>" + format(deaths) + "</td>" +
+        "<td class='total " + domClass + "'>" + format(cases) + "</td></tr>"
+    }
   }
-    
+
   html += "</table>";
   return html
 }
 </script>
 {% endblock extra_js %}
-

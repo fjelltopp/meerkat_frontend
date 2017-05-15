@@ -3061,7 +3061,7 @@ msgstr "Tableau 2 : Prévention du paludisme"
 
 #: meerkat_frontend/templates/reports/report_malaria.html:49
 msgid "Figure 1: Map of Reported Malaria Cases"
-msgstr "Figure 1 : Carte de surveillance épidémiologique hebdomadaire avec seuil"
+msgstr "Figure 1 : Carte de surveillance épidémiologique avec seuil"
 
 #: meerkat_frontend/templates/reports/report_malaria.html:134
 msgid "Number of consultations"
