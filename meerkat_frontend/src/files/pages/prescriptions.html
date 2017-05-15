@@ -31,18 +31,18 @@
 					<div class="chartBox__heading">
 						<p id="box_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
-							<a href="" onclick="showChartType('bar','gender-charts');return false;" class="bar">
+							<a href="" onclick="showChartType('bar','prescription-charts');return false;" class="bar">
 							</a> /
-							<a href="" onclick="showChartType('pie','gender-charts');return false;" class="pie">
+							<a href="" onclick="showChartType('pie','prescription-charts');return false;" class="pie">
 							</a> /
-							<a href="" onclick="exportTableToXLS('gender-table', 'gender'); return false;" class="csv">
+							<a href="" onclick="exportTableToXLS('prescription-table', 'prescription'); return false;" class="csv">
 							</a>
 						</div>
 					</div>
-					<div id="gender-charts" class="chartBox__content">
-						<div id="gender-bar-chart" class="bar chart"></div>
-						<div id="gender-pie-chart" class="pie chart hidden" ></div>
-						<div id="gender-table" class="table" ></div>
+					<div id="prescription-charts" class="chartBox__content">
+						<div id="prescription-bar-chart" class="bar chart"></div>
+						<div id="prescription-pie-chart" class="pie chart hidden" ></div>
+						<div id="prescription-table" class="table" ></div>
 					</div>
 				</div>
 			</div>
@@ -115,7 +115,7 @@
 <script>
  $("#location_box").html(i18n.gettext("Location:"));
  $("#location_title").html(i18n.gettext("Not Loaded"));
- $("#title").html(i18n.gettext('Demographics'));
+ $("#title").html(i18n.gettext('Prescriptions'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('Gender'));
@@ -156,7 +156,7 @@ function drawCharts( locID ){
 	var week = (get_epi_week()).toString();
 
 	//For each category draw a category summation.
-	var categories = ['gender', 'status', 'age'];
+	var categories = ['barcode_prescription'];
 	for( var i in categories ){
 		categorySummation({ category: categories[i],
 		                    locID: locID,
