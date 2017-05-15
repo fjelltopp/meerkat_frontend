@@ -13,10 +13,9 @@
       >
     </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
     <span> {{ _('AFRO Epidemiological Bulletin') }} </span>
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
+        {{_(report.data.project_region|e)}} &middot; {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
     </span>
   </h2>
 </div>
@@ -169,7 +168,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 1: Reported Priority Diseases, Conditions and Events by District, Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-          <div id="table_priority_diseases_id" class="table"></div>
+          <div id="table_priority_diseases_id" class="table reports-table"></div>
       </div>
     </div>
   </div>
@@ -181,7 +180,7 @@ cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Table 2: Summary of Priority Diseases, Conditions and Events for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
       <div class="chart-stage">
-          <div id="table_priority_diseases_cumulative_id" class="table"></div>
+          <div id="table_priority_diseases_cumulative_id" class="table reports-table small"></div>
       </div>
     </div>
   </div>
