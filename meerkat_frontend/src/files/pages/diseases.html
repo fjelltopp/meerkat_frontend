@@ -73,12 +73,13 @@ $("#menu-toggle").click(function(e) {
 });
 
 drawOptionsButtons('disease-table', 'reDraw');
-
 $("#epi-week-title").html( i18n.gettext("Week")+ " "+get_epi_week() + " · " + get_date() );
+callTableOptionButton($('#strip-button').get(), 'redraw');
 
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
   currentLocation = locID;
+
   reDraw();
 }
 
@@ -121,7 +122,6 @@ function reDraw(){
   $('.disease-table-option').each( function(){
       tableOptions[$(this).attr('name')] = $(this).attr('value');
   });
-  console.log( tableOptions );
 
   //Keep week abstracted out of the chart drawing process.
   //In case we want the user to be able to select the weeks to view.
@@ -162,7 +162,6 @@ function reDraw(){
       tableID: 'disease-table',
       percent: true,
       linkFunction: 'loadDisease',
-      strip: true,
       title: i18n.gettext(config.com_tab_title ? config.com_tab_title:'Communicable Diseases'),
       table_options: tableOptions,
       callback: function(data){
@@ -186,13 +185,17 @@ function reDraw(){
                   breakFrom = values[i+1];
               }
           }
+          breaks = []
+          if(maxDiff>200){
 
-          // Intelligently calculate the max value and the tick interval for the y axis.
-          var max = Math.max.apply(null, data.week);
-          max = max + 100 - (max % 100);
-          var tick = 100*Math.round((max - maxDiff)/300);
-          breakFrom  = breakFrom + tick - (breakFrom % tick);
-          breakTo = breakTo - tick/2 - ((breakTo - tick/2) % tick ) ;
+              // Intelligently calculate the max value and the tick interval for the y axis.
+              var max = Math.max.apply(null, data.week);
+              max = max + 100 - (max % 100);
+              var tick = 100*Math.round((max - maxDiff)/300);
+              breakFrom  = breakFrom + tick - (breakFrom % tick);
+              breakTo = breakTo - tick/4 - ((breakTo - tick/4) % tick ) ;
+              breaks.push({from: breakFrom, to: breakTo, breakSize: tick/3});
+          }
 
           // Draw the CD Chart
           barChartOptions = {
@@ -211,7 +214,7 @@ function reDraw(){
                   max: max,
                   title: {text: i18n.gettext('Number of cases'), align: 'high'},
                   labels: {overflow: 'justify'},
-                  breaks: [{from: breakFrom, to: breakTo, breakSize: tick/3}],
+                  breaks: breaks,
                   tickInterval: tick,
                   events: {
                       pointBreak: pointBreakColumn

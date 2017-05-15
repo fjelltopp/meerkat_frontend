@@ -211,10 +211,7 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
         sum[3]=data.year[i]+sum[3];
     }
 
-    if(tableOptions.strip == "true"){
-        var r = stripRows(dataPrepared);
-        data = r;
-    }
+    if(tableOptions.strip == "true") dataPrepared = stripRows(dataPrepared);
 
     //if(tableOptions.colour == "true"){
         for(var k = 0; k < columns.length; k++){
@@ -1289,27 +1286,27 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
     var count = 0;
     var row = table[0].rows[1].cells[0].innerHTML;
     var saveIndex = 0;
-    
+
     console.log(rowLength, row);
-    
-    for (i = 1; i < rowLength; i++) {        
+
+    for (i = 1; i < rowLength; i++) {
         if (row === table[0].rows[i].cells[0].innerHTML) {
             console.log('yes, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             count++;
-            
+
             if(i == rowLength - 1)
             {
                 console.log('last entry, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             	  mergeRows('#' + containerID + ' table',saveIndex, count);
             }
-                
+
         } else {
             mergeRows('#' + containerID + ' table',saveIndex, count);
-            
+
             row = table[0].rows[i].cells[0].innerHTML;
             saveIndex = i - 1;
             count = 1;
-            
+
             console.log('no, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             /*
             */
