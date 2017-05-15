@@ -1,46 +1,59 @@
-
 // This will be the main function for the over viewpage...
 function build_overview_page(locID) {
     //Read the Overview page structure ...
     var overview_list = config.overview;
 
-    //Create the Html for the boxes ...
-    var html_builder = "";
-
     $.each(overview_list, function(index, value) {
-        html_builder = html_builder + html_box_builder(value,locID);
+        html_box_builder(value, locID);
     });
-
-    //Inject the HTML ...
-    $('#div_Overview_Content').append(html_builder);
 }
 
+
 function html_box_builder(currentObj, locID) {
+    var overview_api_result = [];
+    var overview_api_counter = 0;
+    var html_builder = "";
+
     //Build the header for the box ...
-    var html_box = "<div class='col-xs-12 " +  currentObj.html_class + " less-padding-col'> <div class='chartBox box' >" +
+    html_builder = html_builder + "<div class='col-xs-12 " + currentObj.html_class + " less-padding-col'> <div class='chartBox box' >" +
         "<div class = 'chartBox__heading' > <p id = '#box_heading'>" + currentObj.title + "</p> </div>" +
         "<div class = 'chartBox__content' > " +
         "<div id = 'use-table' class = 'table' >" +
-        "<table class = 'table table-hover table-condensed' > <tbody> ";
+        "<table class = 'table table-hover table-condensed'> <tbody> ";
 
     //Build the body for the box ...
     $.each(currentObj.contents, function(index, value) {
+        overview_api_counter = overview_api_counter + 1;
+
+        html_builder = html_builder + "<tr><td>" + value.label + "</td> <td> " + value.api + " </td> </tr>";
 
         // Get the inner value for the boxes by calling the APIs ...
-        $.getJSON( api_root + value.api, function(data ){
+        var apiUrl = value.api.replace("<loc_id>", locID);
+        $.getJSON(api_root + apiUrl, function(data) {
+
             var apiValue;
-            if(typeof api_result == 'undefined'){
+            if (typeof data == 'undefined') {
                 apiValue = 0;
             } else {
-                apiValue = api_result.value;
+                apiValue = data.value;
             }
-            //TODO: Prepare and draw html.
-            //html_box = html_box + "<tr> <th scope = 'row' colspan = '2' >" + value.label + "</th> </tr>";
-            //html_box = html_box + "<tr><td>" + value.label + "</td> <td>" + apiValue + "</td> </tr>";
-        })
+
+            //fill the array ...
+            overview_api_result.push({
+                api_url: value.api,
+                api_data: apiValue
+            });
+
+            //Check if the Json is ready and the data are Pushed ...
+            if (overview_api_result.length === currentObj.contents.length) {
+                $.each(overview_api_result, function(index, value) {
+                    html_builder = html_builder.replace(value.api_url, value.api_data);
+                });
+                $('#div_Overview_Content').append(html_builder);
+            }
+        });
     });
 
     //Build the box footer ...
-    html_box = html_box + "</tbody> </table> </div> </div> </div> </div>";
-    return html_box;
+    html_builder = html_builder + "</tbody> </table> </div> </div> </div> </div>";
 }
