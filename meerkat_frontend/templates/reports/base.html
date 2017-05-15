@@ -11,7 +11,7 @@
         <a class="navbar-brand scroll-top" href="#">
           <!--<img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}">
               </img> -->
-          <span class="hidden-xs"><b>{{_(content.country)|safe}} </b> &middot; {{ _('Reports') }} {{_(content.titles.mob_nav)|safe}}</span>
+          <span class="hidden-xs">{{_(content.titles.get('reports', content.titles.nav))|safe}}</span>
           <span class="visible-xs">{{_(content.titles.mob_nav)|safe}}</span>
         </a>
       </div>
