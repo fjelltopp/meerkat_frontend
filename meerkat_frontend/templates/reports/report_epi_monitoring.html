@@ -121,11 +121,13 @@ drawTable3();
 function prepareMortData(){
   
   var mort_keys = Object.keys(content.deaths);
-  for( var i=0; i< mort_keys.length; i++ ){
-    var new_key = mort_keys[i].replace("mor", "cmd");
-      content.deaths[new_key] = content.deaths[mort_keys[i]];
-    delete content.deaths[mort_keys[i]];
-  }
+	 for( var i=0; i< mort_keys.length; i++ ){
+		 if( mort_keys[i] != "mor_29" && mort_keys[i] != "mor_30"){
+			 var new_key = mort_keys[i].replace("mor", "cmd");
+			 content.deaths[new_key] = content.deaths[mort_keys[i]];
+			 delete content.deaths[mort_keys[i]];
+		 }
+	 }
      content.deaths["epi_1"] = content.deaths["mor_29"];
      content.deaths["epi_7"] = content.deaths["mor_30"];
 }
@@ -159,7 +161,7 @@ function drawTable1(){
     html += "<td>" + datum + "</td>";
   }  
 
-  html += "<td class='total'>" + content.mat_mortality[ mat_keys[0] ] + "</td></tr>";
+  html += "<td class='total'>" + format(content.mat_mortality[ mat_keys[0] ]) + "</td></tr>";
   html += "</table>";
 
   $('.table1-wrapper').html(html);
@@ -263,9 +265,9 @@ function drawFromStruct( struct ){
       var cases = content.epi_monitoring[struct[i][1]];
 
       html += "<tr><td class='total key'>" + struct[i][0] + "</td>" +
-        "<td>" + cases + "</td>" +
+        "<td>" + format(cases) + "</td>" +
         "<td> 0 </td>" +
-        "<td class='total'>" + cases + "</td></tr>"
+        "<td class='total'>" + format(cases) + "</td></tr>"
 
     //If the "highlight" option is sepcified in the third array element.
     }else if( struct[i][2] == "lowlight" ){
@@ -275,9 +277,9 @@ function drawFromStruct( struct ){
       var total = deaths + cases;
 
       html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
-        "<td class='lowlight' >" + cases + "</td>" +
-        "<td class='lowlight' >" + deaths + "</td>" +
-        "<td class='total lowlight border-left'>" + total + "</td></tr>"
+        "<td class='lowlight' >" + format(cases - deaths) + "</td>" +
+        "<td class='lowlight' >" + format(deaths) + "</td>" +
+        "<td class='total lowlight border-left'>" + format(cases) + "</td></tr>"
 
     //Otherwise, just draw a standard table row using the first two elements of the array.
     //For extra customisation allow DOMClasses to be specified in the fourth array element.
@@ -289,9 +291,9 @@ function drawFromStruct( struct ){
       var domClass = struct[i][3];
 
       html += "<tr><td class='total key " + domClass + "'>" + i18n.gettext(struct[i][0]) + "</td>" +
-        "<td class='" + domClass + "'>" + cases + "</td>" +
-        "<td class='" + domClass + "'>" + deaths + "</td>" +
-        "<td class='total " + domClass + "'>" + total + "</td></tr>"
+        "<td class='" + domClass + "'>" + format(cases - deaths) + "</td>" +
+        "<td class='" + domClass + "'>" + format(deaths) + "</td>" +
+        "<td class='total " + domClass + "'>" + format(cases) + "</td></tr>"
     } 
   }
     
