@@ -702,10 +702,11 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    :param int compare_locations
    Show lines to compare locations for completeness graph
    */
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max){
+            function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max, matrixID){
     var timelinessLocations;
     var timelinessData;
-	if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
+    var matrixTimelinessData;
+  if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
 
     if( start_week === undefined) start_week = 1;
     var deferreds = [
@@ -715,9 +716,12 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
 
     if(exclude){
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "/" + non_reporting_variable,function( data ){timelinessData = data;}));
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "?sublevel=district",function( data ){matrixTimelinessData = data;}));
     }else{
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "/" + non_reporting_variable,
                                    function( data ){timelinessData = data; }));
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "?sublevel=district",
+                                   function( data ){matrixTimelinessData = data; }));
     }
 
     $.when.apply( $, deferreds ).then(function() {
@@ -725,6 +729,9 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
         drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations,x_axis_max );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
+        if(matrixID !== undefined){
+            drawCompletenessMatrix( matrixID, locID, denominator, timelinessLocations, matrixTimelinessData, start_week, 0 );
+        }
     } );
 }
 
