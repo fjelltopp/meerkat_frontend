@@ -1187,6 +1187,7 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         // console.log("XXX: index:");
         // console.log(index);
         whole_loc_timeline = data.timeline[index];
+        year_loc_val = data.yearly_score[index];
         // console.log("XXX: whole_loc_timeline:");
         // console.log(whole_loc_timeline);
         var loc_record = [];//whole data for location
@@ -1208,13 +1209,15 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         if(locations[index].id !== regionID){//Total
             table_datum = {
                 "name": locations[index].name,
-                "region": locations[locations[index].parent_location].name
+                "region": locations[locations[index].parent_location].name,
+                "year": Number(year_loc_val).toFixed(0)
                 // "data": loc_record
             };
         }else{
             table_datum = {
-                "name": "Madagascar",
-                "region": "-Total-"
+                "name": locations[index].name,
+                "region": "-Total-",
+                "year": Number(year_loc_val).toFixed(0)
             };
         }
 
@@ -1226,6 +1229,7 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         {
             table_datum["week" + l] = loc_record[l][1];
         }
+
         // console.log("XXX: table datum:");
         // console.log(table_datum);
         table_data.push(table_datum);
@@ -1268,6 +1272,13 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
             });
         }
     }
+    columns.push({
+        "field": "year",
+        "title": "Year",
+        "align": "center",
+        "class": "value",
+        "cellStyle": createCompletenessMatrixCellTab()
+    });
 
     $('#' + containerID + ' table').bootstrapTable('destroy');
     $('#' + containerID + ' table').remove();
