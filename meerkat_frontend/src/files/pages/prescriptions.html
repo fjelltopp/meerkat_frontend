@@ -26,7 +26,6 @@
 
 	<div id="page-content-wrapper">
 		<div class="row">
-			<div class="col-xs-12 col-md-6 less-padding-col">
 				<div class="chartBox box">
 					<div class="chartBox__heading">
 						<p id="box_heading" style="display: inline"> </p>
@@ -45,68 +44,7 @@
 						<div id="prescription-table" class="table" ></div>
 					</div>
 				</div>
-			</div>
-			<div class="col-xs-12 col-md-6 less-padding-col">
-				<div class="chartBox box">
-					<div class="chartBox__heading" >
-						<p id="box_2_heading" style="display: inline"> </p>
-						<div class="box__type-selector pull-right">
-							<a href="" onclick="showChartType('bar','prescription-charts');return false;" class="bar">
-							</a> /
-							<a href="" onclick="showChartType('pie','prescription-charts');return false;" class="pie">
-							</a>/
-							<a href="" onclick="exportTableToXLS('prescription-table', 'prescription'); return false;" class="csv">
-							</a>
-						</div>
-					</div>
-					<div id="prescription-charts" class="chartBox__content">
-						<div id="prescription-bar-chart" class="bar chart"></div>
-						<div id="prescription-pie-chart" class="pie chart hidden" ></div>
-						<div id="prescription-table" class="table" ></div>
-					</div>
-				</div>
-			</div>
 		</div>
-
-		<div class="row">
-			<div class="col-xs-12 col-md-6 less-padding-col">
-				<div class="chartBox box">
-					<div class="chartBox__heading">
-						<p id="box_3_heading" style="display: inline"> </p>
-						<div class="box__type-selector pull-right">
-							<a href="" onclick="showChartType('bar','age-charts');return false;" class="bar"></a> /
-							<a href="" onclick="showChartType('pie','age-charts');return false;" class="pie"></a> /
-							<a href="" onclick="exportTableToXLS('age-table','age'); return false;" class="csv">
-							</a>
-						</div>
-					</div>
-					<div id="age-charts" class="chartBox__content">
-						<div id="age-bar-chart" class="bar chart"></div>
-						<div id="age-pie-chart" class="pie chart hidden" ></div>
-						<div id="age-table" class="table" ></div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-md-6 less-padding-col">
-				<div class="chartBox box">
-					<div class="chartBox__heading" >
-						<p id="box_4_heading" style="display: inline"> </p>
-						<div class="box__type-selector pull-right">
-							<a href="" onclick="showChartType('bar','status-charts');return false;" class="bar"></a> /
-							<a href="" onclick="showChartType('pie','status-charts');return false;" class="pie"></a> /
-							<a href="" onclick="exportTableToXLS('status-table', 'status'); return false;" class="csv">
-							</a>
-						</div>
-					</div>
-					<div id="status-charts" class="chartBox__content">
-						<div id="status-bar-chart" class="bar chart"></div>
-						<div id="status-pie-chart" class="pie chart hidden" ></div>
-						<div id="status-table" class="table" ></div>
-					</div>
-				</div>
-			</div>
-		</div>
-
 	</div>
 </div>
 <div class="breaker"></div>
@@ -118,7 +56,7 @@
  $("#title").html(i18n.gettext('Prescriptions'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
- $("#box_heading").html(i18n.gettext('Gender'));
+ $("#box_heading").html(i18n.gettext('Prescriptions'));
  $("#box_2_heading").html(i18n.gettext('Nationality'));
  $("#box_3_heading").html(i18n.gettext('Age'));
  $("#box_4_heading").html(i18n.gettext('Status'));
