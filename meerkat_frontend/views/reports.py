@@ -13,17 +13,13 @@ from meerkat_frontend import common as c
 import dateutil.parser
 from ..common import add_domain
 import dateutil.relativedelta
-import pdfcrowd
 import json
 import os
-import shutil
-from zipfile import ZipFile, ZIP_DEFLATED
 import uuid
 import subprocess
 import time
-import requests
-from bs4 import BeautifulSoup
 from selenium import webdriver
+
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 
@@ -137,11 +133,13 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
             start_date=start_date
         )
 
-        relative_url = url_for('.report',
-                                report=report,
-                                location=None,
-                                end_date=None,
-                                start_date=None)
+        relative_url = url_for(
+            '.report',
+            report=report,
+            location=None,
+            end_date=None,
+            start_date=None
+        )
         report_url = c.add_domain(relative_url)
 
 
@@ -244,7 +242,11 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         test_id = "-" + str(datetime.now().time().isoformat())
         test_sub = "TEST {} | ".format(current_app.config['DEPLOYMENT'])
 
+    app.logger.debug(test_sub)
+
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
+
+        app.logger.debug("creating report")
 
         ret = create_report(
             config=current_app.config,
@@ -253,6 +255,8 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             end_date=end_date,
             start_date=start_date
         )
+
+        app.logger.debug(ret)
 
         relative_url = url_for('reports.report',
                                report=report,
@@ -291,7 +295,6 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         epi_week = ret['report']['data']['epi_week_num']
         start_date = datetime_from_json(ret['report']['data']['start_date'])
         end_date = datetime_from_json(ret['report']['data']['end_date'])
-
 
         if report_list[report]['default_period'] == 'month':
             subject = '{test_subject}{country} | {title} ({start_date} - {end_date})'.format(
@@ -628,33 +631,40 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     # try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
-    access = report_list[report].get( 'access', '' )
+    access = report_list[report].get('access', '')
 
     # Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:
-        auth.check_auth( [access], [current_app.config['SHARED_CONFIG']['auth_country']] )
+        auth.check_auth(
+            [access],
+            [current_app.config['SHARED_CONFIG']['auth_country']]
+        )
 
     if not location:
         location = current_app.config['REPORTS_CONFIG']['default_location']
 
     api_request = '/reports'
     api_request += '/' + report_list[report]['api_name']
-    if( location != None ): api_request += '/' + str(location)
+    if location is not None:
+        api_request += '/' + str(location)
+    app.logger.debug('setting start date and end date')
     if start_date is None and end_date is None:
         if "default_period" in report_list[report].keys():
             period = report_list[report]["default_period"]
-
             today = datetime.today()
+            app.logger.debug('Default period specified')
             if period == "week":
+                app.logger.debug('Default period is week')
                 epi_week = c.api('/epi_week')
                 # Calulation for start date is: month_day - ( week_day-week_offset % 7) - 7
                 # The offset is the #days into the current epi week.
                 offset = (today.weekday() - epi_week["offset"]) % 7
                 # Start date is today minus the offset minus one week.
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
+                app.logger.debug('start date is ' + str(start_date))
                 # End date is today minus the offset, minus 1 day (because our end date is "inclusive")
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 1)
-
+                app.logger.debug('start date is ' + str(end_date))
             elif period == "month":
                 start_date = datetime(today.year, today.month, 1) - dateutil.relativedelta.relativedelta(months=1)
                 end_date = datetime(today.year, today.month, 1) - timedelta(days=1)
@@ -664,6 +674,8 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             if start_date and end_date:
                 start_date = start_date.isoformat()
                 end_date = end_date.isoformat()  # To include the the end date
+
+
     if(end_date is not None):
         api_request += '/' + end_date
     if(start_date is not None):
@@ -676,8 +688,10 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         else:
             params = None
 
+    app.logger.debug('Getting data')
     data = c.api(api_request, api_key=True, params=params)
     data["flag"] = config["FLAGG_ABR"]
+    app.logger.debug("DATA: " + str(data))
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:
         # Extra parsing for natural language bullet points
