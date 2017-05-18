@@ -49,7 +49,7 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         # Mock check_auth method. Authentication should be tested properly else
         # where.
         self.patcher = mock.patch(
-            'authorise.check_auth',
+            'meerkat_libs.auth_client.auth.check_auth',
             side_effect=side_effect
         )
         self.mock_auth = self.patcher.start()

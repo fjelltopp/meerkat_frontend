@@ -16,6 +16,7 @@ $printedBlue: #337ab7;
 
 @media print {
 
+
 	//We only want this CSS to apply to html report pages.
 	body.htmlreport{
 
@@ -211,6 +212,9 @@ $printedBlue: #337ab7;
         background: $darkGrey !important;
         border: none;
       }
+
+
+
 		}
 		.table-wrapper, .small-table-wrapper{
 			border-radius: 0;
@@ -241,6 +245,36 @@ $printedBlue: #337ab7;
       }
 
   }
+  .awesome-marker i {
+  /* color: #333; */
+	  margin-top: 10px;
+	  display: inline-block;
+	  font-size: 14px;
+  }
+  .awesome-marker-shadow {
+      background: url(images/markers-shadow.png) no-repeat 0 0 !important;
+  }
+
+	  .awesome-marker .icon-white {
+	  color: #fff !important;
+  }
+  .awesome-marker {
+	  background: url(images/markers-soft.png) !important;
+  }
+  .awesome-marker-icon-blue {
+	  background-position: -108px 0 !important;
+  }
+
+    }
+ 
+  .marker-legend {
+	padding: 10px 10px;
+    font: 10px sans-serif;
+    background: white !important;
+    background: rgba(255,255,255,0.8) !important;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+
 
   .reports-table{
     font-size: 12px;
@@ -258,7 +292,12 @@ $printedBlue: #337ab7;
   .leaflet-control-zoom {
     display: none;
   }
+  .small-text {
+	  p {
+		  font-size: 12px;
+	  }
 
+  }
 }
 
 
@@ -267,6 +306,62 @@ $printedBlue: #337ab7;
     height: 350px;
     display: block;
 }
+#district-completeness-column-cd-report{
+    height: 300px;
+    display: block;
+}
 #ncd-chart-demographics{
     height:300px;
+}
+.reporting-sites-small{
+    height:300px;
+}
+.diseases-small{
+    height:370px;
+}
+
+
+@media print{
+		.mh-cell{
+			font-size:11px !important;
+			padding: 0px !important;
+		}
+
+		.mh-row{
+			page-break-before: always;
+		}
+
+		.mh-column-title{
+			font-size:9px !important;
+			padding: 0px !important;
+		}
+
+		.mh-chart-title{
+			display: none !important;
+		}
+
+		.pip-table{
+			page-break-before: always;
+		}
+
+        .break-after{
+            page-break-after: always;
+        }
+        .facility-title{
+            margin: 20px 0px 20px;
+        }
+        .footer__logos img {
+            max-height:85px;
+        }
+	}
+
+@media print{
+		.awesome-marker .icon-white {
+			color: #fff !important;
+		}
+
+		.awesome-marker .icon-white:before {
+			color: #fff !important;
+		}
+
 }

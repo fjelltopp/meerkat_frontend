@@ -1,7 +1,8 @@
 function get_translator(translations_url){
 
-	if(language === undefined){
-		var langauge = "en";
+	if(language === undefined || language == "None"){
+        console.log(language == "None");
+		language = "en";
 	}
     if(translations_url === undefined){
         translations_url = "/static/translations/"+language+"/LC_MESSAGES/messages.json";

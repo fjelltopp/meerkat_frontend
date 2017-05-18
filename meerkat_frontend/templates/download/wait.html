@@ -18,11 +18,12 @@
             <div class="col-xs-12 less-padding-col">
                 <div class="box chartBox">
                     <div class="chartBox__heading" id='heading'>
-                        {{ _('Your data set is being prepared...') }}
+                        {{ _('Your data set is being prepared.') }}
                     </div>
                     <div class="chartBox__content" >
                         <div class='breaker'></div>
                         <div class='clearfix'>
+							<div id="progressbar"></div>
                             <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
                                 <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
                             </div>
@@ -47,6 +48,7 @@
                             </div>
                         </div>
                         <div class='breaker'></div>
+
                         <p class='col-sm-offset-1'> <b>Current Status:</b> <span id="status"> </span></p>
 
                     </div>
@@ -68,23 +70,22 @@
  url ='{{api_url|safe}}';
  var uuid = "";
  interval = ""
+ url += "&language=" + language;
  console.log(url)
+	//Function to call progress bar
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
          if(data){
              console.log(data);
              if(data.status == 1){
                  if(data.success == 1){
-
                      t = i18n.gettext("Data set was sucesfully generated.")
-
                      $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
                      $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
                      $("#spinner").hide();
                      $('#download-button').show();
                      $("#heading").html(t);
                      $("#status").html("Finished");
-
                  }else{
                      t = i18n.gettext("Data set generation was unsuccessful");
                      $("#heading").html(t);
@@ -93,25 +94,22 @@
                  }
                  clearInterval(interval)
              }else{
-                 t = i18n.gettext("Dataset is still being prepared, please wait.")
+							 	 //progressbar added here
+                 t = i18n.gettext("Dataset is still being prepared, please wait. Currently it is " +Math.round(data.status * 100) + " % finished.")
                  $("#status").html(t)
              }
-
          }
      });
  }
-
  $.getJSON(url, function( data ){
      uuid = data;
-
+     url
      $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
-
+		 $("#progressbar").show();
          interval = setInterval(function() {
              check_status()
          }, 5000);
      });
-
-
 </script>
 
 {% endblock pageJS %}

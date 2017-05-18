@@ -1,4 +1,4 @@
-body.technical, body.messaging, body.download, body.explore{
+body.technical, body.messaging, body.download, body.explore, body.default{
 	padding: 50px 0px 0px;
 	color: $textGrey;
 	background: $lightGrey;
@@ -22,6 +22,9 @@ body.technical, body.messaging, body.download, body.explore{
 	}
 	.map-small{
 		height: 600px;
+	}
+	.map-very-small{
+		height: 450px;
 	}
 }
 

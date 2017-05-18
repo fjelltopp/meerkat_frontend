@@ -4,16 +4,15 @@
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-    <span
-      class="flag-icon flag-icon-{{report.flag}}"
-      style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
-    >
+    <span class="flag-icon flag-icon-{{report.flag}}"
+          style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;">
     </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Central Emergency Response Fund (CERF) Bulletin') }}
+    {{ _('Androy Central Emergency Response Fund (CERF) Bulletin') }}
     <span class="report-week">
-	{{ report.data.start_date|datetime_from_json|datetime("dd MMMM YYYY") }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
+	    {{_(report.data.project_region|e)}} &middot; {{ report.data.start_date|datetime_from_json|datetime("dd MMMM YYYY") }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
+
   </h2>
 </div>
 <div class="row">

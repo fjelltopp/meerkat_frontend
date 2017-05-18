@@ -14,6 +14,7 @@ var rsync = require('gulp-rsync');
 var argv = require('yargs').argv;
 var po2json = require('gulp-po2json');
 var mainBowerFiles = require('main-bower-files');
+var addsrc = require('gulp-add-src');
 
 // ** SASS/SCSS/CSS PLUGINS ** //
 var sass = require('gulp-sass');
@@ -51,8 +52,8 @@ gulp.task('vendorJS', function() {
     'node_modules/tree-model/dist/TreeModel-min.js',
     'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
     'bower_components/jed/jed.js',
-
-    ]))
+    'bower_components/highcharts/modules/treemap.js',
+    'bower_components/highcharts/modules/broken-axis.js']))
     .pipe(filter('*.js'))
  //   .pipe(sourcemaps.init())
     .pipe(gulpif(production, uglify()))
@@ -118,7 +119,8 @@ gulp.task('mapbox-rename-css-to-scss', function() {
       'bower_components/intl-tel-input/build/css/intltelInput.css',
       'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
       'bower_components/bootstrap-table/src/bootstrap-table.css',
-      'bower_components/featherlight/src/featherlight.css'
+      'bower_components/featherlight/src/featherlight.css',
+	  'bower_components/leaflet.awesome-markers/dist/leaflet.awesome-markers.css'
     ])
     .pipe(rename(function(path) {
       path.extname = ".scss"
@@ -150,7 +152,9 @@ gulp.task('copyFlags', function() {
 });
 
 gulp.task('copyMapMarkers', function() {
-  return gulp.src(['bower_components/mapbox.js/images/**/*'])
+	return gulp.src(['bower_components/mapbox.js/images/**/*',
+					 'bower_components/leaflet.awesome-markers/dist/images/**/*'
+					])
     .pipe(gulp.dest('meerkat_frontend/static/css/images'));
 });
 
@@ -159,9 +163,9 @@ gulp.task('img', function() {
   return gulp.src([
     'meerkat_frontend/src/img/**/*.{gif,jpg,png,svg}',
     'bower_components/Leaflet.fullscreen/src/*.png',
-    'bower_components/intl-tel-input/build/img/*.png'
-  ])
-    .pipe(imagemin({
+    'bower_components/intl-tel-input/build/img/*.png',
+    '!meerkat_frontend/src/img/optimised/*.{gif,jpg,png,svg}'
+  ]).pipe(imagemin({
       optimizationLevel: 3,
       progressive: true,
       svgoPlugins: [{
@@ -170,15 +174,15 @@ gulp.task('img', function() {
       use: [
         pngquant(),
         optipng({
-          optimizationLevel: 3
+        optimizationLevel: 3
         }),
         jpegoptim({
           max: 50,
           progressive: true
         }),
       ]
-    }))
-    .pipe(gulp.dest('meerkat_frontend/static/img/'));
+  })).pipe(addsrc('meerkat_frontend/src/img/optimised/*.{gif,jpg,png,svg}'))
+  .pipe(gulp.dest('meerkat_frontend/static/img/'));
 });
 
 //COPY OTHER FILES

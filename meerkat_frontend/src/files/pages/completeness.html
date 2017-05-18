@@ -52,10 +52,27 @@
       </div>
 
     </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12 less-padding-col">
+            <div class="chartBox box" id="completeness-matrix-box">
+                <div class="chartBox__heading pointer" onclick='toggleMatrix();return false;'>
+                    <p id="box_5_heading" style="display: inline"> </p>
+                    <div class="box__type-selector pull-right">
+                        <a href="" onclick="event.stopImmediatePropagation();$('#completeness-matrix').tableExport({type:'xls', fileName: 'completeness_matrix'});return false;" class="csv">
+                        </a>
+                    </div>
+                </div>
+                <div class="chartBox__content" id="completeness-matrix-content">
+                    <div id="completeness-matrix" class="table">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
       <div class="col-xs-12 col-md-4 less-padding-col">
-        <div class="chartBox box" id="missing_clinics_box">
+          <div class="chartBox box" id="missing_clinics_box">
           <div class="chartBox__heading pointer" id="box_3_heading" onclick='toggleMissingClinics();return false;'>
           </div>
         <div class="chartBox__content" id="missing_clinics_content">
@@ -98,6 +115,7 @@
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('Completeness')  + " (" + i18n.gettext('Week') + ' ' + prev_week + ")");
  $("#box_2_heading").html(i18n.gettext('Completeness by week'));
+ $("#box_5_heading").html(i18n.gettext('Completeness Matrix'));
  $("#box_3_heading").html(i18n.gettext('Reporting sites never reported'));
  $("#box_4_heading").html(i18n.gettext('Completeness by clinic') + " (" + i18n.gettext('Week') + ' ' + prev_week + ")");
  $(".csv").each(function(){
@@ -128,7 +146,7 @@ function drawCharts( locID ){
 }
 
  function reDraw(){
-     completenessPreparation( currentLocation, 'reg_1',config.completeness_denominator.all, 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table', 1, "None", config.weekend, '#compare_button' );
+     completenessPreparation( currentLocation, 'reg_1',config.completeness_denominator.all, 'completeness-graph', 'completeness-table', 'missing-completeness-table', '#box_3_heading', 'all-clinics-table', 1, "None", config.weekend, '#compare_button', undefined, 'completeness-matrix');
  }
 function toggleAllClinics(){
     $("#all_clinics_box .chartBox__heading").toggleClass("no-border");
@@ -138,6 +156,11 @@ function toggleAllClinics(){
 function toggleMissingClinics(){
     $("#missing_clinics_box .chartBox__heading").toggleClass("no-border");
     $("#missing_clinics_content").slideToggle("slow");
+}
+
+function toggleMatrix(){
+    $("#completeness-matrix-box .chartBox__heading").toggleClass("no-border");
+    $("#completeness-matrix-content").slideToggle("slow");
 }
 
 </script>

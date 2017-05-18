@@ -44,15 +44,23 @@
                 ]
             }
         },
-        "end_date": "2016-01-22T14:12:55.134805",
-	"start_date": "2016-01-01T14:12:55.134805",
-        "epi_week_num": 2,
-        "project_epoch": "2016-01-01T00:00:00"
     },
-    "meta": {
-        "generation_timestamp": "2016-01-13T14:12:55.135011",
-        "project_id": 1,
-        "schema_version": 0.1,
-        "uuid": "58f1a434-0082-429a-9257-62154162c078"
+
+	
+    "end_date": "2016-01-22T14:12:55.134805",
+	"start_date": "2016-01-01T14:12:55.134805",
+	"variables":{
+		"Bloody diarrhoea": "individual",
+		"Pertussis": "individual",
+		"Viral meningitis": "individual",
+	}
+    "epi_week_num": 2,
+    "project_epoch": "2016-01-01T00:00:00"
+},
+"meta": {
+    "generation_timestamp": "2016-01-13T14:12:55.135011",
+    "project_id": 1,
+    "schema_version": 0.1,
+    "uuid": "58f1a434-0082-429a-9257-62154162c078"
     }
 }

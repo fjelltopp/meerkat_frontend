@@ -4,7 +4,8 @@ meerkat_frontend.py
 This module runs as the Flask app from app.py and mounts component Flask apps
 for different services such as the API and Reports.
 """
-from .app import app, babel
+from .app import app, babel, sentry
+from meerkat_libs.auth_client import auth
 from slugify import slugify
 from flask import render_template, request, Blueprint
 from flask import current_app, abort, flash, g, redirect
@@ -15,12 +16,14 @@ from .views.reports import reports
 from .views.messaging import messaging
 from .views.download import download
 from .views.explore import explore
-import authorise as auth
+from .views.file_util import dropbox_bp
+from .views.file_util import s3_files_bp
 import os
 import json
 
 
 # App has been imported at the top of this file. We now add crucial services...
+
 
 # Paths specified in config file
 def prepare_function(template, config, authentication=False):
@@ -62,6 +65,16 @@ def get_locale():
     return g.get("language", app.config["DEFAULT_LANGUAGE"])
 
 
+# Show the blank template.
+@app.route("/template/")
+def location():
+    return render_template(
+        'template.html',
+        week=c.api('/epi_week'),
+        content=current_app.config['SHARED_CONFIG']
+    )
+
+
 @messaging.url_value_preprocessor
 @reports.url_value_preprocessor
 @download.url_value_preprocessor
@@ -69,6 +82,8 @@ def get_locale():
 @technical.url_value_preprocessor
 @homepage.url_value_preprocessor
 @extra_pages.url_value_preprocessor
+@dropbox_bp.url_value_preprocessor
+@s3_files_bp.url_value_preprocessor
 def pull_lang_code(endpoint, values):
     language = values.pop('language')
     if language not in app.config["SUPPORTED_LANGUAGES"]:
@@ -83,6 +98,8 @@ def pull_lang_code(endpoint, values):
 @homepage.url_defaults
 @technical.url_defaults
 @extra_pages.url_defaults
+@dropbox_bp.url_defaults
+@s3_files_bp.url_defaults
 def add_language_code(endpoint, values):
     values.setdefault('language', app.config["DEFAULT_LANGUAGE"])
 
@@ -95,6 +112,8 @@ app.register_blueprint(reports, url_prefix='/<language>/reports')
 app.register_blueprint(messaging, url_prefix='/<language>/messaging')
 app.register_blueprint(download, url_prefix='/<language>/download')
 app.register_blueprint(explore, url_prefix='/<language>/explore')
+app.register_blueprint(dropbox_bp, url_prefix='/<language>/files')
+app.register_blueprint(s3_files_bp, url_prefix='/<language>/s3_files')
 
 
 @app.template_filter('slugify')
@@ -155,6 +174,8 @@ def error500(error):
        Args:
            error (int): The error code given by the error handler.
     """
+    if sentry:
+        sentry.captureException()
     flash("Sorry, something appears to have gone wrong.", "error")
     return render_template(
         'error.html',
@@ -173,4 +194,9 @@ def error401(error):
 
 # Main
 if __name__ == "__main__":
-    app.run(host="localhost", port="8080", debug=True, reloader=True)
+    app.run(
+        host="localhost",
+        port="8080",
+        debug=True,
+        reloader=True
+    )

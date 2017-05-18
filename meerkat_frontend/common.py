@@ -6,8 +6,7 @@ Shared functions for meerkat_frontend.
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from flask import abort, request
-from meerkat_frontend import app
-import authorise as auth
+from meerkat_frontend import app, auth
 import requests
 import logging
 import json
@@ -45,13 +44,15 @@ def api(url, api_key=False, params=None):
             if r.status_code == 502:
                 abort(500, "Can not access the api at " + api_uri)
         except requests.exceptions.RequestException as e:
+            logging.error("Failed to access the API.")
             logging.error(e)
-            abort(500, e)
+            abort(500, "Failed to access the API.")
         try:
             output = r.json()
         except Exception as e:
+            logging.error("Failed to convert API response to JSON.")
             logging.error(e)
-            abort(500, r)
+            abort(500, "Failed to convert API response to JSON.")
         return output
 
 
@@ -82,10 +83,17 @@ def hermes(url, method, data={}):
     try:
         r = requests.request(method, url, json=data, headers=headers)
         logging.warning(r)
-    except requests.exceptions.RequestException:
-        print("hei")
-        abort(500, "request")
-    return r.json()
+    except requests.exceptions.RequestException as e:
+        logging.error("Failed to access Hermes.")
+        logging.error(e)
+        abort(500, "Problem accessing the messaging api.")
+    try:
+        output = r.json()
+    except Exception as e:
+        logging.error('Failed to convert Hermes response to json.')
+        logging.error(e)
+        abort(500, 'Messaging API response could not be converted to json.')
+    return output
 
 
 def epi_week_to_date(epi_week, year=datetime.today().year):

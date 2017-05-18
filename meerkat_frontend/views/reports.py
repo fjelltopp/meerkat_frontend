@@ -3,25 +3,27 @@ reports.py
 
 A Flask Blueprint module for reports.
 """
-from flask import Blueprint, render_template, abort, redirect, g
-from flask import url_for, request, send_file, current_app, Response
+from flask import Blueprint, render_template, abort, g
+from flask import url_for, current_app, Response, request
 from flask.ext.babel import format_datetime, gettext
 from datetime import datetime, date, timedelta
 from meerkat_frontend import app
-import authorise as auth
-
-try:
-    import simplejson as json
-except ImportError:
-    import json
+from meerkat_frontend import auth
+from meerkat_frontend import common as c
 import dateutil.parser
+from ..common import add_domain
 import dateutil.relativedelta
-import requests
-from .. import common as c
-import string
 import pdfcrowd
-from os import path
-
+import json
+import os
+import shutil
+from zipfile import ZipFile, ZIP_DEFLATED
+import uuid
+import subprocess
+import time
+import requests
+from bs4 import BeautifulSoup
+from selenium import webdriver
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 
@@ -211,33 +213,36 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
     else:
         abort(501)
 
-#Need to handle authentication to this url seperately to the rest of the reports system
+
+# Need to handle authentication to this url seperately to the rest of the reports system
 @app.route('/reports/email/<report>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/<start_date>/', methods=['POST'])
 @app.route('/reports/email/<report>/<location>/<end_date>/<start_date>/<email_format>', methods=['POST'])
-@auth.authorise( *app.config['AUTH'].get('report_emails', [['BROKEN'],['']]) )
+@auth.authorise(*app.config['AUTH'].get('report_emails', [['BROKEN'], ['']]))
 def send_email_report(report, location=None, end_date=None, start_date=None):
     """Sends an email via Hermes with the latest report.
 
        Args:
-           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
+           report (str): The report ID, from the REPORTS_LIST configuration
+                file parameter.
     """
 
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+    topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
 
-    #TESTING
-    #If the report requested begins with "test_" then we send the email to the test topic.
-    #E.g. /api/reports/test_communicable_diseases would send cd report to "test-emails" topic.
-    if report.startswith( "test_" ):
+    # TESTING
+    # If report requested begins with "test_" then send to the test topic
+    # E.g. test_communicable_diseases would send cd report to "test-emails"
+    test_id = ""
+    test_sub = ""
+    if report.startswith("test_"):
+        report = report[5:]
         topic = "test-emails"
         test_id = "-" + str(datetime.now().time().isoformat())
-        report = report[5:]
-    else:
-        topic = current_app.config['MESSAGING_CONFIG']['subscribe']['topic_prefix'] + report;
-        test_id = ""
+        test_sub = "TEST {} | ".format(current_app.config['DEPLOYMENT'])
 
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
@@ -249,19 +254,19 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date=start_date
         )
 
-        relative_url = url_for( 'reports.report',
-                                report=report,
-                                location=location,
-                                end_date=end_date,
-                                start_date=start_date )
+        relative_url = url_for('reports.report',
+                               report=report,
+                               location=location,
+                               end_date=end_date,
+                               start_date=start_date)
 
         report_url = c.add_domain(relative_url)
 
-        #Use env variable to determine whether to fetch image content from external source or not
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
+        # Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:
-            content_url = c.add_domain('/static/')
+            content_url = current_app.config['LIVE_URL'] + 'static/'
 
         html_email_body = render_template(
                 ret['template_email_html'],
@@ -287,30 +292,31 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         start_date = datetime_from_json(ret['report']['data']['start_date'])
         end_date = datetime_from_json(ret['report']['data']['end_date'])
 
-        title = gettext(report_list[report]['title'])
 
         if report_list[report]['default_period'] == 'month':
-            subject = '{country} | {title} ({start_date} - {end_date})'.format(
-                country = gettext(country),
-                title = gettext(report_list[report]['monthly_email_title']),
-                start_date = format_datetime(start_date, 'dd MMMM YYYY'),
-                end_date = format_datetime(end_date, 'dd MMMM YYYY')
+            subject = '{test_subject}{country} | {title} ({start_date} - {end_date})'.format(
+                test_subject=test_sub,
+                country=gettext(country),
+                title=gettext(report_list[report]['monthly_email_title']),
+                start_date=format_datetime(start_date, 'dd MMMM YYYY'),
+                end_date=format_datetime(end_date, 'dd MMMM YYYY')
             )
-            email_id = ( topic + "-" + end_date.strftime('%M') + "-" +
-                         end_date.strftime('%Y') +"-" + report + test_id )
+            email_id = ''.join([topic, "-", end_date.strftime('%m'), "-",
+                                end_date.strftime('%Y'), "-", report, test_id])
         else:
-            subject = '{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(
-                country = gettext(country),
-                title = gettext(report_list[report]['title']),
-                epi_week_text = gettext('Epi Week'),
-                epi_week = epi_week,
-                start_date = format_datetime(start_date, 'dd MMMM YYYY'),
-                end_date = format_datetime(end_date, 'dd MMMM YYYY')
+            subject = '{test_subject}{country} | {title} {epi_week_text} {epi_week} ({start_date} - {end_date})'.format(
+                test_subject=test_sub,
+                country=gettext(country),
+                title=gettext(report_list[report]['title']),
+                epi_week_text=gettext('Epi Week'),
+                epi_week=epi_week,
+                start_date=format_datetime(start_date, 'dd MMMM YYYY'),
+                end_date=format_datetime(end_date, 'dd MMMM YYYY')
             )
-            email_id = (topic + "-" + str(epi_week) + "-" +
-                         end_date.strftime('%Y') + "-" + report + test_id)
+            email_id = ''.join([topic, "-", str(epi_week), "-",
+                                end_date.strftime('%Y'), "-", report, test_id])
 
-        #Assemble the message data in a manner hermes will understand.
+        # Assemble the message data in a manner hermes will understand.
         message = {
             "id": email_id,
             "topics": topic,
@@ -320,25 +326,25 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             "from": current_app.config['MESSAGING_CONFIG']['messages']['from']
         }
 
-        #Publish the message to hermes
-        r = c.hermes( '/publish', 'PUT', message )
+        # Publish the message to hermes
+        r = c.hermes('/publish', 'PUT', message)
 
         print(r)
-        succ=0
-        fail=0
+        succ = 0
+        fail = 0
 
         for resp in r:
             try:
                 resp['ResponseMetadata']['HTTPStatusCode']
             except KeyError:
-                current_app.logger.warning( "Hermes return value error:" + str(resp['message']) )
+                current_app.logger.warning("Hermes return value error:" + str(resp['message']) )
                 fail += 1
             except TypeError:
-                current_app.logger.warning( "Hermes job error:" + str(r['message']) )
+                current_app.logger.warning("Hermes job error:" + str(r['message']))
                 abort(502)
             else:
                 if resp['ResponseMetadata']['HTTPStatusCode'] == 200:
-                    succ =+ 1
+                    succ += 1
                 else:
                     current_app.logger.warning( "Hermes error while sending message:" + str(resp['message']) )
                     fail += 1
@@ -415,54 +421,88 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         start_date used to filter the report's data, in ISO format.
     """
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
-    client = pdfcrowd.Client(
-        current_app.config['PDFCROWD_API_ACCOUNT'],
-        current_app.config['PDFCROWD_API_KEY']
-    )
-    current_app.logger.warning('Report: ' + report)
 
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
-        ret = create_report(
-            config=current_app.config,
-            report=report,
-            location=location,
-            end_date=end_date,
-            start_date=start_date
+        cookie = request.cookies
+        normal_path = request.path.replace("~", "/")[:-4]
+        # Get the standard html path for the report
+
+        # In phantomjs we need to first visit the url before we can add the cookie
+        # We therefore first visist the api and then real url
+        initial_url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], "/api/epi_week"]))
+        url = add_domain(''.join([current_app.config['INTERNAL_ROOT'], normal_path]))
+
+        driver = webdriver.PhantomJS(
+            "./node_modules/phantomjs-prebuilt/bin/phantomjs",
         )
 
-        html = render_template(
-            ret['template'],
-            report=ret['report'],
-            extras=ret['extras'],
-            address=ret['address'],
-            content=current_app.config['REPORTS_CONFIG']
-        )
+        def execute(script, args):
+            driver.execute('executePhantomScript', {'script': script, 'args' : args })
+        width = 1200
+        height = 1697
+        orientation = "portrait"
 
-        current_app.logger.warning( "USE EXTERNAL?" )
-        current_app.logger.warning( int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1 )
-        current_app.logger.warning(html.replace("/static/", c.add_domain('/static/')))
-        # Read env flag whether to tell pdfcrowd to read static files from an external source
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
-            html = html.replace("/static/", current_app.config['PDFCROWD_STATIC_FILE_URL'])
-        else:
-            html = html.replace("/static/", c.add_domain('/static/'))
-
-        client.usePrintMedia(True)
-
-        # Allow reports to be set as portrait or landscape in the config files.
         if(report_list[report].get('landscape', False)):
-            client.setPageWidth('1697pt')
-            client.setPageHeight('1200pt')
-        else:
-            client.setPageWidth('1200pt')
-            client.setPageHeight('1697pt')
+            width = 1697
+            height = 1200
+            orientation = "landscape"
 
-        client.setPageMargins('70pt','40pt','55pt','40pt')
-        client.setHtmlZoom(400)
-        client.setPdfScalingFactor(1.5)
+        margins = ''' {top: '70px',
+                   left: '40px',
+                  bottom: '55px',
+                  right: '40px'}'''
 
-        pdf = client.convertHtml(html)
+        driver.set_window_size(width - 80, height - 125)  # height, width)
+
+        # hack while the python interface lags
+        driver.command_executor._commands['executePhantomScript'] = ('POST', '/session/$sessionId/phantom/execute')
+
+        driver.implicitly_wait(2)
+        driver.get(initial_url) # Get the api url
+        domain = url.split("://")[-1].split("/")[0]
+        cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
+                      "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
+
+        current_app.logger.info("Getting URL")
+        driver.add_cookie(cookie_sel)
+        driver.get(url)
+
+        time.sleep(3)  # TODO: Something better here
+        # To make sure everything has rendered properly
+
+
+        # Page format
+        pageFormat = '''this.paperSize = {{width: {}, height: {} ,format: "{}px*{}px", orientation: "{}" , margin: {} }};'''.format(width,
+                                                                                                                                    height,
+                                                                                                                                    width,
+                                                                                                                                    height,
+                                                                                                                                    orientation,
+                                                                                                                                    margins)
+        current_app.logger.info("Rendering URL")
+        execute(pageFormat, [])
+
+        # render current page and save in tmp_file.pdf
+        tmp_file = str(uuid.uuid4())+".pdf"
+        render = '''this.render("{}")'''.format(tmp_file)
+        execute(render, [])
+        # Read and delete file
+        current_app.logger.info("Minifying if needed")
+        print(os.path.getsize(tmp_file))
+        if os.path.getsize(tmp_file) > 1024 * 1000:  # 1 MB
+            subprocess.run(["gs", "-sDEVICE=pdfwrite",
+                            "-dCompatibilityLevel=1.4",
+                            "-dPDFSETTINGS=/default", "-dNOPAUSE", "-dQUIET",
+                            "-dBATCH", "-dDetectDuplicateImages",
+                            "-dCompressFonts=true", "-r100",
+                            "-sOutputFile={}".format(tmp_file + "_small"),
+                            tmp_file])
+            os.remove(tmp_file)
+            tmp_file = tmp_file + "_small"
+        with open(tmp_file, "rb") as f:
+            pdf = f.read()
+        #os.remove(tmp_file)
+
         return Response(pdf, mimetype='application/pdf')
 
     else:
@@ -659,17 +699,14 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
                 'percent': item['percent'],
                 'quantity': item['quantity']
             }
-
-    elif report in ['afro']:
+        extras['map_centre'] = report_list[report].get('map_centre', ())
+        extras['reg_data'] = c.api("/geo_shapes/region")
+        extras['dis_data'] = c.api("/geo_shapes/district")
+    elif report in ['afro', 'plague', 'ctc']:
         extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
-        extras['reg_data_file'] = report_list[report]['reg_data_file']
-        extras['dis_data_file'] = report_list[report]['dis_data_file']
-        base = path.dirname(path.realpath(__file__)) + '/../static/files/'
-        with open(base + report_list[report]['reg_data_file']) as data_file:
-            extras['reg_data'] = data_file.read()
-        with open(base + report_list[report]['dis_data_file']) as data_file:
-            extras['dis_data'] = data_file.read()
+        extras['reg_data'] = c.api("/geo_shapes/region")
+        extras['dis_data'] = c.api("/geo_shapes/district")
     else:
         extras = None
 

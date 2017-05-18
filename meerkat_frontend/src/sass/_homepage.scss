@@ -1,7 +1,7 @@
 body.homepage{
 	padding: 50px 0px 0px;
 	color: $textGrey;
-
+	background: #FFF;
 	#base-breaker{
 		display: none;
 	}
@@ -272,7 +272,7 @@ body.homepage{
 		color: #FFF;
 		border-radius: 20px;
 		border: 2px solid rgba(0,0,0,0);
-		width: 250px;
+		width: 280px;
 		display: inline-block;
 		font-weight: bold;
 		margin:10px;
@@ -328,11 +328,11 @@ body.homepage{
 	}
 
 	.kiLabel{
-		font-size: 1.5em;
+		font-size: 25px;
 	}
 
 	.kiNumber{
-		font-size: 4em;
+		font-size: 44px;
 		display: inline-block;
 		width:100%;
 	}

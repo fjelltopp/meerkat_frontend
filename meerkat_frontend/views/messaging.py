@@ -7,29 +7,18 @@ from flask.ext.babel import gettext
 from flask import Blueprint, render_template
 from flask import redirect, flash, request, current_app, g
 import random
-import authorise as auth
+from meerkat_frontend import app, auth
 from .. import common as c
 
 
 messaging = Blueprint('messaging', __name__)
 
 
-@messaging.before_request
-def requires_auth():
-    """
-    Checks that the user has authenticated before returning any page from
-    this Blueprint.
-    """
-    # We load the arguments for check_auth function from the config files.
-    auth.check_auth(
-        *current_app.config['AUTH'].get('messaging', [['BROKEN'], ['']])
-    )
-
-
 # THE SUBSCRIBING PROCESS
 # Stage1: Fill out a subscription form.
 @messaging.route('/')
 @messaging.route('/loc_<int:locID>')
+@auth.authorise(*app.config['AUTH'].get('messaging', [['BROKEN'], ['']]))
 def subscribe(locID=1):
     """Subscription Process Stage 1: Render the page with the subscription form.
 
@@ -46,6 +35,7 @@ def subscribe(locID=1):
 # Stage 2: Confirm subscription request and inform user of verification
 # process.
 @messaging.route('/subscribe/subscribed', methods=['POST'])
+@auth.authorise(*app.config['AUTH'].get('messaging', [['BROKEN'], ['']]))
 def subscribed():
     """
     Subscription Process Stage 2: Confirms successful subscription request

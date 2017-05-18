@@ -1,12 +1,18 @@
 <!-- JS -->
 <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/raven.js') }}"></script>
+{% if config.SENTRY_JS_DNS %}
+  <script>Raven.config('{{config.SENTRY_JS_DNS}}').install();</script>
+{% endif %}
 <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-<script src="{{ url_for('static', filename='js/mapbox.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mapbox.uncompressed.js') }}"></script>
 <script src="{{ url_for('static', filename='js/Leaflet.fullscreen.js') }}"></script>
 <script src="{{ url_for('static', filename='js/leaflet.markercluster.js') }}"></script>
 <script src="{{ url_for('static', filename='js/leaflet-omnivore.js') }}"></script>
 <script src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
 <script src="{{ url_for('static', filename='js/highcharts-more.js') }}"></script>
+<script src="{{ url_for('static', filename='js/treemap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/broken-axis.js') }}"></script>
 <script src="{{ url_for('static', filename='js/TreeModel-min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jed.js') }}"></script>
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
@@ -19,6 +25,7 @@
 <script src="{{ url_for('static', filename='js/tableExport.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/featherlight.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/js.cookie.js') }}"></script>
+<script src="{{ url_for('static', filename='js/leaflet.awesome-markers.js') }}"></script>
 
 <script>
   //Google analytics
@@ -40,7 +47,7 @@
 
   //Draw the langauge selector.
   var languages = {{ config["SUPPORTED_LANGUAGES"]|tojson|safe }};
-  var language = {{g.get("language")|tojson|safe}};
+  var language = {{g.get("language", config['DEFAULT_LANGUAGE'])|tojson|safe}};
   var index = languages.indexOf( language );
   var nextLang = index == languages.length-1 ? languages[0] : languages[index+1];
   var nextLangHref = window.location.href.replace( '/' + language + '/', '/' + nextLang + '/' );
@@ -48,4 +55,17 @@
   $('.lang-sel').html( "<a class='lang " + language + "' href='" + nextLangHref + "'>" +
                        nextLang.toUpperCase() + "</a>" );
   $(".lang-sel").attr( 'title', i18n.gettext("Choose a language") ); //Translatable tool tip.
+
+  // Handle AJAX errors.
+  $( document ).ajaxError(
+    function(error_event, jqXHR, ajaxSettings, thrownError ) {
+      console.log("AJAX ERROR " + jqXHR.status + " " + thrownError );
+      if(jqXHR.status == 403){
+          new_url = "/" + language + "/login?url=" + window.location.href +
+                    "&error=" + jqXHR.responseJSON.message
+          window.location.href = new_url;
+      }
+    }
+  );
+
 </script>

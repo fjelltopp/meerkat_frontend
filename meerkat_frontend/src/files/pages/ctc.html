@@ -1,0 +1,302 @@
+<div class="top-bar row">
+  <div class="location-box box">
+    <a href="#menu-toggle" id="menu-toggle">
+      <div class="location-box__label">
+        <div id="location_box"></div>
+        <div id="location-title" class="location-title"></div>
+      </div>
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="glyphicon glyphicon-chevron-left hidden"></span>
+    </a>
+  </div>
+  <div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+  </div>
+  <div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+  </div>
+
+</div>
+<div class="demographics toggled" id="wrapper">
+
+  <div id="sidebar-wrapper" >
+    <div id="location-selector" class="location-selector">
+    </div>
+  </div>
+
+  <div id="page-content-wrapper">
+    <div class="row">
+		<div class="col-xs-12 less-padding-col">
+			<div class="chartBox box">
+				<div class="chartBox__heading">
+					<p id="box_heading_2"></p>
+				</div>
+				<div class="chartBox__content map-very-small" id="case-map">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 less-padding-col">
+			<div class="chartBox box">
+				<div class="chartBox__heading">
+					<p id="box_heading_3"></p>
+				</div>
+				<div class="chartBox__content">
+					<div id="indicators" class="chart">
+					</div>
+				</div>
+			</div>
+        </div>
+		<div class="col-xs-4 less-padding-col">
+			<div class="chartBox box">
+				<div class="chartBox__heading">
+					<p id="box_heading_4"></p>
+				</div>
+				<div class="chartBox__content">
+					<div id="caseload" class="chart">
+					</div>
+				</div>
+			</div>
+        </div>
+		<div class="col-xs-4 less-padding-col">
+			<div class="chartBox box">
+				<div class="chartBox__heading">
+					<p id="box_heading_5"></p>
+				</div>
+				<div class="chartBox__content">
+					<div id="details" class="chart">
+					</div>
+				</div>
+			</div>
+        </div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-xs-4 less-padding-col">
+			<div class="chartBox box">
+				<div class="chartBox__heading">
+					<p id="box_heading_6"></p>
+				</div>
+				<div class="chartBox__content">
+					<div id="not-surveyed" class="chart">
+					</div>
+				</div>
+			</div>
+        </div>
+		<div class="col-xs-4 less-padding-col">
+			<div class="chartBox box">
+				<div class="chartBox__heading">
+					<p id="box_heading_7"></p>
+				</div>
+				<div class="chartBox__content">
+					<div id="no-case" class="chart">
+					</div>
+				</div>
+			</div>
+        </div>
+		<div class="col-xs-4 less-padding-col">
+			<div class="chartBox box">
+				<div class="chartBox__heading">
+					<p id="box_heading_8"></p>
+				</div>
+				<div class="chartBox__content">
+					<div id="no-wash" class="chart">
+					</div>
+				</div>
+			</div>
+        </div>
+	</div>
+  </div>
+</div>
+
+
+<div class="breaker"></div>
+
+<script>
+
+
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#title").html(i18n.gettext('Cholera Quality and Outcomes'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ week = get_epi_week()
+ $("#epi-week-title").html( "Week "+ week + " · " + get_date() );
+ $("#box_heading_2").html(i18n.gettext('Number of Facility-based Cholera Cases by Region'));
+ $("#box_heading_3").html('Availability of protocols');
+ $("#box_heading_4").html(i18n.gettext('Cholera Caseload'));
+ $("#box_heading_5").html(i18n.gettext('Facility Infrastructure'));
+ $("#box_heading_6").html(i18n.gettext('Facilities not surveyed'));
+ $("#box_heading_7").html(i18n.gettext('Facilities without Case Management Protocols'));
+ $("#box_heading_8").html(i18n.gettext('Facilities without WASH protocols'));
+ $(".alertInfo").each(function(){
+     $(this).html(i18n.gettext('No data loaded'));
+ });
+
+function drawCharts(locID){
+     //drawLatestTimeChart( "ctc_cases", "ctc_1", locID, 'time-chart', undefined, undefined, 1)
+     drawCasesChoropletLatestWeekly("Cholera", "ctc_cases", "ctc_1", "case-map", "region", config.map_options.region_geo, 43.10,5, 5);
+     protocol_url = api_root + "/aggregate_latest_category/ctc_protocol/ctc_1/" + locID + "/0"
+
+     $.getJSON(protocol_url, function( data ){
+	 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID +"/0",  function( base ){
+             total = base.total
+             if( total == 0){
+                 total = 1;
+             }
+	     $.getJSON(api_root + "/variables/ctc_protocol", function( variables ){
+		 table = '<table class="table table-no-bordered table-hover">'
+		 table += "<tr> <th> Protocol </th> <th> Fractions of clinics with protocol </th> "
+		 for(var key in data){
+		     table += "<tr><td>" + variables[key].name +"</td>"
+		     table += "<td>" + round(data[key].total / total * 100, 0) +" %</td>"
+
+
+		     table += "</tr>"
+
+		 }
+
+		 table += "</table>"
+		 $("#indicators").html(table)
+	     });
+	 });
+     });
+	caseload_url = api_root + "/aggregate_latest_category/ctc_caseload/ctc_1/" + locID
+	$.getJSON(caseload_url, function( data ){
+		$.getJSON(api_root + "/variables/ctc_caseload", function( variables ){
+			table = '<table class="table table-no-bordered table-hover">'
+			table += "<tr> <th> Caseload </th> <th> Number of cases </th> "
+			for(var key in data){
+				table += "<tr><td>" + variables[key].name +"</td>"
+				table += "<td>" +data[key].year +" </td>"
+
+
+				table += "</tr>"
+
+			}
+			table += "<tr> <td> Case Fatality Rate </td> <td>" + round(data["ctc_deaths"].year / data["ctc_cases"].year * 100, 1) + "%</td> "
+			table += "</table>"
+			$("#caseload").html(table)
+		});
+	});
+	structure_url = api_root + "/aggregate_latest_category/ctc_structure/ctc_1/" + locID +"/0"
+     $.getJSON(structure_url, function( data ){
+		 $.getJSON(api_root + "/variables/ctc_structure", function( variables ){
+			 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID +"/0",  function( base ){
+				 total = base.total
+				 table = '<table class="table table-no-bordered table-hover">'
+				 table += "<tr> <th> Type </th> <th> Number </th> "
+				 table += "<tr><td> Facilities Surveyed this year</td>"
+				 table += "<td>" +total +" </td> </tr>"
+				 for(var key in data){
+					 table += "<tr><td>" + variables[key].name +"</td>"
+					 table += "<td>" +data[key].total +" </td>"
+
+
+					 table += "</tr>"
+
+				 }
+				 table += "</table>"
+				 $("#details").html(table)
+			 });
+		 });
+	 });
+
+	 non_reporting_url = api_root + "/non_reporting/ctc_1/" + locID + "/1/0/CTC/0"
+	 $.getJSON(non_reporting_url, function( data ){
+		 $.getJSON(api_root + "/locations", function( locations ){
+	         var dataPrepared = [];
+             var columns = [];
+
+			 for (var i=0; i<data.clinics.length;i++){
+				 datum = {
+					 "location": locations[data.clinics[i]].name
+				 };
+				 dataPrepared.push(datum);
+			 }
+			 columns = [
+				 {
+					 "field": "location",
+					 "title": "CTC",
+					 "align": "center",
+					 "class": "header",
+					 sortable: true,
+					 width : "100%"
+			 }];
+			 $('#not-surveyed' + ' table').bootstrapTable('destroy');
+			 $('#not-surveyed' + ' table').remove();
+			 $('#not-surveyed').append('<table class="table"></table>');
+			 var table = $('#not-surveyed' + ' table').bootstrapTable({
+				 columns: columns,
+				 data: dataPrepared,
+				 classes: 'table-no-bordered table-hover'
+			 });
+			 $.getJSON(api_root + "/aggregate_latest_level/ctc_case_management/ctc_1/clinic/0/" + locID,
+					   function( cm_data ){
+						   var dataPrepared = [];
+						   var columns = [];
+						   names = Object.keys(cm_data);
+						   for (var i=0; i<names.length; i++){
+							   if(cm_data[names[i]].total == 0){
+								   datum = {
+									   "location": names[i]
+								   };
+								   dataPrepared.push(datum);
+							   }
+						   }
+							   columns = [
+							   {
+								   "field": "location",
+								   "title": "CTC",
+								   "align": "center",
+								   "class": "header",
+								   sortable: true,
+								   width : "100%"
+							   }];
+						   $('#no-case' + ' table').bootstrapTable('destroy');
+						   $('#no-case' + ' table').remove();
+						   $('#no-case').append('<table class="table"></table>');
+						   var table = $('#no-case' + ' table').bootstrapTable({
+							   columns: columns,
+							   data: dataPrepared,
+							   classes: 'table-no-bordered table-hover'
+						   });
+					   });
+			 $.getJSON(api_root + "/aggregate_latest_level/ctc_wash/ctc_1/clinic/0/" + locID,
+					   function( wash_data ){
+						   var dataPrepared = [];
+						   var columns = [];
+						   names = Object.keys(wash_data);
+						   for (var i=0; i<names.length; i++){
+							   if(wash_data[names[i]].total == 0){
+								   datum = {
+									   "location": names[i]
+								   };
+								   dataPrepared.push(datum);
+							   }
+						   }
+						   columns = [
+							   {
+								   "field": "location",
+								   "title": "CTC",
+								   "align": "center",
+								   "class": "header",
+								   sortable: true,
+								   width : "100%"
+							   }];
+						   $('#no-wash' + ' table').bootstrapTable('destroy');
+						   $('#no-wash' + ' table').remove();
+						   $('#no-wash').append('<table class="table"></table>');
+						   var table = $('#no-wash' + ' table').bootstrapTable({
+							   columns: columns,
+							   data: dataPrepared,
+							   classes: 'table-no-bordered table-hover'
+						   });
+					   });
+
+
+
+		 });
+	 });
+
+
+}
+</script>

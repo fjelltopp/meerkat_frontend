@@ -1,42 +1,1079 @@
-source,text,fr
-null_config.py,Null Island <br> Public Health Surveillance,
-null_config.py,<b>Null Island </b> &middot; Public Health Surveillance,
-null_config.py,Health Surveillance,
-null_config.py,"The Ministry of Health, Null Island",
-null_config.py,kingdom,Roi
-null_homepage.json,Overview,
-null_homepage.json,"<p>A national program of public health surveillance is being implemented in various sites across Null Island.</p><p>The project introduces case-based, integrated disease surveillance that is coded according to the International Classification of Disease (ICD-10).</p><p>The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and and real-time reporting of information. </p><p>Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting, that is accessed at all levels of the Ministry of Health.</p><p>You can sign up to receive weekly epidemiological reports and updates.</p>",
-null_homepage.json,Indicators,
-null_homepage.json,<p>The following indicators monitor the status and functioning of the health system in Null Island and are automatically updated from health facilities:</p>,
-null_homepage.json,Reports,
-null_homepage.json,<p>Weekly epidemiological public reports are published online and distributed via e-mail.  Access the most recent report for Null Island here: </p><p class='reports-button'><a type='button' class='btn btn-lg btn-default ' href='reports/public_health' target='_blank'> Public Health<br>Profile</a><a type='button' class='btn btn-lg btn-default ' href='reports/cd_public_health' target='_blank'>Communicable Disease<br />Profile </a><a type='button' class='btn btn-lg btn-default ' href='reports/ncd_public_health' target='_blank'> Non-Communicable<br />Disease Profile </a><a type='button' class='btn btn-lg btn-default ' href='reports/communicable_diseases' target='_blank'>Communicable Disease<br>Report</a><a type='button' class='btn btn-lg btn-default ' href='reports/non_communicable_diseases' target='_blank'>Non-Communicable <br />Disease Report</a></p></p>,
-null_homepage.json,Principles,
-null_homepage.json,<p>The project has the following principles of implementation (click to expand):</p>,
-null_homepage.json,1. Routine surveillance,
-null_homepage.json,The project supports routine surveillance to ensure the national health system is strengthened and the capacity of the Ministry of Health is developed for long-term ownership and response.,
-null_homepage.json,"2. Integrated, case based disease surveillance",
-null_homepage.json,"The project builds on existing national and international surveillance standards, guidelines and case definitions. Diseases, conditions and events are coded according to the International Classification of Disease (ICD-10).",
-null_homepage.json,3. Clinical-decision support,
-null_homepage.json,The system includes evidence-based clinical algorithms for integrated management of childhood illness (IMCI) for child health to support and improve the provision of clinical care.,
-null_homepage.json,4. Best practice prescribing,
-null_homepage.json,The system includes the WHO essential medicines list that the clinician can use to prescribe against using best practice guidelines. Information is also collected as to whether the medicine is available for prescribing.,
-null_homepage.json,5. Public health screening and advice,
-null_homepage.json,"Patients are screened and advice is provided for vaccination status, nutrition, mosquito net ownership and use, maternal care and contraception.",
-null_homepage.json,6. Alerts and notifications,
-null_homepage.json,"Automated real-time notifications and alerts are generated for 20 notifiable communicable diseases, by SMS and email, within one hour of reporting to inform outbreak investigation and response at the appropriate level of decision-making. A line list of alerts is automatically generated via the online framework which links subsequent alert investigation and outcomes.",
-null_homepage.json,7. Real-time analysis and reporting,
-null_homepage.json,"The system shares structured, anonymised data via an online framework for geospatial data visualisation, generation of alerts, and automated generation of reports.",
-null_homepage.json,Acknowledgements,
-null_homepage.json,We gratefully acknowledge the support of <br> our partners in the development of this project.,
-demo_codes.csv,Total,
-demo_codes.csv,Male,
-demo_codes.csv,Female,
-demo_codes.csv,Null Island,
-demo_codes.csv,Demo,
-demo_codes.csv,Other Nationality,
-demo_codes.csv,<5,
-demo_codes.csv,5-9,
-demo_codes.csv,10-14,
-demo_codes.csv,15-19,
-demo_codes.csv,20-59,
-demo_codes.csv,>60,
+"source","text","fr"
+"mad_config.py","Madagascar <br> Public Health Surveillance","Madagascar <br /> Surveillance Integrée de la Santé Publique"
+"mad_config.py","<b>Madagascar </b> &middot; Public Health Surveillance","<b>Madagascar </b> &middot; Surveillance de la Santé Publique"
+"mad_config.py","Madagascar Public Health Surveillance","Madagascar Surveillance de la Santé Publique"
+"mad_config.py","Public Health Surveillance","Surveillance de la Santé Publique"
+"mad_config.py","The World Health Organisation","Organisation Mondiale de la Santé"
+"mad_config.py","The Ministry of Health, Madagascar","Ministère de la Santé, Madagascar"
+"mad_config.py","Direction of Health Monitoring and Disease Surveillance (DVSSE)","Direction de la Veille Sanitaire et de la Surveillance Epidémiologique (DVSSE)"
+"mad_config.py","Dashboard","Tableau de bord"
+"mad_config.py","Reports","Rapports"
+"mad_config.py","Notifications","Notifications"
+"mad_config.py","Explore","Explorer"
+"mad_config.py","Download","Télécharger"
+"mad_config.py","Log out","Se déconnecter"
+"mad_technical.json","Demographics","Démographie"
+"mad_technical.json","Communicable Diseases","Maladies transmissibles"
+"mad_technical.json","Alerts","Alertes"
+"mad_technical.json","Completeness","Complétude"
+"mad_technical.json","Map View","Carte"
+"data_types.csv","Outbreak Investigation","Investigation de l’épidémie"
+"mad_reports.json","<strong>Directorate of Health Monitoring and Surveillance</strong><br />Ministry of Health<br /> Antananarivo<br />Madagascar<br /><abbr title='Website'>W:</abbr> <a href='https://dvsse.sante.gov.mg'>https://dvsse.sante.gov.mg</a>","<strong>Direction de la Veille Sanitaire et de la Surveillance Epidémiologique (DVSSE)</strong><br />Ministère de la Santé Publique<br /> Antananarivo<br />Madagascar<br /><abbr title='Website'>W:</abbr> <a href='https://dvsse.sante.gov.mg'>https://dvsse.sante.gov.mg</a>"
+"mad_reports.json","Communicable Disease Profile Report","Profil de la Santé publique"
+"mad_reports.json","Communicable Disease Report","Rapport des Maladies Transmissibles"
+"mad_reports.json","Epidemiological Monitoring Report","Rapport de Surveillance Epidémiologique Hebdomadaire"
+"mad_reports.json","Malaria Epidemiological Surveillance Report","Rapport de Surveillance Épidémiologique du Paludisme"
+"mad_homepage.json","Region","Région"
+"mad_homepage.json","Overview","Aperçu"
+"mad_homepage.json","<p>Madagascar is implementing an integrated, electronic public health surveillance system. The system is case-based and integrated and employs mobile information technology to aid collection of real-time, standardised data to inform and improve decision-making at different levels of the health system.<p>Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting, that is accessed at all levels of the Ministry of Health.</p>","<p>Madagascar met en œuvre un système électronique intégré de la santé publique surveillance. Le système est intégré et basé sur des cas et emploie la technologie mobile de l'information pour faciliter la collecte en temps réel, des données normalisées pour informer et améliorer la prise de décision à différents niveaux du système de santé.<p>L'information est mise à disposition dans l'heure par l'intermédiaire d'un cadre en ligne avec la génération automatique des alertes SMS et e-mail et le soutien pour la cartographie et l'information, qui est accessible à tous les niveaux du ministère de la Santé.</p>"
+"mad_homepage.json","Indicators","Indicateurs"
+"mad_homepage.json","Reports","Rapports"
+"mad_homepage.json","<p class='reports-button'><a type='button' class='btn btn-lg btn-default ' href='reports/public_health' target='_blank'>Public Health<br/>Profile</a><a type='button' class='btn btn-lg btn-default ' href='reports/communicable_diseases' target='_blank'>Communicable Disease<br/>Report</a><a type='button' class='btn btn-lg btn-default ' href='reports/epi_monitoring' target='_blank'>Epidemiological<br/>Monitoring Report</a></p>","<p class='reports-button'><a type='button' class='btn btn-lg btn-default ' href='reports/public_health' target='_blank'>Profil de la <br> Santé publique</a><a type='button' class='btn btn-lg btn-default ' href='reports/communicable_diseases' target='_blank'>Rapport des Maladies<br> Transmissibles</a><a type='button' class='btn btn-lg btn-default ' href='reports/epi_monitoring' target='_blank'>Rapport de Surveillance<br> Epidémiologique Hebdomadaire</a></p>"
+"mad_homepage.json","Principles","Principes"
+"mad_homepage.json","<p>The project has the following principles of implementation (click to expand):</p>","<p>Le projet comporte les principes suivants de mise en œuvre (cliquez pour agrandir):</p>"
+"mad_homepage.json","1. Routine surveillance","1. Surveillance de routine"
+"mad_homepage.json","The project supports routine surveillance to ensure the national health system is strengthened and the capacity of the Ministry of Health is developed for long-term ownership and response.","Le projet va renforcer la surveillance de routine pour assurer que le système de santé national est renforcé sur sa capacité de développer la réponse et l’appropriation à long terme."
+"mad_homepage.json","2. Integrated, case based disease surveillance","2. Surveillance intégrée des maladies"
+"mad_homepage.json","The project builds on existing national and international surveillance standards, guidelines and case definitions. Diseases, conditions and events are coded according to the International Classification of Disease (ICD-10).","Le projet est développé à partir du guide de surveillance international standard de de l’OMS et de la définition de cas pour les maladies qui sont codées selon la Classification International des maladies (ICD10)."
+"mad_homepage.json","3. Clinical-decision support","3. Support à la décision clinique"
+"mad_homepage.json","The system includes evidence-based clinical algorithms for integrated management of childhood illness (IMCI) for child health to support and improve the provision of clinical care.","Le système a des algorithmes basé sur l’évidence permettant de standardiser la définition des cas, qui aide à la décision clinique pour chaque maladie avec les signes et symptômes, les facteurs de risque, les diagnostics et des conseils en matière de laboratoire."
+"mad_homepage.json","4. Alerts and notifications","4. Notifications et alertes"
+"mad_homepage.json","Automated real-time notifications and alerts are generated for 20 notifiable communicable diseases, by SMS and email, within one hour of reporting to inform outbreak investigation and response at the appropriate level of decision-making. A line list of alerts is automatically generated via the online framework which links subsequent alert investigation and outcomes.","Des alertes et notifications automatiques en temps réels sont envoyées par SMS et par email, dans un délai d’une heure après l’envoi pour informer puis pour déclencher l’investigation et la réponse du Ministère de la santé avec une prise de décision du niveau concerné.  "
+"mad_homepage.json","5. Real-time analysis and reporting","5. Collection et gestion des données"
+"mad_homepage.json","The system shares structured, anonymised data via an online framework for geospatial data visualisation, generation of alerts, and automated generation of reports.","Le système partage des données anonymes et structurées par un système en ligne avec une représentation géospatial des données, donner des alertes et élaborer des rapports de façon automatique."
+"mad_homepage.json","Acknowledgements","Remerciements"
+"mad_homepage.json","We gratefully acknowledge the support of <br> our partners in the development of this project.","Nous tenons à remercier le soutien de <br> nos partenaires dans le développement de ce projet "
+"mad_explore.json","Communicable Diseases","Maladies transmissibles"
+"mad_explore.json","Gender","Sexe"
+"mad_explore.json","Age","Âge"
+"mad_explore.json","Age and Gender","Âge et le sexe"
+"mad_explore.json","Regions","Régions"
+"mad_explore.json","Districts","Districts"
+"mad_explore.json","Clinics","Sites de surveillance"
+"mad_download.json","Communicable Disease","Maladies transmissibles"
+"mad_download.json","Nutrition","Nutrition"
+"mad_download.json","Vaccination","Vaccination"
+"mad_download.json","Public Health","Santé publique"
+"mad_download.json","Case Report","Reporting de cas"
+"mad_download.json","Alert","Alerte"
+"mad_download.json","Register","Consultations Journaliers"
+"mad_download.json","Visit Type","Type de visite"
+"mad_download.json","Visit Date","Date de visite"
+"mad_download.json","Region","Région"
+"mad_download.json","District","District"
+"mad_download.json","Clinic","Clinique"
+"mad_download.json","Status","Statut"
+"mad_download.json","Gender","Sexe"
+"mad_download.json","Age (Years)","Age (Années)"
+"mad_download.json","Age (Months)","Age (mois)"
+"mad_download.json","Nationality","Nationalité"
+"mad_download.json","Name","Nom"
+"mad_download.json","ICD 10 Code","CIM 10 Code"
+"mad_download.json","Alert Investigation Steps","Alerte étapes d'enquête"
+"mad_download.json","Signal Events","Signal Events"
+"mad_download.json","Check if the patient has any of the following symptoms","Vérifiez si le patient présente l'un des symptômes suivants"
+"mad_download.json","Check if the patient has any of the following risk factors","Vérifiez si le patient présente l'un des facteurs de risque suivants"
+"mad_download.json","Onset Date","Date début"
+"mad_download.json","Previously Vaccinated","Deja vaccinés"
+"mad_download.json","Date of onset of AFP paralysis","Date de début de la paralysie PFA"
+"mad_download.json","Date of polio first dose","Date de la première dose polio"
+"mad_download.json","Date of polio second dose","Date de la deuxième dose polio"
+"mad_download.json","Date of AFP notification","Date de notification PFA"
+"mad_download.json","Date of AFP investigation","Date de l'enquête PFA"
+"mad_download.json","Date of previous measles vaccination","Date de précédente vaccination contre la rougeole"
+"mad_download.json","Date of measles sample collection","Date de la rougeole collecte d'échantillons"
+"mad_download.json","Malaria patient has fever","Paludisme Patient a de la fièvre"
+"mad_download.json","Malaria RDT result","Résultat paludisme TDR"
+"mad_download.json","Malaria Slide result","Résultat de la goutte epaisse du paludisme"
+"mad_download.json","Plague RDT result","Résultat Plague TDR"
+"mad_download.json","Type of plague","Type de peste"
+"mad_download.json","Did the patient receive HIV counselling and testing?","Est-ce que le patient at-il reçu des conseils et dépistage du VIH?"
+"mad_download.json","What is the HIV status of the patient?","Quel est le statut VIH du patient?"
+"mad_download.json","Number of medicines prescribed","Nombre de médicaments prescrits"
+"mad_download.json","Name of Medicine 1 prescribed","Nom de médecine 1 prescrit"
+"mad_download.json","Dose of Medicine 1 prescribed","Dose de médecine 1 prescrite"
+"mad_download.json","Availability of Medicine 1 prescribed","Disponibilité de médecine 1 prescrit"
+"mad_download.json","Name of Medicine 2 prescribed","Nom de médecine 2 prescrit"
+"mad_download.json","Dose of Medicine 2 prescribed","Dose de médecine 2 prescrite"
+"mad_download.json","Availability of Medicine 2 prescribed","Disponibilité de médecine 2 prescrit"
+"mad_download.json","Name of Medicine 3 prescribed","Nom de médecine 3 prescrit"
+"mad_download.json","Dose of Medicine 3 prescribed","Dose de médecine 3 prescrite"
+"mad_download.json","Availability of Medicine 3 prescribed","Disponibilité de médecine 3 prescrit"
+"mad_download.json","Name of Medicine 4 prescribed","Nom de médecine 4 prescrit"
+"mad_download.json","Dose of Medicine 4 prescribed","Dose de médecine 4 prescrite"
+"mad_download.json","Availability of Medicine 4 prescribed","Disponibilité de médecine 4 prescrit"
+"mad_download.json","Name of Medicine 5 prescribed","Nom de médecine 5 prescrit"
+"mad_download.json","Dose of Medicine 5 prescribed","Dose de médecine 5 prescrite"
+"mad_download.json","Availability of Medicine 5 prescribed","Disponibilité de médecine 5 prescrit"
+"mad_download.json","Visit Type","Type de visite"
+"mad_download.json","Visit Date","Date de visite"
+"mad_download.json","Epi Week","Epi semaine"
+"mad_download.json","Month","Mois"
+"mad_download.json","Year","An"
+"mad_download.json","Region","Région"
+"mad_download.json","District","District"
+"mad_download.json","Clinic","Clinique"
+"mad_download.json","Status","Statut"
+"mad_download.json","Gender","Sexe"
+"mad_download.json","Age (Years)","Age (Années)"
+"mad_download.json","Age (Months)","Age (mois)"
+"mad_download.json","Nationality","Nationalité"
+"mad_download.json","Disease","Maladie"
+"mad_download.json","ICD 10 Code","CIM 10 Code"
+"mad_download.json","ASK: Does the mother breastfeed the child?","Est-ce que la mère allaite l'enfant?"
+"mad_download.json","ASK: Does the mother exclusively breastfeed the child?","Est-ce que la mère exclusivement allaiter l'enfant?"
+"mad_download.json","ASK: Why not?","Pourquoi pas?"
+"mad_download.json","ASK: Is the mother providing an infant formula?","Est-ce que la mère fournit une préparation pour nourrissons?"
+"mad_download.json","ASK: What type of formula is the baby using?","Quel type de formule est le bébé utilise?"
+"mad_download.json","Visit Type","Type de visite"
+"mad_download.json","Visit Date","Date de visite"
+"mad_download.json","Epi Week","Epi semaine"
+"mad_download.json","Month","Mois"
+"mad_download.json","Year","An"
+"mad_download.json","Region","Région"
+"mad_download.json","District","District"
+"mad_download.json","Clinic","Clinique"
+"mad_download.json","Status","Statut"
+"mad_download.json","Gender","Sexe"
+"mad_download.json","Age (Years)","Age (Années)"
+"mad_download.json","Age (Months)","Age (mois)"
+"mad_download.json","Nationality","Nationalité"
+"mad_download.json","Disease","Maladie"
+"mad_download.json","ICD 10 Code","CIM 10 Code"
+"mad_download.json","ASK: Has the child ever been vaccinated?","Est-ce que l'enfant a déjà été vacciné?"
+"mad_download.json","ASK: What vaccinations has the child received?","Quels vaccins a reçu l'enfant?"
+"mad_download.json","Visit Type","Type de visite"
+"mad_download.json","Visit Date","Date de visite"
+"mad_download.json","Epi Week","Epi semaine"
+"mad_download.json","Month","Mois"
+"mad_download.json","Year","An"
+"mad_download.json","Region","Région"
+"mad_download.json","District","District"
+"mad_download.json","Clinic","Clinique"
+"mad_download.json","Status","Statut"
+"mad_download.json","Gender","Sexe"
+"mad_download.json","Age (Years)","Age (Années)"
+"mad_download.json","Age (Months)","Age (mois)"
+"mad_download.json","Nationality","Nationalité"
+"mad_download.json","Communicable Disease","Maladie transmissible"
+"mad_download.json","ICD 10 Code","CIM 10 Code"
+"mad_download.json","Ever smoked?","Déjà fumé?"
+"mad_download.json","Smoke now?","Fume maintenant?"
+"mad_links.py","Ongoing","En cours"
+"mad_links.py","Confirmed","Confirmé"
+"mad_links.py","Disregarded","Ignorée"
+"mad_links.py","Referral","Référence"
+"mad_links.py","Case Managment","Case Managment"
+"mad_links.py","Contact Tracing","Recherche de contacts"
+"mad_links.py","Laboratory Diagnosis","Diagnostic en laboratoire"
+"mad_codes.csv","No of pregnant women who received IPT during first ANC visit","Nombre de femme enceinte ayant reçu TPI au CPN1"
+"mad_codes.csv","No of pregnant women who received IPT during first ANC visit within 16 weeks","Nombre de femme enceinte ayant reçu TPI pour CPN1<16SA"
+"mad_codes.csv","No of pregnant women who received IPT 1","Nombre de femme enceinte ayant reçu TPI1"
+"mad_codes.csv","No of pregnant women who received IPT 2","Nombre de femme enceinte ayant reçu TPI2"
+"mad_codes.csv","No of pregnant women who received IPT 3","Nombre de femme enceinte ayant reçu TPI3"
+"mad_codes.csv","No of children under five who received a LLIN during routine distribution ","Nombre d'enfant <5a ayant reçu MID en mode routine"
+"mad_codes.csv","No of pregnant women who received a LLIN during routine distribution ","Nombre de femmes enceintes ayant reçu MID en mode routine"
+"mad_codes.csv","No of children under five  who received a LLIN during another mode of distribution ","Nombre d'enfant <5a ayant reçu MID en autres mode"
+"mad_codes.csv","No of pregnant women who received a LLIN during another mode of distribution ","Nombre de femmes enceintes ayant reçu MID en autres mode"
+"mad_codes.csv","Total","Total"
+"mad_codes.csv","Male","Mâle"
+"mad_codes.csv","Female","Femelle"
+"mad_codes.csv","Madagascar","Madagascar"
+"mad_codes.csv","Kenya","Kenya"
+"mad_codes.csv","Other Nationality","Autre"
+"mad_codes.csv","<5","<5"
+"mad_codes.csv","5-9","5-9"
+"mad_codes.csv","10-14","10-14"
+"mad_codes.csv","15-19","15-19"
+"mad_codes.csv","20-59","20-59"
+"mad_codes.csv",">60",">60"
+"mad_codes.csv","Female <5","Femelle <5"
+"mad_codes.csv","Female 5-9","Femelle 5-9"
+"mad_codes.csv","Female 10-14","Femelle 10-14"
+"mad_codes.csv","Female 15-19","Femelle 15-19"
+"mad_codes.csv","Female 20-59","Femelle 20-59"
+"mad_codes.csv","Female >60","Femelle >60"
+"mad_codes.csv","Male <5","Mâle <5"
+"mad_codes.csv","Male 5-9","Mâle 5-9"
+"mad_codes.csv","Male 10-14","Mâle 10-14"
+"mad_codes.csv","Male 15-19","Mâle 15-19"
+"mad_codes.csv","Male 20-59","Mâle 20-59"
+"mad_codes.csv","Male >60","Mâle >60"
+"mad_codes.csv","Child under 24 months","Enfant moins de 24 mois"
+"mad_codes.csv","Communicable disease","Maladie transmissible"
+"mad_codes.csv","Non-communicable disease","Maladie non transmissible"
+"mad_codes.csv","Mental Health","Santé mentale"
+"mad_codes.csv","Reproductive Health","La santé reproductive"
+"mad_codes.csv","Injury","Blessure"
+"mad_codes.csv","Other","Autre"
+"mad_codes.csv","Acute Diarrhoea","Diarrhée aiguë"
+"mad_codes.csv","Typhoid Fever","Fièvre typhoïde"
+"mad_codes.csv","Bloody Diarrhoea","Diarrhée sanglante"
+"mad_codes.csv","Food Poisoning","Toxi Infection Alimentaire collective (TIAC)"
+"mad_codes.csv","Tuberculosis","Tuberculose"
+"mad_codes.csv","Plague","Peste"
+"mad_codes.csv","Leprosy","Lèpre"
+"mad_codes.csv","Neonatal Tetanus","Tétanos néonatal"
+"mad_codes.csv","Acute Flaccid Paralysis","Paralysie Flasque Aigüe"
+"mad_codes.csv","Rabies","Rage humaine"
+"mad_codes.csv","Meningitis","Méningite"
+"mad_codes.csv","Arbovirus","Arbovirose suspecte"
+"mad_codes.csv","Acute Haemorrhagic Fever","Fièvre hémorragique aiguë"
+"mad_codes.csv","Measles / Rubella","Rougeole / Rubéole"
+"mad_codes.csv","Acute Jaundice Syndrome","Ictère"
+"mad_codes.csv","Malaria","Paludisme"
+"mad_codes.csv","Influenza-like illness ","Syndrome grippal"
+"mad_codes.csv","Seafood Poisoning","Episode d’Intoxication par consommation d’animaux marins (ICAM)"
+"mad_codes.csv","Sexually Transmitted Infection","Infection sexuellement transmissible (IST) "
+"mad_codes.csv","Maternal Death","Décès maternel"
+"mad_codes.csv","Neonatal Death","Décès néonatal"
+"mad_codes.csv","Moderate malnutrition","Malnutrition aigue modérée (MAM)"
+"mad_codes.csv","Severe malnutrition","Malnutrition aigue sévère (MAS)"
+"mad_codes.csv","Acute Respiratory Tract Infection","Infection respiratoire aiguë (IRA)"
+"mad_codes.csv","Lymphatic Filariasis","Filariose lymphatique"
+"mad_codes.csv","Animal Bite","Morsure ou griffure (animal à sang chaud)"
+"mad_codes.csv","Other / Alert","Autre évènement inhabituel nécessitant une alerte"
+"mad_codes.csv","Vaccinated","Vacciné"
+"mad_codes.csv","BCG","BCG"
+"mad_codes.csv","Hepatitis B","Hépatite B"
+"mad_codes.csv","Diptheria","Diphtérie"
+"mad_codes.csv","Tetanus","Tétanos"
+"mad_codes.csv","Pertussis","Coqueluche"
+"mad_codes.csv","Polio","Polio"
+"mad_codes.csv","Haemophilus influenzae type B (HiB)","Haemophilus influenzae de type B (Hib)"
+"mad_codes.csv","Measles","Rougeole"
+"mad_codes.csv","Mumps","Oreillons"
+"mad_codes.csv","Rubella","Rubéole"
+"mad_codes.csv","Mental Health (mhGAP)","Santé mentale (mhGAP)"
+"mad_codes.csv","Child Health (IMCI)","La santé des enfants (PCIME )"
+"mad_codes.csv","Reproductive Health","La santé reproductive"
+"mad_codes.csv","Laboratory Results","Les résultats de laboratoire"
+"mad_codes.csv","Prescribing","Prescrire"
+"mad_codes.csv","Pregnant women","Femmes enceintes"
+"mad_codes.csv","Complications in pregnancy","Complications de la grossesse"
+"mad_codes.csv","Child is breastfed","L'enfant est allaité"
+"mad_codes.csv","Child is exclusively breastfed","L'enfant est allaité exclusivement"
+"mad_codes.csv","Child is provided an infant formula","L'enfant est fourni une préparation pour nourrissons"
+"mad_codes.csv","New Visit","Nouvelle consultation"
+"mad_codes.csv","Return Visit","Consultation de suivi"
+"mad_codes.csv","Referral","Cas reféré"
+"mad_codes.csv","Daily Forms","Formulaires quotidiens"
+"mad_codes.csv","Total Consultations","Nombre de consultations"
+"mad_codes.csv","Refugee Consultations","Consultations des réfugiés"
+"mad_codes.csv","Active Surveillence Fever","Fièvre surveillence active"
+"mad_codes.csv","Deaths","Décès"
+"mad_codes.csv","<29 days","<29 jours"
+"mad_codes.csv","29 days-12 months","29 jours-12 mois"
+"mad_codes.csv","1-4 years","1-4 ans"
+"mad_codes.csv","5-9 years","5-9 ans"
+"mad_codes.csv","10-14 years","10-14 ans"
+"mad_codes.csv","15-24 years","15-24 ans"
+"mad_codes.csv","25-49 years","25-49 ans"
+"mad_codes.csv","50-59 years","50-59 ans"
+"mad_codes.csv",">60 years",">60 ans"
+"mad_codes.csv","Maternal Deaths","Décès maternel"
+"mad_codes.csv","Maternal Deaths <29 days","Décès maternel <29 days"
+"mad_codes.csv","Maternal Deaths 29 days-12 months","Décès maternel 29 days-12 months"
+"mad_codes.csv","Maternal Deaths 1-4 years","Décès maternel 1-4 years"
+"mad_codes.csv","Maternal Deaths 5-9 years","Décès maternel 5-9 years"
+"mad_codes.csv","Maternal Deaths 10-14 years","Décès maternel 10-14 years"
+"mad_codes.csv","Maternal Deaths 15-24 years","Décès maternel 15-24 years"
+"mad_codes.csv","Maternal Deaths 25-49 years","Décès maternel 25-49 years"
+"mad_codes.csv","Maternal Deaths 50-59 years","Décès maternel 50-59 years"
+"mad_codes.csv","Maternal Deaths >60 years","Décès maternel >60 years"
+"mad_codes.csv","Deaths icd_17","Décès icd_17"
+"mad_codes.csv","Deaths icd_4183","Décès icd_4183"
+"mad_codes.csv","Deaths icd_461","Décès icd_461"
+"mad_codes.csv","Deaths icd_421","Décès icd_421"
+"mad_codes.csv","Deaths icd_113","Décès icd_113"
+"mad_codes.csv","Deaths icd_35","Décès icd_35"
+"mad_codes.csv","Deaths icd_9643","Décès icd_9643"
+"mad_codes.csv","Deaths icd_530","Décès icd_530"
+"mad_codes.csv","Deaths icd_9225","Décès icd_9225"
+"mad_codes.csv","Deaths icd_391","Décès icd_391"
+"mad_codes.csv","Deaths icd_380","Décès icd_380"
+"mad_codes.csv","Deaths icd_488","Décès icd_488"
+"mad_codes.csv","Deaths icd_804","Décès icd_804"
+"mad_codes.csv","Deaths icd_68","Décès icd_68"
+"mad_codes.csv","Deaths icd_113","Décès icd_113"
+"mad_codes.csv","Deaths icd_321","Décès icd_321"
+"mad_codes.csv","Deaths icd_91","Décès icd_91"
+"mad_codes.csv","Deaths cmd_43","Décès cmd_43"
+"mad_codes.csv","Deaths icd_2194","Décès icd_2194"
+"mad_codes.csv","Deaths cmd_48","Décès cmd_48"
+"mad_codes.csv","Deaths icd_168","Décès icd_168"
+"mad_codes.csv","Deaths icd_188","Décès icd_188"
+"mad_codes.csv","Deaths icd_4177","Décès icd_4177"
+"mad_codes.csv","Deaths icd_2189","Décès icd_2189"
+"mad_codes.csv","Deaths epi_1","Décès epi_1"
+"mad_codes.csv","Deaths icd_1","Décès icd_1"
+"mad_codes.csv","Deaths epi_7","Décès epi_7"
+"mad_codes.csv","Malaria","Paludisme"
+"mad_codes.csv","Malaria RDT","Paludisme TDR"
+"mad_codes.csv","Malaria Slide","Paludisme Slide"
+"mad_codes.csv","Plague RDT","Peste TDR"
+"mad_codes.csv","Plague Type ICD A20.0","Type de Peste ICD A20.0"
+"mad_codes.csv","Plague Type ICD A20.2","Type de Peste ICD A20.2"
+"mad_codes.csv","Cholera >5 years","Choléra >5 years"
+"mad_codes.csv","01. Certain infectious and parasitic diseases","01. Certaines maladies infectieuses et parasitaires"
+"mad_codes.csv","02. Neoplasms","02. Tumeurs"
+"mad_codes.csv","03. Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism","03. Maladies du sang et des organes hématopoïétiques et certains troubles du système immunitaire"
+"mad_codes.csv","04. Endocrine, nutritional and metabolic diseases","04. Maladies endocriniennes, nutritionnelles et métaboliques"
+"mad_codes.csv","05. Mental and behavioural disorders","05. Troubles mentaux et du comportement"
+"mad_codes.csv","06. Diseases of the nervous system","06. Maladies du système nerveux"
+"mad_codes.csv","07. Diseases of the eye and adnexa","07. Maladies de l'oeil et de ses annexes"
+"mad_codes.csv","08. Diseases of the ear and mastoid process","08. Maladies du processus d'oreille et mastoïde"
+"mad_codes.csv","09. Diseases of the circulatory system","09. Maladies de l'appareil circulatoire"
+"mad_codes.csv","10. Diseases of the respiratory system","10. Maladies de l'appareil respiratoire"
+"mad_codes.csv","11. Diseases of the digestive system","11. Maladies du système digestif"
+"mad_codes.csv","12. Diseases of the skin and subcutaneous tissue","12. Maladies de la peau et du tissu sous-cutané"
+"mad_codes.csv","13. Diseases of the musculoskeletal system and connective tissue","13. Maladies du système musculo-squelettique et du tissu conjonctif"
+"mad_codes.csv","14. Diseases of the genitourinary system","14. Maladies du système génito-urinaire"
+"mad_codes.csv","15. Pregnancy, childbirth and the puerperium","15. La grossesse, l'accouchement et la puerpéralité"
+"mad_codes.csv","16. Certain conditions originating in the perinatal period","16. Certaines conditions originaires de la période périnatale"
+"mad_codes.csv","17. Congenital malformations,deformations and chromosomal abnormalities","17. Les malformations congénitales et anomalies chromosomiques"
+"mad_codes.csv","18. Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified","18. Les symptômes, signes et résultats cliniques et de laboratoire anormaux, non classés ailleurs"
+"mad_codes.csv","19. Injury, poisoning and certain other consequences of external causes","19. Lésions, intoxications et certaines autres conséquences de causes externes"
+"mad_codes.csv","20. External causes of morbidity and mortality","20. provoque externe de la morbidité et de la mortalité"
+"mad_codes.csv","21. Factors influencing health status and contact with health services","21. Facteurs influant sur l'état de santé et de contact avec les services de santé"
+"mad_codes.csv","22. Codes for special purposes","22. Codes à des fins spéciales"
+"mad_codes.csv","23. Other (not ICD-10 coded)","23. Autre (non CIM-10 codé)"
+"mad_codes.csv","Intestinal infectious diseases","Les maladies infectieuses intestinales"
+"mad_codes.csv","Tuberculosis","Tuberculose"
+"mad_codes.csv","Certain zoonotic bacterial diseases","Certaines maladies bactériennes zoonotiques"
+"mad_codes.csv","Other bacterial diseases","Autres maladies bactériennes"
+"mad_codes.csv","Infections with a predominantly sexual mode of transmission","Les infections par un mode essentiellement sexuel de transmission"
+"mad_codes.csv","Other spirochaetal diseases","Autres maladies à spirochètes"
+"mad_codes.csv","Other diseases caused by chlamydiae","D'autres maladies causées par Chlamydia"
+"mad_codes.csv","Rickettsioses","Rickettsioses"
+"mad_codes.csv","Viral infections of the central nervous system","Les infections virales du système nerveux central"
+"mad_codes.csv","Arthropod-borne viral fevers and viral haemorrhagic fevers","Arthropodes fièvres virales et les fièvres hémorragiques virales"
+"mad_codes.csv","Viral infections characterized by skin and mucous membrane lesions","Les infections virales caractérisées par des lésions cutanéo-muqueuses"
+"mad_codes.csv","Viral hepatitis","Hépatite virale"
+"mad_codes.csv","Human immunodeficiency virus [HIV] disease","Virus de l'immunodéficience humaine [VIH]"
+"mad_codes.csv","Other viral diseases","Autres maladies virales"
+"mad_codes.csv","Mycoses","Mycoses"
+"mad_codes.csv","Protozoal diseases","Maladies protozoaires"
+"mad_codes.csv","Helminthiases","Helminthiases"
+"mad_codes.csv","Pediculosis,acariasis and other infestations","Pédiculose, acariase et d'autres infestations"
+"mad_codes.csv","Sequelae of infectious and parasitic diseases","Séquelles de maladies infectieuses et parasitaires"
+"mad_codes.csv","Bacterial,viral and other infectious agents","les agents infectieux bactériens, viraux et d'autres"
+"mad_codes.csv","Other infectious diseases","Autres maladies infectieuses"
+"mad_codes.csv","Malignant neoplasms of lip,oral cavity and pharynx","Tumeurs malignes de la lèvre, de la cavité buccale et du pharynx"
+"mad_codes.csv","Malignant neoplasms of digestive organs","Tumeurs malignes des organes digestifs"
+"mad_codes.csv","Malignant neoplasms of respiratory and intrathoracic organs","Tumeurs malignes des voies respiratoires et intrathoraciques organes"
+"mad_codes.csv","Malignant neoplasms of bone and articular cartilage","Tumeurs malignes de l'os et du cartilage articulaire"
+"mad_codes.csv","Melanoma and other malignant neoplasms of skin","Le mélanome et d'autres tumeurs malignes de la peau"
+"mad_codes.csv","Malignant neoplasms of mesothelial and soft tissue","Tumeurs malignes de mésothéliales et des tissus mous"
+"mad_codes.csv","Malignant neoplasm of breast","Tumeur maligne du sein"
+"mad_codes.csv","Malignant neoplasms of female genital organs","Tumeurs malignes des organes génitaux féminins"
+"mad_codes.csv","Malignant neoplasms of male genital organs","Tumeurs malignes des organes génitaux masculins"
+"mad_codes.csv","Malignant neoplasms of urinary tract","Tumeurs malignes des voies urinaires"
+"mad_codes.csv","Malignant neoplasms of eye,brain and other parts of central nervous system","Tumeurs malignes de l'œil, le cerveau et d'autres parties du système nerveux central"
+"mad_codes.csv","Malignant neoplasms of thyroid and other endocrine glands","Tumeurs malignes de la thyroïde et d'autres glandes endocrines"
+"mad_codes.csv","Malignant neoplasms of ill-defined,secondary and unspecified sites","Tumeurs malignes de sièges mal définis, secondaires et non précisés"
+"mad_codes.csv","Malignant neoplasms,stated or presumed to be primary,of lymphoid, haematopoietic and related tissue","Tumeurs malignes, indiquées ou présumées primitives, des lymphoïde, hématopoïétique et des tissus connexes"
+"mad_codes.csv","Malignant neoplasms of independent (primary) multiple sites","Tumeurs malignes des indépendants (primaire) sièges multiples"
+"mad_codes.csv","In situ neoplasms","Dans néoplasmes in situ"
+"mad_codes.csv","Benign neoplasms","Tumeurs bénignes"
+"mad_codes.csv","Neoplasms of uncertain or unknown behaviour","Tumeurs du comportement incertain ou inconnu"
+"mad_codes.csv","Nutritional anaemias","Anémies nutritionnelles"
+"mad_codes.csv","Haemolytic anaemias","Anémies hémolytiques"
+"mad_codes.csv","Aplastic and other anaemias","Aplasique et d'autres anémies"
+"mad_codes.csv","Coagulation defects, purpura and other haemorrhagic conditions","Anomalies de la coagulation, purpura et autres affections hémorragiques"
+"mad_codes.csv","Other diseases of blood and blood-forming organs","Autres maladies du sang et des organes hématopoïétiques"
+"mad_codes.csv","Certain disorders involving the immune mechanism","Certains troubles du système immunitaire"
+"mad_codes.csv","Disorders of thyroid gland","Les troubles de la glande thyroïde"
+"mad_codes.csv","Diabetes mellitus","Le diabète sucré"
+"mad_codes.csv","Other disorders of glucose regulation and pancreatic internal secretion","D'autres troubles de la régulation du glucose et de la sécrétion pancréatique interne"
+"mad_codes.csv","Disorders of other endocrine glands","Maladies des autres glandes endocrines"
+"mad_codes.csv","Malnutrition","Malnutrition"
+"mad_codes.csv","Other nutritional deficiencies","D'autres carences nutritionnelles"
+"mad_codes.csv","Obesity and other hyperalimentation","Obésité et autres excès"
+"mad_codes.csv","Metabolic disorders","Troubles métaboliques"
+"mad_codes.csv","Organic,including symptomatic, mental disorders","Organiques, y compris les troubles mentaux symptomatiques"
+"mad_codes.csv","Mental and behavioural disorders due to psychoactive substance use","Les troubles mentaux et du comportement liés à l'utilisation de substances psychoactives"
+"mad_codes.csv","Schizophrenia, schizotypal and delusional disorders","Schizophrénie, schizotypique et troubles délirants"
+"mad_codes.csv","Mood [affective] disorders","L'humeur [affectifs]"
+"mad_codes.csv","Neurotic,stress-related and somatoform disorders","Névrotiques, troubles liés au stress et somatoformes"
+"mad_codes.csv","Behavioural syndromes associated with physiological disturbances and physical factors","Syndromes comportementaux associés à des perturbations physiologiques et facteurs physiques"
+"mad_codes.csv","Disorders of adult personality and behaviour","Les troubles de la personnalité et le comportement des adultes"
+"mad_codes.csv","Mental retardation","Retard mental"
+"mad_codes.csv","Disorders of psychological development","Troubles du développement psychologique"
+"mad_codes.csv","Behavioural and emotional disorders with onset usually occurring in childhood and adolescence","Troubles comportementaux et émotionnels apparaissant habituellement dans l'enfance et de l'adolescence"
+"mad_codes.csv","Unspecified mental disorder","Trouble mental non spécifié"
+"mad_codes.csv","Inflammatory diseases of the central nervous system","Les maladies inflammatoires du système nerveux central"
+"mad_codes.csv","Systemic atrophies primarily affecting the central nervous system","atrophies systémiques affectant principalement le système nerveux central"
+"mad_codes.csv","Extrapyramidal and movement disorders","Extrapyramidaux et troubles"
+"mad_codes.csv","Other degenerative diseases of the nervous system","D'autres maladies dégénératives du système nerveux"
+"mad_codes.csv","Demyelinating diseases of the central nervous system","Des maladies démyélinisantes du système nerveux central"
+"mad_codes.csv","Episodic and paroxysmal disorders","troubles épisodiques et paroxystiques"
+"mad_codes.csv","Nerve,nerve root and plexus disorders","Nerveuses, la racine nerveuse et plexus nerveux"
+"mad_codes.csv","Polyneuropathies and other disorders of the peripheral nervous system","Polyneuropathies et d'autres troubles du système nerveux périphérique"
+"mad_codes.csv","Diseases of myoneural junction and muscle","Maladies de la jonction neuromusculaire et du muscle"
+"mad_codes.csv","Cerebral palsy and other paralytic syndromes","La paralysie cérébrale et d'autres syndromes paralytiques"
+"mad_codes.csv","Other disorders of the nervous system","D'autres troubles du système nerveux"
+"mad_codes.csv","Disorders of eyelid,lacrimal system and orbit","Affections de la paupière, système lacrymal et de l'orbite"
+"mad_codes.csv","Disorders of conjunctiva","Affections de la conjonctive"
+"mad_codes.csv","Disorders of sclera,cornea,iris and ciliary body","Affections de la sclérotique, de la cornée, l'iris et du corps ciliaire"
+"mad_codes.csv","Disorders of lens","Les troubles de la lentille"
+"mad_codes.csv","Disorders of choroid and retina","Affections de la choroïde et de la rétine"
+"mad_codes.csv","Glaucoma","Glaucome"
+"mad_codes.csv","Disorders of vitreous body and globe","Affections du corps vitré et du globe"
+"mad_codes.csv","Disorders of optic nerve and visual pathways","Affections du nerf et des voies optiques"
+"mad_codes.csv","Disorders of ocular muscles,binocular movement,accommodation and refraction","Troubles des muscles oculaires, des mouvements binoculaires, l'hébergement et la réfraction"
+"mad_codes.csv","Visual disturbances and blindness","Les troubles visuels et la cécité"
+"mad_codes.csv","Other disorders of eye and adnexa","Autres affections de l'oeil et de ses annexes"
+"mad_codes.csv","Diseases of external ear","Les maladies de l'oreille externe"
+"mad_codes.csv","Diseases of middle ear and mastoid","Maladies de l'oreille moyenne et mastoïde"
+"mad_codes.csv","Diseases of inner ear","Maladies de l'oreille interne"
+"mad_codes.csv","Other disorders of ear","Autres affections de l'oreille"
+"mad_codes.csv","Acute rheumatic fever","Le rhumatisme articulaire aigu"
+"mad_codes.csv","Chronic rheumatic heart diseases","Maladies cardiaques rhumatismales chroniques"
+"mad_codes.csv","Hypertensive diseases","Maladies hypertensives"
+"mad_codes.csv","Ischaemic heart diseases","Cardiopathies ischémiques"
+"mad_codes.csv","Pulmonary heart disease and diseases of pulmonary circulation","La maladie et les maladies de la circulation pulmonaire cardiaque pulmonaire"
+"mad_codes.csv","Other forms of heart disease","D'autres formes de maladies du cœur"
+"mad_codes.csv","Cerebrovascular diseases","Maladies cérébrovasculaires"
+"mad_codes.csv","Diseases of arteries,arterioles and capillaries","Maladies des artères, artérioles et capillaires"
+"mad_codes.csv","Diseases of veins, lymphatic vessels and lymph nodes,not elsewhere classified","Maladies des veines, des vaisseaux lymphatiques et des ganglions lymphatiques, non classés ailleurs"
+"mad_codes.csv","Other and unspecified disorders of the circulatory system","Autres et sans précision des troubles de l'appareil circulatoire"
+"mad_codes.csv","Acute upper respiratory infections","Infections des voies respiratoires supérieures aiguës"
+"mad_codes.csv","Influenza and pneumonia","La grippe et la pneumonie"
+"mad_codes.csv","Other acute lower respiratory infections","Autres infections respiratoires aiguës basses"
+"mad_codes.csv","Other diseases of upper respiratory tract","Autres maladies des voies respiratoires supérieures"
+"mad_codes.csv","Chronic lower respiratory diseases","Maladies des voies respiratoires inférieures chroniques"
+"mad_codes.csv","Lung diseases due to external agents","Les maladies pulmonaires dues à des agents externes"
+"mad_codes.csv","Other respiratory diseases principally affecting the interstitium","Autres maladies respiratoires affectant principalement l'interstitium"
+"mad_codes.csv","Suppurative and necrotic conditions of lower respiratory tract","Conditions suppurées et nécrotiques des voies respiratoires inférieures"
+"mad_codes.csv","Other diseases of pleura","Autres maladies de la plèvre"
+"mad_codes.csv","Other diseases of the respiratory system","D'autres maladies des voies respiratoires"
+"mad_codes.csv","Diseases of oral cavity,salivary glands and jaws","Les maladies de la cavité buccale, des glandes salivaires et les mâchoires"
+"mad_codes.csv","Diseases of oesophagus,stomach and duodenum","Maladies de l'oesophage, de l'estomac et du duodénum"
+"mad_codes.csv","Diseases of appendix","Maladies de l'appendice"
+"mad_codes.csv","Hernia","Hernie"
+"mad_codes.csv","Noninfective enteritis and colitis","Entérites non infectieuses et de la colite"
+"mad_codes.csv","Other diseases of intestines","D'autres maladies de l'intestin"
+"mad_codes.csv","Diseases of peritoneum","Les maladies du péritoine"
+"mad_codes.csv","Diseases of liver","Maladies du foie"
+"mad_codes.csv","Disorders of gallbladder, biliary tract and pancreas","Les troubles de la vésicule biliaire, des voies biliaires et du pancréas"
+"mad_codes.csv","Other diseases of the digestive system","D'autres maladies de l'appareil digestif"
+"mad_codes.csv","Infections of the skin and subcutaneous tissue","Les infections de la peau et du tissu sous-cutané"
+"mad_codes.csv","Bullous disorders","Troubles bulleuses"
+"mad_codes.csv","Dermatitis and eczema","Dermatite et eczéma"
+"mad_codes.csv","Papulosquamous disorders","Troubles papulosquameuses"
+"mad_codes.csv","Urticaria and erythema","L'urticaire et érythème"
+"mad_codes.csv","Radiation-related disorders of the skin and subcutaneous tissue","Troubles liés aux rayonnements de la peau et du tissu sous-cutané"
+"mad_codes.csv","Disorders of skin appendages","Troubles de phanères"
+"mad_codes.csv","Other disorders of the skin and subcutaneous tissue","Autres affections de la peau et du tissu sous-cutané"
+"mad_codes.csv","Infectious arthropathies","arthropathies infectieuses"
+"mad_codes.csv","Inflammatory polyarthropathies","polyarthropathies inflammatoires"
+"mad_codes.csv","Arthrosis","arthrose"
+"mad_codes.csv","Other joint disorders","Autres troubles de l'articulation"
+"mad_codes.csv","Systemic connective tissue disorders","Troubles du tissu conjonctif systémiques"
+"mad_codes.csv","Deforming dorsopathies","Déformation dorsopathies"
+"mad_codes.csv","Spondylopathies","Spondylopathies"
+"mad_codes.csv","Other dorsopathies","Autres dorsopathies"
+"mad_codes.csv","Disorders of muscles","Troubles de muscles"
+"mad_codes.csv","Disorders of synovium and tendon","Troubles de la synoviale et du tendon"
+"mad_codes.csv","Other soft tissue disorders","Autres affections des tissus mous"
+"mad_codes.csv","Disorders of bone density and structure","Les troubles de la densité osseuse et la structure"
+"mad_codes.csv","Other osteopathies","Autres ostéopathies"
+"mad_codes.csv","Chondropathies","Chondropathies"
+"mad_codes.csv","Other disorders of the musculoskeletal system and connective tissue","Autres troubles du système musculo-squelettique et du tissu conjonctif"
+"mad_codes.csv","Glomerular diseases","Maladies glomérulaires"
+"mad_codes.csv","Renal tubulo-interstitial diseases","Des maladies rénales tubulo-interstitielles"
+"mad_codes.csv","Renal failure","Insuffisance rénale"
+"mad_codes.csv","Urolithiasis","Urolithiase"
+"mad_codes.csv","Other disorders of kidney and ureter","Autres affections du rein et de l'uretère"
+"mad_codes.csv","Other diseases of urinary system","Autres maladies du système urinaire"
+"mad_codes.csv","Diseases of male genital organs","Maladies des organes génitaux masculins"
+"mad_codes.csv","Disorders of breast","Troubles du sein"
+"mad_codes.csv","Inflammatory diseases of female pelvic organs","Les maladies inflammatoires des organes pelviens de la femme"
+"mad_codes.csv","Noninflammatory disorders of female genital tract","Affections non inflammatoires de l'appareil génital féminin"
+"mad_codes.csv","Other disorders of the genitourinary system","Autres troubles du système génito-urinaire"
+"mad_codes.csv","Pregnancy with abortive outcome","Grossesse avec le résultat abortive"
+"mad_codes.csv","Oedema, proteinuria and hypertensive disorders in pregnancy,childbirth and the puerperium","Œdème, protéinurie et hypertendus troubles de la grossesse, l'accouchement et la puerpéralité"
+"mad_codes.csv","Other maternal disorders predominantly related to pregnancy","Autres affections maternelles liées principalement à la grossesse"
+"mad_codes.csv","Maternal care related to the fetus and amniotic cavity and possible delivery problems","Soins maternels liés au foetus et à la cavité amniotique et problèmes de livraison"
+"mad_codes.csv","Complications of labour and delivery","Complications du travail et l'accouchement"
+"mad_codes.csv","Delivery","Livraison"
+"mad_codes.csv","Complications predominantly related to the puerperium","Complications principalement liées à la puerpéralité"
+"mad_codes.csv","Other obstetric conditions,not elsewhere classified","Autres conditions obstétricales, non classés ailleurs"
+"mad_codes.csv","Fetus and newborn affected by maternal factors and by complications of pregnancy,labour and delivery","Foetus et nouveau-né affectés par des facteurs maternels et par des complications de la grossesse et de l'accouchement"
+"mad_codes.csv","Disorders related to length of gestation and fetal growth","Les troubles liés à la durée de la gestation et la croissance du fœtus"
+"mad_codes.csv","Birth trauma","Naissance trauma"
+"mad_codes.csv","Respiratory and cardiovascular disorders specific to the perinatal period","Les troubles respiratoires et cardio-vasculaires spécifiques à la période périnatale"
+"mad_codes.csv","Infections specific to the perinatal period","Infections spécifiques de la période périnatale"
+"mad_codes.csv","Haemorrhagic and haematological disorders of fetus and newborn","Hémorragiques et hématologiques troubles du foetus et du nouveau-né"
+"mad_codes.csv","Transitory endocrine and metabolic disorders specific to fetus and newborn","Endocrinien transitoire et les troubles métaboliques spécifiques au foetus et du nouveau-né"
+"mad_codes.csv","Digestive system disorders of fetus and newborn","Troubles du système digestif du foetus et du nouveau-né"
+"mad_codes.csv","Conditions involving the integument and temperature regulation of fetus and newborn","Conditions portant sur la réglementation de tégument et de la température du foetus et du nouveau-né"
+"mad_codes.csv","Other disorders originating in the perinatal period","D'autres troubles survenant pendant la période périnatale"
+"mad_codes.csv","Congenital malformations of the nervous system","Les malformations congénitales du système nerveux"
+"mad_codes.csv","Congenital malformations of eye,ear,face and neck","Les malformations congénitales de l'œil, l'oreille, le visage et le cou"
+"mad_codes.csv","Congenital malformations of the circulatory system","Les malformations congénitales de l'appareil circulatoire"
+"mad_codes.csv","Congenital malformations of the respiratory system","Les malformations congénitales de l'appareil respiratoire"
+"mad_codes.csv","Cleft lip and cleft palate","Fente labiale et la fente palatine"
+"mad_codes.csv","Other congenital malformations of the digestive system","Autres malformations congénitales de l'appareil digestif"
+"mad_codes.csv","Congenital malformations of genital organs","Les malformations congénitales des organes génitaux"
+"mad_codes.csv","Congenital malformations of the urinary system","Les malformations congénitales de l'appareil urinaire"
+"mad_codes.csv","Congenital malformations and deformations of the musculoskeletal system","malformations et déformations du système musculo-squelettique congénitale"
+"mad_codes.csv","Other congenital malformations","Autres malformations congénitales"
+"mad_codes.csv","Chromosomal abnormalities,not elsewhere classified","Les anomalies chromosomiques, non classés ailleurs"
+"mad_codes.csv","Symptoms and signs involving the circulatory and respiratory systems","Les symptômes et signes relatifs aux systèmes circulatoire et respiratoire"
+"mad_codes.csv","Symptoms and signs involving the digestive system and abdomen","Les symptômes et signes relatifs à l'appareil digestif et de l'abdomen"
+"mad_codes.csv","Symptoms and signs involving the skin and subcutaneous tissue","Les symptômes et signes relatifs à la peau et du tissu sous-cutané"
+"mad_codes.csv","Symptoms and signs involving the nervous and musculoskeletal systems","Les symptômes et signes relatifs aux systèmes nerveux et musculo-squelettiques"
+"mad_codes.csv","Symptoms and signs involving the urinary system","Les symptômes et signes relatifs à l'appareil urinaire"
+"mad_codes.csv","Symptoms and signs involving cognition, perception, emotional state and behaviour","Les symptômes et les signes relatifs à la connaissance, la perception, l'état émotionnel et le comportement"
+"mad_codes.csv","Symptoms and signs involving speech and voice","Les symptômes et signes relatifs à la parole et de la voix"
+"mad_codes.csv","General symptoms and signs","Symptômes et signes généraux"
+"mad_codes.csv","Abnormal findings on examination of blood,without diagnosis","Résultats anormaux d'examen du sang, sans diagnostic"
+"mad_codes.csv","Abnormal findings on examination of urine,without diagnosis","Résultats anormaux de l'examen d'urine, sans diagnostic"
+"mad_codes.csv","Abnormal findings on examination of other body fluids, substances and tissues, without diagnosis","Résultats anormaux d'examen d'autres fluides corporels, substances et tissus, sans diagnostic"
+"mad_codes.csv","Abnormal findings on diagnostic imaging and in function studies, without diagnosis","Résultats anormaux d'imagerie diagnostique et dans les études fonctionnelles, sans diagnostic"
+"mad_codes.csv","Ill-defined and unknown causes of mortality","Mal définies et des causes inconnues de mortalité"
+"mad_codes.csv","Injuries to the head","Les blessures à la tête"
+"mad_codes.csv","Injuries to the neck","Blessures au cou"
+"mad_codes.csv","Injuries to the thorax","Les blessures au thorax"
+"mad_codes.csv","Injuries to the abdomen, lower back, lumbar spine and pelvis","Les blessures à l'abdomen, le bas du dos, la colonne vertébrale lombaire et du bassin"
+"mad_codes.csv","Injuries to the shoulder and upper arm","Les blessures à l'épaule et du bras"
+"mad_codes.csv","Injuries to the elbow and forearm","Les blessures au coude et avant-bras"
+"mad_codes.csv","Injuries to the wrist and hand","Les blessures au poignet et la main"
+"mad_codes.csv","Injuries to the hip and thigh","Les blessures à la hanche et de la cuisse"
+"mad_codes.csv","Injuries to the knee and lower leg","Les blessures au genou et de la jambe"
+"mad_codes.csv","Injuries to the ankle and foot","Les blessures à la cheville et du pied"
+"mad_codes.csv","Injuries involving multiple body regions","Les blessures impliquant plusieurs parties du corps"
+"mad_codes.csv","Injuries to unspecified part of trunk, limb or body region","Les blessures à une partie quelconque de tronc, membre ou région du corps"
+"mad_codes.csv","Effects of foreign body entering through natural orifice","Effets du corps étranger pénétrant par un orifice naturel"
+"mad_codes.csv","Burns and corrosions of external body surface,specified by site","Brûlures et corrosions de la surface externe du corps, spécifiées par site"
+"mad_codes.csv","Burns and corrosions confined to eye and internal organs","Brûlures et corrosions confinés dans les yeux et les organes internes"
+"mad_codes.csv","Burns and corrosions of multiple and unspecified body regions","Brûlures et corrosions de multiples et régions du corps non précisées"
+"mad_codes.csv","Frostbite","Gelure"
+"mad_codes.csv","Poisoning by drugs,medicaments and biological substances","Intoxication par des médicaments et des substances biologiques"
+"mad_codes.csv","Toxic effects of substances chiefly nonmedicinal as to source","Les effets toxiques des substances d'origine essentiellement non médicinale"
+"mad_codes.csv","Other and unspecified effects of external causes","Autres et sans précision des effets de causes externes"
+"mad_codes.csv","Certain early complications of trauma","Certaines complications précoces des traumatismes"
+"mad_codes.csv","Complications of surgical and medical care, not elsewhere classified","Complications de soins chirurgicaux et médicaux, non classés ailleurs"
+"mad_codes.csv","Sequelae of injuries,of poisoning and of other consequences of external causes","Séquelles de lésions traumatiques, d'empoisonnement et d'autres conséquences de causes externes"
+"mad_codes.csv","Pedestrian injured in transport accident","Piéton blessé dans un accident de transport"
+"mad_codes.csv","Pedal cyclist injured in transport accident","Cycliste blessé dans un accident de transport"
+"mad_codes.csv","Motorcycle rider injured in transport accident","Motocycliste blessé dans un accident de transport"
+"mad_codes.csv","Occupant of three-wheeled motor vehicle injured in transport accident","Occupant d'un véhicule à moteur à trois roues blessé dans un accident de transport"
+"mad_codes.csv","Car occupant injured in transport accident","Occupant d'une automobile blessé dans un accident de transport"
+"mad_codes.csv","Occupant of pick-up truck or van injured in transport accident","Occupant d'une camionnette pick-up blessé dans un accident de transport"
+"mad_codes.csv","Occupant of heavy transport vehicle injured in transport accident","Occupant d'un véhicule lourd blessé dans un accident de transport"
+"mad_codes.csv","Bus occupant injured in transport accident","Occupant d'un autobus blessé dans un accident de transport"
+"mad_codes.csv","Other land transport accidents","Autres accidents de transport terrestre"
+"mad_codes.csv","Water transport accidents","Accidents de transport de l'eau"
+"mad_codes.csv","Air and space transport accidents","Accidents de transport aérien et de l'espace"
+"mad_codes.csv","Other and unspecified transport accidents","Autres et sans précision accidents de transport"
+"mad_codes.csv","Falls","Chutes"
+"mad_codes.csv","Exposure to inanimate mechanical forces","L'exposition à des forces mécaniques inanimées"
+"mad_codes.csv","Exposure to animate mechanical forces","L'exposition à des forces animées"
+"mad_codes.csv","Accidental drowning and submersion","Noyade et submersion accidentelles"
+"mad_codes.csv","Other accidental threats to breathing","Autres menaces accidentelles à la respiration"
+"mad_codes.csv","Exposure to electric current,radiation and extreme ambient air temperature and pressure","L'exposition au courant électrique, le rayonnement et la température de l'air extrême ambiante et pression"
+"mad_codes.csv","Exposure to smoke,fire and flames","L'exposition à la fumée, le feu et les flammes"
+"mad_codes.csv","Contact with heat and hot substances","Contact avec des substances à la chaleur et à chaud"
+"mad_codes.csv","Contact with venomous animals and plants","Le contact avec des animaux venimeux et des plantes"
+"mad_codes.csv","Exposure to forces of nature","L'exposition aux forces de la nature"
+"mad_codes.csv","Accidental poisoning by and exposure to noxious substances","Intoxication accidentelle par l'exposition à des substances nocives"
+"mad_codes.csv","Overexertion,travel and privation","Surmenage, Voyage et privations"
+"mad_codes.csv","Accidental exposure to other and unspecified factors","Une exposition accidentelle à d'autres facteurs et non précisés"
+"mad_codes.csv","Intentional self-harm","Lésion auto-infligée"
+"mad_codes.csv","Assault","Agression"
+"mad_codes.csv","Event of undetermined intent","Événement d'intention indéterminée"
+"mad_codes.csv","Legal intervention and operations of war","intervention juridique et des opérations de guerre"
+"mad_codes.csv","Drugs,medicaments and biological substances causing adverse effects in therapeutic use","Médicaments et substances biologiques ayant provoqué des effets indésirables en usage thérapeutique"
+"mad_codes.csv","Misadventures to patients during surgical and medical care","Mésaventures aux patients pendant les soins chirurgicaux et médicaux"
+"mad_codes.csv","Medical devices associated with adverse incidents in diagnostic and therapeutic use","Dispositifs médicaux associés à des accidents à usage diagnostique et thérapeutique"
+"mad_codes.csv","Surgical and other medical procedures as the cause of abnormal reaction of the patient, or of later complication, without mention of misadventure at the time of the procedure","Procédures médicales chirurgicales et d'autres comme la cause de réactions anormales du patient ou de complications ultérieures, sans mention d'accident au moment de la procédure"
+"mad_codes.csv","Sequelae of external causes of morbidity and mortality","Séquelles de causes externes de morbidité et de mortalité"
+"mad_codes.csv","Supplementary factors related to causes of morbidity and mortality classified elsewhere","Facteurs supplémentaires se rapportant aux causes de morbidité et de mortalité classées ailleurs"
+"mad_codes.csv","Persons encountering health services for examination and investigation","Les personnes aux services de santé pour examen et enquête"
+"mad_codes.csv","Persons with potential health hazards related to communicable diseases","Les personnes présentant des risques potentiels pour la santé liés aux maladies transmissibles"
+"mad_codes.csv","Persons encountering health services in circumstances related to reproduction","Les personnes aux services de santé dans des circonstances liées à la reproduction"
+"mad_codes.csv","Persons encountering health services for specific procedures and health care","Les personnes aux services de santé pour les procédures spécifiques et des soins de santé"
+"mad_codes.csv","Persons with potential health hazards related to socioeconomic and psychosocial circumstances","Les personnes présentant des risques potentiels pour la santé liés aux conditions socio-économiques et psychosociaux"
+"mad_codes.csv","Persons encountering health services in other circumstances","Les personnes aux services de santé dans d'autres circonstances"
+"mad_codes.csv","Persons with potential health hazards related to family and personal history and certain conditions influencing health status","Les personnes présentant des risques potentiels pour la santé liés à la famille et de l'histoire personnelle et certaines conditions influant sur l'état de santé"
+"mad_codes.csv","Provisional assignment of new diseases of uncertain etiology","Affectation provisoire de nouvelles maladies d'étiologie incertaine"
+"mad_codes.csv","Bacterial agents resistant to antibiotics","Des agents bactériens résistants aux antibiotiques"
+"mad_codes.csv","Other (Not categorised)","Autre (Non classé)"
+"mad_codes.csv","International Classification of Disease (ICD-10)","Classification internationale des maladies (CIM-10)"
+"mad_codes.csv","Suspected","Suspect"
+"mad_codes.csv","Suspected case
+A disease characterized by acute painless watery diarrhea with or without vomiting or dehydration.
+
+Probable case
+Anyone of 5 years or more with severe dehydration or death from acute diarrhea (3 or more abnormally loose or watery stools in the last 24 hours). Any person 2 years or older with acute diarrhea (3 or more abnormally loose or watery stools in the last 24 hours) with or without dehydration in an area where there is a cholera epidemic.
+
+Confirmed case
+A clinically compatible illness and fills the laboratory test.","Cas suspect
+Une maladie qui se caractérise par une diarrhée aqueuse indolore aiguë avec ou sans vomissements ou déshydratation. 
+
+Cas probable 
+Toute personne de 5 ans ou plus souffrant de déshydratation grave ou de décès causés par la diarrhée aiguë (3 ou plus anormalement selles molles ou liquides dans les dernières 24 heures). Toute personne de 2 ans ou plus souffrant de diarrhée aiguë (3 ou plus anormalement, selles molles ou liquides dans les dernières 24 heures), avec ou sans déshydratation dans une zone où il y a une épidémie de choléra.
+
+Cas confirmé 
+Une maladie cliniquement compatible  et remplit le critère de laboratoire."
+"mad_codes.csv","Suspected case
+A disease characterized by the insidious onset of persistent fever, headache, malaise, cough, bradycardia, splenomegaly or pink stain on the trunk with or without gastrointestinal symptoms.
+  
+Probable case
+A clinically compatible case BE
+• Following Salmonella Typhi title Widal O antibody test of 200 or more, or
+• Epidemiological link to a Confirmed case
+
+Confirmed case
+A clinical compatible case with Laboratory confirmation.","Cas suspect
+Une maladie caractérisée par l'apparition insidieuse de fièvre persistante, des maux de tête, malaise, toux, une bradycardie, une splénomégalie ou tâche rose sur  le tronc avec ou sans symptômes gastro-intestinaux.
+  
+Cas probable  
+Un cas clinique compatible soit  
+•A la suite de test de Widal de titre de Salmonella Typhi O anticorps de 200 ou plus, ou  
+•Lien épidémiologique avec un cas confirmé
+
+Cas confirmé
+Un cas clinique compatible avec la confirmation en laboratoire."
+"mad_codes.csv","Suspected case
+A disease characterized by the insidious onset of persistent fever, headache, malaise, cough, bradycardia, splenomegaly or pink stain on the trunk with or without gastrointestinal symptoms.
+  
+Probable case
+A clinically compatible case BE
+• Following Salmonella Typhi title Widal O antibody test of 200 or more, or
+• Epidemiological link to a Confirmed case
+
+Confirmed case
+A clinical compatible case with Laboratory confirmation.","Cas suspect
+Toute personne souffrant de diarrhée (apparue depuis moins de 15 jours) avec présence de sang visible dans les selles, associée ou non à des glaires ou des douleurs abdominales, avec ou sans signes de déshydratation. 
+
+Cas probable 
+Un cas clinique compatible sans confirmation en laboratoire, mais un lien épidémiologique avec un cas confirmé.
+
+Cas confirmé 
+Un cas clinique compatible avec la confirmation en laboratoire."
+"mad_codes.csv","Suspected case
+Anyone suffering from diarrhea (appeared for less than 15 days) with visible blood in the stool, with or without mucus or abdominal pain, with or without signs of dehydration.
+
+Probable case
+A clinically compatible case without Laboratory confirmation, but epidemiologically linked to a Confirmed case.
+
+Confirmed case
+A clinical compatible case with Laboratory confirmation.","Cas suspect 
+Survenue de symptômes cliniques variés au décours d’un repas, touchant au moins 02  personnes ayant partagé le même repas.
+
+Epidémie probable 
+Une maladie cliniquement et épidémiologiquement compatible sans confirmation en laboratoire.
+
+Cas confirmé 
+Une maladie cliniquement et épidémiologiquement compatible avec SOIT 
+•Critères de laboratoire de l'agent causal; OU 
+•lien épidémiologique à un autre foyer confirmé"
+"mad_codes.csv","Suspected case
+Anyone coughing for at least 3 weeks.
+
+Confirmed case
+Direct examination of sputum or GeneXpert cases confirmed by radiography, culture for extrapulmonary.","Cas suspect 
+Toute personne toussant depuis au moins 3 semaines.
+
+Cas confirmé 
+Examen direct de cachat ou par GeneXpert Cas confirmé par la radiographie, la culture pour les extrapulmonaires."
+"mad_codes.csv","Suspected case
+Anyone with a high fever of sudden onset, with chills, headache, malaise importantly, prostration and very painful swelling of lymph nodes, or cough with blood-stained sputum, chest pain, and difficulty breathing.
+
+Probable case
+A clinically compatible illness with the results of TDR positive.
+
+Confirmed case
+A clinically compatible illness with laboratory results to confirm.","Cas suspect
+Toute personne présentant une forte fièvre d’apparition brutale, accompagnée de frissons, céphalées, malaise important, prostration et gonflement très douloureux des ganglions lymphatiques, ou toux avec crachats teintés de sang, douleurs thoraciques, et difficulté à respirer.
+
+Cas probable
+Une maladie cliniquement compatible avec les résultats de TDR positif.
+
+Cas confirmé
+Une maladie cliniquement compatible avec les résultats de laboratoire pour confirmation."
+"mad_codes.csv","Suspected case
+People with the cardinal signs of leprosy (depigmented patches with or without sensory disturbances, or nodules or enlarged nerve trunks) and have not yet taken the treatment with multidrug therapy (MDT).
+
+Confirmed case
+A person with at least two of the cardinal signs.
+Leprosy Pucibacillaire (PB) if the number of spots is less than 5
+Leprosy Multibacillary (MB) if the number of spots is greater than 5 or nodules.de laboratory and confirmed.","Cas suspect
+Personne présentantune ou plusieurs taches claires que la peau normale, non prurigineuses, non squameuses, ou des nodules (souvent sur la figure, les oreilles….)
+
+Nouveau cas probable 
+Personnes présentant les signes cardinaux de la lèpre (taches hypochromiques avec ou sans troubles de sensibilité, ou nodules ou hypertrophie des troncs nerveux) et n’ayant pas encore pris le traitement par la polychimiothérapie (PCT).
+
+Cas confirmé 
+Une personne avec au moins deux des signes cardinaux.
+Lèpre Pucibacillaire (PB) si le nombre de taches est inférieur à 5 
+Lèpre Multibacillaire (MB) si le nombre de taches est supérieur à 5 ou nodules.de laboratoire et confirmée."
+"mad_codes.csv","Suspected case
+Every newborn normally able to suck or cry over the first two days after birth and between 3 to 28 days loses this ability and / or suffers from convulsions.
+
+Probable case
+A person with at least one of the following: the inability to open the mouth or prolonged spasm of the facial muscles; OR painful muscle contractions.
+Tetanus requires an injury or a wound, but patients may be unable to recall a specific event.","Cas suspect 
+Tout nouveau-né normalement capable de téter ou crier au cours des deux premiers jours suivant la naissance et qui, entre 3 à 28 jours, perd cette capacité et/ou est atteint de convulsions. 
+
+Cas probable 
+Une personne ayant au moins un des signes suivants: l'impossibilité d'ouvrir la bouche ou le spasme prolongée des muscles faciaux; OU contractions musculaires douloureuses. 
+Tétanos exige une blessure ou une plaie, mais les patients peuvent être incapables de se rappeler un événement spécifique."
+"mad_codes.csv","Suspected case
+Acute flaccid paralysis (AFP) is a syndrome characterized by paralysis (weakness, decrease or loss of movement) which is flange (loss of muscle tone, soft or flaccid member, not spasmadique) and acute (sudden onset). Paralysis of one or more members suddenly occurring in children of senior age 15 or case diagnosed as such by the clinician.
+
+Probable case
+Any child <15 years of age with acute flaccid paralysis, including Guillain-Barré syndrome or any paralytic illness in a person of any age or a person of any age in whom the clinician suspects polio.","Cas suspect
+La paralysie flasque aiguë (PFA) est un syndrome caracterisé par une paralysie (faiblesse, diminution ou perte de mouvement) qui est flasque (perte du tonus musculaire, membre mou ou flaccide, non spasmadique) et aiguë (debut soudain). Paralysie d’un ou de plusieurs membres survenant subitement chez un enfant de agee de moins de 15 ans ou tout cas diagnostiqué comme tel par le clinicien.
+
+Cas probable 
+Tout enfant <15 ans atteints de paralysie flasque aiguë, y compris le syndrome de Guillain-Barré ou de toute maladie paralytique chez une personne de tout âge ou une personne de tout âge chez qui le médecin soupçonne une poliomyélite."
+"mad_codes.csv","Suspected case
+Anyone who has been bitten or licked by an animal to wild or domestic hot blood, with respiratory gene with hydrophobic or Aerophobia spasm or paralysis.
+
+Probable case
+A clinically compatible illness, plus the history of contact with a suspected rabid animal or epidemiologically linked to a Confirmed case.
+
+Confirmed case
+A clinically compatible illness that is laboratory confirmed.","Cas suspect
+Toute personne ayant été mordue ou léchée par un animal à sang chaud domestique ou sauvage, présentant un gène respiratoire avec spasme hydrophobique ou aérophobie ou paralysie.
+
+Cas probable
+Une maladie cliniquement compatible, plus l'histoire de contact avec un animal suspect de rage ou épidémiologiquement liés à un cas confirmé.
+
+Cas confirmé
+Une maladie cliniquement compatible qui est confirmé en laboratoire."
+"mad_codes.csv","Suspected case
+An acute illness characterized by sudden onset of fever (> 38.0 ° C axillary or> 38.5 ° C rectal) and one of the following signs: neck stiffness; altered consciousness or other meningeal signs. In children <1 year, meningitis is suspected when fever is accompanied by a bulging fontanelle.
+ 
+Probable case
+A clinically compatible illness with Gram negative diplococci identified in sterile liquids such as CSF.
+
+Confirmed case
+A compatible clinical laboratory Confirmed case","Cas suspect
+Une maladie aiguë, caractérisée par l'apparition brutale de fièvre (>38,0 ° C axillaire ou> 38,5 degrés Celsius rectaux) et l'un des signes suivants: raideur de la nuque; altération de la conscience, ou d'autres signes méningés. Chez les enfants de <1 an, la méningite est suspectée lorsque la fièvre est accompagnée par un bombement de la fontanelle.
+ 
+Cas probable 
+Une maladie cliniquement compatible avec diplocoques Gram négatif identifié dans des liquides stériles comme CSF. 
+
+Cas confirmé 
+Un cas clinique compatible confirmé en laboratoire"
+"mad_codes.csv","Suspected case
+Fever and at least 2 of the following signs: headache, myalgia, arthralgia, rash, retro orbital pain, hemorrhagic manifestations.","Cas suspect
+Fièvre et au moins 2 des signes suivants: céphalées, myalgie, arthralgie, éruption cutanée, douleurs retro orbitaire, manifestations hémorragiques."
+"mad_codes.csv","Suspected case
+Viral haemorrhagic fever (VHF) refers to a systemic mild group to potentially fatal viral infection often complicated by bleeding disorders. Early symptoms include marked fever, malaise, dizziness, myalgia, loss of strength, and exhaustion. Severe cases may show signs of bleeding under the skin, in internal organs, or from body orifices like the mouth, eyes or ears. Some cases may even show shock, nervous system dysfunction, coma, delirium, and convulsions.
+
+Probable case
+A clinical case compatible with any of the epidemiological evidence that:
+• Travel History in an endemic / epidemic region in the incubation period of disease onset, or
+• Making contact with a Confirmed case, or
+• Exposure to viral haemorrhagic fever infected blood or tissues
+
+Confirmed case
+A laboratory Confirmed case. ","Cas suspect
+La fièvre hémorragique virale (FHV) fait référence à un groupe de doux systémique à l'infection virale potentiellement mortelle souvent compliquée par les syndromes hémorragiques. Les premiers symptômes comprennent la fièvre marquée, malaise, des étourdissements, des myalgies, perte de force, et l'épuisement. Les cas graves peuvent montrer des signes de saignements sous la peau, dans les organes internes, ou d'orifices du corps comme la bouche, les yeux ou les oreilles. Certains cas peuvent même montrer un choc, un dysfonctionnement du système nerveux, coma, délire, et des convulsions.
+
+Cas probable
+Un cas clinique compatible avec l'un quelconque des éléments de preuve épidémiologique qui suit:
+• Histoire du Voyage dans une région endémique / épidémique dans le délai d'incubation de début de la maladie, ou
+• Le contact avec un cas confirmé, ou
+• L'exposition à la fièvre hémorragique virale du sang infecté ou des tissus
+
+Cas confirmé
+Un cas confirmé en laboratoire. "
+"mad_codes.csv","Suspected case
+A disease characterized by all of the following:
+• generalized rash lasting 3 days
+• temperature and a ≥38.3oC
+• cough, coryza or conjunctivitis
+
+Probable case
+Anyone presenting a rash maculopapular generalized with fever and one of the following: cough or coryza (runny nose) or conjunctivitis (red eyes); or any person in whom the clinician suspects measles. A measles deaths is deaths occurring within 30 days of onset of the rash.
+
+Confirmed case
+• A laboratory-Confirmed case. A laboratory-Confirmed case does not need to meet the clinical case definition; OR
+• A clinically compatible case that is epidemiologically linked to a confirmed case","Cas suspect
+Une maladie caractérisée par tout ce qui suit: 
+•une éruption cutanée généralisée durant plus de 3 jours 
+•une température ≥38.3oC et 
+•toux, rhinite ou conjonctivite 
+
+Cas probable
+Toute personne presentant une eruption cutanee maculo-papuleuse generalisee avec de la fievre et un des signes suivants: toux ou coryza (nez qui coule) ou une conjonctivite (yeux rouges); ou toute personne chez qui le clinicien suspecte la rougeole. Un décès par rougeole est un décès survenant dans les 30 jours suivant l'apparition de l'éruption cutanée.
+
+Cas confirmé
+• Un cas confirmé en laboratoire. Un cas confirmé en laboratoire n'a pas besoin de répondre à la définition du cas clinique; OU
+• Un cas clinique compatible qui est un lien épidémiologique avec un cas confirmé"
+"mad_codes.csv","Suspected case
+Viral hepatitis is characterized by features of an acute infectious hepatitis including fever, malaise, anorexia, nausea, abdominal discomfort, dark urine, and jaundice. 
+ 
+Probable case
+Any person with acute onset of jaundice (yellowing of whites of eyes or skin or dark/brown urine) AND severe illness with or without fever AND the absence of any known precipitating factors. Acute hepatitis often presents as acute jaundice syndrome.
+
+Confirmed case 
+A clinically compatible illness with laboratory confirmation","Cas suspect 
+Une maladie virale transmise par les moustiques caractérisée par l'apparition soudaine des symptômes constitutionnels suivis par une brève rémission et la récurrence de la fièvre, de l'hépatite, d’albuminurie, et dans certains cas, d'insuffisance rénale, de choc, et d’hémorragies généralisées. 
+
+Cas probable 
+Une maladie cliniquement compatible avec la sérologie de soutien. (Stable élevée titre d'anticorps au virus de la fièvre jaune, ou un résultat IgM positif. Réactions sérologiques Croisées à d'autres flavivirus doit être exclue, et il doit y avoir aucun antécédent de vaccination contre la fièvre jaune.) 
+
+Cas confirmé 
+Une maladie cliniquement compatible confirmée en laboratoire. "
+"mad_codes.csv","Suspected case
+Fever without signs of other diseases. Other common symptoms include headache, back pain, chills, sweat, myalgia, nausea, vomiting.
+
+Confirmed case
+A clinically compatible illness with a rapid diagnostic test for malaria or laboratory confirmation by smear positive blood
+","Cas suspect 
+Fièvre sans signe d’autres maladies . D'autres symptômes communs incluent des maux de tête, maux de dos, des frissons, de la sueur, des myalgies, nausées, vomissements. 
+
+Cas confirmé 
+Une maladie cliniquement compatible avec un test de diagnostic rapide du paludisme ou
+ la confirmation du laboratoire par frottis de sang positif  
+ 
+Facteurs de risque 
+L'exposition à des zones où le moustique vecteur est présent, les sources d'eau stagnante, Mouvement vers / depuis zones d'endémie palustre, enfants, femme enceinte, personnes immunodéprimées, la malnutrition, autres "
+"mad_codes.csv","Suspected case
+A person with an acute respiratory infection with:
+• measured fever> = 38 ° C; and
+•Cough; with
+• Appearance in the last 10 days.
+
+Probable case
+A clinically compatible illness in the context epidemiologist.
+
+Confirmed case
+A compatible clinical laboratory Confirmed case","Cas suspect
+Une personne avec une infection respiratoire aiguë avec: 
+•fièvre mesurée> = 38 ° C; et 
+•La toux; avec 
+•Apparition dans les 10 derniers jours. 
+
+Cas probable 
+Une maladie cliniquement compatible dans la context epidemiologue. 
+
+Cas confirmé 
+Un cas clinique compatible confirmé en laboratoire"
+"mad_codes.csv","Suspected case
+A person ingests food or other agents that cause an infectious order reached or toxic mainly the gastrointestinal tract but may be of interest to other systems (eg, neurological, immunological). Some Probable cases have typical clinical symptoms of the disease without Laboratory confirmation. By against some suspected cases are under clinical or atypical symptoms.
+
+Differential diagnosis: acute watery diarrhea (suspected cholera), bloody diarrhea (suspected shigellosis), acute jaundice syndrome (suspected hepatitis)
+
+Probable case
+Occurrence of clinical symptoms varied with the waning of the consumption of a marine animal, usually affecting at least 2 people who consumed this animal.","Cas suspect
+Une personne qui ingère des aliments ou d'autres agents qui provoque une atteinte d’ordre infectieuse ou toxique principalement du tractus gastro-intestinal, mais peut intéresser d'autres systèmes (par exemple, neurologiques, immunologiques). Certains cas probables ont des symptômes cliniques typiques de la maladie même sans confirmation de laboratoire. Par contre certains cas suspects ont moins de symptômes cliniques ou atypiques. 
+
+Diagnostic différentiel : la diarrhée aqueuse aiguë (soupçonné de choléra), une diarrhée sanglante (suspecté de shigellose), le syndrome de jaunisse aiguë (soupçonné d’hépatite) 
+
+Cas probable 
+Survenue de symptômes cliniques variés au décours de la consommation d’un animal marin, touchant habituellement au moins 2 personnes ayant consommé cet animal.
+
+Cas confirmé 
+Une maladie cliniquement et épidémiologiquement compatible avec SOIT 
+• Critères de laboratoire de l'agent causal; OU 
+• Lien épidémiologique à un autre foyer confirmé"
+"mad_codes.csv","Suspected case
+Any man with an ulcer of the penis, scrotum or rectum, with or without lymphadenopathy or inguinal and genital discharge, or any woman with an ulcer lips, vagina or rectum, with or without inguinal lymphadenopathy.
+
+Probable case
+A clinically compatible illness
+
+Confirmed case
+A clinically compatible illness that is laboratory confirmed.
+","Cas suspect
+Tout homme présentant un ulcère de la verge, du scrotum ou du rectum, avec ou sans adénopathie et ou écoulement génital inguinal, ou toute femme présentant un ulcère des lèvres, du vagin ou du rectum, avec ou sans adénopathie inguinale.
+
+Cas probable
+Une maladie cliniquement compatible
+
+Cas confirmé 
+Une maladie cliniquement compatible qui est confirmé en laboratoire..   "
+"mad_codes.csv","Suspected case
+Death of a woman while pregnancy or within 42 days of his term, whatever the duration or location, from any cause related to or aggravated by pregnancy or its management but not from accidental or incidental causes.","Cas suspect
+Décès d’une femme survenu au cours de la grossesse ou dans un délai de 42 jours après son terme, quelle qu’en soit
+la durée ou la localisation, pour une cause quelconque déterminée ou aggravée par la grossesse ou sa prise en charge, mais ni accidentelle, ni fortuite."
+"mad_codes.csv","Suspected case
+Death of a newborn from 0 to 28 days.","Cas suspect
+Décès d’un nouveau-né de 0 à 28 jours."
+"mad_codes.csv","Suspected case
+Children aged under 5 years with weight for height (P / T) between -2 and -3 Z-scores below the median or MUAC (PB) from 115 to 125mm.","Cas suspect
+Enfant âgé de moins de 5 ans ayant un poids pour taille (P/T) entre -2 et -3 Z scores au-dessous de la médiane, ou un périmètre brachial (PB) de 115 à 125mm."
+"mad_codes.csv","Suspected case
+Children aged under 5 years with weight on size below the -3 Z-score line scores or presence of edema of both feet or arm circumference (PB) is less than 115 mm.","Cas suspect
+Enfant âgé de moins de 5 ans ayant un poids sur taille au-dessous de la courbe de valeur du -3 Z scores ou présence d’œdème au niveau des deux pieds ou périmètre brachial (PB) est inférieur à 115 mm."
+"mad_codes.csv","Suspected case
+Cough and colds with increased respiratory rate and fever.
+
+Confirmed case
+A clinically compatible illness and fulfils the laboratory test.","Cas suspect
+Toux avec rhume et augmentation de la fréquence respiratoire et fièvre.
+
+Cas confirmé 
+Une maladie cliniquement compatible  et remplit le critère de laboratoire. "
+"mad_codes.csv","Suspected case
+Person with clinical signs of hydrocele or lymphedema, and lives in an area
+endemic, after exclusion of other causes.
+
+Confirmed case
+Person with a diagnosis of positive laboratory: microfilaria in blood smear, wired antigens or positive ultrasound.","Cas suspect 
+Personne présentant des signes cliniques d’hydrocèle ou de lymphoedème, et résidant dans une zone
+d’endémie, après exclusion de toute autre cause.
+
+Cas confirmé 
+Personne avec un diagnostic de laboratoire positif : microfilarémie sur un frottis sanguin, antigènes filaires ou échographie positive."
+"mad_codes.csv","Suspected case
+Any case of scratch, bite or lick on any part of the body inflicted by a warm-blooded animal (dog, cat, monkey, ...).","Cas suspect
+Tout cas de griffure, morsure, voire léchage, sur une quelconque partie du corps infligé par un animal à sang chaud (chien, chat, singes, …).
+"
+"mad_codes.csv","The description
+A case or group of cases that could indicate the emergence of a serious public health event or epidemic, including:
+• A case of unusual disease
+• A sudden increase in the number of cases of a disease or condition.
+• A cluster of cases
+• A change in the presentation of a known disease","La Description
+Il s’agit d’un cas ou d’un groupe de cas qui pourrait indiquer l'émergence d'un événement grave de santé publique ou d'une épidémie, y compris:
+• Un cas de maladie inhabituel 
+• Une augmentation soudaine du nombre de cas d’une maladie ou affection.
+ Un cluster de cas)
+• Un changement dans la présentation d'une maladie connue
+
+L’événement devrait « Trigger »déclencher ou motiver une réaction ou réponse.
+
+Facteurs de risque 
+Histoire d’un voyage dans les zones où il y a circulation d'un nouvel agent pathogène pouvant avoir un impact grave de santé publique (par exemple grippe aviaire, choléra, …), une maladie chez un travailleur de la santé qui prend soin des patients atteints de maladies respiratoires, une maladie chez une personne travaillant dans un abattoir, agriculteur ou une personne en contact étroit avec des animaux d’élevage (par exemple des poulets), Le patient étant admis en soins intensifs, histoire de la maladie dans la famille ou chez un contact étroit.
+
+Signes / symptôme (s) 
+Présentation clinique inhabituelle ; Changement dans la réponse au traitement
+
+Questions supplémentaires
+• Date d'apparition des symptomes
+• Vérifiez si l'une des conditions ci-dessus est notée sur ce patient"
+"mad_codes.csv","Contaminated water sources, Contaminated food sources, Cholera outbreak, Low environmental sanitation, Other, None of the above","Sources d'eau contaminés, Sources de la nourriture contaminée, L'épidémie de choléra, Une faible assainissement de l'environnement, Autre, Aucune de ces réponses"
+"mad_codes.csv","Work in or travel to areas where typhoid fever is endemic, Close contact with someone who is infected or has recently been infected with typhoid fever, Drink water contaminated by sewage that contains S. typhi, Other, None of the above","Travail ou Voyage dans les zones où la fièvre typhoïde est endémique, En contact étroit avec une personne infectée ou a récemment été infectés par la fièvre typhoïde, Boire de l'eau contaminée par les eaux usées qui contiennent S. typhi  , Autre, Aucune de ces réponses"
+"mad_codes.csv","Contaminated water, Contaminated food, Malnourished, Age (under 5, older adults), Children who have had measles in the past 6 weeks, Shigellosis outbreak, Other, None of the above","L'eau contaminée, Des aliments contaminés, Souffrent de malnutrition, l'âge (enfants de moins de 5, les personnes âgées), Les enfants qui ont eu la rougeole au cours des 6 semaines, Flambée de shigellose, Autre, Aucune de ces réponses"
+"mad_codes.csv","Consumption of contaminated food, Consumption of contaminated water, Other, None of the above","La consommation d'aliments contaminés, La consommation d'eau contaminée, Autre, Aucune de ces réponses"
+"mad_codes.csv","Promiscuity, Exposure to known case of TB, HIV positive, Lack of hygiene, Malnutrition, Other, None of the above","La promiscuité, l'exposition à une personne atteinte de tuberculose connue, Le VIH-positif, Le manque d’hygiène, La malnutrition, Autre, Aucune de ces réponses"
+"mad_codes.csv","Location (endemic rural areas and in urban areas characterized by overcrowding, Poor hygiene and a high rat population, Occupation (veterinarians), Other, None of the above","Séjour enones rurales endémiques et dans les zones urbaines caractérisées par le surpeuplement, Le manque d'hygiène et une forte population de rat, Profession (vétérinaires, forestiers, …), Autre, Aucune de ces réponses"
+"mad_codes.csv","Close contact with someone with leprosy, Displacement, Overcrowded conditions, Other, None of the above","Un contact étroit avec un cas de lèpre bacillifère, Déplacement, Conditions de surpeuplement, Autre, Aucune de ces réponses"
+"mad_codes.csv","Injury or wound, Cutting the umbilical cord in a non-sterile manner (pregnant women during childbirth), Other, None of the above","Blessure ou plaie, Coupe de cordon ombilical non stérile potentielle (les femmes enceintes lors de l'accouchement) , Autre, Aucune de ces réponses"
+"mad_codes.csv","Age (children under 5), Source of contaminated water, Another case of AFP reported in the same area, Other, None of the above","L'âge (enfants de moins de 5), Sources d'eau contaminées, Un autre cas de PFA signalés dans la même zone , Autre, Aucune de ces réponses"
+"mad_codes.csv","Exposure to rabies-carrying vectors (e.g. bats, etc.), Other, None of the above","Exposition au vecteur de la rage portant (par exemple les chauves-souris, etc.), Autre, Aucune de ces réponses"
+"mad_codes.csv","Close and prolonged contact with individual suspected of having meningitis, High rates of acute respiratory infection (ARI), Overcrowding conditions, Other, None of the above","Contact étroit et prolongé avec individu suspecté d'avoir la méningite, Des taux élevés d'infections respiratoires aiguës (IRA), la surpopulation, Autre, Aucune de ces réponses"
+"mad_codes.csv","People living or traveling in tropical regions, A prior infection with dengue virus, Other, None of the above","Personnes qui vivent ou voyagent dans les régions tropicales, Une infection antérieure par un virus de la dengue, Autre, Aucune de ces réponse"
+"mad_codes.csv","Reside in or move to an endemic area, Exposure to vectors (ticks, rodents, livestock, mosquitoes, camels, horses etc.), Other, None of the above","Résider ou se déplacer vers une zone d'endémie, L'exposition aux vecteurs (tiques, rongeurs, bétail, les moustiques, les chameaux, chevaux, etc.) , Autre, Aucune de ces réponses"
+"mad_codes.csv","Age (children between 9 months and 5 years), Overcrowding conditions, Measles immunization coverage rate known to be <80% in area of origin/residence, Malnutrition, Other, None of the above","Âge (enfants âgés de 9 mois à 5 ans), Les conditions de surpeuplement, Le taux de couverture vaccinale connus pour être <80% dans la région d'origine / de résidence, La malnutrition, Autre, Aucune de ces réponses"
+"mad_codes.csv","Endemic Hepatitis A, Contaminated water sources, Contaminated food sources, Presence of other known cases, Other, None of the above","Endémique de l'hépatite A, Sources d'eau contaminées, Sources alimentaires contaminées, Présence d'autres cas connus, Autre, Aucune de ces réponses"
+"mad_codes.csv","Exposure to areas where mosquito vector is present, Stagnant water sources, Movement to/from malaria endemic areas, Children, Pregnant woman, Immune compromised individuals, Malnutrition, Other, None of the above","L'exposition à des zones où le moustique vecteur est présent, Les sources d'eau stagnante, Mouvement de / vers les zones d'endémie palustre, Enfants, Femme enceinte, Les personnes immunodéprimées, La malnutrition, Autre, Aucune de ces réponses"
+"mad_codes.csv","Person living with HIV, Person with active TB, Person with other chronic illness, Influenza outbreak/seasonal influenza, Other, None of the above","Personne vivant avec le VIH, Personne atteinte de tuberculose active, Personne atteint par d’autre maladie chronique, Epidémie de grippe / la grippe saisonnière, Autre, Aucune de ces réponses"
+"mad_codes.csv","Consumption of contaminated food, Consumption of contaminated water, Other, None of the above","La consommation d'aliments contaminés, La consommation d'eau contaminée, Autre, Aucune de ces réponses"
+"mad_codes.csv","Unprotected vaginal and/or anal intercourse, Other, None of the above","La pénétration vaginale et / ou anale non protégée, Autre, Aucune de ces réponses"
+"mad_codes.csv","Inadequate food availability at household level, Children's diseases, Other, None of the above","Insuffisance de disponibilité alimentaire au niveau du ménage, Les maladies de l’enfant, Autre, Aucune de ces réponses"
+"mad_codes.csv","Inadequate food availability at household level, Lack of appetite, Small birth weight, Low educational level of mothers, Other, None of the above","Insuffisance de disponibilité alimentaire au niveau du ménage, Manque d’appétit, Petit poids à la naissance, Mère de niveau éducatif faible, Autre, Aucune de ces réponses"
+"mad_codes.csv","Long exposure to mosquito bites transmitting the parasite in endemic areas.","Exposition longue à des piqures de moustiques transmettant le parasite dans les zones d’endémie."
+"mad_codes.csv","Travel History in areas where there is circulating a new pathogen that can have a serious impact on public health (eg avian influenza, cholera , …), Illness in a health care worker who takes care of patients with respiratory disease, Illness in a person working in a slaughterhouse, farmer or a person in close contact with livestock ( eg chickens ), Patient is admitted to ICU, History of illness in the family or close contact","Histoire d’un voyage dans les zones où il y a circulation d'un nouvel agent pathogène pouvant avoir un impact grave de santé publique (par exemple grippe aviaire, choléra, …), Une maladie chez un travailleur de la santé qui prend soin des patients atteints de maladies respiratoires, Une maladie chez une personne travaillant dans un abattoir, agriculteur ou une personne en contact étroit avec des animaux d’élevage (par exemple des poulets), Le patient étant admis en soins intensifs, Histoire de la maladie dans la famille ou chez un contact étroit"
+"mad_codes.csv","Watery diarrhoea (3 or more abnormally loose or fluid stools in the past 24 hours, Rice stools with or without vommitting, Severe dehydration (including any of the following loss of skin turgor, malaise, tachypnoea, hypotension), Fever (more common in children), Other, None of the above","Diarrhée aqueuse (3 ou plus de selles anormalement molles ou liquides dans les dernières 24 heures, les selles ""eau de riz» avec ou sans vomissements), une déshydratation sévère (avec une perte d'élasticité de la peau, de malaise, de tachypnée, d’hypotension), la fièvre (plus fréquente chez les enfants)"
+"mad_codes.csv","Fever, Headache, Malaise, Cough, Bradycardia, Splenomegaly, Rose spot on the trunk, Gastrointestinal symptoms, Other, None of the above","Fièvre, maux de tête, malaise, toux, une bradycardie, une splénomégalie, Tâches roses sur le tronc, les symptômes gastro-intestinaux"
+"mad_codes.csv","Malnourished, Bloody diarrhoea (3 or more abnormally loose or fluid stools in past 24 hours with visible blood), Fever, Abdominal cramps, Rectal pain, Seizures, Sepsis, Rectal prolapsed, Toxic megacolon, Hemolytic uraemic syndrome, Other, None of the above","Selles sanglantes (3 ou plus de selles anormalement molles ou liquides au cours des dernières 24 heures avec du sang visible), de la fièvre, des crampes abdominales, des douleurs rectales, des convulsions, la septicémie, rectale prolapsus, mégacôlon toxique, syndrome hémolytique et urémique"
+"mad_codes.csv","Nausea, Vomiting, Mucoid diarrhoea (fatty stools), Other diarrhoea (non-watery and non-bloody type), Abdominal pain, Headache, Dizziness, Loss of consciousness, Coma, Thirst, Dehydration, Dyspnoea, Weakness, Malaise, Sore throat, Fever, Chills, Gastroenteritis, Blurred vision, Twitching/convulsions, Tingling/numbness, Dilated pupils, Constricted pupils, Difficulty swallowing/speaking/breathing, Rash, Itching of skin, Other, None of the above","Nausées, vomissements, diarrhée mucoïde (selles gras), d'autres diarrhées (type non-aqueux et non-sanglante), des douleurs abdominales, des maux de tête, des étourdissements, perte de conscience, coma, la soif, la déshydratation, la dyspnée, faiblesse, malaise, maux de gorge, fièvre, des frissons, la gastro-entérite, une vision 
+floue, des contractions musculaires / convulsions, des picotements / engourdissements, les pupilles dilatées, contraction des pupilles, difficulté à avaler / parler / respiration, éruptions cutanées, des démangeaisons de la peau "
+"mad_codes.csv","Cough of long duration (>2 weeks), Coughing blood , Chest pain, Shortness of breath, Fever/night sweats, Tiredness, Loss of appetite, Weight loss, Other, None of the above","Toux de longue durée (> 2 semaines),  des douleurs thoraciques, essoufflement, fièvre / sueurs nocturnes, fatigue, perte d'appétit, perte de poids."
+"mad_codes.csv","High fever, Painful inflammation and suppuration in the lymph nodes in the area of the bite, Headache, Vomiting, Delirium, Shortness of breath, Cough, Bloody sputum, Other, None of the above","Une forte fièvre, une inflammation douloureuse et la suppuration dans les ganglions lymphatiques dans la zone de la morsure, maux de tête, des vomissements, le délire, l'essoufflement, la toux, des expectorations sanglantes."
+"mad_codes.csv","Cutaneous lesions, Nodules, Nerve issues, Other, None of the above","Lésions cutanées, nodules, troubles nerveux."
+"mad_codes.csv","Inability to open the mouth ( ""lockjaw""), spasm sustained facial muscles, including the jaw, painful muscle contractions, inability to breastfeed (newborn), stiff body or arc (newborn ), inability to breathe","Incapacité à ouvrir la bouche («trismus»), le spasme soutenu des muscles du visage, y compris la mâchoire, des contractions musculaires douloureuses, l'incapacité d'allaiter (nouveau-né), le corps raide ou arc (nouveau-né), incapacité à respirer "
+"mad_codes.csv","Asymptomatic, Rapid onset (weeks), Loss of muscle tone (floppy), Muscle weakness (paralysis), One or more limbs involved, Other, None of the above",
+"mad_codes.csv","Spasms in response to tactile, auditory, visual or olfactory stimuli, paralysis or Guillain-Barré-like syndrome, myoedema on percussion sites, encephalitis
+","Spasmes en réponse à tactile, auditive, visuelle ou stimuli olfactifs, la paralysie ou le syndrome de Guillain-Barré-like, myoedema sur les sites de percussion, l'encéphalite"
+"mad_codes.csv","Sudden onset of intense headache, Suddepn onset of fever, Sudden onset of nausea, Sudden onset of vomiting, Sudden onset of photophobia, Sudden onset of stiff neck, Lethargy, Delirium, Coma, Purpura, Shock symptoms, Other","Apparition soudaine de maux de tête intenses, apparition soudaine de fièvre, l'apparition soudaine de nausées, l'apparition soudaine de vomissements, apparition soudaine d'une photophobie, apparition soudaine d'une raideur de la nuque, de la léthargie, délire, coma, purpura, les symptômes dechoc. "
+"mad_codes.csv","Headache, retro-orbital pain, myalgia, arthralgia, rash, haemorrhagic manifestations, leukopenia or thrombocytopenia","Maux de tête, douleurs rétro-orbitaires, myalgies, arthralgies, éruptions cutanées, des manifestations hémorragiques, leucopénie ou thrombopénie. "
+"mad_codes.csv","High fever, rash, runny nose, cough, conjunctivitis, Koplik spots (small white spots on buccal mucosa), red maculopapular (blotchy) rash 3 to 7 days after onset starting behind the ears and hairline","Une forte fièvre, des éruptions cutanées, un écoulement nasal, toux, conjonctivite, taches de Koplik (petites taches blanches sur la muqueuse buccale), maculo-rouge (tâché), éruption de 3 à 7 jours après et commmence derrière les oreilles et la racine des cheveux."
+"mad_codes.csv","Fever, hepatitis, albuminuria, renal failure, shock, haemorrhage","La fièvre, l'hépatite, albuminurie, l'insuffisance rénale, choc, hémorragie"
+"mad_codes.csv","Fever with or without chills, headaches, widespread pain in the back and joints, nausea or vomiting, increased spleen and liver, anemia","Fièvre avec ou sans frissons, maux de tête, douleur généralisée dans le dos et les articulations, nausées ou des vomissements, augmentation de volume de la rate ou du foie, anémie"
+"mad_codes.csv","Fever, cough, sore throat, runny/stuffy nose, body ache, headache, fatigue, vomiting, diarrhea","Fièvre, toux, maux de gorge, nez qui coule / bouché, courbatures, maux de tête, de la fatigue, des vomissements, de la diarrhée "
+"mad_codes.csv","Nausea, Vomiting, Mucoid diarrhoea (fatty stools), Other diarrhoea (non-watery and non-bloody type), Abdominal pain, Headache, Dizziness, Loss of consciousness, Coma, Thirst, Dehydration, Dyspnoea, Weakness, Malaise, Sore throat, Fever, Chills, Gastroenteritis, Blurred vision, Twitching/convulsions, Tingling/numbness, Dilated pupils, Constricted pupils, Difficulty swallowing/speaking/breathing, Rash, Itching of skin","Nausées, vomissements, diarrhée mucoïde (selles gras), autres diarrhées (type non-aqueux et non-sanglante), douleurs abdominales, maux de tête, étourdissements, perte de conscience, coma, soif, déshydratation, dyspnée, faiblesse, malaise, maux de gorge, fièvre, frissons, gastro-entérite, vision floue, contractions musculaires / convulsions, picotements / engourdissements, pupilles dilatées ou au contraire contractées, difficulté à avaler / parler / respirer, éruptions cutanées, démangeaisons de la peau "
+"mad_codes.csv","Fever, lymphadenopathy, genital discharge","Fièvre, Lymphadénopathie, Ecoulement génital"
+"mad_codes.csv","Small relative to size.","Maigre par rapport à sa taille."
+"mad_codes.csv","Presence of oedema in both feet, marasmus (visible weight loss and severe), combination of the two forms","Présence d’œdème au niveau des deux pieds, Marasme (amaigrissement visible et severe), association des deux forms"
+"mad_codes.csv","Runny nose, cough, fever, Other, None of the above","Nez qui coule, La toux, Fièvre, Autre, Aucune de ces réponses"
+"mad_codes.csv","Lymphedema (elephantiasis) and chronic form acute attack, hydrocele","Lymphoedème (éléphantiasis) forme chronique et accès aigu, Hydrocèle"
+"mad_codes.csv","Unusual clinical presentation, Change in treatment response","Présentation clinique inhabituelle ; Changement dans la réponse au traitement"
+"mad_codes.csv","Blurred vision, Headache, Shortness of breath, Nose bleeds","Vision floue, maux de tête, essoufflement, saignements de nez"
+"mad_codes.csv","Isolation of vibrio cholera 01 or 0139 from stool sample (at least 5 grams or pea sized) or rectal swab","Isolement de Vibrio cholérique 01 ou 0139 à partir d’échantillon de selles (au moins 5 grammes ou de la taille d’un pois) ou d’un prélèvement rectal"
+"mad_codes.csv","• Salmonella Typhi isolated from any clinical specimen 
+• Widal test result of a four-fold or greater rise in the titre of Salmonella Typhi O antibody in paired sera ","• Salmonella Typhi isolé de tout échantillon clinique  
+• Le  résultat  du  test de  Widal  avec une  augmentation  de  quatre  fois  ou  plus  du  titre  de l'anticorps  Salmonella Typhi O dans les sérums apparié"
+"mad_codes.csv","Isolation of Shigella dysenteriae type 1 from stool samples (at least 5 grams or pea sized)","Isolement de Shigella dysenteriae type 1 à partir d'échantillons de selles (au moins 5 grammes ou de la taille d’un petit pois)."
+"mad_codes.csv","Isolation of suspected causative agent/s (refer to MOH guidelines) AND detailed risk assessment","Isolement de l'agent causal présumé (s) et de l'évaluation détaillée des risques."
+"mad_codes.csv","At least one positive plate of 3 sputum specimens by direct examination by light microscopy (samples early in the morning are more likely to contain the TB germ in the body), a positive result by the GeneXpert technology, culture result positive despite a negative direct examination, radiography. Intradermal (IDR) with pediatric score in children.","Au moins une lame positive sur 3 échantillons de crachats par examen direct au microscope optique (échantillons tôt le matin sont plus susceptibles de contenir de germe de la tuberculose dans l’organisme), un résultat positif par la technique de GeneXpert, un résultat de culture positif malgré un examen direct négatif, radiographie. Intradermoréaction (IDR) avec score pédiatrique chez les enfants."
+"mad_codes.csv","Any one of the following:  
+• Isolation of Yersinia pestis from a clinical specimen 
+• Four-fold or greater change in serum antibody titre to Y. pestis fraction 1 (F1) antigen","L'une des opérations suivantes:
+• Isolement de Yersinia pestis à partir d'un échantillon clinique
+• Augmentatoin de quatre fois ou plus dans le sérum du titre d'anticorps à la fraction Y. pestis 1 (F1) antigène"
+"mad_codes.csv","• Multibacillary leprosy: demonstration of acid-fast bacilli in skin or dermal nerve, obtained either by skin biopsy, slit skin smear examination or nerve biopsy of a lepromatous lesion.
+• Paucibacillary leprosy: characteristic presence of epithelioid cell granulomas within or around peripheral nerves.","•La confirmation en laboratoire concerne les cas de rechute : existence de nouvelles lésions cutannées ou nodules, avec existence de BH à l’examen bacilloscopique."
+"mad_codes.csv","Not applicable.  The organism is rarely recovered from the site of infection and usually there is no detectable antibody response.","•N'est pas applicable 
+• en général il n'y a pas de réponse d'anticorps détectable."
+"mad_codes.csv","• With a spatula, take two stool samples from 8 to 10 grams (thumb-sized adult) of the case in the range of 24 to 48 hours maximum in two different tubes and close them well
+• Enter on the tubes the following information: name and first names of the event, date and time of sampling and the sample Number (num 1 for the first saddle and the num 2 for 2nd seat)
+• Take an older saddle sample of each of the three contacts of the case of 15 years and put them in 3 different tubes properly labeled
+• Put all 5 tubes in a bag and close it well
+• Put the bag in a vaccine carrier with frozen storage
+• Put the busy notification form into another plastic bag, place it above known accumulators
+• Close the door and send vaccine has IPM in less than 72 hours after the second sample
+• All AFP cases must be validated the focal point of the district before routing to IPM","• Avec une spatule, prendre deux echantillons des selles de 8 a 10 grs (taille du pouce de l’adulte) du cas dans l’intervalle de de 24 a 48 heures maximum dans deux tubes differents et bien les refermer 
+• Inscrire sur les tubes les informations suivantes : nom et prenoms du cas, date et heure de prélèvement et Numero de l’echantillon (num 1 pour la 1ere selle et le num 2 pour la 2e selle)
+• Prendre un echantillon de selle de chacun des 3 contacts du cas agés de moins 15 ans et les mettre dans 3 tubes differents bien etiquetés
+• Mettre tous les 5 tubes dans un sachet et bien le refermer
+• Mettre le sachet dans un porte vaccin avec des accumulateurs congelés
+• Mettre la fiche de notification bien remplie dans un autre sachet plastique, la déposer su dessus des accumulateurs
+• Fermer le porte vaccin et l’envoyer a l’IPM dans moins de 72 heures après le deuxieme prélèvement
+• Tout cas de PFA doit être validé le point focal du district avant l’acheminement vers l’IPM"
+"mad_codes.csv","Antigen detection using the FA test on skin biopsies from patients with clinical rabies, virus isolation using neuroblastoma cells (preferably performed on saliva samples or other biological fluids such as tears or cerebrospinal fluid), RFFIT or FAVN test antibody tests for non-vaccinated patients","Détection de l'antigène en utilisant le test FA sur des biopsies de peau de patients atteints de la rage clinique, l'isolement du virus en utilisant des cellules de neuroblastome (de préférence effectuée sur des échantillons de salive ou d'autres fluides biologiques tels que les larmes ou le liquide céphalo-rachidien), RFFIT ou de test FAVN tests d'anticorps chez les patients non vaccines"
+"mad_codes.csv","Conduct lumbar puncture of first 25 cases during an epidemic to confirm diagnosis and serogroup","•Ponction lombaire de 25 premiers cas lors d'une épidémie pour confirmer le diagnostic et le sérogroupe"
+"mad_codes.csv","Any one of the following:  
+• Isolation of dengue virus from serum and/or autopsy samples 
+• Demonstration of a four-fold or greater change in antibody titres to one or more dengue virus antigens in paired serum samples 
+• Detection of dengue virus genomic sequences in autopsy tissue or serum samples by polymerase chain reaction (PCR) 
+• Demonstration of dengue virus antigen in serum samples ","Tout ou un des résultats suivants: 
+•Isolement d’un arbovirus  à partir de sérum et / ou des échantillons d'autopsie 
+•démonstration d'un changement des titres d'anticorps  de quatre fois ou plus sur un ou plusieurs antigènes du virus dans des échantillons de sérum appariés 
+•Détection de séquences génomiques du virus dans des échantillons 
+de tissu ou de sérum par PCR"
+"mad_codes.csv","• Take a sample of 5 ml of blood by venipuncture 1st contact with the case between the 3rd and the 28th day after the start of the eruption in a sterile tube
+• Mark on the tube containing blood, the following information: name and patient names, name of the CSB, district name, collection date
+• Allow the blood to rest for at least 60 minutes (without shaking or transported in a vehicle) and then pour the serum into a clean tube
+• If a refrigerator is available, put the serum (4-6 hours) until clot retracts and then take the serum
+• Place the serum in a vaccine carrier with frozen storage
+• Send the sample to the IPM within 72 hours after collection with the investigation forms filled well
+• Ask a family if there are other people with similar signs in the house or the neighborhood. If this is the case, visit these families to detect suspected cases of measles that have not been notified","• Prelever un echantillon de 5 ml de sang par ponction veineuse  au 1er contact avec le cas entre le 3e et le 28e jour après le debut de l’eruption dans un tube sterile
+• Marquer sur le tube contenant le sang, les informations suivantes : nom et prenoms du patient, nom du CSB, nom du district, date de prélèvement
+• Laisser le sang prelevee se reposer pendant au moins 60 minutes (sans agiter ou transporter dans un vehicule) et verser ensuite le serum dans un tube de prelevement propre
+• Au cas où un refrigerateur est disponible, y mettre le serum (4-6 heures) jusqu’à ce que le caillot se retracte et prendre ensuite le serun
+• Mettre le serum dans un porte vaccin avec des accumulateurs congelees 
+• Expedier l’echantillon a l’IPM dans les 72 heures qui suivent le prélèvement avec le formulaires d’investigation bien rempli
+• Demander a la famille s’il ya d’autres personnes avec des signes semblables dans la maison ou le voisinage. Si tel est le cas, visiter ces familles afin de detecter des cas suspects de rougeole non notofiees"
+"mad_codes.csv","Blood smear or rapid diagnostic malaria test","Frottis de sang ou un test rapide de diagnostic du paludisme "
+"mad_codes.csv","Conventional or RT •  PCR OR viral antigen detection by immunofluorescence or enzyme immunoassay 
+OR viral culture with second identification step to identify influenza viruses 
+OR four-fold rise in antibody titre in paired acute and convalescent sera","•Conventionnelle ou RT - détection de l'antigène viral  par PCR ou par immunofluorescence ou immuno-enzymatique ou de la culture virale avec la deuxième étape d'identification pour identifier les virus de la grippe ou multiplication par quatre du titre d'anticorps dans le sérum lors de la phase aiguë et de convalescence. "
+"mad_codes.csv","Isolation of suspected causative agent/s (refer to MOH guidelines) AND detailed risk assessment","Isolement de l'agent causal présumé (s) et de l'évaluation"
+"mad_codes.csv","• Weight
+• Cut
+• MUAC ","• Poids
+• Taille
+• Périmètre brachial"
+"mad_codes.csv","• Weight
+• Cut
+• MUAC ","• Poids
+• Taille
+• Périmètre brachial"
+"mad_codes.csv","Positive blood smear for the search for microfilariémie
+immunocartographique Test (ICT)
+Ultrasound","Résultat positif de frottis sanguin pour la recherche de la microfilariémie
+Test immunocartographique (ICT)
+Echographie"

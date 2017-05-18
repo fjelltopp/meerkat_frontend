@@ -9,6 +9,7 @@
       "title":"Communicable Diseases",
       "api":"/api/export/category/demo_case/cd_tab/communicable_diseases",
       "name_category": "individual_icd",
+      "access":"cd",
       "fields":[
           ["intro./visit","Visit Type"],
           ["pt./visit_date$date","Visit Date"],
@@ -45,6 +46,7 @@
       "title":"Non-Communicable Diseases",
       "api":"/api/export/category/demo_case/ncd_tab/non_communicable_diseases",
       "name_category": "individual_icd",
+      "access":"ncd",
       "fields":[
           ["intro./visit","Visit Type"],
           ["pt./visit_date$date","Visit Date"],
@@ -77,6 +79,51 @@
           ["results./fvc","FVC"],
           ["smoke_ever","Ever smoked?"],
           ["smoke_now","Smoke now?"]
+
+
+      ]
+  },{
+      "title":"Non-Communicable Diseases Cases",
+      "api":"/api/export/category/demo_case/ncd_tab/non_communicable_diseases/case",
+      "name_category": "individual_icd",
+      "access":"ncd",
+      "fields":[
+          ["intro./visit","Visit Type"],
+          ["pt./visit_date$date","Visit Date"],
+          ["pt./visit_date$year","Year"],
+          ["pt./visit_date$month","Month"],
+          ["pt./visit_date$epi_week","Epi Week"],
+          ["region","Region"],
+          ["district","District"],
+          ["clinic","Clinic"],
+          ["pt1./status","Status"],
+          ["pt1./gender","Gender"],
+          ["pt1./age","Age (Years)"],
+          ["symptoms$translate;{'dict_file':'null_symptoms.csv','from':'sympt_code','to':'jor_sympt'}", "Patient symptoms"],
+          ["child_age","Age (Months)"],
+          ["nationality","Nationality"],
+	      ["icd_name$ncd_tab", "Common Name"],
+          ["icd_name$individual_icd","ICD 10 Name"],
+          ["icd_code","ICD 10 Code"],
+          ["results./bp_systolic","Systolic BP"],
+          ["results./bp_diastolic","Diastolic BP"],
+          ["results./bmi_height","Height (in cm)"],
+          ["results./bmi_weight","Weight (in kg)"],
+          ["results./glucose_random","Random Glucose"],
+          ["results./glucose_fasting","Fasting Glucose"],
+          ["results./hba1c","HbA1c (%)"],
+          ["results./cholesterol","Cholesterol"],
+          ["results./urea","Urea"],
+          ["results./creatinine","Creatinine"],
+          ["results./fev1","FEV1"],
+          ["results./fvc","FVC"],
+          ["smoke_ever","Ever smoked?"],
+          ["smoke_now","Smoke now?"],
+	  ["every$return_visit", [
+	      ["pt./visit_date$date","Visit Date"],
+	      ["results./bp_systolic","Systolic BP"]
+	  ]]
+
       ]
     },{
       "title":"Mental Health",
@@ -103,7 +150,7 @@
       ]
     },{
       "title":"IMCI",
-       "api":"/api/export/category/demo_case/imci/imci",
+      "api":"/api/export/category/demo_case/imci/imci",
       "name_category": "individual_icd",
       "fields":[
         ["intro./visit", "Visit Type"],
@@ -188,9 +235,9 @@
       "fields":[
 	  ["intro./visit","Visit Type"],
 	  ["pt./visit_date$date","Visit Date"],
-          ["pt./visit_date$year","Year"],
-          ["pt./visit_date$month","Month"],
-          ["pt./visit_date$epi_week","Epi Week"],
+      ["pt./visit_date$year","Year"],
+      ["pt./visit_date$month","Month"],
+      ["pt./visit_date$epi_week","Epi Week"],
 	  ["region","Region"],
 	  ["district","District"],
 	  ["clinic","Clinic"],
@@ -210,13 +257,13 @@
     },{
 	"title": "Vaccination",
 	"api":"/api/export/category/demo_case/under_five/vaccination",
-        "name_category": "individual_icd",
+    "name_category": "individual_icd",
 	"fields":[
 	    ["intro./visit","Visit Type"],
 	    ["pt./visit_date$date","Visit Date"],
-            ["pt./visit_date$year","Year"],
-            ["pt./visit_date$month","Month"],
-            ["pt./visit_date$epi_week","Epi Week"],
+        ["pt./visit_date$year","Year"],
+        ["pt./visit_date$month","Month"],
+        ["pt./visit_date$epi_week","Epi Week"],
 	    ["region","Region"],
 	    ["district","District"],
 	    ["clinic","Clinic"],
@@ -314,9 +361,9 @@
 	"fields":[
 	    ["intro./visit","Visit Type"],
 	    ["pt./visit_date$date","Visit Date"],
-            ["pt./visit_date$year","Year"],
-            ["pt./visit_date$month","Month"],
-            ["pt./visit_date$epi_week","Epi Week"],
+        ["pt./visit_date$year","Year"],
+        ["pt./visit_date$month","Month"],
+        ["pt./visit_date$epi_week","Epi Week"],
 	    ["region","Region"],
 	    ["district","District"],
 	    ["clinic","Clinic"],

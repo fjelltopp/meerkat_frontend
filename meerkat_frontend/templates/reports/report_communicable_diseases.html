@@ -82,13 +82,16 @@
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
  i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
-  {% for k, v in report.data.communicable_diseases|dictsort %}
-  // {{ k }}
+ {% for k, v in report.data.communicable_diseases|dictsort %}
+  {% set label = "Cases" %}
+  {% if report.data.variables[k] != "individual" %}
+     {% set label = "Alerts" %}
+  {% endif %}
   $('#chart-{{ k|slugify }}').highcharts(
     communicableDiseasesBarChart(
       {{ v.weeks|safe }},
-      [{{ v.confirmed }}, {{ v.suspected }}],
-      { yAxis: { text: '{{ _("Alerts") }}' }, xAxis: {text: '{{ _("Epi Week") }}'} }
+      [{{ v.confirmed }}, {{ v.suspected }}, {{v.previous}}],
+      { yAxis: { text: '{{ _(label) }}' }, xAxis: {text: '{{ _("Epi Week") }}'} }
     )
   );
   {% endfor %}

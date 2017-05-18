@@ -252,7 +252,7 @@ function timelineLink(id, name, axis){
         * **colour** (boolean) - Colour the cells with a shade of the highlight colour.
           according to the proportion of the range that the value represents.
 */
-function createTimeline(id, cat, options){
+function createTimeline(id, cat, options, title){
 
 	console.log( "Drawing timeline" );
 
@@ -299,13 +299,17 @@ function createTimeline(id, cat, options){
 				colour = true;
 			}
 		}
+
+		if( title === undefined){
+			title = i18n.gettext("#Cases with ")+ i18n.gettext(variable.name);
+		}
 		var columns = [
             {
 				"field": "state",
 				"checkbox": true
 			},{				
                 "field": "cases",
-				"title": i18n.gettext("#Cases with ")+ i18n.gettext(variable.name),
+				"title": title,
 				"align": "left",
 				"class": "header"
 			}
@@ -316,7 +320,7 @@ function createTimeline(id, cat, options){
 		for( var y in yKeys.sort(idSort) ){
 
 			var datum ={
-				"cases": category[yKeys[y]].name
+				"cases": i18n.gettext(category[yKeys[y]].name)
 			};
 			var total = 0;
 			for( var x in xKeys ){

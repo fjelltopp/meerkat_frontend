@@ -53,9 +53,9 @@
                             {% for item in report.data.infants %}
                             <tr>
                                 <td>{{ _(item["name"]) }}</td>
-                                <td>{{ item["vaccinated_0_11_mo_infants"]|int}}</td>
-                                <td>{{ item["vaccinated_12_mo_infants"]|int}}</td>
-                                <td>{{ (item["vaccinated_0_11_mo_infants"] + item["vaccinated_12_mo_infants"])|int}}</td>
+                                <td>{{ item["vaccinated_0_11_mo_infants"]|int|commas}}</td>
+                                <td>{{ item["vaccinated_12_mo_infants"]|int|commas}}</td>
+                                <td>{{ (item["vaccinated_0_11_mo_infants"] + item["vaccinated_12_mo_infants"])|int|commas}}</td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -78,9 +78,9 @@
                             {% for item in report.data.females %}
                             <tr>
                                 <td>{{ _(item["name"]) }}</td>
-                                <td>{{ item["vaccinated_pw"]|int }}</td>
-                                <td>{{ item["vaccinated_notpw"]|int }}</td>
-                                <td>{{ (item["vaccinated_pw"] + item["vaccinated_notpw"])|int }}</td>
+                                <td>{{ item["vaccinated_pw"]|int|commas }}</td>
+                                <td>{{ item["vaccinated_notpw"]|int|commas }}</td>
+                                <td>{{ (item["vaccinated_pw"] + item["vaccinated_notpw"])|int|commas }}</td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -104,9 +104,9 @@
                             {% for item in report.data.vials %}
                             <tr>
                                 <td>{{ _(item["name"]) }}</td>
-                                <td>{{ item["total_doses"]|int }}</td>
-                                <td>{{ item["doses_per_vial"]|int }}</td>
-                                <td>{{ (item["vials"])|int }}</td>
+                                <td>{{ item["total_doses"]|int|commas }}</td>
+                                <td>{{ item["doses_per_vial"]|int|commas }}</td>
+                                <td>{{ (item["vials"])|int|commas }}</td>
                             </tr>
                             {% endfor %}
                         </table>

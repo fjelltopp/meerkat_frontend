@@ -57,16 +57,19 @@ function format(number){
 }
 
 //Calculate no as a percentage of denom. Returns 0 if denom <= 0.
-function calc_percent(no,denom){
+function calc_percent(no,denom,round){
+    // Want the default to be rounded numbers.
+    if(round===undefined) round = true;
     if (denom>0){
-        return Math.round(no/denom*100);
+        if(round) return Math.round(no/denom*100);
+        else return no/denom*100;
     }else{
         return 0;
     }
 }
 
 //Given an array of values, calulate what percentage each value is of the total.
-function calc_percent_dist( array ){
+function calc_percent_dist(array, round){
 
     var total = 0;
     var ret = [];
@@ -76,7 +79,7 @@ function calc_percent_dist( array ){
     }
 
     for( var j=0; j<array.length; j++ ){
-        ret[j] = calc_percent(array[j], total);
+        ret[j] = calc_percent(array[j], total, round);
     }
 
     return ret;
@@ -294,12 +297,16 @@ function makeDataObject( aggregation, variables, week, title, percent ){
           no pie charts are drawn.
         * **tableID** - (string) The ID for the HTML element that will hold the table. If empty,
           no table will be drawn.
+        * **barChartOptions** - (object) The options object to be passed to the bar chart renderer.
+          See the docs for drawBarChart for more info.
         * **no_total** - (boolean) If true, no total row will be drawn in the table.
         * **link_function** - The function name to be added "onclick" to each table row header. See
           the docs for `drawTable()` from the file *tableManager.js* for more information.
         * **table_options** - (json) An options object for drawing a bootstrap table, if this isn't
           supplied then a standard table is drawn.
         * **limit_to** - (string) An optional argument to limit results to a specific category: 'ncd', 'cd'.
+        * **callback** - (function) An optional callback function to run after data has been loaded and drawn.
+          It takes one argument - the prepared data object.
 
 */
 function categorySummation( details ){
@@ -404,7 +411,7 @@ function categorySummation( details ){
             var dataObject = makeDataObject(catData, variables, details.week, title, details.percent );
             if( details.strip ) dataObject = stripEmptyRecords( dataObject );
 
-            if( details.barID ) drawBarChart( details.barID, dataObject, true);
+            if( details.barID ) drawBarChart( details.barID, dataObject, details.barChartOptions);
             if( details.pieID ) drawPieCharts( details.pieID, dataObject, true );
             if( details.tableID && !details.table_options ){
                 drawTable( details.tableID, dataObject, details.no_total, details.linkFunction );
@@ -416,10 +423,13 @@ function categorySummation( details ){
                                    details.linkFunction,
                                    details.table_options );
             }
+            // If a callback obejct is specified, execute it.
+            if(typeof(details.callback) == 'function') details.callback(dataObject);
         }else {
             //Failed
             console.error( "Ajax request for the category aggregation and variable information failed.");
         }
+
     });
 }
 
@@ -555,6 +565,8 @@ function stripEmptyRecords( dataObject ){
     var dataFields = Object.keys( dataObject );
     var stripped = [];
     var newData = {};
+    console.log("Stripping empty records.");
+    console.log(dataObject.year);
 
     //Find the indicies of records to be retained.
     //I.E. NOT THE ONES TO BE STRIPPED, but the ones AFTER stripping.
@@ -589,7 +601,7 @@ function stripEmptyRecords( dataObject ){
             }
         }
     }
-
+    console.log( newData);
     return newData;
 }
 
@@ -626,9 +638,11 @@ function stripEmptyRecords( dataObject ){
    :param int compare_locations
    Show lines to compare locations for completeness graph
    */
-function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations, x_axis_max, matrixID){
+
     var completenessLocations;
     var completenessData;
+    var matrixCompletenessData;
     if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
@@ -637,18 +651,28 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
 
     if(exclude){
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){completenessData = data;}));
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "?sublevel=district",function( data ){matrixCompletenessData = data;}));
     }else{
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend,
                                    function( data ){completenessData = data; }));
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "?sublevel=district",
+                                   function( data ){matrixCompletenessData = data; }));
     }
 
     $.when.apply( $, deferreds ).then(function() {
-        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations);
+        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations, x_axis_max);
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
         drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
+        if(matrixID !== undefined){
+            drawCompletenessMatrix( matrixID, locID, denominator, completenessLocations, matrixCompletenessData, start_week, 0 );
+        }
     } );
+
 }
+
+
+
 
 /**:timelinessPreparation( details )
 
@@ -678,11 +702,12 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    :param int compare_locations
    Show lines to compare locations for completeness graph
    */
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable){
+            function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max, matrixID){
     var timelinessLocations;
     var timelinessData;
-	if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
-		
+    var matrixTimelinessData;
+  if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
+
     if( start_week === undefined) start_week = 1;
     var deferreds = [
         $.getJSON( api_root+"/locations", function( data ){
@@ -691,19 +716,24 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
 
     if(exclude){
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "/" + non_reporting_variable,function( data ){timelinessData = data;}));
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "?sublevel=district",function( data ){matrixTimelinessData = data;}));
     }else{
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "/" + non_reporting_variable,
                                    function( data ){timelinessData = data; }));
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "?sublevel=district",
+                                   function( data ){matrixTimelinessData = data; }));
     }
 
     $.when.apply( $, deferreds ).then(function() {
 
-        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations );
+        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations,x_axis_max );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
+        if(matrixID !== undefined){
+            drawCompletenessMatrix( matrixID, locID, denominator, timelinessLocations, matrixTimelinessData, start_week, 0 );
+        }
     } );
 }
-
 
 /**:prepareIndicators( details )
 
@@ -741,3 +771,33 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
     });
 }
 
+/**:get_browser()
+
+    Get's the browser name and version.  This code was lifted from the web.
+    http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
+
+   :returns:
+       A string including the browser name followed by the browser version.
+   */
+function get_browser(){
+    var ua= navigator.userAgent, tem,
+    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1] === 'Chrome'){
+        tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if(tem !== null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem = ua.match(/version\/(\d+)/i))!== null) M.splice(1, 1, tem[1]);
+
+    return M;
+
+}
+
+function sigFigs(n, sig) {
+  var mult = Math.pow(10, sig - Math.floor(Math.log(n) / Math.LN10) - 1);
+  return Math.round(n * mult) / mult;
+}

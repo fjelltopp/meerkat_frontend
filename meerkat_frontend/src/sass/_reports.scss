@@ -307,16 +307,96 @@ table.refugee.small{
     text-align: right;
     margin: 20px;
 }
-
-.figure-title-left{
-    float: left;
-    width: 80px;
+.mapbox .legend {
+    line-height: 18px;
 }
 
-.figure-title-right{
-    float: left;
-}
+.mapbox .marker-legend {
+	padding: 10px 10px;
+    font: 10px sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
 
+}
+.mapbox .legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 1;
+}
 #ncd-mapbox-panel .chart-stage{
     height:600px;
 }
+
+.facility-title{
+    margin: 60px 0px 20px;
+    position: relative;
+    border: 1px #c2c2c2 solid;
+    border-style: solid none;
+    padding: 10px 0px;
+
+    .left-part, .right-part{
+        padding: 0px 10px;
+        width:50%;
+    }
+
+    .facility-title-partner{
+        text-align: right;
+        position: absolute;
+        bottom: 0;
+        right: 25px;
+    }
+    .title{
+        font-size: 30px;
+    }
+}
+
+.facility-map{
+    .chart-stage{
+        padding: 0px;
+    }
+    .map{
+        height: 400px;
+    }
+}
+.facility-image{
+    max-height:600px;
+    overflow: hidden;
+    .chart-stage{
+        padding: 0px;
+    }
+    img{
+        width: 100%;
+    }
+}
+
+.table tr:first-child td {
+    border-top: none;
+}
+
+.line-breaker-top{
+    border-top: 1px solid #c2c2c2;
+    height:10px;
+    width: 100%;
+}
+.line-breaker-bottom{
+    border-bottom: 1px solid #c2c2c2;
+    height:10px;
+    width: 100%;
+}
+
+.country-map .chart-stage{
+    padding: 0px;
+    .mapbox{
+        height:600px;
+        min-height:600px;
+    }
+}
+
+.cholera-chart .chart-stage .chart{
+        height: 350px;
+}
+

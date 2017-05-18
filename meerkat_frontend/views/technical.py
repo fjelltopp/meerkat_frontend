@@ -5,7 +5,7 @@ A Flask Blueprint module for the technical site.
 """
 from flask import Blueprint, render_template, current_app, g
 from .. import common as c
-import authorise as auth
+from meerkat_frontend import auth
 from slugify import slugify
 import meerkat_frontend
 
