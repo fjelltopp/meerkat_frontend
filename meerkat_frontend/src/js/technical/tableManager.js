@@ -1538,3 +1538,78 @@ function mergeRows(contener, index, rowspan) {
         rowspan: rowspan
     });
 }
+
+
+/**:drawClinicPrescriptionTable(containerID)
+
+    Draws the table of alerts used on the Alerts tab. Lists each alert according to date
+    and provides links to the individual Alert Investigation reports. Rather than loading JSON
+    data inside the method, it is passed as arguments to the method so that JSON requests
+    can be shared across multiple drawings.
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param [object] alerts:
+        An array of alert objects as returned by Meerkat API `/alerts`.
+    :param object variables:
+        An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
+        Specifically used to print the variable name instead of ID.
+ */
+function drawClinicPrescriptionTable(containerID){
+
+    $.getJSON( api_root + "/prescriptions/1", function( data ){
+
+        //for(var a in data.clinic_table){
+
+        var columns = [
+                {
+                    field: "clinic_name",
+                    title: i18n.gettext('Clinic'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "min_date",
+                    title: i18n.gettext('First Prescription'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "max_date",
+                    title: i18n.gettext('Lates Prescription'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "most_depleted_medicine",
+                    title: i18n.gettext('Most depleted medicine'),  // TODO: use glossary.
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "depletion",
+                    title: i18n.gettext('Depletion'),
+                    align: "center",
+                    class: "header",
+                    sortable: true
+                }
+            ];
+        //}
+
+        // First destroyany pre-existing table.
+        $('#' + containerID).bootstrapTable('destroy');
+        $('#' + containerID).remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+        var table = $('#' + containerID).bootstrapTable({
+            columns: columns,
+            data: data.clinic_table,
+            search: true,
+            classes: 'table table-no-bordered table-hover',
+            pagination: true,
+            pageSize: 50,
+        });
+        //$('#'+containerID).html(table);
+        return table;
+
+    });
+}
