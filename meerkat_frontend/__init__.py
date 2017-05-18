@@ -58,6 +58,18 @@ if "EXTRA_PAGES" in app.config:
 def root():
     return redirect("/" + app.config["DEFAULT_LANGUAGE"])
 
+@app.before_request
+def before_request():
+    token = auth.get_token()
+    g.allowed_location = 1
+    if token:
+        try:
+            user = auth.get_user(token)['usr']
+            if user == "root":
+                g.allowed_location = 2
+        except:
+            pass
+    print(g.allowed_location)
 
 # Internationalisation
 @babel.localeselector

@@ -28,7 +28,7 @@ def requires_auth():
 @technical.route('/')
 @technical.route('/<tab>')
 @technical.route('/<tab>/loc_<int:locID>')
-def index(tab=None, locID=1):
+def index(tab=None, locID=0):
     """
     Serves a tab for the technical dashboard, filtered by the specified
     location.
@@ -36,6 +36,9 @@ def index(tab=None, locID=1):
 
     # If no tab is provided, load the first tab in the tab list the user
     # has access to.
+
+    if locID == 0:
+        locID = g.allowed_location
     if tab is None:
         for t in current_app.config['TECHNICAL_CONFIG']['tabs']:
             country = current_app.config['TECHNICAL_CONFIG']['auth_country']

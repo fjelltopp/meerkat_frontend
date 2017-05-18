@@ -146,6 +146,7 @@ $('.menu-explore').addClass('active');
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
+var allowed_location = {{g.allowed_location|safe}}
 loadLocationTree({locID:{{loc}}});
  //Respond to the user pressing forward or back by loading the correct page content.
  window.onpopstate = function(event) {

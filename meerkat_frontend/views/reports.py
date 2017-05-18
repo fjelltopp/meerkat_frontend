@@ -42,7 +42,7 @@ def requires_auth():
 # NORMAL ROUTES
 @reports.route('/')
 @reports.route('/loc_<int:locID>')
-def index(locID=1):
+def index(locID=0):
     """
     Render the reports splash page (index.html).
     The reports splash page provides a form enabling user to select which
@@ -52,7 +52,8 @@ def index(locID=1):
         locID (int): The location ID of a location to be automatically loaded
             into the location selector.
     """
-
+    if locID == 0:
+        locID = g.allowed_location
     return render_template('reports/index.html',
                            content=current_app.config['REPORTS_CONFIG'],
                            loc=locID,
