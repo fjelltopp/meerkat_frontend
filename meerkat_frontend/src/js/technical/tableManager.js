@@ -1595,12 +1595,11 @@ function drawClinicPrescriptionTable(containerID){
                 }
             ];
         //}
-
         // First destroyany pre-existing table.
-        $('#' + containerID).bootstrapTable('destroy');
-        $('#' + containerID).remove();
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
         $('#' + containerID ).append('<table class="table"></table>');
-        var table = $('#' + containerID).bootstrapTable({
+        var table = $('#' + containerID + " table").bootstrapTable({
             columns: columns,
             data: data.clinic_table,
             search: true,
