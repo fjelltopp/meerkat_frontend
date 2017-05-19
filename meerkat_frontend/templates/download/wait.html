@@ -24,9 +24,10 @@
                         <div class='breaker'></div>
                         <div class='clearfix'>
 
-														<div id="myProgress">
-															<div id="myBar"></div>
-													  </div>
+							<div class="progress progress-striped active">
+   								<div id ='progressbar' class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+    							</div>
+							</div>
 
                             <div id='download-button' class='btn-group col-sm-offset-1'>
                                 <div id='download-label'
@@ -71,14 +72,14 @@
  url ='{{api_url|safe}}';
  var uuid = "";
  interval = ""
-
+ //$('#download-button').show();
  url += "&language=" + language;
 
  console.log(url)
 
  //Progress bar variables
  var width = 0;
- var elem = document.getElementById("myBar");
+ //var elem = document.getElementById("myBar");
  function check_status(){
      $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
          if(data){
@@ -86,17 +87,17 @@
 						// data progree generation=1 its finished if its 15 its 15%
              if(data.status == 1){
                  if(data.success == 1){
-										 elem.style.width = 100 +'%';
-								 		 elem.innerHTML = 100  + '%';
+										 $(".progress-bar").css("width", 100 + "%").text(100 + " %");
+                                         $("progressbar").hide();
 										 t = i18n.gettext("Data set was sucesfully generated.");
-                     $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
-                     $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
-                     //$("#spinner").hide();
-										 $("#myprogress").hide();
-										 $("#myBar").hide();
-                     $('#download-button').show();
-                     $("#heading").html(t);
-                     $("#status").html("Finished");
+							             $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
+							             $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
+							             //$("#spinner").hide();
+										 //$("#myprogress").hide();
+										 //$("#myBar").hide();
+							             $('#download-button').show();
+							             $("#heading").html(t);
+							             $("#status").html("Finished");
 
                  }else{
                      t = i18n.gettext("Data set generation was unsuccessful");
@@ -107,11 +108,13 @@
                  clearInterval(interval)
              }else{
 
-								//Progress -here
-						 		 width=Math.round(data.status*100);
-						 		 elem.style.width = width + '%';
-						 		 elem.innerHTML = width * 1  + '%';
-								 t = i18n.gettext("Dataset is still being prepared, please wait.")
+				//Progress -here
+		 		 width=width+Math.round(data.status*100);
+ 			 	 $('.progress-bar').css('width', width+'%').attr('aria-valuenow', width);
+				 //$(".progress-bar").css("width", width + "%").text(width + " %");
+		 		 elem.style.width = width + '%';
+		 		 elem.innerHTML = width * 1  + '%';
+				 t = i18n.gettext("Dataset is still being prepared, please wait.")
                  $("#status").html(t)
              }
 
@@ -125,19 +128,11 @@
      uuid = data;
      url
      $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
-<<<<<<< HEAD
-
      interval = setInterval(function() {
          check_status()
-     }, 500);
+     }, 5000);
  });
-=======
-		 $("#progressbar").show();
-         interval = setInterval(function() {
-             check_status()
-         }, 5000);
-     });
->>>>>>> origin/development
+
 
 
 </script>
