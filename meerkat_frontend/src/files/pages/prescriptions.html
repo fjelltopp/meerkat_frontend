@@ -45,6 +45,22 @@
 					</div>
 				</div>
 		</div>
+		<div class="row">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						<p id="box_heading" style="display: inline"> </p>
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToXLS('inventory-table', 'inventory'); return false;" class="csv">
+							</a>
+						</div>
+					</div>
+					<div id="inventory-charts" class="chartBox__content">
+
+						<div id="inventory-table" class="table" >
+						</div>
+					</div>
+				</div>
+		</div>
 	</div>
 </div>
 <div class="breaker"></div>
@@ -91,21 +107,17 @@ function drawCharts( locID ){
 
 	//Keep week abstracted out of the chart drawing process.
 	//In case we want the user to be able to select the weeks to view.
+
 	var week = (get_epi_week()).toString();
 
-	//For each category draw a category summation.
-	var categories = ['barcode_prescription'];
-	for( var i in categories ){
-		categorySummation({ category: categories[i],
-		                    locID: locID,
-		                    week: week,
-		                    tableID: categories[i]+'-table',
-		                    barID: categories[i]+'-bar-chart',
-		                    pieID: categories[i]+'-pie-chart',
-		                    percent: true,
-                            table_options: {'strip': 'false', 'colour':'false'}
-		});
-	}
+	var data;
+	 $.getJSON(api_root + "/prescriptions/" + locID, function( data ){
+	 	data = data;
+	 })
+
+
+	
+
 	 categorySummation({ category: 'barcode_prescription',
 		                 locID: locID,
 		                 week: week,
@@ -116,6 +128,9 @@ function drawCharts( locID ){
 	                     strip: true,
                          table_options: {'strip': 'false', 'colour':'false'}
 	 });
+
+	 drawClinicPrescriptionTable('inventory-table');
+
 
 
 }
