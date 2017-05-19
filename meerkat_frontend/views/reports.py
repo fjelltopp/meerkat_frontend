@@ -264,7 +264,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                                end_date=end_date,
                                start_date=start_date)
 
-        report_url = c.add_domain(relative_url)
+        report_url = current_app.config['LIVE_URL'] + c.add_domain(relative_url)
 
         # Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
