@@ -1576,7 +1576,7 @@ function drawClinicPrescriptionTable(containerID){
                     sortable: true,
                 },{
                     field: "max_date",
-                    title: i18n.gettext('Lates Prescription'),
+                    title: i18n.gettext('Latest Prescription'),
                     align: "center",
                     class: "header",
                     sortable: true,
@@ -1587,15 +1587,15 @@ function drawClinicPrescriptionTable(containerID){
                     class: "header",
                     sortable: true,
                 },{
-                    field: "depletion",
+                    field: "str_depletion",
                     title: i18n.gettext('Depletion'),
                     align: "center",
                     class: "header",
                     sortable: true
                 }
             ];
-        //}
-        // First destroyany pre-existing table.
+
+        // First destroy any pre-existing table.
         $('#' + containerID + ' table').bootstrapTable('destroy');
         $('#' + containerID + ' table').remove();
         $('#' + containerID ).append('<table class="table"></table>');
@@ -1607,7 +1607,6 @@ function drawClinicPrescriptionTable(containerID){
             pagination: true,
             pageSize: 50,
         });
-        //$('#'+containerID).html(table);
         return table;
 
     });

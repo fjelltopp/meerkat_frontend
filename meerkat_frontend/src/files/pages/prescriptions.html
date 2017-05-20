@@ -48,7 +48,7 @@
 		<div class="row">
 				<div class="chartBox box">
 					<div class="chartBox__heading">
-						<p id="box_heading" style="display: inline"> </p>
+						<p id="box_2_heading" style="display: inline"> </p>
 						<div class="box__type-selector pull-right">
 							<a href="" onclick="exportTableToXLS('inventory-table', 'inventory'); return false;" class="csv">
 							</a>
@@ -73,9 +73,7 @@
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('Prescriptions'));
- $("#box_2_heading").html(i18n.gettext('Nationality'));
- $("#box_3_heading").html(i18n.gettext('Age'));
- $("#box_4_heading").html(i18n.gettext('Status'));
+ $("#box_2_heading").html(i18n.gettext('Clinic Prescription Status'));
 
  $(".csv").each(function(){
 	 $(this).html(i18n.gettext('Excel'));
@@ -109,14 +107,6 @@ function drawCharts( locID ){
 	//In case we want the user to be able to select the weeks to view.
 
 	var week = (get_epi_week()).toString();
-
-	var data;
-	 $.getJSON(api_root + "/prescriptions/" + locID, function( data ){
-	 	data = data;
-	 })
-
-
-	
 
 	 categorySummation({ category: 'barcode_prescription',
 		                 locID: locID,
