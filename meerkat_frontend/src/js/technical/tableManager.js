@@ -1566,9 +1566,9 @@ function mergeRows(contener, index, rowspan) {
         An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
         Specifically used to print the variable name instead of ID.
  */
-function drawClinicPrescriptionTable(containerID){
+function drawClinicPrescriptionTable(containerID, locID){
 
-    $.getJSON( api_root + "/prescriptions/1", function( data ){
+    $.getJSON( api_root + "/prescriptions/" + locID, function( data ){
 
         //for(var a in data.clinic_table){
 
@@ -1576,6 +1576,12 @@ function drawClinicPrescriptionTable(containerID){
                 {
                     field: "clinic_name",
                     title: i18n.gettext('Clinic'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "medicine_name",
+                    title: i18n.gettext('Medicine'),  // TODO: use glossary.
                     align: "center",
                     class: "header",
                     sortable: true,
@@ -1592,17 +1598,23 @@ function drawClinicPrescriptionTable(containerID){
                     class: "header",
                     sortable: true,
                 },{
-                    field: "most_depleted_medicine",
-                    title: i18n.gettext('Most depleted medicine'),  // TODO: use glossary.
+                    field: "total_prescriptions",
+                    title: i18n.gettext('Total doses prescribed'),
                     align: "center",
                     class: "header",
                     sortable: true,
                 },{
-                    field: "str_depletion",
-                    title: i18n.gettext('Depletion'),
+                    field: "str_stock",
+                    title: i18n.gettext('Stock'),
                     align: "center",
                     class: "header",
-                    sortable: true
+                    sortable: true,
+                    "sorter": function percs(a,b){
+                        a = ((a == '-') ? '-' : Number(a.split('%')[0]));
+                        b = ((b == '-') ? '-' : Number(b.split('%')[0]));
+                        if(a < b || b == '-') return 1; 
+                        if (a > b || a == '-') return -1; 
+                        return 0;},
                 }
             ];
 
@@ -1612,11 +1624,13 @@ function drawClinicPrescriptionTable(containerID){
         $('#' + containerID ).append('<table class="table"></table>');
         var table = $('#' + containerID + " table").bootstrapTable({
             columns: columns,
-            data: data.clinic_table,
+            data: data.medicine_table,
             search: true,
             classes: 'table table-no-bordered table-hover',
             pagination: true,
             pageSize: 50,
+            sortName: 'str_stock',
+            sortOrder: 'desc'
         });
         return table;
 
