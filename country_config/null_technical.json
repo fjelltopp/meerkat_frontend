@@ -92,6 +92,7 @@
     "overview": [{
             "title": "Consultations and Cases",
             "html_class": "col-md-6",
+            "parentId": "OvConsultationsAndCases",
             "contents": [{
                     "api": "/aggregate/reg_1/<loc_id>",
                     "label": "Consultations",
@@ -107,6 +108,7 @@
         {
             "title": "Morbidity",
             "html_class": "col-md-6",
+            "parentId": "OvMorbidity",
             "contents": [{
                     "api": "/aggregate_category/cd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity",
@@ -122,6 +124,7 @@
         {
             "title": "Mortality",
             "html_class": "col-md-6",
+            "parentId": "OvMortality",
             "contents": [{
                     "api": "/aggregate_category/cd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity",
@@ -137,6 +140,7 @@
         {
             "title": "Indicators",
             "html_class": "col-md-6",
+            "parentId": "OvIndicators",
             "contents": [{
                     "api": "/aggregate/reg_1/<loc_id>",
                     "label": "% Diabetes visits with measured FG",
