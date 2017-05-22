@@ -108,10 +108,9 @@ function map_from_data( data, map_centre, containerID){
             map.dragging.disable();
         }
     });
-
     var geoJsonLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.Name);
+            layer.bindPopup(feature.properties.name);
         }
     });
 
