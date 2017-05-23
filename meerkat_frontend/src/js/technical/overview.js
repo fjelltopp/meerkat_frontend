@@ -23,8 +23,10 @@ function html_box_builder(overviewObj, locID) {
     // Append the firstbox in the Overview page...
     $('#divOverviewContent').append(html_builder);
 
+    $.each(overviewObj.contents, function(index, value) {
     //Build the content...
-    prep_row(overviewObj.contents, overviewObj.parentId, locID);
+        window[overviewObj.prep_function](value, overviewObj.parentId, locID);
+    });
 
 }
 
@@ -32,10 +34,8 @@ function html_box_builder(overviewObj, locID) {
 
 function prep_row(contentsObj, parentId, locID) {
 
-    $.each(contentsObj, function(index, value) {
-
         // Get the inner value for the boxes by calling the APIs ...
-        var apiUrl = value.api.replace("<loc_id>", locID);
+        var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         $.getJSON(api_root + apiUrl, function(data) {
 
             var apiValue;
@@ -47,7 +47,7 @@ function prep_row(contentsObj, parentId, locID) {
 
             //Append the results ...
             var htmlRow = "<div class='divTableRow'>" +
-                "<div class='divTableCell'> " + value.label + "</div>" +
+                "<div class='divTableCell'> " + contents_obj.label + "</div>" +
                 "<div class='divTableCell'> " + apiValue + "</div>" +
                 "</div>";
 
