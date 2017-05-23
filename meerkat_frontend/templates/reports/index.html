@@ -290,7 +290,7 @@ function drawCharts(locID, year, reports){
 	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
-		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = {{g.allowed_location}};
 		else locID = history.state.locID;
 	}
 

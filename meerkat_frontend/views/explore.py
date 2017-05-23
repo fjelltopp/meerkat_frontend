@@ -3,7 +3,7 @@ explore.py
 
 A Flask Blueprint module for the explore data page.
 """
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, render_template, current_app, g
 from .. import common as c
 from meerkat_frontend import auth
 
@@ -24,10 +24,14 @@ def requires_auth():
 
 @explore.route('/')
 @explore.route('/loc_<int:locID>')
-def index(locID=1):
+def index(locID=None):
     """
     Returns the explore page.
     """
+    # Initialise locID to allowed location
+    # Can't be done during function declaration because outside app context
+    locID = g.allowed_location if not locID else locID
+    
     return render_template(
         'explore/index.html',
         content=current_app.config['EXPLORE_CONFIG'],

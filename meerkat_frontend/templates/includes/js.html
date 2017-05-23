@@ -45,6 +45,9 @@
   var user = {};
   {% endif %}
 
+  // Location access restriction. Get available locations.
+  var allowed_location = {{g.allowed_location|safe}};
+
   //Draw the langauge selector.
   var languages = {{ config["SUPPORTED_LANGUAGES"]|tojson|safe }};
   var language = {{g.get("language", config['DEFAULT_LANGUAGE'])|tojson|safe}};

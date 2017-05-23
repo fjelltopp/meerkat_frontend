@@ -64,8 +64,9 @@ function loadTabContent( tabID, locID ){
 
 	//locID (the id of the location) is an optional argument.  
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
+	console.log(history.state.locID);
 	if( typeof locID == 'undefined' ){
-		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = allowed_location;
 		else locID = history.state.locID;
 	}
 
@@ -89,13 +90,13 @@ function loadTab( tabID, locID ){
 	//locID (the id of the location) is an optional argument.  
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
-		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = allowed_location;
 		else locID = history.state.locID;
 	}
 
 	//Record the page history.
 	currentState = { type: 'tab', dataID: tabID, locID: locID};
-	var url = currentState.locID == 1 ? 
+	var url = currentState.locID == 2 ? 
 	        currentState.dataID : currentState.dataID + '/loc_' + currentState.locID;
 	history.pushState( currentState, $( '#'+tabID ).text(), "/" + language +"/technical/" + url );
 
@@ -118,7 +119,7 @@ function loadDisease( diseaseID, locID ){
 	//locID (the id of the location) is an optional argument.  
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
-		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = allowed_location;
 		else locID = history.state.locID;
 	}
 
@@ -146,7 +147,7 @@ function loadAlert( alertID ){
 
 	//Keep the locID for location persistance across pages.
 	//If no locId set, just set back to the root node.
-	var locID = 1;
+	var locID = allowed_location;
 	if( history.state !== null && typeof history.state.locID != 'undefined' ){
 		locID = history.state.locID;
 	}

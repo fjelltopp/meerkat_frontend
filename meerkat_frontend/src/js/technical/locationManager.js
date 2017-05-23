@@ -59,7 +59,7 @@ function loadLocation( locID ){
 	var index = url.indexOf('/loc_');
 
 	//If locID = 1 (the whole country) don't specify location in URL.
-	if( locID != 1 ){
+	if( locID != allowed_location ){
 		if( index != -1 ){
 			//If the location is defined, replace it with the new location.
 			url = url.substring(0, index) + '/loc_' + locID;
@@ -94,7 +94,7 @@ function loadLocation( locID ){
         The location ID for the desired location.
 */
 function loadLocationContent( locID ){
-
+	console.log( locID );
 	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===locID; });
 
 	//Get the parents

@@ -4,8 +4,7 @@ meerkat_frontend.py
 This module runs as the Flask app from app.py and mounts component Flask apps
 for different services such as the API and Reports.
 """
-from .app import app, babel, sentry
-from meerkat_libs.auth_client import auth
+from .app import app, babel, sentry, auth
 from slugify import slugify
 from flask import render_template, request, Blueprint
 from flask import current_app, abort, flash, g, redirect
@@ -22,7 +21,7 @@ import os
 import json
 
 
-# App has been imported at the top of this file. We now add crucial services...
+# App has been imported at the top of this file.
 
 
 # Paths specified in config file
