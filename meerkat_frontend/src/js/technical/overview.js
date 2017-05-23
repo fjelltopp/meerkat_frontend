@@ -33,25 +33,21 @@ function html_box_builder(overviewObj, locID) {
 
 
 function prep_row(contentsObj, parentId, locID) {
-
+    
+        var api_element = //TODO: Assign a value;
+            //Append the results ...
+        var htmlRow = "<div class='divTableRow'>" +
+            "<div class='divTableCell'> " + contents_obj.label + "</div>" +
+            "<div class='divTableCell" + api_element + "'>Loading</div>" +
+            "</div>";
+    
+        $("#" + parentId).append(htmlRow);
+    
         // Get the inner value for the boxes by calling the APIs ...
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         $.getJSON(api_root + apiUrl, function(data) {
 
-            var apiValue;
-            if (typeof data == 'undefined') {
-                apiValue = 0;
-            } else {
-                apiValue = data.value;
-            }
-
-            //Append the results ...
-            var htmlRow = "<div class='divTableRow'>" +
-                "<div class='divTableCell'> " + contents_obj.label + "</div>" +
-                "<div class='divTableCell'> " + apiValue + "</div>" +
-                "</div>";
-
-            $("#" + parentId).append(htmlRow);
+            $('#' + parentId + ' .' + api_element).html(data.value);
 
         });
     });
