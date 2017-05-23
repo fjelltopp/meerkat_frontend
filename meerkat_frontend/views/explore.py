@@ -24,12 +24,14 @@ def requires_auth():
 
 @explore.route('/')
 @explore.route('/loc_<int:locID>')
-def index(locID=0):
+def index(locID=None):
     """
     Returns the explore page.
     """
-    if locID == 0:
-        locID = g.allowed_location
+    # Initialise locID to allowed location
+    # Can't be done during function declaration because outside app context
+    locID = g.allowed_location if not locID else locID
+    
     return render_template(
         'explore/index.html',
         content=current_app.config['EXPLORE_CONFIG'],

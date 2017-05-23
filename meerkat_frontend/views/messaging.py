@@ -30,13 +30,17 @@ def requires_auth():
 # Stage1: Fill out a subscription form.
 @messaging.route('/')
 @messaging.route('/loc_<int:locID>')
-def subscribe(locID=1):
+def subscribe(locID=None):
     """Subscription Process Stage 1: Render the page with the subscription form.
 
        Args:
            locID (int): The location ID of a location to be automatically
            loaded into the location selector.
     """
+    # Initialise locID to allowed location
+    # Can't be done during function declaration because outside app context
+    locID = g.allowed_location if not locID else locID
+
     return render_template('messaging/subscribe.html',
                            content=current_app.config['MESSAGING_CONFIG'],
                            loc=locID,

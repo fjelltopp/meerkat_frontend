@@ -115,7 +115,7 @@ var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
 var offset = {{week.offset}};
-var allowed_location = {{g.allowed_location|safe}}
+
 $(".menu-toggle").click(function(e) {
 	e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -290,7 +290,7 @@ function drawCharts(locID, year, reports){
 	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
-		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = {{g.allowed_location}};
 		else locID = history.state.locID;
 	}
 

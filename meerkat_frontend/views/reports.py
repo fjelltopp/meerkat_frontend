@@ -13,16 +13,11 @@ from meerkat_frontend import common as c
 import dateutil.parser
 from ..common import add_domain
 import dateutil.relativedelta
-import pdfcrowd
 import json
 import os
-import shutil
-from zipfile import ZipFile, ZIP_DEFLATED
 import uuid
 import subprocess
 import time
-import requests
-from bs4 import BeautifulSoup
 from selenium import webdriver
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
@@ -42,7 +37,7 @@ def requires_auth():
 # NORMAL ROUTES
 @reports.route('/')
 @reports.route('/loc_<int:locID>')
-def index(locID=0):
+def index(locID=None):
     """
     Render the reports splash page (index.html).
     The reports splash page provides a form enabling user to select which
@@ -52,8 +47,7 @@ def index(locID=0):
         locID (int): The location ID of a location to be automatically loaded
             into the location selector.
     """
-    if locID == 0:
-        locID = g.allowed_location
+    locID = g.allowed_location if not locID else locID
     return render_template('reports/index.html',
                            content=current_app.config['REPORTS_CONFIG'],
                            loc=locID,
