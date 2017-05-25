@@ -134,7 +134,7 @@
 <div class="row">
 	<div class="col-sm-6">
 		<div class="chart-wrapper country-map">
-			<div class="chart-title clearfix">{{_('Map of Cholera Cases from surveyed facilties')}}</div>
+			<div class="chart-title clearfix">{{_('Map of Cholera Cases by bed from surveyed facilties')}}</div>
 		    <div class="chart-stage">
 			<div id="cholera-map"  class="mapbox"></div>
 		    </div>
@@ -321,22 +321,22 @@
 		cholera.labels
 		)
 		); */
- var reg_data = {{extras.reg_data|safe}};
+ var dis_data = {{extras.dis_data|safe}};
 
  
 	regional_map(
 		{{report.data.cholera_map|safe}},
 		{{extras.map_centre}},
-		reg_data,
+		dis_data,
 		'cholera-map'
 	);
 
-    ctc_surveyed_clinics_map(
-        {{report.data.surveyed_clinics_map.surveyed|safe}},
-        {{report.data.surveyed_clinics_map.non_surveyed|safe}},
-        'surveyed-clinic-map',
-        {{extras.map_centre}}
-    );
+     ctc_surveyed_clinics_map(
+         {{report.data.surveyed_clinics_map.surveyed|safe}},
+         {{report.data.surveyed_clinics_map.non_surveyed|safe}},
+         'surveyed-clinic-map',
+         {{extras.map_centre}}
+     );
 
  {% for ctc in report.clinic_data %}
   {% if ctc.status == "Surveyed" %}

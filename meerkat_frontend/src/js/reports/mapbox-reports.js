@@ -25,25 +25,32 @@ function ctc_point_map(point, containerID, map_centre){
 }
 
 
-function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, containerID, map_centre){
+function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, containerID, map_centre, in_technical){
     // Build the basic map using mapbox.
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
-                           'KQCTcMow5165oToazo4diQ';
+        'KQCTcMow5165oToazo4diQ';
+	var control = false;
+	if (in_technical !== undefined){
+		control = true;
+	}
+		
     map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-          zoomControl: false,
+          zoomControl: control,
           fullscreenControl: true,
-        scrollWheelZoom: false
+        scrollWheelZoom: control
     }).setView([map_centre[0], map_centre[1]], map_centre[2]);
 
     // Setup map options.
-    map.dragging.disable();
-    map.on('fullscreenchange', function(){
-        if (map.isFullscreen()) {
-            map.dragging.enable();
-        } else {
-            map.dragging.disable();
-        }
-    });
+	if(! control) {
+		map.dragging.disable();
+		map.on('fullscreenchange', function(){
+			if (map.isFullscreen()) {
+				map.dragging.enable();
+			} else {
+				map.dragging.disable();
+			}
+		});
+	}
 
     // Add surveyed clinics to map
     for(var s_point in surveyed_points){
