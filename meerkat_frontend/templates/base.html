@@ -76,7 +76,8 @@
         <a href='/{{g.language}}/fault?url={{request.path}}' target='_blank'>{{_('Report Faulty Page')}}</a>
     </div>
     <!-- FOOTER -->
-    <footer class="row">
+    <footer>
+      <div  class="row">
       {% block footer %}
       <div class="container">
 	      <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
@@ -98,6 +99,7 @@
 	      </div>
       </div>
       {% endblock %}
+      </div>
     </footer>
 
   {% include 'includes/js.html' %}

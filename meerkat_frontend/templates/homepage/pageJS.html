@@ -68,7 +68,7 @@ var auth_root = "{{content.auth_root}}";
 
    //SHOW THE KEY_INDICATORS ----------------------------------------------
 
-    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/key_indicators", function( category ){
+ $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/key_indicators", function( category ){
         $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( map ){
             $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_alerts", function( alerts ){
                 $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_clinics", function( clinics ){

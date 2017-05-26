@@ -13,9 +13,9 @@ import calendar
 import os
 import time
 
-from meerkat_frontend.test.test_reports import *
-from meerkat_frontend.test.test_common import *
-from meerkat_frontend.test.test_messaging import *
+#from meerkat_frontend.test.test_reports import *
+#from meerkat_frontend.test.test_common import *
+#from meerkat_frontend.test.test_messaging import *
 
 # Check if auth requirements have been installed
 try:
@@ -44,7 +44,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
 
         # When check_auth is called, just allow the authentication and set a
         # permissive payload.
-        def side_effect(roles, countries):
+        def side_effect(self, roles, countries, logic):
             g.payload = {
                 u'acc': {
                     u'demo': [u'root', u'admin', u'registered'],
@@ -63,10 +63,10 @@ class MeerkatFrontendTestCase(unittest.TestCase):
                 u'email': u'test@test.org.uk'
             }
 
-        # Mock check_auth method. Authentication should be tested properly else
-        # where.
+        # Mock check_auth method
+        # Authentication should be tested properly elsewhere.
         self.patcher = mock.patch(
-            'meerkat_libs.auth_client.auth.check_auth',
+            'meerkat_libs.auth_client.Authorise.check_auth',
             side_effect=side_effect
         )
         self.mock_auth = self.patcher.start()
@@ -76,7 +76,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
 
     # HOMEPAGE testing
     def test_index(self):
-        """Ensure the config file is loading correctly"""
+        """Ensure the index page is loading correctly"""
         rv = self.app.get('/en/')
         self.assertIn(b'Null Island', rv.data)
 

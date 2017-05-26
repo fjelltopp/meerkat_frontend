@@ -28,13 +28,14 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
 
         # When check_auth is called, just allow the authentication and set a
         # permissive payload.
-        def side_effect(roles, countries):
+        def side_effect(self, roles, countries, logic):
             g.payload = {
                 u'acc': {
                     u'demo': [u'root', u'admin', u'registered'],
                     u'jordan': [
-                        u'root', u'central', u'directorate', u'clinic', u'reports',
-                        u'all', u'cd', u'ncd', u'mh', u'admin', u'personal'
+                        u'root', u'central', u'directorate', u'clinic',
+                        u'reports', u'all', u'cd', u'ncd', u'mh', u'admin',
+                        u'personal'
                     ],
                     u'madagascar': [u'root', u'admin', u'registered'],
                     u'rms': [u'root', u'admin', u'registered']
@@ -46,10 +47,10 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
                 u'email': u'test@test.org.uk'
             }
 
-        # Mock check_auth method. Authentication should be tested properly else
-        # where.
+        # Mock check_auth method
+        # Authentication should be tested properly elsewhere.
         self.patcher = mock.patch(
-            'meerkat_libs.auth_client.auth.check_auth',
+            'meerkat_libs.auth_client.Authorise.check_auth',
             side_effect=side_effect
         )
         self.mock_auth = self.patcher.start()

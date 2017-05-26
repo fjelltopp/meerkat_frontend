@@ -456,13 +456,13 @@ function drawCasesChoroplet(var_name, varID, containerID, level, centre_lat, cen
 	});
 }
 
-function drawCasesChoropletLatestWeekly(var_name, varID, identifier_id, containerID, level, centre_lat, centre_lng, zoom){
+function drawCasesChoropletLatestWeekly(var_name, varID, identifier_id, containerID, level, centre_lat, centre_lng, zoom, title){
 	var url = api_root +'/aggregate_latest_level/'+varID+'/' + identifier_id + "/" + level;
 	$.getJSON( url, function( data ){
-		drawCasesChoropletFromData(data, var_name, containerID, level, centre_lat, centre_lng, zoom);
+		drawCasesChoropletFromData(data, var_name, containerID, level, centre_lat, centre_lng, zoom, title);
 	});
 }
-function drawCasesChoropletFromData(data, var_name, containerID, level, centre_lat, centre_lng, zoom){
+function drawCasesChoropletFromData(data, var_name, containerID, level, centre_lat, centre_lng, zoom, title){
 	$.getJSON(api_root + "/locations", function (locations) {
 		$.getJSON(api_root + "/geo_shapes/" + level, function(geojson){
 			geojson = geojson.features;
@@ -583,10 +583,14 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
 				this.update();
 				return this._div;
 			};
-			
+
+			if (title === undefined){
+				title =  i18n.gettext('Number of cases of') + " "+ i18n.gettext(var_name);
+			}
+			console.log(title);
 			
 			info.update = function (props) {
-				this._div.innerHTML =  '<h4>' + i18n.gettext('Number of cases of') + " "+ i18n.gettext(var_name) +'</h4>' +  (props ?'<b>' + props.Name + '</b><br /> ' + props.rate : i18n.gettext('Hover over a') + " " + i18n.gettext(level));
+				this._div.innerHTML =  '<h4>' +title +'</h4>' +  (props ?'<b>' + props.Name + '</b><br /> ' + props.rate : i18n.gettext('Hover over a') + " " + i18n.gettext(level));
 			};
 			
 			//Add the legend.

@@ -1549,3 +1549,90 @@ function mergeRows(contener, index, rowspan) {
         rowspan: rowspan
     });
 }
+
+
+/**:drawClinicPrescriptionTable(containerID)
+
+    Draws the table of alerts used on the Alerts tab. Lists each alert according to date
+    and provides links to the individual Alert Investigation reports. Rather than loading JSON
+    data inside the method, it is passed as arguments to the method so that JSON requests
+    can be shared across multiple drawings.
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param [object] alerts:
+        An array of alert objects as returned by Meerkat API `/alerts`.
+    :param object variables:
+        An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
+        Specifically used to print the variable name instead of ID.
+ */
+function drawClinicPrescriptionTable(containerID, locID){
+
+    $.getJSON( api_root + "/prescriptions/" + locID, function( data ){
+
+        //for(var a in data.clinic_table){
+
+        var columns = [
+                {
+                    field: "clinic_name",
+                    title: i18n.gettext('Clinic'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "medicine_name",
+                    title: i18n.gettext('Medicine'),  // TODO: use glossary.
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "min_date",
+                    title: i18n.gettext('First Prescription'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "max_date",
+                    title: i18n.gettext('Latest Prescription'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "total_prescriptions",
+                    title: i18n.gettext('Total doses prescribed'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "str_stock",
+                    title: i18n.gettext('Stock'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                    "sorter": function percs(a,b){
+                        a = ((a == '-') ? '-' : Number(a.split('%')[0]));
+                        b = ((b == '-') ? '-' : Number(b.split('%')[0]));
+                        if(a < b || b == '-') return 1; 
+                        if (a > b || a == '-') return -1; 
+                        return 0;},
+                }
+            ];
+
+        // First destroy any pre-existing table.
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+        var table = $('#' + containerID + " table").bootstrapTable({
+            columns: columns,
+            data: data.medicine_table,
+            search: true,
+            classes: 'table table-no-bordered table-hover',
+            pagination: true,
+            pageSize: 50,
+            sortName: 'str_stock',
+            sortOrder: 'desc'
+        });
+        return table;
+
+    });
+}

@@ -92,7 +92,7 @@
 	 }else if( map_type == "incidence_region") {
 	     drawIncidenceChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.region_geo);
 	 }else if(map_type == "cases_clinic"){
-		 drawMap(variable, "total-map", 1)
+		 drawMap(variable, "total-map", allowed_location)
 	 }else if( map_type == "cases_region") {
 	     drawCasesChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.region_geo);
 	 }
