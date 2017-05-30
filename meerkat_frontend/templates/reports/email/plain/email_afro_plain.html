@@ -4,13 +4,13 @@ _{{_('Dear Colleagues,
 {{ _('View the latest report') }}
 {{report_url}}
 
-{{ _('The report summarises epidemiological information reported from %(clinics)s
-reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and
-%(end_date)s).',
-clinics=report.data.weekly_highlights.clinic_num,
-project_region=_(report.data.project_region),
-epi_week=report.data.epi_week_num,
-start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
+{{ _('The profile summarises epidemiological information reported from %(clinics)s
+  reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and
+  %(end_date)s).',
+  clinics=report.data.weekly_highlights.clinic_num,
+  project_region=_(report.data.project_region),
+  epi_week=report.data.epi_week_num,
+  start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
 
 
 ## {{ _('Key Findings') }} ##
