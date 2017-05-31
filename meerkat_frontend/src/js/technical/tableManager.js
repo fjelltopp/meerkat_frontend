@@ -49,12 +49,12 @@ function drawTable( containerID, data, no_total, linkFunction ){
 
 		if(data.yearPerc){
 
-			table += "<td>" + format(data.week[i]) + " <div class='table-percent'>(" +
-			                                             data.weekPerc[i] + "%)</div></td>" +
+			table += "<td>" + format(data.week[i]) + " <div class='table-percent'>(" +(
+			    data.weekPerc[i] ? data.weekPerc[i]: "0") + "%)</div></td>" +
 			         "<td>" + format(data.week1[i]) + " <div class='table-percent'>(" +
-			                                             data.week1Perc[i] + "%)</div></td>" +
+			    (data.week1Perc[i] ? data.week1Perc[i]: "0") + "%)</div></td>" +
 			         "<td>" + format(data.week2[i]) + " <div class='table-percent'>(" +
-			                                             data.week2Perc[i] + "%)</div></td>" +
+			    (data.week2Perc[i] ? data.week2Perc[i]: "0") + "%)</div></td>" +
 			         "<td>" + format(data.year[i]) + " <div class='table-percent'>(" +
 			                                             data.yearPerc[i] + "%)</div></td></tr>";
 		}else{
@@ -183,11 +183,11 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
         }
         if(data.yearPerc){
             week0Label = format(data.week[i]) + " <div class='table-percent'>(" +
-                data.weekPerc[i] + "%)</div>";
+                (data.weekPerc[i] ? data.weekPerc[i]:0) + "%)</div>";
             week1Label = format(data.week1[i]) + " <div class='table-percent'>(" +
-                data.week1Perc[i] + "%)</div>";
+				(data.week1Perc[i] ? data.week1Perc[i]:0) + "%)</div>";
             week2Label = format(data.week2[i]) + " <div class='table-percent'>(" +
-                data.week2Perc[i] + "%)</div>";
+                (data.week2Perc[i] ? data.week2Perc[i]:0) + "%)</div>";
             yearLabel = format(data.year[i]) + " <div class='table-percent'>(" +
                 data.yearPerc[i] + "%)</div>";
         }else{
