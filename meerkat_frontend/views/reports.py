@@ -476,12 +476,11 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
 
         # Page format
-        pageFormat = '''this.paperSize = {{width: {}, height: {} ,format: "{}px*{}px", orientation: "{}" , margin: {} }};'''.format(width,
-                                                                                                                                    height,
-                                                                                                                                    width,
-                                                                                                                                    height,
-                                                                                                                                    orientation,
-                                                                                                                                    margins)
+
+        pageNumbering = "footer: {height: \"1cm\", contents: phantom.callback(function(pageNum, numPages) { if (pageNum == 1) { return \"\"; } return \" <div align='center'>\" + pageNum + \"</div>\";})}"
+
+        pageFormat = "this.paperSize = {width: " + str(width) + " , height: "+str( height )+"  ,format: \"" + str( width ) + "px*" + str( height ) + "px\", orientation:\"" + str( orientation ) + "\", margin: "+str( margins ) + ", " + pageNumbering + "};"
+
         current_app.logger.info("Rendering URL")
         execute(pageFormat, [])
 
