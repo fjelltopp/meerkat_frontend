@@ -1,4 +1,7 @@
 *.py[cod]
+*.pdf_small
+*.pdf
+ghostdriver.log*
 
 # C extensions
 *.so
