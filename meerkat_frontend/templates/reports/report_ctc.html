@@ -160,7 +160,7 @@
 	 <div class="chart-stage">
              <table class="table small">
         {% for entry in report.contents %}
-                 <tr> <td> {{entry[0]}}  </td> <td> {{entry[1]}}</td></tr>
+                 <tr> <td> {{entry[0]}}  </td> <td> {{entry[1] + report.contents_offset}}</td></tr>
         {% endfor %}
              </table>
 	 </div>
