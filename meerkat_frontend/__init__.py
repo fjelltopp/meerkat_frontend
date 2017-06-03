@@ -52,9 +52,16 @@ if "EXTRA_PAGES" in app.config:
         extra_pages.add_url_rule('/{}/'.format(url), url, function)
 
 
+# Handle homepage route
+
 # Redirect all pages to a language-specified page.
 @app.route("/")
 def root():
+    url_redirect = app.config.get("URL_REDIRECT", {})
+    if url_redirect:
+        domain = request.url_root
+        if domain in url_redirect:
+            return redirect("/" + app.config["DEFAULT_LANGUAGE"] + "/" + url_redirect[domain])
     return redirect("/" + app.config["DEFAULT_LANGUAGE"])
 
 
