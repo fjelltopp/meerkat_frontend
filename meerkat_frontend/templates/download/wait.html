@@ -22,11 +22,13 @@
                     </div>
                     <div class="chartBox__content" >
                         <div class='breaker'></div>
-                        <div class='clearfix'>
-							<div id="progressbar"></div>
-                            <div id="spinner" class='col-sm-offset-1 col-sm-4 col-md-3 col-lg-2'>
-                                <img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>
-                            </div>
+                        <div class='clearfix wait-content'>
+							<div class="download-progress col-sm-offset-1">
+								<div class="progress progress-striped active">
+									<div id ='progressbar' class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" >
+									</div>
+								</div>
+							</div>
                             <div id='download-button' class='btn-group col-sm-offset-1'>
                                 <div id='download-label'
                                    class='btn btn-lg btn-default'
@@ -46,11 +48,9 @@
                                         {{ _('Excel') }}
                                 </a>
                             </div>
-                        </div>
+						</div>
                         <div class='breaker'></div>
-
                         <p class='col-sm-offset-1'> <b>Current Status:</b> <span id="status"> </span></p>
-
                     </div>
         		</div>
             </div>
@@ -62,54 +62,60 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
- var config = {{content|tojson|safe}};
- var api_root = "{{config['EXTERNAL_API_ROOT']}}";
- var week = {{week.epi_week}};
- $('#download-button').hide();
- $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
- url ='{{api_url|safe}}';
- var uuid = "";
- interval = ""
- url += "&language=" + language;
- console.log(url)
-	//Function to call progress bar
- function check_status(){
-     $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
-         if(data){
-             console.log(data);
-             if(data.status == 1){
-                 if(data.success == 1){
-                     t = i18n.gettext("Data set was sucesfully generated.")
-                     $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
-                     $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
-                     $("#spinner").hide();
-                     $('#download-button').show();
-                     $("#heading").html(t);
-                     $("#status").html("Finished");
-                 }else{
-                     t = i18n.gettext("Data set generation was unsuccessful");
-                     $("#heading").html(t);
-                     $("#spinner").html("Please try again later.");
-                     $("#status").html("Finished");
-                 }
-                 clearInterval(interval)
-             }else{
-							 	 //progressbar added here
-                 t = i18n.gettext("Dataset is still being prepared, please wait. Currently it is " +Math.round(data.status * 100) + " % finished.")
-                 $("#status").html(t)
-             }
-         }
-     });
- }
- $.getJSON(url, function( data ){
-     uuid = data;
-     url
-     $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."))
-		 $("#progressbar").show();
-         interval = setInterval(function() {
-             check_status()
-         }, 5000);
-     });
+
+// Global name space variables.
+var config = {{content|tojson|safe}};
+var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+var week = {{week.epi_week}};
+var url ='{{api_url|safe}}' + "&language=" + language;
+var progress = 0;
+var progressChecker = '';
+var uuid = '';
+
+// Add the date details.
+$("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
+
+// Firstly, get the info about which data download the user wants. Then start checking its progress.
+$.getJSON(url, function( data ){
+    // Get the data download uuid.
+    uuid = data;
+    // Update the status message.
+    $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."));
+    // Start making regular checks on the download progress.
+    progressChecker = setInterval(function() {
+        check_status();
+    }, 500);
+});
+
+// A function that checks the status of the download and updates the html accordingly
+function check_status(){
+    $.getJSON(api_root + "/export/get_status/" + uuid, function( data ){
+        if(data){
+            if(data.status == 1){
+                if(data.success == 1){
+                    $(".progress-bar").css("width", 100 + "%").text(100 + " %");
+                    $('#download-csv-button').attr('href', api_root + "/export/getcsv/" + uuid);
+                    $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
+                    $('#download-button').show();
+                    $('.download-progress').fadeOut('slow');
+                    $("#heading").html(i18n.gettext("Data set was sucesfully generated."));
+                    $("#status").html("Finished");
+                }else{
+                    $("#heading").html(i18n.gettext("Data set generation was unsuccessful."));
+                    $("#status").html("Finished");
+                }
+                clearInterval(progressChecker)
+            }else{
+                progress = Math.round(data.status*100);
+                $('.progress-bar').css('width', progress+'%')
+                    .attr('aria-valuenow', progress)
+                    .text(progress + " %");
+                $("#status").html(i18n.gettext("Dataset is still being prepared, please wait."))
+            }
+        }
+    });
+}
+
 </script>
 
 {% endblock pageJS %}
