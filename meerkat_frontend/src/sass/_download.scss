@@ -108,28 +108,31 @@
 #download-xls-button{
     border-left: white 1px solid;
 }
-//Progres bar stuff
-#myProgress {
-	width: 50%;
-  background-color: #ddd;
+
+.download-progress{
+    width: 313px;
+    height: 44px;
+    position:absolute;
+    top:0px;
+    z-index:1;
+    .progress-text{
+        text-align:center;
+        width:100%;
+        position:absolute;
+        z-index:2;
+        line-height:44px;
+    }
+    .progress{
+        border-radius: 6px;
+        height: 100%;
+        .progress-bar{
+            min-width: 3%;
+            line-height: 44px;
+            background-color: #d9692a;
+        }
+    }
 }
 
-#myBar {
-	width: 0%;
-  height: 30px;
-  background-color: #0090ca;
-  text-align: center;
-  line-height: 30px;
-  color: white;
-  display: block;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  box-shadow:
-    inset 0 2px 9px  rgba(255,255,255,0.3),
-    inset 0 -2px 6px rgba(0,0,0,0.4);
-  position: relative;
-  overflow: hidden;
-
+.wait-content{
+    position: relative;
 }
