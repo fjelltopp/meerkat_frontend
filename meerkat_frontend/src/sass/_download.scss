@@ -115,10 +115,18 @@
     position:absolute;
     top:0px;
     z-index:1;
+    .progress-text{
+        text-align:center;
+        width:100%;
+        position:absolute;
+        z-index:2;
+        line-height:44px;
+    }
     .progress{
         border-radius: 6px;
         height: 100%;
         .progress-bar{
+            min-width: 3%;
             line-height: 44px;
             background-color: #d9692a;
         }
