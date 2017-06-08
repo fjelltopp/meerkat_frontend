@@ -56,6 +56,37 @@ def api(url, api_key=False, params=None):
         return output
 
 
+def authenticate_server():
+    """
+    Makes an authentication request to meerkat_auth using the server username
+    and password.
+
+    Returns:
+        dict: a dictionary containing the authorisation headers required for
+            a request e.g. {'Authorization': 'Bearer withTokenHere'}
+    """
+    # Assemble auth request params
+    url = app.config['AUTH_ROOT'] + '/api/login'
+    data = {
+        'username': app.config['SERVER_AUTH_USERNAME'],
+        'password': app.config['SERVER_AUTH_PASSWORD']
+    }
+    headers = {'content-type': 'application/json'}
+    r = requests.request('POST', url, json=data, headers=headers)
+    logging.warning("Received authentication response: " + str(r))
+
+    # We need authentication to work, so raise an exception if it doesn't.
+    if r.status_code != 200:
+        raise Exception(
+            "Authentication request returned not-ok response code: " +
+            str(r.status_code)
+        )
+
+    # Create the headers for a properly authenticated request.
+    token = r.cookies['meerkat_jwt']
+    return {'Authorization': 'Bearer ' + token}
+
+
 def hermes(url, method, data={}):
     """
     Makes a Hermes API request.
@@ -70,13 +101,9 @@ def hermes(url, method, data={}):
        dict: a dictionary formed from the json data in the response.
     """
 
-    # Add the API key and turn into JSON.
-    data["api_key"] = app.config['HERMES_API_KEY']
-
-    # Assemble the other request params.
+    # Assemble hermes params
+    headers = {'content-type': 'application/json', **authenticate_server()}
     url = app.config['HERMES_ROOT'] + url
-    headers = {'content-type': 'application/json'}
-
     logging.warning("Sending json: " + json.dumps(data) + "\nTo url: " + url)
 
     # Make the request and handle the response.
