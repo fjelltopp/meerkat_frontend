@@ -68,6 +68,16 @@
 }
 
 
+#download-button{
+    width: 350px;
+    a{
+        width:100px;
+    }
+    div{
+        width:150px;
+    }
+}
+
 #download-csv-button,
 #download-xls-button,
 #download-label{
@@ -110,7 +120,7 @@
 }
 
 .download-progress{
-    width: 313px;
+    width: 350px;
     height: 44px;
     position:absolute;
     top:0px;
