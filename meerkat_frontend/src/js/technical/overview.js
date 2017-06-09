@@ -1,5 +1,5 @@
 //Global Variable ...
-ovPeriodType = 'weeks'; //  "year or weeks" Read from the config..
+//ovPeriodType = 'weeks'; //  "year or weeks" Read from the config..
 
 // This will be the main function for the over viewpage...
 function build_overview_page(locID) {
@@ -35,18 +35,14 @@ function html_box_builder(overviewObj, locID) {
 
 
 function prep_row(contentsObj, parentId, locID) {
-    if (IsUserAthorized(contentsObj.access) === true) {
+    if (isUserAthorized(contentsObj.access) === true) {
 
         //Generate a GUID ...
-        var api_element = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : r & 0x3 | 0x8;
-            return v.toString(16);
-        });
+        var api_element = generateGUID();
 
         //Append the results ...
         var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell'> " + contentsObj.label + "</div>" +
+            "<div class='divTableCell' style='font-weight: bold;'> " + contentsObj.label + "</div>" +
             "<div class='divTableCell " + api_element + "'>Loading..</div>" +
             "</div>";
 
@@ -65,18 +61,14 @@ function prep_row(contentsObj, parentId, locID) {
 
 
 function prep_row_draw_top(contentsObj, parentId, locID) {
-    if (IsUserAthorized(contentsObj.access) === true) {
+    if (isUserAthorized(contentsObj.access) === true) {
 
         //Generate a GUID ...
-        var api_element = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : r & 0x3 | 0x8;
-            return v.toString(16);
-        });
+        var api_element = generateGUID();
 
         //Append the results ...
         var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell'> " + contentsObj.label + "</div>" +
+            "<div class='divTableCell' style='font-weight: bold;'> " + contentsObj.label + "</div>" +
             "</div>" +
             "<div class='divTableRow'>" +
             "<div class = 'container' > <ul  id = '" + api_element + "' > </ul></div >" +
@@ -88,7 +80,7 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
 
         // Get the inner value for the boxes by calling the APIs ...
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
-
+        var ovPeriodType = contentsObj.prep_details.ovPeriodType;
 
         $.getJSON(api_root + apiUrl, function(data) {
 
@@ -105,13 +97,10 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
                 if (ovPeriodType === "year") {
                     arrValue.push(value[ovPeriodType]);
                 } else {
-                    if (value[ovPeriodType][week] !== undefined) {
-                        arrValue.push(value[ovPeriodType][week]);
-                    } else {
-                        arrValue.push(0);
-                    }
-                }
 
+                    //Check if the value exist using if_exists function from misc.js file ...
+                    arrValue.push(if_exists(value[ovPeriodType], week));
+                }
             });
 
             //I need the top 3 ...
@@ -153,24 +142,18 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
 
 
 function prep_row_draw_Last3(contentsObj, parentId, locID) {
-    if (IsUserAthorized(contentsObj.access) === true) {
+    if (isUserAthorized(contentsObj.access) === true) {
 
         //Generate a GUID ...
-        var api_element = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : r & 0x3 | 0x8;
-            return v.toString(16);
-        });
+        var api_element = generateGUID();
 
         //Append the results ...
         var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell'> " + contentsObj.label + "</div>" +
+            "<div class='divTableCell' style='font-weight: bold;'> " + contentsObj.label + "</div>" +
             "</div>" +
             "<div class='divTableRow'>" +
             "<div class = 'container' > <ul  id = '" + api_element + "' > </ul></div >" +
             "</div>";
-
-        //  var htmlRow = "<div class='container'><ul class='list-group' id='"+ api_element +"'></ul></div>";
 
         $("#" + parentId).append(htmlRow);
 
@@ -214,7 +197,7 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
 }
 
 
-function IsUserAthorized(accessObj) {
+function isUserAthorized(accessObj) {
     var userObj = user.acc[config.auth_country];
     var result = $.inArray(accessObj, userObj);
     if (result === -1) {
@@ -222,4 +205,14 @@ function IsUserAthorized(accessObj) {
     } else {
         return true;
     }
+}
+
+
+function generateGUID() {
+    var newGuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : r & 0x3 | 0x8;
+        return v.toString(16);
+    });
+    return newGuid;
 }

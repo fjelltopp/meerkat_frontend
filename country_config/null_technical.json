@@ -115,13 +115,15 @@
                     "api": "/aggregate_category/cd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity",
                     "access": "cd",
-                    "prep_function": "prep_row_draw_top"
+                    "prep_function": "prep_row_draw_top",
+                    "prep_details":{"ovPeriodType": "year"}
                 },
                 {
                     "api": "/aggregate_category/ncd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity  NCD",
                     "access": "cd",
-                    "prep_function": "prep_row_draw_top"
+                    "prep_function": "prep_row_draw_top",
+                    "prep_details":{"ovPeriodType": "year"}
                 },
                 {
                     "api": "/alerts",
@@ -139,13 +141,15 @@
                     "api": "/aggregate_category/cd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity",
                     "access": "cd",
-                    "prep_function": "prep_row_draw_top"
+                    "prep_function": "prep_row_draw_top",
+                    "prep_details":{"ovPeriodType": "year"}
                 },
                 {
                     "api": "/aggregate_category/ncd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity NCD",
                     "access": "cd",
-                    "prep_function": "prep_row_draw_top"
+                    "prep_function": "prep_row_draw_top",
+                    "prep_details":{"ovPeriodType": "year"}
                 },
                 {
                     "api": "/alerts",
@@ -168,6 +172,24 @@
                 {
                     "api": "/aggregate/tot_1/<loc_id>",
                     "label": "% Diabetes visits with controlled FG",
+                    "access": "cd",
+                    "prep_function": "prep_row"
+                },
+                {
+                    "api": "/aggregate/tot_1/<loc_id>",
+                    "label": "% Hypertension visits with measured BP",
+                    "access": "cd",
+                    "prep_function": "prep_row"
+                },
+                {
+                    "api": "/aggregate/tot_1/<loc_id>",
+                    "label": "% Hypertension visits with controlled BP",
+                    "access": "cd",
+                    "prep_function": "prep_row"
+                },
+                {
+                    "api": "/aggregate/tot_1/<loc_id>",
+                    "label": "% Of patients that currently smoke",
                     "access": "cd",
                     "prep_function": "prep_row"
                 }
