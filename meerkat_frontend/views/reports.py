@@ -503,8 +503,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             tmp_file = tmp_file + "_small"
         with open(tmp_file, "rb") as f:
             pdf = f.read()
-        #os.remove(tmp_file)
-
+        os.remove(tmp_file)
         return Response(pdf, mimetype='application/pdf')
 
     else:
