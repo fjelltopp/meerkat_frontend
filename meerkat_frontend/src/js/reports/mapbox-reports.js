@@ -266,7 +266,7 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
 			var value = location.value;
 			// Use technical/misc.js isInteger() because Number.isInteger()
 			// is incompatiable with docraptor.
-			if( !isInteger(value) ) value = value.toFixed(1);
+			if( !isInteger(value) && value !== undefined) value = value.toFixed(1);
 			var icon = L.divIcon({
 				className: 'area-label',
 				html: "<div class='outer'><div class='inner'>" + value +
