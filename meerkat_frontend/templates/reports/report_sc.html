@@ -1,0 +1,328 @@
+{% extends 'reports/base.html' %}
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('Stabilisation Centre Report') }} &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
+
+
+{% macro format_percent(input) %}
+  {{ input.Y }} ({{ (input.Y / input.N * 100 )|int}} %)
+
+{%- endmacro %}
+
+{% macro format_percent_2(num, denom) %}
+  {{ num|int }}  ({{ (num / denom * 100)|int if denom > 0 else "N/A"}} %)
+
+{%- endmacro %}
+
+{% set yesnodk = {"yes": "Yes", "no": "No", "dnk": "Don't Know", "blank": "Don't Know"} %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+
+	<h2>
+
+    <span
+      class="flag-icon flag-icon-{{report.flag}}"
+      style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+    >
+    </span>
+
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
+    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot;</span>
+	{{ _('Nutrition Quality and Outcomes Monitoring') }}    <br /> 
+	<span class="report-week">Facility-based survey of nutrition stabilisation centres</span>
+	<span class="report-week"><br />
+
+        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}  </span>
+		</div>
+  </h2>
+</div>
+<div class="row">
+  <!-- HIGHLIGHTS -->
+    <div class="col-sm-6">
+		<div class="chart-wrapper infrastructure">
+			<div class="chart-title">{{_('Survey')}}</div>
+			<div class="chart-stage">
+				<table class="table small">
+					<tr> <td> {{_('Facilities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
+				</table>
+			</div>
+		</div>
+		
+     <div class="chart-wrapper caseload">
+	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
+	 <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('New admissions:')}}  </td> <td> {{report.overview.get("sc_cases", 0)|int}}</td></tr>
+				 <tr> <td> {{_('Cured:')}}  </td> <td>{{format_percent_2(report.overview.get("sc_cured", 0),report.overview.get("sc_discharge", 0)) }} </td></tr>
+                 <tr> <td> {{_('Deaths:')}}  </td> <td> {{format_percent_2(report.overview.get("sc_deaths", 0),report.overview.get("sc_discharge", 0)) }}</td></tr>
+                 <tr> <td> {{_('Defaulters:')}}  </td> <td> {{format_percent_2(report.overview.get("sc_deafault", 0),report.overview.get("sc_discharge", 0)) }}</td></tr>
+                 <tr> <td> {{_('Discharges:')}}  </td> <td> {{report.overview.get("sc_discharge", 0)|int}}</td></tr>
+             </table>
+	 </div>
+     </div>
+     
+
+   
+     <div class="chart-wrapper laboratory">
+         <div class="chart-title">{{_('Nutrition')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('F75 therapeutic milk available:')}}  </td> <td> {{ format_percent(report.overview.sc_f75_value)}} </td></tr>
+                 <tr> <td> {{_('F100 therapeutic milk available')}}  </td> <td> {{ format_percent(report.overview.sc_f100_value)}} </td></tr>
+                 <tr> <td> {{_('ReSoMal therapeutic milk available')}}  </td> <td> {{ format_percent(report.overview.sc_resomal_value)}} </td></tr>
+             </table>
+         </div>
+     </div>
+
+    </div>
+    <div class="col-sm-6">
+
+     <div class="chart-wrapper infrastructure">
+         <div class="chart-title">{{_('Infrastructure')}}</div>
+		 <div class="chart-stage">
+			 <table class="table small">
+                             <tr> <td> {{_('Facilities with sufficient bed capacity:')}}  </td> <td>{{ format_percent(report.overview.sc_beds_sufficient) }}</td></tr>
+			     <tr> <td> {{_('Beds available:')}}  </td> <td> {{report.overview.get("sc_beds", 0)|int}} </td></tr>
+    			     <tr> <td> {{_('Doctors working in the facilities (per facility):')}}  </td> <td> {{report.overview.get("sc_doctors", 0)|int}} ({{report.overview.get("sc_doctors_per_facility", 0)|round(1)}})</td></tr>
+			     <tr> <td> {{_('Nurses working in the facilities (per facility):')}}  </td> <td> {{report.overview.get("sc_nurses", 0)|int}} ({{report.overview.get("sc_nurses_per_facility", 0)|round(1)}})</td></tr>
+			 </table>
+		 </div>
+     </div>
+  <div class="chart-wrapper case-management">
+         <div class="chart-title">{{_('Case Management')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('Nutrition Guidelines available and translated in local language:')}}  </td> <td>{{ format_percent(report.overview.sc_nutrition_guides_value) }} </td></tr>
+                 <tr> <td> {{_('Children are weighed correctly at each visit:')}}  </td> <td> {{ format_percent(report.overview.sc_weight_recorded_value)}}</td></tr>
+                 <tr> <td> {{_('MUAC is measured correctly and recorded:')}}  </td> <td> {{ format_percent(report.overview.sc_muac_value)}} </td></tr>
+                 <tr> <td> {{_('Height is measured according to protocol:')}}  </td> <td> {{ format_percent(report.overview.sc_height_value)}} </td></tr>
+                 <tr> <td> {{_('Z-score calculated correctly :')}}  </td> <td> {{ format_percent(report.overview.sc_z_score_value)}} </td></tr>
+             </table>
+         </div>
+     </div>
+     
+     <div class="chart-wrapper infection-prevention">
+         <div class="chart-title">{{_('Community')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('Centres with a Community Health Worker (CHW)')}}  </td> <td>  {{ format_percent(report.overview.sc_chw_value) }} </td></tr>
+                 <tr> <td> {{_('Number of defaulters traced and readmitted through CHW:')}}  </td> <td>  {{report.overview.sc_deafaulter_value}} </td></tr>
+             </table>
+         </div>
+     </div>
+    </div>
+</div>
+<!-- <div class="row">
+  <div class="col-sm-12">
+      <div class="chart-wrapper cholera-chart">
+          <div class="chart-title clearfix">{{_('Cholera Cases')}}</div>
+          <div class="chart-stage">
+              <div id="fig-1" class='chart'></div>
+          </div>
+      </div>
+  </div>
+
+  
+</div> -->
+<div class="row">
+	<div class="col-sm-6">
+		<div class="chart-wrapper country-map">
+			<div class="chart-title clearfix">{{_('Map of Nutrition Cases by bed from surveyed facilties')}}</div>
+		    <div class="chart-stage">
+			<div id="nutrition-map"  class="mapbox"></div>
+		    </div>
+		</div>
+	</div>
+    <div class="col-sm-6">
+        <div class="chart-wrapper country-map">
+            <div class="chart-title clearfix">{{_('Map of Surveyed Clinics')}}</div>
+            <div class="chart-stage">
+            <div id="surveyed-clinic-map"  class="mapbox"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body%}
+
+{% block second_body %}
+<div style='page-break-before:always'>
+    <div class="row">
+        <h1> Table of contents </h1>
+     <div class="chart-wrapper caseload">
+	 <div class="chart-title clearfix">{{_('Facilities surveyed')}}</div>
+	 <div class="chart-stage">
+             <table class="table small">
+        {% for entry in report.contents %}
+                 <tr> <td> {{entry[0]}}  </td> <td> {{entry[1] + report.contents_offset}}</td></tr>
+        {% endfor %}
+             </table>
+	 </div>
+    </div>
+    </div>
+</div>
+<div style='page-break-before:always'></div>
+{% for sc in report.clinic_data %}
+{% set dat = sc.latest_data %}
+{% if sc.status == "Surveyed" %}
+<div style='page-break-inside:avoid'>
+<div class='row'>
+    <div class='col-xs-12'>
+        <div class='facility-title'>
+            <div class='left-part'>
+                <div class='facility-title-name title'>{{ sc.name }}</div>
+                <div class='facility-title-location'>
+                {{ sc.district }} | {{ sc.region }} <br />
+                    {{_('Latitude: ')}} {{sc.gps[0]}}, {{_('Longitude: ')}} {{sc.gps[1]}} <br />
+                    {{_('Surveyed on') }} {{sc.latest_date}}
+                </div>
+            </div>
+            <div class='right-part'>
+                <div class='facility-title-partner title'>
+                    {{_('Partner: ')}} {{dat.sc_partner if sc.status == "Surveyed" else ""}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+ <div class="col-sm-6">
+     {% if sc.status == "Surveyed" %}
+     <div class="chart-wrapper infrastructure">
+         <div class="chart-title">{{_('Infrastructure')}}</div>
+	 <div class="chart-stage">
+	     <table class="table small">
+              <tr> <td> {{_('Beds available:')}}  </td> <td> {{sc.latest_data.get("sc_beds", 0)|int}} </td></tr>
+    	      <tr> <td> {{_('Patients in the SC at time of survey:')}}  </td> <td> {{sc.latest_data.get("sc_patients", 0)|int}} </td></tr>
+    	      <tr> <td> {{_('Doctors working in the SC at time of survey:')}}  </td> <td> {{sc.latest_data.get("sc_doctors", 0)|int}} </td></tr>
+              <tr> <td> {{_('Nurses working in the SC at time of survey:')}}  </td> <td> {{sc.latest_data.get("sc_nurses", 0)|int}} </td></tr>
+              <tr> <td> {{_('Does the facility have a kitchen where milk preparation is separate from the general kitchen?')}}  </td> <td>{{ yesnodk[dat.get("sc_kitchen_value", "blank")]}} </td></tr>
+              <tr> <td> {{_('Is there an available source for clean drinking water?')}}  </td> <td>{{ yesnodk[dat.get("sc_water_value", "blank")]}} </td></tr>
+              
+	     </table>
+	 </div>
+     </div>
+     
+     <div class="chart-wrapper caseload">
+	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
+	 <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('New admissions:')}}  </td> <td> {{sc.latest_data.get("sc_cases", 0)|int}}</td></tr>
+                 <tr> <td> {{_('Cured:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_cured", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Deaths:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_deaths", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Defaulters:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_deafault", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Discharges:')}}  </td> <td> {{sc.latest_data.get("sc_discharge", 0)|int}}</td></tr>
+             </table>
+	 </div>
+     </div>
+     <div class="chart-wrapper case-management">
+         <div class="chart-title">{{_('Case Management')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('Are Nutrition Guidelines available and translated in local language?')}}  </td> <td>{{ yesnodk[dat.get("sc_nutrition_guides_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Are children are weighed correctly at each visit?')}}  </td> <td> {{ yesnodk[dat.get("sc_weight_recorded_value", "blank")]}}</td></tr>
+                 <tr> <td> {{_('Is MUAC is measured correctly and recorded?')}}  </td> <td> {{ yesnodk[dat.get("sc_muac_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Is height is measured according to protocol?')}}  </td> <td> {{ yesnodk[dat.get("sc_height_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Is Z-score calculated correctly ?')}}  </td> <td> {{ yesnodk[dat.get("sc_z_score_value", "blank")]}} </td></tr>
+             </table>
+         </div>
+     </div>
+     <div class="chart-wrapper infection-prevention">
+         <div class="chart-title">{{_('Nutrition')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('Is F75 therapeutic milk available?')}}  </td> <td>  {{ yesnodk[dat.get("sc_f75_value", "blank")] }} </td></tr>
+                 <tr> <td> {{_('Is F100 therapeutic milk available?')}}  </td> <td>  {{ yesnodk[dat.get("sc_f100_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Is ReSoMal available for rehydration?')}}  </td> <td>  {{ yesnodk[dat.get("sc_resomal_value", "blank")]}} </td></tr>
+             </table>
+         </div>
+     </div>
+     <div class="chart-wrapper water-sanitation">
+         <div class="chart-title">{{_('Community')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('Is there a Community Health Worker (CHW) supporting the nutrition centre?')}}  </td> <td> {{ yesnodk[dat.get("sc_chw_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('How many defaulters were traced and readmitted through the network of the CHW?')}}  </td> <td> {{ dat.get("sc_deafaulter_value")}} </td></tr>
+             </table>
+         </div>
+     </div>
+     {% else %}
+     <div class="chart-wrapper never">
+         <div class="chart-title">{{_('Information')}}</div>
+         <div class="chart-stage">
+             This facility has never been surveyed.
+         </div>
+     </div>
+     {% endif %}
+ </div>
+
+ <div class="col-sm-6">
+    {% if sc.status == "Surveyed" %}
+    <div class="chart-wrapper facility-image">
+        <div class="chart-title clearfix">{{_('Facility Photo')}}</div>
+        <div class="chart-stage">
+            <img src="/en/s3_files/get?path={{sc.latest_data.sc_facility_photo}}" />
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="chart-wrapper facility-map">
+    <div class="chart-title clearfix">{{_('Facility Location')}}</div>
+        <div class="chart-stage">
+            <div id="map-{{sc.name|slugify}}"  class="map"></div>
+        </div>
+    </div>
+
+    {% if sc.status == "Surveyed" %}
+    <div class="chart-wrapper facility-recommendations">
+        <div class="chart-title clearfix">{{_('Recommendations')}}</div>
+        <div class="chart-stage">
+            {% for rec in sc.recommendations %}
+            <p>{{loop.index}}. {{rec}}</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+ </div>
+</div>
+</div>
+
+{% endif %}
+
+{% endfor %}
+
+</div>
+<div id="map" style="display: hidden;"></div>
+{% endblock second_body %}
+{% block extra_js %}
+<!-- JAVASCRIPT DATA FOR CHARTS -->
+<script>
+
+     i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
+
+     var dis_data = {{extras.dis_data|safe}};
+     
+     
+     regional_map(
+	 {{report.data.nutrition_map|safe}},
+	 {{extras.map_centre}},
+	 dis_data,
+	 'nutrition-map'
+     );
+     
+     ctc_surveyed_clinics_map(
+         {{report.data.surveyed_clinics_map.surveyed|safe}},
+         {{report.data.surveyed_clinics_map.non_surveyed|safe}},
+         'surveyed-clinic-map',
+         {{extras.map_centre}}
+     );
+     
+     {% for sc in report.clinic_data %}
+     {% if sc.status == "Surveyed" %}
+     ctc_point_map({{sc.gps|safe}}, "map-{{sc.name|slugify}}", {{extras.map_centre}})
+ 	 
+     {% endif %}
+     
+     {% endfor %}
+
+
+ </script>
+{% endblock extra_js %}

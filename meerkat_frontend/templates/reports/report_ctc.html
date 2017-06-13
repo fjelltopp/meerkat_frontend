@@ -48,7 +48,7 @@
 	 <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('Patients treated:')}}  </td> <td> {{report.overview.get("cases_total", 0)|int}}</td></tr>
-				 <tr> <td> {{_('Children under five treated:')}}  </td> <td>{{report.overview.get("cases_u5_total", 0)|int}} </td></tr>
+		 <tr> <td> {{_('Children under five treated:')}}  </td> <td>{{report.overview.get("cases_u5_total", 0)|int}} </td></tr>
                  <tr> <td> {{_('Deaths recorded:')}}  </td> <td> {{report.overview.get("deaths_total", 0)|int}}</td></tr>
                  <tr> <td> {{_('Average case fatality rate (minimum - maximum) :')}}  </td> <td> {{report.overview.cfr[0]|round(1)}} % ( {{ report.overview.cfr[1]|round(1) }}% - {{ report.overview.cfr[2]|round(1) }}% )</td></tr>
              </table>
