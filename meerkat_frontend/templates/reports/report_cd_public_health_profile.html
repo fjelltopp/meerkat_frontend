@@ -89,7 +89,7 @@
   <div class="col-sm-6">
     <div class="chart-wrapper">
 		<div class="chart-title">
-			{% if report.data.incidence_area == "clinic" %}
+			{% if report.data.incidence_area == "clinic" or report.data.incidence_area == None %}
 			{{ _("Cases per clinic") }}
 			{% else %}
 			{{ _('Incidence rate by %(level)s of all cases per %(denom)s', level=report.data.incidence_area, denom=report.data.incidence_denominator) }}
@@ -300,7 +300,7 @@
 var d= {{report.data.demographics|safe}};
  // Reporting Sites
 
- {% if report.data.incidence_area == "clinic" %}
+ {% if report.data.incidence_area == "clinic" or report.data.incidence_area == None %}
 	var reportingSites = {
 	 categories: [{% for site in report.data.reporting_sites%}"{{ site.title.strip()|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
 	 series: [{name: 'Cases', data: [{% for site in report.data.reporting_sites %}{{ site.quantity|safe }}{% if not loop.last %},{% endif %}{% endfor %}]}],
