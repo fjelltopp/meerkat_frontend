@@ -7,6 +7,10 @@
 
 {%- endmacro %}
 
+{% macro format_percent_2(num, denom) %}
+  {{ num|int }}  ({{ (num / denom * 100)|int if denom > 0 else "N/A"}} %)
+
+{%- endmacro %}
 
 {% set yesnodk = {"yes": "Yes", "no": "No", "dnk": "Don't Know", "blank": "Don't Know"} %}
 {% block body %}
@@ -24,7 +28,7 @@
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot;</span>
 	{{ _('Nutrition Quality and Outcomes Monitoring') }}    <br /> 
-	<span class="report-week">Facility-based survey of stabilisation centres</span>
+	<span class="report-week">Facility-based survey of nutrition stabilisation centres</span>
 	<span class="report-week"><br />
 
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}  </span>
@@ -38,7 +42,7 @@
 			<div class="chart-title">{{_('Survey')}}</div>
 			<div class="chart-stage">
 				<table class="table small">
-					<tr> <td> {{_('Facilitities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
+					<tr> <td> {{_('Facilities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
 				</table>
 			</div>
 		</div>
@@ -48,10 +52,10 @@
 	 <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('New admissions:')}}  </td> <td> {{report.overview.get("sc_cases", 0)|int}}</td></tr>
-		 <tr> <td> {{_('Patients cured:')}}  </td> <td>{{report.overview.get("sc_cured", 0)|int}} </td></tr>
-                 <tr> <td> {{_('Deaths recorded:')}}  </td> <td> {{report.overview.get("sc_deaths", 0)|int}}</td></tr>
-                 <tr> <td> {{_('Number of deafaulters:')}}  </td> <td> {{report.overview.get("sc_deafault", 0)|int}}</td></tr>
-                 <tr> <td> {{_('Number of dishcarges:')}}  </td> <td> {{report.overview.get("sc_discharge", 0)|int}}</td></tr>
+				 <tr> <td> {{_('Cured:')}}  </td> <td>{{format_percent_2(report.overview.get("sc_cured", 0),report.overview.get("sc_discharge", 0)) }} </td></tr>
+                 <tr> <td> {{_('Deaths:')}}  </td> <td> {{format_percent_2(report.overview.get("sc_deaths", 0),report.overview.get("sc_discharge", 0)) }}</td></tr>
+                 <tr> <td> {{_('Defaulters:')}}  </td> <td> {{format_percent_2(report.overview.get("sc_deafault", 0),report.overview.get("sc_discharge", 0)) }}</td></tr>
+                 <tr> <td> {{_('Discharges:')}}  </td> <td> {{report.overview.get("sc_discharge", 0)|int}}</td></tr>
              </table>
 	 </div>
      </div>
@@ -101,7 +105,7 @@
          <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('Centres with a Community Health Worker (CHW)')}}  </td> <td>  {{ format_percent(report.overview.sc_chw_value) }} </td></tr>
-                 <tr> <td> {{_('NUmber of defaulters who were traced and readmitted through the network of the CHW:')}}  </td> <td>  {{report.overview.sc_deafaulter_value}} </td></tr>
+                 <tr> <td> {{_('Number of defaulters traced and readmitted through CHW:')}}  </td> <td>  {{report.overview.sc_deafaulter_value}} </td></tr>
              </table>
          </div>
      </div>
@@ -202,10 +206,10 @@
 	 <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('New admissions:')}}  </td> <td> {{sc.latest_data.get("sc_cases", 0)|int}}</td></tr>
-                 <tr> <td> {{_('Patients cured:')}}  </td> <td> {{sc.latest_data.get("sc_cured", 0)|int}}</td></tr>
-                 <tr> <td> {{_('Deaths recorded:')}}  </td> <td> {{sc.latest_data.get("sc_deaths", 0)|int}}</td></tr>
-                 <tr> <td> {{_('Deafaulters recorded:')}}  </td> <td> {{sc.latest_data.get("sc_deafault", 0)|int}}</td></tr>
-                 <tr> <td> {{_('Number of patients discharged:')}}  </td> <td> {{sc.latest_data.get("sc_discharge", 0)|int}}</td></tr>
+                 <tr> <td> {{_('Cured:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_cured", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Deaths:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_deaths", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Defaulters:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_deafault", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Discharges:')}}  </td> <td> {{sc.latest_data.get("sc_discharge", 0)|int}}</td></tr>
              </table>
 	 </div>
      </div>

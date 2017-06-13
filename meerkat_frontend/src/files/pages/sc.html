@@ -23,18 +23,8 @@
   </div>
 
   <div id="page-content-wrapper">
-	  <div class="col-xs-12 less-padding-col">
-		  <div class="chartBox box">
-			  <div class="chartBox__heading">
-				  <p id="box_heading_1"></p>
-			  </div>
-			  <div class="chartBox__content">
-				  <div id="ctc-table" class="chart">
-				  </div>
-			  </div>
-		  </div>
-	  </div>
-  </div>
+	 
+
 
       <div class="row">
 		  <div class="col-xs-6 less-padding-col">
@@ -105,28 +95,56 @@
 				</div>
 			</div>
         </div>
-		<div class="col-xs-4 less-padding-col">
-			<div class="chartBox box">
-				<div class="chartBox__heading">
-					<p id="box_heading_7"></p>
+		<div class="col-xs-8 less-padding-col">
+			<div class="row">
+				<div class="col-xs-6 less-padding-col">
+					<div class="chartBox box">
+						<div class="chartBox__heading">
+							<p id="box_heading_7"></p>
+						</div>
+						<div class="chartBox__content">
+							<div id="no-f75" class="chart">
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="chartBox__content">
-					<div id="no-case" class="chart">
+				<div class="col-xs-6 less-padding-col">
+					<div class="chartBox box">
+						<div class="chartBox__heading">
+							<p id="box_heading_8"></p>
+						</div>
+						<div class="chartBox__content">
+							<div id="no-resomal" class="chart">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-        </div>
-		<div class="col-xs-4 less-padding-col">
-			<div class="chartBox box">
-				<div class="chartBox__heading">
-					<p id="box_heading_8"></p>
+			<div class="row">
+				<div class="col-xs-6 less-padding-col">
+					<div class="chartBox box">
+						<div class="chartBox__heading">
+							<p id="box_heading_9"></p>
+						</div>
+						<div class="chartBox__content">
+							<div id="low-cure" class="chart">
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="chartBox__content">
-					<div id="no-wash" class="chart">
+				<div class="col-xs-6 less-padding-col">
+					<div class="chartBox box">
+						<div class="chartBox__heading">
+							<p id="box_heading_10"></p>
+						</div>
+						<div class="chartBox__content">
+							<div id="high-death" class="chart">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-        </div>
+		</div>
 	</div>
   </div>
 </div>
@@ -138,19 +156,21 @@
 
 
  $("#location_box").html(i18n.gettext("Location:"));
- $("#title").html(i18n.gettext('Nutrition Centres Quality and Outcomes'));
+ $("#title").html(i18n.gettext('Nutrition Quality and Outcomes'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  week = get_epi_week()
  $("#epi-week-title").html( "Week "+ week + " · " + get_date() );
  $("#box_heading_1").html(i18n.gettext('Facilities by Region'));
- $("#box_heading_2").html(i18n.gettext('Number of facility reported cholera cases per bed by Region'));
+ $("#box_heading_2").html(i18n.gettext('Number of facility reported new malnutrition cases per bed by region'));
  $("#box_heading_25").html(i18n.gettext('Map of Facilities'));
- $("#box_heading_3").html('Availability of protocols');
+ $("#box_heading_3").html('Facility Indicators');
  $("#box_heading_4").html(i18n.gettext('Malnutrition Caseload'));
  $("#box_heading_5").html(i18n.gettext('Facility Infrastructure'));
  $("#box_heading_6").html(i18n.gettext('Facilities not surveyed'));
- $("#box_heading_7").html(i18n.gettext('Facilities without Case Management Protocols'));
- $("#box_heading_8").html(i18n.gettext('Facilities without WASH protocols'));
+ $("#box_heading_7").html(i18n.gettext('Facilities without F75 Theraputic Milk'));
+ $("#box_heading_8").html(i18n.gettext('Facilities without ReSoMal'));
+ $("#box_heading_9").html(i18n.gettext('Facilities with Cure Rate < 75%'));
+ $("#box_heading_10").html(i18n.gettext('Facilities with Death Rate > 10%'));
  $(".alertInfo").each(function(){
      $(this).html(i18n.gettext('No data loaded'));
  });
@@ -160,45 +180,57 @@
 
 	 
      //drawLatestTimeChart( "ctc_cases", "ctc_1", locID, 'time-chart', undefined, undefined, 1)
-     drawCasesChoropletLatestWeekly("Cholera", "sc_cases_per_bed", "sc_1", "case-map", "district", 5, 43.10, 5, "Caseload per bed");
+     drawCasesChoropletLatestWeekly("Malnutrition", "sc_cases_per_bed", "sc_1", "case-map", "district", 5, 43.10, 5, "Caseload per bed");
 
 
 	 
-     protocol_url = api_root + "/aggregate_latest_category/ctc_protocol/ctc_1/" + locID + "/0"
+     protocol_url = api_root + "/aggregate_latest_category/sc_protocols/sc_1/" + locID + "/0"
         
      $.getJSON(protocol_url, function( data ){
-	 $.getJSON(api_root + "/aggregate_latest_year/ctc_1/ctc_1/" + locID +"/0",  function( base ){
-             total = base.total
-             if( total == 0){
-                 total = 1;
+		 $.getJSON(api_root + "/aggregate_latest_year/sc_1/sc_1/" + locID +"/0",  function( base ){
+             total_clinics = base.total
+             if( total_clinics == 0){
+                 total_clinics = 1;
              }
-	     $.getJSON(api_root + "/variables/ctc_protocol", function( variables ){
-	         table = '<table class="table table-no-bordered table-hover">'
-	         table += "<tr> <th> Protocol </th> <th> Fractions of clinics with protocol </th> "
-	         for(var key in data){
-	             table += "<tr><td>" + variables[key].name +"</td>"
-	             table += "<td>" + round(data[key].total / total * 100, 0) +" %</td>"
-	             table += "</tr>"
+			 console.log(data);
+			 $.getJSON(api_root + "/variables/sc_protocols", function( variables ){
+				 table = '<table class="table table-no-bordered table-hover">'
+				 table += "<tr> <th> Indicator </th> <th> Fractions of facilities </th> "
+				 for(var key in data){
+					 table += "<tr><td>" + variables[key].name +"</td>"
+
+					 table += "<td>" + round(data[key].total / total_clinics * 100, 0) +" %</td>"
+					 table += "</tr>"
                      
-	         }
+				 }
                  
-	         table += "</table>"
-	         //$("#indicators").html(table)
-	     });
-	 });
+				 table += "</table>"
+				 $("#indicators").html(table)
+			 });
+		 });
      });
      caseload_url = api_root + "/aggregate_latest_category/sc_caseload/sc_1/" + locID
      $.getJSON(caseload_url, function( data ){
 	 $.getJSON(api_root + "/variables/sc_caseload", function( variables ){
 	     table = '<table class="table table-no-bordered table-hover">'
 	     table += "<tr> <th> Caseload </th> <th> Number of cases </th> "
+		 total = data["sc_discharge"].year
+	     if( total == 0){
+			 total = 1;
+         }
 	     for(var key in data){
-		 table += "<tr><td>" + variables[key].name +"</td>"
-		 table += "<td>" +data[key].year +" </td>"
-		 table += "</tr>"
+			 table += "<tr><td>" + variables[key].name +"</td>"
+			 if(key == "sc_cured" || key == "sc_deaths" || key == "sc_deafault"){
+				 table += "<td>" +data[key].year +" ("+ round(data[key].year / total * 100, 1) +"%) </td>"
+			 }else{
+				 table += "<td>" +data[key].year +" </td>"
+
+			 }
+			 
+
+			 table += "</tr>"
 	     }
-	     table += "<tr> <td> Case Fatality Rate </td> <td>" + round(data["sc_deaths"].year / data["sc_cases"].year * 100, 1) + "%</td> "
-	     table += "</table>"
+	   	     table += "</table>"
 	     $("#caseload").html(table)
 	 });
      });
@@ -206,7 +238,6 @@
      $.getJSON(structure_url, function( data ){
 	 $.getJSON(api_root + "/variables/sc_structure", function( variables ){
 	     $.getJSON(api_root + "/aggregate_latest/sc_1/sc_1/" + locID ,  function( base ){
-                 console.log(base);
 		 total = base.value
 			 table = '<table class="table table-no-bordered table-hover">'
 		 table += "<tr> <th> Type </th> <th> Number </th> "
@@ -241,7 +272,7 @@
 				 surveyed_clinics.push([clinics[id].geolocation[0], clinics[id].geolocation[1], clinics[id].clinic])
 			 }
 			 for (l in locations){
-				 if (locations[l].clinic_type == "CTC" || locations[l].clinic_type == "CTU"){
+				 if (locations[l].clinic_type == "SU"){
 					 open = locations[l].other.open;
 					 district = locations[l].parent_location 
 					 region = locations[district].parent_location
@@ -249,13 +280,11 @@
 					 region = locations[region].name;
 					 if( allowed_location == 1 || zone == allowed_location){
 				 		 if( $.inArray(l, surveyed_clinic_ids) == -1 && locations[l].point_location){
-							 console.log(locations[l]);
 							 not_surveyed_clinics.push([locations[l].point_location[0][1], locations[l].point_location[0][0], locations[l].name]);
 						 }
 					 }
 				 }
 			 }
-			 console.log(not_surveyed_clinics);
 			 ctc_surveyed_clinics_map(
 				 surveyed_clinics,
 				 not_surveyed_clinics,
@@ -265,54 +294,7 @@
 			 );
 		 });
 
-		 
-		 by_regions = {}
-		 for(l in locations){
 
-			 type = locations[l].clinic_type;
-			 console.log(type);
-			 if( type == "CTC" || type == "CTU"){
-				 open = locations[l].other.open;
-				 district = locations[l].parent_location 
-				 region = locations[district].parent_location
-				 zone = locations[region].parent_location;
-				 region = locations[region].name;
-				 if( allowed_location == 1 || zone == allowed_location){
-					 if( $.inArray(region, Object.keys(by_regions)) == -1) {
-						 by_regions[region] = {
-							 "CTCYes": 0,
-							 "CTCNo": 0,
-							 "CTUYes": 0,
-							 "CTUNo": 0
-						 }
-				     }
-					 by_regions[region][type + open] += 1
-				 }
-			 }
-		 }
-		 console.log(by_regions);
-		 table = '<table class="table table-no-bordered table-hover"><tr><td>Region</td><td>Open CTC </td><td>Open CTU</td><td> Closed CTC</td><td>Closed CTU</td></tr>'
-		 fields = ["CTCYes", "CTUYes", "CTCNo", "CTUNo"]
-
-		 total = [0, 0, 0, 0]
-		 for(region in by_regions){
-			 table += "<tr><td> "+ region + "</td>";
-			 for(f in fields){
-				 field = fields[f]
-				 total[f] += by_regions[region][field]
-				 table += "<td>" + by_regions[region][field] + "</td>";
-			 }
-			 table += "</tr>"
-		 }
-		 table += '<tr class="total"><td>Total</td>'
-		 for( t in total){
-			 table += '<td>' + total[t] + '</td>';
-			 }
-         table += "</tr>"
-		 table += "</table>"
-		 //$("#ctc-table").html(table)
-			 
-			 
 
 		 
          $.getJSON(non_reporting_url, function( data ){
@@ -349,85 +331,128 @@
 		 data: dataPrepared,
 		 classes: 'table-no-bordered table-hover'
 	     });
-	     $.getJSON(api_root + "/aggregate_latest_level/ctc_case_management/ctc_1/clinic/0/" + locID, function( cm_data ){
-		 var dataPrepared = [];
-		 var columns = [];
-		 names = Object.keys(cm_data);
-		 for (var i=0; i<names.length; i++){
-                     type = locations[cm_data[names[i]]["id"]]["clinic_type"]
-                     open  =locations[cm_data[names[i]]["id"]].other.open;
-		     if(cm_data[names[i]].total == 0 && open == "Yes"){
-			 datum = {
-			     "location": names[i],
-                             "type": type
-			 };
-			 dataPrepared.push(datum);
-		     }
-		 }
-		 columns = [
-		     {
-			 "field": "location",
-			 "title": "Facility",
-			 "align": "center",
-			 "class": "header",
-			 sortable: true,
-			 width : "100%"
-		     },{
-			 "field": "type",
-			 "title": "Facility Type",
-			 "align": "center",
-			 "class": "header",
-			 width : "100%"
-                         
-		     }];
-		 $('#no-case' + ' table').bootstrapTable('destroy');
-		 $('#no-case' + ' table').remove();
-		 $('#no-case').append('<table class="table"></table>');
-		// var table = $('#no-case' + ' table').bootstrapTable({
-		//     columns: columns,
-		//     data: dataPrepared,
-		//     classes: 'table-no-bordered table-hover'
-		// });
-             });
-	     $.getJSON(api_root + "/aggregate_latest_level/ctc_wash/ctc_1/clinic/0/" + locID, function( wash_data ){
-		 var columns = [];
-                 var dataPrepared = [];
-		 names = Object.keys(wash_data);
-		 for (var i=0; i<names.length; i++){
-                     type = locations[wash_data[names[i]]["id"]]["clinic_type"]
-                     open  =locations[wash_data[names[i]]["id"]].other.open;
-		     if(wash_data[names[i]].total == 0 && open == "Yes"){
-			 datum = {
-			     "location": names[i],
-                             "type": type
-			 };
-			 dataPrepared.push(datum);
-		     }
-		 }
-		 columns = [
-		     {
-			 "field": "location",
-			 "title": "Facility",
-			 "align": "center",
-			 "class": "header",
-			 sortable: true,
-			 width : "100%"
-		     },{
-			 "field": "type",
-			 "title": "Facility Type",
-			 "align": "center",
-			 "class": "header",
-			 width : "100%"
-		     }];
-		 $('#no-wash' + ' table').bootstrapTable('destroy');
-		 $('#no-wash' + ' table').remove();
-		 $('#no-wash').append('<table class="table"></table>');
-		 //var table = $('#no-wash' + ' table').bootstrapTable({
-		 //    columns: columns,
-		 //    data: dataPrepared,
-		 //    classes: 'table-no-bordered table-hover'
-		// });
+	     $.getJSON(api_root + "/aggregate_latest_level/sc_f75/sc_1/clinic/0/" + locID, function( data ){
+			 var dataPrepared = [];
+			 var columns = [];
+			 names = Object.keys(data);
+			 for (var i=0; i<names.length; i++){
+				 if(data[names[i]].total == 0){
+					 datum = {
+						 "location": names[i],
+					 };
+					 dataPrepared.push(datum);
+				 }
+			 }
+			 columns = [
+				 {
+					 "field": "location",
+					 "title": "Facility",
+					 "align": "center",
+					 "class": "header",
+					 sortable: true,
+					 width : "100%"
+				 }];
+			 $('#no-f75' + ' table').bootstrapTable('destroy');
+			 $('#no-f75' + ' table').remove();
+			 $('#no-f75').append('<table class="table"></table>');
+			 var table = $('#no-f75' + ' table').bootstrapTable({
+			     columns: columns,
+				 data: dataPrepared,
+				 classes: 'table-no-bordered table-hover'
+			 });
+         });
+	     $.getJSON(api_root + "/aggregate_latest_level/sc_resomal/sc_1/clinic/0/" + locID, function( resomal_data ){
+			 var columns = [];
+             var dataPrepared = [];
+			 names = Object.keys(resomal_data);
+			 for (var i=0; i<names.length; i++){
+                 type = locations[resomal_data[names[i]]["id"]]["clinic_type"]
+                 open  =locations[resomal_data[names[i]]["id"]].other.open;
+				 if(resomal_data[names[i]].total == 0){
+					 datum = {
+						 "location": names[i],
+					 };
+					 dataPrepared.push(datum);
+				 }
+			 }
+			 columns = [
+				 {
+					 "field": "location",
+					 "title": "Facility",
+					 "align": "center",
+					 "class": "header",
+					 sortable: true,
+					 width : "100%"
+				 }];
+			 $('#no-resomal' + ' table').bootstrapTable('destroy');
+			 $('#no-resomal' + ' table').remove();
+			 $('#no-resomal').append('<table class="table"></table>');
+			 var table = $('#no-resomal' + ' table').bootstrapTable({
+				 columns: columns,
+				 data: dataPrepared,
+				 classes: 'table-no-bordered table-hover'
+			 });
 	     });
+		 $.getJSON(api_root + "/aggregate_latest_level/sc_cure_rate/sc_1/clinic/0/" + locID, function( data ){
+			 var dataPrepared = [];
+			 var columns = [];
+			 names = Object.keys(data);
+			 for (var i=0; i<names.length; i++){
+				 if(data[names[i]].total != 0){
+					 datum = {
+						 "location": names[i],
+					 };
+					 dataPrepared.push(datum);
+				 }
+			 }
+			 columns = [
+				 {
+					 "field": "location",
+					 "title": "Facility",
+					 "align": "center",
+					 "class": "header",
+					 sortable: true,
+					 width : "100%"
+				 }];
+			 $('#low-cure' + ' table').bootstrapTable('destroy');
+			 $('#low-cure' + ' table').remove();
+			 $('#low-cure').append('<table class="table"></table>');
+			 var table = $('#low-cure' + ' table').bootstrapTable({
+			     columns: columns,
+				 data: dataPrepared,
+				 classes: 'table-no-bordered table-hover'
+			 });
+         });
+		$.getJSON(api_root + "/aggregate_latest_level/sc_death_rate/sc_1/clinic/0/" + locID, function( data ){
+			 var dataPrepared = [];
+			 var columns = [];
+			 names = Object.keys(data);
+			 for (var i=0; i<names.length; i++){
+				 if(data[names[i]].total != 0){
+					 datum = {
+						 "location": names[i],
+					 };
+					 dataPrepared.push(datum);
+				 }
+			 }
+			 columns = [
+				 {
+					 "field": "location",
+					 "title": "Facility",
+					 "align": "center",
+					 "class": "header",
+					 sortable: true,
+					 width : "100%"
+				 }];
+			 $('#high-death' + ' table').bootstrapTable('destroy');
+			 $('#high-death' + ' table').remove();
+			 $('#high-death').append('<table class="table"></table>');
+			 var table = $('#high-death' + ' table').bootstrapTable({
+			     columns: columns,
+				 data: dataPrepared,
+				 classes: 'table-no-bordered table-hover'
+			 });
+         });
          });
      });
 
