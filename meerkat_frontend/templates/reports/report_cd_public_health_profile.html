@@ -49,9 +49,9 @@
   <!-- OVERVIEW MAP -->
   <div class="col-sm-6" id="mapbox-panel">
       <div class="chart-wrapper">
-		  <div class="chart-title">{{ _('Map') }}</div>
-		  <div class="chart-stage">
-			  <div id="map"></div>
+		  <div class="chart-title">{{_('Map Incidence rate by Governorate of all cases per %(denom)s', denom=report.data.incidence_denominator) }}</div>
+		  <div class="chart-stage-cd" id="chart-stage-cd">
+		      <div id="map" class="mapbox"></div>
 		  </div>
       </div>
   </div>
@@ -88,7 +88,13 @@
   <!-- REPORTING SITES -->
   <div class="col-sm-6">
     <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Reporting Sites') }}</div>
+		<div class="chart-title">
+			{% if report.data.incidence_area == "clinic" or report.data.incidence_area == None %}
+			{{ _("Cases per clinic") }}
+			{% else %}
+			{{ _('Incidence rate by %(level)s of all cases per %(denom)s', level=report.data.incidence_area, denom=report.data.incidence_denominator) }}
+			{% endif %}
+</div>
       <div class="chart-stage">
         <div id="chart-reporting-sites"></div>
       </div>
@@ -292,25 +298,37 @@
 <!-- JAVASCRIPT DATA FOR CHARTS -->
 <script>
 var d= {{report.data.demographics|safe}};
-// Reporting Sites
-var reportingSites = {
-  categories: [{% for site in report.data.reporting_sites %}"{{ site.title|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
-  series: [{name: 'Number of new cases', data: [{% for site in report.data.reporting_sites %}{{ site.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]}],
-  labels: { yAxis: { text: null } } };
+ // Reporting Sites
+
+ {% if report.data.incidence_area == "clinic" or report.data.incidence_area == None %}
+	var reportingSites = {
+	 categories: [{% for site in report.data.reporting_sites%}"{{ site.title.strip()|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
+	 series: [{name: 'Cases', data: [{% for site in report.data.reporting_sites %}{{ site.quantity|safe }}{% if not loop.last %},{% endif %}{% endfor %}]}],
+	 labels: { yAxis: { text: null } } };
+
+ {% else %}
+ var reportingSites = {
+	 categories: [{% for site in report.data.reporting_sites_incidence %}"{{ site.title|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
+	 series: [{name: 'Incidence', data: [{% for site in report.data.reporting_sites_incidence %}{{ site.quantity|safe }}{% if not loop.last %},{% endif %}{% endfor %}]}],
+	 labels: { yAxis: { text: null } } };
+ {% endif %}
 // Demographics
 var demographicsAges = {
-  categories: [{% for item in report.data.demographics %}"{{ item.age }}"{% if not loop.last %},{% endif %}{% endfor %}],
-  series: [{
-      name: "{{ _('Female') }}",
-      data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
-  }, {
-      name: "{{ _('Male') }}",
-      data: [{% for item in report.data.demographics %}{{ item.male.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
-  }],
+	 categories: [{% for item in report.data.demographics %}"{{ item.age }}"{% if not loop.last %},{% endif %}{% endfor %}],
+	series: [
+		{
+			name: "{{ _('Male') }}",
+			data: [{% for item in report.data.demographics %}{{ item.male.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
+		},
+			{
+				name: "{{ _('Female') }}",
+				data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
+			}
+		],
   labels: { xAxis: { text: "{{ _('Age Group') }}" }, yAxis: { text: "{{_('No of cases')}}" } }
 };
 // Gender
-var gender = [{% for item in report.data.gender %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
+var gender = [{% for item in report.data.gender|reverse %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Nationality
 var nationality = [{% for item in report.data.nationality %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Status
@@ -319,10 +337,20 @@ var patientStatus = [{% for item in report.data.patient_status %}{name: "{{ _(it
 var communicableDiseases = [{% for item in report.data.morbidity_communicable_icd %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Non-communicable diseases
 var CommunicableDiseasesList = [{% for item in report.data.morbidity_communicable_cd_tab %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
-// Plots charts for report
+ // Plots charts for report
+ var district = {{extras.dis_data|safe}};
+ var region = {{extras.reg_data|safe}};
+
+ 
+ regional_map(
+    {{report.data.incidence_map|safe}},
+    {{extras.map_centre}},
+    region,
+     'map'
+);
 $(function() {
   $('#chart-reporting-sites').highcharts(
-    sitesBarChartQuantity(
+    sitesBarChart{{ "Quantity" if report.data.incidence_area=="clinic" else "Incidence" }}(
       reportingSites.categories,
       reportingSites.series,
       reportingSites.labels
@@ -350,7 +378,7 @@ $(function() {
   );
 });
 // Draw map
-map_from_data({{report.data.map|safe}})
+
 
 </script>
 {% endblock extra_js %}
