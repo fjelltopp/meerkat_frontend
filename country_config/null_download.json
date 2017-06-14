@@ -28,7 +28,7 @@
           ["icd_name$individual_icd","ICD 10 Name"],
           ["icd_code","ICD 10 Code"],
           ["code$ale_2,ale_3,ale_4$Confirmed,Disregarded,Ongoing","Alert Status"],
-		  ["sympt_code$translate;{'dict_file':'null_symptoms.csv','from':'sympt_code','to':'jor_sympt'}", "Patient symptoms"],
+		  ["sympt_code$to_columns", "Patient symptoms"],
 		  ["sympt_code$to_columns;{'dict_file':'null_symptoms.csv','from':'sympt_code','to':'jor_sympt'}", "Patient symptoms"],
           ["risk_code$to_columns;{'dict_file':'null_risk.csv','from':'risk_code','to':'jor_risk'}", "Patient risk factors"],
           ["cd./prevvaccination","Previously Vaccinated"],
