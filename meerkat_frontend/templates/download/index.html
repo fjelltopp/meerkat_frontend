@@ -302,11 +302,19 @@ $.getJSON( api_root+"/export/forms", function( data ){
 
 		//Assemble the appropriate API call.
 	    var dataSet = config.prepared[$('#prepared-selector').val()];
+		console.log(dataSet);
         for (key in dataSet.fields){
             dataSet.fields[key][1] = i18n.gettext(dataSet.fields[key][1]);
         }
 	    if( "name_category" in dataSet){
    	        var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
+	    }else if("group_by" in dataSet){
+                
+		var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.variables) + "%26group_by=" + JSON.stringify(dataSet.group_by);
+		if ("location_conditions" in dataSet){
+                    url += "%26location_conditions=" + JSON.stringify(dataSet.location_conditions)
+                }
+                    
 	    }else{
 		var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
 	    }
