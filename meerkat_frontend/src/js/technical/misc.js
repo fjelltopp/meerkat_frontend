@@ -1,4 +1,3 @@
-
 /**:get_epi_week()
 
     Returns the current epi week. This value was initially calulated client-side, but now simply
@@ -10,7 +9,7 @@
         (number) The current epi week.
 
 */
-function get_epi_week(){
+function get_epi_week() {
     return week;
 }
 
@@ -21,9 +20,9 @@ function get_epi_week(){
     :returns:
         (string) the current date in text format: "DD Month YYYY".
 */
-function get_date(){
+function get_date() {
 
-    date=new Date();
+    date = new Date();
     var monthNames = [
         i18n.gettext("January"), i18n.gettext("February"),
         i18n.gettext("March"), i18n.gettext("April"),
@@ -33,7 +32,7 @@ function get_date(){
         i18n.gettext("November"), i18n.gettext("December")
     ];
 
-    return date.getDate()+" "+monthNames[date.getMonth()]+" "+date.getFullYear();
+    return date.getDate() + " " + monthNames[date.getMonth()] + " " + date.getFullYear();
 }
 
 /**:isInteger(num)
@@ -47,55 +46,55 @@ function get_date(){
 
 */
 function isInteger(num) {
-  return (num ^ 0) === num;
+    return (num ^ 0) === num;
 }
 
 //Format a number with commas separating the thousands.
-function format(number){
+function format(number) {
 
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 //Calculate no as a percentage of denom. Returns 0 if denom <= 0.
-function calc_percent(no,denom,round){
+function calc_percent(no, denom, round) {
     // Want the default to be rounded numbers.
-    if(round===undefined) round = true;
-    if (denom>0){
-        if(round) return Math.round(no/denom*100);
-        else return no/denom*100;
-    }else{
+    if (round === undefined) round = true;
+    if (denom > 0) {
+        if (round) return Math.round(no / denom * 100);
+        else return no / denom * 100;
+    } else {
         return 0;
     }
 }
 
 //Given an array of values, calulate what percentage each value is of the total.
-function calc_percent_dist(array, round){
+function calc_percent_dist(array, round) {
 
     var total = 0;
     var ret = [];
 
-    for( var i=0; i<array.length; i++ ){
+    for (var i = 0; i < array.length; i++) {
         total += array[i];
     }
 
-    for( var j=0; j<array.length; j++ ){
+    for (var j = 0; j < array.length; j++) {
         ret[j] = calc_percent(array[j], total, round);
     }
 
     return ret;
 }
 
-function round(num , precision){
-	return Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision);
+function round(num, precision) {
+    return Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision);
 }
 
 
 //Returns the value if the key exists in vari, returns zero if it doesn't.
-function if_exists(vari,key){
+function if_exists(vari, key) {
 
-    if ($.inArray(key,Object.keys(vari)) != -1 || $.inArray(key.toString(),Object.keys(vari)) != -1 ){
+    if ($.inArray(key, Object.keys(vari)) != -1 || $.inArray(key.toString(), Object.keys(vari)) != -1) {
         return vari[key];
-    }else{
+    } else {
         return 0;
     }
 
@@ -103,19 +102,19 @@ function if_exists(vari,key){
 
 //For the sliding location selector...
 //Select the webkit event to listen for when determining when the side bar has transitioned.
-function whichTransitionEvent(){
+function whichTransitionEvent() {
 
     var t;
     var el = document.getElementById('sidebar-wrapper');
     var transitions = {
-      'transition':'transitionend',
-      'OTransition':'oTransitionEnd',
-      'MozTransition':'transitionend',
-      'WebkitTransition':'webkitTransitionEnd'
+        'transition': 'transitionend',
+        'OTransition': 'oTransitionEnd',
+        'MozTransition': 'transitionend',
+        'WebkitTransition': 'webkitTransitionEnd'
     };
 
-    for(t in transitions){
-        if( el.style[t] !== undefined ){
+    for (t in transitions) {
+        if (el.style[t] !== undefined) {
             return transitions[t];
         }
     }
@@ -124,12 +123,12 @@ function whichTransitionEvent(){
 /** idSort(a, b)
     Sorts variable ids on the number
 **/
-function idSort(a,b){
+function idSort(a, b) {
     return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]);
 }
 
 //Capitalises the first character of a string.
-function capitalise( string ){
+function capitalise(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -148,13 +147,13 @@ function capitalise( string ){
         An array of week numbers formed as such:
         [week, week-1, week-2, ..., week-n-1]
 */
-function lastWeeks( week, n ){
+function lastWeeks(week, n) {
 
     var weeks = [];
 
-    for( var i = 0; i<n; i++ ){
-        if( week-i <= 0 ) weeks[i] = week-i+52;
-        else weeks[i] = week-i;
+    for (var i = 0; i < n; i++) {
+        if (week - i <= 0) weeks[i] = week - i + 52;
+        else weeks[i] = week - i;
     }
 
     return weeks;
@@ -205,7 +204,7 @@ function lastWeeks( week, n ){
         * **percWeek1** ([number]) - An array of percentages for each variable during the previous week.
         * **percWeek2** ([number]) - An array of percentages for each variable during the previous-but-one week.
  */
-function makeDataObject( aggregation, variables, week, title, percent ){
+function makeDataObject(aggregation, variables, week, title, percent) {
 
     var bins = Object.keys(aggregation);
     bins = bins.sort(idSort);
@@ -222,7 +221,7 @@ function makeDataObject( aggregation, variables, week, title, percent ){
     };
 
     //If an object of values is given in [percent], instead of a boolean...
-    if( typeof percent == 'object' ){
+    if (typeof percent == 'object') {
 
         //Prepare arrays for "complicated" calculations (percentages that depend on other variables)
         data.yearPerc = [];
@@ -232,37 +231,37 @@ function makeDataObject( aggregation, variables, week, title, percent ){
     }
 
     //Get the last three weeks.
-    var weeks = lastWeeks( week, 3 );
+    var weeks = lastWeeks(week, 3);
 
     //Group data according to Weeks/Year instead of Variable...
-    for( var i=0; i<bins.length; i++ ){
+    for (var i = 0; i < bins.length; i++) {
 
         var label = bins[i];
 
-        data.labels.push( i18n.gettext(variables[label].name) );
-        data.ids.push( label );
-        data.year.push( aggregation[label].year );
-        data.week.push( if_exists( aggregation[label].weeks, weeks[0].toString() ) );
-        data.week1.push( if_exists( aggregation[label].weeks, weeks[1].toString() ) );
-        data.week2.push( if_exists( aggregation[label].weeks, weeks[2].toString() ) );
+        data.labels.push(i18n.gettext(variables[label].name));
+        data.ids.push(label);
+        data.year.push(aggregation[label].year);
+        data.week.push(if_exists(aggregation[label].weeks, weeks[0].toString()));
+        data.week1.push(if_exists(aggregation[label].weeks, weeks[1].toString()));
+        data.week2.push(if_exists(aggregation[label].weeks, weeks[2].toString()));
 
-        if( typeof percent == 'object' ){
+        if (typeof percent == 'object') {
             //Do the "complicated" percent calulations
-            data.yearPerc.push( calc_percent( aggregation[label].year, percent.year ) );
-            data.weekPerc.push( calc_percent( aggregation[label].weeks[weeks[0]], percent.weeks[weeks[0]] ) );
-            data.week1Perc.push( calc_percent( aggregation[label].weeks[weeks[1]], percent.weeks[weeks[1]] ) );
-            data.week2Perc.push( calc_percent( aggregation[label].weeks[weeks[2]], percent.weeks[weeks[2]] ) );
+            data.yearPerc.push(calc_percent(aggregation[label].year, percent.year));
+            data.weekPerc.push(calc_percent(aggregation[label].weeks[weeks[0]], percent.weeks[weeks[0]]));
+            data.week1Perc.push(calc_percent(aggregation[label].weeks[weeks[1]], percent.weeks[weeks[1]]));
+            data.week2Perc.push(calc_percent(aggregation[label].weeks[weeks[2]], percent.weeks[weeks[2]]));
         }
     }
 
     //If a boolean is given in [percent] then just do the simple percantage calculations.
-    if( percent === true ){
+    if (percent === true) {
 
         //Do the "simple" calculations (where percentages are just the share of the total).
-        data.yearPerc = calc_percent_dist( data.year );
-        data.weekPerc = calc_percent_dist( data.week );
-        data.week1Perc = calc_percent_dist( data.week1 );
-        data.week2Perc = calc_percent_dist( data.week2 );
+        data.yearPerc = calc_percent_dist(data.year);
+        data.weekPerc = calc_percent_dist(data.week);
+        data.week1Perc = calc_percent_dist(data.week1);
+        data.week2Perc = calc_percent_dist(data.week2);
     }
 
     return data;
@@ -309,52 +308,52 @@ function makeDataObject( aggregation, variables, week, title, percent ){
           It takes one argument - the prepared data object.
 
 */
-function categorySummation( details ){
+function categorySummation(details) {
 
     //These variable will hold all the JSON data from the api, when the AJAX requests are complete.
     var catData, variables, percentDenom, prevData, prevPercentDenom;
 
     //Calulate the previous year, so we can load data from the previous year if needed.
-    var prevYear = new Date().getFullYear()-1;
+    var prevYear = new Date().getFullYear() - 1;
     var currYear = new Date().getFullYear();
     var url;
 
     //Optional filtering of the aggregation result by limiting to an additional category
     var limit_to_postfix = "";
 
-    if(details.limit_to){
+    if (details.limit_to) {
         limit_to_postfix = "/" + details.limit_to;
-	}
+    }
     //Assemble an array of AJAX calls
     var deferreds = [
-        $.getJSON( api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {
+        $.getJSON(api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {
             catData = data;
         }),
-        $.getJSON( api_root + "/variables/" + details.category, function(data) {
+        $.getJSON(api_root + "/variables/" + details.category, function(data) {
             variables = data;
         })
     ];
 
     //Get previous year's data if still in the first few weeks of the year.
-    if( details.week <= 3 ){
+    if (details.week <= 3) {
 
-        url = api_root+"/aggregate_category/"+ details.category + "/" + details.locID + "/" + prevYear + limit_to_postfix;
-        deferreds.push( $.getJSON( url, function(data) {
+        url = api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + prevYear + limit_to_postfix;
+        deferreds.push($.getJSON(url, function(data) {
             prevData = data;
         }));
     }
 
     //Add data for the percent denominator if calculating percentage values from other data variables.
-    if( details.percent && typeof details.percent == 'string' ){
+    if (details.percent && typeof details.percent == 'string') {
 
         url = api_root + "/aggregate_year/" + details.percent + "/" + details.locID;
-        deferreds.push( $.getJSON( url, function(data) {
+        deferreds.push($.getJSON(url, function(data) {
             percentDenom = data;
         }));
 
         //Get previous years percent denominator data if still in the first few weeks of the year.
-        if( details.week <= 3 ){
-            deferreds.push( $.getJSON( url + "/" + prevYear, function(data) {
+        if (details.week <= 3) {
+            deferreds.push($.getJSON(url + "/" + prevYear, function(data) {
                 prevPercentDenom = data;
             }));
         }
@@ -362,72 +361,71 @@ function categorySummation( details ){
 
 
     //Run the AJAX reuqests asynchronously and act when they have all completed.
-    $.when.apply( $, deferreds ).then(function() {
+    $.when.apply($, deferreds).then(function() {
 
-        if(catData && variables){
+        if (catData && variables) {
 
             //Just some variables for counting/iteration that can be shared across this function.
             var variable, i, weekKeys;
 
             //Add the data for the final weeks of the previous year to the current year's data.
-            if(prevData){
-                for( variable in prevData ){
+            if (prevData) {
+                for (variable in prevData) {
                     weekKeys = Object.keys(prevData[variable].weeks);
-                    for( i=weekKeys.length-1; i>weekKeys.length-5; i-- ){
-                        if( weekKeys[i] ){
+                    for (i = weekKeys.length - 1; i > weekKeys.length - 5; i--) {
+                        if (weekKeys[i]) {
                             catData[variable].weeks[weekKeys[i]] = prevData[variable].weeks[weekKeys[i]];
 
                         }
                     }
                 }
-            }else if( !prevYear && details.week <= 3){
+            } else if (!prevYear && details.week <= 3) {
                 //AJAX Failed
-                console.error( "Ajax request for previous year's information failed.");
+                console.error("Ajax request for previous year's information failed.");
             }
 
-            if( percentDenom ){
+            if (percentDenom) {
 
                 //Add the percent denominator data for the final weeks of the previous year to this year's.
-                if( prevPercentDenom ){
+                if (prevPercentDenom) {
                     weekKeys = Object.keys(prevPercentDenom.weeks);
-                    for( i=weekKeys.length-1; i>weekKeys.length-5; i-- ){
-                        if( weekKeys[i] ) percentDenom.weeks[weekKeys[i]] = prevPercentDenom.weeks[weekKeys[i]];
+                    for (i = weekKeys.length - 1; i > weekKeys.length - 5; i--) {
+                        if (weekKeys[i]) percentDenom.weeks[weekKeys[i]] = prevPercentDenom.weeks[weekKeys[i]];
                     }
-                }else if( !prevPercentDenom && typeof details.percent == 'string' && details.week <= 3 ){
+                } else if (!prevPercentDenom && typeof details.percent == 'string' && details.week <= 3) {
                     //AJAX Failed
-                    console.error( "Ajax request for the previous year's percent denominator information failed.");
+                    console.error("Ajax request for the previous year's percent denominator information failed.");
                 }
                 details.percent = percentDenom;
 
-            }else if( !percentDenom && typeof details.percent == 'string'){
+            } else if (!percentDenom && typeof details.percent == 'string') {
                 //AJAX Failed
-                console.error( "Ajax request for percent denominator information failed.");
+                console.error("Ajax request for percent denominator information failed.");
             }
 
             //Draw using the current and previous year's data combined into one aggregation object.
             var title = details.category.charAt(0).toUpperCase() + details.category.slice(1);
-            if( details.title ) title = details.title;
+            if (details.title) title = details.title;
 
-            var dataObject = makeDataObject(catData, variables, details.week, title, details.percent );
-            if( details.strip ) dataObject = stripEmptyRecords( dataObject );
-
+            var dataObject = makeDataObject(catData, variables, details.week, title, details.percent);
+            if (details.strip) dataObject = stripEmptyRecords(dataObject);
             if( details.barID ) drawBarChart( details.barID, dataObject, details.barChartOptions);
             if( details.pieID ) drawPieCharts( details.pieID, dataObject, true );
             if( details.tableID && !details.table_options ){
                 drawTable( details.tableID, dataObject, details.no_total, details.linkFunction );
             }
-            if( details.tableID && details.table_options ){
-                drawImprovedTable( details.tableID,
-                                   dataObject,
-                                   details.no_total,
-                                   details.linkFunction,
-                                   details.table_options );
+            if (details.tableID && details.table_options) {
+                drawImprovedTable(details.tableID,
+                    dataObject,
+                    details.no_total,
+                    details.linkFunction,
+                    details.table_options);
             }
             // If a callback obejct is specified, execute it.
             if(typeof(details.callback) == 'function') details.callback(dataObject);
         }else {
             //Failed
-            console.error( "Ajax request for the category aggregation and variable information failed.");
+            console.error("Ajax request for the category aggregation and variable information failed.");
         }
 
     });
@@ -446,7 +444,7 @@ function categorySummation( details ){
     :returns:
         The reformatted string with out HTML UTF-8 codes.
 */
-function htmlDecode(input){
+function htmlDecode(input) {
     var e = document.createElement('div');
     e.innerHTML = input;
     return e.childNodes[0].nodeValue;
@@ -468,7 +466,7 @@ function htmlDecode(input){
 */
 function exportTableToCSV(tableID, filename, link) {
 
-    var rows = $('#'+tableID).find('tr');
+    var rows = $('#' + tableID).find('tr');
 
     // Temporary delimiter characters unlikely to be typed by keyboard
     // This is to avoid accidentally splitting the actual contents
@@ -480,29 +478,30 @@ function exportTableToCSV(tableID, filename, link) {
     var rowDelim = '"\r\n"';
 
     // Grab text from table into CSV formatted string
-    var csv = '"' + rows.map( function (i, r) {
-        var row = $(r);
-        var cols = row.find('td, th');
+    var csv = '"' + rows.map(function(i, r) {
+            var row = $(r);
+            var cols = row.find('td, th');
 
-        return cols.map( function (j, c) {
-            var col = $(c);
-            var text = col.text();
-            text = text.replace(/\u0028.*\u0025\u0029/, ''); //Remove percentages in brackets.
-            return text.replace(/"/g, '""'); // escape double quotes
+            return cols.map(function(j, c) {
+                var col = $(c);
+                var text = col.text();
+                text = text.replace(/\u0028.*\u0025\u0029/, ''); //Remove percentages in brackets.
+                return text.replace(/"/g, '""'); // escape double quotes
 
-        }).get().join(tmpColDelim);
+            }).get().join(tmpColDelim);
 
-    }).get().join(tmpRowDelim)
-    .split(tmpRowDelim).join(rowDelim)
-    .split(tmpColDelim).join(colDelim) + '"';
+        }).get().join(tmpRowDelim)
+        .split(tmpRowDelim).join(rowDelim)
+        .split(tmpColDelim).join(colDelim) + '"';
 
     // Data URI
     csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
 
-    $(link).attr({ 'download': filename,
-                   'href': csvData,
-                   'target': '_blank'
-                 });
+    $(link).attr({
+        'download': filename,
+        'href': csvData,
+        'target': '_blank'
+    });
 }
 
 /**:exportTableToXLS(tableID, filename)
@@ -516,14 +515,37 @@ function exportTableToCSV(tableID, filename, link) {
         The file name of the XLS file to be downloaded.
 */
 function exportTableToXLS(tableID, filename) {
-    $('#'+tableID + ' table').tableExport({type:'xls', fileName: filename});
+    //Get all the Percentage values that are inside the "table-percent" class ...
+    var oldValueArray = [];
+    var chartPercentageList = document.getElementById(tableID).getElementsByClassName("table-percent");
+
+    //Save the percentage values into array and remove it so we can generate Exele file without percentage ...
+    for (var i = 0; i <= chartPercentageList.length - 1; i++) {
+        oldValueArray.push(chartPercentageList[i].innerHTML);
+        chartPercentageList[i].innerHTML = "";
+    }
+
+    //Call the generate xls ...
+    $('#' + tableID + ' table').tableExport({
+        type: 'xls',
+        fileName: filename
+    });
+
+    //Return the percentage values to the HTML design ...
+    for (var j = 0; j <= chartPercentageList.length - 1; j++) {
+        chartPercentageList[j].innerHTML = oldValueArray[j];
+    }
+
     return false;
 }
 
 //Function to get the intersect of two arrays.
-function getIntersect( arr1, arr2 ){
+function getIntersect(arr1, arr2) {
 
-    var r = [], o = {}, l = arr2.length, i, v;
+    var r = [],
+        o = {},
+        l = arr2.length,
+        i, v;
 
     for (i = 0; i < l; i++) {
         o[arr2[i]] = true;
@@ -542,8 +564,8 @@ function getIntersect( arr1, arr2 ){
     return r;
 }
 
-function getDifference( arr1, arr2 ){
-    return arr1.filter( function(x) {
+function getDifference(arr1, arr2) {
+    return arr1.filter(function(x) {
         return arr2.indexOf(x) < 0;
     });
 }
@@ -560,9 +582,9 @@ function getDifference( arr1, arr2 ){
     :returns:
         The dataObject stripped of its empty records.
  */
-function stripEmptyRecords( dataObject ){
+function stripEmptyRecords(dataObject) {
 
-    var dataFields = Object.keys( dataObject );
+    var dataFields = Object.keys(dataObject);
     var stripped = [];
     var newData = {};
     console.log("Stripping empty records.");
@@ -570,34 +592,34 @@ function stripEmptyRecords( dataObject ){
 
     //Find the indicies of records to be retained.
     //I.E. NOT THE ONES TO BE STRIPPED, but the ones AFTER stripping.
-    for( var i in dataObject.year ){
-        if( dataObject.year[i] !== 0 ){
-            stripped.push( i );
+    for (var i in dataObject.year) {
+        if (dataObject.year[i] !== 0) {
+            stripped.push(i);
         }
     }
 
     //Clone the data object structure.
-    for( var k in dataFields ){
+    for (var k in dataFields) {
 
         var field = dataFields[k];
 
-        if( dataObject[field].constructor === Array ){
+        if (dataObject[field].constructor === Array) {
             newData[field] = [];
-        }else{
+        } else {
             newData[field] = dataObject[field];
         }
     }
 
     //For each index to be retained, push the data object's record to the new data object.
-    for( var j in stripped ){
+    for (var j in stripped) {
 
         var index = stripped[j];
-        for( var l in dataFields){
+        for (var l in dataFields) {
 
             var label = dataFields[l];
-            if( dataObject[label].constructor === Array ){
-                var value = dataObject[ label ][ index ];
-                newData[ label ].push( value );
+            if (dataObject[label].constructor === Array) {
+                var value = dataObject[label][index];
+                newData[label].push(value);
             }
         }
     }
@@ -645,9 +667,10 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
     var matrixCompletenessData;
     if( start_week === undefined) start_week = 1;
     var deferreds = [
-        $.getJSON( api_root+"/locations", function( data ){
+        $.getJSON(api_root + "/locations", function(data) {
             completenessLocations = data;
-        })];
+        })
+    ];
 
     if(exclude){
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){completenessData = data;}));
@@ -668,7 +691,6 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
             drawCompletenessMatrix( matrixID, locID, denominator, completenessLocations, matrixCompletenessData, start_week, 0 );
         }
     } );
-
 }
 
 
@@ -702,17 +724,18 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    :param int compare_locations
    Show lines to compare locations for completeness graph
    */
-            function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max, matrixID){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max, matrixID){
     var timelinessLocations;
     var timelinessData;
     var matrixTimelinessData;
-  if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
+    if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
 
-    if( start_week === undefined) start_week = 1;
+    if (start_week === undefined) start_week = 1;
     var deferreds = [
-        $.getJSON( api_root+"/locations", function( data ){
+        $.getJSON(api_root + "/locations", function(data) {
             timelinessLocations = data;
-        })];
+        })
+    ];
 
     if(exclude){
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "/" + non_reporting_variable,function( data ){timelinessData = data;}));
@@ -724,8 +747,7 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
                                    function( data ){matrixTimelinessData = data; }));
     }
 
-    $.when.apply( $, deferreds ).then(function() {
-
+    $.when.apply($, deferreds).then(function() {
         drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations,x_axis_max );
         drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
         drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
@@ -743,19 +765,20 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    :returns:
        A string including the browser name followed by the browser version.
    */
-function get_browser(){
-    var ua= navigator.userAgent, tem,
-    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-    if(/trident/i.test(M[1])){
-        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
-        return 'IE '+(tem[1] || '');
+function get_browser() {
+    var ua = navigator.userAgent,
+        tem,
+        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if (/trident/i.test(M[1])) {
+        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE ' + (tem[1] || '');
     }
-    if(M[1] === 'Chrome'){
+    if (M[1] === 'Chrome') {
         tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
-        if(tem !== null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+        if (tem !== null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
     }
-    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-    if((tem = ua.match(/version\/(\d+)/i))!== null) M.splice(1, 1, tem[1]);
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+    if ((tem = ua.match(/version\/(\d+)/i)) !== null) M.splice(1, 1, tem[1]);
 
     return M;
 
