@@ -5,7 +5,21 @@
 
   "rawIntro":"Use this form to download raw data for use in your own analysis. Select which form's data you would like to download, and optionally further select which attributes you would like to download. ",
 
-  "prepared":[{
+	"prepared":[{
+		"title":"Consultations",
+		"api":"/api/export/data_table/test/reg_1",
+		"access":"cd",
+		"variables":[
+			["reg_1","consultations"]
+		],
+		"group_by": [
+			["epi_year", "Year"],
+			["clinic:location", "Clinic"],
+			["epi_week", "Week"]
+		]
+		
+
+	},{
       "title":"Communicable Diseases",
       "api":"/api/export/category/demo_case/cd_tab/communicable_diseases",
       "name_category": "individual_icd",
