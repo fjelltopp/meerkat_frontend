@@ -830,12 +830,12 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                                       <p>{{ _('Working with our partners:') }}</p>
-                                        <img src="{{ content_url +'img/' + content.footer.logos.country_partner }}"
-                                             id="countryLogo" width="50" style="padding-right:9px"></img> 
-                                        {% for logo in content.footer.logos.partners %}
-                                          <img src="{{ content_url +'img/' + logo }}" width="50" style="padding-right:9px"></img> 
+                                        <img src="{{ content_url +'img/' + content.get('logos', content.footer.logos).country_partner }}"
+                                             id="countryLogo" width="50" style="padding-right:9px"></img>
+                                        {% for logo in content.get('logos', content.footer.logos).partners %}
+                                          <img src="{{ content_url +'img/' + logo }}" width="50" style="padding-right:9px"></img>
                                         {% endfor %}
-                                        <img src="{{ content_url +'img/logo/' + 'who-logo-no-text.png' }}" id="whoLogo" width="50" style="padding-right:9px"></img> 
+                                        <img src="{{ content_url +'img/logo/' + 'who-logo-no-text.png' }}" id="whoLogo" width="50" style="padding-right:9px"></img>
                                     </td>
                                     </td>
                                   </tr>

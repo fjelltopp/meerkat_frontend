@@ -1,0 +1,25 @@
+{% macro format_percent(input) %}{{ input.Y }} ({{ (input.Y / input.N * 100 )|int}}%){%- endmacro %}
+<plaintext>
+{{_('Dear Colleagues,\n\nWelcome to the latest Cholera Treatment Centre / Unit Quality and Outcomes monitoring report from %(project_region)s.',
+project_region=_(report.data.project_region))}} {{_('The profile summarises information reported from %(centres)s Cholera Treatment Centres / Units up to %(end_date)s.',
+  centres=report.overview.baseline.Y,
+  end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY'))}}
+
+{{ _('View the latest report here:')}} {{report_url}}
+
+## {{ _('Key Findings') }} ##
+
+{{_('Beds available: %(beds)s', beds=report.overview.get("ctc_beds", 0)|int)}}
+{{_('Facilities with sufficient bed capacity: %(bed_capacity)s', bed_capacity = format_percent(report.overview.ctc_beds_sufficient))}}
+{{_('Average case fatality rate (minimum - maximum):')}} {{report.overview.cfr[0]|round(1)}}% ({{report.overview.cfr[1]|round(1)}}% - {{report.overview.cfr[2]|round(1)}}%)
+{{_('Case Management protocol available: %(case_management)s', case_management=format_percent(report.overview.ctc_case_management_value))}}
+{{_('Training and Case Management taken place: %(training_case)s', training_case=format_percent(report.overview.ctc_case_management_training))}}
+{{_('Antibiotics Available: %(antibiotics)s', antibiotics=format_percent(report.overview.ctc_case_management_abx))}}
+{{_('IPC protocols available: %(ipc)s', ipc=format_percent(report.overview.ctc_ipc_value))}}
+{{_('Hand soap available: %(hand_soap)s', hand_soap=format_percent(report.overview.ctc_wash_soap))}}
+{{_('Safe water storage: %(water)s', water=format_percent(report.overview.ctc_wash_safe_storage))}}
+
+## {{ _('Project Overview') }} ##
+
+{{_('A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.',
+project_region=_(report.data.project_region))}} {{_('The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.')}}

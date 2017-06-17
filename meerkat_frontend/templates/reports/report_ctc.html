@@ -1,12 +1,9 @@
 {% extends 'reports/base.html' %}
 {% block title %}{{report.data.project_region|e}} &middot; {{ _('Cholera Treatment Centre Report') }} &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
 
-
 {% macro format_percent(input) %}
   {{ input.Y }} ({{ (input.Y / input.N * 100 )|int}} %)
-
 {%- endmacro %}
-
 
 {% set yesnodk = {"yes": "Yes", "no": "No", "dnk": "Don't Know", "blank": "Don't Know"} %}
 {% block body %}
@@ -23,7 +20,7 @@
 
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot;</span>
-	{{ _('Cholera Quality and Outcomes Monitoring') }}    <br /> 
+	{{ _('Cholera Quality and Outcomes Monitoring') }}    <br />
 	<span class="report-week">Facility-based survey of cholera treatment centres and units</span>
 	<span class="report-week"><br />
 
@@ -38,11 +35,11 @@
 			<div class="chart-title">{{_('Survey')}}</div>
 			<div class="chart-stage">
 				<table class="table small">
-					<tr> <td> {{_('Facilitities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
+					<tr> <td> {{_('Facilities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
 				</table>
 			</div>
 		</div>
-		
+
      <div class="chart-wrapper caseload">
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
 	 <div class="chart-stage">
@@ -54,9 +51,9 @@
              </table>
 	 </div>
      </div>
-     
 
-   
+
+
      <div class="chart-wrapper infection-prevention">
          <div class="chart-title">{{_('Infection Prevention Control')}}</div>
          <div class="chart-stage">
@@ -103,7 +100,7 @@
              </table>
          </div>
      </div>
-	 
+
      <div class="chart-wrapper water-sanitation">
          <div class="chart-title">{{_('Water and Sanitation')}}</div>
          <div class="chart-stage">
@@ -129,7 +126,7 @@
       </div>
   </div>
 
-  
+
 </div> -->
 <div class="row">
 	<div class="col-sm-6">
@@ -205,7 +202,7 @@
 	     </table>
 	 </div>
      </div>
-     
+
      <div class="chart-wrapper caseload">
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
 	 <div class="chart-stage">
@@ -339,7 +336,7 @@
 		); */
  var dis_data = {{extras.dis_data|safe}};
 
- 
+
 	regional_map(
 		{{report.data.cholera_map|safe}},
 		{{extras.map_centre}},
@@ -386,7 +383,7 @@
  }
  catch(err) {
 	 $("#error").html(err.message + "<br />")
- } 
+ }
 
  </script>
 {% endblock extra_js %}
