@@ -142,13 +142,23 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         )
         report_url = c.add_domain(relative_url)
 
+        # Use meerkat_auth to authenticate the email's report link
+        # Only do this if an access account is specified for the email
+        email_access = report_list.get(report, {}).get('email_access_account', {})
+        app.logger.debug('Email access {}'.format(email_access))
+        if email_access:
+            app.logger.warning('Authenticating')
+            token = c.authenticate(
+                email_access.get('username'),
+                email_access.get('password')
+            )
+            report_url += "?meerkat_jwt=" + str(token)
 
-        #Use env variable to determine whether to fetch image content from external source or not
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
+        # Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:
             content_url = c.add_domain('/static/')
-
 
         if email_format == 'html':
             email_body = render_template(
@@ -265,6 +275,17 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                                start_date=start_date)
 
         report_url = current_app.config['LIVE_URL'] + relative_url
+
+        # Use meerkat_auth to authenticate the email's report link
+        # Only do this if an access account is specified for the email
+        email_access = report_list.get('email_access_account', {})
+        if email_access:
+            app.logger.warning('Authenticating')
+            token = c.authenticate(
+                email_access.get('username'),
+                email_access.get('password')
+            )
+            report_url += "?meerkat_jwt=" + str(token)
 
         # Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
@@ -503,8 +524,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             tmp_file = tmp_file + "_small"
         with open(tmp_file, "rb") as f:
             pdf = f.read()
-        #os.remove(tmp_file)
-
+        os.remove(tmp_file)
         return Response(pdf, mimetype='application/pdf')
 
     else:

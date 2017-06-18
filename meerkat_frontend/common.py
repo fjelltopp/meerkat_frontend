@@ -56,35 +56,33 @@ def api(url, api_key=False, params=None):
         return output
 
 
-def authenticate_server():
+def authenticate(username=app.config['SERVER_AUTH_USERNAME'],
+                 password=app.config['SERVER_AUTH_PASSWORD']):
     """
-    Makes an authentication request to meerkat_auth using the server username
-    and password.
+    Makes an authentication request to meerkat_auth using the specified
+    username and password, or the server username and password by default by
+    default.
 
     Returns:
-        dict: a dictionary containing the authorisation headers required for
-            a request e.g. {'Authorization': 'Bearer withTokenHere'}
+        str The JWT token.
     """
     # Assemble auth request params
     url = app.config['AUTH_ROOT'] + '/api/login'
     data = {
-        'username': app.config['SERVER_AUTH_USERNAME'],
-        'password': app.config['SERVER_AUTH_PASSWORD']
+        'username': username,
+        'password': password
     }
     headers = {'content-type': 'application/json'}
     r = requests.request('POST', url, json=data, headers=headers)
     logging.warning("Received authentication response: " + str(r))
 
-    # We need authentication to work, so raise an exception if it doesn't.
+    # Log an error if authentication fails, and return an empty token
     if r.status_code != 200:
-        raise Exception(
-            "Authentication request returned not-ok response code: " +
-            str(r.status_code)
-        )
+        logging.error('Authentication as {} failed'.format(username))
+        return ''
 
-    # Create the headers for a properly authenticated request.
-    token = r.cookies['meerkat_jwt']
-    return {'Authorization': 'Bearer ' + token}
+    # Return the token
+    return r.cookies['meerkat_jwt']
 
 
 def hermes(url, method, data={}):
@@ -102,7 +100,10 @@ def hermes(url, method, data={}):
     """
 
     # Assemble hermes params
-    headers = {'content-type': 'application/json', **authenticate_server()}
+    headers = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer {}'.format(authenticate())
+    }
     url = app.config['HERMES_ROOT'] + url
     logging.warning("Sending json: " + json.dumps(data) + "\nTo url: " + url)
 
