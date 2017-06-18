@@ -31,8 +31,8 @@ class Config(object):
         'MEERKAT_AUTH_ROOT', 'http://nginx/auth'
     )
     AUTH_ROOT = os.environ.get('MEERKAT_AUTH_ROOT', '/auth')
-    USERNAME = "admin"
-    PASSWORD = "secret"
+    SERVER_AUTH_USERNAME = os.environ.get('SERVER_AUTH_USERNAME', 'root')
+    SERVER_AUTH_PASSWORD = os.environ.get('SERVER_AUTH_PASSWORD', 'password')
     INTERNAL_ROOT = os.environ.get("INTERNAL_ROOT", "http://nginx")
     EXTRA_PAGES = {}
     TEMPLATE_FOLDER = None
