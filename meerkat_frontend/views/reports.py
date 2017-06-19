@@ -150,9 +150,10 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
             app.logger.warning('Authenticating')
             token = c.authenticate(
                 email_access.get('username'),
-                email_access.get('username'),
+                email_access.get('password')
             )
-            report_url += "?meerkat_jwt=" + str(token)
+            if token:
+                report_url += "?meerkat_jwt=" + str(token)
 
         # Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
