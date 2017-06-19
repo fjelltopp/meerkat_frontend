@@ -150,7 +150,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
             app.logger.warning('Authenticating')
             token = c.authenticate(
                 email_access.get('username'),
-                email_access.get('password')
+                email_access.get('username'),
             )
             report_url += "?meerkat_jwt=" + str(token)
 
