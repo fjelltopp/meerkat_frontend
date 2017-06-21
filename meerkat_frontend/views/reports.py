@@ -50,18 +50,19 @@ def index(locID=None):
     """
     locID = g.allowed_location if not locID else locID
     return render_template('reports/index.html',
-                           content=current_app.config['REPORTS_CONFIG'],
+                           content=g.config['REPORTS_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
 
 
 @reports.route('/test/<report>/')
 def test(report):
-    """Serves a test report page using a static JSON file.
+    """
+    Serves a test report page using a static JSON file.
 
-       Args:
-           report (str): The report ID, from the REPORTS_LIST configuration
-           file parameter.
+    Args:
+        report (str): The report ID, from the REPORTS_LIST configuration
+        file parameter.
     """
 
     report_list = current_app.config["REPORTS_CONFIG"]['report_list']
@@ -100,7 +101,7 @@ def test(report):
             report=data,
             extras=extras,
             address=current_app.config['REPORTS_CONFIG']["address"],
-            content=current_app.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG']
         )
     else:
         abort(501)
@@ -167,7 +168,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
             )
@@ -177,7 +178,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
             )
@@ -279,6 +280,19 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
 
         # Use meerkat_auth to authenticate the email's report link
         # Only do this if an access account is specified for the email
+        email_access = report_list.get(report, {}).get('email_access_account', {})
+        app.logger.debug('Email access {}'.format(email_access))
+        if email_access:
+            app.logger.warning('Authenticating')
+            token = c.authenticate(
+                email_access.get('username'),
+                email_access.get('password')
+            )
+            if token:
+                report_url += "?meerkat_jwt=" + str(token)
+
+        # Use meerkat_auth to authenticate the email's report link
+        # Only do this if an access account is specified for the email
         email_access = report_list.get('email_access_account', {})
         if email_access:
             app.logger.warning('Authenticating')
@@ -299,7 +313,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
         )
@@ -309,7 +323,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
         )
@@ -420,7 +434,7 @@ def report(report=None, location=None, end_date=None, start_date=None):
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address'],
-            content=current_app.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG']
         )
 
         return html

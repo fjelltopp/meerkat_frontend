@@ -42,17 +42,20 @@ if app.config.get('TEMPLATE_FOLDER', None):
 # Feels a bit hacky, but can't immediately think of a better way.
 # Here we feed the env var into the shared config that is sent to all pages.
 app.config['SHARED_CONFIG']['auth_root'] = app.config['AUTH_ROOT']
+display_configs = {}
 
 # Set up the config files.
 for k, v in app.config['COMPONENT_CONFIGS'].items():
     path = os.path.dirname(os.path.realpath(__file__)) + "/../" + v
     config = json.loads(open(path).read())
-    app.config[k] = {**app.config['SHARED_CONFIG'], **config}
+    display_configs[k] = {**app.config['SHARED_CONFIG'], **config}
+    app.config[k] = display_configs[k]
 
 
 # Set the default values of the g object
 class FlaskG(app.app_ctx_globals_class):
     allowed_location = 1
+    config = display_configs
 
 app.app_ctx_globals_class = FlaskG
 
@@ -98,7 +101,7 @@ class Authorise(libs_auth):
                 if level in app.config.get('CONFIG_OVERRIDES', {}):
                     app.logger.debug('UPDATING CONFIGS')
                     for k, v in app.config['COMPONENT_CONFIGS'].items():
-                        app.config[k] = {
+                        g.config[k] = {
                             **app.config[k],
                             **app.config['CONFIG_OVERRIDES'][level]
                         }

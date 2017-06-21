@@ -3,7 +3,7 @@ download.py
 
 A Flask Blueprint module for the download site.
 """
-from flask import Blueprint, render_template, current_app, request, abort
+from flask import Blueprint, render_template, current_app, request, abort, g
 from meerkat_frontend import common as c
 from meerkat_frontend import auth
 
@@ -25,7 +25,7 @@ def requires_auth():
 @download.route('/')
 def index():
     return render_template('download/index.html',
-                           content=current_app.config['DOWNLOAD_CONFIG'],
+                           content=g.config['DOWNLOAD_CONFIG'],
                            week=c.api('/epi_week'))
 
 
@@ -38,7 +38,7 @@ def wait():
     url = url.replace("'", "%27")
     return render_template(
         'download/wait.html',
-        content=current_app.config['DOWNLOAD_CONFIG'],
+        content=g.config['DOWNLOAD_CONFIG'],
         api_url=url,
         week=c.api('/epi_week')
     )
