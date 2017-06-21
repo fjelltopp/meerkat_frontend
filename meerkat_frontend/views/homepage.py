@@ -21,7 +21,7 @@ homepage_route = app.config.get("HOMEPAGE_ROUTE", "")
 def index():
     return render_template(
         'homepage/index.html',
-        content=current_app.config['HOMEPAGE_CONFIG'],
+        content=g.config['HOMEPAGE_CONFIG'],
     )
 
 
@@ -36,7 +36,7 @@ def login():
     # Return the login page.
     return render_template(
         'homepage/login.html',
-        content=current_app.config['HOMEPAGE_CONFIG'],
+        content=g.config['HOMEPAGE_CONFIG'],
         redirect=url
     )
 
@@ -89,7 +89,7 @@ def account_settings():
         current_app.logger.warning("GET called")
         return render_template(
             'homepage/account_settings.html',
-            content=current_app.config['TECHNICAL_CONFIG'],
+            content=g.config['TECHNICAL_CONFIG'],
             week=c.api('/epi_week')
         )
 
@@ -145,7 +145,7 @@ def report_fault():
 
         return render_template(
             'homepage/fault_report_response.html',
-            content=current_app.config['TECHNICAL_CONFIG'],
+            content=g.config['TECHNICAL_CONFIG'],
             details=details.replace('\n', '<br/>')
         )
 
@@ -154,7 +154,7 @@ def report_fault():
         url = request.args.get('url', '')
         return render_template(
              'homepage/fault_report_form.html',
-             content=current_app.config['TECHNICAL_CONFIG'],
+             content=g.config['TECHNICAL_CONFIG'],
              url=url
         )
 
@@ -164,6 +164,6 @@ def report_fault():
 def cdchart():
     return render_template(
         'cdcharts.html',
-        content=current_app.config['TECHNICAL_CONFIG'],
+        content=g.config['TECHNICAL_CONFIG'],
         week=c.api('/epi_week'),
     )

@@ -32,7 +32,7 @@ def subscribe(locID=None):
     locID = g.allowed_location if not locID else locID
 
     return render_template('messaging/subscribe.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
 
@@ -107,7 +107,7 @@ def subscribed():
         __set_code(subscribe_response['subscriber_id'], data['sms'])
 
     return render_template('messaging/subscribed.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            week=c.api('/epi_week'),
                            data=data)
 
@@ -149,7 +149,7 @@ def verify(subscriber_id):
         )
     else:
         return render_template('messaging/verify.html',
-                               content=current_app.config['MESSAGING_CONFIG'],
+                               content=g.config['MESSAGING_CONFIG'],
                                week=c.api('/epi_week'),
                                data=subscriber['Item'])
 
@@ -224,7 +224,7 @@ def verified(subscriber_id):
     current_app.logger.warning('Response is: ' + str(email_response))
 
     return render_template('messaging/verified.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            week=c.api('/epi_week'))
 
 

@@ -135,6 +135,7 @@ function drawCharts( locID ){
 	                    week: week,
 	                    tableID: 'complaint-table',
 	                    percent: true,
+						limit_to: "tot_1",
 	                    linkFunction: 'loadDisease',
 	                    title: i18n.gettext('Category'),
                         table_options: {'strip': 'false', 'colour':'false'}
@@ -146,6 +147,7 @@ function drawCharts( locID ){
 	                    tableID: 'icd-table',
 	                    barID: 'icd-bar-chart',
 	                    percent: true,
+						limit_to: "tot_1",
 	                    linkFunction: 'loadDisease',
 	                    strip: true,
 	                    title: i18n.gettext('ICD10 Chapter'),

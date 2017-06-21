@@ -56,16 +56,43 @@ def api(url, api_key=False, params=None):
         return output
 
 
+def authenticate(username=app.config['SERVER_AUTH_USERNAME'],
+                 password=app.config['SERVER_AUTH_PASSWORD']):
+    """
+    Makes an authentication request to meerkat_auth using the specified
+    username and password, or the server username and password by default by
+    default.
+
+    Returns:
+        str The JWT token.
+    """
+    # Assemble auth request params
+    url = app.config['AUTH_ROOT'] + '/api/login'
+    data = {
+        'username': username,
+        'password': password
+    }
+    headers = {'content-type': 'application/json'}
+    r = requests.request('POST', url, json=data, headers=headers)
+    logging.warning("Received authentication response: " + str(r))
+
+    # Log an error if authentication fails, and return an empty token
+    if r.status_code != 200:
+        logging.error('Authentication as {} failed'.format(username))
+        return ''
+
+    # Return the token
+    return r.cookies['meerkat_jwt']
+
+
 def hermes(url, method, data={}):
     """
     Makes a Hermes API request.
-
     Args:
        url (str): The Meerkat Hermes url for the desired function.
        method (str):  The desired HTML function: GET, POST or PUT.
        data (optional dict): The data to be sent to the url. Defaults
        to ```{}```.
-
     Returns:
        dict: a dictionary formed from the json data in the response.
     """
@@ -87,13 +114,14 @@ def hermes(url, method, data={}):
         logging.error("Failed to access Hermes.")
         logging.error(e)
         abort(500, "Problem accessing the messaging api.")
+        
     try:
-        output = r.json()
+        return r.json()
     except Exception as e:
         logging.error('Failed to convert Hermes response to json.')
         logging.error(e)
         abort(500, 'Messaging API response could not be converted to json.')
-    return output
+
 
 
 def epi_week_to_date(epi_week, year=datetime.today().year):

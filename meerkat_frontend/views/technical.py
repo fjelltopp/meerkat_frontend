@@ -56,7 +56,7 @@ def index(tab=None, locID=None):
 
     return render_template(
         'technical/index.html',
-        content=current_app.config['TECHNICAL_CONFIG'],
+        content=g.config['TECHNICAL_CONFIG'],
         page=pageState,
         langauge=g.get("language", current_app.config["DEFAULT_LANGUAGE"]),
         week=c.api('/epi_week'),
@@ -72,7 +72,7 @@ def alert(alertID=1):
     pageState = "{ type: 'alert', dataID: '" + alertID + "' }"
     return render_template(
         'technical/index.html',
-        content=current_app.config['TECHNICAL_CONFIG'],
+        content=g.config['TECHNICAL_CONFIG'],
         page=pageState,
         langauge=g.get("language", current_app.config["DEFAULT_LANGUAGE"]),
         week=c.api('/epi_week')
@@ -89,12 +89,12 @@ def disease(diseaseID='tot_1', locID=None):
     # Initialise locID to allowed location
     # Can't be done during function declaration because outside app context
     locID = g.allowed_location if not locID else locID
-        
+
     pageState = ("{ type: 'disease', dataID: '" + str(diseaseID) +
                  "', locID: " + str(locID) + " }")
     return render_template(
         'technical/index.html',
-        content=current_app.config['TECHNICAL_CONFIG'],
+        content=g.config['TECHNICAL_CONFIG'],
         page=pageState,
         langauge=g.get("language", current_app.config["DEFAULT_LANGUAGE"]),
         week=c.api('/epi_week')
