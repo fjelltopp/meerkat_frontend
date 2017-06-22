@@ -98,7 +98,7 @@
     }
 
     .mcnTextContent img {
-      height: auto !important;
+      height: 55px;
     }
     /*
   @tab Page
@@ -784,8 +784,8 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-left:18px; padding-bottom:9px; padding-right:0;">
 
-                                        <img align="none" height="55" src="{{ content_url +'img/' + content.footer.logos.country_partner }}" style="width: 55px; height: 55px; margin: 0px; margin-left: 15px;" width="40">
-                                        <img align="none" height="56" src="{{ content_url +'img/logo/' + 'who-logo-text.png' }}" style="width: 180px; height: 56px; margin: 0px;" width="180">
+                                        <img height="55" align="none" src="{{ content_url +'img/' + content.footer.logos.country_partner }}">
+                                        <img height="55" align="none" src="{{ content_url +'img/logo/' + 'who-logo-text.png' }}">
                                       <br> &nbsp;
                                     </td>
                                   </tr>
@@ -830,12 +830,12 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                                       <p>{{ _('Working with our partners:') }}</p>
-                                        <img src="{{ content_url +'img/' + content.get('logos', content.footer.logos).country_partner }}"
-                                             id="countryLogo" width="50" style="padding-right:9px"></img>
+                                        <img height="55" src="{{ content_url +'img/' + content.get('logos', content.footer.logos).country_partner }}"
+                                             id="countryLogo" style="padding-right:9px"></img>
                                         {% for logo in content.get('logos', content.footer.logos).partners %}
-                                          <img src="{{ content_url +'img/' + logo }}" width="50" style="padding-right:9px"></img>
+                                          <img height= "55" src="{{ content_url +'img/' + logo }}" style="padding-right:9px"></img>
                                         {% endfor %}
-                                        <img src="{{ content_url +'img/logo/' + 'who-logo-no-text.png' }}" id="whoLogo" width="50" style="padding-right:9px"></img>
+                                        <img height="55" src="{{ content_url +'img/logo/' + 'who-logo-no-text.png' }}" id="whoLogo" style="padding-right:9px"></img>
                                     </td>
                                     </td>
                                   </tr>
