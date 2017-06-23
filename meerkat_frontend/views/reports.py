@@ -135,7 +135,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         )
 
         relative_url = url_for(
-            '.report',
+            report_list[report].get('email_report_format', 'reports.report'),
             report=report,
             location=None,
             end_date=None,
@@ -270,11 +270,13 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
 
         app.logger.debug(ret)
 
-        relative_url = url_for('reports.report',
-                               report=report,
-                               location=location,
-                               end_date=end_date,
-                               start_date=start_date)
+        relative_url = url_for(
+            report_list[report].get('email_report_format', 'reports.report'),
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
 
         report_url = current_app.config['LIVE_URL'] + relative_url
 
