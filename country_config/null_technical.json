@@ -167,31 +167,31 @@
                     "api": "/aggregate/reg_1/<loc_id>",
                     "label": "% Diabetes visits with measured FG",
                     "access": "cd",
-                    "prep_function": "prep_row"
+                    "prep_function": "prep_row_indicator"
                 },
                 {
                     "api": "/aggregate/tot_1/<loc_id>",
                     "label": "% Diabetes visits with controlled FG",
                     "access": "cd",
-                    "prep_function": "prep_row"
+                    "prep_function": "prep_row_indicator"
                 },
                 {
                     "api": "/aggregate/tot_1/<loc_id>",
                     "label": "% Hypertension visits with measured BP",
                     "access": "cd",
-                    "prep_function": "prep_row"
+                    "prep_function": "prep_row_indicator"
                 },
                 {
                     "api": "/aggregate/tot_1/<loc_id>",
                     "label": "% Hypertension visits with controlled BP",
                     "access": "cd",
-                    "prep_function": "prep_row"
+                    "prep_function": "prep_row_indicator"
                 },
                 {
                     "api": "/aggregate/tot_1/<loc_id>",
                     "label": "% Of patients that currently smoke",
                     "access": "cd",
-                    "prep_function": "prep_row"
+                    "prep_function": "prep_row_indicator"
                 }
             ]
         }

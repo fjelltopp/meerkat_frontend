@@ -74,7 +74,6 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
             "<div class = 'container' > <ul  id = '" + api_element + "' > </ul></div >" +
             "</div>";
 
-        //  var htmlRow = "<div class='container'><ul class='list-group' id='"+ api_element +"'></ul></div>";
 
         $("#" + parentId).append(htmlRow);
 
@@ -88,6 +87,7 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
             var arrValue = [];
             var arrIndex = [];
             var arrFinal = [];
+            var arrFinalVal = [];
 
 
 
@@ -98,7 +98,7 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
                     arrValue.push(value[ovPeriodType]);
                 } else {
 
-                    //Check if the value exist using if_exists function from misc.js file ...
+                    //Check if the value exist using if_exists function from misc.js file ... "week" variable comes from the global variable week ...
                     arrValue.push(if_exists(value[ovPeriodType], week));
                 }
             });
@@ -109,6 +109,7 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
                 //Save index for the Max value ...
                 var maxIndex = arrValue.indexOf(Math.max.apply(Math, arrValue));
                 arrFinal.push(arrIndex[maxIndex]);
+                arrFinalVal.push(arrValue[maxIndex]);
 
                 //Remove the Max value from both arrays so i can get the next Max Value ...
                 arrIndex.splice(maxIndex, 1);
@@ -123,11 +124,17 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
 
             //Call Other API to get the details for each value in the arrFInal Array ...
             $.getJSON(api_root + detailApiUrl, function(detailData) {
-
+                var count = 0;
                 $.each(arrFinal, function(index, value) {
-                    //  $('#' + parentId + ' .' + api_element).append("<div class='divTableCell'>" + detailData[value].name + "</div>"); <li class='list-group-item'>First item</li>
+
                     if (detailData[value] !== undefined) {
-                        $('#' + api_element).append("<li>" + detailData[value].name + "</li>");
+                        //  $('#' + api_element).append("<li>" + detailData[value].name  +"</li>");
+
+                        $('#' + api_element).append("<li>" + "<label style='width: 250px;font-weight: normal !important;'>" + detailData[value].name + "</label>" +
+                            "<label style='font-weight: normal !important;' >" + arrFinalVal[count] + "  Cases </label>" + "</li>");
+
+                        count = count + 1;
+
                     }
 
                 });
@@ -164,29 +171,39 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
         $.getJSON(api_root + apiUrl, function(data) {
 
             var arrValue = [];
+            var arrDate = [];
             var arrFinal = [];
+            var arrFinalDate = [];
 
             //Save the Data into arrays so it will be easy to work with ...
             $.each(data.alerts, function(index, value) {
                 arrValue.push(value.variables.alert_reason);
+                arrDate.push(value.date);
             });
 
             //Take the last 3 values so i need to reverse the array ..
             arrValue.reverse();
+            arrDate.reverse();
 
             //I need only 3 ...
             for (var i = 0; i <= 2; i++) {
                 arrFinal.push(arrValue[i]);
+                arrFinalDate.push(arrDate[i]);
             }
 
-
+            var alertCounter = 0;
             $.each(arrFinal, function(index, value) {
                 var detailApiUrl = "/variable/" + value;
 
 
                 //Call Other API to get the details for each value in the arrFInal Array ...
                 $.getJSON(api_root + detailApiUrl, function(detailData) {
-                    $('#' + api_element).append("<li>" + detailData.name + "</li>");
+
+                    $('#' + api_element).append("<li>" + "<label style='width: 250px;font-weight: normal !important;'>" + detailData.name + "</label>" +
+                        "<label style='font-weight: normal !important;' >" + ovDateFormate(arrFinalDate[alertCounter]) + " </label>" + "</li>");
+
+                    alertCounter = alertCounter + 1;
+
                 });
 
             });
@@ -195,6 +212,33 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
 
     }
 }
+
+
+function prep_row_indicator(contentsObj, parentId, locID) {
+    if (isUserAthorized(contentsObj.access) === true) {
+
+        //Generate a GUID ...
+        var api_element = generateGUID();
+
+        //Append the results ...
+        var htmlRow = "<div class='divTableRow'>" +
+            "<div class='divTableCell' style='font-weight: bold;'> " + contentsObj.label + "</div>" +
+            "<div class='divTableCell " + api_element + "'>Loading..</div>" +
+            "</div>";
+
+        $("#" + parentId).append(htmlRow);
+
+        // Get the inner value for the boxes by calling the APIs ...
+        var apiUrl = contentsObj.api.replace("<loc_id>", locID);
+        $.getJSON(api_root + apiUrl, function(data) {
+
+            $('#' + parentId + ' .' + api_element).html(data.value + "<span style='padding-left:30px;' class='" + getIndicatorArrow (data.value) + "'></span> ");
+
+        });
+
+    }
+}
+
 
 
 function isUserAthorized(accessObj) {
@@ -215,4 +259,28 @@ function generateGUID() {
         return v.toString(16);
     });
     return newGuid;
+}
+
+//Return Date formated ...
+function ovDateFormate(dateStr) {
+    date = new Date(dateStr);
+    var monthNames = [
+        i18n.gettext("January"), i18n.gettext("February"),
+        i18n.gettext("March"), i18n.gettext("April"),
+        i18n.gettext("May"), i18n.gettext("June"),
+        i18n.gettext("July"), i18n.gettext("August"),
+        i18n.gettext("September"), i18n.gettext("October"),
+        i18n.gettext("November"), i18n.gettext("December")
+    ];
+
+    return date.getDate() + " " + monthNames[date.getMonth()] + " " + date.getFullYear();
+}
+
+//Return The bootstrap Arrow if its UP or DOWN ..
+function getIndicatorArrow(val) {
+    if (val >= 200) {
+        return "glyphicon glyphicon-arrow-up";
+    } else {
+        return "glyphicon glyphicon-arrow-down";
+    }
 }
