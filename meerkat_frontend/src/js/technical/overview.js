@@ -130,7 +130,7 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
                     if (detailData[value] !== undefined) {
                         //  $('#' + api_element).append("<li>" + detailData[value].name  +"</li>");
 
-                        $('#' + api_element).append("<li>" + "<label style='width: 250px;font-weight: normal !important;'>" + detailData[value].name + "</label>" +
+                        $('#' + api_element).append("<li>" + "<label style='width: 300px;font-weight: normal !important;'>" + detailData[value].name + "</label>" +
                             "<label style='font-weight: normal !important;' >" + arrFinalVal[count] + "  Cases </label>" + "</li>");
 
                         count = count + 1;
@@ -199,7 +199,7 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
                 //Call Other API to get the details for each value in the arrFInal Array ...
                 $.getJSON(api_root + detailApiUrl, function(detailData) {
 
-                    $('#' + api_element).append("<li>" + "<label style='width: 250px;font-weight: normal !important;'>" + detailData.name + "</label>" +
+                    $('#' + api_element).append("<li>" + "<label style='width: 300px;font-weight: normal !important;'>" + detailData.name + "</label>" +
                         "<label style='font-weight: normal !important;' >" + ovDateFormate(arrFinalDate[alertCounter]) + " </label>" + "</li>");
 
                     alertCounter = alertCounter + 1;
