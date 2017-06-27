@@ -252,8 +252,6 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         test_id = "-" + str(datetime.now().time().isoformat())
         test_sub = "TEST {} | ".format(current_app.config['DEPLOYMENT'])
 
-    app.logger.debug(test_sub)
-
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         app.logger.debug("creating report")
@@ -266,26 +264,28 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date=start_date
         )
 
-        app.logger.debug(ret)
-
-        relative_url = url_for('reports.report',
-                               report=report,
-                               location=location,
-                               end_date=end_date,
-                               start_date=start_date)
+        relative_url = url_for(
+            report_list[report].get('email_report_format', 'reports.report'),
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
 
         report_url = current_app.config['LIVE_URL'] + relative_url
 
         # Use meerkat_auth to authenticate the email's report link
         # Only do this if an access account is specified for the email
-        email_access = report_list.get('email_access_account', {})
+        email_access = report_list.get(report, {}).get('email_access_account', {})
+
         if email_access:
             app.logger.warning('Authenticating')
             token = c.authenticate(
                 email_access.get('username'),
                 email_access.get('password')
             )
-            report_url += "?meerkat_jwt=" + str(token)
+            if token:
+                report_url += "?meerkat_jwt=" + str(token)
 
         # Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
@@ -710,7 +710,6 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     app.logger.debug('Getting data')
     data = c.api(api_request, api_key=True, params=params)
     data["flag"] = config["FLAGG_ABR"]
-    app.logger.debug("DATA: " + str(data))
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:
         # Extra parsing for natural language bullet points

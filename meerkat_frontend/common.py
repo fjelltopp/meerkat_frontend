@@ -68,11 +68,10 @@ def authenticate(username=app.config['SERVER_AUTH_USERNAME'],
     """
     # Assemble auth request params
     url = app.config['AUTH_ROOT'] + '/api/login'
-    data = {
-        'username': username,
-        'password': password
-    }
+    data = {'username': username, 'password': password}
     headers = {'content-type': 'application/json'}
+
+    # Make the auth request and log the result
     r = requests.request('POST', url, json=data, headers=headers)
     logging.warning("Received authentication response: " + str(r))
 
@@ -82,7 +81,7 @@ def authenticate(username=app.config['SERVER_AUTH_USERNAME'],
         return ''
 
     # Return the token
-    return r.cookies['meerkat_jwt']
+    return r.cookies.get('meerkat_jwt', '')
 
 
 def hermes(url, method, data={}):
@@ -98,29 +97,30 @@ def hermes(url, method, data={}):
     Returns:
        dict: a dictionary formed from the json data in the response.
     """
-
-    # Assemble hermes params
-    headers = {
-        'content-type': 'application/json',
-        'Authorization': 'Bearer {}'.format(authenticate())
-    }
+    # Assemble the request params.
     url = app.config['HERMES_ROOT'] + url
-    logging.warning("Sending json: " + json.dumps(data) + "\nTo url: " + url)
+    headers = {'content-type': 'application/json',
+               'authorization': 'Bearer {}'.format(authenticate())}
+
+    # Log the request
+    logging.debug("Sending json: {}\nTo url: {}\nwith headers: {}".format(
+                  json.dumps(data), url, headers))
 
     # Make the request and handle the response.
     try:
         r = requests.request(method, url, json=data, headers=headers)
-        logging.warning(r)
     except requests.exceptions.RequestException as e:
         logging.error("Failed to access Hermes.")
         logging.error(e)
-        abort(500, "Problem accessing the messaging api.")
+        abort(500, "Problem accessing the Hermes api.")
+
     try:
         output = r.json()
     except Exception as e:
         logging.error('Failed to convert Hermes response to json.')
         logging.error(e)
-        abort(500, 'Messaging API response could not be converted to json.')
+        abort(500, 'Hermes API response could not be converted to json.')
+
     return output
 
 

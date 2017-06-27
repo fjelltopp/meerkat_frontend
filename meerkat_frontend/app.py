@@ -88,21 +88,17 @@ class Authorise(libs_auth):
         # Set the allowed location root
         g.allowed_location = allowed_location
 
-        app.logger.debug('CONFIG OVERRIDES : ' + str(app.config.get('CONFIG_OVERRIDES', {})))
         # Apply config overrides for specific access levels.
         if app.config.get('CONFIG_OVERRIDES', {}):
             app.logger.debug('MANAGING CONFIG OVERRIDES')
             # Order override priority according to order of users access.
             for level in reversed(g.payload['acc'][app.config['COUNTRY']]):
-                app.logger.debug('LEVEL: ' + str(level))
                 if level in app.config.get('CONFIG_OVERRIDES', {}):
-                    app.logger.debug('UPDATING CONFIGS')
                     for k, v in app.config['COMPONENT_CONFIGS'].items():
                         app.config[k] = {
                             **app.config[k],
                             **app.config['CONFIG_OVERRIDES'][level]
                         }
-                    app.logger.debug('TECHNICAL CONFIG: ' + str(app.config['TECHNICAL_CONFIG']))
 
 # The extended authorise object used across this flask app to restrict access
 auth = Authorise()
