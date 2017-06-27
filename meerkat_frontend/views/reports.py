@@ -50,18 +50,19 @@ def index(locID=None):
     """
     locID = g.allowed_location if not locID else locID
     return render_template('reports/index.html',
-                           content=current_app.config['REPORTS_CONFIG'],
+                           content=g.config['REPORTS_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
 
 
 @reports.route('/test/<report>/')
 def test(report):
-    """Serves a test report page using a static JSON file.
+    """
+    Serves a test report page using a static JSON file.
 
-       Args:
-           report (str): The report ID, from the REPORTS_LIST configuration
-           file parameter.
+    Args:
+        report (str): The report ID, from the REPORTS_LIST configuration
+        file parameter.
     """
 
     report_list = current_app.config["REPORTS_CONFIG"]['report_list']
@@ -100,7 +101,7 @@ def test(report):
             report=data,
             extras=extras,
             address=current_app.config['REPORTS_CONFIG']["address"],
-            content=current_app.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG']
         )
     else:
         abort(501)
@@ -134,7 +135,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         )
 
         relative_url = url_for(
-            '.report',
+            report_list[report].get('email_report_format', 'reports.report'),
             report=report,
             location=None,
             end_date=None,
@@ -152,7 +153,8 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 email_access.get('username'),
                 email_access.get('password')
             )
-            report_url += "?meerkat_jwt=" + str(token)
+            if token:
+                report_url += "?meerkat_jwt=" + str(token)
 
         # Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
@@ -166,7 +168,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
             )
@@ -176,7 +178,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
             )
@@ -277,7 +279,6 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         # Use meerkat_auth to authenticate the email's report link
         # Only do this if an access account is specified for the email
         email_access = report_list.get(report, {}).get('email_access_account', {})
-
         if email_access:
             app.logger.warning('Authenticating')
             token = c.authenticate(
@@ -298,7 +299,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
         )
@@ -308,7 +309,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
         )
@@ -419,7 +420,7 @@ def report(report=None, location=None, end_date=None, start_date=None):
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address'],
-            content=current_app.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG']
         )
 
         return html
@@ -734,7 +735,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         extras['map_centre'] = report_list[report].get('map_centre', ())
         extras['reg_data'] = c.api("/geo_shapes/region")
         extras['dis_data'] = c.api("/geo_shapes/district")
-    elif report in ['afro', 'plague', 'ctc']:
+    elif report in ['afro', 'plague', 'ctc', 'sc']:
         extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
         extras['reg_data'] = c.api("/geo_shapes/region")

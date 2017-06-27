@@ -30,10 +30,10 @@ function drawTable( containerID, data, no_total, linkFunction ){
 	var weeks = lastWeeks( get_epi_week(), 3 );
 
 	//Table headers.
-	table = '<table class="table table-hover table-condensed"><tr>' +
+	table = '<table class="table table-hover table-condensed"><thead><tr>' +
 	    '<th>' + data.title + '</th><th>' +i18n.gettext('Week') +' '+ weeks[0] + '</th>' +
 	    '<th>' +i18n.gettext('Week') +' '+ weeks[1] + '</th><th>' +i18n.gettext('Week') +' '+ weeks[2] + '</th>' +
-	    '<th>' + i18n.gettext('This Year') +'</th></tr>';
+	    '<th>' + i18n.gettext('This Year') +'</th></tr></thead><tbody>';
 
 	//For each data category, assemble a html string listing data for the three weeks and the year.
 	for (var i =0; i< data.labels.length;i++){
@@ -81,7 +81,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 		}
 	}
 
-	table+="</tr></table>";
+	table+="</tr></tbody></table>";
 
 	//Draw it!
 	$('#'+containerID).html(table);
@@ -1612,8 +1612,8 @@ function drawClinicPrescriptionTable(containerID, locID){
                     "sorter": function percs(a,b){
                         a = ((a == '-') ? '-' : Number(a.split('%')[0]));
                         b = ((b == '-') ? '-' : Number(b.split('%')[0]));
-                        if(a < b || b == '-') return 1; 
-                        if (a > b || a == '-') return -1; 
+                        if(a < b || b == '-') return 1;
+                        if (a > b || a == '-') return -1;
                         return 0;},
                 }
             ];

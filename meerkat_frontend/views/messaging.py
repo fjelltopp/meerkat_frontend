@@ -32,7 +32,7 @@ def subscribe(locID=None):
     locID = g.allowed_location if not locID else locID
 
     return render_template('messaging/subscribe.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
 
@@ -68,26 +68,28 @@ def subscribed():
         g.get("language") + "/messaging/subscribe/verify/" + \
         subscribe_response['subscriber_id']
 
-    message = gettext(
+    verify_text = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
+        'verify_text',
         "Dear {first_name} {last_name} ,\n\n"
         "Thank you for subscribing to receive public health "
         "surveillance notifications from {country}.\n\nPlease "
         "verify your contact details by copying and pasting the "
         "following url into your address bar: {url}\n"
-    ).format(
+    )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
         country=current_app.config['MESSAGING_CONFIG']['messages']['country'],
         url=url
     )
 
-    html = gettext(
+    verify_html = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
+        'verify_html',
         "<p>Dear {first_name} {last_name},</p>"
         "<p>Thank you for subscribing to receive public health surveillance "
         "notifications from {country}.</p><p>Please verify your contact "
         "details by <a href='{url}' target='_blank'>clicking here</a>."
         "</p>"
-    ).format(
+    )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
         country=current_app.config['MESSAGING_CONFIG']['messages']['country'],
@@ -97,8 +99,8 @@ def subscribed():
     c.hermes('/email', 'PUT', {
         'email': data['email'],
         'subject': gettext('Please verify your contact details'),
-        'message': message,
-        'html': html,
+        'message': verify_text,
+        'html': verify_html,
         'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
     })
 
@@ -107,7 +109,7 @@ def subscribed():
         __set_code(subscribe_response['subscriber_id'], data['sms'])
 
     return render_template('messaging/subscribed.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            week=c.api('/epi_week'),
                            data=data)
 
@@ -149,7 +151,7 @@ def verify(subscriber_id):
         )
     else:
         return render_template('messaging/verify.html',
-                               content=current_app.config['MESSAGING_CONFIG'],
+                               content=g.config['MESSAGING_CONFIG'],
                                week=c.api('/epi_week'),
                                data=subscriber['Item'])
 
@@ -180,7 +182,8 @@ def verified(subscriber_id):
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
     # Send a confirmation e-mail with the unsubscribe link.
-    message = gettext(
+    confirmation_text = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
+        'confirmation_text',
         "Dear {first_name} {last_name},\n\n"
         "Thank you for subscribing to receive public health surveillance "
         "notifications from {country}.  We can confirm that your contact "
@@ -188,7 +191,7 @@ def verified(subscriber_id):
         "any time by clicking on the relevant link in your e-mails.\n\n If "
         "you wish to unsubscribe now copy and paste the following url into "
         "your address bar:\n{url}/unsubscribe/{subscriber_id}"
-    ).format(
+    )).format(
         first_name=subscriber["first_name"],
         last_name=subscriber["last_name"],
         country=country,
@@ -196,7 +199,8 @@ def verified(subscriber_id):
         subscriber_id=subscriber_id
     )
 
-    html = gettext(
+    confirmation_html = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
+        'confirmation_html',
         "<p>Dear {first_name} {last_name},</p>"
         "<p>Thank you for subscribing to receive public health surveillance "
         "notifications from {country}.  We can confirm that your contact "
@@ -204,7 +208,7 @@ def verified(subscriber_id):
         "at any time by clicking on the relevant link in your e-mails.</p><p> "
         "If you wish to unsubscribe now "
         "<a href='{url}/unsubscribe/{subscriber_id}'>click here.</a></p>"
-    ).format(
+    )).format(
         first_name=subscriber["first_name"],
         last_name=subscriber["last_name"],
         country=country,
@@ -215,8 +219,8 @@ def verified(subscriber_id):
     email = {
         'email': subscriber['email'],
         'subject': gettext("Your subscription has been successful"),
-        'message': message,
-        'html': html,
+        'message':  confirmation_text,
+        'html': confirmation_html,
         'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
     }
 
@@ -224,7 +228,7 @@ def verified(subscriber_id):
     current_app.logger.warning('Response is: ' + str(email_response))
 
     return render_template('messaging/verified.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            week=c.api('/epi_week'))
 
 

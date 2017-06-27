@@ -87,13 +87,11 @@ def authenticate(username=app.config['SERVER_AUTH_USERNAME'],
 def hermes(url, method, data={}):
     """
     Makes a Hermes API request.
-
     Args:
        url (str): The Meerkat Hermes url for the desired function.
        method (str):  The desired HTML function: GET, POST or PUT.
        data (optional dict): The data to be sent to the url. Defaults
        to ```{}```.
-
     Returns:
        dict: a dictionary formed from the json data in the response.
     """
@@ -115,13 +113,11 @@ def hermes(url, method, data={}):
         abort(500, "Problem accessing the Hermes api.")
 
     try:
-        output = r.json()
+        return r.json()
     except Exception as e:
         logging.error('Failed to convert Hermes response to json.')
         logging.error(e)
         abort(500, 'Hermes API response could not be converted to json.')
-
-    return output
 
 
 def epi_week_to_date(epi_week, year=datetime.today().year):
