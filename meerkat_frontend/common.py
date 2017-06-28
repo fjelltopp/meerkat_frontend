@@ -101,7 +101,7 @@ def hermes(url, method, data={}):
                'authorization': 'Bearer {}'.format(authenticate())}
 
     # Log the request
-    logging.debug("Sending json: {}\nTo url: {}\nWith headers: {}".format(
+    logging.info("Sending json: {}\nTo url: {}\nWith headers: {}".format(
                   json.dumps(data), url, headers))
 
     # Make the request and handle the response.
