@@ -93,14 +93,14 @@ class MeerkatFrontendTestCase(unittest.TestCase):
     @mock.patch('meerkat_frontend.common.requests')
     def test_hermes(self, mock_requests):
         c.hermes("publish", "POST", {"topics": ["test-topic"]})
-        headers = {'content-type': 'application/json'}
+        headers = {
+            'content-type': 'application/json',
+            'authorization': 'Bearer '
+        }
         mock_requests.request.assert_called_with(
             "POST",
             mk.app.config['HERMES_ROOT'] + "publish",
-            json={
-                'api_key': mk.app.config['HERMES_API_KEY'],
-                'topics': ['test-topic']
-            },
+            json={'topics': ['test-topic']},
             headers=headers
         )
 

@@ -96,7 +96,10 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
         """ Test the Heremes function in common """
         mk.app.config["HERMES_API_KEY"] = "hermes-key"
         mk.app.config["HERMES_ROOT"] = "http://test"
-        header = {'content-type': 'application/json'}
+        header = {
+            'content-type': 'application/json',
+            'authorization': 'Bearer '
+        }
 
         with mk.app.test_request_context("/"):
             data = {"value": 54}
@@ -114,7 +117,7 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             mock_requests.assert_called_with(
                 "POST",
                 "http://test/send",
-                json={"test": "test2", "api_key": "hermes-key"},
+                json={"test": "test2"},
                 headers=header
             )
             self.assertEqual(return_data, data)
