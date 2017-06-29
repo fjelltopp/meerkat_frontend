@@ -8,6 +8,7 @@ from flask import request, make_response, redirect, flash, abort
 from flask.ext.babel import gettext
 from meerkat_frontend import app, auth
 from meerkat_frontend import common as c
+from meerkat_libs import hermes
 import requests
 import logging
 import datetime
@@ -125,7 +126,7 @@ def report_fault():
         # Send an email
         # TODO: Direct github issue creation if from a personal account.
         try:
-            c.hermes('/email', 'PUT', data={
+            hermes('/email', 'PUT', data={
                 'email': 'meerkatrequest@gmail.com',
                 'subject': gettext('Fault Report') + ' | {} | {}'.format(
                     deployment,
