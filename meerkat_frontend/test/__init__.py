@@ -90,7 +90,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         rv = self.app.get('/en/technical/')
         self.assertEqual(rv.status_code, 200)
 
-    @mock.patch('meerkat_frontend.common.requests')
+    @mock.patch('meerkat_libs.requests')
     def test_hermes(self, mock_requests):
         hermes("publish", "POST", {"topics": ["test-topic"]})
         headers = {

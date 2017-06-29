@@ -8,7 +8,7 @@ from flask import Blueprint, render_template
 from flask import redirect, flash, request, current_app, g
 import random
 from meerkat_frontend import app, auth
-from meerkat_libs import hermes
+import meerkat_libs as libs
 from .. import common as c
 
 
@@ -62,7 +62,7 @@ def subscribed():
             data[key] = key_list[0]
 
     # Call hermes subscribe method.
-    subscribe_response = hermes('/subscribe', 'PUT', data)
+    subscribe_response = libs.hermes('/subscribe', 'PUT', data)
 
     # Assemble and send verification email.
     url = request.url_root + \
@@ -97,7 +97,7 @@ def subscribed():
         url=url
     )
 
-    hermes('/email', 'PUT', {
+    libs.hermes('/email', 'PUT', {
         'email': data['email'],
         'subject': gettext('Please verify your contact details'),
         'message': verify_text,
@@ -133,7 +133,7 @@ def verify(subscriber_id):
     """
 
     # Get the subscriber
-    subscriber = hermes('/subscribe/' + subscriber_id, 'GET')
+    subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
 
     if subscriber['Item']['verified'] is True:
         flash(gettext('You have already verified your account.'))
@@ -145,7 +145,7 @@ def verify(subscriber_id):
 
     elif 'sms' not in subscriber['Item']:
         current_app.logger.warning(str(subscriber['Item']))
-        hermes('/verify/' + subscriber_id, 'GET')
+        libs.hermes('/verify/' + subscriber_id, 'GET')
         return redirect(
             "/" + g.get("language") +
             '/messaging/subscribe/verified/' + subscriber_id
@@ -170,7 +170,7 @@ def verified(subscriber_id):
     """
 
     # Get the subscriber
-    subscriber = hermes('/subscribe/' + subscriber_id, 'GET')['Item']
+    subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')['Item']
 
     # If the subscriber isn't verified redirect to the verify stage.
     if not subscriber['verified']:
@@ -225,7 +225,7 @@ def verified(subscriber_id):
         'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
     }
 
-    email_response = hermes('/email', 'PUT', email)
+    email_response = libs.hermes('/email', 'PUT', email)
     current_app.logger.warning('Response is: ' + str(email_response))
 
     return render_template('messaging/verified.html',
@@ -257,7 +257,7 @@ def sms_code(subscriber_id):
 
     if request.method == 'POST':
         if __check_code(subscriber_id, request.form['code']):
-            hermes('/verify/' + subscriber_id, 'GET')
+            libs.hermes('/verify/' + subscriber_id, 'GET')
             return redirect(
                 "/" + g.get("language") +
                 "/messaging/subscribe/verified/" + subscriber_id,
@@ -271,7 +271,7 @@ def sms_code(subscriber_id):
                 code=302
             )
     else:
-        subscriber = hermes('/subscribe/' + subscriber_id, 'GET')
+        subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
         response = __set_code(subscriber_id, subscriber['Item']['sms'])
 
         # Check that the new code was succesfully sent.
@@ -319,7 +319,7 @@ def __check_code(subscriber_id, code):
         bool: True if there is a match, False otherwise.
 
     """
-    response = hermes('/verify', 'POST',
+    response = libs.hermes('/verify', 'POST',
                         {'subscriber_id': subscriber_id, 'code': code})
     current_app.logger.warning(str(response))
     return bool(response['matched'])
@@ -353,8 +353,8 @@ def __set_code(subscriber_id, sms):
         'message': message
     }
 
-    response = hermes('/verify', 'PUT',
+    response = libs.hermes('/verify', 'PUT',
                         {'subscriber_id': subscriber_id, 'code': code})
-    response = hermes('/sms', 'PUT', data)
+    response = libs.hermes('/sms', 'PUT', data)
 
     return response
