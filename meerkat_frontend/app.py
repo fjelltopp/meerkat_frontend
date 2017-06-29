@@ -7,12 +7,13 @@ at the begining of files, without complicated import chains.
 
 from flask import Flask, g
 from flask.ext.babel import Babel
+from raven.contrib.flask import Sentry
+from werkzeug.contrib.fixers import ProxyFix
 from meerkat_libs.auth_client import Authorise as libs_auth
 import jinja2
 import os
 import json
-from raven.contrib.flask import Sentry
-from werkzeug.contrib.fixers import ProxyFix
+import copy
 
 
 # Create the Flask app
@@ -54,8 +55,9 @@ for k, v in app.config['COMPONENT_CONFIGS'].items():
 
 # Set the default values of the g object
 class FlaskG(app.app_ctx_globals_class):
-    allowed_location = 1
-    config = display_configs
+    def __init__(self):
+        self.allowed_location = 1
+        self.config = copy.deepcopy(display_configs)
 
 app.app_ctx_globals_class = FlaskG
 
@@ -75,6 +77,7 @@ class Authorise(libs_auth):
         # Cycle through each location restriction level
         # If the restriction level is in the users access, set the allowed loc
         allowed_location = 9999
+
         for level, loc in app.config.get('LOCATION_AUTH', {}).items():
             access = Authorise.check_access(
                 [level],
@@ -93,7 +96,6 @@ class Authorise(libs_auth):
 
         # Apply config overrides for specific access levels.
         if app.config.get('CONFIG_OVERRIDES', {}):
-            app.logger.debug('MANAGING CONFIG OVERRIDES')
             # Order override priority according to order of users access.
             for level in reversed(g.payload['acc'][app.config['COUNTRY']]):
                 if level in app.config.get('CONFIG_OVERRIDES', {}):
