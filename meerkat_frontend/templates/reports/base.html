@@ -7,7 +7,7 @@
 <body class="htmlreport {{report.report_id}}" >
   <nav class="navbar navbar-fixed-top">
     <div class="container-fluid navmenu">
-      <a class="download pull-left" target='_window' href="{{pdf_url}}" title="{{_('Download Report as PDF')}}">
+      <a class="download pull-left" target='_window' href="{{pdf_url}}?{{request.query_string.decode('UTF-8')}}" title="{{_('Download Report as PDF')}}">
           <span class='glyphicon glyphicon-download'></span>
       </a>
       <div class="navbar-header pull-right">
@@ -21,6 +21,7 @@
 
     </div>
   </nav>
+
 
 <div class="container-fluid htmlreport {{report.report_id}}">
 {% block body %}{% endblock %}

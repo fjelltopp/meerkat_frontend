@@ -497,7 +497,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.get(initial_url) # Get the api url
         domain = url.split("://")[-1].split("/")[0]
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
-                      "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
+                      "value": auth.get_token(), 'path': '/','expires': None}
 
         current_app.logger.info("Getting URL")
         driver.add_cookie(cookie_sel)
