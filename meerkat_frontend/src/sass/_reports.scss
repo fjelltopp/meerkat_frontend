@@ -404,3 +404,16 @@ table.refugee.small{
         height: 350px;
 }
 
+.htmlreport .download{
+    height: 50px;
+    line-height: 40px;
+    padding:10px;
+    margin: 0px 15px;
+    color: #FFF;
+    font-size:30px;
+    cursor: pointer;
+}
+
+.htmlreport .download:focus, {
+    background: $highlight;
+}

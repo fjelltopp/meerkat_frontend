@@ -7,6 +7,9 @@
 <body class="htmlreport {{report.report_id}}" >
   <nav class="navbar navbar-fixed-top">
     <div class="container-fluid navmenu">
+      <a class="download pull-left" target='_window' href="{{pdf_url}}" title="{{_('Download Report as PDF')}}">
+          <span class='glyphicon glyphicon-download'></span>
+      </a>
       <div class="navbar-header pull-right">
         <a class="navbar-brand scroll-top" href="#">
           <!--<img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}">
