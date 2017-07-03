@@ -31,10 +31,10 @@ def index(locID=None):
     # Initialise locID to allowed location
     # Can't be done during function declaration because outside app context
     locID = g.allowed_location if not locID else locID
-    
+
     return render_template(
         'explore/index.html',
-        content=current_app.config['EXPLORE_CONFIG'],
+        content=g.config['EXPLORE_CONFIG'],
         loc=locID,
         week=c.api('/epi_week')
     )

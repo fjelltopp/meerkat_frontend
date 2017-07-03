@@ -13,7 +13,8 @@
 </head>
 <body class="login">
  <!-- NAVBAR -->
-  <nav class="navbar navbar-fixed-top">
+ {% if 'android' not in request.args.get('url', '') %}
+  <nav id='navbar' class="navbar navbar-fixed-top">
     <div class="container navmenu">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
@@ -38,13 +39,14 @@
       </div>
     </div>
   </nav>
+{% endif %}
 <div calss="page">
 <div id="map" class="screen"></div>
 <div class="overlay">
 
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
-    <div class="breaker"> </div>    
+    <div class="breaker"> </div>
 	 <ul class='container flashes'>
 	 {% for category, message in messages %}
 	   <li>
@@ -68,7 +70,7 @@
 			<div class="chartBox__heading">
 				{{ _('Login') }}
 			</div>
-            
+
 			<div class="chartBox__content" >
 				<form id="login-form" class="login-form">
                     <div class="form-group"></div>
@@ -99,7 +101,7 @@
     var map = L.mapbox.map('map', 'mrjb.143811c9', { zoomControl:false });
     var viewingMap = false;
     map.setView(
-        [{{content.map.center.lat}}, {{content.map.center.lng}}], 
+        [{{content.map.center.lat}}, {{content.map.center.lng}}],
         {{content.map.zoom}}
     );
     map.dragging.disable();
@@ -125,7 +127,7 @@ $('input.submit').click( function(evt){
                 if( data.responseJSON.hasOwnProperty( 'message' ) ){
                     alert( data.responseJSON.message );
                 }else{
-                    alert( i18n.gettext("There has been a server error. " + 
+                    alert( i18n.gettext("There has been a server error. " +
                                         "Please contact administrator and try again later.") );
                 }
             },
