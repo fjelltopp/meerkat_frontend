@@ -22,6 +22,10 @@ $printedBlue: #337ab7;
 
 		margin-top: 20px;
 
+        .download{
+            display:none;
+        }
+
 		// NAVBAR
 		.navbar {
 
@@ -266,7 +270,7 @@ $printedBlue: #337ab7;
   }
 
     }
- 
+
   .marker-legend {
 	padding: 10px 10px;
     font: 10px sans-serif;

@@ -6,7 +6,7 @@ Unit tests for the Meerkat frontend
 """
 from unittest import mock
 from flask import g
-from .. import common as c
+from meerkat_libs import hermes
 import meerkat_frontend as mk
 import unittest
 import calendar
@@ -90,9 +90,9 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         rv = self.app.get('/en/technical/')
         self.assertEqual(rv.status_code, 200)
 
-    @mock.patch('meerkat_frontend.common.requests')
+    @mock.patch('meerkat_libs.requests')
     def test_hermes(self, mock_requests):
-        c.hermes("publish", "POST", {"topics": ["test-topic"]})
+        hermes("publish", "POST", {"topics": ["test-topic"]})
         headers = {
             'content-type': 'application/json',
             'authorization': 'Bearer '

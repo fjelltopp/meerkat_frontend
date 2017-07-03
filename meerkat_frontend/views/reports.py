@@ -10,6 +10,7 @@ from datetime import datetime, date, timedelta
 from meerkat_frontend import app
 from meerkat_frontend import auth
 from meerkat_frontend import common as c
+from meerkat_libs import hermes, authenticate
 import dateutil.parser
 from ..common import add_domain
 import dateutil.relativedelta
@@ -149,7 +150,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         app.logger.debug('Email access {}'.format(email_access))
         if email_access:
             app.logger.warning('Authenticating')
-            token = c.authenticate(
+            token = authenticate(
                 email_access.get('username'),
                 email_access.get('password')
             )
@@ -281,7 +282,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         email_access = report_list.get(report, {}).get('email_access_account', {})
         if email_access:
             app.logger.warning('Authenticating')
-            token = c.authenticate(
+            token = authenticate(
                 email_access.get('username'),
                 email_access.get('password')
             )
@@ -352,7 +353,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         }
 
         # Publish the message to hermes
-        r = c.hermes('/publish', 'PUT', message)
+        r = hermes('/publish', 'PUT', message)
 
         print(r)
         succ = 0
@@ -405,6 +406,14 @@ def report(report=None, location=None, end_date=None, start_date=None):
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
 
+        pdf_url = url_for(
+            'reports.pdf_report',
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
+
         ret = create_report(
             config=current_app.config,
             report=report,
@@ -420,7 +429,8 @@ def report(report=None, location=None, end_date=None, start_date=None):
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address'],
-            content=g.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG'],
+            pdf_url=pdf_url
         )
 
         return html
