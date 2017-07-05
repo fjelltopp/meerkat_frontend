@@ -351,7 +351,6 @@ $.getJSON( api_root+"/export/forms", function( data ){
 	});
 
 	$('#prepared-data-download .submit').click( function(event){
-
 		//Assemble the appropriate API call.
 	    var dataSet = config.prepared[$('#prepared-selector').val()];
 		console.log(dataSet);
@@ -368,9 +367,16 @@ $.getJSON( api_root+"/export/forms", function( data ){
         }else{
 		    var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
 	    }
+
+        var startDate = $('#start-date').data("DateTimePicker")
+                        .date().add( moment().utcOffset(), "minutes" )
+                        .toISOString();
+        var endDate = $('#end-date').data("DateTimePicker")
+                        .date().add( moment().utcOffset(), "minutes" )
+                        .toISOString();
+        url += '&start_date=' + startDate + '&end_date=' + endDate;
 	    open_url = "wait?url=" + url
 	    window.open(open_url);
-
 	});
 
 });
