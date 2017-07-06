@@ -79,6 +79,8 @@
  $('#type-selector').change( function(){
 	 reDraw();
  });
+
+ console.log( config.map_options.monthly_incidence);
  function reDraw(){
      if(map){
          map.remove();
@@ -88,9 +90,9 @@
 	 if( map_type == "incidence_clinic") {
 	     drawIncidenceMap( id_name[variable],  variable, "total-map" );
 	 }else if( map_type == "incidence_district") {
-	     drawIncidenceChoroplet(id_name[variable], variable, "total-map", "district", config.map_options.district_geo);
+	     drawIncidenceChoroplet(id_name[variable], variable, "total-map", "district",config.map_options.monthly_incidence);
 	 }else if( map_type == "incidence_region") {
-	     drawIncidenceChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.region_geo);
+	     drawIncidenceChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.monthly_incidence);
 	 }else if(map_type == "cases_clinic"){
 		 drawMap(variable, "total-map", allowed_location)
 	 }else if( map_type == "cases_region") {
