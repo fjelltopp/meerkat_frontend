@@ -322,9 +322,9 @@ function drawAlertsTable(containerID, alerts, variables){
 			    alerts[a].variables.alert_id + '</a>';
             alerts[a].display_reason = i18n.gettext(variables[alerts[a].variables.alert_reason ].name);
             alerts[a].display_type = capitalise(i18n.gettext(alerts[a].variables.alert_type));
-            alerts[a].display_region = i18n.gettext(locations[alerts[a].region].name);
-			if(alerts[a].clinic){
-				alerts[a].display_clinic = locations[alerts[a].clinic].name || i18n.gettext(alerts[a].type_name);
+            alerts[a].display_region = i18n.gettext(locations[alerts[a].region[0]].name);
+			if(alerts[a].clinic.length > 0){
+				alerts[a].display_clinic = locations[alerts[a].clinic[0]].name || i18n.gettext(alerts[a].type_name);
 			}else{
 				alerts[a].display_clinic = i18n.gettext(alerts[a].type_name);
 			}
@@ -1003,8 +1003,8 @@ function drawPlagueTable(containerID, cases, variables){
 			if("ale_1" in c.variables){
 				datum.investigation_date = c.variables.ale_1.split("T")[0];
 			}
-			if (c.clinic){
-				datum.clinic = i18n.gettext(locations[c.clinic].name);
+			if (c.clinic.length > 0){
+				datum.clinic = i18n.gettext(locations[c.clinic[0]].name);
 			}else{
 				datum.clinic = i18n.gettext(c.type_name);
 			}
