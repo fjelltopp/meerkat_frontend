@@ -14,7 +14,7 @@
 	<div id="page-content-wrapper">
 	<div class="row">
 			<div class="col-xs-12 less-padding-col">
-				<div class="box chartBox">
+				<div class="box chartBox visible-overflow">
 					<div class="chartBox__heading">
 						{{ _('Download Data Set') }}
 					</div>
@@ -23,25 +23,49 @@
 					      {{ _('Choose prepared data set to download for analysis:') }}
 							{# content.preparedIntro #}
 						</div>
-						<div class="breaker"></div>
-						<form id="prepared-data-download"
-						      class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-8 col-md-6">
-							<div class="row">
-								<select id="prepared-selector" class="col-sm-offset-3 prepared-data">
-								{% for button in content.prepared %}
-                                    {% if (('access' in button) and button.access|in_array(g.payload.acc[content.auth_country]))
-                                            or ('access' not in button) %}
-									<option value="{{loop.index0}}">{{_(button.title)}}</option>
-                                    {% endif %}
-								{% endfor %}
-								</select>
-							</div>
-							<div class="row">
-								<input type="button"
-									     class="submit btn btn-default btn-lg col-sm-offset-3"
-									     value="{{ _('Download') }}">
-							</div>
-						</form>
+                        <div class="row">
+    						<form id="prepared-data-download"
+    						      class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-6 col-md-3">
+    							<div class="row">
+                                    <label>{{_('Data set:')}}</label>
+    								<select id="prepared-selector" class="prepared-data col-xs-12">
+    								{% for button in content.prepared %}
+                                        {% if (('access' in button) and button.access|in_array(g.payload.acc[content.auth_country]))
+                                                or ('access' not in button) %}
+    									<option value="{{loop.index0}}" startdate="{{button.get('defaultStartDdate', '')}}">{{_(button.title)}}</option>
+                                        {% endif %}
+    								{% endfor %}
+    								</select>
+    							</div>
+                                <div class="row">
+                                <label>{{_('Start date:')}}</label>
+                                <div class='input-group date'
+                                       id='start-date' name='start_date' >
+
+                                    <input type='text' class="form-control"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <label>{{_('End date:')}}</label>
+                                <div class='input-group date'
+                                     id='end-date' name='end_date'>
+
+                                    <input type='text' class="form-control"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                </div>
+    							<div class="row">
+    								<input type="button"
+    									     class="submit btn btn-default btn-lg"
+    									     value="{{ _('Download') }}">
+    							</div>
+    						</form>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -121,20 +145,48 @@ $('.menu-download').addClass('active');
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
+var d = new Date();
 
 $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
+function chooseStartDate(){
+    console.log("Changing start date");
+    var startDate = $('#prepared-data-download').find(':selected').attr('startdate' );
+    if(!startDate) startDate =  d.getFullYear() + '-02-01T00:00:00.00';
+    console.log("Changing start date to: " + startDate);
+    console.log(new Date(startDate));
+    return new Date(startDate);
+}
 
- $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-	 options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) //
- });
+$('#start-date').datetimepicker({
+    useCurrent: false,
+    defaultDate: chooseStartDate().toISOString(),
+    format: "DD/MM/YYYY",
+    maxDate: d.toISOString(),
+    minDate: $('#report-selector select :selected').attr('startdate' ),
+    locale: language
+});
+
+$('#end-date').datetimepicker({
+    useCurrent: false,
+    defaultDate: d.toISOString(),
+    format: "DD/MM/YYYY",
+    maxDate: d.toISOString(),
+    minDate: $('#report-selector select :selected').attr('startdate'),
+    locale: language
+});
+
+//The change form details based upon the report selected.
+ $("#prepared-data-download select").on("change", function(element){
+    var startDate = chooseStartDate();
+    startDate = startDate.getDate() + "/" + (startDate.getMonth()+1) + "/" + startDate.getFullYear();
+    console.log(startDate);
+    $('#start-date').data("DateTimePicker").date(startDate);
+});
 
 function toggleRawDownloader(){
     $("#raw_data_box .chartBox__heading").toggleClass("no-border");
     $("#raw_download").slideToggle("slow");
-	//$("#raw_download").toggleClass("hidden");
-	//$("#raw_data_box").toggleClass("hiddenChartBox");
-	//$("#raw_data_box").toggleClass("chartBox");
 }
 
 //Check that at least one checkbox is clicked
@@ -299,7 +351,6 @@ $.getJSON( api_root+"/export/forms", function( data ){
 	});
 
 	$('#prepared-data-download .submit').click( function(event){
-
 		//Assemble the appropriate API call.
 	    var dataSet = config.prepared[$('#prepared-selector').val()];
 		console.log(dataSet);
@@ -309,18 +360,23 @@ $.getJSON( api_root+"/export/forms", function( data ){
 	    if( "name_category" in dataSet){
    	        var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
 	    }else if("group_by" in dataSet){
-                
-		var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.variables) + "%26group_by=" + JSON.stringify(dataSet.group_by);
-		if ("location_conditions" in dataSet){
-                    url += "%26location_conditions=" + JSON.stringify(dataSet.location_conditions)
-                }
-                    
-	    }else{
-		var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
+            var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.variables) + "%26group_by=" + JSON.stringify(dataSet.group_by);
+            if ("location_conditions" in dataSet){
+                url += "%26location_conditions=" + JSON.stringify(dataSet.location_conditions);
+            }
+        }else{
+		    var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
 	    }
+
+        var startDate = $('#start-date').data("DateTimePicker")
+                        .date().add( moment().utcOffset(), "minutes" )
+                        .toISOString();
+        var endDate = $('#end-date').data("DateTimePicker")
+                        .date().add( moment().utcOffset(), "minutes" )
+                        .toISOString();
+        url += '&start_date=' + startDate + '&end_date=' + endDate;
 	    open_url = "wait?url=" + url
 	    window.open(open_url);
-        console.log(open_url);
 	});
 
 });

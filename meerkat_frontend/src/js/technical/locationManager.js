@@ -104,7 +104,9 @@ function loadLocationContent( locID ){
 	var childNodes = node.model.nodes;
 
 	//Build the location selector
-	var html = "";
+	var html = '<div class="location-search"><input class= "form-control" type="text" id="myInput" onkeyup="searchLocations(this);" placeholder="' +
+               i18n.gettext('Search for location...') + '">';
+    html += '<span class="glyphicon glyphicon-search"/><span class="glyphicon glyphicon-remove" onclick="loadLocationContent(history.state.locID);"/></div>';
 
 	if( nodePath.length > 1 ){
 		html += "<div class='btn-group-vertical btn-block'>";
@@ -148,4 +150,28 @@ function loadLocationContent( locID ){
 	//TODO: More apropriate name for drawCharts? Maybe drawLocation? updateContent?
 	if( typeof drawCharts === 'function' ) drawCharts( locID );
 
+}
+
+function searchLocations(input) {
+    // Select the matching nodes from the tree (case insensitive)
+    var filter = input.value.toUpperCase();
+    var nodes = locations.all(function (node) {
+        return node.model.text.toUpperCase().indexOf(filter) > -1;
+    });
+
+    // Draw the button group for the matching nodes.
+    var html = "<div class='btn-group-vertical btn-block'>";
+    html += "<button type='button' class='btn header'>" + i18n.gettext('Matching Locations') + ":</button>";
+    for( var i=0; i<nodes.length; i++ ){
+        html += "<button type='button' class='btn btn-default btn-block' onclick='loadLocation(" +
+            nodes[i].model.id + ");'>" + nodes[i].model.text + "</button>";
+    }
+
+    // If no matches, say so
+    if(nodes.length === 0) html += "<button type='button' class='btn btn-default btn-block' disabled>" + i18n.gettext('No matches') + "</button>";
+
+    // Tie up and display
+    html += "</div>";
+    $('.location-selector .btn-group-vertical').remove();
+    $('.location-selector').append(html);
 }

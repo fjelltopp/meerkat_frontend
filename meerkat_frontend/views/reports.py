@@ -406,6 +406,14 @@ def report(report=None, location=None, end_date=None, start_date=None):
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
 
+        pdf_url = url_for(
+            'reports.pdf_report',
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
+
         ret = create_report(
             config=current_app.config,
             report=report,
@@ -421,7 +429,8 @@ def report(report=None, location=None, end_date=None, start_date=None):
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address'],
-            content=g.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG'],
+            pdf_url=pdf_url
         )
 
         return html
@@ -488,7 +497,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.get(initial_url) # Get the api url
         domain = url.split("://")[-1].split("/")[0]
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
-                      "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
+                      "value": auth.get_token(), 'path': '/','expires': None}
 
         current_app.logger.info("Getting URL")
         driver.add_cookie(cookie_sel)

@@ -36,6 +36,12 @@ def wait():
     else:
         abort(500, "Did not get a url")
     url = url.replace("'", "%27")
+
+    if request.args.get('start_date'):
+        url += '&start_date=' + request.args['start_date']
+    if request.args.get('end_date'):
+        url += '&end_date=' + request.args['end_date']
+
     return render_template(
         'download/wait.html',
         content=g.config['DOWNLOAD_CONFIG'],
