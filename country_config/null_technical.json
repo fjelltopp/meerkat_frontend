@@ -45,7 +45,12 @@
   "tabs":[{
     "name":"Demographics",
     "template":"demographics.html"
-  },{
+  },
+  {
+      "name": "Clinics",
+      "template": "clinics.html"
+  },
+  {
     "name":"Demographics CD",
     "template":"demographicsCD.html",
     "access": "cd"
