@@ -174,7 +174,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 content_url=content_url
             )
         elif email_format == 'txt':
-            email_body = render_template(
+            email_body = '<plaintext>' + render_template(
                 ret['template_email_plain'],
                 report=ret['report'],
                 extras=ret['extras'],
