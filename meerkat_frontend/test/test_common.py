@@ -7,12 +7,13 @@ Unit tests for the Meerkat frontend
 import meerkat_frontend as mk
 import unittest
 from datetime import datetime
-import json
 import werkzeug
-from werkzeug.datastructures import Headers
-import base64
 from unittest import mock
 import requests
+import calendar
+import time
+from flask import g
+
 
 class MeerkatFrontendCommonTestCase(unittest.TestCase):
 
@@ -23,13 +24,14 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
 
         # When check_auth is called, just allow the authentication and set a
         # permissive payload.
-        def side_effect(roles, countries):
+        def side_effect(self, roles, countries, logic):
             g.payload = {
                 u'acc': {
                     u'demo': [u'root', u'admin', u'registered'],
                     u'jordan': [
-                        u'root', u'central', u'directorate', u'clinic', u'reports',
-                        u'all', u'cd', u'ncd', u'mh', u'admin', u'personal'
+                        u'root', u'central', u'directorate',
+                        u'clinic', u'reports', u'all', u'cd',
+                        u'ncd', u'mh', u'admin', u'personal'
                     ],
                     u'madagascar': [u'root', u'admin', u'registered'],
                     u'rms': [u'root', u'admin', u'registered']
@@ -41,10 +43,12 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
                 u'email': u'test@test.org.uk'
             }
 
-        # Mock check_auth method. Authentication should be tested properly else
-        # where.
+        # Mock check_auth method
+        # Authentication should be tested properly elsewhere.
         self.patcher = mock.patch(
-            'authorise.check_auth', side_effect=side_effect)
+            'meerkat_libs.auth_client.Authorise.check_auth',
+            side_effect=side_effect
+        )
         self.mock_auth = self.patcher.start()
 
     def tearDown(self):
@@ -68,10 +72,15 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
                                              params=None)
             self.assertEqual(ret, data)
 
-            mk.common.api("variables/category/category2", params={"test": "test2"})
+            mk.common.api(
+                "variables/category/category2",
+                params={"test": "test2"}
+            )
             self.assertTrue(mock_requests.called)
-            mock_requests.assert_called_with("http://test/variables/category/category2",
-                                             params={"test": "test2"})
+            mock_requests.assert_called_with(
+                "http://test/variables/category/category2",
+                params={"test": "test2"}
+            )
             # Check that abort(500) is called in a request error
             mock_requests.side_effect = requests.exceptions.RequestException()
             with self.assertRaises(werkzeug.exceptions.InternalServerError):
@@ -87,7 +96,10 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
         """ Test the Heremes function in common """
         mk.app.config["HERMES_API_KEY"] = "hermes-key"
         mk.app.config["HERMES_ROOT"] = "http://test"
-        header = {'content-type': 'application/json'}
+        header = {
+            'content-type': 'application/json',
+            'authorization': 'Bearer '
+        }
 
         with mk.app.test_request_context("/"):
             data = {"value": 54}
@@ -105,7 +117,7 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             mock_requests.assert_called_with(
                 "POST",
                 "http://test/send",
-                json={"test": "test2", "api_key": "hermes-key"},
+                json={"test": "test2"},
                 headers=header
             )
             self.assertEqual(return_data, data)

@@ -6,16 +6,16 @@ Unit tests for the Meerkat frontend
 """
 from unittest import mock
 from flask import g
-from .. import common as c
+from meerkat_libs import hermes
 import meerkat_frontend as mk
 import unittest
 import calendar
 import os
 import time
 
-from meerkat_frontend.test.test_reports import *
-from meerkat_frontend.test.test_common import *
-from meerkat_frontend.test.test_messaging import *
+#from meerkat_frontend.test.test_reports import *
+#from meerkat_frontend.test.test_common import *
+#from meerkat_frontend.test.test_messaging import *
 
 # Check if auth requirements have been installed
 try:
@@ -44,7 +44,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
 
         # When check_auth is called, just allow the authentication and set a
         # permissive payload.
-        def side_effect(roles, countries):
+        def side_effect(self, roles, countries, logic):
             g.payload = {
                 u'acc': {
                     u'demo': [u'root', u'admin', u'registered'],
@@ -63,10 +63,12 @@ class MeerkatFrontendTestCase(unittest.TestCase):
                 u'email': u'test@test.org.uk'
             }
 
-        # Mock check_auth method. Authentication should be tested properly else
-        # where.
+        # Mock check_auth method
+        # Authentication should be tested properly elsewhere.
         self.patcher = mock.patch(
-            'authorise.check_auth', side_effect=side_effect)
+            'meerkat_libs.auth_client.Authorise.check_auth',
+            side_effect=side_effect
+        )
         self.mock_auth = self.patcher.start()
 
     def tearDown(self):
@@ -74,7 +76,7 @@ class MeerkatFrontendTestCase(unittest.TestCase):
 
     # HOMEPAGE testing
     def test_index(self):
-        """Ensure the config file is loading correctly"""
+        """Ensure the index page is loading correctly"""
         rv = self.app.get('/en/')
         self.assertIn(b'Null Island', rv.data)
 
@@ -88,17 +90,17 @@ class MeerkatFrontendTestCase(unittest.TestCase):
         rv = self.app.get('/en/technical/')
         self.assertEqual(rv.status_code, 200)
 
-    @mock.patch('meerkat_frontend.common.requests')
+    @mock.patch('meerkat_libs.requests')
     def test_hermes(self, mock_requests):
-        c.hermes("publish", "POST", {"topics": ["test-topic"]})
-        headers = {'content-type': 'application/json'}
+        hermes("publish", "POST", {"topics": ["test-topic"]})
+        headers = {
+            'content-type': 'application/json',
+            'authorization': 'Bearer '
+        }
         mock_requests.request.assert_called_with(
             "POST",
             mk.app.config['HERMES_ROOT'] + "publish",
-            json={
-                'api_key': mk.app.config['HERMES_API_KEY'],
-                'topics': ['test-topic']
-            },
+            json={'topics': ['test-topic']},
             headers=headers
         )
 

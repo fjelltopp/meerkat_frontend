@@ -166,8 +166,8 @@ function drawCharts( locID ){
 		                    barID: categories[i]+'-bar-chart',
 		                    pieID: categories[i]+'-pie-chart',
 		                    percent: true,
-                        table_options: {'strip': 'false', 'colour':'false'},
-                        limit_to: 'prc_1'
+							table_options: {'strip': 'false', 'colour':'false'},
+							limit_to: 'prc_1'
 		                  });
 	}
 	categorySummation({ category: 'nationality',
@@ -175,11 +175,11 @@ function drawCharts( locID ){
 		                 week: week,
 		                 tableID: 'nationality-table',
 		                 barID: 'nationality-bar-chart',
-		                 pieID: 'nationality-pie-chart',
-		                 percent: true,
-	                   strip: true,
-                     table_options: {'strip': 'false', 'colour':'false'},
-                     limit_to: 'prc_1'
+		                pieID: 'nationality-pie-chart',
+						limit_to: "tot_1",
+		                percent: true,
+						strip: true,
+						table_options: {'strip': 'false', 'colour':'false'},
 		               });
 
 

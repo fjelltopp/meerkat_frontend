@@ -12,6 +12,7 @@
     ["status", "Status"],
     ["pc", "Presenting Complaint"],
     ["Chapter", "ICD 10 Chapters"],
+    ["locations:zone", "Zones"],
     ["locations:region", "Regions"],
     ["locations:district", "Districts"],
     ["locations:clinic", "Clinics"]

@@ -42,7 +42,7 @@ var auth_root = "{{content.auth_root}}";
   $('.navbar-nav li').on('click', function(event){
 	 $('.navbar-nav li.active').removeClass('active');
 	 $(this).addClass('active');
-  });  
+  });
 
   // Auto close mobile nav menu after selection
   $('.nav a').on('click', function(){
@@ -68,19 +68,45 @@ var auth_root = "{{content.auth_root}}";
 
    //SHOW THE KEY_INDICATORS ----------------------------------------------
 
-   $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/key_indicators", function( category ){
-     $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( map ){
-	 $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_alerts", function( alerts ){
-             $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_clinics", function( clinics ){
+ $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/key_indicators", function( category ){
+        $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( map ){
+            $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_alerts", function( alerts ){
+                $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_clinics", function( clinics ){
 
-         $('#number_of_consultations').text(category['reg_2'].year);
-         $('#number_of_cases').text(category['tot_1'].year);
-         $('#number_of_alerts').text(alerts.num_alerts);
-         $('#number_of_facilities').text(clinics.total);
-	     });	 
-         });
-     });
-   });
+                    // Use an indicator structure so we can process all indicators equally.
+                    var indicators = [{
+                        'id': '#number_of_consultations',
+                        'value': category['reg_2'].year
+                    }, {
+                        'id': '#number_of_cases',
+                        'value': category['tot_1'].year
+                    }, {
+                        'id': '#number_of_alerts',
+                        'value': alerts.num_alerts
+                    }, {
+                        'id': '#number_of_facilities',
+                        'value': clinics.total
+                    }];
+
+                    // Process each indicator
+                    for(var i in indicators){
+
+                        var indicator = indicators[i];
+
+                        // 7 digit figures over flow the box, so shorthand big numbers.
+                        if(parseFloat(indicator.value) > 999999){
+                            var millions = indicator.value/1000000;
+                            millions = sigFigs(millions, 3);  // Round to 3 sf.
+                            indicator.value = millions + "<span style='font-size:23px'> million</span>";
+                        }
+
+                        // Draw the indicator value
+                        $(indicator.id).html(indicator.value);
+                    }
+                });
+            });
+        });
+    });
 
 
 
@@ -91,7 +117,7 @@ var auth_root = "{{content.auth_root}}";
 	  //If a button is pressed before animation is complete, the viewing window can endup straddling a panel.
 	  //We don't want this, so remove the "straddle" distance from the panel-list's position.
 	  pos = pos - (pos % 210);
-	  
+
 	  if( window.matchMedia( "(max-width: 700px)" ).matches ) bounce=630;
 	  else bounce = 210;
 
@@ -123,7 +149,7 @@ var auth_root = "{{content.auth_root}}";
 		//Set the map position.
       map.setView([{{content.map.center.lat}}, {{content.map.center.lng}}], {{content.map.zoom}});
       //Ensure the map overlay is visible.
-      $('#map-home .title-overlay').slideDown();  
+      $('#map-home .title-overlay').slideDown();
       $('#map-home .techSiteBtn').slideDown();
       // Disable drag and zoom handlers.
       map.dragging.disable();
@@ -135,7 +161,7 @@ var auth_root = "{{content.auth_root}}";
       $('.key .keyBody').text(i18n.gettext("Click here to explore"));
       //if( undefined != regionalLayer ) map.removeLayer(regionalLayer);
 		viewingMap = false;
-         
+
     }
 
     resetMapView(map);
@@ -187,16 +213,16 @@ var auth_root = "{{content.auth_root}}";
       };
     }
 
-    //Quick fix to handle situations where surveillance site is reported as being in different regions by data and kml data. 
+    //Quick fix to handle situations where surveillance site is reported as being in different regions by data and kml data.
     var govSiteClash = false;
 
-    //De-highlight the previously highlighted region, and then highlight the new region. 
+    //De-highlight the previously highlighted region, and then highlight the new region.
     function highlightFeature (e){
 
       if (undefined === highlightedRegion ){
          highlightedRegion = e.target;
       }else{
-         regionalLayer.resetStyle( highlightedRegion ); 
+         regionalLayer.resetStyle( highlightedRegion );
          if( highlightedRegion.toGeoJSON().properties.Name != e.target.toGeoJSON().properties.Name ){
            highlightedRegion = e.target;
            $(".details .selection").html("");
@@ -211,7 +237,7 @@ var auth_root = "{{content.auth_root}}";
       if (!L.Browser.ie && !L.Browser.opera) {
          highlightedRegion.bringToFront();
       }
-      
+
       if( govSiteClash === false ){
          $("#regionName.value").text( highlightedRegion.toGeoJSON().properties.Name );
       }
@@ -223,7 +249,7 @@ var auth_root = "{{content.auth_root}}";
         map.fitBounds(e.target.getBounds());
     }
 
-    //Attached the highlight feture to the mouseover event. 
+    //Attached the highlight feture to the mouseover event.
     function onEachFeature(feature, layer) {
       layer.on({
          mouseover: highlightFeature,
@@ -231,7 +257,7 @@ var auth_root = "{{content.auth_root}}";
       });
     }
 
-    //Create a custom layer to hold the style and the event listeners. 
+    //Create a custom layer to hold the style and the event listeners.
     var customLayer = L.geoJson(null, {
       style: style,
       onEachFeature: onEachFeature,
@@ -239,7 +265,7 @@ var auth_root = "{{content.auth_root}}";
 
  //Attach the custom layer features to the kml data and display on map.
 
- 
+
 
 
     function enterMap(){
@@ -256,17 +282,17 @@ var auth_root = "{{content.auth_root}}";
 			viewingMap=true;
     }
 
-   
+
     //Upon clicking upon a cluster allow the user to explore the map.
-    markers.on('clusterclick', enterMap); 
+    markers.on('clusterclick', enterMap);
 
     markers.on('click', function (a) {
 
-      if( $("#regionName.value").text() != a.layer.gov ){ 
+      if( $("#regionName.value").text() != a.layer.gov ){
          $("#regionName.value").text(a.layer.gov);
          govSiteClash = true;
       }
-		
+
       var info =  "<span id='name' class='label' >" +i18n.gettext('Facility Name:') +" </span> <span id='name' class='value' > " +
                   a.layer.name + "</span></br>" +
                   "<span id='cons' class='label' >" +i18n.gettext('# Consultations:') +" </span> <span id='cons' class='value' > " +
@@ -277,19 +303,19 @@ var auth_root = "{{content.auth_root}}";
                   Math.round(a.layer.getLatLng().lat*10000)/10000 + "</span>" +
                   "<span id='lng' class='label' >" +i18n.gettext('Lng:') +" </span> <span id='lng' class='value' >"  +
                   Math.round(a.layer.getLatLng().lng*10000)/10000+ "</span></br>";
-      
-      $("#map-home .details .selection").html(info);  
+
+      $("#map-home .details .selection").html(info);
 		console.log(a.layer);
 
     });
-	
+
     //Allow the user to click on the key in order to enter and exit the map.
     $('.key .keyText').on('click', function(event){
          if(viewingMap) resetMapView();
 			else enterMap();
     });
 
-	 
+
  });
 
 
@@ -308,7 +334,7 @@ var auth_root = "{{content.auth_root}}";
             overlayLayer = L.geoJson(data,
                                      {style: style,
                                      })
-                
+
             overlayLayer.addTo(map);
         }else if(overlay.type == "marker") {
             my_json = L.geoJson(data, {
@@ -330,7 +356,7 @@ var auth_root = "{{content.auth_root}}";
         }
      }
  }
- 
+
  overlays = {{content.map|safe}}
  styles = []
  if("overlay" in overlays){
@@ -339,5 +365,5 @@ var auth_root = "{{content.auth_root}}";
          $.getJSON("/static/" + overlay.file, createCallback(overlay, map))
      }
  }
- 
+
 </script>

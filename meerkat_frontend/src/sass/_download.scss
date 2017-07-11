@@ -1,7 +1,23 @@
+
 .download{
 	.col-centered{
 		text-align: left;
 	}
+}
+
+.visible-overflow{
+    overflow: visible;
+}
+
+#prepared-data-download{
+    margin-top: 40px;
+    margin-bottom: 30px;
+    input{
+        padding-left: 10px;
+    }
+    select.prepared-data{
+        padding-left: 0px;
+    }
 }
 
 .data-download{
@@ -48,6 +64,35 @@
     cursor:pointer;
 }
 
+
+.progress {
+  width: 100%;
+  height: 50px;
+}
+.progress-wrap {
+  background: #f80;
+  margin: 20px 0;
+  overflow: hidden;
+  position: relative;
+  .progress-bar {
+    background: #ddd;
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+}
+
+
+#download-button{
+    width: 350px;
+    a{
+        width:100px;
+    }
+    div{
+        width:150px;
+    }
+}
+
 #download-csv-button,
 #download-xls-button,
 #download-label{
@@ -87,4 +132,32 @@
 #download-csv-button,
 #download-xls-button{
     border-left: white 1px solid;
+}
+
+.download-progress{
+    width: 350px;
+    height: 44px;
+    position:absolute;
+    top:0px;
+    z-index:1;
+    .progress-text{
+        text-align:center;
+        width:100%;
+        position:absolute;
+        z-index:2;
+        line-height:44px;
+    }
+    .progress{
+        border-radius: 6px;
+        height: 100%;
+        .progress-bar{
+            min-width: 3%;
+            line-height: 44px;
+            background-color: #d9692a;
+        }
+    }
+}
+
+.wait-content{
+    position: relative;
 }

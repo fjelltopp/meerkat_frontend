@@ -70,6 +70,63 @@ function sitesBarChart(categories, series, labels) {
   return chart;
 }
 
+function sitesBarChartQuantity(categories, series, labels) {
+  var chart = {
+    chart: {
+      type: 'bar',
+      animation: false
+    },
+	  tooltip: {
+		  valueDecimals: 0,
+	  },
+    title: {
+      text: null
+    },
+    xAxis: {
+      categories: categories,
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      }
+		
+     
+    },
+    series: series
+  };
+  return chart;
+}
+function sitesBarChartIncidence(categories, series, labels) {
+  var chart = {
+    chart: {
+      type: 'bar',
+      animation: false
+    },
+	  tooltip: {
+		  valueDecimals: 10
+	  },
+    title: {
+      text: null
+    },
+    xAxis: {
+      categories: categories
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      }
+		
+     
+    },
+    series: series
+  };
+  return chart;
+}
+
 function genderBarChart(categories, series, labels) {
   var chart = {
     chart: {
@@ -167,6 +224,37 @@ function communicableDiseasesBarChart(categories, series, labels) {
 	return chart;
 }
 
+function verticalCdBarChart(categories, series, labels) {
+  var chart = {
+    chart: {
+      type: 'bar',
+      animation: false
+    },
+    tooltip: {
+      valueDecimals: 0
+    },
+    title: {
+      text: null
+    },
+    xAxis: {
+      categories: categories,
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: labels.yAxis.text,
+        align: 'middle'
+      },
+      labels: {
+        formatter: function() {
+      return Math.round(Math.abs(this.value),0);
+        }
+      }
+    },
+    series: series
+  };
+  return chart;
+}
 
 
 

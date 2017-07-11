@@ -208,48 +208,57 @@ $("#menu-toggle").click(function(e) {
 function drawCharts( locID ){
 
 	 //Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
-	 categorySummation({ category: 'tb_result',
-						 locID: locID,
-						 week: week,
-						 tableID: 'result-table',
-	                     percent: "tub_1",
-						 no_total: "true",
-                         title: i18n.gettext('Lab results')
+	 categorySummation({
+		 category: 'tb_result',
+		 locID: locID,
+		 week: week,
+		 tableID: 'result-table',
+	     percent: "tub_1",
+		 limit_to: 'tub_1',
+		 no_total: "true",
+         title: i18n.gettext('Lab results')
 	 });
-     categorySummation({ category: 'tb_employment',
-						 locID: locID,
-						 week: week,
-						 tableID: 'occupation-table',
-	                     percent: true,
-                         title: i18n.gettext('Employment')
-	 });
+     categorySummation({
+		 category: 'tb_employment',
+		 locID: locID,
+		 week: week,
+		 limit_to: 'tub_1',
+		 tableID: 'occupation-table',
+	     percent: true,
+         title: i18n.gettext('Employment')
+     });
      
-	 
-	 var categories = ["tb_type",'tb_age', "tb_gender", 'tb_status'];
-	 var titles = ["TB Type", "Age", "Gender", "Status" ];
-	for( var i in categories ){
-	categorySummation({ category:categories[i] ,
-		                    locID: locID,
-		                    week: week,
-		                    tableID: categories[i]+'-table',
-		                    barID: categories[i]+'-bar-chart',
-		                    pieID: categories[i]+'-pie-chart',
-		                percent: true,
-						title: i18n.gettext(titles[i]),
-                            table_options: {'strip': 'false', 'colour':'false'}
-		                  });
-	}
-	categorySummation({ category: 'tb_nationality',
-		                 locID: locID,
-		                 week: week,
-		                 tableID: 'nationality-table',
-		                 barID: 'nationality-bar-chart',
-		                 pieID: 'nationality-pie-chart',
-		                 percent: true,
-	                    strip: true,
-						title: i18n.gettext("Nationality"),
-                         table_options: {'strip': 'false', 'colour':'false'}
-	});
+     
+     var categories = ["tb_type",'tb_age', "tb_gender", 'tb_status'];
+     var titles = ["TB Type", "Age", "Gender", "Status" ];
+     for( var i in categories ){
+		 categorySummation({
+			 category:categories[i] ,
+		     locID: locID,
+		     week: week,
+		     tableID: categories[i]+'-table',
+		     barID: categories[i]+'-bar-chart',
+			 pieID: categories[i]+'-pie-chart',
+			 limit_to: 'tub_1',
+			 percent: true,
+			 
+			 title: i18n.gettext(titles[i]),
+             table_options: {'strip': 'false', 'colour':'false'}
+	 });
+     }
+     categorySummation({
+		 category: 'tb_nationality',
+		 locID: locID,
+		 week: week,
+		 tableID: 'nationality-table',
+		 barID: 'nationality-bar-chart',
+		 pieID: 'nationality-pie-chart',
+		 percent: true,
+		 limit_to: 'tub_1',
+	     strip: true,
+		 title: i18n.gettext("Nationality"),
+         table_options: {'strip': 'false', 'colour':'false'}
+     });
 
 
 }

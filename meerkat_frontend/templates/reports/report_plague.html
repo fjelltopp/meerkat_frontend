@@ -1,18 +1,18 @@
 {% extends 'reports/base.html' %}
-{% block title %}{{report.data.project_region|e}} &middot; {{ _('Plague Report') }} &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('Plague Epidemiological Surveillance Report') }} &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
   <h2>
-    <span 
+    <span
       class="flag-icon flag-icon-{{report.flag}}"
       style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
     >
-    </span> 
+    </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>{{ _('Plague Report') }}
+    {{ _('Plague Epidemiological Surveillance Report') }}
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
+        {{_(report.data.project_region|e)}} &middot; {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
   </h2>
 </div>
@@ -56,7 +56,7 @@
 		</div>
 	    </div>
         </div>
-       
+
     </div>
     <div class="col-sm-4">
         <div class="chart-wrapper">
@@ -132,4 +132,3 @@
 	);
 </script>
 {% endblock extra_js %}
-

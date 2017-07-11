@@ -1,6 +1,28 @@
 {
     "data": {
         "clinic_num": 341,
+		"variables": {
+			"Brucellosis": "individual",
+			"Pertussis": "individual",
+			"Typhoid fever": "individual",
+			"Hepatitis A": "individual",
+			"Measles": "individual",
+			"German measles (Rubella)": "individual",
+			"Syphilis": "individual",
+			"Meningicoccal meningitis": "individual",
+			"Acute Flaccid Paralysis": "individual",
+			"Echinococcosis": "individual",
+			"Influenza-like illness": "individual",
+			"Bloody diarrhoea": "individual",
+			"Non-meningicoccal meningitis": "indivdual",
+			"Mumps": "individual",
+			"Hepatitis B": "individual",
+			"Hepatitis C": "individual",
+			"Food Poisoning": "individual",
+			"Viral meningitis": "individual",
+			"Cholera": "individual",
+			"Scarlet fever": "individual"
+		},
         "communicable_diseases": {
             "Acute Flaccid Paralysis": {
                 "confirmed": [

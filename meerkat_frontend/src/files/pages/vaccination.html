@@ -1,0 +1,197 @@
+<div class="top-bar row">
+  <div class="location-box box">
+    <a href="#menu-toggle" id="menu-toggle">
+      <div class="location-box__label">
+        <div id="location_box"></div>
+        <div id="location-title" class="location-title"></div>
+      </div>
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="glyphicon glyphicon-chevron-left hidden"></span>
+    </a>
+  </div>
+  <div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+  </div>
+  <div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+  </div>
+
+</div>
+
+
+<div class="demographics toggled" id="wrapper">
+
+  <div id="sidebar-wrapper" >
+    <div id="location-selector" class="location-selector">
+    </div>
+  </div>
+
+  <div id="page-content-wrapper">
+	   <div class="row">
+          <div class="col-xs-12 less-padding-col">
+              <div class="chartBox box">
+                  <div class="chartBox__heading">
+                      <p id="box_heading"></p>
+                      <div class="box__type-selector pull-right">
+                          <a href="" onclick="exportTableToXLS('timeline-table','vaccination');return false;" class="csv">
+                          </a>
+                      </div>
+                  </div>
+                  <div class="chartBox__content">
+                      <div id="timeline-wrapper" class="table">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+      <div class="row">
+          <div class="col-xs-12 less-padding-col">
+              <div class="chartBox box">
+                  <div class="chartBox__heading_2">
+                      <p id="box_heading"></p>
+                      <div class="box__type-selector pull-right">
+                          <a href="" onclick="exportTableToXLS('vaccination-table','vaccination');return false;" class="csv">
+                          </a>
+                      </div>
+                  </div>
+                  <div class="chartBox__content">
+                      <div id="vaccination-table" class="table">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-xs-12 less-padding-col">
+          <div class="chartBox box">
+              <div class="chartBox__heading">
+                  <p id="box_heading_3"></p>
+                  <div class="box__type-selector pull-right">
+                      <a href="" onclick="exportTableToXLS('vaccination-female-table','vaccination');return false;" class="csv">
+                      </a>
+                  </div>
+              </div>
+              <div class="chartBox__content">
+                  <div id="vaccination-female-table" class="table">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+
+var currentLocation;
+
+$("#location_box").html(i18n.gettext("Location:"));
+$("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#title").html(i18n.gettext('Vaccination'));
+ $("#box_heading").html(i18n.gettext('Vaccination sessions this year'));
+ $("#box_heading_2").html(i18n.gettext('Infant vaccinations this year'));
+ $("#box_heading_3").html(i18n.gettext('Female vaccinations this year'));
+$("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+$("#location-selector").html(i18n.gettext('Locations not loaded'));
+$(".csv").each(function(){
+  $(this).html(i18n.gettext('Excel'));
+});
+$("#menu-toggle").click(function(e) {
+  e.preventDefault();
+  $("#wrapper").toggleClass("toggled");
+  $(".location-box .glyphicon").toggleClass( "hidden" );
+
+  //Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+  var transitionEvent = whichTransitionEvent();
+  transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+    $(window).resize();
+  });
+});
+
+drawOptionsButtons('disease-table', 'reDraw');
+
+$("#epi-week-title").html( i18n.gettext("Week")+ " "+get_epi_week() + " · " + get_date() );
+
+//Every tab needs a draw charts function that is called when loading a new location.
+function drawCharts( locID ){
+  currentLocation = locID;
+  reDraw();
+}
+
+
+
+function reDraw(){
+
+  //Keep week abstracted out of the chart drawing process.
+  //In case we want the user to be able to select the weeks to view.
+  var week = (get_epi_week()).toString();
+
+
+	 createTimeline("vac_ses", "locations:district", {"strip":true, "colour": "true"}, i18n.gettext("Vaccination Sessions"))
+     $.getJSON(api_root + "/aggregate_category_sum/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
+	 $.getJSON(api_root + "/aggregate_category_sum/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
+             $.getJSON(api_root + "/variables/vaccinated_12_mo_infants",  function( variables ){
+             
+                 table = '<table class="table table-no-bordered table-hover">';
+                 
+                 table += "<tr> <th>" + i18n.gettext("Vaccine") + "</th> <th>" + i18n.gettext("0-11 months")
+                     + "</th><th>" + i18n.gettext(">12 months") + "</th><th>" + i18n.gettext("Total") + "</th></tr>";
+                 
+                 
+                 console.log(data_u_12)
+                 vaccines = Object.keys(data_12);
+                 for(v in vaccines){
+                     vaccine = vaccines[v]
+                     vaccine_u_12 = vaccine.replace("i12", "i0")
+                     table += "<tr> <td>" + i18n.gettext(variables[vaccine].name) +"</td>"
+                     table += "<td>" + format(data_u_12[vaccine_u_12].year) +"</td>"
+                     table += "<td>" + format(data_12[vaccine].year) +"</td>"
+                     table += "<td>" + format(data_u_12[vaccine_u_12].year+ data_12[vaccine].year) +"</td>"
+                     table += "</tr>"
+                     
+                 }
+                 
+                 table += "</table>"
+                 $("#vaccination-table").html(table)
+             });
+         });
+     });
+
+     $.getJSON(api_root + "/aggregate_category_sum/vaccinated_pw/" + currentLocation, function( data_pw ){
+	 $.getJSON(api_root + "/aggregate_category_sum/vaccinated_notpw/" + currentLocation,  function( data_not_pw ){
+             $.getJSON(api_root + "/variables/vaccinated_pw",  function( variables ){
+             
+                 table = '<table class="table table-no-bordered table-hover">';
+                 
+                 table += "<tr> <th>" + i18n.gettext("Vaccine") + "</th> <th>" + i18n.gettext("	Pregnant women")
+                     + "</th><th>" + i18n.gettext("Women of reproductive age") + "</th><th>" + i18n.gettext("Total") + "</th></tr>";
+                 
+                 
+                 vaccines = Object.keys(data_pw);
+                 for(v in vaccines){
+                     vaccine = vaccines[v]
+                     vaccine_notpw = vaccine.replace("_pw", "_notpw")
+                     table += "<tr> <td>" + i18n.gettext(variables[vaccine].name) +"</td>"
+                     table += "<td>" + format(data_pw[vaccine].year) +"</td>"
+                     table += "<td>" + format(data_not_pw[vaccine_notpw].year) +"</td>"
+                     table += "<td>" + format(data_not_pw[vaccine_notpw].year+ data_pw[vaccine].year) +"</td>"
+                     table += "</tr>"
+                     
+                 }
+                 
+                 table += "</table>"
+                 $("#vaccination-female-table").html(table)
+             });
+         });
+     });
+
+
+
+     
+  }
+
+
+
+</script>
