@@ -10,7 +10,7 @@
 
 {% block body %}
 <!-- CONTENT -->
-	 <div id="mobile-home" class="visible-xs hidden-lg" > 
+	 <div id="mobile-home" class="visible-xs hidden-lg" >
 		      <H1> {{_(content.titles.full|safe)}} </H1>
 		      <div class="logos" >
 		         <img src="{{url_for('static', filename='img/'+content.logos.country_partner)}}" id="whoMobLogo" ></img>
@@ -26,14 +26,14 @@
           <div class="keyText"> {{ _('Surveillance Sites') }}
              <div class="keyBody clickable"> {{ _('Click here to explore') }} </div>
           </div>
-        </div>  
-      </div> 
+        </div>
+      </div>
 
-      <div id="map" class="screen"></div> 
+      <div id="map" class="screen"></div>
 
       <div class="container overlay" id="bottom-overlay">
-		  <div class="title-overlay" class="slideDown"> 
-          <H1> {{_(content.titles.full|safe)}} </H1> 
+		  <div class="title-overlay" class="slideDown">
+          <H1> {{_(content.titles.full|safe)}} </H1>
           <div class="logos" >
             <img src="{{url_for('static', filename='img/'+content.logos.country_partner)}}" ></img>
             <img src="{{url_for('static', filename='img/'+content.logos.who)}}" ></img>
@@ -48,15 +48,20 @@
           </div>
         </div>
         <div class="techSiteBtn">
-			  <a type="button" id="login" class="btn btn-lg btn-default" 
+			  <a type="button" id="login" class="btn btn-lg btn-default"
                  onclick="login('login_request', 'technical' ); return false;" >
-		       {{ _('Log in to the <br> 
-		       <H2> Technical Site') }}</H2> 
-		     </a>  
-        </div> 
+		       {{ _('Log in to the <br>
+		       <H2> Technical Site') }}</H2>
+		     </a>
+        </div>
       </div>
     </div><!-- /.container -->
-
+    <!-- ALERT -->
+    <div class='row row-centered'>
+    <div class="mobile-notification col-centered col-xs-10 hidden-sm hidden-md hidden-lg hidden-xl" id="success-alert">
+            {{_('Login is not available for mobile devices')}}
+    </div>
+    </div>
     <!-- START DISPLAYING SECTIONS AS SPECIFIED In THE CONFIG FILE -->
     {% for section in content.sections %}
     <div class="container" id="{{section.title|striptags|lower|trim|replace(' ','_')}}">
@@ -74,7 +79,7 @@
       {% if section.type == "slides" %}
       <ul class="slides list-group">
         {% for slide in section.slides %}
-        <li class="list-group-item"> 
+        <li class="list-group-item">
           <h4 class="clickable">{{_(slide.title)}}</h4>
           <div class="slideCont" >{{_(slide.content)}}</div>
         </li>
@@ -84,32 +89,32 @@
 
         <div id="kiViewer">
           <div id="leftButton" class="chevron">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
           </div>
           <div class="window">
             <div id="keyIndicatorsList">
               <div id="consultationsPanel" class="panel keyIndicator">
-                <div  class="kiNumber" > <div id="number_of_consultations" class="kiValue">#</div> </div> 
+                <div  class="kiNumber" > <div id="number_of_consultations" class="kiValue">#</div> </div>
                 <div class="kiLabel">   {{_('consultations in total')}}</div>
               </div>
               <div id="casesPanel" class="panel keyIndicator">
-		          <div  class="kiNumber" > <div id="number_of_cases" class="kiValue">#</div> </div> 
+		          <div  class="kiNumber" > <div id="number_of_cases" class="kiValue">#</div> </div>
                 <div class="kiLabel"> {{_('cases reported') }} </div>
               </div>
               <div id="alertsPanel" class="panel keyIndicator ">
 
 
-		          <div  class="kiNumber" > <div id="number_of_alerts" class="kiValue">#</div> </div> 
+		          <div  class="kiNumber" > <div id="number_of_alerts" class="kiValue">#</div> </div>
                 <div class="kiLabel"> {{_('alerts generated') }} </div>
               </div>
 			     <div id="facilitiesPanel" class="panel keyIndicator ">
-		          <div  class="kiNumber" > <div id="number_of_facilities" class="kiValue">#</div> </div> 
+		          <div  class="kiNumber" > <div id="number_of_facilities" class="kiValue">#</div> </div>
                 <div class="kiLabel"> {{_('facilities') }} </div>
               </div>
             </div>
           </div>
           <div id="rightButton" class="chevron">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"> 
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
           </div>
 		  </div>
 
@@ -121,15 +126,15 @@
       </h2>
         <div class="row row-centered image-container">
           <div class="col-xs-12 col-sm-4 col-centered">
-            <img src="{{ url_for('static', filename='img/' + content.logos.country_partner) }}" id="countryLogo" ></img> 
+            <img src="{{ url_for('static', filename='img/' + content.logos.country_partner) }}" id="countryLogo" ></img>
           </div>
           {% for logo in content.logos.partners %}
 	     <div class="col-xs-12 col-sm-4 col-centered">
-            <img src="{{ url_for('static', filename='img/' + logo) }}" ></img> 
+            <img src="{{ url_for('static', filename='img/' + logo) }}" ></img>
           </div>
           {% endfor %}
           <div class="col-xs-12 col-sm-4 col-centered">
-              <img src="{{ url_for('static', filename='img/' + content.logos.who) }}" id="whoLogo" ></img> 
+              <img src="{{ url_for('static', filename='img/' + content.logos.who) }}" id="whoLogo" ></img>
           </div>
         </div>
       {% endif %}
@@ -148,7 +153,7 @@
       <ul class="list-group col-sm-8 col-xs-12 col-md-6" id="reportsList">
       </ul>
 
-    </div><!-- /.container --> 
+    </div><!-- /.container -->
 
 {% endblock %}
 
@@ -167,6 +172,3 @@
 {% block pageJS %}
 	{% include 'homepage/pageJS.html' %}
 {% endblock %}
-
-
-
