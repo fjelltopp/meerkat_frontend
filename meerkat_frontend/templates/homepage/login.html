@@ -26,7 +26,7 @@
         <a class="navbar-brand scroll-top" href="#">
           <img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> </img>
           <span class="hidden-xs hidden-sm">{{_(content.titles.nav|safe)}}</span>
-          <span class="visible-xs visible-sm">{{_(content.titles.mob_nav|safe)}}</span>
+          <span class="hidden-md hidden-lg hidden-xl">{{_(content.titles.mob_nav|safe)}}</span>
         </a>
       </div>
       <div class="collapse navbar-collapse" id="menu-collapse" >
