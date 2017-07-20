@@ -1,12 +1,9 @@
 {% extends 'reports/base.html' %}
 {% block title %}{{report.data.project_region|e}} &middot; {{ _('Cholera Treatment Centre Report') }} &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
 
-
 {% macro format_percent(input) %}
   {{ input.Y }} ({{ (input.Y / input.N * 100 )|int}} %)
-
 {%- endmacro %}
-
 
 {% set yesnodk = {"yes": "Yes", "no": "No", "dnk": "Don't Know", "blank": "Don't Know"} %}
 {% block body %}
@@ -23,7 +20,7 @@
 
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot;</span>
-	{{ _('Cholera Quality and Outcomes Monitoring') }}    <br /> 
+	{{ _('Cholera Quality and Outcomes Monitoring') }}    <br />
 	<span class="report-week">Facility-based survey of cholera treatment centres and units</span>
 	<span class="report-week"><br />
 
@@ -38,25 +35,25 @@
 			<div class="chart-title">{{_('Survey')}}</div>
 			<div class="chart-stage">
 				<table class="table small">
-					<tr> <td> {{_('Facilitities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
+					<tr> <td> {{_('Facilities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
 				</table>
 			</div>
 		</div>
-		
+
      <div class="chart-wrapper caseload">
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
 	 <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('Patients treated:')}}  </td> <td> {{report.overview.get("cases_total", 0)|int}}</td></tr>
-				 <tr> <td> {{_('Children under five treated:')}}  </td> <td>{{report.overview.get("cases_u5_total", 0)|int}} </td></tr>
+		 <tr> <td> {{_('Children under five treated:')}}  </td> <td>{{report.overview.get("cases_u5_total", 0)|int}} </td></tr>
                  <tr> <td> {{_('Deaths recorded:')}}  </td> <td> {{report.overview.get("deaths_total", 0)|int}}</td></tr>
                  <tr> <td> {{_('Average case fatality rate (minimum - maximum) :')}}  </td> <td> {{report.overview.cfr[0]|round(1)}} % ( {{ report.overview.cfr[1]|round(1) }}% - {{ report.overview.cfr[2]|round(1) }}% )</td></tr>
              </table>
 	 </div>
      </div>
-     
 
-   
+
+
      <div class="chart-wrapper infection-prevention">
          <div class="chart-title">{{_('Infection Prevention Control')}}</div>
          <div class="chart-stage">
@@ -103,7 +100,7 @@
              </table>
          </div>
      </div>
-	 
+
      <div class="chart-wrapper water-sanitation">
          <div class="chart-title">{{_('Water and Sanitation')}}</div>
          <div class="chart-stage">
@@ -129,12 +126,12 @@
       </div>
   </div>
 
-  
+
 </div> -->
 <div class="row">
 	<div class="col-sm-6">
 		<div class="chart-wrapper country-map">
-			<div class="chart-title clearfix">{{_('Map of Cholera Cases from surveyed facilties')}}</div>
+			<div class="chart-title clearfix">{{_('Map of Cholera Cases by bed from surveyed facilties')}}</div>
 		    <div class="chart-stage">
 			<div id="cholera-map"  class="mapbox"></div>
 		    </div>
@@ -152,6 +149,22 @@
 {% endblock body%}
 
 {% block second_body %}
+<div style='page-break-before:always'>
+    <div class="row">
+        <h1> Table of contents </h1>
+     <div class="chart-wrapper caseload">
+	 <div class="chart-title clearfix">{{_('Facilities surveyed')}}</div>
+	 <div class="chart-stage">
+             <table class="table small">
+        {% for entry in report.contents %}
+                 <tr> <td> {{entry[0]}}  </td> <td> {{entry[1] + report.contents_offset}}</td></tr>
+        {% endfor %}
+             </table>
+	 </div>
+    </div>
+    </div>
+</div>
+<div style='page-break-before:always'></div>
 {% for ctc in report.clinic_data %}
 {% set dat = ctc.latest_data %}
 {% if ctc.status == "Surveyed" %}
@@ -189,7 +202,7 @@
 	     </table>
 	 </div>
      </div>
-     
+
      <div class="chart-wrapper caseload">
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
 	 <div class="chart-stage">
@@ -321,22 +334,22 @@
 		cholera.labels
 		)
 		); */
- var reg_data = {{extras.reg_data|safe}};
+ var dis_data = {{extras.dis_data|safe}};
 
- 
+
 	regional_map(
 		{{report.data.cholera_map|safe}},
 		{{extras.map_centre}},
-		reg_data,
+		dis_data,
 		'cholera-map'
 	);
 
-    ctc_surveyed_clinics_map(
-        {{report.data.surveyed_clinics_map.surveyed|safe}},
-        {{report.data.surveyed_clinics_map.non_surveyed|safe}},
-        'surveyed-clinic-map',
-        {{extras.map_centre}}
-    );
+     ctc_surveyed_clinics_map(
+         {{report.data.surveyed_clinics_map.surveyed|safe}},
+         {{report.data.surveyed_clinics_map.non_surveyed|safe}},
+         'surveyed-clinic-map',
+         {{extras.map_centre}}
+     );
 
  {% for ctc in report.clinic_data %}
   {% if ctc.status == "Surveyed" %}
@@ -370,7 +383,7 @@
  }
  catch(err) {
 	 $("#error").html(err.message + "<br />")
- } 
+ }
 
  </script>
 {% endblock extra_js %}

@@ -10,20 +10,17 @@ from datetime import datetime, date, timedelta
 from meerkat_frontend import app
 from meerkat_frontend import auth
 from meerkat_frontend import common as c
+from meerkat_libs import hermes, authenticate
 import dateutil.parser
 from ..common import add_domain
 import dateutil.relativedelta
-import pdfcrowd
 import json
 import os
-import shutil
-from zipfile import ZipFile, ZIP_DEFLATED
 import uuid
 import subprocess
 import time
-import requests
-from bs4 import BeautifulSoup
 from selenium import webdriver
+
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
 
 
@@ -42,7 +39,7 @@ def requires_auth():
 # NORMAL ROUTES
 @reports.route('/')
 @reports.route('/loc_<int:locID>')
-def index(locID=1):
+def index(locID=None):
     """
     Render the reports splash page (index.html).
     The reports splash page provides a form enabling user to select which
@@ -52,20 +49,21 @@ def index(locID=1):
         locID (int): The location ID of a location to be automatically loaded
             into the location selector.
     """
-
+    locID = g.allowed_location if not locID else locID
     return render_template('reports/index.html',
-                           content=current_app.config['REPORTS_CONFIG'],
+                           content=g.config['REPORTS_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
 
 
 @reports.route('/test/<report>/')
 def test(report):
-    """Serves a test report page using a static JSON file.
+    """
+    Serves a test report page using a static JSON file.
 
-       Args:
-           report (str): The report ID, from the REPORTS_LIST configuration
-           file parameter.
+    Args:
+        report (str): The report ID, from the REPORTS_LIST configuration
+        file parameter.
     """
 
     report_list = current_app.config["REPORTS_CONFIG"]['report_list']
@@ -104,7 +102,7 @@ def test(report):
             report=data,
             extras=extras,
             address=current_app.config['REPORTS_CONFIG']["address"],
-            content=current_app.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG']
         )
     else:
         abort(501)
@@ -137,20 +135,33 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
             start_date=start_date
         )
 
-        relative_url = url_for('.report',
-                                report=report,
-                                location=None,
-                                end_date=None,
-                                start_date=None)
+        relative_url = url_for(
+            report_list[report].get('email_report_format', 'reports.report'),
+            report=report,
+            location=None,
+            end_date=None,
+            start_date=None
+        )
         report_url = c.add_domain(relative_url)
 
+        # Use meerkat_auth to authenticate the email's report link
+        # Only do this if an access account is specified for the email
+        email_access = report_list.get(report, {}).get('email_access_account', {})
+        app.logger.debug('Email access {}'.format(email_access))
+        if email_access:
+            app.logger.warning('Authenticating')
+            token = authenticate(
+                email_access.get('username'),
+                email_access.get('password')
+            )
+            if token:
+                report_url += "?meerkat_jwt=" + str(token)
 
-        #Use env variable to determine whether to fetch image content from external source or not
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
+        # Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:
             content_url = c.add_domain('/static/')
-
 
         if email_format == 'html':
             email_body = render_template(
@@ -158,17 +169,17 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
             )
         elif email_format == 'txt':
-            email_body = render_template(
+            email_body = '<plaintext>' + render_template(
                 ret['template_email_plain'],
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
             )
@@ -246,6 +257,8 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
 
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
+        app.logger.debug("creating report")
+
         ret = create_report(
             config=current_app.config,
             report=report,
@@ -254,13 +267,27 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date=start_date
         )
 
-        relative_url = url_for('reports.report',
-                               report=report,
-                               location=location,
-                               end_date=end_date,
-                               start_date=start_date)
+        relative_url = url_for(
+            report_list[report].get('email_report_format', 'reports.report'),
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
 
-        report_url = c.add_domain(relative_url)
+        report_url = current_app.config['LIVE_URL'] + relative_url
+
+        # Use meerkat_auth to authenticate the email's report link
+        # Only do this if an access account is specified for the email
+        email_access = report_list.get(report, {}).get('email_access_account', {})
+        if email_access:
+            app.logger.warning('Authenticating')
+            token = authenticate(
+                email_access.get('username'),
+                email_access.get('password')
+            )
+            if token:
+                report_url += "?meerkat_jwt=" + str(token)
 
         # Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
@@ -273,7 +300,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
         )
@@ -283,7 +310,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
         )
@@ -291,7 +318,6 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         epi_week = ret['report']['data']['epi_week_num']
         start_date = datetime_from_json(ret['report']['data']['start_date'])
         end_date = datetime_from_json(ret['report']['data']['end_date'])
-
 
         if report_list[report]['default_period'] == 'month':
             subject = '{test_subject}{country} | {title} ({start_date} - {end_date})'.format(
@@ -327,7 +353,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         }
 
         # Publish the message to hermes
-        r = c.hermes('/publish', 'PUT', message)
+        r = hermes('/publish', 'PUT', message)
 
         print(r)
         succ = 0
@@ -380,6 +406,14 @@ def report(report=None, location=None, end_date=None, start_date=None):
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
 
+        pdf_url = url_for(
+            'reports.pdf_report',
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
+
         ret = create_report(
             config=current_app.config,
             report=report,
@@ -395,7 +429,8 @@ def report(report=None, location=None, end_date=None, start_date=None):
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address'],
-            content=current_app.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG'],
+            pdf_url=pdf_url
         )
 
         return html
@@ -462,7 +497,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.get(initial_url) # Get the api url
         domain = url.split("://")[-1].split("/")[0]
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
-                      "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
+                      "value": auth.get_token(), 'path': '/','expires': None}
 
         current_app.logger.info("Getting URL")
         driver.add_cookie(cookie_sel)
@@ -473,12 +508,11 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
 
 
         # Page format
-        pageFormat = '''this.paperSize = {{width: {}, height: {} ,format: "{}px*{}px", orientation: "{}" , margin: {} }};'''.format(width,
-                                                                                                                                    height,
-                                                                                                                                    width,
-                                                                                                                                    height,
-                                                                                                                                    orientation,
-                                                                                                                                    margins)
+
+        pageNumbering = "footer: {height: \"1cm\", contents: phantom.callback(function(pageNum, numPages) { if (pageNum == 1) { return \"\"; } return \" <div align='center'>\" + pageNum + \"</div>\";})}"
+
+        pageFormat = "this.paperSize = {width: " + str(width) + " , height: "+str( height )+"  ,format: \"" + str( width ) + "px*" + str( height ) + "px\", orientation:\"" + str( orientation ) + "\", margin: "+str( margins ) + ", " + pageNumbering + "};"
+
         current_app.logger.info("Rendering URL")
         execute(pageFormat, [])
 
@@ -501,8 +535,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
             tmp_file = tmp_file + "_small"
         with open(tmp_file, "rb") as f:
             pdf = f.read()
-        #os.remove(tmp_file)
-
+        os.remove(tmp_file)
         return Response(pdf, mimetype='application/pdf')
 
     else:
@@ -628,33 +661,40 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
 
     # try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
-    access = report_list[report].get( 'access', '' )
+    access = report_list[report].get('access', '')
 
     # Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:
-        auth.check_auth( [access], [current_app.config['SHARED_CONFIG']['auth_country']] )
+        auth.check_auth(
+            [access],
+            [current_app.config['SHARED_CONFIG']['auth_country']]
+        )
 
     if not location:
         location = current_app.config['REPORTS_CONFIG']['default_location']
 
     api_request = '/reports'
     api_request += '/' + report_list[report]['api_name']
-    if( location != None ): api_request += '/' + str(location)
+    if location is not None:
+        api_request += '/' + str(location)
+    app.logger.debug('setting start date and end date')
     if start_date is None and end_date is None:
         if "default_period" in report_list[report].keys():
             period = report_list[report]["default_period"]
-
             today = datetime.today()
+            app.logger.debug('Default period specified')
             if period == "week":
+                app.logger.debug('Default period is week')
                 epi_week = c.api('/epi_week')
                 # Calulation for start date is: month_day - ( week_day-week_offset % 7) - 7
                 # The offset is the #days into the current epi week.
                 offset = (today.weekday() - epi_week["offset"]) % 7
                 # Start date is today minus the offset minus one week.
                 start_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 7)
+                app.logger.debug('start date is ' + str(start_date))
                 # End date is today minus the offset, minus 1 day (because our end date is "inclusive")
                 end_date = datetime(today.year, today.month, today.day) - timedelta(days=offset + 1)
-
+                app.logger.debug('start date is ' + str(end_date))
             elif period == "month":
                 start_date = datetime(today.year, today.month, 1) - dateutil.relativedelta.relativedelta(months=1)
                 end_date = datetime(today.year, today.month, 1) - timedelta(days=1)
@@ -664,6 +704,8 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             if start_date and end_date:
                 start_date = start_date.isoformat()
                 end_date = end_date.isoformat()  # To include the the end date
+
+
     if(end_date is not None):
         api_request += '/' + end_date
     if(start_date is not None):
@@ -676,6 +718,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         else:
             params = None
 
+    app.logger.debug('Getting data')
     data = c.api(api_request, api_key=True, params=params)
     data["flag"] = config["FLAGG_ABR"]
 
@@ -702,7 +745,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
         extras['map_centre'] = report_list[report].get('map_centre', ())
         extras['reg_data'] = c.api("/geo_shapes/region")
         extras['dis_data'] = c.api("/geo_shapes/district")
-    elif report in ['afro', 'plague', 'ctc']:
+    elif report in ['afro', 'plague', 'ctc', 'sc']:
         extras = {}
         extras['map_centre'] = report_list[report]['map_centre']
         extras['reg_data'] = c.api("/geo_shapes/region")

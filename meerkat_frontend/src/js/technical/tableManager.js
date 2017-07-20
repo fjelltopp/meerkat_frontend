@@ -30,10 +30,10 @@ function drawTable( containerID, data, no_total, linkFunction ){
 	var weeks = lastWeeks( get_epi_week(), 3 );
 
 	//Table headers.
-	table = '<table class="table table-hover table-condensed"><tr>' +
+	table = '<table class="table table-hover table-condensed"><thead><tr>' +
 	    '<th>' + data.title + '</th><th>' +i18n.gettext('Week') +' '+ weeks[0] + '</th>' +
 	    '<th>' +i18n.gettext('Week') +' '+ weeks[1] + '</th><th>' +i18n.gettext('Week') +' '+ weeks[2] + '</th>' +
-	    '<th>' + i18n.gettext('This Year') +'</th></tr>';
+	    '<th>' + i18n.gettext('This Year') +'</th></tr></thead><tbody>';
 
 	//For each data category, assemble a html string listing data for the three weeks and the year.
 	for (var i =0; i< data.labels.length;i++){
@@ -49,12 +49,12 @@ function drawTable( containerID, data, no_total, linkFunction ){
 
 		if(data.yearPerc){
 
-			table += "<td>" + format(data.week[i]) + " <div class='table-percent'>(" +
-			                                             data.weekPerc[i] + "%)</div></td>" +
+			table += "<td>" + format(data.week[i]) + " <div class='table-percent'>(" +(
+			    data.weekPerc[i] ? data.weekPerc[i]: "0") + "%)</div></td>" +
 			         "<td>" + format(data.week1[i]) + " <div class='table-percent'>(" +
-			                                             data.week1Perc[i] + "%)</div></td>" +
+			    (data.week1Perc[i] ? data.week1Perc[i]: "0") + "%)</div></td>" +
 			         "<td>" + format(data.week2[i]) + " <div class='table-percent'>(" +
-			                                             data.week2Perc[i] + "%)</div></td>" +
+			    (data.week2Perc[i] ? data.week2Perc[i]: "0") + "%)</div></td>" +
 			         "<td>" + format(data.year[i]) + " <div class='table-percent'>(" +
 			                                             data.yearPerc[i] + "%)</div></td></tr>";
 		}else{
@@ -81,7 +81,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 		}
 	}
 
-	table+="</tr></table>";
+	table+="</tr></tbody></table>";
 
 	//Draw it!
 	$('#'+containerID).html(table);
@@ -183,11 +183,11 @@ function drawImprovedTable( containerID, data, no_total, linkFunction, tableOpti
         }
         if(data.yearPerc){
             week0Label = format(data.week[i]) + " <div class='table-percent'>(" +
-                data.weekPerc[i] + "%)</div>";
+                (data.weekPerc[i] ? data.weekPerc[i]:0) + "%)</div>";
             week1Label = format(data.week1[i]) + " <div class='table-percent'>(" +
-                data.week1Perc[i] + "%)</div>";
+				(data.week1Perc[i] ? data.week1Perc[i]:0) + "%)</div>";
             week2Label = format(data.week2[i]) + " <div class='table-percent'>(" +
-                data.week2Perc[i] + "%)</div>";
+                (data.week2Perc[i] ? data.week2Perc[i]:0) + "%)</div>";
             yearLabel = format(data.year[i]) + " <div class='table-percent'>(" +
                 data.yearPerc[i] + "%)</div>";
         }else{
@@ -1225,9 +1225,9 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
 
         // console.log("XXX: loc_record:");
         // console.log(loc_record);
-        for (var l = 0; l < loc_record.length; l++)
+        for (var l = 1; l < loc_record.length+1; l++)
         {
-            table_datum["week" + l] = loc_record[l][1];
+            table_datum["week" + l ] = loc_record[l-1][1];
         }
 
         // console.log("XXX: table datum:");
@@ -1251,12 +1251,12 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         }];
 
     //Add column for every previous week:
-    for (var k = 0; k < noWeeks; k++){
+    for (var k = 1; k <= noWeeks; k++){
         if( start_week ){
             if(k >= start_week){
                 columns.push({
                     "field": "week" + k,
-                    "title": "S" + k,
+                    "title": "S" + k ,
                     "align": "center",
                     "class": "value",
                     "cellStyle": createCompletenessMatrixCellTab()
@@ -1292,22 +1292,22 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         sortOrder: 'asc'
 		});
 
-    console.log(table[0]);
+    // console.log(table[0]);
     var rowLength = table[0].rows.length;
     var count = 0;
     var row = table[0].rows[1].cells[0].innerHTML;
     var saveIndex = 0;
 
-    console.log(rowLength, row);
+    // console.log(rowLength, row);
 
     for (i = 1; i < rowLength; i++) {
         if (row === table[0].rows[i].cells[0].innerHTML) {
-            console.log('yes, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
+            // console.log('yes, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             count++;
 
             if(i == rowLength - 1)
             {
-                console.log('last entry, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
+                // console.log('last entry, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             	  mergeRows('#' + containerID + ' table',saveIndex, count);
             }
 
@@ -1318,7 +1318,7 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
             saveIndex = i - 1;
             count = 1;
 
-            console.log('no, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
+            // console.log('no, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             /*
             */
         }
@@ -1622,10 +1622,97 @@ function createCompletenessMatrixCellTab(){
 }
 
 function mergeRows(contener, index, rowspan) {
-    console.log('merging,', index + ',', rowspan);
+    // console.log('merging,', index + ',', rowspan);
     $(contener).bootstrapTable('mergeCells', {
         index: index,
         field: 'region',
         rowspan: rowspan
+    });
+}
+
+
+/**:drawClinicPrescriptionTable(containerID)
+
+    Draws the table of alerts used on the Alerts tab. Lists each alert according to date
+    and provides links to the individual Alert Investigation reports. Rather than loading JSON
+    data inside the method, it is passed as arguments to the method so that JSON requests
+    can be shared across multiple drawings.
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param [object] alerts:
+        An array of alert objects as returned by Meerkat API `/alerts`.
+    :param object variables:
+        An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
+        Specifically used to print the variable name instead of ID.
+ */
+function drawClinicPrescriptionTable(containerID, locID){
+
+    $.getJSON( api_root + "/prescriptions/" + locID, function( data ){
+
+        //for(var a in data.clinic_table){
+
+        var columns = [
+                {
+                    field: "clinic_name",
+                    title: i18n.gettext('Clinic'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "medicine_name",
+                    title: i18n.gettext('Medicine'),  // TODO: use glossary.
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "min_date",
+                    title: i18n.gettext('First Prescription'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "max_date",
+                    title: i18n.gettext('Latest Prescription'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "total_prescriptions",
+                    title: i18n.gettext('Total doses prescribed'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                },{
+                    field: "str_stock",
+                    title: i18n.gettext('Stock'),
+                    align: "center",
+                    class: "header",
+                    sortable: true,
+                    "sorter": function percs(a,b){
+                        a = ((a == '-') ? '-' : Number(a.split('%')[0]));
+                        b = ((b == '-') ? '-' : Number(b.split('%')[0]));
+                        if(a < b || b == '-') return 1;
+                        if (a > b || a == '-') return -1;
+                        return 0;},
+                }
+            ];
+
+        // First destroy any pre-existing table.
+        $('#' + containerID + ' table').bootstrapTable('destroy');
+        $('#' + containerID + ' table').remove();
+        $('#' + containerID ).append('<table class="table"></table>');
+        var table = $('#' + containerID + " table").bootstrapTable({
+            columns: columns,
+            data: data.medicine_table,
+            search: true,
+            classes: 'table table-no-bordered table-hover',
+            pagination: true,
+            pageSize: 50,
+            sortName: 'str_stock',
+            sortOrder: 'desc'
+        });
+        return table;
+
     });
 }

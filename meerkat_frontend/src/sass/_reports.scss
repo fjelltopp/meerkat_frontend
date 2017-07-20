@@ -330,7 +330,11 @@ table.refugee.small{
 #ncd-mapbox-panel .chart-stage{
     height:600px;
 }
-
+.chart-stage-cd{
+    .mapbox {
+        min-height:500px;
+    }
+}
 .facility-title{
     margin: 60px 0px 20px;
     position: relative;
@@ -400,3 +404,26 @@ table.refugee.small{
         height: 350px;
 }
 
+.htmlreport .download{
+    height: 50px;
+    padding:10px;
+    margin: 0px 15px;
+    color: #FFF;
+    font-size: 15px;
+    cursor: pointer;
+
+    span{
+        font-size:25px;
+        padding-right:5px;
+        top: 5px;
+    }
+}
+
+.htmlreport .download:focus, {
+    background: $highlight;
+    text-decoration: none;
+}
+
+.htmlreport .download:hover{
+    text-decoration: none;
+}

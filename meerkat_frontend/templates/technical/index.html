@@ -33,7 +33,8 @@
 	var api_root = "{{config['EXTERNAL_API_ROOT']}}";
     var config = {{config['TECHNICAL_CONFIG']|tojson|safe}};
     var language = {{g.get("language")|tojson|safe}};
-	var week = {{week.epi_week|safe}};
+    var week = {{week.epi_week|safe}};
+    var allowed_location = {{g.allowed_location|safe}}
 
 	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 

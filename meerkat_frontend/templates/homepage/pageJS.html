@@ -68,31 +68,19 @@ var auth_root = "{{content.auth_root}}";
 
    //SHOW THE KEY_INDICATORS ----------------------------------------------
 
-    $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/key_indicators", function( category ){
+ $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/key_indicators", function( category ){
         $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/tot_map", function( map ){
             $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_alerts", function( alerts ){
                 $.getJSON( "{{config['EXTERNAL_API_ROOT']}}/num_clinics", function( clinics ){
 
                     // Use an indicator structure so we can process all indicators equally.
-                    var indicators = [{
-                        'id': '#number_of_consultations',
-                        'value': category['reg_2'].year
-                    }, {
-                        'id': '#number_of_cases',
-                        'value': category['tot_1'].year
-                    }, {
-                        'id': '#number_of_alerts',
-                        'value': alerts.num_alerts
-                    }, {
-                        'id': '#number_of_facilities',
-                        'value': clinics.total
-                    }];
+                    var indicators = {{content.key_indicators|safe}};
 
                     // Process each indicator
                     for(var i in indicators){
 
                         var indicator = indicators[i];
-
+                        indicator.value = eval(indicator.value);
                         // 7 digit figures over flow the box, so shorthand big numbers.
                         if(parseFloat(indicator.value) > 999999){
                             var millions = indicator.value/1000000;
@@ -100,9 +88,16 @@ var auth_root = "{{content.auth_root}}";
                             indicator.value = millions + "<span style='font-size:23px'> million</span>";
                         }
 
+                        var html = '<div id="consultationsPanel" class="panel keyIndicator">' +
+                                   '<div class="kiNumber" > <div id="' + indicator.id +
+                                   '" class="kiValue">' + indicator.value + '</div> </div>' +
+                                   '<div class="kiLabel">' + i18n.gettext(indicator.text) + '</div></div>';
+
                         // Draw the indicator value
-                        $(indicator.id).html(indicator.value);
+                        $('#keyIndicatorsList').append(html);
                     }
+
+                    if($('#kiViewer .window').width() < 210*indicators.length) $('#kiViewer .chevron').toggleClass('hidden');
                 });
             });
         });

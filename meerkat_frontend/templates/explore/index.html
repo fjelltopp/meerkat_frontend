@@ -47,7 +47,7 @@
                 </div>
                 <div class='col-xs-6 less-padding-col'>
                     <div class="form-group">
-                        <label> {{ _('End Date:') }} </label> 
+                        <label> {{ _('End Date:') }} </label>
                         <div class='input-group date cross-option timeline-option' id='end-date' name='end_date' value=''>
                             <input type='text' class="form-control explore-date" />
                             <span class="input-group-addon">
@@ -60,9 +60,9 @@
             <div class="row">
                 </table>
                 <div class="col-xs-12 less-padding-col exploreChart" >
-                    <div class="row">        
+                    <div class="row">
                         <div class="box cornerBox" >
-                            <span class="glyphicon glyphicon-transfer" id="transpose-button" 
+                            <span class="glyphicon glyphicon-transfer" id="transpose-button"
                                   onclick="callTranspose();" title="Flip axis" >
                             </span>
                         </div>
@@ -70,7 +70,7 @@
                             <div class="axis-selector">
                             </div>
                             <div class="options">
-                                <span class="glyphicon glyphicon-check" 
+                                <span class="glyphicon glyphicon-check"
                                       id="toggle-selected" onClick="toggleSelected(this);" table="cross-table"
                                       title="{{ _('Hide not selected rows/Show hidden rows') }}" value="shown" >
                                 </span>
@@ -83,7 +83,7 @@
                                       value=true name="colour">
                                 </span>
                                 <span class="glyphicon glyphicon-save cross-option" id="save-csv"
-                                      onClick='$("#cross-table").tableExport({"type":"xls", "fileName": "data"});' 
+                                      onClick='$("#cross-table").tableExport({"type":"xls", "fileName": "data"});'
                                       title="{{ _('Download Excel') }}" value="" name="excel">
                                 </span>
                             </div>
@@ -104,21 +104,21 @@
                         <div class="row">
                             <div class="box timeline-toolbar" >
                                 <div class="options">
-                                    <span class="glyphicon glyphicon-check" 
-                                          id="toggle-selected" onClick="toggleSelected(this);" 
-                                          title="Hide not selected rows/Show hidden rows" 
+                                    <span class="glyphicon glyphicon-check"
+                                          id="toggle-selected" onClick="toggleSelected(this);"
+                                          title="Hide not selected rows/Show hidden rows"
                                           table="timeline-table" value="shown" >
                                     </span>
                                     <span class="glyphicon glyphicon-resize-small timeline-option" id="strip-button"
-                                          onClick="callStrip(this);" title="{{ _('Hide/show empty records') }}" 
+                                          onClick="callStrip(this);" title="{{ _('Hide/show empty records') }}"
                                           table="timeline-table" value=true name="strip">
                                     </span>
                                     <span class="glyphicon glyphicon-pencil timeline-option" id="colour-button"
-                                          onClick="callColour(this);" title="{{_('Colour the table') }}" 
+                                          onClick="callColour(this);" title="{{_('Colour the table') }}"
                                           table="timeline-table" value=true name="colour">
                                     </span>
                                     <span class="glyphicon glyphicon-save" id="save-csv"
-                                          onClick='$("#timeline-table").tableExport({"type":"xls", "fileName": "data"});' 
+                                          onClick='$("#timeline-table").tableExport({"type":"xls", "fileName": "data"});'
                                           title="{{_('Download Excel') }}" >
                                     </span>
                                 </div>
@@ -146,6 +146,7 @@ $('.menu-explore').addClass('active');
 var config = {{content|tojson|safe}};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 var week = {{week.epi_week}};
+var allowed_location = {{g.allowed_location|safe}}
 loadLocationTree({locID:{{loc}}});
  //Respond to the user pressing forward or back by loading the correct page content.
  window.onpopstate = function(event) {
@@ -154,7 +155,7 @@ loadLocationTree({locID:{{loc}}});
 
 //Add the api key to any ajax requests.
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-    options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) // 
+    options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) //
 });
 
 $( function(){
@@ -165,10 +166,10 @@ $( function(){
          $("#wrapper").toggleClass("toggled");
          $(".location-box .glyphicon").toggleClass( "hidden" );
      });
-     
+
      //Load the date/week
      $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
-	 
+
      //Draw axis category selectors.
      var axisSelector = "<select>"
      for( var i in config.categories ){
@@ -177,24 +178,24 @@ $( function(){
      }
      axisSelector += "</select>";
      $('.axis-selector').html(axisSelector);
-	 
+
      //Draw date/time pickers.
      d = new Date();
      $('#start-date').datetimepicker({
          useCurrent: false,
-         defaultDate: moment.utc(d.getFullYear()+"-01-01 00:00:00 "),
+         defaultDate: moment.utc(d.getFullYear()+"-01-01T00:00:00Z"),
          format: "DD/MM/YYYY",
          locale: language,
-		 minDate: "2014-01-01"
+		 minDate: moment.utc("2014-01-01T00:00:00Z")
      });
      $('#end-date').datetimepicker({
          useCurrent: true,
          defaultDate: d.toISOString(),
          format: "DD/MM/YYYY",
          locale: language,
-		 minDate: "2014-01-01"
+		 minDate: moment.utc("2014-01-01T00:00:00Z")
      });
-	 
+
      //Add a listener to the axis selectors, update table upon change.
      $('.axis-selector').change( function(){
          //If any of the axis change, we remove the timeline
@@ -210,7 +211,7 @@ $( function(){
      $('#start-date').attr('value', value );
      var value = $('#end-date').data("DateTimePicker").date().add(moment().utcOffset(), "minutes").add(1, "days").toISOString();
      $('#end-date').attr('value', value );
-	 
+
      //Add listeners to update table when date/pickers change. Store the chart state in the DOM element.
      $('#start-date').on('dp.change', function() {
          var value = $('#start-date').data("DateTimePicker").date().add(moment().utcOffset(),"minutes").toISOString();
@@ -224,14 +225,14 @@ $( function(){
 		 keep_checked = true;
          reDraw();
      });
-	 
+
      //Draw a default table.
      $('.xaxis .axis-selector option[value="age"]').attr('selected',true);
      $('.yaxis .axis-selector option[value="cd_tab"]').attr('selected',true);
      // reDraw();
 });
 
-//This is called when a new location is loaded. 
+//This is called when a new location is loaded.
 //It stores the desired location ID ready to be picked up by reDraw().
  function drawCharts( locID ){
      if( typeof locID == 'undefined' ){
@@ -244,7 +245,7 @@ $( function(){
 }
 
 function createKeepRemoved(){
-     
+
    indices = []
 	 selections = $("#cross-table").bootstrapTable('getSelections');
 	 console.log("Selections", selections);
@@ -276,15 +277,15 @@ function createKeepRemoved(){
      return checkRemove
  }
 
-  
+
 var removed = false;
 function toggleSelected(element){
      console.log("toggle")
      var table = $(element).attr('table');
-     if( $(element).attr('value') == 'shown' ){ 
+     if( $(element).attr('value') == 'shown' ){
         $(element).attr('value','hidden');
 	 removed = true;
-         var indexes = [];  
+         var indexes = [];
          $("#" + table + " input[name='btSelectItem']:not(:checked)").each( function(){
              $("#" + table ).bootstrapTable('hideRow', {
                 index: $(this).attr('data-index')
@@ -305,13 +306,13 @@ function showSpinners( show ){
     if( typeof( show ) == "undefined" ) show = true;
 
     if( show ){
-        $('#cross-wrapper').html( 
-            "<img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>" 
+        $('#cross-wrapper').html(
+            "<img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>"
         );
 
         if(timelineDrawn){
-            $('#timeline-wrapper').html( 
-                "<img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>" 
+            $('#timeline-wrapper').html(
+                "<img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>"
             );
         }
     }else{
@@ -346,24 +347,24 @@ function reDraw(){
         timelineOptions[$(this).attr('name')] = $(this).attr('value');
     });
 
-     
+
     console.log( crossOptions );
     console.log( timelineOptions );
-     
+
     if (keep_checked){
 	  //Draw new chart
-	  createCrossPlot( $('.xaxis .axis-selector select').val(), 
-			  $('.yaxis .axis-selector select').val(), 
-			  crossOptions, check_function 
+	  createCrossPlot( $('.xaxis .axis-selector select').val(),
+			  $('.yaxis .axis-selector select').val(),
+			  crossOptions, check_function
     );
 	  keep_checked = false;
      }else{
-	 createCrossPlot( $('.xaxis .axis-selector select').val(), 
+	 createCrossPlot( $('.xaxis .axis-selector select').val(),
 			  $('.yaxis .axis-selector select').val(),
 			  crossOptions)
      }
 
-			  
+
     //If the timeline has been drawn, we redraw it with new information
     if(timelineDrawn){
          createTimeline( timelineId,
@@ -381,7 +382,7 @@ function callColour(element){
     reDraw();
 }
 
-//Function that updates the strip-empty-records option value. 
+//Function that updates the strip-empty-records option value.
 function callStrip(element){
 
     var value = $(element).attr("value");
