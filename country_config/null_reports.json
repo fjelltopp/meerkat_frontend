@@ -9,7 +9,8 @@
         "url":"public_health",
         "start_date":"2015-12-17T00:00:00.000Z",
         "period":"week",
-        "access":"registered"
+        "access":"registered",
+        "locations":[1,6,9]
     },{
         "name":"Communicable Disease Profile",
         "introduction":"This report summarises the state of communicable disease public health in the selected location.",
@@ -38,6 +39,14 @@
         "start_date":"2015-12-17T00:00:00.000Z",
         "period":"month",
         "access":"registered"
+    },{
+        "name":"Epi Monitoring Report",
+        "introduction":"Epi monitoring report.",
+        "url":"epi_monitoring",
+        "start_date":"2015-12-17T00:00:00.000Z",
+        "period":"week",
+        "access":"registered",
+        "locations":[1,2,3]
     }],
 
     "report_list": {
@@ -116,7 +125,8 @@
             "email_from_address": "demo@emro.info",
             "test_json_payload": "meerkat_frontend/apiData/report_testing/epi_monitoring.json",
             "default_period": "week",
-            "access": "registered"
+            "access": "registered",
+            "locations":[1,2,3]
         },
         "vaccination": {
             "title": "Vaccination Report",

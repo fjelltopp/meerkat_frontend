@@ -663,6 +663,13 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     access = report_list[report].get('access', '')
 
+    # Abort if the location is not allowed
+    allowedLocations = report_list[report].get('locations', None)
+    if allowedLocations and int(location) not in allowedLocations:
+        abort(400, "Report not available for location (id: {})".format(
+            location
+        ))
+
     # Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:
         auth.check_auth(
