@@ -301,7 +301,9 @@ function createTimeline(id, cat, options, title){
 		}
 
 		if( title === undefined){
-			title = i18n.gettext("#Cases with ")+ i18n.gettext(variable.name);
+			if(variable.name !== undefined){
+				title = i18n.gettext("#Cases with ") + i18n.gettext(variable.name);
+			}
 		}
 		var columns = [
             {

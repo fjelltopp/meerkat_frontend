@@ -67,7 +67,7 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         self.assertIn(b"Subscribe", rv.data)
 
     @mock.patch('random.random')
-    @mock.patch('meerkat_frontend.common.hermes')
+    @mock.patch('meerkat_libs.hermes')
     def test_subscribed(self, mock_hermes, mock_random):
         """Test that the subscribed page is correctly shown."""
 
@@ -103,7 +103,7 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         self.assertTrue( mock_hermes.call_args_list[1][0][0:2] == ('/email', 'PUT') )
         self.assertTrue( mock_hermes.call_args_list[3][0][0:2] == ('/sms', 'PUT') )
 
-    @mock.patch('meerkat_frontend.common.hermes')
+    @mock.patch('meerkat_libs.hermes')
     def test_verify( self, mock_hermes ):
         """Test that the verify step responds correctly."""
 
@@ -134,7 +134,7 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         self.assertIn(b'verify your contact details', rv.data)
         self.assertIn(b'+441234567890', rv.data)
 
-    @mock.patch('meerkat_frontend.common.hermes')
+    @mock.patch('meerkat_libs.hermes')
     def test_verified( self, mock_hermes ):
         """Test that the verified step responds correctly."""
 
@@ -169,14 +169,14 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         self.assertEqual(urlparse(rv.location).path, '/en/messaging/subscribe/verify/' + subscriber_id)
 
     @mock.patch('random.random')
-    @mock.patch('meerkat_frontend.common.hermes')
-    def test_sms_code( self, mock_hermes, mock_random ):
+    @mock.patch('meerkat_libs.hermes')
+    def test_sms_code(self, mock_hermes, mock_random):
         """Test that the function that sets and checks sms codes."""
 
-        #Create the correct mocked responses.
+        # Create the correct mocked responses.
         subscriber_id = 'TESTSUBCRIBERID'
         subscribe_get_response = {
-            'Item':{
+            'Item': {
                 'id': subscriber_id,
                 'first_name': 'Testy',
                 'last_name': 'McTestface',
@@ -187,43 +187,65 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
                 'verified': True
             }
         }
-        verify_get_response = { "message": "Subscriber verified" }
-        verify_post_response_correct = { "matched": True }
-        verify_post_response_incorrect = { "matched": False }
-        sms_put_response = { "messages": [{"status": 0}] }
+        verify_get_response = {"message": "Subscriber verified"}
+        verify_post_response_correct = {"matched": True}
+        verify_post_response_incorrect = {"matched": False}
+        sms_put_response = {"messages": [{"status": 0}]}
 
-        #Test the GET method.
-        mock_hermes.side_effect = [subscribe_get_response, {}, sms_put_response ]
+        # Test the GET method.
+        mock_hermes.side_effect = [
+            subscribe_get_response,
+            {},
+            sms_put_response
+        ]
         mock_random.return_value = 0
         rv = self.app.get('/en/messaging/subscribe/sms_code/' + subscriber_id)
         self.assertIn(rv.status_code, [302])
-        self.assertEqual(urlparse(rv.location).path, '/en/messaging/subscribe/verify/' + subscriber_id)
-        mock_hermes.assert_any_call( '/subscribe/' + subscriber_id, 'GET' )
-        mock_hermes.assert_any_call( '/verify', 'PUT', { 'subscriber_id':subscriber_id, 'code': 0 } )
-        self.assertTrue( mock_hermes.call_args_list[2][0][0:2] == ('/sms', 'PUT') )
+        self.assertEqual(
+            urlparse(rv.location).path,
+            '/en/messaging/subscribe/verify/' + subscriber_id
+        )
+        mock_hermes.assert_any_call('/subscribe/' + subscriber_id, 'GET')
+        mock_hermes.assert_any_call(
+            '/verify',
+            'PUT',
+            {'subscriber_id': subscriber_id, 'code': 0}
+        )
+        self.assertTrue(
+            mock_hermes.call_args_list[2][0][0:2] == ('/sms', 'PUT')
+        )
 
-        #Test the POST method for the incorrect code.
+        # Test the POST method for the incorrect code.
         mock_hermes.reset_mock()
         mock_hermes.side_effect = [verify_post_response_incorrect]
         rv = self.app.post(
             '/en/messaging/subscribe/sms_code/' + subscriber_id,
-            data={'code':0}
+            data={'code': 0}
         )
         self.assertIn(rv.status_code, [302])
-        self.assertEqual(urlparse(rv.location).path, '/en/messaging/subscribe/verify/' + subscriber_id)
-        mock_hermes.assert_called_with( '/verify', 'POST', {'subscriber_id': subscriber_id, 'code': '0'} )
+        self.assertEqual(urlparse(rv.location).path,
+                         '/en/messaging/subscribe/verify/' + subscriber_id)
+        mock_hermes.assert_called_with(
+            '/verify', 'POST', {'subscriber_id': subscriber_id, 'code': '0'}
+        )
 
-        #Test the POST method for the correct code.
+        # Test the POST method for the correct code.
         mock_hermes.reset_mock()
-        mock_hermes.side_effect = [verify_post_response_correct, verify_get_response]
+        mock_hermes.side_effect = [
+            verify_post_response_correct,
+            verify_get_response
+        ]
         rv = self.app.post(
             '/en/messaging/subscribe/sms_code/' + subscriber_id,
-            data={'code':0}
+            data={'code': 0}
         )
         self.assertIn(rv.status_code, [302])
-        self.assertEqual(urlparse(rv.location).path, '/en/messaging/subscribe/verified/' + subscriber_id)
-        print( mock_hermes.call_args_list )
-        self.assertTrue( mock_hermes.call_args_list[0][0] == (
+        self.assertEqual(urlparse(rv.location).path,
+                         '/en/messaging/subscribe/verified/' + subscriber_id)
+        print(mock_hermes.call_args_list)
+        self.assertTrue(mock_hermes.call_args_list[0][0] == (
             '/verify', 'POST', {'subscriber_id': subscriber_id, 'code': '0'}
         ))
-        self.assertTrue( mock_hermes.call_args_list[1][0] == ('/verify/' + subscriber_id, 'GET'))
+        self.assertTrue(
+            mock_hermes.call_args_list[1][0] == ('/verify/' + subscriber_id, 'GET')
+        )

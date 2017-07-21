@@ -21,6 +21,7 @@
 <script src="{{ url_for('static', filename='js/moment.js') }}"></script>
 <script src="{{ url_for('static', filename='js/locale/fr.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-table-en-US.js') }}"></script>
 <script src="{{ url_for('static', filename='js/FileSaver.js') }}"></script>
@@ -60,7 +61,8 @@
   $('.lang-sel').html( "<a class='lang " + language + "' href='" + nextLangHref + "'>" +
                        nextLang.toUpperCase() + "</a>" );
   $(".lang-sel").attr( 'title', i18n.gettext("Choose a language") ); //Translatable tool tip.
-
+  $(".lang-sel").toggleClass('hidden');
+  
   // Handle AJAX errors.
   $( document ).ajaxError(
     function(error_event, jqXHR, ajaxSettings, thrownError ) {

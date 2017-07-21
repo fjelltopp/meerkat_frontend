@@ -610,3 +610,55 @@ function callChartOptionButton(element, redrawFunctionName){
         fn();
     }
 }
+
+function drawIndicatorsGraph( containerID, locID, data ){
+
+
+    var indKey = $('#choose-ind-id').attr("value");
+    if(indKey===undefined){
+        console.log("Undefined id");
+        indKey = 0;
+    }
+
+    indDataTimeline = data[indKey].timeline;
+    indDataTimelineKeys = Object.keys(indDataTimeline);
+    indDataName = data[indKey].name;
+
+    var noWeeks = indDataTimelineKeys.length;
+    var weeks = lastWeeks (get_epi_week(), noWeeks + 1 );
+    var timeseries = [];
+    var datapoint = [];
+
+    for (var i=0; i<indDataTimelineKeys.length;i++){
+        //Using week numbers instead of dates
+        //dropping the current week (noWeeks)
+        datapoint = [weeks[noWeeks - i],Number(indDataTimeline[indDataTimelineKeys[i]])];
+        timeseries.push(datapoint);
+    }
+
+    $('#' + containerID).highcharts({
+        title: {
+            text: indDataName
+        },
+        xAxis: {
+            title: {
+                text: 'week',
+            },
+            tickInterval: 1
+        },
+        yAxis: {
+            title: {
+                text: 'values'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+
+        series: [{
+            type: 'area',
+            name: indDataName,
+            data: timeseries
+        }]
+    });
+}

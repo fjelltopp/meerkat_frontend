@@ -1,0 +1,27 @@
+{% macro format_percent(input) %}{{ input.Y }} ({{ (input.Y / input.N * 100 )|int}}%){%- endmacro %}{% macro format_percent_2(num, denom) %}{{ num|int }}  ({{(num / denom * 100)|int if denom > 0 else "N/A"}}%){%- endmacro %}
+{{_('Dear Colleagues,\n\nWelcome to the latest Nutrition Stabilisation Centre Quality and Outcomes monitoring report from %(project_region)s.', project_region=_(report.data.project_region))}} {{_('The profile summarises information reported from %(centres)s Nutrition Stabilisation Centres up to %(end_date)s.', centres=report.overview.baseline.Y, end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY'))}}
+
+{{ _('View the latest report here:')}} {{report_url}}
+
+## {{ _('Key Findings') }} ##
+
+{{_('Beds available: %(beds)s', beds=report.overview.get("sc_beds", 0)|int)}}
+{{_('Facilities with sufficient bed capacity: %(bed_capacity)s', bed_capacity = format_percent(report.overview.sc_beds_sufficient))}}
+{{_('New admissions: %(new_admissions)s', new_admissions=report.overview.get("sc_cases", 0)|int)}}
+{{_('Cured: %(cured)s', cured=format_percent_2(report.overview.get("sc_cured", 0),report.overview.get("sc_discharge", 0)))}}
+{{_('Deaths: %(deaths)s', deaths=format_percent_2(report.overview.get("sc_deaths", 0),report.overview.get("sc_discharge", 0)))}}
+{{_('Defaulters: %(defaulters)s', defaulters=format_percent_2(report.overview.get("sc_deafault", 0),report.overview.get("sc_discharge", 0)))}}
+{{_('Discharges: %(discharges)s', discharges=report.overview.get("sc_discharge", 0)|int)}}
+{{_('F75 therapeutic milk available: %(f75)s', f75=format_percent(report.overview.sc_f75_value))}}
+{{_('F100 therapeutic milk available: %(f100)s', f100=format_percent(report.overview.sc_f100_value))}}
+{{_('ReSoMal therapeutic milk available: %(reSoMal)s', reSoMal=format_percent(report.overview.sc_resomal_value))}}
+
+## {{ _('Project Overview') }} ##
+
+{{_('A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.',
+project_region=_(report.data.project_region))}} {{_('The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.')}}
+
+{{_('Best regards,')}}
+
+Dr Mohamed Osman Mohamed
+{{_('Remote Monitoring Co-ordinator')}}

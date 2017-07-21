@@ -30,10 +30,10 @@ function drawTable( containerID, data, no_total, linkFunction ){
 	var weeks = lastWeeks( get_epi_week(), 3 );
 
 	//Table headers.
-	table = '<table class="table table-hover table-condensed"><tr>' +
+	table = '<table class="table table-hover table-condensed"><thead><tr>' +
 	    '<th>' + data.title + '</th><th>' +i18n.gettext('Week') +' '+ weeks[0] + '</th>' +
 	    '<th>' +i18n.gettext('Week') +' '+ weeks[1] + '</th><th>' +i18n.gettext('Week') +' '+ weeks[2] + '</th>' +
-	    '<th>' + i18n.gettext('This Year') +'</th></tr>';
+	    '<th>' + i18n.gettext('This Year') +'</th></tr></thead><tbody>';
 
 	//For each data category, assemble a html string listing data for the three weeks and the year.
 	for (var i =0; i< data.labels.length;i++){
@@ -81,7 +81,7 @@ function drawTable( containerID, data, no_total, linkFunction ){
 		}
 	}
 
-	table+="</tr></table>";
+	table+="</tr></tbody></table>";
 
 	//Draw it!
 	$('#'+containerID).html(table);
@@ -1523,6 +1523,86 @@ function stripRows(data){
 		return data;
 }
 
+//Prepare table-option to store a value for choosing an indicator
+function drawIndicatorsOptions(tableID){
+    var html = "<div class='table-options' id='choose-ind-id' value=0>";
+    html += "</div>";
+    $('#' + tableID ).prepend( html );
+}
+
+//Callback function for changing displayed indicator timeline
+function chooseIndicator(i){
+    $('#choose-ind-id').attr("value", i);
+    var indKey = $('#choose-ind-id').attr("value");
+    reDraw();
+}
+
+function drawIndicatorsTable( containerID, locID, data ){
+
+    var changeUp = "&#8679;";
+    var changeDown = "&#8681;";
+    var noChange = "--";
+
+    //Create a data entry for all indKeys
+    listOfIndKeys = Object.keys(data);
+    var dataPrepared = [];
+    var indDataCurrent;
+    var indDataName;
+    var changeVal;
+    var change;
+    for(i = 0; i<listOfIndKeys.length; i++){
+        var datum = {};
+        indDataCurrent = data[i].current;
+        changeVal = indDataCurrent - data[i].previous;
+        if(changeVal > 0){
+            change = changeUp;
+        }else if(changeVal < 0){
+            change = changeDown;
+        }else{
+            change = noChange;
+        }
+        indDataName = data[i].name;
+        datum.name = "<a href='' onclick='chooseIndicator(\"" + i + "\");return false;' >" + i18n.gettext(indDataName)+"</a>";
+        datum.value =  Number(indDataCurrent).toFixed(0);
+        datum.change = change;
+        dataPrepared.push(datum);
+    }
+
+    var columns = [
+        {
+            "field": "name",
+            "title": "Indicator",
+            "align": "center",
+            "class": "header",
+            sortable: true,
+            width : "60%"
+        },{
+            "field": "value",
+            "title": "Value",
+            "align": "center",
+            "class": "header",
+            sortable: true,
+            width : "25%"
+        },{
+            "field": "change",
+            "title": "Change",
+            "align": "center",
+            "class": "header",
+            sortable: true,
+            width : "15%"
+        }];
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID ).append('<table class="table"></table>');
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: dataPrepared,
+        classes: 'table-no-bordered table-hover'
+    });
+    return table;
+}
+
 function createCompletenessMatrixCellTab(){
     // Returns a function that colours in the cells according to their value
     function ccmct(value, row, index){
@@ -1612,8 +1692,8 @@ function drawClinicPrescriptionTable(containerID, locID){
                     "sorter": function percs(a,b){
                         a = ((a == '-') ? '-' : Number(a.split('%')[0]));
                         b = ((b == '-') ? '-' : Number(b.split('%')[0]));
-                        if(a < b || b == '-') return 1; 
-                        if (a > b || a == '-') return -1; 
+                        if(a < b || b == '-') return 1;
+                        if (a > b || a == '-') return -1;
                         return 0;},
                 }
             ];

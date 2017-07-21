@@ -10,6 +10,7 @@ from datetime import datetime, date, timedelta
 from meerkat_frontend import app
 from meerkat_frontend import auth
 from meerkat_frontend import common as c
+from meerkat_libs import hermes, authenticate
 import dateutil.parser
 from ..common import add_domain
 import dateutil.relativedelta
@@ -50,18 +51,19 @@ def index(locID=None):
     """
     locID = g.allowed_location if not locID else locID
     return render_template('reports/index.html',
-                           content=current_app.config['REPORTS_CONFIG'],
+                           content=g.config['REPORTS_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
 
 
 @reports.route('/test/<report>/')
 def test(report):
-    """Serves a test report page using a static JSON file.
+    """
+    Serves a test report page using a static JSON file.
 
-       Args:
-           report (str): The report ID, from the REPORTS_LIST configuration
-           file parameter.
+    Args:
+        report (str): The report ID, from the REPORTS_LIST configuration
+        file parameter.
     """
 
     report_list = current_app.config["REPORTS_CONFIG"]['report_list']
@@ -100,7 +102,7 @@ def test(report):
             report=data,
             extras=extras,
             address=current_app.config['REPORTS_CONFIG']["address"],
-            content=current_app.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG']
         )
     else:
         abort(501)
@@ -134,7 +136,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         )
 
         relative_url = url_for(
-            '.report',
+            report_list[report].get('email_report_format', 'reports.report'),
             report=report,
             location=None,
             end_date=None,
@@ -142,13 +144,24 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
         )
         report_url = c.add_domain(relative_url)
 
+        # Use meerkat_auth to authenticate the email's report link
+        # Only do this if an access account is specified for the email
+        email_access = report_list.get(report, {}).get('email_access_account', {})
+        app.logger.debug('Email access {}'.format(email_access))
+        if email_access:
+            app.logger.warning('Authenticating')
+            token = authenticate(
+                email_access.get('username'),
+                email_access.get('password')
+            )
+            if token:
+                report_url += "?meerkat_jwt=" + str(token)
 
-        #Use env variable to determine whether to fetch image content from external source or not
-        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES'])==1:
+        # Use env variable to determine whether to fetch image content from external source or not
+        if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
             content_url = current_app.config['PDFCROWD_STATIC_FILE_URL']
         else:
             content_url = c.add_domain('/static/')
-
 
         if email_format == 'html':
             email_body = render_template(
@@ -156,17 +169,17 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
             )
         elif email_format == 'txt':
-            email_body = render_template(
+            email_body = '<plaintext>' + render_template(
                 ret['template_email_plain'],
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
             )
@@ -242,8 +255,6 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         test_id = "-" + str(datetime.now().time().isoformat())
         test_sub = "TEST {} | ".format(current_app.config['DEPLOYMENT'])
 
-    app.logger.debug(test_sub)
-
     if validate_report_arguments(current_app.config, report, location, end_date, start_date):
 
         app.logger.debug("creating report")
@@ -256,15 +267,27 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
             start_date=start_date
         )
 
-        app.logger.debug(ret)
-
-        relative_url = url_for('reports.report',
-                               report=report,
-                               location=location,
-                               end_date=end_date,
-                               start_date=start_date)
+        relative_url = url_for(
+            report_list[report].get('email_report_format', 'reports.report'),
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
 
         report_url = current_app.config['LIVE_URL'] + relative_url
+
+        # Use meerkat_auth to authenticate the email's report link
+        # Only do this if an access account is specified for the email
+        email_access = report_list.get(report, {}).get('email_access_account', {})
+        if email_access:
+            app.logger.warning('Authenticating')
+            token = authenticate(
+                email_access.get('username'),
+                email_access.get('password')
+            )
+            if token:
+                report_url += "?meerkat_jwt=" + str(token)
 
         # Use env variable to determine whether to fetch image content from external source or not
         if int(current_app.config['PDFCROWD_USE_EXTERNAL_STATIC_FILES']) == 1:
@@ -277,7 +300,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
         )
@@ -287,7 +310,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
                 report=ret['report'],
                 extras=ret['extras'],
                 address=ret['address'],
-                content=current_app.config['REPORTS_CONFIG'],
+                content=g.config['REPORTS_CONFIG'],
                 report_url=report_url,
                 content_url=content_url
         )
@@ -330,7 +353,7 @@ def send_email_report(report, location=None, end_date=None, start_date=None):
         }
 
         # Publish the message to hermes
-        r = c.hermes('/publish', 'PUT', message)
+        r = hermes('/publish', 'PUT', message)
 
         print(r)
         succ = 0
@@ -383,6 +406,14 @@ def report(report=None, location=None, end_date=None, start_date=None):
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
 
+        pdf_url = url_for(
+            'reports.pdf_report',
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
+
         ret = create_report(
             config=current_app.config,
             report=report,
@@ -398,7 +429,8 @@ def report(report=None, location=None, end_date=None, start_date=None):
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address'],
-            content=current_app.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG'],
+            pdf_url=pdf_url
         )
 
         return html
@@ -465,7 +497,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.get(initial_url) # Get the api url
         domain = url.split("://")[-1].split("/")[0]
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
-                      "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
+                      "value": auth.get_token(), 'path': '/','expires': None}
 
         current_app.logger.info("Getting URL")
         driver.add_cookie(cookie_sel)
@@ -631,6 +663,13 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     access = report_list[report].get('access', '')
 
+    # Abort if the location is not allowed
+    allowedLocations = report_list[report].get('locations', None)
+    if allowedLocations and int(location) not in allowedLocations:
+        abort(400, "Report not available for location (id: {})".format(
+            location
+        ))
+
     # Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:
         auth.check_auth(
@@ -689,7 +728,6 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     app.logger.debug('Getting data')
     data = c.api(api_request, api_key=True, params=params)
     data["flag"] = config["FLAGG_ABR"]
-    app.logger.debug("DATA: " + str(data))
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:
         # Extra parsing for natural language bullet points
