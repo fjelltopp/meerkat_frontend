@@ -1,39 +1,59 @@
 <div class="top-bar row">
+
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
 			<div class="location-box__label">
-				<div id="location_box"></div>
-				<div id="location-title" class="location-title"></div>
+				<div id="location_box">Location:</div>
+				<div id="location-title" class="location-title">Not Loaded</div>
 			</div>
 			<span class="glyphicon glyphicon-chevron-right"></span>
 			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+	<div class="tab-title hidden-xs col-sm-5 col-md-6" id="title">
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 	</div>
+
 </div>
 
 <div class="demographics toggled" id="wrapper">
+
 	<div id="sidebar-wrapper">
 		<div id="location-selector" class="location-selector">
 		</div>
 	</div>
 
 	<div id="page-content-wrapper">
-		<div class="row" id="divClinicContent">
-			<!-- The Created HTML from function will insert here... -->
+
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						<p id="Tbtitle"></p>
+						<div class="box__type-selector pull-right">
+							<!-- <a href="" onclick="exportTableToXLS('clinicsTable','alerts');return false;" class="csv">
+								Excel
+							</a> -->
+						</div>
+					</div>
+					<div class="chartBox__content">
+						<div id="divClinicContent">
+							<!-- The Created HTML from function will insert here... -->
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+
 	</div>
 </div>
 <div class="breaker"></div>
 
 
-
 <script>
 	$("#title").html(i18n.gettext('Clinics'));
-
+	$("#Tbtitle").html(i18n.gettext('Clinics visits'));
 
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
@@ -55,49 +75,3 @@
 		build_clinics_page(locID);
 	}
 </script>
-
-<style>
-	/* DivTable.com */
-
-	.divTable {
-		display: table;
-		width: 100%;
-	}
-
-	.divTableRow {
-		display: table-row;
-		background-color: white;
-	}
-
-	.divTableRow:hover {
-		background-color: #e4dddd;
-	}
-
-
-	.divTableHeading {
-		background-color: #EEE;
-		display: table-header-group;
-	}
-
-	.divTableCell,
-	.divTableHead {
-		display: table-cell;
-		padding: 3px 10px;
-	}
-
-	.divTableHeading {
-		background-color: #EEE;
-		display: table-header-group;
-		font-weight: bold;
-	}
-
-	.divTableFoot {
-		background-color: #EEE;
-		display: table-footer-group;
-		font-weight: bold;
-	}
-
-	.divTableBody {
-		display: table-row-group;
-	}
-</style>
