@@ -92,7 +92,7 @@ function BuildClinicTable() {
     }
 
     //Now after adding the new and return columns i will add the Completeness column ...
-    for (i = week - 2; i <= currentWeek; i++) {
+    for (i = week - 2; i < currentWeek; i++) {
         var columnColor = "black";
         var currentTxt = "";
         if (i === week) {
@@ -165,10 +165,10 @@ function BuildClinicReturnVisits(clinicName, weeks) {
 //This function will get the completness value and put it in the right position in the array ...
 function BuildClinicCompleteness(clinicName, weeks) {
     var currentWeek = week;
-    var counter = 3; // i need the last 3 values only which represent the last 3 weeks ...
+    var counter = 2; // i need the last 3 values only which represent the last 3 weeks ...
     $.each(clinicDataArray, function(index, value) {
         if (value.clinicName.toString() === clinicName.toString()) {
-            for (i = currentWeek - 2; i <= currentWeek; i++) {
+            for (i = currentWeek - 2; i < currentWeek; i++) {
                 var itemName = i + "C";
                 value[itemName] = CalculateCompleteness(weeks[weeks.length - counter]) + ' % ';
                 counter = counter - 1;
