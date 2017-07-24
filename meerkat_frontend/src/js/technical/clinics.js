@@ -1,60 +1,51 @@
-//Global Variable ...
+function gatherClinicsData(locID) {
 
-var columnNameArray = [];
-var clinicDataArray = [];
+    // First destroyany pre-existing table.
+    $('#clinicsTable table').bootstrapTable('destroy');
+    $('#clinicsTable table').remove();
 
+    // Show a spinner to indicate that data is loading.
+    $('.spinner').show();
 
-// This will be the main function for the Clinics Page...
-function build_clinics_page(locID) {
-    var clinicsData = GatherClinicsData(locID);
-}
-
-
-
-function GatherClinicsData(locID) {
     //Clear the arrays ...
     columnNameArray = [];
     clinicDataArray = [];
 
-
-    //API URLS to get Clinisc Data ...
+    //API URLS to get Clinics Data ...
     var clinicsNewData = '/query_variable/vis_1/locations:clinic?only_loc=' + locID + '&use_ids=True';
     var clinicsReturnData = '/query_variable/vis_2/locations:clinic?only_loc=' + locID + '&use_ids=True';
     var completenessData = '/completeness/reg_1/1/6?sublevel=clinic';
     var locationAPI = "/locations";
 
-
-    BuildClinicTable();
+    buildClinicsTable();
 
     //Call the first API that return the new visits ..
     $.getJSON(api_root + clinicsNewData, function(data) {
         $.each(data, function(index, value) {
-            BuildClinicNewVisits(index, value.weeks);
+            buildClinicsNewVisits(index, value.weeks);
         });
-
 
         //Call the return API after finishing the arrange process for the "new clinic visits" ...
         $.getJSON(api_root + clinicsReturnData, function(data) {
             $.each(data, function(index, value) {
-                BuildClinicReturnVisits(index, value.weeks);
+                buildClinicsReturnVisits(index, value.weeks);
             });
 
 
             //Get the completeness data ...
             $.getJSON(api_root + completenessData, function(dataCom) {
                 $.each(dataCom.timeline, function(index, value) {
-                    BuildClinicCompleteness(index, value.values);
+                    buildClinicsCompleteness(index, value.values);
                 });
 
                 //Get the reall name for the clinics and replace the numbers with the text ...
                 $.getJSON(api_root + locationAPI, function(dataLocation) {
-                    GetClinicsNames(dataLocation);
+                    getClinicsNames(dataLocation);
 
                     //Append the table and the columns ...
-                    var bHtml = "<table id='clinicsTable' data-toggle='Table'  data-export='true' data-search='true'  class='table table-hover table-condense' style='background-color:white;'></table>";
-
-                    $('#divClinicContent').append(bHtml);
-                    $('#clinicsTable').bootstrapTable({
+                    $('.spinner').hide();
+                    $('#clinicsTable').append('<table class="table"></table>');
+                    $('#clinicsTable table').bootstrapTable({
                         columns: columnNameArray,
                         data: clinicDataArray,
                         pagination: true,
@@ -63,18 +54,17 @@ function GatherClinicsData(locID) {
                     });
 
                     //Update the table header so there is no need for scroll bar ...
-                    ChangeHeaderCss();
+                    changeHeaderCss();
                 });
             });
         });
     });
 }
 
+function buildClinicsTable() {
 
-
-function BuildClinicTable() {
     //Add the first Column ...
-    BuildTableColumn("clinicName", "Name Of Facility", "black");
+    buildTableColumn("clinicName", "Name Of Facility", "black");
 
     //Get the current week with the last two weeks, 3 weeks total ......
     var currentWeek = week;
@@ -87,8 +77,8 @@ function BuildClinicTable() {
             //currentText = " current ";
         }
         //Draw the clolumns depend on the week number ...
-        BuildTableColumn(i + "N", "Week " + i + currentText + " (new) ", columnRedStyle);
-        BuildTableColumn(i + "F", "Week " + i + currentText + " (return) ", columnRedStyle);
+        buildTableColumn(i + "N", "Week " + i + currentText + " (new) ", columnRedStyle);
+        buildTableColumn(i + "F", "Week " + i + currentText + " (return) ", columnRedStyle);
     }
 
     //Now after adding the new and return columns i will add the Completeness column ...
@@ -99,13 +89,12 @@ function BuildClinicTable() {
             columnColor = "red";
           //  currentTxt = " current ";
         }
-        BuildTableColumn(i + "C", "Week " + i + currentTxt + " (Comp.) ", columnColor);
+        buildTableColumn(i + "C", "Week " + i + currentTxt + " (Comp.) ", columnColor);
     }
 }
 
-
 //This function is responsible for building the table header ...
-function BuildTableColumn(columnId, columnName, columnColor) {
+function buildTableColumn(columnId, columnName, columnColor) {
     columnNameArray.push({
         field: columnId,
         title: i18n.gettext(columnName),
@@ -123,9 +112,7 @@ function BuildTableColumn(columnId, columnName, columnColor) {
     });
 }
 
-
-
-function BuildClinicNewVisits(clinicName, weeks) {
+function buildClinicsNewVisits(clinicName, weeks) {
     var dataObject = {};
     var currentWeek = week;
     //Add Clinic Name ...
@@ -147,9 +134,7 @@ function BuildClinicNewVisits(clinicName, weeks) {
     clinicDataArray.push(dataObject);
 }
 
-
-
-function BuildClinicReturnVisits(clinicName, weeks) {
+function buildClinicsReturnVisits(clinicName, weeks) {
     var currentWeek = week;
     $.each(clinicDataArray, function(index, value) {
         if (value.clinicName.toString() === clinicName.toString()) {
@@ -161,35 +146,30 @@ function BuildClinicReturnVisits(clinicName, weeks) {
     });
 }
 
-
 //This function will get the completness value and put it in the right position in the array ...
-function BuildClinicCompleteness(clinicName, weeks) {
+function buildClinicsCompleteness(clinicName, weeks) {
     var currentWeek = week;
     var counter = 3; // i need the last 3 values only which represent the last 3 weeks ...
     $.each(clinicDataArray, function(index, value) {
         if (value.clinicName.toString() === clinicName.toString()) {
             for (i = currentWeek - 2; i <= currentWeek; i++) {
                 var itemName = i + "C";
-                value[itemName] = CalculateCompleteness(weeks[weeks.length - counter]) + ' % ';
+                value[itemName] = calculateCompleteness(weeks[weeks.length - counter]) + ' % ';
                 counter = counter - 1;
             }
         }
     });
 }
 
-
-
 //This function will overwrite the clinic number with the name ...
-function GetClinicsNames(data) {
+function getClinicsNames(data) {
     $.each(clinicDataArray, function(index, value) {
         value.clinicName = data[value.clinicName].name;
     });
 }
 
-
-
 //This Method will return the %  percentage ...
-function CalculateCompleteness(clinicSubmitNum) {
+function calculateCompleteness(clinicSubmitNum) {
     var result = 100 * (clinicSubmitNum / config.completeness_denominator.all); // "config" is a global variable ...
     if (result > 100) {
         return 100;
@@ -197,10 +177,8 @@ function CalculateCompleteness(clinicSubmitNum) {
     return parseInt(result);
 }
 
-
-
 //This Function will update the column Style so the text will not be in one line
-function ChangeHeaderCss() {
+function changeHeaderCss() {
     $('div.th-inner').each(function() {
         $(this).css({
             'white-space': "normal"

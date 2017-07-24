@@ -38,7 +38,10 @@
 						</div>
 					</div>
 					<div class="chartBox__content">
-						<div id="divClinicContent">
+                        <div class='row-centered spinner'>
+                            <img class='col-xs-6 col-sm-4 col-md-2 col-centered' src='/static/img/spinner.gif'></img>
+                        </div>
+                    	<div id="clinicsTable">
 							<!-- The Created HTML from function will insert here... -->
 						</div>
 					</div>
@@ -70,8 +73,12 @@
 
 	$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
 
+    //Global Variable ...
+    var columnNameArray = [];
+    var clinicDataArray = [];
+
 	//This Method will call the main function that will be responsible for building the Overview page ....
 	function drawCharts(locID) {
-		build_clinics_page(locID);
+		gatherClinicsData(locID);
 	}
 </script>
