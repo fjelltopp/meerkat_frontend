@@ -74,7 +74,7 @@ function GatherClinicsData(locID) {
 
 function BuildClinicTable() {
     //Add the first Column ...
-    BuildTableColumn("clinicName", "Name Of Facility", "black");
+    BuildTableColumn("clinicName", "Facility Name", "black");
 
     //Get the current week with the last two weeks, 3 weeks total ......
     var currentWeek = week;
@@ -99,7 +99,7 @@ function BuildClinicTable() {
             columnColor = "red";
           //  currentTxt = " current ";
         }
-        BuildTableColumn(i + "C", "Week " + i + currentTxt + " (Comp.) ", columnColor);
+        BuildTableColumn(i + "C", "Week " + i + currentTxt + " (comp.) ", columnColor);
     }
 }
 
