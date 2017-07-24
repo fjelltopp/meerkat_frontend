@@ -83,11 +83,11 @@ function BuildClinicTable() {
         var currentText = "";
         if (i === week) {
             columnRedStyle = "red";
-            currentText = " current ";
+            //currentText = " current ";
         }
         //Draw the clolumns depend on the week number ...
         BuildTableColumn(i + "N", "Week " + i + currentText + " (new) ", columnRedStyle);
-        BuildTableColumn(i + "F", "Week " + i + currentText + " (follow up) ", columnRedStyle);
+        BuildTableColumn(i + "F", "Week " + i + currentText + " (return) ", columnRedStyle);
     }
 
     //Now after adding the new and return columns i will add the Completeness column ...
@@ -96,9 +96,9 @@ function BuildClinicTable() {
         var currentTxt = "";
         if (i === week) {
             columnColor = "red";
-            currentTxt = " current ";
+          //  currentTxt = " current ";
         }
-        BuildTableColumn(i + "C", "Week " + i + currentTxt + " (Completeness) ", columnColor);
+        BuildTableColumn(i + "C", "Week " + i + currentTxt + " (Comp.) ", columnColor);
     }
 }
 
