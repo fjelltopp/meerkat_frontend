@@ -58,7 +58,8 @@ function GatherClinicsData(locID) {
                         columns: columnNameArray,
                         data: clinicDataArray,
                         pagination: true,
-                        pageSize: 10
+                        pageSize: 10,
+                        classes: "table table-no-bordered table-hover"
                     });
 
                     //Update the table header so there is no need for scroll bar ...
