@@ -757,6 +757,42 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
     } );
 }
 
+/**:prepareIndicators( details )
+
+   This function is called once to gather indicators data for a given location. It displays a table of indicators and a timeline for one of them (which can be chosen from the table).
+
+   Arguments:
+   :param string locID:
+   The ID of the location for which timeliness shall be calculated.
+   :param dict indicatorsInfo:
+   Definitions of indicators from country config file
+   :param string graphID:
+   The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
+   :param string tableID:
+   The ID for the HTML element that will hold the main timeliness table.  If empty, no table is drawn.
+   */
+function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
+    var indicatorsList = indicatorsInfo.list;
+    var indicatorsData = [];
+    var deferred = [];
+
+    deferred = indicatorsList.map(function(elem, i){
+        return $.getJSON( api_root+"/indicators/" + elem.call.flags + "/" +
+                          elem.call.variables +  "/" + locID, function( data ){
+            indicatorsData[i] = data;
+        });
+    });
+
+    $.when.apply( $, deferred ).then(function() {
+        //Update indicators name which is not passed to the API:
+        for(i=0;i<indicatorsList.length;i++){
+            indicatorsData[i].name = indicatorsList[i].name;
+        }
+        drawIndicatorsGraph( graphID, locID, indicatorsData);
+        drawIndicatorsTable( tableID, locID, indicatorsData); 
+    });
+}
+
 /**:get_browser()
 
     Get's the browser name and version.  This code was lifted from the web.
