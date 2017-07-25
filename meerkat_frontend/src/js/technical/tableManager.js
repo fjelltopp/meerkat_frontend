@@ -429,6 +429,7 @@ function drawAlertsTable(containerID, alerts, variables){
             pagination: true,
             pageSize: 50,
         });
+        addPaginationListener('#' + containerID + ' table');
 
     });
 }
@@ -1038,16 +1039,16 @@ function drawPlagueTable(containerID, cases, variables){
 			data.push(datum);
         }
         $('#' + containerID).html("<table> </table>");
-		$('#' + containerID + ' table').bootstrapTable(
-			{
-				columns: columns,
-				width : "100%",
-				data: data,
-				align: "center",
-				classes: "table table-hover",
-				pagination: true,
-				pageSize: 50
-			});
+		$('#' + containerID + ' table').bootstrapTable({
+			columns: columns,
+			width : "100%",
+			data: data,
+			align: "center",
+			classes: "table table-hover",
+			pagination: true,
+			pageSize: 50
+		});
+        addPaginationListener('#' + containerID + ' table');
 	});
 }
 
@@ -1712,6 +1713,7 @@ function drawClinicPrescriptionTable(containerID, locID){
             sortName: 'str_stock',
             sortOrder: 'desc'
         });
+        addPaginationListener('#' + containerID + ' table');
         return table;
 
     });
