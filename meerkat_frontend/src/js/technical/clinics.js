@@ -53,10 +53,6 @@ function gatherClinicsData(locID) {
                         search: true,
                         classes: "table table-no-bordered table-hover"
                     });
-                    $('.page-list button.dropdown-toggle').click(function(){
-                        console.log("button click.");
-                        $('.page-list .dropdown-menu').toggle();
-                    });
 
                     addPaginationListener('#clinicsTable table');
 
@@ -76,7 +72,6 @@ function addPaginationListener(table){
 
     $(table).on('page-change.bs.table', function(){
         $('.page-list button.dropdown-toggle').click(function(){console.log('click');$('.page-list .dropdown-menu').toggle();});
-
     });
 }
 
