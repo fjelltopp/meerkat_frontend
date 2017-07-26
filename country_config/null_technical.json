@@ -29,7 +29,7 @@
         "list":[
             {"name":"Number of female patients","call":{"flags":["n"], "variables":["gen_1"]}},
             {"name":"Number of male patients","call":{"flags":["n"], "variables":["gen_2"]}},
-            { "name":"Controlled visits for hypertension patients", "call":{"flags":["d","n","v","v","r"], "variables":["visit_lab_2","visit_lab_1","visit_ncd_2", "vis_5", "0"]} }
+            { "name":"% Male", "call":{"flags":["d","n","m"], "variables":["tot_1","gen_1", "100"]} }
          ]
     },
 
@@ -51,7 +51,7 @@
 
     "tabs":[
         {
-            "name": "OverView",
+            "name": "Overview",
             "template": "overview.html"
         },
         {
@@ -182,32 +182,14 @@
             "parentId": "OvIndicators",
             "contents": [
                 {
-                    "api": "/aggregate/reg_1/<loc_id>",
-                    "label": "% Diabetes visits with measured FG",
+                    "api": "/indicators/n,d,m/gen_1,tot_1,100/<loc_id>",
+                    "label": "% Of patients are male",
                     "access": "cd",
                     "prep_function": "prep_row_indicator"
                 },
                 {
-                    "api": "/aggregate/tot_1/<loc_id>",
-                    "label": "% Diabetes visits with controlled FG",
-                    "access": "cd",
-                    "prep_function": "prep_row_indicator"
-                },
-                {
-                    "api": "/aggregate/tot_1/<loc_id>",
-                    "label": "% Hypertension visits with measured BP",
-                    "access": "cd",
-                    "prep_function": "prep_row_indicator"
-                },
-                {
-                    "api": "/aggregate/tot_1/<loc_id>",
-                    "label": "% Hypertension visits with controlled BP",
-                    "access": "cd",
-                    "prep_function": "prep_row_indicator"
-                },
-                {
-                    "api": "/aggregate/tot_1/<loc_id>",
-                    "label": "% Of patients that currently smoke",
+                    "api": "/indicators/n,d,m/gen_2,tot_1,100/<loc_id>",
+                    "label": "% Of patients are female",
                     "access": "cd",
                     "prep_function": "prep_row_indicator"
                 }

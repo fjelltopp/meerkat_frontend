@@ -16,7 +16,7 @@ function html_box_builder(overviewObj, locID) {
 
     //Build the box header...
     var html_builder = "<div  class='col-xs-12 " + overviewObj.html_class + " less-padding-col'> <div class='chartBox box' >" +
-        "<div class = 'chartBox__heading' > <p id = '#box_heading'>" + overviewObj.title + "</p> </div>" +
+        "<div class = 'chartBox__heading' > <p id = '#box_heading'>" + i18n.gettext(overviewObj.title) + "</p> </div>" +
         "<div class = 'chartBox__content' > " +
         "<div class='divTable'><div id ='" + overviewObj.parentId + "'  class='divTableBody' >";
 
@@ -37,13 +37,18 @@ function html_box_builder(overviewObj, locID) {
 function prep_row(contentsObj, parentId, locID) {
     if (isUserAthorized(contentsObj.access) === true) {
 
+		var ovPeriodType = "year";
+		if ( contentsObj.prep_details !== undefined){
+			ovPeriodType = contentsObj.prep_details.ovPeriodType;
+		}
+		
         //Generate a GUID ...
         var api_element = generateGUID();
 
         //Append the results ...
         var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell' style='font-weight: bold;'> " + contentsObj.label + "</div>" +
-            "<div class='divTableCell " + api_element + "'>Loading..</div>" +
+            "<div class='divTableCell' style='font-weight: bold;'> " + i18n.gettext(contentsObj.label) + "</div>" +
+            "<div class='divTableCell " + api_element + "'> "+ i18n.gettext("Loading") +"..</div>" +
             "</div>";
 
         $("#" + parentId).append(htmlRow);
@@ -51,8 +56,11 @@ function prep_row(contentsObj, parentId, locID) {
         // Get the inner value for the boxes by calling the APIs ...
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         $.getJSON(api_root + apiUrl, function(data) {
-
-            $('#' + parentId + ' .' + api_element).html(data.value);
+			if(ovPeriodType == "weeks"){
+				$('#' + parentId + ' .' + api_element).html(if_exists(data[ovPeriodType], week));
+			}else{
+				$('#' + parentId + ' .' + api_element).html(data[ovPeriodType]);
+			}
 
         });
 
@@ -68,7 +76,7 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
 
         //Append the results ...
         var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell' style='font-weight: bold;'> " + contentsObj.label + "</div>" +
+            "<div class='divTableCell' style='font-weight: bold;'> " + i18n.gettext(contentsObj.label) + "</div>" +
             "</div>" +
             "<div class='divTableRow'>" +
             "<div class = 'container' > <ul  id = '" + api_element + "' > </ul></div >" +
@@ -130,7 +138,7 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
                     if (detailData[value] !== undefined) {
                         //  $('#' + api_element).append("<li>" + detailData[value].name  +"</li>");
 
-                        $('#' + api_element).append("<li>" + "<label style='width: 300px;font-weight: normal !important;'>" + detailData[value].name + "</label>" +
+                        $('#' + api_element).append("<li>" + "<label style='width: 300px;font-weight: normal !important;'>" + i18n.gettext(detailData[value].name) + "</label>" +
                             "<label style='font-weight: normal !important;' >" + arrFinalVal[count] + "  Cases </label>" + "</li>");
 
                         count = count + 1;
@@ -156,7 +164,7 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
 
         //Append the results ...
         var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell' style='font-weight: bold;'> " + contentsObj.label + "</div>" +
+            "<div class='divTableCell' style='font-weight: bold;'> " + i18n.gettext(contentsObj.label) + "</div>" +
             "</div>" +
             "<div class='divTableRow'>" +
             "<div class = 'container' > <ul  id = '" + api_element + "' > </ul></div >" +
@@ -199,7 +207,7 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
                 //Call Other API to get the details for each value in the arrFInal Array ...
                 $.getJSON(api_root + detailApiUrl, function(detailData) {
 
-                    $('#' + api_element).append("<li>" + "<label style='width: 300px;font-weight: normal !important;'>" + detailData.name + "</label>" +
+                    $('#' + api_element).append("<li>" + "<label style='width: 300px;font-weight: normal !important;'>" + i18n.gettext(detailData.name) + "</label>" +
                         "<label style='font-weight: normal !important;' >" + ovDateFormate(arrFinalDate[alertCounter]) + " </label>" + "</li>");
 
                     alertCounter = alertCounter + 1;
@@ -232,7 +240,7 @@ function prep_row_indicator(contentsObj, parentId, locID) {
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         $.getJSON(api_root + apiUrl, function(data) {
 
-            $('#' + parentId + ' .' + api_element).html(data.value + "<span style='padding-left:30px;' class='" + getIndicatorArrow (data.value) + "'></span> ");
+            $('#' + parentId + ' .' + api_element).html(round(data.current, 1) + "<span style='padding-left:30px;' class='" + getIndicatorArrow (data.current - data.previous) + "'></span> ");
 
         });
 
@@ -278,9 +286,11 @@ function ovDateFormate(dateStr) {
 
 //Return The bootstrap Arrow if its UP or DOWN ..
 function getIndicatorArrow(val) {
-    if (val >= 200) {
+    if (val > 0) {
         return "glyphicon glyphicon-arrow-up";
-    } else {
+    }else if( val === 0){
+		return "glyphicon glyphicon-minus";
+	}else {
         return "glyphicon glyphicon-arrow-down";
     }
 }
