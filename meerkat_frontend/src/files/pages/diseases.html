@@ -9,9 +9,9 @@
       <span class="glyphicon glyphicon-chevron-left hidden"></span>
     </a>
   </div>
-  <div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+  <div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
   </div>
-  <div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+  <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
   </div>
 
 </div>
@@ -73,16 +73,47 @@ $("#menu-toggle").click(function(e) {
 });
 
 drawOptionsButtons('disease-table', 'reDraw');
-
 $("#epi-week-title").html( i18n.gettext("Week")+ " "+get_epi_week() + " · " + get_date() );
+callTableOptionButton($('#strip-button').get(), 'redraw');
 
 //Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
   currentLocation = locID;
+
   reDraw();
 }
 
+/**
+ * Extend the Axis.getLinePath method in order to visualize breaks with two parallel
+ * slanted lines. For each break, the slanted lines are inserted into the line path.
+ */
+Highcharts.wrap(Highcharts.Axis.prototype, 'getLinePath', function (proceed, lineWidth) {
+    var axis = this,
+        path = proceed.call(this, lineWidth),
+        x = path[1],
+        y = path[2];
 
+    Highcharts.each(this.breakArray || [], function (brk) {
+        if (axis.horiz) {
+            x = axis.toPixels(brk.from);
+            path.splice(3, 0,
+                'L', x - 4, y, // stop
+                'M', x - 9, y + 5, 'L', x + 1, y - 5, // left slanted line
+                'M', x - 1, y + 5, 'L', x + 9, y - 5, // higher slanted line
+                'M', x + 4, y
+            );
+        } else {
+            y = axis.toPixels(brk.from);
+            path.splice(3, 0,
+                'L', x, y - 4, // stop
+                'M', x + 5, y - 9, 'L', x - 5, y + 1, // lower slanted line
+                'M', x + 5, y - 1, 'L', x - 5, y + 9, // higher slanted line
+                'M', x, y + 4
+            );
+        }
+    });
+    return path;
+});
 
 function reDraw(){
 
@@ -91,23 +122,115 @@ function reDraw(){
   $('.disease-table-option').each( function(){
       tableOptions[$(this).attr('name')] = $(this).attr('value');
   });
-  console.log( tableOptions );
 
   //Keep week abstracted out of the chart drawing process.
   //In case we want the user to be able to select the weeks to view.
   var week = (get_epi_week()).toString();
 
-  categorySummation({ category: 'cd_tab',
-                      locID: currentLocation,
-                      week: week,
-                      tableID: 'disease-table',
-                      barID: 'disease-bar-chart',
-                      percent: true,
-                      linkFunction: 'loadDisease',
-                      strip: false,
-                      title: i18n.gettext(config.com_tab_title ? config.com_tab_title:'Communicable Diseases'),
-                      table_options: tableOptions
-                     });
+
+  /**
+   * On top of each column, draw a zigzag line where the axis break is.
+   */
+  function pointBreakColumn(e) {
+      var point = e.point,
+          brk = e.brk,
+          shapeArgs = point.shapeArgs,
+          x = shapeArgs.x,
+          y = this.translate(brk.from, 0, 1, 0, 1),
+          w = shapeArgs.width,
+          key = ['brk', brk.from, brk.to],
+          path = ['M', x, y, 'L', x + w * 0.25, y + 4, 'L', x + w * 0.75, y - 4, 'L', x + w, y];
+
+      if (!point[key]) {
+          point[key] = this.chart.renderer.path(path)
+              .attr({
+                  'stroke-width': 2,
+                  stroke: point.series.options.borderColor
+              })
+              .add(point.graphic.parentGroup);
+      } else {
+          point[key].attr({
+              d: path
+          });
+      }
+  }
+
+  categorySummation({
+      category: 'cd_tab',
+      locID: currentLocation,
+      week: week,
+      tableID: 'disease-table',
+      percent: true,
+	  limit_to: "tot_1",
+      linkFunction: 'loadDisease',
+      title: i18n.gettext(config.com_tab_title ? config.com_tab_title:'Communicable Diseases'),
+      table_options: tableOptions,
+      callback: function(data){
+
+          data.year = data.week;
+          data = stripEmptyRecords(data);
+
+          //Intelligently calculate the best parameters for the axis break
+          var differences = [];
+          var maxDiff = 0;
+          var values = data.week.slice().sort(function(a,b){return b-a;});
+          var breakTo = values[0];
+          var breakFrom = values[1];
+
+          // Find the maximum difference between two bars and put the break in-between
+          for(var i=0; i<values.length-1; i++){
+              differences[i] = values[i]-values[i+1];
+              if(differences[i] > maxDiff){
+                  maxDiff = differences[i];
+                  breakTo = values[i];
+                  breakFrom = values[i+1];
+              }
+          }
+          breaks = []
+          if(maxDiff>200){
+
+              // Intelligently calculate the max value and the tick interval for the y axis.
+              var max = Math.max.apply(null, data.week);
+              max = max + 100 - (max % 100);
+              var tick = 100*Math.round((max - maxDiff)/300);
+              breakFrom  = breakFrom + tick - (breakFrom % tick);
+              breakTo = breakTo - tick/4 - ((breakTo - tick/4) % tick ) ;
+              breaks.push({from: breakFrom, to: breakTo, breakSize: tick/3});
+          }
+
+          // Draw the CD Chart
+          barChartOptions = {
+              percent: false,
+              year: false,
+              chart:{
+                  height: 500
+              },
+              xAxis: {
+                  title: {text: null},
+                  lineColor: 'black',
+                  lineWidth: 2,
+              },
+              yAxis: {
+                  min: 0,
+                  max: max,
+                  title: {text: i18n.gettext('Number of cases'), align: 'high'},
+                  labels: {overflow: 'justify'},
+                  breaks: breaks,
+                  tickInterval: tick,
+                  events: {
+                      pointBreak: pointBreakColumn
+                  },
+                  lineColor: 'black',
+                  lineWidth: 2,
+              }
+          }
+          drawBarChart('disease-bar-chart', data, barChartOptions);
+      }
+  });
+
+
+
+
   }
 
 

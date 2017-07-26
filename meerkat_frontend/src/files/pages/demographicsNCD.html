@@ -10,9 +10,9 @@
 			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+	<div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
 	</div>
-	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
 	</div>
 
 </div>
@@ -166,8 +166,8 @@ function drawCharts( locID ){
 		                    barID: categories[i]+'-bar-chart',
 		                    pieID: categories[i]+'-pie-chart',
 		                    percent: true,
-                        table_options: {'strip': 'false', 'colour':'false'},
-                        limit_to: 'prc_2'
+							table_options: {'strip': 'false', 'colour':'false'},
+							limit_to: 'prc_2'
 		                  });
 	}
 	categorySummation({ category: 'nationality',
@@ -177,9 +177,9 @@ function drawCharts( locID ){
 		                 barID: 'nationality-bar-chart',
 		                 pieID: 'nationality-pie-chart',
 		                 percent: true,
-	                   strip: true,
-                     table_options: {'strip': 'false', 'colour':'false'},
-                     limit_to: 'prc_2'
+						strip: true,
+						table_options: {'strip': 'false', 'colour':'false'},
+						limit_to: 'prc_2'
 		               });
 
 

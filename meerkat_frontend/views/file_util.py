@@ -5,13 +5,14 @@ A Flask Blueprint module for the explore data page.
 """
 from ..app import app
 from functools import partial
-from flask import redirect, g, Blueprint, jsonify
+from meerkat_frontend import auth
+from flask import redirect, g, Blueprint, jsonify, current_app
 from flask import make_response, request, abort
+from io import BytesIO
 import dropbox
 
 
 dropbox_bp = Blueprint('dropbox_bp', __name__, url_prefix="/<language>")
-
 
 def all_files(folder_name):
     ret = []
@@ -83,3 +84,45 @@ if "DROPBOX" in app.config and app.config["DROPBOX"]:
             folder["url"] + "_all",
             partial(all_files_json, folder["folder_name"])
         )
+s3_files_bp = Blueprint('s3_file_bp', __name__, url_prefix="/<language>")
+@s3_files_bp.before_request
+def requires_auth():
+    """
+    Checks that the user has authenticated before returning any page from
+    this Blueprint.
+    """
+    # We load the arguments for check_auth function from the config files.
+    auth.check_auth(
+        *current_app.config['AUTH'].get('technical', [['BROKEN'], ['']])
+    )
+
+
+
+s3_enabled = False
+if "S3_FILES" in app.config and app.config["S3_FILES"]:
+    import boto3
+    import botocore
+    s3 = boto3.client('s3')
+    s3_enabled = True
+    bucket = app.config["S3_FILES"]["bucket"]
+import time
+@s3_files_bp.route('/get')
+def get():
+    start = time.time()
+    if not s3_enabled:
+        abort(404)
+    if "path" in request.args:
+        path = request.args["path"]
+        folder = path.split("/")[0]
+        if folder in app.config["S3_FILES"]["folders"] and path:
+            
+            try:
+                url = s3.generate_presigned_url(ClientMethod='get_object', Params={'Bucket': 'meerkat-somalia', 'Key': path}, ExpiresIn=3)
+
+            except botocore.exceptions.ClientError:
+                    abort(404)
+            return redirect(url)
+        else:
+            abort(404)
+    else:
+        abort(404)

@@ -9,9 +9,9 @@
       <span class="glyphicon glyphicon-chevron-left hidden"></span>
     </a>
   </div>
-  <div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+  <div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
   </div>
-  <div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+  <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
   </div>
 </div>
 
@@ -54,6 +54,26 @@
 
     </div>
 
+    <div class="row">
+        <div class="col-xs-12 col-md-12 less-padding-col">
+            <div class="chartBox box" id="timeliness-matrix-box">
+                <div class="chartBox__heading pointer" onclick='toggleMatrix();return false;'>
+                    <p id="box_5_heading" style="display: inline"> </p>
+                    <div class="box__type-selector pull-right">
+                        <a href="" onclick="event.stopImmediatePropagation();$('#timeliness-matrix').tableExport({type:'xls', fileName: 'timeliness_matrix'});return false;" class="csv">
+                        </a>
+                    </div>
+                </div>
+                <div class="chartBox__content" id="timeliness-matrix-content">
+                    <div id="timeliness-matrix" class="table">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="col-xs-12 col-md-12 less-padding-col">
       <div class="chartBox box" id="all_clinics_box">
         <div class="chartBox__heading pointer" onclick='toggleAllClinics();return false;'>
@@ -85,6 +105,7 @@
  $("#box_heading").html(i18n.gettext('Timeliness')  + " (" + i18n.gettext('Week') + ' ' + (get_epi_week() -1) +")");
  $("#box_2_heading").html(i18n.gettext('Timeliness by week'));
  $("#box_4_heading").html(i18n.gettext('Timeliness by clinic') + " (" + i18n.gettext('Week') + ' ' + (get_epi_week() -1 )+")");
+ $("#box_5_heading").html(i18n.gettext('Timeliness Matrix'));
  $(".csv").each(function(){
      $(this).html(i18n.gettext('Excel'));
  });
@@ -112,11 +133,16 @@
 drawChartOptionsButtons('box_2_heading', 'reDraw', config.completeness_lines);
 
  function reDraw(){
-     timelinessPreparation( currentLocation, 'reg_5', config.timeliness_denominator.all, 'timeliness-graph', 'timeliness-table', 'all-clinics-table', 1, "None", config.weekend, '#compare_button', 'reg_1' );
+     timelinessPreparation( currentLocation, 'reg_5', config.timeliness_denominator.all, 'timeliness-graph', 'timeliness-table', 'all-clinics-table', 1, "None", config.weekend, '#compare_button', 'reg_1', undefined, 'timeliness-matrix' );
  }
  function toggleAllClinics(){
      $("#all_clinics_box .chartBox__heading").toggleClass("no-border");
      $("#all_clinics_content").slideToggle("slow");
  }
+
+function toggleMatrix(){
+    $("#timeliness-matrix-box .chartBox__heading").toggleClass("no-border");
+    $("#timeliness-matrix-content").slideToggle("slow");
+}
 
 </script>

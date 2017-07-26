@@ -3,7 +3,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>
-    {% block title %}
+      {% block title %}
       {{ _(config.SITE_TITLE)|e }}{% if title %} &middot; {{ title|e }}{% endif %}
     {% endblock title %}
   </title>
@@ -11,8 +11,8 @@
   <script type="text/javascript">
     //Get the current language.
     language = "{{g.get('language')|safe}}";
-    //Configure the cookie consent box. 
-     
+    //Configure the cookie consent box.
+
     window.cookieconsent_options = {
       "message":"{{_('This website uses cookies to ensure you get the best experience.')}}",
       "dismiss":"{{_('I Understand')}}",
@@ -21,12 +21,8 @@
       "theme":false //We've added our own ccs theme in src/sass/_cookieconsent.scss
     };
   </script>
-  <script type="text/javascript" 
-          src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js">
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js">
   </script>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" />
-
-
-
-
-
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/leaflet.awesome-markers.css') }}" />

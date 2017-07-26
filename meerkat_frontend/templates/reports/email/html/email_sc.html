@@ -1,0 +1,135 @@
+{% extends 'reports/email/html/email_base.html' %}
+
+{% macro format_percent(input) %}
+  {{ input.Y }} ({{ (input.Y / input.N * 100 )|int}}%)
+{%- endmacro %}
+
+{% macro format_percent_2(num, denom) %}
+  {{ num|int }}  ({{(num / denom * 100)|int if denom > 0 else "N/A"}} %)
+{%- endmacro %}
+
+{% block header %}
+<!-- BEGIN HEADER // -->
+<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
+  <tr>
+    <td valign="top" class="headerContainer">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+        <tbody class="mcnTextBlockOuter">
+          <tr>
+            <td valign="top" class="mcnTextBlockInner">
+              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <tbody>
+                  <tr>
+                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Nutrition Stabilisation Centre Quality and Outcomes Monitoring')}}
+                      </h2>
+                      <h3>{{ _('Epi week %(epi_week)s (%(start_date)s - %(end_date)s)',
+                      epi_week = report.data.epi_week_num,
+                      start_date = report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'),
+                      end_date = report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')
+                      ) }}
+                      </h3>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- // END HEADER -->
+{% endblock %}
+
+{% block body %}
+<!-- BEGIN BODY // -->
+<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+  <tr>
+    <td valign="top" class="bodyContainer">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+        <tbody class="mcnTextBlockOuter">
+          <tr>
+            <td valign="top" class="mcnTextBlockInner">
+              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <tbody>
+                  <tr>
+                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                      {{_('<p>Dear Colleagues,</p><p>Welcome to the latest Nutrition Stabilisation Centre Quality and Outcomes monitoring report from %(project_region)s.</p>',
+                      project_region=_(report.data.project_region))}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
+        <tbody class="mcnButtonBlockOuter">
+          <tr>
+            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
+              <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;background-color: #0098CB;">
+                <tbody>
+                  <tr>
+                    <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
+                      <a class="mcnButton " title="View the latest report" href="{{report_url}}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{{ _('View the latest report') }}</a>
+                    </td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+        <tbody class="mcnTextBlockOuter">
+          <tr>
+            <td valign="top" class="mcnTextBlockInner">
+              <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                <tbody>
+                  <tr>
+                    <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+                      <p>
+                      {{_('The profile summarises information reported from %(centres)s Nutrition Stabilisation Centres up to %(end_date)s.',
+                        centres=report.overview.baseline.Y,
+                        end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY'))}}
+                      </p>
+                      <h3>{{ _('Key Findings') }} </h3>
+                      <ul>
+                        <li>{{_('Beds available: %(beds)s', beds=report.overview.get("sc_beds", 0)|int)}}</li>
+                        <li>{{_('Facilities with sufficient bed capacity: %(bed_capacity)s',
+                            bed_capacity = format_percent(report.overview.sc_beds_sufficient))}}</li>
+                        <li>{{_('New admissions: %(new_admissions)s',
+                            new_admissions=report.overview.get("sc_cases", 0)|int)}}</li>
+                        <li>{{_('Cured: %(cured)s',
+                            cured=format_percent_2(report.overview.get("sc_cured", 0),report.overview.get("sc_discharge", 0)))}}</li>
+                        <li>{{_('Deaths: %(deaths)s',
+                            deaths=format_percent_2(report.overview.get("sc_deaths", 0),report.overview.get("sc_discharge", 0)))}}</li>
+                        <li>{{_('Defaulters: %(defaulters)s',
+                            defaulters=format_percent_2(report.overview.get("sc_deafault", 0),report.overview.get("sc_discharge", 0)))}}</li>
+                        <li>{{_('Discharges: %(discharges)s',
+                            discharges=report.overview.get("sc_discharge", 0)|int)}}</li>
+                        <li>{{_('F75 therapeutic milk available: %(f75)s',
+                            f75=format_percent(report.overview.sc_f75_value))}}</li>
+                        <li>{{_('F100 therapeutic milk available: %(f100)s',
+                            f100=format_percent(report.overview.sc_f100_value))}}</li>
+                        <li>{{_('ReSoMal therapeutic milk available: %(reSoMal)s',
+                            reSoMal=format_percent(report.overview.sc_resomal_value))}}</li>
+                      </ul>
+                      <p>{{_('Best regards,')}}</p>
+                      <p><b>Dr Mohamed Osman Mohamed</b><br />{{_('Remote Monitoring Co-ordinator')}}</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- // END BODY -->
+{% endblock body %}

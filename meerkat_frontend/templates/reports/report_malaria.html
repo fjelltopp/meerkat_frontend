@@ -12,10 +12,9 @@
       >
     </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot; </span>
     <span> {{ _('Malaria Epidemiological Surveillance Report') }} </span>
     <span class="report-week">
-        {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
+        {{_(report.data.project_region|e)}} &middot; {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
     </span>
   </h2>
 </div>
@@ -106,23 +105,24 @@ drawTable2();
 function drawTable1(){
 
   function drawRowFromStruct(struct){
-    ret = "<tr><td class='border-right key total'>" + struct[0] + "</td>";
+    ret = "<tr><td class='border-right key total'>" + format(struct[0]) + "</td>";
     for( var i=1; i<struct.length; i++ ){
       if( struct[i] == 0 ) ret += "<td class='dark'></td>";
 
       // variables mls_69 and mls_70 are very incomplete in the source data but can be calculated from the other variables
       else if(struct[i] == 69){
         ret += [1,5,7,8].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
-        ret += content['malaria_situation']["mls_3"] - content['malaria_situation']["mls_68"] + "</td>";
+        ret += format(content['malaria_situation']["mls_3"] - content['malaria_situation']["mls_68"]) + "</td>";
       }
-      else if(struct[i] == 70){
+        else if(struct[i] == 70){
+            not_done = format(content['malaria_situation']["mls_2"] - content['malaria_situation']["mls_3"])
         ret += [1,5,7,8].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
-        ret += content['malaria_situation']["mls_2"] - content['malaria_situation']["mls_3"] + "</td>";
+        ret += not_done > 0 ? not_done: 0  + "</td>";
       }
 
       else{
         ret += [1,5,7,8].indexOf(i) != -1 ?  "<td class='border-right'>":"<td>";
-        ret += content['malaria_situation']["mls_" + struct[i]] + "</td>";
+        ret += format(content['malaria_situation']["mls_" + struct[i]]) + "</td>";
       }
     }
     ret += "</tr>";
@@ -177,7 +177,7 @@ function drawTable2(){
       var name = i18n.gettext(content['variables'][keys[i]].name);
       var value = content['malaria_prevention'][keys[i]];
       html += "<tr><td class='border-right key total'>" + name + "</td>" +
-        "<td>" + value + "</td></tr>";
+        "<td>" + format(value) + "</td></tr>";
   }
 
   html += "</tbody></table>";

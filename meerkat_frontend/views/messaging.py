@@ -7,38 +7,33 @@ from flask.ext.babel import gettext
 from flask import Blueprint, render_template
 from flask import redirect, flash, request, current_app, g
 import random
-from meerkat_frontend import auth
+from meerkat_frontend import app, auth
+import meerkat_libs as libs
 from .. import common as c
 
 
 messaging = Blueprint('messaging', __name__)
 
 
-@messaging.before_request
-def requires_auth():
-    """
-    Checks that the user has authenticated before returning any page from
-    this Blueprint.
-    """
-    # We load the arguments for check_auth function from the config files.
-    auth.check_auth(
-        *current_app.config['AUTH'].get('messaging', [['BROKEN'], ['']])
-    )
-
-
 # THE SUBSCRIBING PROCESS
 # Stage1: Fill out a subscription form.
 @messaging.route('/')
 @messaging.route('/loc_<int:locID>')
-def subscribe(locID=1):
+@auth.authorise(*app.config['AUTH'].get('messaging', [['BROKEN'], ['']]))
+def subscribe(locID=None):
+
     """Subscription Process Stage 1: Render the page with the subscription form.
 
        Args:
            locID (int): The location ID of a location to be automatically
            loaded into the location selector.
     """
+    # Initialise locID to allowed location
+    # Can't be done during function declaration because outside app context
+    locID = g.allowed_location if not locID else locID
+
     return render_template('messaging/subscribe.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            loc=locID,
                            week=c.api('/epi_week'))
 
@@ -46,6 +41,7 @@ def subscribe(locID=1):
 # Stage 2: Confirm subscription request and inform user of verification
 # process.
 @messaging.route('/subscribe/subscribed', methods=['POST'])
+@auth.authorise(*app.config['AUTH'].get('messaging', [['BROKEN'], ['']]))
 def subscribed():
     """
     Subscription Process Stage 2: Confirms successful subscription request
@@ -66,44 +62,46 @@ def subscribed():
             data[key] = key_list[0]
 
     # Call hermes subscribe method.
-    subscribe_response = c.hermes('/subscribe', 'PUT', data)
+    subscribe_response = libs.hermes('/subscribe', 'PUT', data)
 
     # Assemble and send verification email.
     url = request.url_root + \
         g.get("language") + "/messaging/subscribe/verify/" + \
         subscribe_response['subscriber_id']
 
-    message = gettext(
+    verify_text = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
+        'verify_text',
         "Dear {first_name} {last_name} ,\n\n"
         "Thank you for subscribing to receive public health "
         "surveillance notifications from {country}.\n\nPlease "
         "verify your contact details by copying and pasting the "
         "following url into your address bar: {url}\n"
-    ).format(
+    )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
         country=current_app.config['MESSAGING_CONFIG']['messages']['country'],
         url=url
     )
 
-    html = gettext(
+    verify_html = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
+        'verify_html',
         "<p>Dear {first_name} {last_name},</p>"
         "<p>Thank you for subscribing to receive public health surveillance "
         "notifications from {country}.</p><p>Please verify your contact "
         "details by <a href='{url}' target='_blank'>clicking here</a>."
         "</p>"
-    ).format(
+    )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
         country=current_app.config['MESSAGING_CONFIG']['messages']['country'],
         url=url
     )
 
-    c.hermes('/email', 'PUT', {
+    libs.hermes('/email', 'PUT', {
         'email': data['email'],
         'subject': gettext('Please verify your contact details'),
-        'message': message,
-        'html': html,
+        'message': verify_text,
+        'html': verify_html,
         'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
     })
 
@@ -112,7 +110,7 @@ def subscribed():
         __set_code(subscribe_response['subscriber_id'], data['sms'])
 
     return render_template('messaging/subscribed.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            week=c.api('/epi_week'),
                            data=data)
 
@@ -135,7 +133,7 @@ def verify(subscriber_id):
     """
 
     # Get the subscriber
-    subscriber = c.hermes('/subscribe/' + subscriber_id, 'GET')
+    subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
 
     if subscriber['Item']['verified'] is True:
         flash(gettext('You have already verified your account.'))
@@ -147,14 +145,14 @@ def verify(subscriber_id):
 
     elif 'sms' not in subscriber['Item']:
         current_app.logger.warning(str(subscriber['Item']))
-        c.hermes('/verify/' + subscriber_id, 'GET')
+        libs.hermes('/verify/' + subscriber_id, 'GET')
         return redirect(
             "/" + g.get("language") +
             '/messaging/subscribe/verified/' + subscriber_id
         )
     else:
         return render_template('messaging/verify.html',
-                               content=current_app.config['MESSAGING_CONFIG'],
+                               content=g.config['MESSAGING_CONFIG'],
                                week=c.api('/epi_week'),
                                data=subscriber['Item'])
 
@@ -172,7 +170,7 @@ def verified(subscriber_id):
     """
 
     # Get the subscriber
-    subscriber = c.hermes('/subscribe/' + subscriber_id, 'GET')['Item']
+    subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')['Item']
 
     # If the subscriber isn't verified redirect to the verify stage.
     if not subscriber['verified']:
@@ -185,7 +183,8 @@ def verified(subscriber_id):
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
 
     # Send a confirmation e-mail with the unsubscribe link.
-    message = gettext(
+    confirmation_text = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
+        'confirmation_text',
         "Dear {first_name} {last_name},\n\n"
         "Thank you for subscribing to receive public health surveillance "
         "notifications from {country}.  We can confirm that your contact "
@@ -193,7 +192,7 @@ def verified(subscriber_id):
         "any time by clicking on the relevant link in your e-mails.\n\n If "
         "you wish to unsubscribe now copy and paste the following url into "
         "your address bar:\n{url}/unsubscribe/{subscriber_id}"
-    ).format(
+    )).format(
         first_name=subscriber["first_name"],
         last_name=subscriber["last_name"],
         country=country,
@@ -201,7 +200,8 @@ def verified(subscriber_id):
         subscriber_id=subscriber_id
     )
 
-    html = gettext(
+    confirmation_html = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
+        'confirmation_html',
         "<p>Dear {first_name} {last_name},</p>"
         "<p>Thank you for subscribing to receive public health surveillance "
         "notifications from {country}.  We can confirm that your contact "
@@ -209,7 +209,7 @@ def verified(subscriber_id):
         "at any time by clicking on the relevant link in your e-mails.</p><p> "
         "If you wish to unsubscribe now "
         "<a href='{url}/unsubscribe/{subscriber_id}'>click here.</a></p>"
-    ).format(
+    )).format(
         first_name=subscriber["first_name"],
         last_name=subscriber["last_name"],
         country=country,
@@ -220,16 +220,16 @@ def verified(subscriber_id):
     email = {
         'email': subscriber['email'],
         'subject': gettext("Your subscription has been successful"),
-        'message': message,
-        'html': html,
+        'message':  confirmation_text,
+        'html': confirmation_html,
         'from': current_app.config['MESSAGING_CONFIG']['messages']['from']
     }
 
-    email_response = c.hermes('/email', 'PUT', email)
+    email_response = libs.hermes('/email', 'PUT', email)
     current_app.logger.warning('Response is: ' + str(email_response))
 
     return render_template('messaging/verified.html',
-                           content=current_app.config['MESSAGING_CONFIG'],
+                           content=g.config['MESSAGING_CONFIG'],
                            week=c.api('/epi_week'))
 
 
@@ -257,7 +257,7 @@ def sms_code(subscriber_id):
 
     if request.method == 'POST':
         if __check_code(subscriber_id, request.form['code']):
-            c.hermes('/verify/' + subscriber_id, 'GET')
+            libs.hermes('/verify/' + subscriber_id, 'GET')
             return redirect(
                 "/" + g.get("language") +
                 "/messaging/subscribe/verified/" + subscriber_id,
@@ -271,7 +271,7 @@ def sms_code(subscriber_id):
                 code=302
             )
     else:
-        subscriber = c.hermes('/subscribe/' + subscriber_id, 'GET')
+        subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
         response = __set_code(subscriber_id, subscriber['Item']['sms'])
 
         # Check that the new code was succesfully sent.
@@ -319,7 +319,7 @@ def __check_code(subscriber_id, code):
         bool: True if there is a match, False otherwise.
 
     """
-    response = c.hermes('/verify', 'POST',
+    response = libs.hermes('/verify', 'POST',
                         {'subscriber_id': subscriber_id, 'code': code})
     current_app.logger.warning(str(response))
     return bool(response['matched'])
@@ -353,8 +353,8 @@ def __set_code(subscriber_id, sms):
         'message': message
     }
 
-    response = c.hermes('/verify', 'PUT',
+    response = libs.hermes('/verify', 'PUT',
                         {'subscriber_id': subscriber_id, 'code': code})
-    response = c.hermes('/sms', 'PUT', data)
+    response = libs.hermes('/sms', 'PUT', data)
 
     return response

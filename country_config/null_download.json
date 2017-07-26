@@ -5,7 +5,21 @@
 
   "rawIntro":"Use this form to download raw data for use in your own analysis. Select which form's data you would like to download, and optionally further select which attributes you would like to download. ",
 
-  "prepared":[{
+	"prepared":[{
+		"title":"Consultations",
+		"api":"/api/export/data_table/test/reg_1",
+		"access":"cd",
+		"variables":[
+			["reg_1","consultations"]
+		],
+		"group_by": [
+			["epi_year", "Year"],
+			["clinic:location", "Clinic"],
+			["epi_week", "Week"]
+		]
+		
+
+	},{
       "title":"Communicable Diseases",
       "api":"/api/export/category/demo_case/cd_tab/communicable_diseases",
       "name_category": "individual_icd",
@@ -28,8 +42,9 @@
           ["icd_name$individual_icd","ICD 10 Name"],
           ["icd_code","ICD 10 Code"],
           ["code$ale_2,ale_3,ale_4$Confirmed,Disregarded,Ongoing","Alert Status"],
-          ["cd./symptoms","Symptoms"],
-          ["cd./risk","Risk Factors"],
+	  ["sympt_code$to_columns", "Patient symptoms"],
+	  ["sympt_code$to_columns;{'dict_file':'null_symptoms.csv','from':'sympt_code','to':'jor_sympt'}", "Patient symptoms"],
+          ["risk_code$to_columns;{'dict_file':'null_risk.csv','from':'risk_code','to':'jor_risk'}", "Patient risk factors"],
           ["cd./prevvaccination","Previously Vaccinated"],
           ["cd./onsetdate$date","Onset Date"],
           ["cd./diagnosisdate$date","Diagnosis Date"],

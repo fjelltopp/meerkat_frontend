@@ -4,6 +4,92 @@ function draw_report_map(api_call, map_centre, containerID){
     });
 }
 
+
+function ctc_point_map(point, containerID, map_centre){
+	console.log(point, containerID, map_centre);
+	L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
+        'KQCTcMow5165oToazo4diQ';
+	map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+	      zoomControl: false,
+	      fullscreenControl: true,
+        scrollWheelZoom: false
+    }).setView([map_centre[0], map_centre[1]], map_centre[2]);
+	var ctcMarker = L.AwesomeMarkers.icon({
+		icon: 'plus',
+		markerColor: 'blue'
+	});
+	ctcMarker.options.shadowSize = [0, 0];
+	var m = L.marker( [ point[0], point[1]], {icon: ctcMarker} );
+	m.addTo(map);
+	return map;
+}
+
+
+function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, containerID, map_centre, in_technical){
+    // Build the basic map using mapbox.
+    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
+        'KQCTcMow5165oToazo4diQ';
+	var control = false;
+	if (in_technical !== undefined){
+		control = true;
+	}
+		
+    map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+          zoomControl: control,
+          fullscreenControl: true,
+        scrollWheelZoom: control
+    }).setView([map_centre[0], map_centre[1]], map_centre[2]);
+
+    // Setup map options.
+	if(! control) {
+		map.dragging.disable();
+		map.on('fullscreenchange', function(){
+			if (map.isFullscreen()) {
+				map.dragging.enable();
+			} else {
+				map.dragging.disable();
+			}
+		});
+	}
+
+    // Add surveyed clinics to map
+    for(var s_point in surveyed_points){
+        var s_ctcMarker = L.AwesomeMarkers.icon({
+            icon: 'plus',
+            markerColor: 'blue'
+        });
+        s_ctcMarker.options.shadowSize = [0, 0];
+        var s_m = L.marker( [ surveyed_points[s_point][0], surveyed_points[s_point][1]], {icon: s_ctcMarker} );
+        s_m.bindPopup(surveyed_points[s_point][2]);
+        s_m.addTo(map);
+    }
+
+    // Add non-surveyed clinics to map
+    for(var n_point in non_surveyed_points){
+        var n_ctcMarker = L.AwesomeMarkers.icon({
+            icon: 'plus',
+            markerColor: 'red'
+        });
+        n_ctcMarker.options.shadowSize = [0, 0];
+        var n_m = L.marker( [ non_surveyed_points[n_point][0], non_surveyed_points[n_point][1]], {icon: n_ctcMarker} );
+        n_m.bindPopup(non_surveyed_points[n_point][2]);
+        n_m.addTo(map);
+    }
+
+    var legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function( map ){
+        var div = L.DomUtil.create( 'div', 'marker-legend' );
+        div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-blue awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">CTC surveyed</h2></tr></table>';
+        div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-red awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">CTC not surveyed</h2></tr></table>';
+    return div;
+    };
+    legend.addTo(map);
+
+
+    return map;
+}
+
+
 function map_from_data( data, map_centre, containerID){
 
     if( !containerID ) containerID = 'map';
@@ -29,10 +115,9 @@ function map_from_data( data, map_centre, containerID){
             map.dragging.disable();
         }
     });
-
     var geoJsonLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.Name);
+            layer.bindPopup(feature.properties.name);
         }
     });
 
@@ -57,8 +142,12 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
     if( !containerID ) containerID = 'map';
 
     // Build the basic map using mapbox.
+
+
+
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
-                           'KQCTcMow5165oToazo4diQ';
+			'KQCTcMow5165oToazo4diQ';
+
     map = L.mapbox.map(containerID, 'mrjb.143811c9', {
 	      zoomControl: false,
 	      fullscreenControl: true,
@@ -177,7 +266,7 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
 			var value = location.value;
 			// Use technical/misc.js isInteger() because Number.isInteger()
 			// is incompatiable with docraptor.
-			if( !isInteger(value) ) value = value.toFixed(1);
+			if( !isInteger(value) && value !== undefined) value = value.toFixed(1);
 			var icon = L.divIcon({
 				className: 'area-label',
 				html: "<div class='outer'><div class='inner'>" + value +

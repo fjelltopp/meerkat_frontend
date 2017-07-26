@@ -10,10 +10,10 @@
 		<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-6" id="title">
+	<div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-6" id="title">
 
 	</div>
-	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
 
 	</div>
 
@@ -135,6 +135,7 @@ function drawCharts( locID ){
 	                    week: week,
 	                    tableID: 'complaint-table',
 	                    percent: true,
+						limit_to: "tot_1",
 	                    linkFunction: 'loadDisease',
 	                    title: i18n.gettext('Category'),
                         table_options: {'strip': 'false', 'colour':'false'}
@@ -146,6 +147,7 @@ function drawCharts( locID ){
 	                    tableID: 'icd-table',
 	                    barID: 'icd-bar-chart',
 	                    percent: true,
+						limit_to: "tot_1",
 	                    linkFunction: 'loadDisease',
 	                    strip: true,
 	                    title: i18n.gettext('ICD10 Chapter'),

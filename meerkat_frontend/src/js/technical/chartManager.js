@@ -3,15 +3,15 @@
     Hides div elements inside the container that don't have a class with the given type.
     Requires a container element with ID 'containerID' holding divs with class 'chart'.
     These divs with class 'chart' also have a class that determines type, e.g. 'bar' or 'pie'
-    This function is practically used to switch between bar and pie charts. 
+    This function is practically used to switch between bar and pie charts.
 
     :param string type:
-        The class of the HTML element holding the chart to be shown. 
+        The class of the HTML element holding the chart to be shown.
         The HTML element must also have a class of chart.
     :param string containerID:
-        The ID of the HTML holding the different charts. 
-        Each element holding a chart in the container must have a class of both "chart" 
-        and an identifying type e.g. "bar" or "pie". 
+        The ID of the HTML holding the different charts.
+        Each element holding a chart in the container must have a class of both "chart"
+        and an identifying type e.g. "bar" or "pie".
 
 */
 function showChartType( type, containerID ){
@@ -28,13 +28,21 @@ function showChartType( type, containerID ){
         The ID of the HTML element to hold the chart.
     :param object data:
         The data object as built by the misc.js function `makeDataObject()`.
-    :param boolean percent:
-        If true, data will be first converted to percentages, where each datum become the its
-        percentage of the total data set: (datum value/total value)*100.
+    :param boolean chartOptions:
+        A data object specifying any further options to determine how the chart
+        is drawn.  The following options should be noted:
+        * **percent** If true, data will be first converted to percentages,
+          where each datum become the its percentage of the total data set:
+          (datum value/total value)*100.
+        * **week** If false, no week data will be visualised.
+        * **year** If false, no year data will be visualised.
+        Highcharts options can also be specified in this object, as the object
+        is merged with the highcharts options object using $.extend(true) to
+        make a recursive merge.
  */
-function drawBarChart( containerID, data, percent ){
+function drawBarChart( containerID, data, chartOptions ){
 
-  //console.log( data );
+  if(typeof(chartOptions) == 'undefined') chartOptions = {};
 
   //We want to work with a clone of the data, not the data itself.
   data = $.extend(true, {}, data);
@@ -51,9 +59,11 @@ function drawBarChart( containerID, data, percent ){
     return this.series.name + ': ' + this.point.y;
   };
   var units = 'Number';
-  //If percent is set to true, convert data to percentages and store both in the data object.
-  //This means both percent and count can be referenced in tooltip.
-  if( percent ){
+
+  // If percent is set to true (or not set at all), convert data to percentages
+  // and store both in the data object.
+  // This means both percent and count can be referenced in tooltip.
+  if( typeof(chartOptions.percent) == 'undefined' || chartOptions.percent ){
 
     data.week_val = data.week;
     data.year_val = data.year;
@@ -66,9 +76,26 @@ function drawBarChart( containerID, data, percent ){
     tooltip = function (){
       return this.series.name + ': <b>' + this.point.y + '%</b> (' + this.point.val + ')';
     };
+    delete chartOptions.percent;
   }
 
-  $('#'+containerID).highcharts({
+  series = [];
+  if(typeof(chartOptions.week) == 'undefined' || chartOptions.week === true){
+      series.push({
+          name: i18n.gettext('This Week'),
+          data:  data.week
+      });
+      delete chartOptions.week;
+  }
+  if(typeof(chartOptions.year) == 'undefined' || chartOptions.year === true){
+      series.push({
+          name: i18n.gettext('This Year'),
+          data:  data.year
+      });
+      delete chartOptions.year;
+  }
+
+  highChart = {
     chart: {
       type: 'column',
       width: plotWidth
@@ -92,15 +119,16 @@ function drawBarChart( containerID, data, percent ){
       labels: {
         overflow: 'justify'
       }
-    },      
-    series: [{
-      name: i18n.gettext('This Year'),
-      data:  data.year
-    },{
-      name: i18n.gettext('This Week'),
-      data:  data.week
-    }],
-  });
+    },
+    series: series,
+  };
+
+  // Merge in any options specified in chartOptions object.
+  if(chartOptions){
+      $.extend(true, highChart, chartOptions);
+  }
+
+  $('#'+containerID).highcharts(highChart);
 
   //Get rid of the highcharts logo.
   $( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
@@ -123,7 +151,7 @@ function drawBarChart( containerID, data, percent ){
         percentage of the total data set: (datum value/total value)*100.
  */
 function drawPieCharts( containerID, data, percent ){
-  
+
   //We want to work with a clone of the data, not the data itself.
   data = $.extend(true, {}, data);
 
@@ -149,11 +177,11 @@ function drawPieCharts( containerID, data, percent ){
     data.year = calc_percent_dist(data.year);
 
     //Restructure the data object for pie charts.
-    restructured.week = data.week.map( function (e, i) { 
-      return {name: data.labels[i], y:e, val: data.week_val[i] }; 
+    restructured.week = data.week.map( function (e, i) {
+      return {name: data.labels[i], y:e, val: data.week_val[i] };
     });
-    restructured.year = data.year.map( function (e, i) { 
-      return {name: data.labels[i], y:e, val: data.year_val[i] }; 
+    restructured.year = data.year.map( function (e, i) {
+      return {name: data.labels[i], y:e, val: data.year_val[i] };
     });
 
     units=i18n.gettext('Percent %');
@@ -217,6 +245,42 @@ function drawPieCharts( containerID, data, percent ){
 
 }
 
+function drawLatestTimeChart( varID, identiferID, locID, containerID, alert_week, year, week_offset){
+	url = api_root + '/aggregate_latest_year/' + varID + '/' + identiferID + "/" +locID;
+	if (year !== undefined) {
+		url += "/" + year;
+	}
+
+
+	$.getJSON( url, function(data){
+		new_data = {"weeks": {}};
+		if(week_offset !== undefined){
+			for( var i = week_offset; i <= 52; i++ ){
+				if( typeof(data.weeks[i]) !== 'undefined' ){
+					new_data.weeks[i - week_offset] = data.weeks[i];
+				}
+			}
+			data = new_data;
+		}
+
+		drawTimeChartData(data, containerID, alert_week);
+  });
+
+}
+
+function drawTimeChart( varID, locID, containerID, alert_week, year){
+	url = api_root + '/aggregate_year/' + varID + '/'+locID;
+	if (year !== undefined) {
+		url += "/" + year;
+	}
+
+
+  $.getJSON( url, function(data){
+	  drawTimeChartData(data, containerID, alert_week);
+  });
+
+}
+
 /**:drawTimeCharts( varID, locID, containerID )
 
     Draws a timeline bar chart showing the number of cases in each epi week this current year.
@@ -227,20 +291,13 @@ function drawPieCharts( containerID, data, percent ){
         The ID of the location by which to filter the data.
     :param string containerID:
         The ID of the HTML element to hold the chart.
+
+
+
+
  */
-function drawTimeChart( varID, locID, containerID, alert_week, year){
+function drawTimeChartData(data, containerID, alert_week){
 
-	url = api_root + '/aggregate_year/' + varID + '/'+locID;
-	if (year !== undefined) {
-		url += "/" + year;
-	}
-	
-	
-  $.getJSON( url, function(data){
-
-      console.log('DRAW TIME CHART');
-      console.log('Time series data for diseases:');
-      console.log(data);
     var labels = [];
     var values = [];
 
@@ -255,7 +312,6 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
       }
 
     }
-
     //Hack to get plot to size correctly when being drawn into a hidden object.
     //If the object is hidden, set the plot width to the inner width of the parent.
     //Otherwise, leave as undefined as specified in the highcharts api.
@@ -264,7 +320,7 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
       plotWidth = $('#'+containerID).parent().width();
     }
 
-	  var series = [];
+	var series = [];
 	  if (alert_week){
 		  var alert_values = [];
 		  for( var j = 1; j <= 52; j++ ){
@@ -317,13 +373,13 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
       labels: {
         overflow: 'justify'
       }
-    },      
+    },
     series: series
     });
 
     //Get rid of the highcharts logo.
     $( '#'+containerID+" text:contains('Highcharts.com')" ).remove();
-  });
+
 
 }
 
@@ -348,6 +404,11 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
 
 function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID, compare_locations, x_axis_max){
 
+    console.log("Data in for graph");
+    console.log(data);
+    console.log("start_week");
+    console.log(start_week);
+
     var comparevalue = $(compare_locations).attr("value");
 
     var stringGraphType = 'data';
@@ -362,7 +423,7 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
     var dataPrepared = [];
     var timeseries = [];
 	if (data.timeline === undefined){
-		
+
 		$('#' + containerID).html("<h3> No " + stringGraphType + " data week for last week </h3>");
 		return undefined;
 	}
@@ -404,6 +465,9 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
         }
         timeseries.push(datum);
     }
+
+    console.log("timeseries");
+    console.log(timeseries);
 
     //hovering should give all the information about given clinick and sublocation
     $('#' + containerID).highcharts({
@@ -527,7 +591,7 @@ function drawChartOptionsButtons(objectID, redrawFunctionName, default_on){
 		default_on = "false";
 	}
     var html = "<div class='chart-options'>";
-    html += "<span class='glyphicon glyphicon-random " + objectID  + "-option pull-right' " + 
+    html += "<span class='glyphicon glyphicon-random " + objectID  + "-option pull-right' " +
         "id='compare_button' onClick='callChartOptionButton(this,\"" + redrawFunctionName + "\");' "+
         "title='" + i18n.gettext('Compare sublocations')+
         "' chart='completeness-graph' value=" + default_on +" false name='compare'></span>";
@@ -545,4 +609,56 @@ function callChartOptionButton(element, redrawFunctionName){
     if(typeof fn === 'function') {
         fn();
     }
+}
+
+function drawIndicatorsGraph( containerID, locID, data ){
+
+
+    var indKey = $('#choose-ind-id').attr("value");
+    if(indKey===undefined){
+        console.log("Undefined id");
+        indKey = 0;
+    }
+
+    indDataTimeline = data[indKey].timeline;
+    indDataTimelineKeys = Object.keys(indDataTimeline);
+    indDataName = data[indKey].name;
+
+    var noWeeks = indDataTimelineKeys.length;
+    var weeks = lastWeeks (get_epi_week(), noWeeks + 1 );
+    var timeseries = [];
+    var datapoint = [];
+
+    for (var i=0; i<indDataTimelineKeys.length;i++){
+        //Using week numbers instead of dates
+        //dropping the current week (noWeeks)
+        datapoint = [weeks[noWeeks - i],Number(indDataTimeline[indDataTimelineKeys[i]])];
+        timeseries.push(datapoint);
+    }
+
+    $('#' + containerID).highcharts({
+        title: {
+            text: indDataName
+        },
+        xAxis: {
+            title: {
+                text: 'week',
+            },
+            tickInterval: 1
+        },
+        yAxis: {
+            title: {
+                text: 'values'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+
+        series: [{
+            type: 'area',
+            name: indDataName,
+            data: timeseries
+        }]
+    });
 }

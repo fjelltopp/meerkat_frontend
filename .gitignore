@@ -1,4 +1,7 @@
 *.py[cod]
+*.pdf_small
+*.pdf
+ghostdriver.log*
 
 # C extensions
 *.so
@@ -58,3 +61,6 @@ meerkat_frontend/translations/**/.po
 
 yarn.lock
 yarn-error.log
+
+#Emacs
+.#*

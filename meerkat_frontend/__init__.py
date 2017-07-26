@@ -4,8 +4,7 @@ meerkat_frontend.py
 This module runs as the Flask app from app.py and mounts component Flask apps
 for different services such as the API and Reports.
 """
-from .app import app, babel, sentry
-from meerkat_libs.auth_client import auth
+from .app import app, babel, sentry, auth
 from slugify import slugify
 from flask import render_template, request, Blueprint
 from flask import current_app, abort, flash, g, redirect
@@ -16,12 +15,13 @@ from .views.reports import reports
 from .views.messaging import messaging
 from .views.download import download
 from .views.explore import explore
-from .views.dropbox_bp import dropbox_bp
+from .views.file_util import dropbox_bp
+from .views.file_util import s3_files_bp
 import os
 import json
 
 
-# App has been imported at the top of this file. We now add crucial services...
+# App has been imported at the top of this file.
 
 
 # Paths specified in config file
@@ -52,9 +52,16 @@ if "EXTRA_PAGES" in app.config:
         extra_pages.add_url_rule('/{}/'.format(url), url, function)
 
 
+# Handle homepage route
+
 # Redirect all pages to a language-specified page.
 @app.route("/")
 def root():
+    url_redirect = app.config.get("URL_REDIRECT", {})
+    if url_redirect:
+        domain = request.url_root
+        if domain in url_redirect:
+            return redirect("/" + app.config["DEFAULT_LANGUAGE"] + "/" + url_redirect[domain])
     return redirect("/" + app.config["DEFAULT_LANGUAGE"])
 
 
@@ -82,6 +89,7 @@ def location():
 @homepage.url_value_preprocessor
 @extra_pages.url_value_preprocessor
 @dropbox_bp.url_value_preprocessor
+@s3_files_bp.url_value_preprocessor
 def pull_lang_code(endpoint, values):
     language = values.pop('language')
     if language not in app.config["SUPPORTED_LANGUAGES"]:
@@ -97,6 +105,7 @@ def pull_lang_code(endpoint, values):
 @technical.url_defaults
 @extra_pages.url_defaults
 @dropbox_bp.url_defaults
+@s3_files_bp.url_defaults
 def add_language_code(endpoint, values):
     values.setdefault('language', app.config["DEFAULT_LANGUAGE"])
 
@@ -110,6 +119,7 @@ app.register_blueprint(messaging, url_prefix='/<language>/messaging')
 app.register_blueprint(download, url_prefix='/<language>/download')
 app.register_blueprint(explore, url_prefix='/<language>/explore')
 app.register_blueprint(dropbox_bp, url_prefix='/<language>/files')
+app.register_blueprint(s3_files_bp, url_prefix='/<language>/s3_files')
 
 
 @app.template_filter('slugify')
@@ -156,7 +166,7 @@ def error_test(error):
     """
     abort(error)
 
-
+@app.errorhandler(400)
 @app.errorhandler(404)
 @app.errorhandler(401)
 @app.errorhandler(410)

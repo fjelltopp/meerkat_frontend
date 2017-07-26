@@ -19,35 +19,41 @@
         </button>
         <a class="navbar-brand scroll-top" href="#">
           <img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> </img>
-          <span class="hidden-xs hidden-sm">{{_(content.titles.nav|safe)}}</span>
-          <span class="visible-xs visible-sm">{{_(content.titles.mob_nav|safe)}}</span>
+          <span class="hidden-xs hidden-sm hidden-md">{{_(content.titles.nav|safe)}}</span>
+          <span class="hidden-lg hidden-xl">{{_(content.titles.mob_nav|safe)}}</span>
         </a>
       </div>
       <div class="collapse navbar-collapse" id="menu-collapse" >
-        {% block menu %}
-        <ul class="nav navbar-nav">
-            {% for item in content.main_menu %}
-                {% if (('access' in item) and ("payload" in g and item.access in g.payload.acc[content.auth_country]))
-                    or ('access' not in item) %}
-                <li class="menu-{{item.text|slugify}}">
-                    <a href="/{{g.get('language')}}{{item.url}}" >{{ _(item.text) }}</a>
+        <div class='complete-navbar'>
+            {% block menu %}
+            <ul class="nav navbar-nav">
+                {% for item in content.main_menu %}
+                    {% if (('access' in item) and ("payload" in g and item.access in g.payload.acc[content.auth_country]))
+                        or ('access' not in item) %}
+                    <li class="menu-{{item.text|slugify}}">
+                        <a href="/{{g.get('language')}}{{item.url}}" >{{ _(item.text) }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                <li class="menu-logout">
+                    <a href="/{{g.get('language')}}/logout?url={{request.url_root}}{{g.get('language')}}" >
+                        {{ _('Log out') }}
+                    </a>
                 </li>
+            </ul>
+            {% endblock %}
+            <div class='navbar-buttons'>
+                <div class=" button lang-sel hidden">
+                </div>
+                {% if 'payload' in g and 'personal' in g.payload.acc[content.auth_country] %}
+                <div class="button settings" >
+                    <a href="/{{g.language}}/account_settings">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </div>
                 {% endif %}
-            {% endfor %}
-            <li class="menu-logout">
-                <a href="/{{g.get('language')}}/logout?url={{request.url_root}}{{g.get('language')}}" >
-                    {{ _('Log out') }}
-                </a>
-            </li>
-        </ul>
-        {% endblock %}
-        <div class="lang-sel" title=>
-        </div>
-        {% if 'payload' in g and 'personal' in g.payload.acc[content.auth_country] %}
-        <a class="settings" href="/{{g.language}}/account_settings">
-            <span class="glyphicon glyphicon-cog"></span>
-        </a>
-        {% endif %}
+            </div>
+          </div>
       </div>
     </div>
   </nav>
@@ -76,7 +82,8 @@
         <a href='/{{g.language}}/fault?url={{request.path}}' target='_blank'>{{_('Report Faulty Page')}}</a>
     </div>
     <!-- FOOTER -->
-    <footer class="row">
+    <footer>
+      <div  class="row">
       {% block footer %}
       <div class="container">
 	      <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
@@ -98,6 +105,7 @@
 	      </div>
       </div>
       {% endblock %}
+      </div>
     </footer>
 
   {% include 'includes/js.html' %}

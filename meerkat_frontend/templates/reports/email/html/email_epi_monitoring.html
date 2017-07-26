@@ -13,7 +13,7 @@
                 <tbody>
                   <tr>
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('Weekly Epidemiological Report')}}
+                      <h2>{{_(report.data.project_region|e)}} &middot; {{_('DVSSE Epidemiological Monitoring Report')}}
                       </h2>
                       <h3>{{ _('Epi week %(epi_week)s (%(start_date)s - %(end_date)s)',
                       epi_week = report.data.epi_week_num,
@@ -87,9 +87,9 @@
                     <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                       <p>
                       {{ _('The profile summarises epidemiological information reported from %(clinics)s
-                        reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and 
-                        %(end_date)s).', 
-                        clinics=report.email.clinics, 
+                        reporting sites in Epidemiological Week %(epi_week)s (%(start_date)s and
+                        %(end_date)s).',
+                        clinics=report.email.clinics,
                         project_region=_(report.data.project_region),
                         epi_week=report.data.epi_week_num,
                         start_date=report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY'), end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY')) }}
@@ -137,7 +137,7 @@
                       ')
                       }}
                       </p>
-                      
+
                     </td>
                   </tr>
                 </tbody>

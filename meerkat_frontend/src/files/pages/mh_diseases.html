@@ -10,9 +10,9 @@
 			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+	<div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
 	</div>
-	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
 	</div>
 
 </div>
@@ -100,9 +100,7 @@ function drawCharts( locID ){
 	//In case we want the use to eb able to select the weeks to view.
 	var week = get_epi_week().toString();
 
-
     reDraw();
-
 }
 
 
@@ -110,7 +108,7 @@ function reDraw(){
 
   var tableOptions = {};
   //Assemble correct options object from html elements.
-  $('.nc_disease-table-option').each( function(){
+  $('.mh_disease-table-option').each( function(){
       tableOptions[$(this).attr('name')] = $(this).attr('value');
   });
   console.log( tableOptions );
@@ -119,17 +117,17 @@ function reDraw(){
   //In case we want the user to be able to select the weeks to view.
   var week = (get_epi_week()).toString();
 
-	categorySummation({ category: 'mhgap',
+  categorySummation({ category: 'mhgap',
 	                    locID: currentLocation,
 	                    week: week,
 	                    tableID: 'mh_disease-table',
 	                    barID: 'mh_disease-bar-chart',
-	                    percent: true,
+	                  percent: true,
+					  limit_to: 'tot_1',
 	                    linkFunction: 'loadDisease',
-                        strip: false,
                         title: i18n.gettext('Mental Health Disease'),
                         table_options: tableOptions
-	                   });
+	                 });
   }
-drawOptionsButtons('mh_disease-table', 'reDraw');
+  drawOptionsButtons('mh_disease-table', 'reDraw');
 </script>

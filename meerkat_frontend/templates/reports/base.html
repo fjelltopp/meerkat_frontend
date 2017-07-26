@@ -7,17 +7,21 @@
 <body class="htmlreport {{report.report_id}}" >
   <nav class="navbar navbar-fixed-top">
     <div class="container-fluid navmenu">
+      <a class="download pull-left" target='_window' href="{{pdf_url}}?{{request.query_string.decode('UTF-8')}}" title="{{_('Download Report as PDF')}}">
+          <span class='glyphicon glyphicon-download'></span>{{_('Download PDF')}}
+      </a>
       <div class="navbar-header pull-right">
         <a class="navbar-brand scroll-top" href="#">
-          <!--<img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}"> 
+          <!--<img class="navbar-flag" src="{{ url_for('static', filename='img/flags/4x3/' + content.flag) }}">
               </img> -->
-          <span class="hidden-xs">{{_(content.titles.nav)|safe}} {{ _('Reports') }}</span>
+          <span class="hidden-xs">{{_(content.titles.get('reports', content.titles.nav))|safe}}</span>
           <span class="visible-xs">{{_(content.titles.mob_nav)|safe}}</span>
         </a>
       </div>
 
     </div>
   </nav>
+
 
 <div class="container-fluid htmlreport {{report.report_id}}">
 {% block body %}{% endblock %}
@@ -30,31 +34,32 @@
 		<div class="row">
 		  <div class="footer__label pull-left col-xs-12 col-sm-6 col-md-5 less-padding-col">
 		    <p class="footer__title">{{_(content.titles.nav)|safe}}</p>
-		    <p>{{ _('Working with our partners:') }}</p> 
+		    <p>{{ _('Working with our partners:') }}</p>
 		    <ul class="footer__supporters" >
 			    {% for partner in content.footer.partners %}
 				    <li>{{_(partner)}}</li>
-			    {% endfor %} 
+			    {% endfor %}
 		    </ul>
 		    <p>{{ _('For more information, please e-mail') }}: {{content.footer.email|safe}} </p>
 		  </div>
 		  <div class="footer__logos pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">
-
-		    <img src="{{ url_for('static', filename='img/' + content.footer.logos.country_partner) }}"
-		         id="countryLogo" ></img> 
+                      {% set country_logo = report.data.logo if "logo" in report.data else content.footer.logos.country_partner %}
+		    <img src="{{ url_for('static', filename='img/' + country_logo) }}"
+		         id="countryLogo" ></img>
 		    {% for logo in content.footer.logos.partners %}
-			    <img src="{{ url_for('static', filename='img/' + logo) }}" ></img> 
+			    <img src="{{ url_for('static', filename='img/' + logo) }}" ></img>
                     {% endfor %}
-                    <img src="{{ url_for('static', filename='img/' + content.footer.logos.who) }}" id="whoLogo" ></img> 
+                    <img src="{{ url_for('static', filename='img/' + content.footer.logos.who) }}" id="whoLogo" ></img>
 		  </div>
 			<p class="time-stamp pull-right col-xs-12 col-sm-6 col-md-7 less-padding-col">{{ _('This report is up to date as of %(generation_time)s on %(generation_date)s UTC.', generation_time=report.meta.generation_timestamp|datetime_from_json|datetime('HH:mm'), generation_date=report.meta.generation_timestamp|datetime_from_json|datetime('dd MMMM YYYY')) }}</p>
 		</div>
   </div>
 </footer>
+{% block second_body %}{% endblock %}
+
 </body>
 </html>
 {% include 'includes/js.html' %}
 {% block pageJS %}
     {% block extra_js %}{% endblock %}
 {% endblock %}
-

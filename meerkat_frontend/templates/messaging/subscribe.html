@@ -23,7 +23,7 @@
 		<div class="tab-title less-padding-col">
 			 {{_('Public Health Surveillance Notifications')}}
 		</div>
-		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+		<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
 			{{_('Date not loaded.') }}
 		</div>
 	</div>
@@ -76,7 +76,6 @@
 										  <input id="sms-number" class="col-xs-12 col-sm-8" value="" type="tel" name="sms" optional>
 									  </div>
 								  </div>
-								  <div id="report-select" class="row"> </div>
 								  <div class="row">
 									  <div class="col-xs-12 no-padding-col title" >
 										 {{ _(' Select which location to receive Alerts from:') }}
@@ -84,10 +83,11 @@
 									  <div class="col-xs-0 col-sm-4"></div>
 									  <a href="" class="col-xs-12 col-sm-8 no-padding-col menu-toggle location-name"></a>
 								  </div>
+                                  <div id="report-select" class="row"> </div>
 							  </div>
 							  <input type="hidden" name="country" value="{{content.messages.country}}">
 							  <div class="right-part col-sm-12 col-md-6 more-padding-col">
-								  <div id="disease-select"> </div>
+                                  <div id="disease-select"> </div>
 								  <div class="centered row">
 									  <input class="submit btn btn-default btn-lg" type='submit' value="Subscribe" >
 								  </div>
@@ -129,7 +129,7 @@ function drawCharts(locID, year, reports){
 	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
-		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = {{g.allowed_location}};
 		else locID = history.state.locID;
 	}
 
@@ -177,13 +177,13 @@ $.getJSON( api_root+"/variables/alert?include_group_b=1", function( variables ){
 
 		disSel += "";
 		disSel += "<div class='row'>";
-		disSel += "<div class='col-xs-12 col-sm-6 col-md-4 check'>";
+		disSel += "<div class='col-xs-12 col-sm-6 check'>";
 		disSel += "<input id='all-diseases' type='checkbox' value='allDis' name='topics'";
 		disSel += "onclick='toggleAll(this); checkSelected(this);'>{{ _('All Alerts') }}</div> ";
 		var keys = Object.keys(variables);
 
 		for( var i in keys ){
-			disSel += "<div class='col-xs-12 col-sm-6 col-md-4 check'>";
+			disSel += "<div class='col-xs-12 col-sm-6 check'>";
 			disSel += "<input type='checkbox' class='disease' name='topics'";
          disSel += "onclick='checkSelected(this)' value='" + keys[i] + "'>";
 			disSel += i18n.gettext(variables[keys[i]].name) + "</div>";
@@ -204,14 +204,12 @@ $.getJSON( api_root+"/variables/alert?include_group_b=1", function( variables ){
 
 		//Draw the report selector
 		var repSel = "<div class='title'> {{_('Select which Reports to receive:')}} </div>";
-		repSel += "<div class='col-xs-0 col-sm-4'></div><div class='col-xs-12 col-sm-8 no-padding-col'>";
 		for( var j in config.subscribe.reports ){
-			repSel += "<div class='col-xs-12 col-sm-6 check'>";
+			repSel += "<div class='col-xs-12 col-sm-8 col-sm-offset-4 check'>";
 			repSel += "<input type='checkbox' onclick='checkSelected(this);' class='reports'";
 			repSel += "name='topics' value='" + config.subscribe.reports[j].id + "'>";
 			repSel += i18n.gettext(config.subscribe.reports[j].name) + "</div>";
 		}
-		repSel += "</div>";
 		$('#report-select').html(repSel);
 
 	});

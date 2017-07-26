@@ -20,7 +20,7 @@
 		<div class="tab-title less-padding-col">
 			{{ _('Reports') }}
 		</div>
-		<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+		<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
 			{{ _('Date not loaded.') }}
 		</div>
 	</div>
@@ -123,14 +123,17 @@ $(".menu-toggle").click(function(e) {
 });
 $("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
 
- loadLocationTree({locID:{{loc}}});
  //Respond to the user pressing forward or back by loading the correct page content.
  window.onpopstate = function(event) {
      loadPage( event.state, false );
  };
 
-
 setUpReportForm();
+console.log( "AllowedLocs: " + $("#report-selector").find(':selected').data('locations'));
+loadLocationTree({
+    locID:{{loc}},
+    dataID: $("#report-selector").find(':selected').data('locations')
+});
 
 function setUpReportForm(){
 
@@ -164,6 +167,10 @@ function setUpReportForm(){
 		var startDate = new Date( $(this).find(':selected').attr('startdate' ) );
 		$('#start-date').data("DateTimePicker").minDate( dateToString(startDate) );
 		setDefaultPeriod( $(this).find(':selected').attr('period' ));
+        //Filter locations
+        var allowedLocations = $(this).find(':selected').data('locations');
+        if(allowedLocations.length===0) filterLocations([], history.state.locID);
+        else filterLocations(allowedLocations, history.state.locID )
 	});
 
 	//Link the date pickers so you can't select a start date after the end date.
@@ -243,7 +250,8 @@ function drawReportSelect(){
             user.acc.{{content.auth_country}}.indexOf(report.access) != -1 ){
 		    html += "<option value='" + report.url + "'" +
 		            "startdate='" + report.start_date + "'" +
-		            "period='" + report.period + "'>" +
+		            "period='" + report.period + "' data-locations='" +
+                    JSON.stringify(report.locations || []) + "'>" +
 		            i18n.gettext(report.name) + "</option>";
         }
 	}
@@ -290,7 +298,7 @@ function drawCharts(locID, year, reports){
 	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
-		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = {{g.allowed_location}};
 		else locID = history.state.locID;
 	}
 

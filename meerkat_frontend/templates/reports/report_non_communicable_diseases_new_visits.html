@@ -100,9 +100,11 @@
       <div class="table-wrapper table-responsive">
 	  {{ table(report["hypertension"]["age"]) }}
       </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of hypertension patient visits') }}</div>
-      <div class="table-wrapper table-responsive">
-	  {{ table(report["hypertension"]["complications"], percent=True) }}
+	  <div style="page-break-inside:avoid">
+		  <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of hypertension patient visits') }}</div>
+		  <div class="table-wrapper table-responsive">
+			  {{ table(report["hypertension"]["complications"], percent=True) }}
+		  </div>
       </div>
     </div>
   </div>
@@ -111,15 +113,19 @@
 <!-- Diabetes -->
 <div class="row">
    <div class="col-sm-12">
-    <div class="chart-wrapper">
-      <div class="chart-title">{{ _('Diabetes') }}</div>
-      <div class="table-title">{{ _('Table 1: Number of diabetes patient visits by age group') }}</div>
-      <div class="table-wrapper table-responsive">
-	  {{ table(report["diabetes"]["age"]) }}
-      </div>
-      <div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of diabetes patient visits') }} </div>
-      <div class="table-wrapper table-responsive">
-	  {{ table(report["diabetes"]["complications"], percent=True) }}
+       <div class="chart-wrapper">
+		  <div style="page-break-inside:avoid">
+		   <div class="chart-title">{{ _('Diabetes') }}</div>
+		   <div class="table-title">{{ _('Table 1: Number of diabetes patient visits by age group') }}</div>
+		   <div class="table-wrapper table-responsive">
+			   {{ table(report["diabetes"]["age"]) }}
+		   </div>
+		  </div>
+		<div style="page-break-inside:avoid">
+			<div class="table-title" style="page-break-before: always">{{ _('Table 2: Distribution of diabetes patient visits') }} </div>
+			<div class="table-wrapper table-responsive">
+				{{ table(report["diabetes"]["complications"], percent=True) }}
+			</div>
       </div>
     </div>
   </div>
