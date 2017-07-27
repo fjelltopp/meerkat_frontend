@@ -115,7 +115,7 @@ button.header:hover{
 	}
 }
 .location-box{
-
+    margin-right: 10px;
 	display: inline-block;
 	float: left;
 
@@ -126,7 +126,36 @@ button.header:hover{
 
 .location-selector{
 	margin:5px;
+
+    .location-search{
+        position: relative;
+        margin-bottom: 15px;
+        input{
+            line-height: 30px;
+            height: 35px;
+            padding: 0 27px 0px 35px;
+            border-radius: 4px;
+        }
+        span.glyphicon-search{
+            position: absolute;
+            font-size: 19px;
+            top: 8px;
+            left: 8px;
+            color: $textGrey;
+        }
+        span.glyphicon-remove{
+            position: absolute;
+            font-size: 13px;
+            right: 0px;
+            line-height: 35px;
+            padding: 0px 8px;
+            color: #818181;
+            cursor: pointer;
+        }
+    }
 }
+
+
 
 .chartBox{
 	padding: 0px;

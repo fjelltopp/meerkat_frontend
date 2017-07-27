@@ -174,7 +174,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 content_url=content_url
             )
         elif email_format == 'txt':
-            email_body = render_template(
+            email_body = '<plaintext>' + render_template(
                 ret['template_email_plain'],
                 report=ret['report'],
                 extras=ret['extras'],
@@ -406,6 +406,14 @@ def report(report=None, location=None, end_date=None, start_date=None):
     if validate_report_arguments(current_app.config, report,
                                  location, end_date, start_date):
 
+        pdf_url = url_for(
+            'reports.pdf_report',
+            report=report,
+            location=location,
+            end_date=end_date,
+            start_date=start_date
+        )
+
         ret = create_report(
             config=current_app.config,
             report=report,
@@ -421,7 +429,8 @@ def report(report=None, location=None, end_date=None, start_date=None):
             report=ret['report'],
             extras=ret['extras'],
             address=ret['address'],
-            content=g.config['REPORTS_CONFIG']
+            content=g.config['REPORTS_CONFIG'],
+            pdf_url=pdf_url
         )
 
         return html
@@ -488,7 +497,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.get(initial_url) # Get the api url
         domain = url.split("://")[-1].split("/")[0]
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
-                      "value": cookie["meerkat_jwt"], 'path': '/','expires': None}
+                      "value": auth.get_token(), 'path': '/','expires': None}
 
         current_app.logger.info("Getting URL")
         driver.add_cookie(cookie_sel)
@@ -653,6 +662,13 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     # try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     access = report_list[report].get('access', '')
+
+    # Abort if the location is not allowed
+    allowedLocations = report_list[report].get('locations', None)
+    if allowedLocations and int(location) not in allowedLocations:
+        abort(400, "Report not available for location (id: {})".format(
+            location
+        ))
 
     # Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:
