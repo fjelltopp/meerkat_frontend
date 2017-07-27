@@ -170,9 +170,10 @@
             <div class='left-part'>
                 <div class='facility-title-name title'>{{ sc.name }}</div>
                 <div class='facility-title-location'>
-                {{ sc.district }} | {{ sc.region }} <br />
+					{{ sc.district }} | {{ sc.region }} <br />
                     {{_('Latitude: ')}} {{sc.gps[0]}}, {{_('Longitude: ')}} {{sc.gps[1]}} <br />
-                    {{_('Surveyed on') }} {{sc.latest_date}}
+                    {{_('Surveyed on') }} {{sc.latest_date}} <br />
+					{{_('Available programs:') }} {{ ", ".join(sc.services) }}
                 </div>
             </div>
             <div class='right-part'>
