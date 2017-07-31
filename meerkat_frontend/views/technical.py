@@ -3,11 +3,12 @@ technical.py
 
 A Flask Blueprint module for the technical site.
 """
-from flask import Blueprint, render_template, current_app, g
+from flask import Blueprint, render_template, current_app, g, abort
 from .. import common as c
 from meerkat_frontend import auth
 from slugify import slugify
 import meerkat_frontend
+import json
 
 
 technical = Blueprint('technical', __name__, url_prefix='/<language>')
@@ -39,8 +40,9 @@ def index(tab=None, locID=None):
 
     # If no tab is provided, load the first tab in the tab list the user
     # has access to.
+    tabs = current_app.config['TECHNICAL_CONFIG']['tabs']
     if tab is None:
-        for t in current_app.config['TECHNICAL_CONFIG']['tabs']:
+        for t in tabs:
             country = current_app.config['TECHNICAL_CONFIG']['auth_country']
             tab_access = t.get('access', False)
             in_arr = meerkat_frontend.in_array(
@@ -48,16 +50,29 @@ def index(tab=None, locID=None):
                 g.payload['acc'][country]
             )
             if in_arr or not tab_access:
-                tab = slugify(t['name'])
+                tab = t
                 break
+    else:
+        try:
+            tab = list(filter(lambda t: slugify(t['name']) == tab, tabs))[0]
+        except IndexError:
+            abort(404)
 
-    pageState = ("{ type: 'tab', dataID: '" + tab + "', locID: " +
-                 str(locID) + " }")
+    # Create a page state object defining the page to be shown
+    page_state = {
+        'type': 'tab',
+        'dataID': slugify(tab['name']),
+        'locID': str(locID),
+        **tab
+    }
+    page_state.pop("access", None)
+    page_state.pop("name", None)
+    page_state = json.dumps(page_state)
 
     return render_template(
         'technical/index.html',
         content=g.config['TECHNICAL_CONFIG'],
-        page=pageState,
+        page=page_state,
         langauge=g.get("language", current_app.config["DEFAULT_LANGUAGE"]),
         week=c.api('/epi_week'),
         user=g.payload
