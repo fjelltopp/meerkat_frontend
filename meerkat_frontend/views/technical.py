@@ -54,9 +54,9 @@ def index(tab=None, locID=None):
                 break
     else:
         try:
-            tab = list(filter(lambda t: slugify(t['name']) == tab, tabs))[0]
-        except IndexError:
-            abort(404)
+            tab = next(filter(lambda t: slugify(t['name']) == tab, tabs))
+        except StopIteration:
+            abort(404, '{} page does not exist'.format(tab))
 
     # Create a page state object defining the page to be shown
     page_state = {
