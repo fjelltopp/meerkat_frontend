@@ -76,11 +76,10 @@ function loadTabContent( tabID, locID ){
 
 	//Load the page content
 	//Only load the location content after the page content has been loaded, because one depends on the other.
-	$( '#page-content' ).load( '/static/files/pages/' + $( '#'+tabID ).attr('page'),
-										function(){
-	                           	loadLocationContent(locID);
-	                           });
-
+	$( '#page-content' ).load(
+        '/static/files/pages/' + $( '#'+tabID ).attr('page'),
+		function(){ loadLocationContent(locID); }
+    );
 
 	//Update the active tab styling
 	$('.tabs li.active').removeClass('active');

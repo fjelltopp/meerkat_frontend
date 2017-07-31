@@ -51,7 +51,7 @@
 
   "tabs":[{
     "name":"Analysis",
-    "template":"indicators.html" 
+    "template":"indicators.html"
   },{
     "name":"Demographics",
     "template":"demographics.html"
@@ -69,6 +69,10 @@
   },{
     "name":"Presenting Complaint",
     "template":"complaint.html"
+  },{
+    "name":"Mental Health",
+    "template":"mh_diseases.html",
+    "location_filter": "?case_type=mh"
   },{
     "name":"Communicable Diseases",
     "template":"diseases.html",

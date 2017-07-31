@@ -50,8 +50,11 @@ function gatherClinicsData(locID) {
                         data: clinicDataArray,
                         pagination: true,
                         pageSize: 10,
+                        search: true,
                         classes: "table table-no-bordered table-hover"
                     });
+
+                    addPaginationListener('#clinicsTable table');
 
                     //Update the table header so there is no need for scroll bar ...
                     changeHeaderCss();
@@ -61,40 +64,45 @@ function gatherClinicsData(locID) {
     });
 }
 
+// Hack to fix the pagination dropdown menu bug with bootstrap table.
+function addPaginationListener(table){
+    console.log(table);
+
+    $('.page-list button.dropdown-toggle').click(function(){console.log('click');$('.page-list .dropdown-menu').toggle();});
+
+    $(table).on('page-change.bs.table', function(){
+        $('.page-list button.dropdown-toggle').click(function(){console.log('click');$('.page-list .dropdown-menu').toggle();});
+    });
+}
+
 function buildClinicsTable() {
 
     //Add the first Column ...
-    buildTableColumn("clinicName", "Facility Name", "black");
+    buildTableColumn("clinicName", "Facility Name", "total");
 
     //Get the current week with the last two weeks, 3 weeks total ......
     var currentWeek = week;
     for (i = week - 2; i <= currentWeek; i++) {
 
-        var columnRedStyle = "black";
+        var columnClass = "";
         var currentText = "";
         if (i === week) {
-            columnRedStyle = "red";
+            columnClass = "total";
             //currentText = " current ";
         }
         //Draw the clolumns depend on the week number ...
-        buildTableColumn(i + "N", "Week " + i + currentText + " (new) ", columnRedStyle);
-        buildTableColumn(i + "F", "Week " + i + currentText + " (return) ", columnRedStyle);
+        buildTableColumn(i + "N", "Week " + i + currentText + " (new) ", columnClass);
+        buildTableColumn(i + "F", "Week " + i + currentText + " (return) ", columnClass);
     }
 
     //Now after adding the new and return columns i will add the Completeness column ...
     for (i = week - 2; i < currentWeek; i++) {
-        var columnColor = "black";
-        var currentTxt = "";
-        if (i === week) {
-            columnColor = "red";
-          //  currentTxt = " current ";
-        }
-        buildTableColumn(i + "C", "Week " + i + currentTxt + " (comp.) ", columnColor);
+        buildTableColumn(i + "C", "Week " + i + " (comp.) ", "");
     }
 }
 
 //This function is responsible for building the table header ...
-function buildTableColumn(columnId, columnName, columnColor) {
+function buildTableColumn(columnId, columnName, columnClass) {
     columnNameArray.push({
         field: columnId,
         title: i18n.gettext(columnName),
@@ -102,13 +110,7 @@ function buildTableColumn(columnId, columnName, columnColor) {
         sortable: true,
         sortName: columnId,
         valign: "middle",
-        cellStyle: function cellStyle(value, row, index) {
-            return {
-                css: {
-                    "color": columnColor
-                }
-            };
-        }
+        class: columnClass
     });
 }
 

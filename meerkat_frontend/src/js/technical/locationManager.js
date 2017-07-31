@@ -7,28 +7,49 @@ var locationsTree = new TreeModel({childrenPropertyName:"nodes"});
     through out the site for drawing the location selector and executing other tasks that require
     navigating through the tree model.
 */
-var locationData;
-var locations;
+var locationData = {};
+var locations = {};
 
 /**:loadLocationTree( initialPageState )
 
     This is the first function when loading the technical site (directly from the Jinja2 template).
     It loads the location tree and renders the initial tab page (e.g. Demographics)
 
-    :param object initialPageState:
-        The page state for the initial tab to be loaded. The page state is an object that summarises
+    :param object queryArgs:
+        The args string to be attached to the location request. e.g. case_type=mh
+
+    :param object pageState:
+        The page state for the tab to be loaded. The page state is an object that summarises
         completely a page in the technical dashboard.  It does so in three properties: type, dataID
         and locID, as specified in the docs for the pageManager.js function `loadPage()`.
 */
-function loadLocationTree( initialPageState ){
+function loadLocationTree(pageState){
+    var queryArgs = pageState.location_filter || '';
+    console.log(api_root+"/locationtree" + queryArgs);
+    // Function to factor out the process of making the tree and loading the page.
+    function makeTree(data){
+        locations = locationsTree.parse(data);
+        //Check that the currently selected loc is in the location tree.
+        currentLoc = locations.first(
+            {strategy: 'breadth'},
+            function(x){ return x.model.id===pageState.locID; }
+        );
+        if(typeof currentLoc === 'undefined') pageState.locID = locationData[queryArgs].id;
+        //Load the requested page
+        if( typeof( pageState ) != 'undefined' ) loadPage( pageState, true );
+    }
 
-	$.getJSON( api_root+"/locationtree", function( data ){
-        locationData =  $.extend(true, {}, data);
-		locations = locationsTree.parse(data);
-		if( typeof( initialPageState ) != 'undefined' ) loadPage( initialPageState, true );
+    // If we have already got the location tree, don't bother regetting.
+    if(queryArgs in locationData){
+        makeTree(locationData[queryArgs]);
+    // If we don't have the location tree for th requested query args, get it.
+    }else{
 
-
-	});
+    	$.getJSON( api_root+"/locationtree" + queryArgs, function( data ){
+            locationData[queryArgs] =  $.extend(true, {}, data);
+            makeTree(data);
+    	});
+    }
 }
 
 /**:loadLocation( locID )
@@ -60,18 +81,16 @@ function loadLocation( locID){
 	//Next see if a location is already defined at the end of the URL
 	var index = url.indexOf('/loc_');
 
-	//If locID = 1 (the whole country) don't specify location in URL.
-	if( locID != allowed_location ){
-		if( index != -1 ){
-			//If the location is defined, replace it with the new location.
-			url = url.substring(0, index) + '/loc_' + locID;
-		}else{
-			//If the non-location specific url doesn't finish with a slash, add one.
-			if( url.slice(-1) != '/' ) url += '/' ;
-			//Then add the location string.
-			url += 'loc_' + locID;
-		}
+	if( index != -1 ){
+		//If the location is defined, replace it with the new location.
+		url = url.substring(0, index) + '/loc_' + locID;
+	}else{
+		//If the non-location specific url doesn't finish with a slash, add one.
+		if( url.slice(-1) != '/' ) url += '/' ;
+		//Then add the location string.
+		url += 'loc_' + locID;
 	}
+
 
 	history.pushState( currentState, "", url );
 
@@ -172,12 +191,12 @@ function filterLocations(allowedLocations, locID){
 
     // Begin with a valid locID and a fresh complete location tree.
     if(typeof locID === 'undefined') locID = history.state.locID;
-    locations = locationsTree.parse($.extend(true, {}, locationData));
+    locations = locationsTree.parse($.extend(true, {}, locationData['']));
 
     // Only filter if allowed locations has elements, otherwise show complete tree.
     if(allowedLocations.length !== 0){
 
-        //Warn if the locId isn't in the allwoed locations. efault to allowedLocations[0]
+        //Warn if the locId isn't in the allwoed locations. Default to allowedLocations[0]
         if(allowedLocations.indexOf(locID) == -1){
             console.warn("locID not in allowed locations, defaulting to allowedLocations[0]");
             locID = allowedLocations[0];
