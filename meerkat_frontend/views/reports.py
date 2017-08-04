@@ -79,7 +79,10 @@ def test(report):
             current_app.logger.warning("JSONDecodeError: " + str(e))
             abort(500)
         data["flag"] = current_app.config["FLAGG_ABR"]
-        if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
+
+        if report in ['public_health',
+                      'cd_public_health',
+                      'ncd_public_health']:
             # Extra parsing for natural language bullet points
             extras = {"patient_status": {}}
             for item in data['data']['patient_status']:
