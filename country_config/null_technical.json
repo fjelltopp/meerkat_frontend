@@ -59,6 +59,9 @@
     "name": "Clinics",
     "template": "clinics.html"
   },{
+    "name": "PIP",
+    "template": "pip.html"
+  },{
     "name":"Demographics CD",
     "template":"demographicsCD.html",
     "access": "cd"
