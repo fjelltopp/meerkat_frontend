@@ -180,14 +180,14 @@
 
 	 
      //drawLatestTimeChart( "ctc_cases", "ctc_1", locID, 'time-chart', undefined, undefined, 1)
-     drawCasesChoropletLatestWeekly("Malnutrition", "sc_cases_per_bed", "sc_1", "case-map", "district", 5, 43.10, 5, "Caseload per bed");
+     drawCasesChoropletLatestWeekly("Malnutrition", "sc_cases_per_bed", "sc_sc", "case-map", "district", 5, 43.10, 5, "Caseload per bed");
 
 
 	 
-     protocol_url = api_root + "/aggregate_latest_category/sc_protocols/sc_1/" + locID + "/0"
+     protocol_url = api_root + "/aggregate_latest_category/sc_protocols/sc_sc/" + locID + "/0"
         
      $.getJSON(protocol_url, function( data ){
-		 $.getJSON(api_root + "/aggregate_latest_year/sc_1/sc_1/" + locID +"/0",  function( base ){
+		 $.getJSON(api_root + "/aggregate_latest_year/sc_sc/sc_sc/" + locID +"/0",  function( base ){
              total_clinics = base.total
              if( total_clinics == 0){
                  total_clinics = 1;
@@ -209,7 +209,7 @@
 			 });
 		 });
      });
-     caseload_url = api_root + "/aggregate_latest_category/sc_caseload/sc_1/" + locID
+     caseload_url = api_root + "/aggregate_latest_category/sc_caseload/sc_sc/" + locID
      $.getJSON(caseload_url, function( data ){
 	 $.getJSON(api_root + "/variables/sc_caseload", function( variables ){
 	     table = '<table class="table table-no-bordered table-hover">'
@@ -234,10 +234,10 @@
 	     $("#caseload").html(table)
 	 });
      });
-     structure_url = api_root + "/aggregate_latest_category/sc_structure/sc_1/" + locID +"/0"
+     structure_url = api_root + "/aggregate_latest_category/sc_structure/sc_sc/" + locID +"/0"
      $.getJSON(structure_url, function( data ){
 	 $.getJSON(api_root + "/variables/sc_structure", function( variables ){
-	     $.getJSON(api_root + "/aggregate_latest/sc_1/sc_1/" + locID ,  function( base ){
+	     $.getJSON(api_root + "/aggregate_latest/sc_sc/sc_sc/" + locID ,  function( base ){
 		 total = base.value
 			 table = '<table class="table table-no-bordered table-hover">'
 		 table += "<tr> <th> Type </th> <th> Number </th> "
@@ -257,42 +257,21 @@
 	 });
      });
 
-     non_reporting_url = api_root + "/non_reporting/sc_1/" + locID + "/1/0/SU/0"
+     non_reporting_url = api_root + "/non_reporting/sc_sc/" + locID + "/code:sc_1/0/SU/0"
      $.getJSON(api_root + "/locations", function( locations ){
+		 surveyed_clinics = []
+		 surveyed_clinic_ids = []
+	     not_surveyed_clinics = []
+		 $.getJSON(api_root + "/map/sc_sc/" + allowed_location, function (clinics){
 
-		 $.getJSON(api_root + "/map/sc_1/" + allowed_location, function (clinics){
-
-			 surveyed_clinics = []
-			 surveyed_clinic_ids = []
-			 not_surveyed_clinics = []
 			 clinic_ids = Object.keys(clinics)
 			 for (var i = 0; i  < clinic_ids.length; i++){
 				 id = clinic_ids[i];
 				 surveyed_clinic_ids.push(id)
 				 surveyed_clinics.push([clinics[id].geolocation[0], clinics[id].geolocation[1], clinics[id].clinic])
 			 }
-			 for (l in locations){
-				 if (locations[l].clinic_type == "SU"){
-					 open = locations[l].other.open;
-					 district = locations[l].parent_location 
-					 region = locations[district].parent_location
-					 zone = locations[region].parent_location;
-					 region = locations[region].name;
-					 if( allowed_location == 1 || zone == allowed_location){
-				 		 if( $.inArray(l, surveyed_clinic_ids) == -1 && locations[l].point_location){
-							 not_surveyed_clinics.push([locations[l].point_location[0][1], locations[l].point_location[0][0], locations[l].name]);
-						 }
-					 }
-				 }
-			 }
-			 ctc_surveyed_clinics_map(
-				 surveyed_clinics,
-				 not_surveyed_clinics,
-				 'surveyed-clinic-map',
-				 [5, 43.10, 5],
-				 true,
-				 "SC"
-			 );
+		
+			
 		 });
 
 
@@ -305,9 +284,11 @@
 	     for (var i=0; i<data.clinics.length;i++){
 		     datum = {
 		         "location": locations[data.clinics[i]].name,
-                         "type": locations[data.clinics[i]].clinic_type
+                 "type": locations[data.clinics[i]].clinic_type
 		     };
-                     dataPrepared.push(datum);
+			 l = data.clinics[i]
+			  not_surveyed_clinics.push([locations[l].point_location[0][1], locations[l].point_location[0][0], locations[l].name]);
+             dataPrepared.push(datum);
 	     }
 	     columns = [
 		 {
@@ -324,6 +305,16 @@
 		  //   "class": "header",
 		 //width : "100%"}
 		 ];
+
+			 ctc_surveyed_clinics_map(
+				 surveyed_clinics,
+				 not_surveyed_clinics,
+				 'surveyed-clinic-map',
+				 [5, 43.10, 5],
+				 true,
+				 "SC"
+			 );
+			 
 	     $('#not-surveyed' + ' table').bootstrapTable('destroy');
 	     $('#not-surveyed' + ' table').remove();
 	     $('#not-surveyed').append('<table class="table"></table>');
@@ -332,7 +323,7 @@
 		 data: dataPrepared,
 		 classes: 'table-no-bordered table-hover'
 	     });
-	     $.getJSON(api_root + "/aggregate_latest_level/sc_f75/sc_1/clinic/0/" + locID, function( data ){
+	     $.getJSON(api_root + "/aggregate_latest_level/sc_f75/sc_sc/clinic/0/" + locID, function( data ){
 			 var dataPrepared = [];
 			 var columns = [];
 			 names = Object.keys(data);
@@ -362,7 +353,7 @@
 				 classes: 'table-no-bordered table-hover'
 			 });
          });
-	     $.getJSON(api_root + "/aggregate_latest_level/sc_resomal/sc_1/clinic/0/" + locID, function( resomal_data ){
+	     $.getJSON(api_root + "/aggregate_latest_level/sc_resomal/sc_sc/clinic/0/" + locID, function( resomal_data ){
 			 var columns = [];
              var dataPrepared = [];
 			 names = Object.keys(resomal_data);
@@ -394,7 +385,7 @@
 				 classes: 'table-no-bordered table-hover'
 			 });
 	     });
-		 $.getJSON(api_root + "/aggregate_latest_level/sc_cure_rate/sc_1/clinic/0/" + locID, function( data ){
+		 $.getJSON(api_root + "/aggregate_latest_level/sc_cure_rate/sc_sc/clinic/0/" + locID, function( data ){
 			 var dataPrepared = [];
 			 var columns = [];
 			 names = Object.keys(data);
@@ -424,7 +415,7 @@
 				 classes: 'table-no-bordered table-hover'
 			 });
          });
-		$.getJSON(api_root + "/aggregate_latest_level/sc_death_rate/sc_1/clinic/0/" + locID, function( data ){
+		$.getJSON(api_root + "/aggregate_latest_level/sc_death_rate/sc_sc/clinic/0/" + locID, function( data ){
 			 var dataPrepared = [];
 			 var columns = [];
 			 names = Object.keys(data);
