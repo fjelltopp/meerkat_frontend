@@ -170,9 +170,10 @@
             <div class='left-part'>
                 <div class='facility-title-name title'>{{ sc.name }}</div>
                 <div class='facility-title-location'>
-                {{ sc.district }} | {{ sc.region }} <br />
+					{{ sc.district }} | {{ sc.region }} <br />
                     {{_('Latitude: ')}} {{sc.gps[0]}}, {{_('Longitude: ')}} {{sc.gps[1]}} <br />
-                    {{_('Surveyed on') }} {{sc.latest_date}}
+                    {{_('Surveyed on') }} {{sc.latest_date}} <br />
+					{{_('Available programs:') }} {{ ", ".join(sc.services) }}
                 </div>
             </div>
             <div class='right-part'>
@@ -288,6 +289,48 @@
 {% endif %}
 
 {% endfor %}
+<div style='page-break-before:always'></div>
+<div class='row'>
+    <div class='col-xs-12'>
+        <div class='facility-title'>
+            <div class='left-part'>
+                <div class='facility-title-name title'>Non SC Facilities Surveyed</div>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="chart-wrapper">
+				<div class="chart-title clearfix">{{_('Survyed Non SC Facilities')}}</div>
+				<div class="chart-stage">
+					<table class="table small" >
+						<tr> <th style="border-top: none"> Facility </th><th style="border-top: none"> Services </th> </tr>
+						{% for sc in report.clinic_data %}
+						{% if sc.status == "Not SC" %}
+						<tr>
+							<td> {{ sc.name }}</td><td> {{ ", ".join(sc.services) }}</td>
+						</tr>
+						{% endif %}
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div>
 <div id="map" style="display: hidden;"></div>
@@ -312,7 +355,9 @@
          {{report.data.surveyed_clinics_map.surveyed|safe}},
          {{report.data.surveyed_clinics_map.non_surveyed|safe}},
          'surveyed-clinic-map',
-         {{extras.map_centre}}
+         {{extras.map_centre}},
+		 undefined,
+         "SC"
      );
      
      {% for sc in report.clinic_data %}
