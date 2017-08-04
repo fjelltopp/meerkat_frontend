@@ -162,27 +162,27 @@
     background: $blue;
 }
 
-.settings{
-    float: left;
-    margin-left: 20px;
-    margin: 15px -10px 0px 15px;
-    font-size: 14px;
-    color: white;
-    padding: 1px 4px;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    position: relative;
-    top: -2px;
-    cursor: pointer;
-    color: white;
-}
-
-.settings:hover, .settings:active{
-    background: $highlight;
-    border: $highlight 1px solid;
-    color: white;
-    text-decoration: none;
-}
+// .settings{
+//     float: left;
+//     margin-left: 20px;
+//     margin: 15px -10px 0px 15px;
+//     font-size: 14px;
+//     color: white;
+//     padding: 1px 4px;
+//     border: 1px solid #fff;
+//     border-radius: 4px;
+//     position: relative;
+//     top: -2px;
+//     cursor: pointer;
+//     color: white;
+// }
+//
+// .settings:hover, .settings:active{
+//     background: $highlight;
+//     border: $highlight 1px solid;
+//     color: white;
+//     text-decoration: none;
+// }
 
 #report-fault-link{
     padding:15px;

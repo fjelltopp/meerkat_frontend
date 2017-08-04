@@ -166,7 +166,7 @@ def error_test(error):
     """
     abort(error)
 
-
+@app.errorhandler(400)
 @app.errorhandler(404)
 @app.errorhandler(401)
 @app.errorhandler(410)

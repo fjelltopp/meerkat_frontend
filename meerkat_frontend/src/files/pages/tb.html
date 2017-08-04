@@ -10,9 +10,9 @@
 			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+	<div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
 	</div>
-	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
+	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
 	</div>
 
 </div>
@@ -213,7 +213,8 @@ function drawCharts( locID ){
 		 locID: locID,
 		 week: week,
 		 tableID: 'result-table',
-	     percent: "tub_1",
+		 overlappingCategory: true,
+	         percent: "tub_1",
 		 limit_to: 'tub_1',
 		 no_total: "true",
          title: i18n.gettext('Lab results')

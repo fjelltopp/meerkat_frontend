@@ -321,12 +321,17 @@ function categorySummation(details) {
     //Optional filtering of the aggregation result by limiting to an additional category
     var limit_to_postfix = "";
 
+	var api_function = "aggregate_category";
+	if(details.overlappingCategory) {
+		api_function = "aggregate_category_sum";
+	}
+	
     if (details.limit_to) {
         limit_to_postfix = "/" + details.limit_to;
     }
     //Assemble an array of AJAX calls
     var deferreds = [
-        $.getJSON(api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {
+        $.getJSON(api_root + "/" + api_function + "/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {
             catData = data;
         }),
         $.getJSON(api_root + "/variables/" + details.category, function(data) {
@@ -337,7 +342,7 @@ function categorySummation(details) {
     //Get previous year's data if still in the first few weeks of the year.
     if (details.week <= 3) {
 
-        url = api_root + "/aggregate_category/" + details.category + "/" + details.locID + "/" + prevYear + limit_to_postfix;
+        url = api_root + "/" + api_function + "/" + details.category + "/" + details.locID + "/" + prevYear + limit_to_postfix;
         deferreds.push($.getJSON(url, function(data) {
             prevData = data;
         }));
@@ -755,6 +760,42 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
             drawCompletenessMatrix( matrixID, locID, denominator, timelinessLocations, matrixTimelinessData, start_week, 0 );
         }
     } );
+}
+
+/**:prepareIndicators( details )
+
+   This function is called once to gather indicators data for a given location. It displays a table of indicators and a timeline for one of them (which can be chosen from the table).
+
+   Arguments:
+   :param string locID:
+   The ID of the location for which timeliness shall be calculated.
+   :param dict indicatorsInfo:
+   Definitions of indicators from country config file
+   :param string graphID:
+   The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
+   :param string tableID:
+   The ID for the HTML element that will hold the main timeliness table.  If empty, no table is drawn.
+   */
+function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
+    var indicatorsList = indicatorsInfo.list;
+    var indicatorsData = [];
+    var deferred = [];
+
+    deferred = indicatorsList.map(function(elem, i){
+        return $.getJSON( api_root+"/indicators/" + elem.call.flags + "/" +
+                          elem.call.variables +  "/" + locID, function( data ){
+            indicatorsData[i] = data;
+        });
+    });
+
+    $.when.apply( $, deferred ).then(function() {
+        //Update indicators name which is not passed to the API:
+        for(i=0;i<indicatorsList.length;i++){
+            indicatorsData[i].name = indicatorsList[i].name;
+        }
+        drawIndicatorsGraph( graphID, locID, indicatorsData);
+        drawIndicatorsTable( tableID, locID, indicatorsData); 
+    });
 }
 
 /**:get_browser()

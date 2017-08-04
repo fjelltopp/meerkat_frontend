@@ -3,8 +3,8 @@
     Loads any page summarised by a "Page State" object. Page state objects have three properties:
 
     * **type** - the type of page being loaded. Different types have different ways of assembling
-      the corresponding URL and drawing the page content. The current ypes in use are: 'tab', 
-      'alert' or 'disease'. 
+      the corresponding URL and drawing the page content. The current ypes in use are: 'tab',
+      'alert' or 'disease'.
     * **dataID** - a string identifying which page of the specified type should be loaded. E.g. for
       the type 'tab' a tab ID such as 'demographics', for the type 'alert' an alert ID such as
       '252627' and for type 'disease' a variable ID from Meerkat Abacus such as 'cmd_1'.
@@ -19,7 +19,7 @@
     :param boolean logHistory:
         If true, the page state will be pushed into the browser history before loading content.
         If false, the page content will be updated appropiately, but the URL and browser history
-        won't be updated. 
+        won't be updated.
  */
 function loadPage( pageState, logHistory ){
 
@@ -31,27 +31,31 @@ function loadPage( pageState, logHistory ){
 		switch( pageState.type ){
 
 			case 'tab' :
-				if( logHistory ) loadTab( pageState.dataID, pageState.locID ); 
-				else loadTabContent( pageState.dataID, pageState.locID ); 
+				if( logHistory ) loadTab( pageState.dataID, pageState.locID );
+				else loadTabContent( pageState.dataID, pageState.locID );
 				break;
 
 			case 'alert' :
-				if( logHistory ) loadAlert( pageState.dataID ); 
-				else loadAlertContent( pageState.dataID ); 
+				if( logHistory ) loadAlert( pageState.dataID );
+				else loadAlertContent( pageState.dataID );
 	 			break;
 
-			case 'disease' : 
-				if( logHistory ) loadDisease( pageState.dataID, pageState.locID ); 
-				else loadDiseaseContent( pageState.dataID, pageState.locID ); 
+			case 'disease' :
+				if( logHistory ) loadDisease( pageState.dataID, pageState.locID );
+				else loadDiseaseContent( pageState.dataID, pageState.locID );
 				break;
 		}
 
 	}else{
 
 		if( typeof(pageState.locID) != 'undefined'){
-			if( logHistory ) loadLocation( pageState.locID );
-			else loadLocationContent( pageState.locID );
-
+            // dataID can contain a list of allowed locations.
+            if(typeof pageState.dataID === 'undefined'){
+    			if( logHistory ) loadLocation( pageState.locID );
+    			else loadLocationContent( pageState.locID );
+            }else{
+                filterLocations(pageState.dataID, pageState.locID);
+            }
 		}else{
 			console.error( 'No information provided in the pageState' );
 		}
@@ -62,7 +66,7 @@ function loadPage( pageState, logHistory ){
 //Loads the page content for a given a tab and handles the active tab styling.
 function loadTabContent( tabID, locID ){
 
-	//locID (the id of the location) is an optional argument.  
+	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	console.log(history.state.locID);
 	if( typeof locID == 'undefined' ){
@@ -72,11 +76,10 @@ function loadTabContent( tabID, locID ){
 
 	//Load the page content
 	//Only load the location content after the page content has been loaded, because one depends on the other.
-	$( '#page-content' ).load( '/static/files/pages/' + $( '#'+tabID ).attr('page'),
-										function(){ 
-	                           	loadLocationContent(locID); 
-	                           });
-										
+	$( '#page-content' ).load(
+        '/static/files/pages/' + $( '#'+tabID ).attr('page'),
+		function(){ loadLocationContent(locID); }
+    );
 
 	//Update the active tab styling
 	$('.tabs li.active').removeClass('active');
@@ -87,7 +90,7 @@ function loadTabContent( tabID, locID ){
 //Load a tab and manage the page history in the process.
 function loadTab( tabID, locID ){
 
-	//locID (the id of the location) is an optional argument.  
+	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
 		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = allowed_location;
@@ -96,7 +99,7 @@ function loadTab( tabID, locID ){
 
 	//Record the page history.
 	currentState = { type: 'tab', dataID: tabID, locID: locID};
-	var url = currentState.locID == 2 ? 
+	var url = currentState.locID == 2 ?
 	        currentState.dataID : currentState.dataID + '/loc_' + currentState.locID;
 	history.pushState( currentState, $( '#'+tabID ).text(), "/" + language +"/technical/" + url );
 
@@ -107,16 +110,16 @@ function loadDiseaseContent( diseaseID, locID ){
 
 	//Disease-specific changes depend on the page content being loaded.
 	$( '#page-content' ).load( '/static/files/pages/disease.html',
-	                           function(){ 
+	                           function(){
 	                           	drawDiseaseContent( diseaseID, locID );
 	                           	loadLocationContent( locID );
-	                           }); 
-										
+	                           });
+
 }
 
 function loadDisease( diseaseID, locID ){
 
-	//locID (the id of the location) is an optional argument.  
+	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
 	if( typeof locID == 'undefined' ){
 		if( history.state === null || typeof history.state.locID == 'undefined' ) locID = allowed_location;
@@ -135,12 +138,12 @@ function loadAlertContent( alertID ){
 	//Load the page content
 	//Alert-specific changes depend on the page content being loaded.
 	$( '#page-content' ).load( '/static/files/pages/alert.html',
-	                           function(){ 
+	                           function(){
 	                               	//This function is defined in the alert.html page file.
 	                               	//It collects data for the alertID and draws the alert page.
 	                               	drawAlertContent( alertID );
-	                               	glossary(); 
-	                           }); 
+	                               	glossary();
+	                           });
 }
 
 function loadAlert( alertID ){
@@ -162,11 +165,11 @@ function loadAlert( alertID ){
 
 /**:glossary()
 
-    This function inserts words from the config file glossary object. 
+    This function inserts words from the config file glossary object.
     It inserts into <span> elements with class "glossary" and attribute "word".
     Practically it is used to allow country specific words for concepts such as
-    "Region" (known as "Governorate" in Jordan). 
- 
+    "Region" (known as "Governorate" in Jordan).
+
     You can capitalise the word by adding the class "capitalised" to the <span>.
  */
 function glossary(){
@@ -185,4 +188,3 @@ function glossary(){
 	});
 
 }
-

@@ -79,7 +79,10 @@ def test(report):
             current_app.logger.warning("JSONDecodeError: " + str(e))
             abort(500)
         data["flag"] = current_app.config["FLAGG_ABR"]
-        if report in ['public_health', 'cd_public_health', "ncd_public_health"]:
+
+        if report in ['public_health',
+                      'cd_public_health',
+                      'ncd_public_health']:
             # Extra parsing for natural language bullet points
             extras = {"patient_status": {}}
             for item in data['data']['patient_status']:
@@ -174,7 +177,7 @@ def view_email_report(report, location=None, end_date=None, start_date=None, ema
                 content_url=content_url
             )
         elif email_format == 'txt':
-            email_body = render_template(
+            email_body = '<plaintext>' + render_template(
                 ret['template_email_plain'],
                 report=ret['report'],
                 extras=ret['extras'],
@@ -662,6 +665,13 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
     # try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     access = report_list[report].get('access', '')
+
+    # Abort if the location is not allowed
+    allowedLocations = report_list[report].get('locations', None)
+    if allowedLocations and int(location) not in allowedLocations:
+        abort(400, "Report not available for location (id: {})".format(
+            location
+        ))
 
     # Restrict report access as specified in configs.
     if access and access not in g.payload['acc']:

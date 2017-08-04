@@ -1,6 +1,4 @@
-{% macro format_percent(input) %}{{ input.Y }} ({{ (input.Y / input.N * 100 )|int}}%){%- endmacro %}
-{% macro format_percent_2(num, denom) %}{{ num|int }}  ({{(num / denom * 100)|int if denom > 0 else "N/A"}}%){%- endmacro %}
-<plaintext>
+{% macro format_percent(input) %}{{ input.Y }} ({{ (input.Y / input.N * 100 )|int}}%){%- endmacro %}{% macro format_percent_2(num, denom) %}{{ num|int }}  ({{(num / denom * 100)|int if denom > 0 else "N/A"}}%){%- endmacro %}
 {{_('Dear Colleagues,\n\nWelcome to the latest Nutrition Stabilisation Centre Quality and Outcomes monitoring report from %(project_region)s.', project_region=_(report.data.project_region))}} {{_('The profile summarises information reported from %(centres)s Nutrition Stabilisation Centres up to %(end_date)s.', centres=report.overview.baseline.Y, end_date=report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY'))}}
 
 {{ _('View the latest report here:')}} {{report_url}}
@@ -22,3 +20,8 @@
 
 {{_('A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.',
 project_region=_(report.data.project_region))}} {{_('The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.')}}
+
+{{_('Best regards,')}}
+
+Dr Mohamed Osman Mohamed
+{{_('Remote Monitoring Co-ordinator')}}

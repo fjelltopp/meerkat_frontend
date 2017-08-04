@@ -25,6 +25,13 @@
 
     },
 
+    "indicators":{
+        "list":[
+            {"name":"Number of female patients","call":{"flags":["n"], "variables":["gen_1"]}},
+            {"name":"Number of male patients","call":{"flags":["n"], "variables":["gen_2"]}},
+            { "name":"Controlled visits for hypertension patients", "call":{"flags":["d","n","v","v","r"], "variables":["visit_lab_2","visit_lab_1","visit_ncd_2", "vis_5", "0"]} }
+         ]
+    },
 
     "completeness_denominator":{
         "all": "7",
@@ -43,8 +50,14 @@
     "weekend" : [5,6],
 
   "tabs":[{
+    "name":"Analysis",
+    "template":"indicators.html"
+  },{
     "name":"Demographics",
     "template":"demographics.html"
+  },{
+    "name": "Clinics",
+    "template": "clinics.html"
   },{
     "name":"Demographics CD",
     "template":"demographicsCD.html",
@@ -56,6 +69,10 @@
   },{
     "name":"Presenting Complaint",
     "template":"complaint.html"
+  },{
+    "name":"Mental Health",
+    "template":"mh_diseases.html",
+    "location_filter": "?case_type=mh"
   },{
     "name":"Communicable Diseases",
     "template":"diseases.html",

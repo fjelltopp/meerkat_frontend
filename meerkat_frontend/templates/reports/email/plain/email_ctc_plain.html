@@ -1,5 +1,4 @@
 {% macro format_percent(input) %}{{ input.Y }} ({{ (input.Y / input.N * 100 )|int}}%){%- endmacro %}
-<plaintext>
 {{_('Dear Colleagues,\n\nWelcome to the latest Cholera Treatment Centre / Unit Quality and Outcomes monitoring report from %(project_region)s.',
 project_region=_(report.data.project_region))}} {{_('The profile summarises information reported from %(centres)s Cholera Treatment Centres / Units up to %(end_date)s.',
   centres=report.overview.baseline.Y,
@@ -23,3 +22,8 @@ project_region=_(report.data.project_region))}} {{_('The profile summarises info
 
 {{_('A program of public health surveillance is being implemented in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance.',
 project_region=_(report.data.project_region))}} {{_('The clinician uses the system within the consultation, which introduces clinical-decision support, as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.')}}
+
+{{_('Best regards,')}}
+
+Dr Mohamed Osman Mohamed
+{{_('Remote Monitoring Co-ordinator')}}

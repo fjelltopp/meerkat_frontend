@@ -7,26 +7,49 @@ var locationsTree = new TreeModel({childrenPropertyName:"nodes"});
     through out the site for drawing the location selector and executing other tasks that require
     navigating through the tree model.
 */
-var locations;
+var locationData = {};
+var locations = {};
 
 /**:loadLocationTree( initialPageState )
 
     This is the first function when loading the technical site (directly from the Jinja2 template).
     It loads the location tree and renders the initial tab page (e.g. Demographics)
 
-    :param object initialPageState:
-        The page state for the initial tab to be loaded. The page state is an object that summarises
+    :param object queryArgs:
+        The args string to be attached to the location request. e.g. case_type=mh
+
+    :param object pageState:
+        The page state for the tab to be loaded. The page state is an object that summarises
         completely a page in the technical dashboard.  It does so in three properties: type, dataID
         and locID, as specified in the docs for the pageManager.js function `loadPage()`.
 */
-function loadLocationTree( initialPageState ){
+function loadLocationTree(pageState){
+    var queryArgs = pageState.location_filter || '';
+    console.log(api_root+"/locationtree" + queryArgs);
+    // Function to factor out the process of making the tree and loading the page.
+    function makeTree(data){
+        locations = locationsTree.parse(data);
+        //Check that the currently selected loc is in the location tree.
+        currentLoc = locations.first(
+            {strategy: 'breadth'},
+            function(x){ return x.model.id===pageState.locID; }
+        );
+        if(typeof currentLoc === 'undefined') pageState.locID = locationData[queryArgs].id;
+        //Load the requested page
+        if( typeof( pageState ) != 'undefined' ) loadPage( pageState, true );
+    }
 
-	$.getJSON( api_root+"/locationtree", function( data ){
+    // If we have already got the location tree, don't bother regetting.
+    if(queryArgs in locationData){
+        makeTree(locationData[queryArgs]);
+    // If we don't have the location tree for th requested query args, get it.
+    }else{
 
-		locations = locationsTree.parse(data);
-		if( typeof( initialPageState ) != 'undefined' ) loadPage( initialPageState, true );
-
-	});
+    	$.getJSON( api_root+"/locationtree" + queryArgs, function( data ){
+            locationData[queryArgs] =  $.extend(true, {}, data);
+            makeTree(data);
+    	});
+    }
 }
 
 /**:loadLocation( locID )
@@ -38,7 +61,7 @@ function loadLocationTree( initialPageState ){
     :param number locID:
         The location ID for the desired location.
 */
-function loadLocation( locID ){
+function loadLocation( locID){
 
 	//We want to work with a clone of the page state, not the pagestate itself.
 	if( typeof(history.state) != 'undefined'){
@@ -58,22 +81,20 @@ function loadLocation( locID ){
 	//Next see if a location is already defined at the end of the URL
 	var index = url.indexOf('/loc_');
 
-	//If locID = 1 (the whole country) don't specify location in URL.
-	if( locID != allowed_location ){
-		if( index != -1 ){
-			//If the location is defined, replace it with the new location.
-			url = url.substring(0, index) + '/loc_' + locID;
-		}else{
-			//If the non-location specific url doesn't finish with a slash, add one.
-			if( url.slice(-1) != '/' ) url += '/' ;
-			//Then add the location string.
-			url += 'loc_' + locID;
-		}
+	if( index != -1 ){
+		//If the location is defined, replace it with the new location.
+		url = url.substring(0, index) + '/loc_' + locID;
+	}else{
+		//If the non-location specific url doesn't finish with a slash, add one.
+		if( url.slice(-1) != '/' ) url += '/' ;
+		//Then add the location string.
+		url += 'loc_' + locID;
 	}
+
 
 	history.pushState( currentState, "", url );
 
-	loadLocationContent( locID );
+	loadLocationContent(locID);
 }
 
 
@@ -93,8 +114,8 @@ function loadLocation( locID ){
     :param number locID:
         The location ID for the desired location.
 */
-function loadLocationContent( locID ){
-	console.log( locID );
+function loadLocationContent(locID){
+
 	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===locID; });
 
 	//Get the parents
@@ -152,9 +173,71 @@ function loadLocationContent( locID ){
 
 }
 
+/**:filterLocations( allowedLocations, locID )
+
+    Called  when wishing to filter which locations are available in the location
+    selector.  The function strips out all unwanted locations from the locations
+    tree stored in the global variables `locations`. If an empty list of
+    allowedLocations is provided, then the function resets the locationTree to
+    the original complete tree.
+
+
+    :param list allowedLocations:
+        A list of allowed location IDs.
+    :param number locID:
+        The locId to load with the list filtering.
+*/
+function filterLocations(allowedLocations, locID){
+
+    // Begin with a valid locID and a fresh complete location tree.
+    if(typeof locID === 'undefined') locID = history.state.locID;
+    locations = locationsTree.parse($.extend(true, {}, locationData['']));
+
+    // Only filter if allowed locations has elements, otherwise show complete tree.
+    if(allowedLocations.length !== 0){
+
+        //Warn if the locId isn't in the allwoed locations. Default to allowedLocations[0]
+        if(allowedLocations.indexOf(locID) == -1){
+            console.warn("locID not in allowed locations, defaulting to allowedLocations[0]");
+            locID = allowedLocations[0];
+        }
+
+        //If more than one allowedLocation, traverse the tree and drop unwanted nodes.
+        if(allowedLocations.length>1){
+            //Select which nodes should be removed.
+            forDeletion = [];
+            locations.walk({strategy: 'post'}, function(node){
+                if(allowedLocations.indexOf(node.model.id) == -1) forDeletion.push(node);
+                if(node.model.id==1) return false;
+                else return true;
+            });
+            // Then delete each node, but without deleting their subtrees.
+            // For each node take the children & add them as children to parent.
+            for( var n in forDeletion){
+                var path = forDeletion[n].getPath();
+                var parent = path[path.length-2];
+                var children = forDeletion[n].children;
+                for( var c in children) parent.addChild(children[c]);
+                // Then delete the node
+                var dropped = forDeletion[n].drop();
+            }
+
+        // If only one allowedLocation, quicker to just select the node using .first()
+        }else{
+            locations = locations.first(function(node){return node.model.id==allowedLocations[0];});
+            locations.model.nodes=[];
+        }
+    }
+
+    // Now redraw everything and load the specified location.
+    loadLocation(locID);
+}
+
+
 function searchLocations(input) {
     // Select the matching nodes from the tree (case insensitive)
     var filter = input.value.toUpperCase();
+
     var nodes = locations.all(function (node) {
         return node.model.text.toUpperCase().indexOf(filter) > -1;
     });

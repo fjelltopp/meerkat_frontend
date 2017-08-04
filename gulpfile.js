@@ -227,7 +227,7 @@ gulp.task('clean', function() {
 });
 
 
-// DEFAULT TASK
+// DEFAULT TASK , 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales'
 gulp.task('default', ['clean'], function() {
-  gulp.start('sass', 'js', 'fonts', 'img', 'files', 'vendor-css', 'po2json', 'locales');
+  gulp.start('sass', 'js' , 'fonts', 'files', 'vendor-css', 'po2json', 'locales','img');
 });

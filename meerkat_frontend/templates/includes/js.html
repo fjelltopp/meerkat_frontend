@@ -61,7 +61,8 @@
   $('.lang-sel').html( "<a class='lang " + language + "' href='" + nextLangHref + "'>" +
                        nextLang.toUpperCase() + "</a>" );
   $(".lang-sel").attr( 'title', i18n.gettext("Choose a language") ); //Translatable tool tip.
-
+  $(".lang-sel").toggleClass('hidden');
+  
   // Handle AJAX errors.
   $( document ).ajaxError(
     function(error_event, jqXHR, ajaxSettings, thrownError ) {
