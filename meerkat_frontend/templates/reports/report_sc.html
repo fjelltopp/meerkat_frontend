@@ -42,33 +42,46 @@
 			<div class="chart-title">{{_('Survey')}}</div>
 			<div class="chart-stage">
 				<table class="table small">
-					<tr> <td> {{_('Facilities surveyed:')}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
+					<tr> <td> {{_('Facilities surveyed up to ') +report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') +":"}}  </td> <td>{{ format_percent(report.overview.baseline) }}</td></tr>
 				</table>
 			</div>
 		</div>
 		
      <div class="chart-wrapper caseload">
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
+         <div class="chart-explanation">All numbers recorded for the week preceding time of facility survey </div>
 	 <div class="chart-stage">
-             <table class="table small">
+             <table class="table small" style="margin-bottom: 0px">
                  <tr> <td> {{_('New admissions:')}}  </td> <td> {{report.overview.get("sc_cases", 0)|int}}</td></tr>
-				 <tr> <td> {{_('Cured:')}}  </td> <td>{{format_percent_2(report.overview.get("sc_cured", 0),report.overview.get("sc_discharge", 0)) }} </td></tr>
-                 <tr> <td> {{_('Deaths:')}}  </td> <td> {{format_percent_2(report.overview.get("sc_deaths", 0),report.overview.get("sc_discharge", 0)) }}</td></tr>
-                 <tr> <td> {{_('Defaulters:')}}  </td> <td> {{format_percent_2(report.overview.get("sc_deafault", 0),report.overview.get("sc_discharge", 0)) }}</td></tr>
-                 <tr> <td> {{_('Discharges:')}}  </td> <td> {{report.overview.get("sc_discharge", 0)|int}}</td></tr>
+		 <tr> <td> {{_('Cured:')}}  </td> <td>{{format_percent_2(report.overview.get("sc_cured", 0),report.overview.get("sc_discharge", 0))}}* </td></tr>
+                 <tr> <td> {{_('Deaths:')}}  </td> <td> {{format_percent_2(report.overview.get("sc_deaths", 0),report.overview.get("sc_discharge", 0))}}*</td></tr>
+                 <tr> <td> {{_('Defaulters:')}}  </td> <td> {{format_percent_2(report.overview.get("sc_deafault", 0),report.overview.get("sc_discharge", 0))}}*</td></tr>
+                 <tr> <td> {{_('Non-respondents reported:')}}  </td> <td> {{report.overview.get("sc_discharge", 0)|int}}</td></tr>
+                 <tr> <td> {{_('Referrals for medical reasons/transfer:')}}  </td> <td> {{report.overview.get("sc_referral", 0)|int}}</td></tr>
+
              </table>
+             <div class="chart-explanation">* Calculated as percentage of discharges</div>
 	 </div>
      </div>
      
 
    
      <div class="chart-wrapper laboratory">
-         <div class="chart-title">{{_('Nutrition')}}</div>
+         <div class="chart-title">{{_('Supplies')}}</div>
+         <div class="chart-explanation">Availability at the time of facility survey</div>
          <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('F75 therapeutic milk available:')}}  </td> <td> {{ format_percent(report.overview.sc_f75_value)}} </td></tr>
-                 <tr> <td> {{_('F100 therapeutic milk available')}}  </td> <td> {{ format_percent(report.overview.sc_f100_value)}} </td></tr>
-                 <tr> <td> {{_('ReSoMal therapeutic milk available')}}  </td> <td> {{ format_percent(report.overview.sc_resomal_value)}} </td></tr>
+                 <tr> <td> {{_('F100 therapeutic milk available:')}}  </td> <td> {{ format_percent(report.overview.sc_f100_value)}} </td></tr>
+                 <tr> <td> {{_('ReSoMal therapeutic milk available:')}}  </td> <td> {{ format_percent(report.overview.sc_resomal_value)}} </td></tr>
+                 <tr> <td> {{_('RUTF or RUSF quantities calculated correctly:')}}  </td> <td> {{ format_percent(report.overview.sc_rutf)}} </td></tr>
+                 <tr> <td> {{_('Drugs provided as per protocols:')}}  </td> <td> {{ format_percent(report.overview.sc_drugs_provided)}} </td></tr>
+                 <tr> <td> {{_('Rations and drugs provision updated in register:')}}  </td> <td> {{ format_percent(report.overview.sc_rations)}} </td></tr>
+                 <tr> <td> {{_('Food provided for the caretaker:')}}  </td> <td> {{ format_percent(report.overview.sc_food_caretaker)}} </td></tr>
+                 <tr> <td> {{_('Blankets available:')}}  </td> <td> {{ format_percent(report.overview.sc_blankets)}} </td></tr>
+                 <tr> <td> {{_('Soap provided to caretaker:')}}  </td> <td> {{ format_percent(report.overview.sc_soap_caretaker)}} </td></tr>
+                 <tr> <td> {{_('Mosquito nets provided to caretaker:')}}  </td> <td> {{ format_percent(report.overview.sc_itn)}} </td></tr>
+                 <tr> <td> {{_('Other equipment provided (jerry-can, blanket, etc.):')}}  </td> <td> {{ format_percent(report.overview.sc_other_equipment)}} </td></tr>
              </table>
          </div>
      </div>
@@ -78,34 +91,47 @@
 
      <div class="chart-wrapper infrastructure">
          <div class="chart-title">{{_('Infrastructure')}}</div>
-		 <div class="chart-stage">
-			 <table class="table small">
-                             <tr> <td> {{_('Facilities with sufficient bed capacity:')}}  </td> <td>{{ format_percent(report.overview.sc_beds_sufficient) }}</td></tr>
-			     <tr> <td> {{_('Beds available:')}}  </td> <td> {{report.overview.get("sc_beds", 0)|int}} </td></tr>
-    			     <tr> <td> {{_('Doctors working in the facilities (per facility):')}}  </td> <td> {{report.overview.get("sc_doctors", 0)|int}} ({{report.overview.get("sc_doctors_per_facility", 0)|round(1)}})</td></tr>
-			     <tr> <td> {{_('Nurses working in the facilities (per facility):')}}  </td> <td> {{report.overview.get("sc_nurses", 0)|int}} ({{report.overview.get("sc_nurses_per_facility", 0)|round(1)}})</td></tr>
-			 </table>
-		 </div>
+         <div class="chart-explanation">Availability at the time of facility survey</div>
+	 <div class="chart-stage">
+	     <table class="table small">
+                 <tr> <td> {{_('Beds available:')}}  </td> <td style="width:20%"> {{report.overview.get("sc_beds", 0)|int}} </td></tr>
+                 <tr> <td> {{_('Facilities with sufficient bed capacity:')}}  </td> <td>{{ format_percent(report.overview.sc_beds_sufficient) }}</td></tr>
+
+    		 <tr> <td> {{_('Doctors working in the facilities (per facility):')}}  </td> <td> {{report.overview.get("sc_doctors", 0)|int}} ({{report.overview.get("sc_doctors_per_facility", 0)|round(1)}})</td></tr>
+		 <tr> <td> {{_('Nurses working in the facilities (per facility):')}}  </td> <td> {{report.overview.get("sc_nurses", 0)|int}} ({{report.overview.get("sc_nurses_per_facility", 0)|round(1)}})</td></tr>
+                 <tr> <td> {{_('Kitchen where milk preparation is separate from the general kitchen:')}}  </td> <td>{{ format_percent(report.overview.sc_kitchen_value) }} </td></tr>
+                 <tr> <td> {{_('Recreation area with toys')}}  </td> <td> {{ format_percent(report.overview.sc_toys_value)}}</td></tr>
+                 <tr> <td> {{_('Available source of clean drinking water?')}}  </td> <td> {{ format_percent(report.overview.sc_water_value)}}</td></tr>
+	     </table>
+	 </div>
      </div>
   <div class="chart-wrapper case-management">
-         <div class="chart-title">{{_('Case Management')}}</div>
+      <div class="chart-title">{{_('Case Management')}}</div>
+      <div class="chart-explanation">Availability at the time of facility survey</div>
          <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('Nutrition Guidelines available and translated in local language:')}}  </td> <td>{{ format_percent(report.overview.sc_nutrition_guides_value) }} </td></tr>
                  <tr> <td> {{_('Children are weighed correctly at each visit:')}}  </td> <td> {{ format_percent(report.overview.sc_weight_recorded_value)}}</td></tr>
                  <tr> <td> {{_('MUAC is measured correctly and recorded:')}}  </td> <td> {{ format_percent(report.overview.sc_muac_value)}} </td></tr>
                  <tr> <td> {{_('Height is measured according to protocol:')}}  </td> <td> {{ format_percent(report.overview.sc_height_value)}} </td></tr>
-                 <tr> <td> {{_('Z-score calculated correctly :')}}  </td> <td> {{ format_percent(report.overview.sc_z_score_value)}} </td></tr>
+                 <tr> <td> {{_('Z-score calculated correctly:')}}  </td> <td> {{ format_percent(report.overview.sc_z_score_value)}} </td></tr>
+                 <tr> <td> {{_('Appetite test conducted for every child:')}}  </td> <td> {{ format_percent(report.overview.sc_appetite_test)}} </td></tr>
+                 <tr> <td> {{_('Immunisation status checked:')}}  </td> <td> {{ format_percent(report.overview.sc_immunisation_status)}} </td></tr>
+                 <tr> <td> {{_('Medical check is conducted for all children:')}}  </td> <td> {{ format_percent(report.overview.sc_medical_check)}} </td></tr>
              </table>
          </div>
      </div>
      
      <div class="chart-wrapper infection-prevention">
          <div class="chart-title">{{_('Community')}}</div>
+         <div class="chart-explanation">Availability at the time of facility survey</div>
          <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('Centres with a Community Health Worker (CHW)')}}  </td> <td>  {{ format_percent(report.overview.sc_chw_value) }} </td></tr>
                  <tr> <td> {{_('Number of defaulters traced and readmitted through CHW:')}}  </td> <td>  {{report.overview.sc_deafaulter_value}} </td></tr>
+                 <tr> <td> {{_('Number of CHW trained in MUAC and referral criteria:')}}  </td> <td>  {{ report.overview.sc_number_of_trained_chw }} </td></tr>
+                 <tr> <td> {{_('IYCF promotion of sufficient standard:')}}  </td> <td>  {{format_percent(report.overview.sc_iycf)}} </td></tr>
+                 <tr> <td> {{_('Beneficiary follow-up provided at the community level:')}}  </td> <td>  {{format_percent(report.overview.sc_followup)}} </td></tr>
              </table>
          </div>
      </div>
@@ -170,9 +196,10 @@
             <div class='left-part'>
                 <div class='facility-title-name title'>{{ sc.name }}</div>
                 <div class='facility-title-location'>
-                {{ sc.district }} | {{ sc.region }} <br />
+					{{ sc.district }} | {{ sc.region }} <br />
                     {{_('Latitude: ')}} {{sc.gps[0]}}, {{_('Longitude: ')}} {{sc.gps[1]}} <br />
-                    {{_('Surveyed on') }} {{sc.latest_date}}
+                    {{_('Surveyed on') }} {{sc.latest_date}} <br />
+					{{_('Available programs:') }} {{ ", ".join(sc.services) }}
                 </div>
             </div>
             <div class='right-part'>
@@ -186,6 +213,22 @@
 <div class="row">
  <div class="col-sm-6">
      {% if sc.status == "Surveyed" %}
+     <div class="chart-wrapper caseload">
+	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
+         <div class="chart-explanation">All numbers recorded for the week preceding time of facility survey </div>
+	 <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('New admissions:')}}  </td> <td> {{sc.latest_data.get("sc_cases", 0)|int}}</td></tr>
+                 <tr> <td> {{_('Cured:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_cured", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Deaths:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_deaths", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Defaulters:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_deafault", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
+                 <tr> <td> {{_('Discharges:')}}  </td> <td> {{sc.latest_data.get("sc_discharge", 0)|int}}</td></tr>
+                 <tr> <td> {{_('Non-respondents reported:')}}  </td> <td> {{sc.latest_data.get("sc_discharge", 0)|int}}</td></tr>
+                 <tr> <td> {{_('Referrals for medical reasons/transfer:')}}  </td> <td> {{sc.latest_data.get("sc_referral", 0)|int}}</td></tr>
+
+             </table>
+	 </div>
+     </div>
      <div class="chart-wrapper infrastructure">
          <div class="chart-title">{{_('Infrastructure')}}</div>
 	 <div class="chart-stage">
@@ -195,24 +238,14 @@
     	      <tr> <td> {{_('Doctors working in the SC at time of survey:')}}  </td> <td> {{sc.latest_data.get("sc_doctors", 0)|int}} </td></tr>
               <tr> <td> {{_('Nurses working in the SC at time of survey:')}}  </td> <td> {{sc.latest_data.get("sc_nurses", 0)|int}} </td></tr>
               <tr> <td> {{_('Does the facility have a kitchen where milk preparation is separate from the general kitchen?')}}  </td> <td>{{ yesnodk[dat.get("sc_kitchen_value", "blank")]}} </td></tr>
+              <tr> <td> {{_('Recreation area with toys')}}  </td> <td> {{ yesnodk[sc.latest_data.get("sc_toys_value", "blank")]}}</td></tr>
               <tr> <td> {{_('Is there an available source for clean drinking water?')}}  </td> <td>{{ yesnodk[dat.get("sc_water_value", "blank")]}} </td></tr>
               
 	     </table>
 	 </div>
      </div>
      
-     <div class="chart-wrapper caseload">
-	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
-	 <div class="chart-stage">
-             <table class="table small">
-                 <tr> <td> {{_('New admissions:')}}  </td> <td> {{sc.latest_data.get("sc_cases", 0)|int}}</td></tr>
-                 <tr> <td> {{_('Cured:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_cured", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
-                 <tr> <td> {{_('Deaths:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_deaths", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
-                 <tr> <td> {{_('Defaulters:')}}  </td> <td> {{format_percent_2(sc.latest_data.get("sc_deafault", 0),sc.latest_data.get("sc_discharge", 0))}}</td></tr>
-                 <tr> <td> {{_('Discharges:')}}  </td> <td> {{sc.latest_data.get("sc_discharge", 0)|int}}</td></tr>
-             </table>
-	 </div>
-     </div>
+   
      <div class="chart-wrapper case-management">
          <div class="chart-title">{{_('Case Management')}}</div>
          <div class="chart-stage">
@@ -221,26 +254,23 @@
                  <tr> <td> {{_('Are children are weighed correctly at each visit?')}}  </td> <td> {{ yesnodk[dat.get("sc_weight_recorded_value", "blank")]}}</td></tr>
                  <tr> <td> {{_('Is MUAC is measured correctly and recorded?')}}  </td> <td> {{ yesnodk[dat.get("sc_muac_value", "blank")]}} </td></tr>
                  <tr> <td> {{_('Is height is measured according to protocol?')}}  </td> <td> {{ yesnodk[dat.get("sc_height_value", "blank")]}} </td></tr>
-                 <tr> <td> {{_('Is Z-score calculated correctly ?')}}  </td> <td> {{ yesnodk[dat.get("sc_z_score_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Is Z-score calculated correctly ?')}}  </td> <td style="width:20%"> {{ yesnodk[dat.get("sc_z_score_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Appetite test conducted for every child:')}}  </td> <td> {{ yesnodk[dat.get("sc_appetite_test", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Immunisation status checked:')}}  </td> <td> {{ yesnodk[dat.get("sc_immunisation_status", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Medical check is conducted for all children:')}}  </td> <td> {{ yesnodk[dat.get("sc_medical_check", "blank")]}} </td></tr>
              </table>
          </div>
      </div>
-     <div class="chart-wrapper infection-prevention">
-         <div class="chart-title">{{_('Nutrition')}}</div>
-         <div class="chart-stage">
-             <table class="table small">
-                 <tr> <td> {{_('Is F75 therapeutic milk available?')}}  </td> <td>  {{ yesnodk[dat.get("sc_f75_value", "blank")] }} </td></tr>
-                 <tr> <td> {{_('Is F100 therapeutic milk available?')}}  </td> <td>  {{ yesnodk[dat.get("sc_f100_value", "blank")]}} </td></tr>
-                 <tr> <td> {{_('Is ReSoMal available for rehydration?')}}  </td> <td>  {{ yesnodk[dat.get("sc_resomal_value", "blank")]}} </td></tr>
-             </table>
-         </div>
-     </div>
+
      <div class="chart-wrapper water-sanitation">
          <div class="chart-title">{{_('Community')}}</div>
          <div class="chart-stage">
              <table class="table small">
-                 <tr> <td> {{_('Is there a Community Health Worker (CHW) supporting the nutrition centre?')}}  </td> <td> {{ yesnodk[dat.get("sc_chw_value", "blank")]}} </td></tr>
-                 <tr> <td> {{_('How many defaulters were traced and readmitted through the network of the CHW?')}}  </td> <td> {{ dat.get("sc_deafaulter_value")}} </td></tr>
+                 <tr> <td> {{_('Is there a Community Health Worker (CHW) supporting the nutrition centre?')}}  </td> <td style="width:20%"> {{ yesnodk[dat.get("sc_chw_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('How many defaulters were traced and readmitted through the network of the CHW?')}}  </td> <td> {{ dat.get("sc_deafaulter_value", 0)}} </td></tr>
+                 <tr> <td> {{_('Number of CHW trained in MUAC and referral criteria:')}}  </td> <td>  {{ dat.get("sc_number_of_trained_chw", 0) }} </td></tr>
+                 <tr> <td> {{_('IYCF promotion of sufficient standard:')}}  </td> <td>  {{yesnodk[dat.get("sc_iycf", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Beneficiary follow-up provided at the community level:')}}  </td> <td>  {{yesnodk[dat.get("sc_followup", "blank")]}} </td></tr>
              </table>
          </div>
      </div>
@@ -255,8 +285,27 @@
  </div>
 
  <div class="col-sm-6">
+     <div class="chart-wrapper infection-prevention">
+         <div class="chart-title">{{_('Supplies')}}</div>
+         <div class="chart-stage">
+             <table class="table small">
+                 <tr> <td> {{_('Is F75 therapeutic milk available?')}}  </td> <td>  {{ yesnodk[dat.get("sc_f75_value", "blank")] }} </td></tr>
+                 <tr> <td> {{_('Is F100 therapeutic milk available?')}}  </td> <td>  {{ yesnodk[dat.get("sc_f100_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Is ReSoMal available for rehydration?')}}  </td> <td>  {{ yesnodk[dat.get("sc_resomal_value", "blank")]}} </td></tr>
+                 <tr> <td> {{_('RUTF or RUSF quantities calculated correctly:')}}  </td> <td> {{ yesnodk[dat.get("sc_rutf", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Drugs provided as per protocols:')}}  </td> <td> {{ yesnodk[dat.get("sc_drugs_provided", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Rations and drugs provision updated in register:')}}  </td> <td> {{ yesnodk[dat.get("sc_rations", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Food provided for the caretaker:')}}  </td> <td> {{ yesnodk[dat.get("sc_food_caretaker", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Blankets available:')}}  </td> <td> {{ yesnodk[dat.get("sc_blankets", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Soap provided to caretaker:')}}  </td> <td> {{ yesnodk[dat.get("sc_soap_caretaker", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Mosquito nets provided to caretaker:')}}  </td> <td> {{ yesnodk[dat.get("sc_itn", "blank")]}} </td></tr>
+                 <tr> <td> {{_('Other equipment provided (jerry-can, blanket, etc.):')}}  </td> <td> {{ yesnodk[dat.get("sc_other_equipment", "blank")]}} </td></tr>
+             </table>
+         </div>
+     </div>
+
     {% if sc.status == "Surveyed" %}
-    <div class="chart-wrapper facility-image">
+    <div class="chart-wrapper facility-image" {{"" if sc.latest_data.sc_facility_photo else 'style=height:30px' }}>
         <div class="chart-title clearfix">{{_('Facility Photo')}}</div>
         <div class="chart-stage">
             <img src="/en/s3_files/get?path={{sc.latest_data.sc_facility_photo}}" />
@@ -264,7 +313,7 @@
     </div>
     {% endif %}
 
-    <div class="chart-wrapper facility-map">
+    <div class="chart-wrapper facility-map-sc">
     <div class="chart-title clearfix">{{_('Facility Location')}}</div>
         <div class="chart-stage">
             <div id="map-{{sc.name|slugify}}"  class="map"></div>
@@ -288,6 +337,48 @@
 {% endif %}
 
 {% endfor %}
+<div style='page-break-before:always'></div>
+<div class='row'>
+    <div class='col-xs-12'>
+        <div class='facility-title'>
+            <div class='left-part'>
+                <div class='facility-title-name title'>Non SC Facilities Surveyed</div>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="chart-wrapper">
+				<div class="chart-title clearfix">{{_('Survyed Non SC Facilities')}}</div>
+				<div class="chart-stage">
+					<table class="table small" >
+						<tr> <th style="border-top: none"> Facility </th><th style="border-top: none"> Services </th> </tr>
+						{% for sc in report.clinic_data %}
+						{% if sc.status == "Not SC" %}
+						<tr>
+							<td> {{ sc.name }}</td><td> {{ ", ".join(sc.services) }}</td>
+						</tr>
+						{% endif %}
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div>
 <div id="map" style="display: hidden;"></div>
@@ -312,7 +403,9 @@
          {{report.data.surveyed_clinics_map.surveyed|safe}},
          {{report.data.surveyed_clinics_map.non_surveyed|safe}},
          'surveyed-clinic-map',
-         {{extras.map_centre}}
+         {{extras.map_centre}},
+		 undefined,
+         "SC"
      );
      
      {% for sc in report.clinic_data %}
