@@ -14,7 +14,10 @@ function gatherClinicsData(locID) {
     //API URLS to get Clinics Data ...
     var clinicsNewData = '/query_variable/vis_1/locations:clinic?only_loc=' + locID + '&use_ids=True';
     var clinicsReturnData = '/query_variable/vis_2/locations:clinic?only_loc=' + locID + '&use_ids=True';
-    var completenessData = '/completeness/reg_1/1/6?sublevel=clinic';
+    var clinicCDData = '/query_variable/reg_10/locations:clinic?only_loc=' + locID + '&use_ids=True';
+    var clinicNCDData = '/query_variable/reg_11/locations:clinic?only_loc=' + locID + '&use_ids=True';
+    //var completenessData = '/completeness/reg_1/1/6?sublevel=clinic';
+
     var locationAPI = "/locations";
 
     buildClinicsTable();
@@ -32,32 +35,40 @@ function gatherClinicsData(locID) {
             });
 
 
-            //Get the completeness data ...
-            $.getJSON(api_root + completenessData, function(dataCom) {
-                $.each(dataCom.timeline, function(index, value) {
-                    buildClinicsCompleteness(index, value.values);
+            //Get the Clinic CD  data ...
+            $.getJSON(api_root + clinicCDData, function(dataCD) {
+                $.each(dataCD, function(index, value) {
+                    buildClinicsCD(index, value.weeks);
                 });
 
-                //Get the reall name for the clinics and replace the numbers with the text ...
-                $.getJSON(api_root + locationAPI, function(dataLocation) {
-                    getClinicsNames(dataLocation);
-
-                    //Append the table and the columns ...
-                    $('.spinner').hide();
-                    $('#clinicsTable').append('<table class="table"></table>');
-                    $('#clinicsTable table').bootstrapTable({
-                        columns: columnNameArray,
-                        data: clinicDataArray,
-                        pagination: true,
-                        pageSize: 10,
-                        search: true,
-                        classes: "table table-no-bordered table-hover"
+                //Get the Clinic NCD  data ...
+                $.getJSON(api_root + clinicNCDData, function(dataNCD) {
+                    $.each(dataNCD, function(index, value) {
+                        buildClinicsNCD(index, value.weeks);
                     });
 
-                    addPaginationListener('#clinicsTable table');
+                    //Get the reall name for the clinics and replace the numbers with the text ...
+                    $.getJSON(api_root + locationAPI, function(dataLocation) {
+                        getClinicsNames(dataLocation);
 
-                    //Update the table header so there is no need for scroll bar ...
-                    changeHeaderCss();
+                        //Append the table and the columns ...
+                        $('.spinner').hide();
+                        $('#clinicsTable').append('<table class="table"></table>');
+                        $('#clinicsTable table').bootstrapTable({
+                            columns: columnNameArray,
+                            data: clinicDataArray,
+                            pagination: true,
+                            pageSize: 10,
+                            search: true,
+                            classes: "table table-no-bordered table-hover"
+                        });
+
+                        addPaginationListener('#clinicsTable table');
+
+                        //Update the table header so there is no need for scroll bar ...
+                        changeHeaderCss();
+                    });
+
                 });
             });
         });
@@ -65,13 +76,19 @@ function gatherClinicsData(locID) {
 }
 
 // Hack to fix the pagination dropdown menu bug with bootstrap table.
-function addPaginationListener(table){
+function addPaginationListener(table) {
     console.log(table);
 
-    $('.page-list button.dropdown-toggle').click(function(){console.log('click');$('.page-list .dropdown-menu').toggle();});
+    $('.page-list button.dropdown-toggle').click(function() {
+        console.log('click');
+        $('.page-list .dropdown-menu').toggle();
+    });
 
-    $(table).on('page-change.bs.table', function(){
-        $('.page-list button.dropdown-toggle').click(function(){console.log('click');$('.page-list .dropdown-menu').toggle();});
+    $(table).on('page-change.bs.table', function() {
+        $('.page-list button.dropdown-toggle').click(function() {
+            console.log('click');
+            $('.page-list .dropdown-menu').toggle();
+        });
     });
 }
 
@@ -96,8 +113,18 @@ function buildClinicsTable() {
     }
 
     //Now after adding the new and return columns i will add the Completeness column ...
-    for (i = week - 2; i < currentWeek; i++) {
-        buildTableColumn(i + "C", "Week " + i + " (comp.) ", "");
+    // for (i = week - 2; i < currentWeek; i++) {
+    //     buildTableColumn(i + "C", "Week " + i + " (comp.) ", "");
+    // }
+
+    //Build CD and NCD Values ..
+    for (i = week - 2; i <= currentWeek; i++) {
+      var colClass = "";
+      if (i === week) {
+          colClass = "total";
+      }
+        buildTableColumn(i + "CD", "Week " + i + " (cd reg.) ", colClass);
+        buildTableColumn(i + "NCD", "Week " + i + " (ncd reg.) ", colClass);
     }
 }
 
@@ -148,20 +175,44 @@ function buildClinicsReturnVisits(clinicName, weeks) {
     });
 }
 
-//This function will get the completness value and put it in the right position in the array ...
-function buildClinicsCompleteness(clinicName, weeks) {
+function buildClinicsCD(clinicName, weeks) {
     var currentWeek = week;
-    var counter = 2; // i need the last 3 values only which represent the last 3 weeks ...
     $.each(clinicDataArray, function(index, value) {
         if (value.clinicName.toString() === clinicName.toString()) {
-            for (i = currentWeek - 2; i < currentWeek; i++) {
-                var itemName = i + "C";
-                value[itemName] = calculateCompleteness(weeks[weeks.length - counter]) + ' % ';
-                counter = counter - 1;
+            for (i = currentWeek - 2; i <= currentWeek; i++) {
+                var itemName = i + "CD";
+                value[itemName] = weeks[i];
             }
         }
     });
 }
+
+function buildClinicsNCD(clinicName, weeks) {
+    var currentWeek = week;
+    $.each(clinicDataArray, function(index, value) {
+        if (value.clinicName.toString() === clinicName.toString()) {
+            for (i = currentWeek - 2; i <= currentWeek; i++) {
+                var itemName = i + "NCD";
+                value[itemName] = weeks[i];
+            }
+        }
+    });
+}
+
+//This function will get the completness value and put it in the right position in the array ...
+// function buildClinicsCompleteness(clinicName, weeks) {
+//     var currentWeek = week;
+//     var counter = 2; // i need the last 3 values only which represent the last 3 weeks ...
+//     $.each(clinicDataArray, function(index, value) {
+//         if (value.clinicName.toString() === clinicName.toString()) {
+//             for (i = currentWeek - 2; i < currentWeek; i++) {
+//                 var itemName = i + "C";
+//                 value[itemName] = calculateCompleteness(weeks[weeks.length - counter]) + ' % ';
+//                 counter = counter - 1;
+//             }
+//         }
+//     });
+// }
 
 //This function will overwrite the clinic number with the name ...
 function getClinicsNames(data) {
