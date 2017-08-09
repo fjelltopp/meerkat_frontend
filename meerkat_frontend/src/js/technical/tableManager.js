@@ -515,7 +515,7 @@ function drawAlertAggTable( containerID, aggData, variables ){
  */
 function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, link_def_id_return, link_variable){
 
-
+ 
 
 	$.getJSON( api_root+"/locations", function( locations ){
 
