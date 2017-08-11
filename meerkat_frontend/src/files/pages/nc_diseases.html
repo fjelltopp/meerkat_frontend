@@ -126,9 +126,10 @@ function reDraw(){
 	                    tableID: 'nc_disease-table',
 	                    barID: 'nc_disease-bar-chart',
 	                    percent: true,
+                            limit_to: 'prc_2',
 	                    linkFunction: 'loadDisease',
-                        title: i18n.gettext('Non-Communicable Disease'),
-                        table_options: tableOptions
+                            title: i18n.gettext('Non-Communicable Disease'),
+                            table_options: tableOptions
 	                   });
   }
 drawOptionsButtons('nc_disease-table', 'reDraw');
