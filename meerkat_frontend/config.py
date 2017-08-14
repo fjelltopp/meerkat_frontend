@@ -52,7 +52,10 @@ class Config(object):
     SUPPORTED_LANGAUGES_FLAGS = ["gb"]
 
     DROPBOX = {}
-
+    LOGGING_URL = os.getenv("LOGGING_URL", None)
+    LOGGING_SOURCE = os.getenv("LOGGING_SOURCE", "dev")
+    LOGGING_SOUCRE_TYPE = "frontend"
+    LOGGING_IMPLEMENTAION = os.getenv("LOGGING_IMPLEMENTAION", "demo")
     # Auth secret settings file from which to import required config.
     # File must define JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY.
     filename = os.environ.get('MEERKAT_AUTH_SETTINGS')

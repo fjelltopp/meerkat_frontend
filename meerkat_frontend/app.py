@@ -13,8 +13,6 @@ from meerkat_libs.auth_client import Authorise as libs_auth
 import jinja2
 import os
 import json
-from raven.contrib.flask import Sentry
-from werkzeug.contrib.fixers import ProxyFix
 from meerkat_libs.logger_client import FlaskActivityLogger
 import copy
 
@@ -27,6 +25,7 @@ app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
 app.wsgi_app = ProxyFix(app.wsgi_app)
+
 
 FlaskActivityLogger(app)
 
