@@ -114,6 +114,16 @@ table{
     }
 }
 
+.chart-explanation {
+    font-size: 10pt;
+    font-style: italic;
+    padding-top: 2px;
+     color: #666;
+     font-family: inherit;
+     font-weight: 500;
+     line-height: 1.1;
+     padding: 7px 10px 4px;
+}
 .total{
   border-right: 2px solid #ddd;
   border-left: 2px solid #ddd;
@@ -366,8 +376,17 @@ table.refugee.small{
         height: 400px;
     }
 }
+
+.facility-map-sc{
+    .chart-stage{
+        padding: 0px;
+    }
+    .map{
+        height: 370px;
+    }
+}
 .facility-image{
-    max-height:600px;
+    max-height:550px;
     overflow: hidden;
     .chart-stage{
         padding: 0px;
