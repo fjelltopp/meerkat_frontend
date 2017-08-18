@@ -246,14 +246,15 @@ function prep_row_indicator(contentsObj, parentId, locID) {
             var indicatorColumn = "";
             var indicatorChartValues = [];
 
+
             $.each(data.timeline, function(index, value) {
                 indicatorChartValues.push(value);
             });
 
             indicatorColumn = "<tr><th> " + contentsObj.label + "</th>" + "<td>" + data.current + "% (" + data.cummulative + "% year )" + "</td>" +
-            "<td data-sparkline = '" + indicatorChartValues.join(", ") + "'" +
-            "' onClick=showIndicatorChart('" + apiUrl.toString() + "'); /> </tr>";
-          //  "<td data-sparkline = '" + indicatorChartValues.join(", ") + "' onClick=showIndicatorChart('" + apiUrl.toString() + "'); /> </tr>";
+                "<td data-sparkline = '" + indicatorChartValues.join(", ") + "'" +
+                'onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" /> </tr>';
+            //    "' onClick=showIndicatorChart('" + apiUrl.toString() + "'); /> </tr>";
 
 
 
@@ -477,12 +478,13 @@ function drawIndicatorChart() {
 }
 
 
-function showIndicatorChart(apiUrl) {
+function showIndicatorChart(chartInfo) {
 
+    chartInfo = chartInfo.split("~");
     var indicatorChartDate = [];
     var indicatorChartValues = [];
 
-    $.getJSON(api_root + apiUrl, function(result) {
+    $.getJSON(api_root + chartInfo[0], function(result) {
         var indicatorChartValues = [];
 
         $.each(result.timeline, function(index, value) {
@@ -501,7 +503,7 @@ function showIndicatorChart(apiUrl) {
                 text: ''
             },
             xAxis: {
-                categories: indicatorChartDate ,
+                categories: indicatorChartDate,
                 tickmarkPlacement: 'on',
                 title: {
                     enabled: false
@@ -533,13 +535,16 @@ function showIndicatorChart(apiUrl) {
                 }
             },
             series: [{
-                name: 'indicator Name',
+                name: chartInfo[1],
                 data: indicatorChartValues
             }]
         });
 
-        //$.featherlight($('#indicatorChartlightbox'), {});
-var indicatorChartHTMLContainer = $('#indicatorChartlightbox').html();
- $.featherlight( indicatorChartHTMLContainer, {variant:'indicatorChartHTMLContainer'} );
+
+        //after create the charts , get the html result and inject it into the featherlight popup ...
+        var indicatorChartHTMLContainer = $('#indicatorChartlightbox').html();
+        $.featherlight(indicatorChartHTMLContainer, {
+            variant: 'indicatorChartHTMLContainer'
+        });
     });
 }
