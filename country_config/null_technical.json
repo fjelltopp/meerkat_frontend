@@ -56,7 +56,7 @@
         },
         {
             "name":"Analysis",
-            "template":"indicators.html" 
+            "template":"indicators.html"
         },{
             "name":"Demographics",
             "template":"demographics.html"
@@ -100,8 +100,8 @@
         }],
     "central_review": 0,
     "flag":"null.svg",
-    
-    
+
+
     "overview": [
         {
             "title": "Consultations and Cases",

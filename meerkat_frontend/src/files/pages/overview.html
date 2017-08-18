@@ -28,30 +28,70 @@
 	</div>
 </div>
 <div class="breaker"></div>
+<div id="indicatorChartlightbox" style="display:none;"></div>
 
 
+<!-- TODO: Remove the custom CSS to other file ...  -->
+	<style>
+		#result {
+			text-align: right;
+			color: gray;
+			min-height: 2em;
+		}
 
-<script>
-	$("#title").html(i18n.gettext('Overview'));
+		#table-sparkline {
+			margin: 0 auto;
+			border-collapse: collapse;
+		}
+
+		th {
+			font-weight: bold;
+			text-align: left;
+		}
+
+		td,
+		th {
+			padding: 5px;
+			border-bottom: 1px solid silver;
+			height: 20px;
+		}
+
+		thead th {
+			border-top: 2px solid gray;
+			border-bottom: 2px solid gray;
+		}
+
+		.highcharts-tooltip>span {
+			background: white;
+			border: 1px solid silver;
+			border-radius: 3px;
+			box-shadow: 1px 1px 2px #888;
+			padding: 8px;
+		}
+	</style>
+
+	<script>
+		$("#title").html(i18n.gettext('Overview'));
 
 
-	$("#menu-toggle").click(function(e) {
-		e.preventDefault();
-		$("#wrapper").toggleClass("toggled");
-		$(".location-box .glyphicon").toggleClass("hidden");
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+			$(".location-box .glyphicon").toggleClass("hidden");
 
 
-		//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
-		var transitionEvent = whichTransitionEvent();
-		transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
-			$(window).resize();
+			//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+			var transitionEvent = whichTransitionEvent();
+			transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+				$(window).resize();
+			});
 		});
-	});
 
-	$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
+		$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
 
-	//This Method will call the main function that will be responsible for building the Overview page ....
-	function drawCharts(locID) {
-		build_overview_page(locID);
-	}
-</script>
+		//This Method will call the main function that will be responsible for building the Overview page ....
+		function drawCharts(locID) {
+			build_overview_page(locID);
+
+		}
+	</script>
