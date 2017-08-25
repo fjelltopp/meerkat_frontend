@@ -9,6 +9,9 @@ function build_overview_page(locID) {
     $.each(overview_list, function(index, value) {
         html_box_builder(value, locID);
     });
+
+    //Clear the counter for the indicator html..
+    indicatorCounter = 0;
 }
 
 
