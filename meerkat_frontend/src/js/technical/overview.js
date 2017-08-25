@@ -480,7 +480,7 @@ function drawIndicatorChart() {
     }
 }
 
-
+//This Methos will take the needed inforemation to build the chart and view it in Model ...
 function showIndicatorChart(chartInfo) {
 
     chartInfo = chartInfo.split("~");
@@ -495,12 +495,12 @@ function showIndicatorChart(chartInfo) {
             indicatorChartValues.push(value);
         });
 
-        Highcharts.chart('indicatorChartlightbox', {
+        Highcharts.chart('Ov_Indicator_chart', {
             chart: {
                 type: 'area'
             },
             title: {
-                text: 'Indicators'
+                text: ''
             },
             subtitle: {
                 text: ''
@@ -543,11 +543,9 @@ function showIndicatorChart(chartInfo) {
             }]
         });
 
+        //This part for the Modal to view the selected Indicator Chart ...
+        var $modal = $('#indicatorChartlightbox');
+        $modal.modal('show');
 
-        //after create the charts , get the html result and inject it into the featherlight popup ...
-        var indicatorChartHTMLContainer = $('#indicatorChartlightbox').html();
-        $.featherlight(indicatorChartHTMLContainer, {
-            variant: 'indicatorChartHTMLContainer'
-        });
     });
 }

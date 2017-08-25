@@ -109,13 +109,13 @@
             "parentId": "OvConsultationsAndCases",
             "contents": [
                 {
-                    "api": "/aggregate/reg_1/<loc_id>",
+                    "api": "/aggregate_year/reg_1/<loc_id>",
                     "label": "Consultations",
                     "access": "cd",
                     "prep_function": "prep_row"
                 },
                 {
-                    "api": "/aggregate/tot_1/<loc_id>",
+                    "api": "/aggregate_year/tot_1/<loc_id>",
                     "label": "Cases",
                     "access": "cd",
                     "prep_function": "prep_row"
@@ -156,14 +156,14 @@
             "contents": [
                 {
                     "api": "/aggregate_category/cd_tab/<loc_id>",
-                    "label": "Top 3 most common causes of morbidity",
+                    "label": "Top 3 most common causes of mortality",
                     "access": "cd",
                     "prep_function": "prep_row_draw_top",
                     "prep_details":{"ovPeriodType": "year"}
                 },
                 {
                     "api": "/aggregate_category/ncd_tab/<loc_id>",
-                    "label": "Top 3 most common causes of morbidity NCD",
+                    "label": "Top 3 most common causes of mortality NCD",
                     "access": "cd",
                     "prep_function": "prep_row_draw_top",
                     "prep_details":{"ovPeriodType": "year"}

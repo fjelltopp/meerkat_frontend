@@ -28,70 +28,91 @@
 	</div>
 </div>
 <div class="breaker"></div>
-<div id="indicatorChartlightbox" style="display:none;"></div>
+
+
+<div id="indicatorChartlightbox" class="modal fade">
+	<div class="modal-dialog" style="width: 50%;padding-top:175px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Indicators</h4>
+			</div>
+			<div class="modal-body">
+				<div id="Ov_Indicator_chart"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 
 
 <!-- TODO: Remove the custom CSS to other file ...  -->
-	<style>
-		#result {
-			text-align: right;
-			color: gray;
-			min-height: 2em;
-		}
+<style>
+	#result {
+		text-align: right;
+		color: gray;
+		min-height: 2em;
+	}
 
-		#table-sparkline {
-			margin: 0 auto;
-			border-collapse: collapse;
-		}
+	#table-sparkline {
+		margin: 0 auto;
+		border-collapse: collapse;
+	}
 
-		th {
-			font-weight: bold;
-			text-align: left;
-		}
+	th {
+		font-weight: bold;
+		text-align: left;
+	}
 
-		td,
-		th {
-			padding: 5px;
-			border-bottom: 1px solid silver;
-			height: 20px;
-		}
+	td,
+	th {
+		padding: 5px;
+		border-bottom: 1px solid silver;
+		height: 20px;
+	}
 
-		thead th {
-			border-top: 2px solid gray;
-			border-bottom: 2px solid gray;
-		}
+	thead th {
+		border-top: 2px solid gray;
+		border-bottom: 2px solid gray;
+	}
 
-		.highcharts-tooltip>span {
-			background: white;
-			border: 1px solid silver;
-			border-radius: 3px;
-			box-shadow: 1px 1px 2px #888;
-			padding: 8px;
-		}
-	</style>
-
-	<script>
-		$("#title").html(i18n.gettext('Overview'));
+	.highcharts-tooltip>span {
+		background: white;
+		border: 1px solid silver;
+		border-radius: 3px;
+		box-shadow: 1px 1px 2px #888;
+		padding: 8px;
+	}
 
 
-		$("#menu-toggle").click(function(e) {
-			e.preventDefault();
-			$("#wrapper").toggleClass("toggled");
-			$(".location-box .glyphicon").toggleClass("hidden");
+</style>
+
+<script>
+	$("#title").html(i18n.gettext('Overview'));
 
 
-			//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
-			var transitionEvent = whichTransitionEvent();
-			transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
-				$(window).resize();
-			});
+	$("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+		$(".location-box .glyphicon").toggleClass("hidden");
+
+
+		//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+		var transitionEvent = whichTransitionEvent();
+		transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+			$(window).resize();
 		});
+	});
 
-		$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
+	$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
 
-		//This Method will call the main function that will be responsible for building the Overview page ....
-		function drawCharts(locID) {
-			build_overview_page(locID);
+	//This Method will call the main function that will be responsible for building the Overview page ....
+	function drawCharts(locID) {
+		build_overview_page(locID);
 
-		}
-	</script>
+	}
+</script>
