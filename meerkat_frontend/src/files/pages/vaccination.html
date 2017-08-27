@@ -58,6 +58,23 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-12 less-padding-col">
+            <div class="chartBox box">
+                <div class="chartBox__heading">
+                    <p id="box_heading_pop_perc"></p>
+                    <div class="box__type-selector pull-right">
+                        <a href="" onclick="exportTableToXLS('vaccination-table','vaccination');return false;" class="csv">
+                        </a>
+                    </div>
+                </div>
+                <div class="chartBox__content">
+                    <div id="vaccination-pop-perc-table" class="table">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-xs-12 less-padding-col">
@@ -90,6 +107,7 @@
  $("#title").html(i18n.gettext('Vaccination'));
  $("#box_heading").html(i18n.gettext('Vaccination sessions this year'));
  $("#box_heading_2").html(i18n.gettext('Infant vaccinations this year'));
+ $("#box_heading_pop_perc").html(i18n.gettext('Immunization coverage'));
  $("#box_heading_3").html(i18n.gettext('Female vaccinations this year'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
@@ -125,10 +143,11 @@
      //In case we want the user to be able to select the weeks to view.
      var week = (get_epi_week()).toString();
 
-
      createTimeline("vac_ses", "locations:district", {"strip":true, "colour": "true"}, i18n.gettext("Vaccination Sessions"))
-     $.getJSON(api_root + "/aggregate_category_sum/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
-         $.getJSON(api_root + "/aggregate_category_sum/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
+
+
+     $.getJSON(api_root + "/aggregate_category/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
+         $.getJSON(api_root + "/aggregate_category/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
              $.getJSON(api_root + "/variables/vaccinated_12_mo_infants",  function( variables ){
 
                  table = '<table class="table table-no-bordered table-hover">';
@@ -155,6 +174,53 @@
              });
          });
      });
+     //Immunization coverage
+
+     //from Toavina data, TODO move to config, madd issue 64
+     var population_data = {};
+     population_data.total = 600000;
+     population_data.borntotal = population_data.total * 18 / 100;
+     population_data.bornunder12 = population_data.borntotal * 3.53 / 100;
+     population_data.bornover12 = population_data.borntotal - population_data.bornunder12;
+     population_data.survivedtotal = population_data.total * 18 / 100;
+     population_data.survivedunder12 = population_data.survivedtotal * 3.53 / 100;
+     population_data.survivedover12 = population_data.survivedtotal - population_data.survivedunder12;
+
+console.log(population_data);
+
+     $.getJSON(api_root + "/aggregate_category/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
+         $.getJSON(api_root + "/aggregate_category/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
+             $.getJSON(api_root + "/variables/vaccinated_12_mo_infants",  function( variables ){
+
+                 table = '<table class="table table-no-bordered table-hover">';
+
+                 table += "<tr> <th>" + i18n.gettext("Vaccine") + "</th> <th>" + i18n.gettext("0-11 months")
+                        + "</th><th>" + i18n.gettext(">12 months") + "</th><th>" + i18n.gettext("Total") + "</th></tr>";
+                 console.log(data_u_12)
+                 vaccines = Object.keys(data_12);
+                 for(v in vaccines){
+                     vaccine = vaccines[v]
+                     vaccine_u_12 = vaccine.replace("i12", "i0")
+                     table += "<tr> <td>" + i18n.gettext(variables[vaccine].name) +"</td>"
+                     if(( vaccine === "vac_i0_bcg" ) || ( vaccine === "vac_i0_vpo0" )){
+                         table += "<td>" + (100 * data_u_12[vaccine_u_12].year / population_data.bornunder12).toFixed(1) + "%" +"</td>"
+                         table += "<td>" + (100 * data_12[vaccine].year / population_data.bornover12).toFixed(1) + "%" +"</td>"
+                         table += "<td>" + (100 * (data_u_12[vaccine_u_12].year + data_12[vaccine].year) / population_data.borntotal ).toFixed(1) + "%" +"</td>"
+                     }else{
+                         table += "<td>" + (100 * data_u_12[vaccine_u_12].year / population_data.survivedunder12).toFixed(1) + "%" +"</td>"
+                         table += "<td>" + (100 * data_12[vaccine].year / population_data.survivedover12).toFixed(1) + "%" +"</td>"
+                         table += "<td>" + (100 * (data_u_12[vaccine_u_12].year + data_12[vaccine].year) / population_data.borntotal ).toFixed(1) + "%" +"</td>"
+                     }
+                     table += "</tr>"
+
+                 }
+
+                 table += "</table>"
+                 $("#vaccination-pop-perc-table").html(table)
+             });
+         });
+     });
+
 
      $.getJSON(api_root + "/aggregate_category_sum/vaccinated_pw/" + currentLocation, function( data_pw ){
          $.getJSON(api_root + "/aggregate_category_sum/vaccinated_notpw/" + currentLocation,  function( data_not_pw ){
