@@ -31,7 +31,7 @@
                   <div class="chartBox__heading">
                       <p id="box_heading"></p>
                       <div class="box__type-selector pull-right">
-                          <a href="" onclick="exportTableToXLS('timeline-table','vaccination');return false;" class="csv">
+                          <a href="" onclick="exportTableToXLS('timeline-wrapper','vaccination');return false;" class="csv">
                           </a>
                       </div>
                   </div>
@@ -46,8 +46,8 @@
       <div class="row">
           <div class="col-xs-12 less-padding-col">
               <div class="chartBox box">
-                  <div class="chartBox__heading_2">
-                      <p id="box_heading"></p>
+                  <div class="chartBox__heading">
+                      <p id="box_heading_2"></p>
                       <div class="box__type-selector pull-right">
                           <a href="" onclick="exportTableToXLS('vaccination-table','vaccination');return false;" class="csv">
                           </a>
@@ -110,7 +110,6 @@ $("#menu-toggle").click(function(e) {
   });
 });
 
-drawOptionsButtons('disease-table', 'reDraw');
 
 $("#epi-week-title").html( i18n.gettext("Week")+ " "+get_epi_week() + " · " + get_date() );
 
