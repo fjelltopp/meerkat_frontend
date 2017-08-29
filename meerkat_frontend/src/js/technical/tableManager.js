@@ -1214,7 +1214,7 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         //push every week separately now to the datum
         for (var l = 1; l < loc_record.length+1; l++)
         {
-            table_datum["week" + l ] = loc_record[l-1][1];
+            table_datum["week" + loc_record[l-1][0] ] = loc_record[l-1][1];
         }
         table_data.push(table_datum);
     }
@@ -1589,7 +1589,7 @@ function createCompletenessMatrixCellTab(){
     // Returns a function that colours in the cells according to their value
     function ccmct(value, row, index){
         if(isNaN(value)){
-            return {css: {"background-color": "rgba(0, 0, 0, 1)"}};
+            return {css: {"background-color": "rgba(128, 128, 128, 1)"}};
         }
         if(value < 50){//red
             return {css: {"background-color": "rgba(255, 0, 0, 0.5)", "font-weight": "bold"}};
