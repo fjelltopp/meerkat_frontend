@@ -146,8 +146,8 @@
      createTimeline("vac_ses", "locations:district", {"strip":true, "colour": "true"}, i18n.gettext("Vaccination Sessions"))
 
 
-     $.getJSON(api_root + "/aggregate_category/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
-         $.getJSON(api_root + "/aggregate_category/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
+     $.getJSON(api_root + "/aggregate_category_sum/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
+         $.getJSON(api_root + "/aggregate_category_sum/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
              $.getJSON(api_root + "/variables/vaccinated_12_mo_infants",  function( variables ){
 
                  table = '<table class="table table-no-bordered table-hover">';
@@ -178,18 +178,18 @@
 
      //from Toavina data, TODO move to config, madd issue 64
      var population_data = {};
-     population_data.total = 600000;
+     population_data.total = 6000000;
      population_data.borntotal = population_data.total * 18 / 100;
-     population_data.bornunder12 = population_data.borntotal * 3.53 / 100;
+     population_data.bornunder12 = population_data.total * 3.53 / 100;
      population_data.bornover12 = population_data.borntotal - population_data.bornunder12;
      population_data.survivedtotal = population_data.total * 18 / 100;
-     population_data.survivedunder12 = population_data.survivedtotal * 3.53 / 100;
+     population_data.survivedunder12 = population_data.total * 3.53 / 100;
      population_data.survivedover12 = population_data.survivedtotal - population_data.survivedunder12;
 
 console.log(population_data);
 
-     $.getJSON(api_root + "/aggregate_category/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
-         $.getJSON(api_root + "/aggregate_category/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
+     $.getJSON(api_root + "/aggregate_category_sum/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
+         $.getJSON(api_root + "/aggregate_category_sum/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
              $.getJSON(api_root + "/variables/vaccinated_12_mo_infants",  function( variables ){
 
                  table = '<table class="table table-no-bordered table-hover">';
