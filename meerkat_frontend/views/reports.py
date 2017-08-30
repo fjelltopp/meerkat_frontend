@@ -19,6 +19,7 @@ import os
 import uuid
 import subprocess
 import time
+import signal
 from selenium import webdriver
 
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
@@ -539,6 +540,8 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         with open(tmp_file, "rb") as f:
             pdf = f.read()
         os.remove(tmp_file)
+        driver.service.process.send_signal(signal.SIGTERM)
+        driver.quit()
         return Response(pdf, mimetype='application/pdf')
 
     else:
