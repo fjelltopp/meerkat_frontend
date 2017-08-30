@@ -254,10 +254,11 @@ function prep_row_indicator(contentsObj, parentId, locID) {
                 indicatorChartValues.push(value);
             });
 
-            indicatorColumn = "<tr><th> " + contentsObj.label + "</th>" + "<td>" + data.current + "% (" + data.cummulative + "% year )" + "</td>" +
-                "<td data-sparkline = '" + indicatorChartValues.join(", ") + "'" +
+            indicatorColumn = '<tr style="cursor:pointer" onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" >' +
+                "<th> " + contentsObj.label + "</th>" + "<td>" + data.current.toFixed(2) + "% (" + data.cummulative.toFixed(2) + "% year )" + "</td>" +
+                "<td   data-sparkline = '" + indicatorChartValues.join(", ") + "'" +
                 'onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" /> </tr>';
-            //    "' onClick=showIndicatorChart('" + apiUrl.toString() + "'); /> </tr>";
+
 
 
 
@@ -380,12 +381,13 @@ function drawIndicatorChart() {
                     hideDelay: 0,
                     shared: true,
                     padding: 0,
+                    enabled: false, // Make it true to view the tooltip
                     positioner: function(w, h, point) {
                         return {
                             x: point.plotX - w / 2,
                             y: point.plotY - h
                         };
-                    }
+                    },
                 },
                 plotOptions: {
                     series: {
@@ -491,7 +493,8 @@ function showIndicatorChart(chartInfo) {
         var indicatorChartValues = [];
 
         $.each(result.timeline, function(index, value) {
-            indicatorChartDate.push(ovDateFormate(index));
+            //indicatorChartDate.push(ovDateFormate(index));
+            indicatorChartDate.push(ovReturnWeekNumber(index));
             indicatorChartValues.push(value);
         });
 
@@ -548,4 +551,18 @@ function showIndicatorChart(chartInfo) {
         $modal.modal('show');
 
     });
+}
+
+
+//This function will Receive date and return the week number ...
+function ovReturnWeekNumber(date) {
+    Date.prototype.getWeek = function() {
+        var onejan = new Date(this.getFullYear(), 0, 1);
+        var today = new Date(this.getFullYear(), this.getMonth(), this.getDate());
+        var dayOfYear = ((today - onejan + 1) / 86400000);
+        return Math.ceil(dayOfYear / 7);
+    };
+
+    var currentDate = new Date(date);
+    return currentDate.getWeek();
 }
