@@ -50,7 +50,10 @@
     "weekend" : [5,6],
 
   "tabs":[{
-    "name":"Analysis",
+      "name": "Latest",
+      "template": "latest.html"
+  },{
+      "name":"Analysis",
     "template":"indicators.html"
   },{
     "name":"Demographics",
@@ -112,6 +115,7 @@
 		 "country_partner":"ni.png",
 		 "partners":[]
     },
+
 
     "partners":[
 		  "The Ministry of Health, Null Island"
