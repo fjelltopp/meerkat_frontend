@@ -548,7 +548,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 
     //Clear array...
     pipColumnNameArray = [];
-    clinicDataArray = [];
+    pipDataArray = [];
 
     $.getJSON(api_root + "/locations", function(locations) {
         //Build bootstrap columns ...
