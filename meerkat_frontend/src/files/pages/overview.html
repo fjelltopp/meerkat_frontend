@@ -15,7 +15,7 @@
 	</div>
 </div>
 
-<div class="demographics toggled" id="wrapper">
+<div class="overview demographics toggled" id="wrapper">
 	<div id="sidebar-wrapper">
 		<div id="location-selector" class="location-selector">
 		</div>
@@ -31,7 +31,7 @@
 
 
 <div id="indicatorChartlightbox" class="modal fade">
-	<div class="modal-dialog" style="width: 50%;padding-top:175px;">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -46,50 +46,6 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-<!-- TODO: Remove the custom CSS to other file ...  -->
-<style>
-	#result {
-		text-align: right;
-		color: gray;
-		min-height: 2em;
-	}
-
-	#table-sparkline {
-		margin: 0 auto;
-		border-collapse: collapse;
-	}
-
-	th {
-		font-weight: bold;
-		text-align: left;
-	}
-
-	td,
-	th {
-		padding: 5px;
-		border-bottom: 1px solid silver;
-		height: 20px;
-	}
-
-	thead th {
-		border-top: 2px solid gray;
-		border-bottom: 2px solid gray;
-	}
-
-	.highcharts-tooltip>span {
-		background: white;
-		border: 1px solid silver;
-		border-radius: 3px;
-		box-shadow: 1px 1px 2px #888;
-		padding: 8px;
-	}
-
-
-</style>
 
 <script>
 	$("#title").html(i18n.gettext('Overview'));

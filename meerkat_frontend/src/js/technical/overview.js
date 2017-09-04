@@ -235,10 +235,11 @@ function prep_row_indicator(contentsObj, parentId, locID) {
         var htmlContetn = "";
         //Add the table structure for the first time ...
         if (indicatorCounter === 0) {
-            htmlContetn = "<table id='table-sparkline' style='width:100%'><thead><tr><th>Indicator name</th><th>cumulative</th><th>Indicator chart</th></tr></thead>" +
-                "<tbody id='tbody-sparkline' name=" + api_element_ind + ">" + "</tbody></table>";
+            htmlContent = "<table id='table-sparkline' style='width:100%'><thead><tr><th>" + i18n.gettext("Indicator name") +
+                          "</th><th>" + i18n.gettext("Cumulative") + "</th><th>" + i18n.gettext("Indicator chart") +
+                          "</th></tr></thead>" + "<tbody id='tbody-sparkline' name=" + api_element_ind + ">" + "</tbody></table>";
             indicatorCounter = 1;
-            $("#" + parentId).append(htmlContetn);
+            $("#" + parentId).append(htmlContent);
         }
 
 

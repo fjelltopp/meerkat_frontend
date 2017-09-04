@@ -28,6 +28,12 @@ body.technical, body.messaging, body.download, body.explore, body.default{
 	}
 }
 
+.modal-dialog{
+    width: 70vw;
+    padding-top:10vh;
+    height: 80vh;
+}
+
 .tabs{
 
 	list-style: none;
@@ -412,11 +418,6 @@ footer{
 	background-color: white;
 }
 
-.divTableRow:hover {
-	background-color: #e4dddd;
-}
-
-
 .divTableHeading {
 	background-color: #EEE;
 	display: table-header-group;
@@ -442,4 +443,40 @@ footer{
 
 .divTableBody {
 	display: table-row-group;
+}
+
+.overview{
+    #result {
+        text-align: right;
+        color: gray;
+        min-height: 2em;
+    }
+
+    #table-sparkline {
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    th {
+        font-weight: bold;
+        text-align: left;
+    }
+
+    td,
+    th {
+        padding: 10px 5px;
+        height: 20px;
+    }
+
+    thead th {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .highcharts-tooltip>span {
+        background: white;
+        border: 1px solid silver;
+        border-radius: 3px;
+        box-shadow: 1px 1px 2px #888;
+        padding: 8px;
+    }
 }
