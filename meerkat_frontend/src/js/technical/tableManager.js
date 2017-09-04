@@ -539,10 +539,25 @@ function drawAlertAggTable(containerID, aggData, variables) {
     :param string links_variable:
         ??
  */
-var pipColumnNameArray = [];
-var pipDataArray = [];
 
 function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, link_def_id_return, link_variable) {
+
+    var pipColumnNameArray = [];
+    var pipDataArray = [];
+
+    //This function is responsible for building the table header ...
+    function buildBootstrapTableColumn(columnId, columnName, columnClass) {
+        pipColumnNameArray.push({
+            field: columnId,
+            title: i18n.gettext(columnName),
+            align: "center",
+            sortable: true,
+            sortName: columnId,
+            valign: "middle",
+            class: columnClass
+        });
+    }
+
     //Starts loader ...
     $('.spinner').show();
 
@@ -623,19 +638,6 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 
             addPaginationListener($('#' + containerID + ' table'));
         });
-    });
-}
-
-//This function is responsible for building the table header ...
-function buildBootstrapTableColumn(columnId, columnName, columnClass) {
-    pipColumnNameArray.push({
-        field: columnId,
-        title: i18n.gettext(columnName),
-        align: "center",
-        sortable: true,
-        sortName: columnId,
-        valign: "middle",
-        class: columnClass
     });
 }
 

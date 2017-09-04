@@ -74,6 +74,9 @@
             "template":"diseases.html",
             "access":"cd"
         },{
+            "name":"PIP",
+            "template":"pip.html"
+        },{
             "name":"Non Communicable Diseases",
             "template":"nc_diseases.html",
             "access":"ncd"
