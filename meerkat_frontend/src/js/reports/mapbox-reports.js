@@ -25,15 +25,21 @@ function ctc_point_map(point, containerID, map_centre){
 }
 
 
-function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, containerID, map_centre, in_technical){
+function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, containerID, map_centre, in_technical, label){
     // Build the basic map using mapbox.
+	if(label === undefined){
+
+		label = "CTC";
+	}
+	
     L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
         'KQCTcMow5165oToazo4diQ';
 	var control = false;
 	if (in_technical !== undefined){
 		control = true;
 	}
-		
+
+
     map = L.mapbox.map(containerID, 'mrjb.143811c9', {
           zoomControl: control,
           fullscreenControl: true,
@@ -79,8 +85,8 @@ function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, container
     var legend = L.control({ position: 'bottomright' });
     legend.onAdd = function( map ){
         var div = L.DomUtil.create( 'div', 'marker-legend' );
-        div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-blue awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">CTC surveyed</h2></tr></table>';
-        div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-red awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">CTC not surveyed</h2></tr></table>';
+        div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-blue awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">' + label + ' surveyed</h2></tr></table>';
+        div.innerHTML += '<table><tr><td><div class="awesome-marker-icon-red awesome-marker" style="position:relative""><i class="glyphicon glyphicon-plus icon-white"></i></div> </td><td><h2 style="display:inline">' + label +' not surveyed</h2></tr></table>';
     return div;
     };
     legend.addTo(map);

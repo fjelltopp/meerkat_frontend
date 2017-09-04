@@ -91,6 +91,13 @@ $printedBlue: #337ab7;
 				border-top:none;
 				padding: 10px;
 			}
+                        .chart-explanation{
+                            	border-radius: 0px 0px 0px 0px;
+				border: 1px solid #e2e2e2;
+				border-top:none;
+                                border-bottom:none;
+				background: $lightGrey !important;
+                        }
 
 		}
 
@@ -352,7 +359,7 @@ $printedBlue: #337ab7;
             page-break-after: always;
         }
         .facility-title{
-            margin: 20px 0px 20px;
+            margin: 20px 0px 0px;
         }
         .footer__logos img {
             max-height:85px;

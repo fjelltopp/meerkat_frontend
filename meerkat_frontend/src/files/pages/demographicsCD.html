@@ -159,29 +159,30 @@ function drawCharts( locID ){
 	//For each category draw a category summation.
 	var categories = ['gender', 'status', 'age'];
 	for( var i in categories ){
-		categorySummation({ category: categories[i],
-		                    locID: locID,
-		                    week: week,
-		                    tableID: categories[i]+'-table',
-		                    barID: categories[i]+'-bar-chart',
-		                    pieID: categories[i]+'-pie-chart',
-		                    percent: true,
-							table_options: {'strip': 'false', 'colour':'false'},
-							limit_to: 'prc_1'
-		                  });
-	}
-	categorySummation({ category: 'nationality',
-		                 locID: locID,
-		                 week: week,
-		                 tableID: 'nationality-table',
-		                 barID: 'nationality-bar-chart',
-		                pieID: 'nationality-pie-chart',
-						limit_to: "tot_1",
+	    categorySummation({ category: categories[i],
+		                locID: locID,
+		                week: week,
+		                tableID: categories[i]+'-table',
+		                barID: categories[i]+'-bar-chart',
+		                pieID: categories[i]+'-pie-chart',
 		                percent: true,
-						strip: true,
-						table_options: {'strip': 'false', 'colour':'false'},
-		               });
-
+				table_options: {'strip': 'false', 'colour':'false'},
+				limit_to: 'prc_1'
+	    });
+	}
+     categorySummation({ category: 'nationality',
+		         locID: locID,
+		         week: week,
+		         tableID: 'nationality-table',
+		         barID: 'nationality-bar-chart',
+		         pieID: 'nationality-pie-chart',
+			 limit_to: "prc_1",
+		         percent: true,
+			 strip: true,
+			 table_options: {'strip': 'false', 'colour':'false'},
+                         
+     });
+     
 
 }
 

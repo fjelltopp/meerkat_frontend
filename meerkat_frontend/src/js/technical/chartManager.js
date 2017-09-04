@@ -466,8 +466,6 @@ function drawCompletenessGraph( containerID, regionID, denominator, locations, d
         timeseries.push(datum);
     }
 
-    console.log("timeseries");
-    console.log(timeseries);
 
     //hovering should give all the information about given clinick and sublocation
     $('#' + containerID).highcharts({

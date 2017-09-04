@@ -1,50 +1,68 @@
 <div class="top-bar row">
 
-	<div class="location-box box">
-		<a href="#menu-toggle" id="menu-toggle">
-			<div class="location-box__label">
-				<div id="location_box"></div>
-				<div id="location-title" class="location-title"></div>
-			</div>
-			<span class="glyphicon glyphicon-chevron-right"></span>
-			<span class="glyphicon glyphicon-chevron-left hidden"></span>
-		</a>
-	</div>
-	<div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
-	</div>
-	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
-	</div>
-
+    <div class="location-box box">
+	<a href="#menu-toggle" id="menu-toggle">
+	    <div class="location-box__label">
+		<div id="location_box"></div>
+		<div id="location-title" class="location-title"></div>
+	    </div>
+	    <span class="glyphicon glyphicon-chevron-right"></span>
+	    <span class="glyphicon glyphicon-chevron-left hidden"></span>
+	</a>
+    </div>
+    <div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
+    </div>
+    <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
+    </div>
+    
 </div>
 
 <div class="demographics toggled" id="wrapper">
-
-	<div id="sidebar-wrapper" >
-		<div id="location-selector" class="location-selector">
-
-		</div>
+    
+    <div id="sidebar-wrapper" >
+	<div id="location-selector" class="location-selector">
+            
 	</div>
-
-	<div id="page-content-wrapper">
-		<div class="row">
-			<div class="col-xs-12 less-padding-col">
-				<div class="chartBox box">
-					<div class="chartBox__heading">
+    </div>
+    
+    <div id="page-content-wrapper">
+	<div class="row">
+	    <div class="col-xs-12 less-padding-col">
+		<div class="chartBox box">
+		    <div class="chartBox__heading">
                         <p id="box_heading"></p>
-
-						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToXLS('disease-table','mhds');return false;" class="csv">
-							</a>
-						</div>
-					</div>
-					<div class="chartBox__content">
-						<div id="mh_disease-bar-chart" class="chart"></div>
-						<div id="mh_disease-table" class="table"></div>
-					</div>
-				</div>
+                        
+			<div class="box__type-selector pull-right">
+			    <a href="" onclick="exportTableToXLS('disease-table','mhds');return false;" class="csv">
+			    </a>
 			</div>
+		    </div>
+		    <div class="chartBox__content">
+			<div id="mh_disease-bar-chart" class="chart"></div>
+			<div id="mh_disease-table" class="table"></div>
+		    </div>
 		</div>
+	    </div>
 	</div>
+	<div class="row">
+	    <div class="col-xs-12 less-padding-col">
+		<div class="chartBox box">
+		    <div class="chartBox__heading">
+                        <p id="box_heading_1"></p>
+                        
+			<div class="box__type-selector pull-right">
+			    <a href="" onclick="exportTableToXLS('disease-table','icd');return false;" class="csv">
+			    </a>
+			</div>
+		    </div>
+		    <div class="chartBox__content">
+			<div id="mh_disease-bar-chart-icd" class="chart"></div>
+			<div id="mh_disease-table-icd" class="table"></div>
+		    </div>
+		</div>
+	    </div>
+	</div>
+    </div>
 </div>
 <div class="breaker"></div>
 
@@ -56,7 +74,8 @@
  $("#title").html(i18n.gettext('Mental Health Diseases'));
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
- $("#box_heading").html(i18n.gettext('Mental Health Diseases'));
+ $("#box_heading").html(i18n.gettext('Mental Health Diseases by MHGAP'));
+ $("#box_heading_1").html(i18n.gettext('Mental Health Diseases by ICD Blocks'));
   $(".csv").each(function(){
 	 $(this).html(i18n.gettext('Excel'));
  });
@@ -75,21 +94,22 @@ $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + ge
 
 /*//Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
+     
+     //Keep week abstracted out of the chart drawing process.
+     //In case we want the use to eb able to select the weeks to view.
+     var week = get_epi_week().toString();
+     
+     categorySummation({ category: 'mhgap',
+	                 locID: locID,
+	                 week: week,
+	                 tableID: 'mh_disease-table',
+	                 barID: 'mh_disease-bar-chart',
+	                 percent: true,
+	                 linkFunction: 'loadDisease',
+                         strip: false,
+                         title: i18n.gettext('Mental Health Disease by MHGap')
+     });
 
-	//Keep week abstracted out of the chart drawing process.
-	//In case we want the use to eb able to select the weeks to view.
-	var week = get_epi_week().toString();
-
-	categorySummation({ category: 'mhgap',
-	                    locID: locID,
-	                    week: week,
-	                    tableID: 'mh_disease-table',
-	                    barID: 'mh_disease-bar-chart',
-	                    percent: true,
-	                    linkFunction: 'loadDisease',
-                      strip: false,
-                      title: i18n.gettext('Mental Health Disease')
-	                   });
 
 }*/
 
@@ -117,17 +137,28 @@ function reDraw(){
   //In case we want the user to be able to select the weeks to view.
   var week = (get_epi_week()).toString();
 
-  categorySummation({ category: 'mhgap',
-	                    locID: currentLocation,
-	                    week: week,
-	                    tableID: 'mh_disease-table',
-	                    barID: 'mh_disease-bar-chart',
-	                  percent: true,
-					  limit_to: 'tot_1',
-	                    linkFunction: 'loadDisease',
-                        title: i18n.gettext('Mental Health Disease'),
-                        table_options: tableOptions
-	                 });
+     categorySummation({ category: 'mhgap',
+	                 locID: currentLocation,
+	                 week: week,
+	                 tableID: 'mh_disease-table',
+	                 barID: 'mh_disease-bar-chart',
+	                 percent: true,
+			 limit_to: 'tot_1',
+	                 linkFunction: 'loadDisease',
+                         title: i18n.gettext('Mental Health Disease by MHGAP'),
+                         table_options: tableOptions
+     });
+     categorySummation({ category: 'mh_icd_block',
+	                 locID: currentLocation,
+	                 week: week,
+	                 tableID: 'mh_disease-table-icd',
+	                 barID: 'mh_disease-bar-chart-icd',
+	                 percent: true,
+			 limit_to: 'tot_1',
+	                 linkFunction: 'loadDisease',
+                         title: i18n.gettext('Mental Health Disease by ICD Block'),
+                         table_options: tableOptions
+     });
   }
   drawOptionsButtons('mh_disease-table', 'reDraw');
 </script>

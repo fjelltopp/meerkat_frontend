@@ -429,6 +429,7 @@ function drawAlertsTable(containerID, alerts, variables){
             pagination: true,
             pageSize: 50,
         });
+        addPaginationListener('#' + containerID + ' table');
 
     });
 }
@@ -1038,16 +1039,16 @@ function drawPlagueTable(containerID, cases, variables){
 			data.push(datum);
         }
         $('#' + containerID).html("<table> </table>");
-		$('#' + containerID + ' table').bootstrapTable(
-			{
-				columns: columns,
-				width : "100%",
-				data: data,
-				align: "center",
-				classes: "table table-hover",
-				pagination: true,
-				pageSize: 50
-			});
+		$('#' + containerID + ' table').bootstrapTable({
+			columns: columns,
+			width : "100%",
+			data: data,
+			align: "center",
+			classes: "table table-hover",
+			pagination: true,
+			pageSize: 50
+		});
+        addPaginationListener('#' + containerID + ' table');
 	});
 }
 
@@ -1161,11 +1162,6 @@ function drawMissingCompletenessTable( module_var, containerID, headerID, region
 
 function drawCompletenessMatrix( containerID, regionID, denominator, locations, data, start_week, graphtypeID ){
 
-    // console.log("XXX Data in:");
-    // console.log(data);
-    // console.log("XXX Locations:");
-    // console.log(locations);
-
     var stringGraphType = 'data';
     var multiplier = 100 / denominator;
     var noWeeks;
@@ -1176,20 +1172,15 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
     }
 
     var scoreKeys = Object.keys(data.timeline);
-    // console.log("XXX: ScoreKeys:");
-    // console.log(scoreKeys);
     var index = 0;
     //Using week numbers instead of dates
+    //If a clinic started reporting mid-year there will be missing data for some weeks. Because of that we ought to assume that if data is incomplete, it is only relevant for most recent weeks.
     var table_data = [];
     var table_datum = [];
     for (var i=0; i<scoreKeys.length;i++){
         index = scoreKeys[scoreKeys.length - i -1];
-        // console.log("XXX: index:");
-        // console.log(index);
         whole_loc_timeline = data.timeline[index];
         year_loc_val = data.yearly_score[index];
-        // console.log("XXX: whole_loc_timeline:");
-        // console.log(whole_loc_timeline);
         var loc_record = [];//whole data for location
         var loc_entry = [];//entry for one week
         //dropping the current week (noWeeks) in the data since we can only estimate it's completeness
@@ -1211,7 +1202,6 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
                 "name": locations[index].name,
                 "region": locations[locations[index].parent_location].name,
                 "year": Number(year_loc_val).toFixed(0)
-                // "data": loc_record
             };
         }else{
             table_datum = {
@@ -1222,20 +1212,12 @@ function drawCompletenessMatrix( containerID, regionID, denominator, locations, 
         }
 
         //push every week separately now to the datum
-
-        // console.log("XXX: loc_record:");
-        // console.log(loc_record);
         for (var l = 1; l < loc_record.length+1; l++)
         {
-            table_datum["week" + l ] = loc_record[l-1][1];
+            table_datum["week" + loc_record[l-1][0] ] = loc_record[l-1][1];
         }
-
-        // console.log("XXX: table datum:");
-        // console.log(table_datum);
         table_data.push(table_datum);
     }
-    // console.log("XXX: processed data:");
-    // console.log(table_data);
 
     var columns = [
         {
@@ -1607,7 +1589,7 @@ function createCompletenessMatrixCellTab(){
     // Returns a function that colours in the cells according to their value
     function ccmct(value, row, index){
         if(isNaN(value)){
-            return {css: {"background-color": "rgba(0, 0, 0, 1)"}};
+            return {css: {"background-color": "rgba(128, 128, 128, 1)"}};
         }
         if(value < 50){//red
             return {css: {"background-color": "rgba(255, 0, 0, 0.5)", "font-weight": "bold"}};
@@ -1712,6 +1694,7 @@ function drawClinicPrescriptionTable(containerID, locID){
             sortName: 'str_stock',
             sortOrder: 'desc'
         });
+        addPaginationListener('#' + containerID + ' table');
         return table;
 
     });
