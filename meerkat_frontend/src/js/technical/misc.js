@@ -412,6 +412,7 @@ function categorySummation(details) {
             var title = details.category.charAt(0).toUpperCase() + details.category.slice(1);
             if (details.title) title = details.title;
 
+
             var dataObject = makeDataObject(catData, variables, details.week, title, details.percent);
             if (details.strip) dataObject = stripEmptyRecords(dataObject);
             if( details.barID ) drawBarChart( details.barID, dataObject, details.barChartOptions);
@@ -665,17 +666,20 @@ function stripEmptyRecords(dataObject) {
    :param int compare_locations
    Show lines to compare locations for completeness graph
    */
+
 function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations, x_axis_max, matrixID){
 
     var completenessLocations;
     var completenessData;
     var matrixCompletenessData;
     if( start_week === undefined) start_week = 1;
+
     var deferreds = [
         $.getJSON(api_root + "/locations", function(data) {
             completenessLocations = data;
         })
     ];
+
 
     if(exclude){
         deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){completenessData = data;}));
@@ -729,11 +733,13 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    :param int compare_locations
    Show lines to compare locations for completeness graph
    */
+
 function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max, matrixID){
     var timelinessLocations;
     var timelinessData;
     var matrixTimelinessData;
     if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
+
 
     if (start_week === undefined) start_week = 1;
     var deferreds = [
@@ -760,6 +766,7 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
             drawCompletenessMatrix( matrixID, locID, denominator, timelinessLocations, matrixTimelinessData, start_week, 0 );
         }
     } );
+
 }
 
 /**:prepareIndicators( details )
