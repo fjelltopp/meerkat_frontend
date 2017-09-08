@@ -13,8 +13,8 @@ from meerkat_libs.auth_client import Authorise as libs_auth
 import jinja2
 import os
 import json
+from meerkat_libs.logger_client import FlaskActivityLogger
 import copy
-
 
 # Create the Flask app
 app = Flask(__name__)
@@ -25,6 +25,9 @@ app.config.from_envvar('MEERKAT_FRONTEND_SETTINGS')
 app.config.from_envvar('MEERKAT_FRONTEND_API_SETTINGS', silent=True)
 app.secret_key = 'some_secret'
 app.wsgi_app = ProxyFix(app.wsgi_app)
+
+
+FlaskActivityLogger(app)
 
 # Set up sentry error monitoring
 if app.config["SENTRY_DNS"]:
