@@ -1166,7 +1166,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
     if (locations[regionID].level != "clinic") { //no information aboout reporting clinic
         url = api_root + "/non_reporting/" + module_var + "/" + regionID;
 
-        if (exclude) url += "/" + exclude;
+        if (exclude) url += "/0/" + exclude;
         $.getJSON(url, function(data) {
             for (var i = 0; i < data.clinics.length; i++) {
                 datum = {
