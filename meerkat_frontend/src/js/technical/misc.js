@@ -681,15 +681,11 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
     ];
 
 
-    if(exclude){
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend,function( data ){completenessData = data;}));
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "?sublevel=district",function( data ){matrixCompletenessData = data;}));
-    }else{
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend,
+
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/"+ weekend,
                                    function( data ){completenessData = data; }));
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "?sublevel=district",
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + "?sublevel=district",
                                    function( data ){matrixCompletenessData = data; }));
-    }
 
     $.when.apply( $, deferreds ).then(function() {
         drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations, x_axis_max);
@@ -748,15 +744,11 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
         })
     ];
 
-    if(exclude){
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "/" + non_reporting_variable,function( data ){timelinessData = data;}));
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + exclude + "/" + weekend + "?sublevel=district",function( data ){matrixTimelinessData = data;}));
-    }else{
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "/" + non_reporting_variable,
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + "/" + non_reporting_variable,
                                    function( data ){timelinessData = data; }));
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/None/" + weekend + "?sublevel=district",
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + "?sublevel=district",
                                    function( data ){matrixTimelinessData = data; }));
-    }
+
 
     $.when.apply($, deferreds).then(function() {
         drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations,x_axis_max );
