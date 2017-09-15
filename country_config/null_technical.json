@@ -67,7 +67,7 @@
             "template":"demographicsNCD.html",
             "access": "ncd"
         },{
-            "name":"Presenting Complaint",
+            "name":"Morbidity",
             "template":"complaint.html"
         },{
             "name":"Communicable Diseases",
