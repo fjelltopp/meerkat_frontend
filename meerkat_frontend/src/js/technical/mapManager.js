@@ -176,6 +176,16 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 	console.log( url );
 
 	$.getJSON( url, function( data ){
+
+    //Todo:
+    var isEmpty= true;
+    for(var obj in data){
+      isEmpty= false;
+    }
+    if(isEmpty){
+      $('#disease-map-whiteBox').css("display", "none");
+    }
+
 		console.log( data );
 		L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
 		map = L.mapbox.map( containerID, 'mrjb.143811c9', {
@@ -198,7 +208,7 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 		//If fewer bins, due to smaller range, then change to fewer colours.
 
 
-		
+
 		//Find the clinic with the maximum variable value.
 		var maximum = 0;
 		for( var i in data ){
@@ -209,29 +219,29 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 		var colours = colours6;
 		number = 6;
 		if( maximum > 20 ){
-			
+
 			number = 6;
 			colours = colours6;
-			
+
 		}else if( maximum > 10 ){
-			
+
 			number = 4;
 			colours = colours4;
-			
+
 		}else if( maximum > 4 ){
-			
+
 			number = 3;
 			colours = colours3;
-			
+
 		}else{
-			
+
 			colours = colours2;
         number = 2;
 		}
 
 
 
-		
+
 		//Populate limits[] with the upper-limit for each bin.
 		var binSize = (maximum+1)/number;  // +1 because the final bin limit > maximum
 		var limit = 0;
@@ -299,7 +309,7 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level, monthly){
 	console.log(monthly);
 	var url = api_root +'/incidence_rate/'+varID+'/'+ level + "/1000/1";
 	if(monthly) url += "/1";
-	
+
 	$.getJSON( url, function( data ){
 		$.getJSON(api_root + "/locations", function (locations) {
 			$.getJSON(api_root + "/geo_shapes/" + level, function(geojson){
@@ -483,7 +493,7 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
 									  centre_lng ? centre_lng : config.map.center.lng ),
 	 			zoom: zoom ? zoom : config.map.zoom
 			});
-			
+
 			var loc_data = {};
 			for(var d in data){
 				console.log(d);
@@ -492,7 +502,7 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
 			console.log(loc_data);
 			for(var key in geojson){
 				var gj = geojson[key];
-				
+
 				var name = gj.properties.Name;
 				if( name in loc_data){
 					console.log(name);
@@ -501,10 +511,10 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
 					gj.properties.rate = 0;
 				}
 			}
-			
-			
+
+
 			var colours6 = [ '#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d' ];
-			
+
 			//Default to the 6 colour system.
 			//If fewer bins, due to smaller range, then change to fewer colours.
 			var colours = colours6;
@@ -516,28 +526,28 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
 					maximum = data[i].total;
 				}
 			}
-			
+
 			//Populate limits[] with the upper-limit for each bin.
 			var binSize = (maximum + 1)/number;  // +1 because the final bin limit > maximum
 			var limit = 0;
 			var limits=[limit];
-			
+
 			while( limits.length <= number){
 				limit += binSize;
 				limits.push(limit);
-				
+
 			}
 			function getColour(val){
 				var bin = Math.floor(val/binSize); //-1 because bins are inclusive of the upper-limit
 				return colours[bin];
-				
+
 			}
 			function style(feature) {
 				var opacity = 0.7;
 				if(feature.properties.rate === 0){
 					opacity = 0;
 				}
-				
+
 				return {
 					fillColor: getColour(feature.properties.rate),
 					weight: 1.5,
@@ -547,45 +557,45 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
 					fillOpacity: opacity
 				};
 			}
-			
+
 			function highlightFeature(e) {
 				var layer = e.target;
-				
+
 				layer.setStyle({
 					weight: 3,
 					color: '#666',
 					dashArray: '',
 					fillOpacity: 0.7
 				});
-				
+
 				if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
 					layer.bringToFront();
 				}
 				info.update(layer.feature.properties);
 			}
-			
+
 			function resetHighlight(e) {
 				geojson_layer.resetStyle(e.target);
 				info.update();
 			}
-			
+
 			function onEachFeature(feature, layer) {
 				layer.on({
 					mouseover: highlightFeature,
 					mouseout: resetHighlight
 				});
 			}
-			
+
 			geojson_layer =
 				L.geoJson(geojson,
 						  {style: style,
 						   onEachFeature: onEachFeature
 						  }).addTo(map);
 			var info = L.control();
-			
+
 			info.onAdd = function (map) {
 				this._div = L.DomUtil.create('div', 'info_map legend'); // create a div with a class "info"
-				
+
 				this.update();
 				return this._div;
 			};
@@ -594,29 +604,29 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
 				title =  i18n.gettext('Number of cases of') + " "+ i18n.gettext(var_name);
 			}
 			console.log(title);
-			
+
 			info.update = function (props) {
 				this._div.innerHTML =  '<h4>' +title +'</h4>' +  (props ?'<b>' + props.Name + '</b><br /> ' + props.rate : i18n.gettext('Hover over a') + " " + i18n.gettext(level));
 			};
-			
+
 			//Add the legend.
 			info.addTo(map);
 			var legend = L.control({ position: 'bottomleft' });
 			legend.onAdd = function( map ){
-				
+
 				var div = L.DomUtil.create( 'div', 'info_map legend' );
 				for ( i=1; i<limits.length; i++ ) {
 					div.innerHTML += '<i class="circle" style="background:' + colours[i-1] +
 						'; border-color:' + colours[i-1] + '"></i> ' + round(limits[i-1],0) +
 						'-' + round(limits[i],0) + '<br/>';
 				}
-				
+
 				return div;
 			};
-			
+
 			legend.addTo( map );
 		});
 	});
-	
+
 
 }
