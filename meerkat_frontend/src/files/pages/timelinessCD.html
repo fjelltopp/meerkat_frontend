@@ -113,7 +113,24 @@
 drawChartOptionsButtons('box_2_heading', 'reDraw');
 
  function reDraw(){
-     timelinessPreparation( currentLocation, 'reg_6', config.timeliness_denominator.all, 'timeliness-graph', 'timeliness-table', 'all-clinics-table', 1, "None", config.weekend, '#compare_button', 'reg_10', 52);
+     timelinessPreparation(
+         currentLocation,
+         'reg_6',
+         config.timeliness_denominator.all,
+         'timeliness-graph',
+         'timeliness-table',
+         'all-clinics-table',
+         1,
+         "None",
+         config.weekend,
+         '#compare_button',
+         'reg_10',
+         52,
+         undefined,
+         undefined,
+         undefined,
+         $('.tabs .active a').attr('location_filter')
+     );
 
  }
 

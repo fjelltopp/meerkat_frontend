@@ -325,7 +325,7 @@ function categorySummation(details) {
 	if(details.overlappingCategory) {
 		api_function = "aggregate_category_sum";
 	}
-	
+
     if (details.limit_to) {
         limit_to_postfix = "/" + details.limit_to;
     }
@@ -667,12 +667,15 @@ function stripEmptyRecords(dataObject) {
    Show lines to compare locations for completeness graph
    */
 
-function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations, x_axis_max, matrixID){
+function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations, x_axis_max, matrixID, filter_string){
+
+
 
     var completenessLocations;
     var completenessData;
     var matrixCompletenessData;
     if( start_week === undefined) start_week = 1;
+    if( filter_string === undefined) filter_string = '?';
 
     var deferreds = [
         $.getJSON(api_root + "/locations", function(data) {
@@ -682,15 +685,15 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
 
 
 
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/"+ weekend,
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/"+ weekend + filter_string,
                                    function( data ){completenessData = data; }));
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + "?sublevel=district",
+        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + filter_string + "&sublevel=district",
                                    function( data ){matrixCompletenessData = data; }));
 
     $.when.apply( $, deferreds ).then(function() {
         drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations, x_axis_max);
         drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
-        drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData); //this call makes one additional AJAX call
+        drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData, filter_string); //this call makes one additional AJAX call
         drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
         if(matrixID !== undefined){
             drawCompletenessMatrix( matrixID, locID, denominator, completenessLocations, matrixCompletenessData, start_week, 0 );
@@ -730,12 +733,12 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    Show lines to compare locations for completeness graph
    */
 
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max, matrixID){
+function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max, matrixID, filter_string){
     var timelinessLocations;
     var timelinessData;
     var matrixTimelinessData;
     if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
-
+    if( filter_string === undefined) filter_string = '?';
 
     if (start_week === undefined) start_week = 1;
     var deferreds = [
@@ -744,10 +747,10 @@ function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, al
         })
     ];
 
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + "/" + non_reporting_variable,
-                                   function( data ){timelinessData = data; }));
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + "?sublevel=district",
-                                   function( data ){matrixTimelinessData = data; }));
+    deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + "/" + non_reporting_variable + filter_string,
+                               function( data ){timelinessData = data; }));
+    deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + filter_string + "&sublevel=district",
+                               function( data ){matrixTimelinessData = data; }));
 
 
     $.when.apply($, deferreds).then(function() {
@@ -793,7 +796,7 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
             indicatorsData[i].name = indicatorsList[i].name;
         }
         drawIndicatorsGraph( graphID, locID, indicatorsData);
-        drawIndicatorsTable( tableID, locID, indicatorsData); 
+        drawIndicatorsTable( tableID, locID, indicatorsData);
     });
 }
 
