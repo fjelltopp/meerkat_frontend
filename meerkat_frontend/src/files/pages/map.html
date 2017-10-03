@@ -1,9 +1,6 @@
 <div class="top-bar row">
-
-
 	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
 	</div>
-
 </div>
 
 <div class="map-view">
@@ -41,13 +38,10 @@
  for( var key in options ){
 	 option = options[key];
 	 id_name[option.id] = option.name;
-	 console.log(option)
-		 console.log( user.acc[config.country])
-		 console.log(option.access in user.acc[config.country])
-		 if( $.inArray(option.access, user.acc[config.country]) != -1){
-			 html += "<option value='" + option.id + "'>" +
-					 option.name + "</option>";
-		 }
+	 if( !option.access || $.inArray(option.access, user.acc[config.country]) != -1){
+		 html += "<option value='" + option.id + "'>" +
+				 option.name + "</option>";
+	 }
  }
 
  html += "</select>";
