@@ -192,6 +192,8 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
                 arrDate.push(value.date);
             });
 
+			
+			
             //Take the last 3 values so i need to reverse the array ..
             arrValue.reverse();
             arrDate.reverse();
@@ -522,13 +524,16 @@ function showIndicatorChart(chartInfo) {
                 },
                 labels: {
                     formatter: function() {
-                        return this.value / 1000;
+                        return this.value ;// 1000;
                     }
                 }
             },
             tooltip: {
-                split: true,
-                valueSuffix: ' '
+                //split: true,
+                //valueSuffix: ' ',
+				formatter: function() {
+					return Math.round(this.y*10) / 10;
+				}
             },
             plotOptions: {
                 area: {
