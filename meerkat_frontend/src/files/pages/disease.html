@@ -107,6 +107,9 @@
 		"cases_region": i18n.gettext("Cases by region"),
 		"cases_district": i18n.gettext("Cases by district")
 	}
+
+
+
 	type_html = "<p class='col-xs-4'>" + i18n.gettext("Choose map type") + "</p><select class='report col-xs-4 no-padding-col' style='display:inline;'>"
 	for (var key in type_options) {
 		type = type_options[key];
@@ -157,6 +160,9 @@
 		}
 	}
 
+	//This counter will count if all the 3 boxes that contains data having data to view or not
+	var whiteboxCounter = 0;
+
 	function drawDiseaseContent(varID, locID) {
 		disease = varID;
 		name = varID;
@@ -165,6 +171,12 @@
 			//This line will hide the diseaseInfo box incase there is no data ...
 			if (data.classification_casedef == "") {
 				$("#diseaseInfo-whiteBox").css("display", "none");
+
+				//If whiteboxCounter = 3 that means the page contains no data to view so hide it ...
+				whiteboxCounter = whiteboxCounter + 1;
+				if (whiteboxCounter == 3) {
+					$('#emtyData-whiteBox').css("display", "block");
+				}
 			}
 			$('#diseaseTitle').text(i18n.gettext(data.name));
 			name = i18n.gettext(data.name);
@@ -240,12 +252,5 @@
 		}
 	}
 
-	$(window).load(function(){ emptyPageNotification(); })
-
-	function emptyPageNotification() {
-		if ($("#time-chart-whiteBox").css("display") == 'none' && $("#disease-map-whiteBox").css("display") == 'none' && $("#diseaseInfo-whiteBox").css("display") == 'none') {
-			$('#emtyData-whiteBox').css("display", "block");
-		}
-
-	}
+	
 </script>

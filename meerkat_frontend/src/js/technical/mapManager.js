@@ -177,13 +177,17 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 
 	$.getJSON( url, function( data ){
 
-    //Todo: 
+    //Todo:
     var isEmpty= true;
     for(var obj in data){
       isEmpty= false;
     }
     if(isEmpty){
       $('#disease-map-whiteBox').css("display", "none");
+      whiteboxCounter = whiteboxCounter + 1;
+      if (whiteboxCounter == 3){
+        $('#emtyData-whiteBox').css("display", "block");
+      }
     }
 
 		console.log( data );
