@@ -195,7 +195,10 @@
                 <div class='facility-title-location'>
                 {{ ctc.district }} | {{ ctc.region }} <br />
                     {{_('Latitude: ')}} {{ctc.gps[0]}}, {{_('Longitude: ')}} {{ctc.gps[1]}} <br />
-                    {{_('Surveyed on') }} {{ctc.latest_date}}
+                    {{_('Surveyed on') }} {{ctc.latest_date}}<br />
+                    {% if ctc.open == "No" %}
+                    <b>{{_('Facility closed by ')}} {{ctc.closed_date}}</b>
+                    {% endif %}
                 </div>
             </div>
             <div class='right-part'>
