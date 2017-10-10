@@ -14,7 +14,7 @@
 {{_('Discharges: %(discharges)s', discharges=report.overview.get("sc_discharge", 0)|int)}}
 {{_('F75 therapeutic milk available: %(f75)s', f75=format_percent(report.overview.sc_f75_value))}}
 {{_('F100 therapeutic milk available: %(f100)s', f100=format_percent(report.overview.sc_f100_value))}}
-{{_('ReSoMal therapeutic milk available: %(reSoMal)s', reSoMal=format_percent(report.overview.sc_resomal_value))}}
+{{_('ReSoMal oral rehydration solution available: %(reSoMal)s', reSoMal=format_percent(report.overview.sc_resomal_value))}}
 
 ## {{ _('Project Overview') }} ##
 

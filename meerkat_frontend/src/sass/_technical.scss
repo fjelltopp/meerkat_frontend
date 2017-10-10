@@ -28,6 +28,12 @@ body.technical, body.messaging, body.download, body.explore, body.default{
 	}
 }
 
+.modal-dialog{
+    width: 70vw;
+    padding-top:10vh;
+    height: 80vh;
+}
+
 .tabs{
 
 	list-style: none;
@@ -399,4 +405,78 @@ footer{
 
 #missing_clinics_content{
     min-height: 0px;
+}
+
+
+.divTable {
+	display: table;
+	width: 100%;
+}
+
+.divTableRow {
+	display: table-row;
+	background-color: white;
+}
+
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+
+.divTableCell,
+.divTableHead {
+	display: table-cell;
+	padding: 3px 10px;
+}
+
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+
+.divTableFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+
+.divTableBody {
+	display: table-row-group;
+}
+
+.overview{
+    #result {
+        text-align: right;
+        color: gray;
+        min-height: 2em;
+    }
+
+    #table-sparkline {
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    th {
+        font-weight: bold;
+        text-align: left;
+    }
+
+    td,
+    th {
+        padding: 10px 5px;
+        height: 20px;
+    }
+
+    thead th {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .highcharts-tooltip>span {
+        background: white;
+        border: 1px solid silver;
+        border-radius: 3px;
+        box-shadow: 1px 1px 2px #888;
+        padding: 8px;
+    }
 }

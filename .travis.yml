@@ -7,6 +7,7 @@ env:
   - TRAVIS_NODE_VERSION="6.9.1"
     MEERKAT_FRONTEND_SETTINGS="/home/travis/build/meerkat-code/meerkat_frontend/country_config/null_config.py"
     MEERKAT_AUTH_SETTINGS="/home/travis/build/meerkat-code/meerkat_frontend/meerkat_libs/meerkat_libs/auth_client/sample_auth.cfg"
+    HERMES_API_ROOT='http://testapiroot'
 
 install:
   - pip install .

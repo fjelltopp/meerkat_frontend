@@ -19,6 +19,7 @@ import os
 import uuid
 import subprocess
 import time
+import signal
 from selenium import webdriver
 
 reports = Blueprint('reports', __name__, url_prefix='/<language>')
@@ -539,6 +540,8 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         with open(tmp_file, "rb") as f:
             pdf = f.read()
         os.remove(tmp_file)
+        driver.service.process.send_signal(signal.SIGTERM)
+        driver.quit()
         return Response(pdf, mimetype='application/pdf')
 
     else:
@@ -641,30 +644,44 @@ def validate_report_arguments(config, report,
     return True
 
 
-def create_report(config, report=None, location=None, end_date=None, start_date=None):
-    """Dynamically creates report, that can then be served either in HTML or PDF format.
+def create_report(config, report=None,
+                  location=None, end_date=None, start_date=None):
+    """
+    Dynamically creates report, that can then be served either in HTML or
+    PDF format.
 
-       Args:
-           config (dict): The current app config object.
-           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
-           location (int): The location ID for the location used to filter the report's data.
-           end_date (str): The end_data used to filter the report's data, in ISO format.
-           start_date (str): The start_date used to filter the report's data, in ISO format.
+    Args:
+        config (dict): The current app config object.
+        report (str): The report ID, from the REPORTS_LIST configuration
+            file parameter.
+        location (int): The location ID for the location used to filter the
+            report's data.
+        end_date (str): The end_data used to filter the report's data, in
+            ISO format.
+        start_date (str): The start_date used to filter the report's data,
+            in ISO format.
 
-       Returns:
-           dict: The report details
-           ::
-               {
-                   'template' (str): the template file specified in the REPORTS_LIST config property,
-                   'report' (dict): the data collected form the Meerkat API,
-                   'extras' (dict): any extra data calulated from API data needed to create the report,
-                   'address' (str): the contact address to be printed in the report
-               }
+    Returns:
+        dict: The report details
+            ::
+            {
+               'template' (str): the template file specified in the
+                    REPORTS_LIST config property,
+               'report' (dict): the data collected form the Meerkat API,
+               'extras' (dict): any extra data calulated from API data
+                    needed to create the report,
+               'address' (str): the contact address to be printed in the
+                    report
+            }
     """
 
     # try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     access = report_list[report].get('access', '')
+
+    # Default location
+    if not location:
+        location = current_app.config['REPORTS_CONFIG']['default_location']
 
     # Abort if the location is not allowed
     allowedLocations = report_list[report].get('locations', None)
@@ -679,9 +696,6 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             [access],
             [current_app.config['SHARED_CONFIG']['auth_country']]
         )
-
-    if not location:
-        location = current_app.config['REPORTS_CONFIG']['default_location']
 
     api_request = '/reports'
     api_request += '/' + report_list[report]['api_name']
