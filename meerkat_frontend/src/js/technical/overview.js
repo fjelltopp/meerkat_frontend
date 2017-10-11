@@ -12,6 +12,7 @@ function build_overview_page(locID) {
 
     //Clear the counter for the indicator html..
     indicatorCounter = 0;
+    indicatorTableArr = [];
 }
 
 
@@ -181,25 +182,30 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
 
         $.getJSON(api_root + apiUrl, function(data) {
 
-            var arrValue = [];
-            var arrDate = [];
+            var arrAlerts = [];
             var arrFinal = [];
             var arrFinalDate = [];
 
+
             //Save the Data into arrays so it will be easy to work with ...
             $.each(data.alerts, function(index, value) {
-                arrValue.push(value.variables.alert_reason);
-                arrDate.push(value.date);
+                var newObj = {
+                    val: value.variables.alert_reason,
+                    date: value.date
+                };
+                arrAlerts.push(newObj);
             });
 
-            //Take the last 3 values so i need to reverse the array ..
-            arrValue.reverse();
-            arrDate.reverse();
+            //Sort the array by date Desc ...
+            arrAlerts.sort(function(a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
+
 
             //I need only 3 ...
             for (var i = 0; i <= 2; i++) {
-                arrFinal.push(arrValue[i]);
-                arrFinalDate.push(arrDate[i]);
+                arrFinal.push(arrAlerts[i].val);
+                arrFinalDate.push(arrAlerts[i].date);
             }
 
             var alertCounter = 0;
@@ -226,6 +232,7 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
 
 
 var indicatorCounter = 0;
+var indicatorTableArr = [];
 //Generate a GUID ...
 var api_element_ind = generateGUID();
 
@@ -236,8 +243,8 @@ function prep_row_indicator(contentsObj, parentId, locID) {
         //Add the table structure for the first time ...
         if (indicatorCounter === 0) {
             htmlContent = "<table id='table-sparkline' style='width:100%'><thead><tr><th>" + i18n.gettext("Indicator name") +
-                          "</th><th>" + i18n.gettext("Cumulative") + "</th><th>" + i18n.gettext("Indicator chart") +
-                          "</th></tr></thead>" + "<tbody id='tbody-sparkline' name=" + api_element_ind + ">" + "</tbody></table>";
+                "</th><th>" + i18n.gettext("Cumulative") + "</th><th>" + i18n.gettext("Indicator chart") +
+                "</th></tr></thead>" + "<tbody id='tbody-sparkline' name=" + api_element_ind + ">" + "</tbody></table>";
             indicatorCounter = 1;
             $("#" + parentId).append(htmlContent);
         }
@@ -255,16 +262,25 @@ function prep_row_indicator(contentsObj, parentId, locID) {
                 indicatorChartValues.push(value);
             });
 
-            indicatorColumn = '<tr style="cursor:pointer" onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" >' +
-                "<th> " + contentsObj.label + "</th>" + "<td>" + data.current.toFixed(2) + "% (" + data.cummulative.toFixed(2) + "% year )" + "</td>" +
-                "<td   data-sparkline = '" + indicatorChartValues.join(", ") + "'" +
-                'onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" /> </tr>';
 
+            // draw the table rows abd check they are sorted like the values in the config object ...
+            for (var i = 0; i <= config.overview[3].contents.length - 1; i++) {
+                if (config.overview[3].contents[i].api == contentsObj.api) {
 
+                    indicatorTableArr[i] = '<tr style="cursor:pointer" onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" >' +
+                        "<th> " + contentsObj.label + "</th>" + "<td>" + data.current.toFixed(2) + "% (" + data.cummulative.toFixed(2) + "% year )" + "</td>" +
+                        "<td   data-sparkline = '" + indicatorChartValues.join(", ") + "'" +
+                        'onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" /> </tr>';
+                }
+            }
 
-
-            $("tbody[name='" + api_element_ind + "']").append(indicatorColumn);
-            drawIndicatorChart();
+            //Dont draw any rows unless the array is completed ...
+            if (indicatorTableArr.length == config.overview[3].contents.length) {
+                $.each(indicatorTableArr, function(index, val) {
+                    $("tbody[name='" + api_element_ind + "']").append(val);
+                    drawIndicatorChart();
+                });
+            }
 
         });
     }
