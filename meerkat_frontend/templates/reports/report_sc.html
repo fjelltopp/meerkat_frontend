@@ -200,6 +200,9 @@
                     {{_('Latitude: ')}} {{sc.gps[0]}}, {{_('Longitude: ')}} {{sc.gps[1]}} <br />
                     {{_('Surveyed on') }} {{sc.latest_date}} <br />
 					{{_('Available programs:') }} {{ ", ".join(sc.services) }}
+                    {% if sc.open == "No" %}
+                    <b>{{_('Facility closed by ')}} {{sc.closed_date}}</b>
+                    {% endif %}
                 </div>
             </div>
             <div class='right-part'>

@@ -19,7 +19,7 @@
   <div id="sidebar-wrapper" >
     <div id="location-selector" class="location-selector">
     </div>
-	</div>
+  </div>
 
   <div id="page-content-wrapper">
 
@@ -51,23 +51,23 @@
           </div>
         </div>
       </div>
-
     </div>
-
-    <div class="col-xs-12 col-md-12 less-padding-col">
-      <div class="chartBox box" id="all_clinics_box">
-        <div class="chartBox__heading pointer" onclick='toggleAllClinics();return false;'>
-          <p  id="box_4_heading"> </p>
-          <div class="box__type-selector pull-right">
-            <a href="" class="csv" onclick="event.stopImmediatePropagation();exportTableToXLS('all-clinics-table','clinic_timeliness');return false;" >
-            </a>
+    <div class="row">
+        <div class="col-xs-12 col-md-12 less-padding-col">
+          <div class="chartBox box" id="all_clinics_box">
+            <div class="chartBox__heading pointer" onclick='toggleAllClinics();return false;'>
+              <p  id="box_4_heading"> </p>
+              <div class="box__type-selector pull-right">
+                <a href="" class="csv" onclick="event.stopImmediatePropagation();exportTableToXLS('all-clinics-table','clinic_timeliness');return false;" >
+                </a>
+              </div>
+            </div>
+            <div class="chartBox__content" id="all_clinics_content">
+              <div id="all-clinics-table" class="table">
+              </div>
+            </div>
           </div>
         </div>
-        <div class="chartBox__content" id="all_clinics_content">
-          <div id="all-clinics-table" class="table">
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -113,7 +113,24 @@
 drawChartOptionsButtons('box_2_heading', 'reDraw');
 
  function reDraw(){
-     timelinessPreparation( currentLocation, 'reg_6', config.timeliness_denominator.all, 'timeliness-graph', 'timeliness-table', 'all-clinics-table', 1, "None", config.weekend, '#compare_button', 'reg_10', 52);
+     timelinessPreparation(
+         currentLocation,
+         'reg_6',
+         config.timeliness_denominator.all,
+         'timeliness-graph',
+         'timeliness-table',
+         'all-clinics-table',
+         1,
+         "None",
+         config.weekend,
+         '#compare_button',
+         'reg_10',
+         52,
+         undefined,
+         undefined,
+         undefined,
+         $('.tabs .active a').attr('location_filter')
+     );
 
  }
 

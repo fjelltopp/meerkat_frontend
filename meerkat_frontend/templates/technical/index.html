@@ -8,8 +8,11 @@
             {% if (('access' in tab) and tab.access|in_array(g.payload.acc[content.auth_country]))
                     or ('access' not in tab) %}
         <li>
-	       <a href="#" id="{{tab.name|slugify}}" page="{{tab.template}}" onclick="loadLocationTree({type:'tab', dataID:'{{tab.name|slugify}}', locID:window.history.state.locID, location_filter: '{{tab.get('location_filter', '')}}'}); return false;">{{_(tab.name)}}</a>
-       </li>
+	       <a href="#" id="{{tab.name|slugify}}"
+              page="{{tab.template}}"
+              onclick="loadLocationTree({type:'tab', dataID:'{{tab.name|slugify}}', locID:window.history.state.locID, location_filter: '{{tab.get('location_filter', '')}}'}); return false;"
+              location_filter='{{tab.get('location_filter', '')}}'>{{_(tab.name)}}</a>
+        </li>
             {% endif %}
         {% endfor %}
 	  </ul>

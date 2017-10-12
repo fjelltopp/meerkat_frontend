@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-07-04 13:30+0000\n"
+"POT-Creation-Date: 2017-10-10 11:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: meerkat_frontend/reports.py:629
+#: meerkat_frontend/reports.py:626
 msgid "reg"
 msgstr ""
 
-#: meerkat_frontend/reports.py:660
+#: meerkat_frontend/reports.py:657
 #: meerkat_frontend/src/files/pages/vaccination.html:140
 #: meerkat_frontend/src/files/pages/vaccination.html:169
 #: meerkat_frontend/src/js/explore/explore.js:153
-#: meerkat_frontend/src/js/explore/explore.js:353
+#: meerkat_frontend/src/js/explore/explore.js:355
 #: meerkat_frontend/src/js/technical/tableManager.js:77
-#: meerkat_frontend/src/js/technical/tableManager.js:225
-#: meerkat_frontend/src/js/technical/tableManager.js:458
+#: meerkat_frontend/src/js/technical/tableManager.js:253
+#: meerkat_frontend/src/js/technical/tableManager.js:485
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:120
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:144
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:146
@@ -39,109 +39,109 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1078
+#: meerkat_frontend/reports.py:1074
 msgid "Total Cases"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1083
-#: meerkat_frontend/src/js/technical/tableManager.js:1019
+#: meerkat_frontend/reports.py:1079
+#: meerkat_frontend/src/js/technical/tableManager.js:1105
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:324
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:249
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:274
 #: meerkat_frontend/templates/reports/report_cerf.html:221
 #: meerkat_frontend/templates/reports/report_malaria.html:157
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:288
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:362
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:366
 msgid "Female"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1086
-#: meerkat_frontend/src/js/technical/tableManager.js:1021
+#: meerkat_frontend/reports.py:1082
+#: meerkat_frontend/src/js/technical/tableManager.js:1107
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:320
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:246
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:271
 #: meerkat_frontend/templates/reports/report_cerf.html:218
 #: meerkat_frontend/templates/reports/report_malaria.html:156
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:285
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:359
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:363
 msgid "Male"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1123 meerkat_frontend/reports.py:1137
-#: meerkat_frontend/src/js/technical/tableManager.js:553
+#: meerkat_frontend/reports.py:1119 meerkat_frontend/reports.py:1133
+#: meerkat_frontend/src/js/technical/tableManager.js:609
 msgid "B"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1124 meerkat_frontend/reports.py:1138
-#: meerkat_frontend/src/js/technical/tableManager.js:549
+#: meerkat_frontend/reports.py:1120 meerkat_frontend/reports.py:1134
+#: meerkat_frontend/src/js/technical/tableManager.js:605
 msgid "H3"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1125 meerkat_frontend/reports.py:1139
-#: meerkat_frontend/src/js/technical/tableManager.js:551
+#: meerkat_frontend/reports.py:1121 meerkat_frontend/reports.py:1135
+#: meerkat_frontend/src/js/technical/tableManager.js:607
 msgid "H1N1"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1126 meerkat_frontend/reports.py:1140
-#: meerkat_frontend/src/js/technical/tableManager.js:555
+#: meerkat_frontend/reports.py:1122 meerkat_frontend/reports.py:1136
+#: meerkat_frontend/src/js/technical/tableManager.js:611
 msgid "Mixed"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1166
+#: meerkat_frontend/reports.py:1161
 msgid "Patients followed up"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1168 meerkat_frontend/reports.py:1360
+#: meerkat_frontend/reports.py:1163 meerkat_frontend/reports.py:1355
 msgid "Laboratory results recorded"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1172
+#: meerkat_frontend/reports.py:1167
 msgid "Patients admitted to ICU"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1174
+#: meerkat_frontend/reports.py:1169
 msgid "Patients ventilated"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1176
+#: meerkat_frontend/reports.py:1171
 #: meerkat_frontend/src/files/pages/mortality.html:57
 #: meerkat_frontend/src/files/pages/mortality.html:108
 msgid "Mortality"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1348
+#: meerkat_frontend/reports.py:1343
 msgid "Mental Health (mhGAP) algorithm followed"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1352 meerkat_frontend/reports.py:1997
+#: meerkat_frontend/reports.py:1347 meerkat_frontend/reports.py:1992
 msgid "Child Health (IMCI) algorithm followed"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1356
+#: meerkat_frontend/reports.py:1351
 msgid "Reproductive Health screening"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1364
+#: meerkat_frontend/reports.py:1359
 msgid "Prescribing practice recorded"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1374
+#: meerkat_frontend/reports.py:1369
 msgid "Smoking prevalence (current)"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1590 meerkat_frontend/reports.py:1986
+#: meerkat_frontend/reports.py:1585 meerkat_frontend/reports.py:1981
 msgid "Cases Reported"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1656
+#: meerkat_frontend/reports.py:1651
 msgid "Alerts generated"
 msgstr ""
 
-#: meerkat_frontend/reports.py:1665
+#: meerkat_frontend/reports.py:1660
 msgid "Alerts investigated"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2009
+#: meerkat_frontend/reports.py:2004
 #: meerkat_frontend/src/files/pages/completeness.html:113
 #: meerkat_frontend/src/files/pages/completeness.html:116
 #: meerkat_frontend/src/files/pages/completenessCD.html:96
@@ -151,101 +151,101 @@ msgstr ""
 msgid "Completeness"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2014
+#: meerkat_frontend/reports.py:2009
 #: meerkat_frontend/src/files/pages/timeliness.html:102
 #: meerkat_frontend/src/files/pages/timeliness.html:105
 #: meerkat_frontend/src/files/pages/timelinessCD.html:85
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:85
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:86
 msgid "Timeliness"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2197
+#: meerkat_frontend/reports.py:2220
 msgid "Patient have smoking status recorded"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2202
+#: meerkat_frontend/reports.py:2225
 msgid "Diabetes mellitus patients have HbA1C recorded"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2208
+#: meerkat_frontend/reports.py:2231
 msgid "Hypertension patients have BP recorded"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2221 meerkat_frontend/reports.py:2226
+#: meerkat_frontend/reports.py:2247 meerkat_frontend/reports.py:2253
 msgid "Availability of prescribed medicines"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2491 meerkat_frontend/reports.py:2697
+#: meerkat_frontend/reports.py:2534 meerkat_frontend/reports.py:2740
 msgid "Health Utilisation Rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2493 meerkat_frontend/reports.py:2699
+#: meerkat_frontend/reports.py:2536 meerkat_frontend/reports.py:2742
 msgid "Number of consultations per clinician per day"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2497 meerkat_frontend/reports.py:2727
+#: meerkat_frontend/reports.py:2540 meerkat_frontend/reports.py:2770
 msgid "Hospitalisation rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2501 meerkat_frontend/reports.py:2731
+#: meerkat_frontend/reports.py:2544 meerkat_frontend/reports.py:2774
 msgid "Referral rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2505
+#: meerkat_frontend/reports.py:2548
 msgid "Crude Mortality Rate (CMR)"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2509
+#: meerkat_frontend/reports.py:2552
 msgid "Under-five Mortality Rate (U5MR)"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2560
+#: meerkat_frontend/reports.py:2603
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:186
 #: meerkat_frontend/templates/reports/report_cerf.html:158
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:217
 msgid "Communicable Disease"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2561
-#: meerkat_frontend/src/files/pages/nc_diseases.html:130
+#: meerkat_frontend/reports.py:2604
+#: meerkat_frontend/src/files/pages/nc_diseases.html:131
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:205
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:244
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:245
 msgid "Non-Communicable Disease"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2562
+#: meerkat_frontend/reports.py:2605
 msgid "Mental Health"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2563
+#: meerkat_frontend/reports.py:2606
 msgid "Injury"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2672
+#: meerkat_frontend/reports.py:2715
 msgid "Crude Mortality Rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2675
+#: meerkat_frontend/reports.py:2718
 msgid "Under five crude mortality rate"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2685
+#: meerkat_frontend/reports.py:2728
 msgid "Total Consultations"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2688
+#: meerkat_frontend/reports.py:2731
 msgid "Number of Clinicians"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2721
+#: meerkat_frontend/reports.py:2764
 msgid "Hospital Referrals"
 msgstr ""
 
-#: meerkat_frontend/reports.py:2724
+#: meerkat_frontend/reports.py:2767
 msgid "Other Referrals"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:100
+#: meerkat_frontend/src/files/pages/alert.html:99
 #: meerkat_frontend/src/files/pages/alerts.html:87
 #: meerkat_frontend/src/files/pages/disease.html:160
 #: meerkat_frontend/templates/reports/email/html/email_cd_public_health_profile.html:118
@@ -261,12 +261,12 @@ msgstr ""
 msgid "Alerts"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:101
-#: meerkat_frontend/src/js/technical/pageManager.js:158
+#: meerkat_frontend/src/files/pages/alert.html:100
+#: meerkat_frontend/src/js/technical/pageManager.js:161
 msgid "Alert #"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:102
+#: meerkat_frontend/src/files/pages/alert.html:101
 #: meerkat_frontend/src/files/pages/alerts.html:88
 #: meerkat_frontend/src/files/pages/complaint.html:111
 #: meerkat_frontend/src/files/pages/completeness.html:114
@@ -282,9 +282,10 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/diseases.html:58
 #: meerkat_frontend/src/files/pages/ebs.html:68
 #: meerkat_frontend/src/files/pages/imci.html:58
+#: meerkat_frontend/src/files/pages/indicators.html:60
 #: meerkat_frontend/src/files/pages/locationsel_template.html:39
-#: meerkat_frontend/src/files/pages/map.html:36
-#: meerkat_frontend/src/files/pages/mh_diseases.html:57
+#: meerkat_frontend/src/files/pages/map.html:33
+#: meerkat_frontend/src/files/pages/mh_diseases.html:75
 #: meerkat_frontend/src/files/pages/mortality.html:58
 #: meerkat_frontend/src/files/pages/nc_diseases.html:57
 #: meerkat_frontend/src/files/pages/pip.html:55
@@ -296,7 +297,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/template.html:50
 #: meerkat_frontend/src/files/pages/timeliness.html:103
 #: meerkat_frontend/src/files/pages/timelinessCD.html:83
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:83
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:84
 #: meerkat_frontend/src/files/pages/vaccination.html:96
 #: meerkat_frontend/templates/download/index.html:11
 #: meerkat_frontend/templates/download/wait.html:13
@@ -310,107 +311,107 @@ msgstr ""
 msgid "Date not loaded."
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:104
+#: meerkat_frontend/src/files/pages/alert.html:103
 msgid "Alert Investigation Report"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:105
+#: meerkat_frontend/src/files/pages/alert.html:104
 msgid "Alert:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:106
+#: meerkat_frontend/src/files/pages/alert.html:105
 msgid "Case:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:107
-#: meerkat_frontend/src/js/technical/tableManager.js:559
+#: meerkat_frontend/src/files/pages/alert.html:106
+#: meerkat_frontend/src/js/technical/tableManager.js:614
 msgid "Type:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:108
+#: meerkat_frontend/src/files/pages/alert.html:107
 msgid "Date:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:109
+#: meerkat_frontend/src/files/pages/alert.html:108
 msgid "Clinic:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:110
+#: meerkat_frontend/src/files/pages/alert.html:109
 msgid "Region:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:112
+#: meerkat_frontend/src/files/pages/alert.html:111
 #: meerkat_frontend/src/files/pages/ctc.html:155
 #: meerkat_frontend/src/files/pages/sc.html:175
 msgid "No data loaded"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:132
+#: meerkat_frontend/src/files/pages/alert.html:130
 msgid "Cases:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:133
+#: meerkat_frontend/src/files/pages/alert.html:131
 msgid "Hospitalised:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:134
-#: meerkat_frontend/templates/reports/report_sc.html:56
-#: meerkat_frontend/templates/reports/report_sc.html:210
+#: meerkat_frontend/src/files/pages/alert.html:132
+#: meerkat_frontend/templates/reports/report_sc.html:57
+#: meerkat_frontend/templates/reports/report_sc.html:223
 msgid "Deaths:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:135
+#: meerkat_frontend/src/files/pages/alert.html:133
 msgid "Investigation:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:140
+#: meerkat_frontend/src/files/pages/alert.html:138
 #: meerkat_frontend/templates/reports/report_ebs.html:8
 msgid "Initial Investigation"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:142
+#: meerkat_frontend/src/files/pages/alert.html:140
 msgid "Final Followup"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:144
+#: meerkat_frontend/src/files/pages/alert.html:142
 msgid "Number of Followups"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:148
+#: meerkat_frontend/src/files/pages/alert.html:146
 msgid "Central Review:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:150
+#: meerkat_frontend/src/files/pages/alert.html:148
 msgid "Central Review Date"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:152
-#: meerkat_frontend/src/js/technical/tableManager.js:630
+#: meerkat_frontend/src/files/pages/alert.html:150
+#: meerkat_frontend/src/js/technical/tableManager.js:713
 #: meerkat_frontend/templates/reports/report_ebs.html:10
 msgid "Outcome"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:154
+#: meerkat_frontend/src/files/pages/alert.html:152
 #: meerkat_frontend/templates/reports/report_ebs.html:10
 msgid "Risk Level"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:155
+#: meerkat_frontend/src/files/pages/alert.html:153
 msgid "IHR Status"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:162
+#: meerkat_frontend/src/files/pages/alert.html:158
 msgid "Patients"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:167
+#: meerkat_frontend/src/files/pages/alert.html:165
 #: meerkat_frontend/src/files/pages/demographics.html:121
 #: meerkat_frontend/src/files/pages/demographicsCD.html:122
 #: meerkat_frontend/src/files/pages/demographicsMH.html:122
 #: meerkat_frontend/src/files/pages/demographicsNCD.html:122
 #: meerkat_frontend/src/files/pages/demographics_mad.html:87
 #: meerkat_frontend/src/files/pages/tb.html:176
-#: meerkat_frontend/src/js/technical/tableManager.js:974
+#: meerkat_frontend/src/js/technical/tableManager.js:1060
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:136
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:129
 #: meerkat_frontend/templates/reports/report_cerf.html:128
@@ -420,41 +421,40 @@ msgstr ""
 msgid "Gender"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:171
+#: meerkat_frontend/src/files/pages/alert.html:169
 #: meerkat_frontend/src/files/pages/demographics.html:123
 #: meerkat_frontend/src/files/pages/demographicsCD.html:124
 #: meerkat_frontend/src/files/pages/demographicsMH.html:124
 #: meerkat_frontend/src/files/pages/demographicsNCD.html:124
 #: meerkat_frontend/src/files/pages/demographics_mad.html:88
 #: meerkat_frontend/src/files/pages/tb.html:177
-#: meerkat_frontend/src/js/technical/tableManager.js:968
+#: meerkat_frontend/src/js/technical/tableManager.js:1054
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:252
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:277
 msgid "Age"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:175
+#: meerkat_frontend/src/files/pages/alert.html:173
 msgid "Diagnosis"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:179
+#: meerkat_frontend/src/files/pages/alert.html:177
 msgid "Travel"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:183
+#: meerkat_frontend/src/files/pages/alert.html:181
 msgid "Animal Contact"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:187
+#: meerkat_frontend/src/files/pages/alert.html:185
 #: meerkat_frontend/src/files/pages/demographics.html:124
 #: meerkat_frontend/src/files/pages/demographicsCD.html:125
 #: meerkat_frontend/src/files/pages/demographicsMH.html:125
 #: meerkat_frontend/src/files/pages/demographicsNCD.html:125
 #: meerkat_frontend/src/files/pages/tb.html:179
-#: meerkat_frontend/src/js/technical/tableManager.js:409
-#: meerkat_frontend/src/js/technical/tableManager.js:526
-#: meerkat_frontend/src/js/technical/tableManager.js:962
-#: meerkat_frontend/src/js/technical/tableManager.js:984
+#: meerkat_frontend/src/js/technical/tableManager.js:436
+#: meerkat_frontend/src/js/technical/tableManager.js:1048
+#: meerkat_frontend/src/js/technical/tableManager.js:1070
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:193
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:177
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:188
@@ -477,28 +477,28 @@ msgstr ""
 msgid "Alert Investigation:"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:239
+#: meerkat_frontend/src/files/pages/alert.html:238
 msgid "Completed"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:241
+#: meerkat_frontend/src/files/pages/alert.html:240
 msgid "Not Completed"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:257
+#: meerkat_frontend/src/files/pages/alert.html:256
 msgid "Individual"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:262
+#: meerkat_frontend/src/files/pages/alert.html:261
 #: meerkat_frontend/src/files/pages/disease.html:82
 msgid "Time of reports"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:269
+#: meerkat_frontend/src/files/pages/alert.html:268
 msgid "Daily Threshold"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/alert.html:271
+#: meerkat_frontend/src/files/pages/alert.html:270
 msgid "Weekly Threshold"
 msgstr ""
 
@@ -517,8 +517,9 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/diseases.html:55
 #: meerkat_frontend/src/files/pages/ebs.html:65
 #: meerkat_frontend/src/files/pages/imci.html:55
+#: meerkat_frontend/src/files/pages/indicators.html:57
 #: meerkat_frontend/src/files/pages/locationsel_template.html:36
-#: meerkat_frontend/src/files/pages/mh_diseases.html:54
+#: meerkat_frontend/src/files/pages/mh_diseases.html:72
 #: meerkat_frontend/src/files/pages/mortality.html:55
 #: meerkat_frontend/src/files/pages/nc_diseases.html:54
 #: meerkat_frontend/src/files/pages/pip.html:52
@@ -530,7 +531,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/template.html:47
 #: meerkat_frontend/src/files/pages/timeliness.html:100
 #: meerkat_frontend/src/files/pages/timelinessCD.html:80
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:80
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:81
 #: meerkat_frontend/src/files/pages/vaccination.html:90
 #: meerkat_frontend/templates/explore/index.html:12
 #: meerkat_frontend/templates/messaging/subscribe.html:16
@@ -551,8 +552,9 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/diseases.html:56
 #: meerkat_frontend/src/files/pages/ebs.html:66
 #: meerkat_frontend/src/files/pages/imci.html:56
+#: meerkat_frontend/src/files/pages/indicators.html:58
 #: meerkat_frontend/src/files/pages/locationsel_template.html:37
-#: meerkat_frontend/src/files/pages/mh_diseases.html:55
+#: meerkat_frontend/src/files/pages/mh_diseases.html:73
 #: meerkat_frontend/src/files/pages/mortality.html:56
 #: meerkat_frontend/src/files/pages/nc_diseases.html:55
 #: meerkat_frontend/src/files/pages/pip.html:53
@@ -563,7 +565,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/template.html:48
 #: meerkat_frontend/src/files/pages/timeliness.html:101
 #: meerkat_frontend/src/files/pages/timelinessCD.html:81
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:81
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:82
 #: meerkat_frontend/src/files/pages/vaccination.html:91
 #: meerkat_frontend/templates/explore/index.html:13
 #: meerkat_frontend/templates/messaging/subscribe.html:17
@@ -585,8 +587,9 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/diseases.html:59
 #: meerkat_frontend/src/files/pages/ebs.html:69
 #: meerkat_frontend/src/files/pages/imci.html:59
+#: meerkat_frontend/src/files/pages/indicators.html:61
 #: meerkat_frontend/src/files/pages/locationsel_template.html:40
-#: meerkat_frontend/src/files/pages/mh_diseases.html:58
+#: meerkat_frontend/src/files/pages/mh_diseases.html:76
 #: meerkat_frontend/src/files/pages/mortality.html:59
 #: meerkat_frontend/src/files/pages/nc_diseases.html:58
 #: meerkat_frontend/src/files/pages/pip.html:56
@@ -597,7 +600,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/template.html:51
 #: meerkat_frontend/src/files/pages/timeliness.html:104
 #: meerkat_frontend/src/files/pages/timelinessCD.html:84
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:84
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:85
 #: meerkat_frontend/src/files/pages/vaccination.html:97
 #: meerkat_frontend/templates/explore/index.html:31
 #: meerkat_frontend/templates/messaging/subscribe.html:36
@@ -626,7 +629,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/diseases.html:61
 #: meerkat_frontend/src/files/pages/ebs.html:73
 #: meerkat_frontend/src/files/pages/imci.html:61
-#: meerkat_frontend/src/files/pages/mh_diseases.html:61
+#: meerkat_frontend/src/files/pages/mh_diseases.html:80
 #: meerkat_frontend/src/files/pages/mortality.html:61
 #: meerkat_frontend/src/files/pages/nc_diseases.html:61
 #: meerkat_frontend/src/files/pages/plague.html:87
@@ -635,13 +638,14 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/tb.html:183
 #: meerkat_frontend/src/files/pages/timeliness.html:110
 #: meerkat_frontend/src/files/pages/timelinessCD.html:89
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:89
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:90
 #: meerkat_frontend/src/files/pages/vaccination.html:99
 #: meerkat_frontend/templates/download/wait.html:49
 msgid "Excel"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/alerts.html:95
+#: meerkat_frontend/src/files/pages/clinics.html:74
 #: meerkat_frontend/src/files/pages/complaint.html:122
 #: meerkat_frontend/src/files/pages/completeness.html:116
 #: meerkat_frontend/src/files/pages/completeness.html:120
@@ -652,7 +656,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/completenessNCD.html:99
 #: meerkat_frontend/src/files/pages/completenessNCD.html:102
 #: meerkat_frontend/src/files/pages/completenessNCD.html:119
-#: meerkat_frontend/src/files/pages/demographics.html:149
+#: meerkat_frontend/src/files/pages/demographics.html:150
 #: meerkat_frontend/src/files/pages/demographicsCD.html:150
 #: meerkat_frontend/src/files/pages/demographicsMH.html:150
 #: meerkat_frontend/src/files/pages/demographicsNCD.html:150
@@ -661,11 +665,14 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/diseases.html:76
 #: meerkat_frontend/src/files/pages/ebs.html:75
 #: meerkat_frontend/src/files/pages/imci.html:77
+#: meerkat_frontend/src/files/pages/indicators.html:62
+#: meerkat_frontend/src/files/pages/indicators.html:67
 #: meerkat_frontend/src/files/pages/locationsel_template.html:55
-#: meerkat_frontend/src/files/pages/map.html:37
-#: meerkat_frontend/src/files/pages/mh_diseases.html:74
+#: meerkat_frontend/src/files/pages/map.html:34
+#: meerkat_frontend/src/files/pages/mh_diseases.html:93
 #: meerkat_frontend/src/files/pages/mortality.html:77
 #: meerkat_frontend/src/files/pages/nc_diseases.html:74
+#: meerkat_frontend/src/files/pages/overview.html:66
 #: meerkat_frontend/src/files/pages/pip.html:71
 #: meerkat_frontend/src/files/pages/plague.html:89
 #: meerkat_frontend/src/files/pages/prescriptions.html:99
@@ -678,17 +685,17 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/timelinessCD.html:85
 #: meerkat_frontend/src/files/pages/timelinessCD.html:87
 #: meerkat_frontend/src/files/pages/timelinessCD.html:104
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:85
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:87
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:104
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:86
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:88
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:105
 #: meerkat_frontend/src/files/pages/vaccination.html:115
-#: meerkat_frontend/src/js/explore/explore.js:342
-#: meerkat_frontend/src/js/technical/chartManager.js:483
+#: meerkat_frontend/src/js/explore/explore.js:344
+#: meerkat_frontend/src/js/technical/chartManager.js:481
 #: meerkat_frontend/src/js/technical/tableManager.js:34
 #: meerkat_frontend/src/js/technical/tableManager.js:35
-#: meerkat_frontend/src/js/technical/tableManager.js:139
-#: meerkat_frontend/src/js/technical/tableManager.js:147
-#: meerkat_frontend/src/js/technical/tableManager.js:155
+#: meerkat_frontend/src/js/technical/tableManager.js:144
+#: meerkat_frontend/src/js/technical/tableManager.js:158
+#: meerkat_frontend/src/js/technical/tableManager.js:172
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:3
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
@@ -703,6 +710,14 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_sc.html:2
 msgid "Week"
+msgstr ""
+
+#: meerkat_frontend/src/files/pages/clinics.html:58
+msgid "Clinics"
+msgstr ""
+
+#: meerkat_frontend/src/files/pages/clinics.html:59
+msgid "Clinics visits"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/complaint.html:110
@@ -740,6 +755,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/completeness.html:117
 #: meerkat_frontend/src/files/pages/completenessCD.html:100
 #: meerkat_frontend/src/files/pages/completenessNCD.html:100
+#: meerkat_frontend/src/files/pages/indicators.html:63
 msgid "Completeness by week"
 msgstr ""
 
@@ -750,7 +766,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/completeness.html:119
 #: meerkat_frontend/src/files/pages/completenessCD.html:101
 #: meerkat_frontend/src/files/pages/completenessNCD.html:101
-#: meerkat_frontend/src/js/technical/tableManager.js:1093
+#: meerkat_frontend/src/js/technical/tableManager.js:1181
 msgid "Reporting sites never reported"
 msgstr ""
 
@@ -810,7 +826,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/demographicsMH.html:123
 #: meerkat_frontend/src/files/pages/demographicsNCD.html:123
 #: meerkat_frontend/src/files/pages/tb.html:178
-#: meerkat_frontend/src/files/pages/tb.html:259
+#: meerkat_frontend/src/files/pages/tb.html:260
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:166
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:148
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:161
@@ -850,8 +866,8 @@ msgid "NCD Demographics"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/disease.html:81
-#: meerkat_frontend/templates/reports/report_ctc.html:262
-#: meerkat_frontend/templates/reports/report_sc.html:249
+#: meerkat_frontend/templates/reports/report_ctc.html:282
+#: meerkat_frontend/templates/reports/report_sc.html:279
 msgid "Information"
 msgstr ""
 
@@ -860,37 +876,37 @@ msgid "Location of reports"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/disease.html:88
-#: meerkat_frontend/src/files/pages/map.html:63
+#: meerkat_frontend/src/files/pages/map.html:57
 msgid "Incidence rate by clinic"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/disease.html:89
-#: meerkat_frontend/src/files/pages/map.html:64
+#: meerkat_frontend/src/files/pages/map.html:58
 msgid "Incidence rate by district"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/disease.html:90
-#: meerkat_frontend/src/files/pages/map.html:65
+#: meerkat_frontend/src/files/pages/map.html:59
 msgid "Incidence rate by region"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/disease.html:91
-#: meerkat_frontend/src/files/pages/map.html:66
+#: meerkat_frontend/src/files/pages/map.html:60
 msgid "Cases by clinic"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/disease.html:92
-#: meerkat_frontend/src/files/pages/map.html:67
+#: meerkat_frontend/src/files/pages/map.html:61
 msgid "Cases by region"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/disease.html:93
-#: meerkat_frontend/src/files/pages/map.html:68
+#: meerkat_frontend/src/files/pages/map.html:62
 msgid "Cases by district"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/disease.html:95
-#: meerkat_frontend/src/files/pages/map.html:70
+#: meerkat_frontend/src/files/pages/map.html:64
 msgid "Choose map type"
 msgstr ""
 
@@ -944,11 +960,19 @@ msgstr ""
 msgid "IMCI"
 msgstr ""
 
+#: meerkat_frontend/src/files/pages/indicators.html:59
+msgid "Analysis"
+msgstr ""
+
+#: meerkat_frontend/src/files/pages/indicators.html:62
+msgid "Indicators"
+msgstr ""
+
 #: meerkat_frontend/src/files/pages/locationsel_template.html:38
 msgid "Tab title"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/map.html:35
+#: meerkat_frontend/src/files/pages/map.html:32
 #: meerkat_frontend/src/files/pages/plague.html:81
 #: meerkat_frontend/src/js/technical/mapManager.js:51
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:51
@@ -958,22 +982,37 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/map.html:39
+#: meerkat_frontend/src/files/pages/map.html:36
 msgid "Choose disease to map"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/mh_diseases.html:56
-#: meerkat_frontend/src/files/pages/mh_diseases.html:59
+#: meerkat_frontend/src/files/pages/mh_diseases.html:74
 msgid "Mental Health Diseases"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/mh_diseases.html:128
-msgid "Mental Health Disease"
+#: meerkat_frontend/src/files/pages/mh_diseases.html:77
+msgid "Mental Health Diseases by MHGAP"
+msgstr ""
+
+#: meerkat_frontend/src/files/pages/mh_diseases.html:78
+msgid "Mental Health Diseases by ICD Blocks"
+msgstr ""
+
+#: meerkat_frontend/src/files/pages/mh_diseases.html:148
+msgid "Mental Health Disease by MHGAP"
+msgstr ""
+
+#: meerkat_frontend/src/files/pages/mh_diseases.html:159
+msgid "Mental Health Disease by ICD Block"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/nc_diseases.html:56
 #: meerkat_frontend/src/files/pages/nc_diseases.html:59
 msgid "Non-Communicable Diseases"
+msgstr ""
+
+#: meerkat_frontend/src/files/pages/overview.html:50
+msgid "Overview"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/pip.html:54
@@ -1062,7 +1101,7 @@ msgid "Lab Results"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/tb.html:174
-#: meerkat_frontend/src/files/pages/tb.html:228
+#: meerkat_frontend/src/files/pages/tb.html:229
 msgid "Employment"
 msgstr ""
 
@@ -1070,7 +1109,7 @@ msgstr ""
 msgid "TB Type"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/tb.html:219
+#: meerkat_frontend/src/files/pages/tb.html:220
 msgid "Lab results"
 msgstr ""
 
@@ -1084,13 +1123,13 @@ msgstr ""
 
 #: meerkat_frontend/src/files/pages/timeliness.html:106
 #: meerkat_frontend/src/files/pages/timelinessCD.html:86
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:86
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:87
 msgid "Timeliness by week"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/timeliness.html:107
 #: meerkat_frontend/src/files/pages/timelinessCD.html:87
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:87
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:88
 msgid "Timeliness by clinic"
 msgstr ""
 
@@ -1102,7 +1141,7 @@ msgstr ""
 msgid "CD Timeliness"
 msgstr ""
 
-#: meerkat_frontend/src/files/pages/timelinessNCD.html:82
+#: meerkat_frontend/src/files/pages/timelinessNCD.html:83
 msgid "NCD Timeliness"
 msgstr ""
 
@@ -1159,7 +1198,7 @@ msgid ""
 "different table."
 msgstr ""
 
-#: meerkat_frontend/src/js/explore/explore.js:304
+#: meerkat_frontend/src/js/explore/explore.js:305
 msgid "#Cases with "
 msgstr ""
 
@@ -1191,11 +1230,11 @@ msgstr ""
 
 #: meerkat_frontend/src/js/reports/charts.js:168
 #: meerkat_frontend/src/js/reports/charts.js:269
-#: meerkat_frontend/src/js/technical/tableManager.js:343
-#: meerkat_frontend/src/js/technical/tableManager.js:349
-#: meerkat_frontend/src/js/technical/tableManager.js:458
-#: meerkat_frontend/src/js/technical/tableManager.js:672
-#: meerkat_frontend/src/js/technical/tableManager.js:1026
+#: meerkat_frontend/src/js/technical/tableManager.js:371
+#: meerkat_frontend/src/js/technical/tableManager.js:377
+#: meerkat_frontend/src/js/technical/tableManager.js:485
+#: meerkat_frontend/src/js/technical/tableManager.js:755
+#: meerkat_frontend/src/js/technical/tableManager.js:1112
 msgid "Confirmed"
 msgstr ""
 
@@ -1212,15 +1251,15 @@ msgstr ""
 msgid "Previous Year"
 msgstr ""
 
-#: meerkat_frontend/src/js/reports/mapbox-reports.js:191
+#: meerkat_frontend/src/js/reports/mapbox-reports.js:197
 msgid "Hover over an area"
 msgstr ""
 
-#: meerkat_frontend/src/js/reports/mapbox-reports.js:285
+#: meerkat_frontend/src/js/reports/mapbox-reports.js:291
 msgid "No Cases"
 msgstr ""
 
-#: meerkat_frontend/src/js/reports/mapbox-reports.js:287
+#: meerkat_frontend/src/js/reports/mapbox-reports.js:293
 msgid "Areas without cases are not shown"
 msgstr ""
 
@@ -1237,7 +1276,7 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/chartManager.js:92
 #: meerkat_frontend/src/js/technical/chartManager.js:233
 #: meerkat_frontend/src/js/technical/tableManager.js:36
-#: meerkat_frontend/src/js/technical/tableManager.js:163
+#: meerkat_frontend/src/js/technical/tableManager.js:186
 msgid "This Year"
 msgstr ""
 
@@ -1249,23 +1288,23 @@ msgstr ""
 msgid "Number of Reported Cases"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/chartManager.js:596
+#: meerkat_frontend/src/js/technical/chartManager.js:594
 msgid "Compare sublocations"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/locationManager.js:108
+#: meerkat_frontend/src/js/technical/locationManager.js:129
 msgid "Search for location..."
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/locationManager.js:113
+#: meerkat_frontend/src/js/technical/locationManager.js:134
 msgid "Parent Locations"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/locationManager.js:164
+#: meerkat_frontend/src/js/technical/locationManager.js:247
 msgid "Matching Locations"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/locationManager.js:171
+#: meerkat_frontend/src/js/technical/locationManager.js:254
 msgid "No matches"
 msgstr ""
 
@@ -1282,7 +1321,7 @@ msgid "Incidence Rate:"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/mapManager.js:274
-#: meerkat_frontend/src/js/technical/mapManager.js:424
+#: meerkat_frontend/src/js/technical/mapManager.js:426
 msgid "Incidence Rates of"
 msgstr ""
 
@@ -1291,296 +1330,313 @@ msgid "per 1000."
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/mapManager.js:424
+msgid "Monthly incidence rate of"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/mapManager.js:430
 msgid "per 1000"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/mapManager.js:424
+#: meerkat_frontend/src/js/technical/mapManager.js:430
 msgid "Incidence Rate"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/mapManager.js:424
-#: meerkat_frontend/src/js/technical/mapManager.js:593
+#: meerkat_frontend/src/js/technical/mapManager.js:430
+#: meerkat_frontend/src/js/technical/mapManager.js:599
 msgid "Hover over a"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/mapManager.js:588
+#: meerkat_frontend/src/js/technical/mapManager.js:594
 msgid "Number of cases of"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:27
+#: meerkat_frontend/src/js/technical/overview.js:301
 msgid "January"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:27
+#: meerkat_frontend/src/js/technical/overview.js:301
 msgid "February"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:28
+#: meerkat_frontend/src/js/technical/overview.js:302
 msgid "March"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:28
+#: meerkat_frontend/src/js/technical/overview.js:302
 msgid "April"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:29
+#: meerkat_frontend/src/js/technical/overview.js:303
 msgid "May"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:29
+#: meerkat_frontend/src/js/technical/overview.js:303
 msgid "June"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:30
+#: meerkat_frontend/src/js/technical/overview.js:304
 msgid "July"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:30
+#: meerkat_frontend/src/js/technical/overview.js:304
 msgid "August"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:31
+#: meerkat_frontend/src/js/technical/overview.js:305
 msgid "September"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:31
+#: meerkat_frontend/src/js/technical/overview.js:305
 msgid "October"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:32
+#: meerkat_frontend/src/js/technical/overview.js:306
 msgid "November"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/misc.js:32
+#: meerkat_frontend/src/js/technical/overview.js:306
 msgid "December"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/pageManager.js:129
+#: meerkat_frontend/src/js/technical/overview.js:54
+msgid "Loading"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/overview.js:240
+msgid "Indicator name"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/overview.js:241
+msgid "Cumulative"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/overview.js:241
+msgid "Indicator chart"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/pageManager.js:132
 msgid "Disease #"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:262
+#: meerkat_frontend/src/js/technical/tableManager.js:290
 #: meerkat_frontend/templates/explore/index.html:78
 #: meerkat_frontend/templates/explore/index.html:113
 msgid "Hide/show empty records"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:267
+#: meerkat_frontend/src/js/technical/tableManager.js:295
 #: meerkat_frontend/templates/explore/index.html:82
 #: meerkat_frontend/templates/explore/index.html:117
 msgid "Colour the table"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:335
-#: meerkat_frontend/src/js/technical/tableManager.js:457
-#: meerkat_frontend/src/js/technical/tableManager.js:567
-#: meerkat_frontend/src/js/technical/tableManager.js:670
-#: meerkat_frontend/src/js/technical/tableManager.js:1024
+#: meerkat_frontend/src/js/technical/tableManager.js:363
+#: meerkat_frontend/src/js/technical/tableManager.js:484
+#: meerkat_frontend/src/js/technical/tableManager.js:622
+#: meerkat_frontend/src/js/technical/tableManager.js:753
+#: meerkat_frontend/src/js/technical/tableManager.js:1110
 msgid "Pending"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:338
-#: meerkat_frontend/src/js/technical/tableManager.js:340
-#: meerkat_frontend/src/js/technical/tableManager.js:345
-#: meerkat_frontend/src/js/technical/tableManager.js:351
-#: meerkat_frontend/src/js/technical/tableManager.js:457
-#: meerkat_frontend/src/js/technical/tableManager.js:1030
+#: meerkat_frontend/src/js/technical/tableManager.js:366
+#: meerkat_frontend/src/js/technical/tableManager.js:368
+#: meerkat_frontend/src/js/technical/tableManager.js:373
+#: meerkat_frontend/src/js/technical/tableManager.js:379
+#: meerkat_frontend/src/js/technical/tableManager.js:484
+#: meerkat_frontend/src/js/technical/tableManager.js:1116
 msgid "Ongoing"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:339
-#: meerkat_frontend/src/js/technical/tableManager.js:344
-#: meerkat_frontend/src/js/technical/tableManager.js:350
-#: meerkat_frontend/src/js/technical/tableManager.js:458
-#: meerkat_frontend/src/js/technical/tableManager.js:675
-#: meerkat_frontend/src/js/technical/tableManager.js:1028
+#: meerkat_frontend/src/js/technical/tableManager.js:367
+#: meerkat_frontend/src/js/technical/tableManager.js:372
+#: meerkat_frontend/src/js/technical/tableManager.js:378
+#: meerkat_frontend/src/js/technical/tableManager.js:485
+#: meerkat_frontend/src/js/technical/tableManager.js:758
+#: meerkat_frontend/src/js/technical/tableManager.js:1114
 msgid "Disregarded"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:360
-#: meerkat_frontend/src/js/technical/tableManager.js:599
-#: meerkat_frontend/src/js/technical/tableManager.js:925
+#: meerkat_frontend/src/js/technical/tableManager.js:387
+#: meerkat_frontend/src/js/technical/tableManager.js:682
+#: meerkat_frontend/src/js/technical/tableManager.js:1011
 msgid "Alert ID"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:367
+#: meerkat_frontend/src/js/technical/tableManager.js:394
 msgid "Alert"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:373
+#: meerkat_frontend/src/js/technical/tableManager.js:400
 #: meerkat_frontend/templates/reports/report_ebs.html:8
 msgid "Type"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:379
-#: meerkat_frontend/src/js/technical/tableManager.js:525
-#: meerkat_frontend/src/js/technical/tableManager.js:932
+#: meerkat_frontend/src/js/technical/tableManager.js:406
+#: meerkat_frontend/src/js/technical/tableManager.js:1018
 msgid "Region"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:385
-#: meerkat_frontend/src/js/technical/tableManager.js:526
-#: meerkat_frontend/src/js/technical/tableManager.js:944
-#: meerkat_frontend/src/js/technical/tableManager.js:1578
+#: meerkat_frontend/src/js/technical/tableManager.js:412
+#: meerkat_frontend/src/js/technical/tableManager.js:1030
+#: meerkat_frontend/src/js/technical/tableManager.js:1810
 #: meerkat_frontend/templates/reports/report_ebs.html:7
 msgid "Clinic"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:391
-#: meerkat_frontend/src/js/technical/tableManager.js:526
+#: meerkat_frontend/src/js/technical/tableManager.js:418
 msgid "Date Reported"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:397
+#: meerkat_frontend/src/js/technical/tableManager.js:424
 msgid "Date Investigated"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:403
+#: meerkat_frontend/src/js/technical/tableManager.js:430
 #: meerkat_frontend/templates/reports/report_ebs.html:9
 msgid "Central Review"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:457
+#: meerkat_frontend/src/js/technical/tableManager.js:484
 msgid "Reason"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:524
-msgid "NAMRU-ID"
-msgstr ""
-
-#: meerkat_frontend/src/js/technical/tableManager.js:526
-msgid "Follow-up completed"
-msgstr ""
-
-#: meerkat_frontend/src/js/technical/tableManager.js:526
-msgid "Laboratory Results"
-msgstr ""
-
-#: meerkat_frontend/src/js/technical/tableManager.js:547
-#: meerkat_frontend/src/js/technical/tableManager.js:790
-#: meerkat_frontend/src/js/technical/tableManager.js:798
-#: meerkat_frontend/src/js/technical/tableManager.js:803
+#: meerkat_frontend/src/js/technical/tableManager.js:603
+#: meerkat_frontend/src/js/technical/tableManager.js:871
+#: meerkat_frontend/src/js/technical/tableManager.js:879
+#: meerkat_frontend/src/js/technical/tableManager.js:884
 #: meerkat_frontend/templates/reports/report_malaria.html:158
 msgid "Positive"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:561
-#: meerkat_frontend/src/js/technical/tableManager.js:792
-#: meerkat_frontend/src/js/technical/tableManager.js:800
-#: meerkat_frontend/src/js/technical/tableManager.js:805
+#: meerkat_frontend/src/js/technical/tableManager.js:616
+#: meerkat_frontend/src/js/technical/tableManager.js:873
+#: meerkat_frontend/src/js/technical/tableManager.js:881
+#: meerkat_frontend/src/js/technical/tableManager.js:886
 msgid "Negative"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:604
-#: meerkat_frontend/src/js/technical/tableManager.js:731
+#: meerkat_frontend/src/js/technical/tableManager.js:687
+#: meerkat_frontend/src/js/technical/tableManager.js:812
 #: meerkat_frontend/templates/reports/report_ebs.html:7
 msgid "Governorate"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:609
-#: meerkat_frontend/src/js/technical/tableManager.js:736
+#: meerkat_frontend/src/js/technical/tableManager.js:692
+#: meerkat_frontend/src/js/technical/tableManager.js:817
 msgid "Centre"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:614
+#: meerkat_frontend/src/js/technical/tableManager.js:697
 msgid "Event Reported"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:618
+#: meerkat_frontend/src/js/technical/tableManager.js:701
 msgid "Initial <br />Investigation"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:622
+#: meerkat_frontend/src/js/technical/tableManager.js:705
 #: meerkat_frontend/templates/reports/report_ebs.html:9
 msgid "Last Followup"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:626
+#: meerkat_frontend/src/js/technical/tableManager.js:709
 msgid "Central <br /> Review Date"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:634
+#: meerkat_frontend/src/js/technical/tableManager.js:717
 msgid "Risk"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:678
+#: meerkat_frontend/src/js/technical/tableManager.js:761
 msgid "Not Done"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:726
+#: meerkat_frontend/src/js/technical/tableManager.js:807
 msgid "Sample ID"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:741
+#: meerkat_frontend/src/js/technical/tableManager.js:822
 msgid "Centre Visit Date"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:745
+#: meerkat_frontend/src/js/technical/tableManager.js:826
 msgid "Labratory <br />Results Date"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:749
+#: meerkat_frontend/src/js/technical/tableManager.js:830
 msgid "Chest X-Ray"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:753
+#: meerkat_frontend/src/js/technical/tableManager.js:834
 msgid "HIV Result"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:757
+#: meerkat_frontend/src/js/technical/tableManager.js:838
 msgid "Hepatitis B <br />Result"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:761
+#: meerkat_frontend/src/js/technical/tableManager.js:842
 msgid "Certificate <br /> Received"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:938
+#: meerkat_frontend/src/js/technical/tableManager.js:1024
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:548
 msgid "District"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:951
+#: meerkat_frontend/src/js/technical/tableManager.js:1037
 msgid "Date <br /> Reported"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:957
+#: meerkat_frontend/src/js/technical/tableManager.js:1043
 msgid "Date <br /> Investigated"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:979
+#: meerkat_frontend/src/js/technical/tableManager.js:1065
 msgid "Profession"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1033
+#: meerkat_frontend/src/js/technical/tableManager.js:1119
 msgid "Alive"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1035
+#: meerkat_frontend/src/js/technical/tableManager.js:1121
 msgid "Dead"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1124
+#: meerkat_frontend/src/js/technical/tableManager.js:1211
 msgid "Dates not reported"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1584
+#: meerkat_frontend/src/js/technical/tableManager.js:1816
 msgid "Medicine"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1590
+#: meerkat_frontend/src/js/technical/tableManager.js:1822
 msgid "First Prescription"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1596
+#: meerkat_frontend/src/js/technical/tableManager.js:1828
 msgid "Latest Prescription"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1602
+#: meerkat_frontend/src/js/technical/tableManager.js:1834
 msgid "Total doses prescribed"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1608
+#: meerkat_frontend/src/js/technical/tableManager.js:1840
 msgid "Stock"
 msgstr ""
 
@@ -1589,21 +1645,21 @@ msgstr ""
 msgid "Toggle navigation"
 msgstr ""
 
-#: meerkat_frontend/templates/base.html:39
+#: meerkat_frontend/templates/base.html:40
 msgid "Log out"
 msgstr ""
 
-#: meerkat_frontend/templates/base.html:76
+#: meerkat_frontend/templates/base.html:82
 msgid "Report Faulty Page"
 msgstr ""
 
-#: meerkat_frontend/templates/base.html:85
+#: meerkat_frontend/templates/base.html:91
 #: meerkat_frontend/templates/reports/base.html:37
 #: meerkat_frontend/templates/reports/email/html/email_base.html:832
 msgid "Working with our partners:"
 msgstr ""
 
-#: meerkat_frontend/templates/base.html:91
+#: meerkat_frontend/templates/base.html:97
 msgid "For more information, please e-mail:"
 msgstr ""
 
@@ -1620,41 +1676,55 @@ msgstr ""
 msgid "Choose prepared data set to download for analysis:"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:42
+#: meerkat_frontend/templates/download/index.html:30
+msgid "Data set:"
+msgstr ""
+
+#: meerkat_frontend/templates/download/index.html:41
+#: meerkat_frontend/templates/reports/index.html:65
+msgid "Start date:"
+msgstr ""
+
+#: meerkat_frontend/templates/download/index.html:52
+#: meerkat_frontend/templates/reports/index.html:75
+msgid "End date:"
+msgstr ""
+
+#: meerkat_frontend/templates/download/index.html:65
 msgid "Download"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:54
+#: meerkat_frontend/templates/download/index.html:78
 msgid "Download Raw Data"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:59
+#: meerkat_frontend/templates/download/index.html:83
 msgid "Choose raw data set to download for analysis:"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:70
+#: meerkat_frontend/templates/download/index.html:94
 msgid "Data Fields"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:73
-#: meerkat_frontend/templates/download/index.html:90
+#: meerkat_frontend/templates/download/index.html:97
+#: meerkat_frontend/templates/download/index.html:114
 msgid "All"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:76
-#: meerkat_frontend/templates/download/index.html:93
+#: meerkat_frontend/templates/download/index.html:100
+#: meerkat_frontend/templates/download/index.html:117
 msgid "None"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:83
+#: meerkat_frontend/templates/download/index.html:107
 msgid "View advanced fields"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:87
+#: meerkat_frontend/templates/download/index.html:111
 msgid "Advanced Fields"
 msgstr ""
 
-#: meerkat_frontend/templates/download/index.html:149
+#: meerkat_frontend/templates/download/index.html:201
 #: meerkat_frontend/templates/messaging/subscribe.html:249
 #: meerkat_frontend/templates/messaging/subscribe.html:267
 msgid "You must tick at least one checkbox."
@@ -1778,27 +1848,11 @@ msgstr ""
 
 #: meerkat_frontend/templates/homepage/index.html:53
 msgid ""
-"Log in to the <br> \n"
+"Log in to the <br>\n"
 "\t\t       <H2> Technical Site"
 msgstr ""
 
-#: meerkat_frontend/templates/homepage/index.html:93
-msgid "consultations in total"
-msgstr ""
-
-#: meerkat_frontend/templates/homepage/index.html:97
-msgid "cases reported"
-msgstr ""
-
-#: meerkat_frontend/templates/homepage/index.html:103
-msgid "alerts generated"
-msgstr ""
-
-#: meerkat_frontend/templates/homepage/index.html:107
-msgid "facilities"
-msgstr ""
-
-#: meerkat_frontend/templates/homepage/index.html:157
+#: meerkat_frontend/templates/homepage/index.html:139
 msgid "If you would like to find out more about the project, please contact us:"
 msgstr ""
 
@@ -1988,27 +2042,19 @@ msgstr ""
 msgid "Default period"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/index.html:65
-msgid "Start date:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/index.html:75
-msgid "End date:"
-msgstr ""
-
 #: meerkat_frontend/templates/reports/index.html:87
 msgid "Click to download your selected report for"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/index.html:202
+#: meerkat_frontend/templates/reports/index.html:209
 msgid "last epi-week"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/index.html:208
+#: meerkat_frontend/templates/reports/index.html:215
 msgid "last month"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/index.html:215
+#: meerkat_frontend/templates/reports/index.html:222
 msgid "current year"
 msgstr ""
 
@@ -2257,7 +2303,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_malaria.html:59
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:254
 #: meerkat_frontend/templates/reports/report_plague.html:96
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:328
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:332
 msgid "More Information"
 msgstr ""
 
@@ -2270,7 +2316,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_malaria.html:61
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:256
 #: meerkat_frontend/templates/reports/report_plague.html:98
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:330
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:334
 #, python-format
 msgid ""
 "<p>A program of public health surveillance is being implemented in "
@@ -2296,7 +2342,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_malaria.html:68
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:263
 #: meerkat_frontend/templates/reports/report_plague.html:105
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:337
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:341
 msgid "Contact Information"
 msgstr ""
 
@@ -2477,7 +2523,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_pip.html:91
 #: meerkat_frontend/templates/reports/report_pip.html:257
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:106
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:365
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:369
 #: meerkat_frontend/templates/reports/report_refugee_public_health_profile.html:93
 #: meerkat_frontend/templates/reports/report_refugee_public_health_profile.html:299
 msgid "Age Group"
@@ -2498,9 +2544,9 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:213
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:140
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:225
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:252
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:281
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:308
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:253
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:284
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:312
 #, python-format
 msgid "%% morbidity"
 msgstr ""
@@ -2515,9 +2561,9 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:214
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:141
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:226
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:253
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:282
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:309
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:254
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:285
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:313
 msgid "# of cases"
 msgstr ""
 
@@ -2529,7 +2575,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_cerf.html:224
 #: meerkat_frontend/templates/reports/report_ncd_public_health_profile.html:291
 #: meerkat_frontend/templates/reports/report_pip.html:257
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:365
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:369
 #: meerkat_frontend/templates/reports/report_refugee_public_health_profile.html:299
 msgid "No of cases"
 msgstr ""
@@ -2550,12 +2596,12 @@ msgstr ""
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:16
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_plain.html:16
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:16
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:10
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:9
 #: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:16
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:16
 #: meerkat_frontend/templates/reports/email/plain/email_ncd_report_plain.html:16
 #: meerkat_frontend/templates/reports/email/plain/email_pip_plain.html:16
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:8
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:6
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:23
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:24
 #: meerkat_frontend/templates/reports/report_cerf.html:22
@@ -2714,7 +2760,7 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/report_communicable_diseases.html:94
 #: meerkat_frontend/templates/reports/report_plague.html:124
-#: meerkat_frontend/views/reports.py:210 meerkat_frontend/views/reports.py:337
+#: meerkat_frontend/views/reports.py:214 meerkat_frontend/views/reports.py:341
 msgid "Epi Week"
 msgstr ""
 
@@ -2732,20 +2778,15 @@ msgstr ""
 msgid "Survey"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:38
-#: meerkat_frontend/templates/reports/report_sc.html:45
-msgid "Facilities surveyed:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:44
-#: meerkat_frontend/templates/reports/report_ctc.html:207
+#: meerkat_frontend/templates/reports/report_ctc.html:43
+#: meerkat_frontend/templates/reports/report_ctc.html:292
 #: meerkat_frontend/templates/reports/report_sc.html:51
-#: meerkat_frontend/templates/reports/report_sc.html:205
+#: meerkat_frontend/templates/reports/report_sc.html:217
 msgid "Caseload"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_ctc.html:47
-#: meerkat_frontend/templates/reports/report_ctc.html:210
+#: meerkat_frontend/templates/reports/report_ctc.html:296
 msgid "Patients treated:"
 msgstr ""
 
@@ -2754,7 +2795,7 @@ msgid "Children under five treated:"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_ctc.html:49
-#: meerkat_frontend/templates/reports/report_ctc.html:212
+#: meerkat_frontend/templates/reports/report_ctc.html:298
 msgid "Deaths recorded:"
 msgstr ""
 
@@ -2762,206 +2803,244 @@ msgstr ""
 msgid "Average case fatality rate (minimum - maximum) :"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:58
-#: meerkat_frontend/templates/reports/report_ctc.html:229
-msgid "Infection Prevention Control"
+#: meerkat_frontend/templates/reports/report_ctc.html:51
+#: meerkat_frontend/templates/reports/report_ctc.html:231
+msgid "Register of patients maintained:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:61
-#: meerkat_frontend/templates/reports/report_ctc.html:232
-msgid "IPC protocols available:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:62
-#: meerkat_frontend/templates/reports/report_ctc.html:233
-msgid "Hand gloves, gowns and aprons available:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:67
-#: meerkat_frontend/templates/reports/report_ctc.html:251
-msgid "Laboratory"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:70
-#: meerkat_frontend/templates/reports/report_ctc.html:254
-msgid "Laboratory protocols available:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:71
-msgid "Cary Blair Transport medium available:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:72
-#: meerkat_frontend/templates/reports/report_ctc.html:256
-msgid "Specimen plated within 24 hours:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:81
-#: meerkat_frontend/templates/reports/report_ctc.html:195
-#: meerkat_frontend/templates/reports/report_sc.html:80
-#: meerkat_frontend/templates/reports/report_sc.html:190
+#: meerkat_frontend/templates/reports/report_ctc.html:57
+#: meerkat_frontend/templates/reports/report_ctc.html:213
+#: meerkat_frontend/templates/reports/report_sc.html:93
+#: meerkat_frontend/templates/reports/report_sc.html:233
 msgid "Infrastructure"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:84
-#: meerkat_frontend/templates/reports/report_sc.html:83
+#: meerkat_frontend/templates/reports/report_ctc.html:62
+#: meerkat_frontend/templates/reports/report_sc.html:98
 msgid "Facilities with sufficient bed capacity:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:85
-#: meerkat_frontend/templates/reports/report_ctc.html:198
-#: meerkat_frontend/templates/reports/report_sc.html:84
-#: meerkat_frontend/templates/reports/report_sc.html:193
+#: meerkat_frontend/templates/reports/report_ctc.html:63
+#: meerkat_frontend/templates/reports/report_ctc.html:216
+#: meerkat_frontend/templates/reports/report_sc.html:97
+#: meerkat_frontend/templates/reports/report_sc.html:236
 msgid "Beds available:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:86
-#: meerkat_frontend/templates/reports/report_sc.html:85
+#: meerkat_frontend/templates/reports/report_ctc.html:64
+#: meerkat_frontend/templates/reports/report_sc.html:100
 msgid "Doctors working in the facilities (per facility):"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:87
-#: meerkat_frontend/templates/reports/report_sc.html:86
+#: meerkat_frontend/templates/reports/report_ctc.html:65
+#: meerkat_frontend/templates/reports/report_sc.html:101
 msgid "Nurses working in the facilities (per facility):"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:92
-#: meerkat_frontend/templates/reports/report_ctc.html:217
-#: meerkat_frontend/templates/reports/report_sc.html:91
-#: meerkat_frontend/templates/reports/report_sc.html:217
+#: meerkat_frontend/templates/reports/report_ctc.html:66
+#: meerkat_frontend/templates/reports/report_ctc.html:220
+msgid "ORS station for treatment of mild dehydrated cases:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:67
+#: meerkat_frontend/templates/reports/report_ctc.html:221
+msgid "Triage area for registration, evaluation and immediate treatment of cases:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:72
+#: meerkat_frontend/templates/reports/report_ctc.html:228
+#: meerkat_frontend/templates/reports/report_sc.html:109
+#: meerkat_frontend/templates/reports/report_sc.html:250
 msgid "Case Management"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:95
-#: meerkat_frontend/templates/reports/report_ctc.html:220
+#: meerkat_frontend/templates/reports/report_ctc.html:77
+#: meerkat_frontend/templates/reports/report_ctc.html:232
+msgid "IEC materials on cholera prevention available:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:79
+#: meerkat_frontend/templates/reports/report_ctc.html:234
 msgid "Case Management protocol available:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:96
-#: meerkat_frontend/templates/reports/report_ctc.html:221
+#: meerkat_frontend/templates/reports/report_ctc.html:80
+#: meerkat_frontend/templates/reports/report_ctc.html:235
 msgid "Training and Case Management taken place:"
 msgstr ""
 
+#: meerkat_frontend/templates/reports/report_ctc.html:93
+#: meerkat_frontend/templates/reports/report_ctc.html:240
+#: meerkat_frontend/templates/reports/report_sc.html:70
+#: meerkat_frontend/templates/reports/report_sc.html:289
+msgid "Supplies"
+msgstr ""
+
 #: meerkat_frontend/templates/reports/report_ctc.html:97
-#: meerkat_frontend/templates/reports/report_ctc.html:222
-msgid "Oral Rehyration Salts (ORS) available:"
+#: meerkat_frontend/templates/reports/report_ctc.html:243
+msgid "Oral Rehydration Salts (ORS) available:"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_ctc.html:98
-#: meerkat_frontend/templates/reports/report_ctc.html:223
+#: meerkat_frontend/templates/reports/report_ctc.html:244
 msgid "IV and Infusion Sets available:"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_ctc.html:99
-#: meerkat_frontend/templates/reports/report_ctc.html:224
+#: meerkat_frontend/templates/reports/report_ctc.html:245
 msgid "Antibiotics Available:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:105
-#: meerkat_frontend/templates/reports/report_ctc.html:238
-msgid "Water and Sanitation"
+#: meerkat_frontend/templates/reports/report_ctc.html:100
+#: meerkat_frontend/templates/reports/report_ctc.html:246
+msgid "Food provided at the facility:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:108
-#: meerkat_frontend/templates/reports/report_ctc.html:241
-msgid "Safe water protocols available:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:109
-#: meerkat_frontend/templates/reports/report_ctc.html:242
-msgid "Latrine facilities available:"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:110
-#: meerkat_frontend/templates/reports/report_ctc.html:244
-msgid "Water points available:"
+#: meerkat_frontend/templates/reports/report_ctc.html:107
+#: meerkat_frontend/templates/reports/report_ctc.html:252
+msgid "Infection Prevention Control"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_ctc.html:111
-#: meerkat_frontend/templates/reports/report_ctc.html:245
-msgid "Hand soap available:"
+#: meerkat_frontend/templates/reports/report_ctc.html:255
+msgid "IPC protocols available:"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_ctc.html:112
-#: meerkat_frontend/templates/reports/report_ctc.html:246
+#: meerkat_frontend/templates/reports/report_ctc.html:256
+msgid "Designated isolated area for deceased patients:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:113
+#: meerkat_frontend/templates/reports/report_ctc.html:257
+msgid "Staff trained and equipped to prepare and disinfect dead bodies:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:114
+#: meerkat_frontend/templates/reports/report_ctc.html:258
+msgid ""
+"Member of staff posted at the entry and exit to ensure washing of hands "
+"and shoes:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:115
+#: meerkat_frontend/templates/reports/report_ctc.html:259
+msgid ""
+"Foot bath or spraying of shoes available at the point of entry using "
+"chlorine solution:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:116
+#: meerkat_frontend/templates/reports/report_ctc.html:261
+msgid "Hand gloves, gowns and aprons available:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:121
+#: meerkat_frontend/templates/reports/report_ctc.html:266
+msgid "Water and Sanitation"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:125
+#: meerkat_frontend/templates/reports/report_ctc.html:269
+msgid "Safe water protocols available:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:126
+#: meerkat_frontend/templates/reports/report_ctc.html:270
+msgid "Latrine facilities available:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:127
+#: meerkat_frontend/templates/reports/report_ctc.html:272
+msgid "Water points available:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:128
+#: meerkat_frontend/templates/reports/report_ctc.html:273
+msgid "Hand soap available:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:129
+#: meerkat_frontend/templates/reports/report_ctc.html:274
 msgid "Safe water storage:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:122
-#: meerkat_frontend/templates/reports/report_sc.html:117
+#: meerkat_frontend/templates/reports/report_ctc.html:130
+#: meerkat_frontend/templates/reports/report_ctc.html:275
+msgid "Solid waste management in place:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_ctc.html:140
+#: meerkat_frontend/templates/reports/report_sc.html:143
 msgid "Cholera Cases"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:134
+#: meerkat_frontend/templates/reports/report_ctc.html:152
 msgid "Map of Cholera Cases by bed from surveyed facilties"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:142
-#: meerkat_frontend/templates/reports/report_sc.html:137
+#: meerkat_frontend/templates/reports/report_ctc.html:160
+#: meerkat_frontend/templates/reports/report_sc.html:163
 msgid "Map of Surveyed Clinics"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:156
-#: meerkat_frontend/templates/reports/report_sc.html:151
+#: meerkat_frontend/templates/reports/report_ctc.html:174
+#: meerkat_frontend/templates/reports/report_sc.html:177
 msgid "Facilities surveyed"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:179
-#: meerkat_frontend/templates/reports/report_sc.html:174
+#: meerkat_frontend/templates/reports/report_ctc.html:197
+#: meerkat_frontend/templates/reports/report_sc.html:200
 msgid "Latitude: "
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:179
-#: meerkat_frontend/templates/reports/report_sc.html:174
+#: meerkat_frontend/templates/reports/report_ctc.html:197
+#: meerkat_frontend/templates/reports/report_sc.html:200
 msgid "Longitude: "
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:180
-#: meerkat_frontend/templates/reports/report_sc.html:175
+#: meerkat_frontend/templates/reports/report_ctc.html:198
+#: meerkat_frontend/templates/reports/report_sc.html:201
 msgid "Surveyed on"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:185
-#: meerkat_frontend/templates/reports/report_sc.html:180
+#: meerkat_frontend/templates/reports/report_ctc.html:203
+#: meerkat_frontend/templates/reports/report_sc.html:207
 msgid "Partner: "
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:199
+#: meerkat_frontend/templates/reports/report_ctc.html:217
 msgid "Patients in the CTC at time of survey:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:200
+#: meerkat_frontend/templates/reports/report_ctc.html:218
 msgid "Doctors working in the CTC at time of survey:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:201
+#: meerkat_frontend/templates/reports/report_ctc.html:219
 msgid "Nurses working in the CTC at time of survey:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:211
-msgid "Children under five treated :"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_ctc.html:243
+#: meerkat_frontend/templates/reports/report_ctc.html:271
 msgid "Latrine type:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:255
-msgid "Cary Balir Transport medium available:"
+#: meerkat_frontend/templates/reports/report_ctc.html:297
+msgid "Children under five treated :"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:273
-#: meerkat_frontend/templates/reports/report_sc.html:260
+#: meerkat_frontend/templates/reports/report_ctc.html:305
+#: meerkat_frontend/templates/reports/report_sc.html:309
 msgid "Facility Photo"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:281
-#: meerkat_frontend/templates/reports/report_sc.html:268
+#: meerkat_frontend/templates/reports/report_ctc.html:313
+#: meerkat_frontend/templates/reports/report_sc.html:317
 msgid "Facility Location"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_ctc.html:289
-#: meerkat_frontend/templates/reports/report_sc.html:276
+#: meerkat_frontend/templates/reports/report_ctc.html:321
+#: meerkat_frontend/templates/reports/report_sc.html:325
 msgid "Recommendations"
 msgstr ""
 
@@ -3437,11 +3516,11 @@ msgid ""
 "including"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:273
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:276
 msgid "Mental Health Conditions"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_public_health_profile.html:300
+#: meerkat_frontend/templates/reports/report_public_health_profile.html:304
 msgid "Child Health Conditions"
 msgstr ""
 
@@ -3453,142 +3532,241 @@ msgstr ""
 msgid "Nutrition Quality and Outcomes Monitoring"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:54
-#: meerkat_frontend/templates/reports/report_sc.html:208
-msgid "New admissions:"
+#: meerkat_frontend/templates/reports/report_sc.html:45
+msgid "Facilities surveyed up to "
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_sc.html:55
-#: meerkat_frontend/templates/reports/report_sc.html:209
+#: meerkat_frontend/templates/reports/report_sc.html:221
+msgid "New admissions:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:56
+#: meerkat_frontend/templates/reports/report_sc.html:222
 msgid "Cured:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:57
-#: meerkat_frontend/templates/reports/report_sc.html:211
+#: meerkat_frontend/templates/reports/report_sc.html:58
+#: meerkat_frontend/templates/reports/report_sc.html:224
 msgid "Defaulters:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:58
-#: meerkat_frontend/templates/reports/report_sc.html:212
-msgid "Discharges:"
+#: meerkat_frontend/templates/reports/report_sc.html:59
+#: meerkat_frontend/templates/reports/report_sc.html:226
+msgid "Non-respondents reported:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:66
-#: meerkat_frontend/templates/reports/report_sc.html:229
-msgid "Nutrition"
+#: meerkat_frontend/templates/reports/report_sc.html:60
+#: meerkat_frontend/templates/reports/report_sc.html:227
+msgid "Referrals for medical reasons/transfer:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:69
+#: meerkat_frontend/templates/reports/report_sc.html:74
 msgid "F75 therapeutic milk available:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:70
-msgid "F100 therapeutic milk available"
+#: meerkat_frontend/templates/reports/report_sc.html:75
+msgid "F100 therapeutic milk available:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:71
-msgid "ReSoMal therapeutic milk available"
+#: meerkat_frontend/templates/reports/report_sc.html:76
+msgid "ReSoMal oral rehydration solution available:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:94
-msgid "Nutrition Guidelines available and translated in local language:"
+#: meerkat_frontend/templates/reports/report_sc.html:77
+#: meerkat_frontend/templates/reports/report_sc.html:295
+msgid "RUTF or RUSF quantities calculated correctly:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:95
-msgid "Children are weighed correctly at each visit:"
+#: meerkat_frontend/templates/reports/report_sc.html:78
+#: meerkat_frontend/templates/reports/report_sc.html:296
+msgid "Drugs provided as per protocols:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:96
-msgid "MUAC is measured correctly and recorded:"
+#: meerkat_frontend/templates/reports/report_sc.html:79
+#: meerkat_frontend/templates/reports/report_sc.html:297
+msgid "Rations and drugs provision updated in register:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:97
-msgid "Height is measured according to protocol:"
+#: meerkat_frontend/templates/reports/report_sc.html:80
+#: meerkat_frontend/templates/reports/report_sc.html:298
+msgid "Food provided for the caretaker:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:98
-msgid "Z-score calculated correctly :"
+#: meerkat_frontend/templates/reports/report_sc.html:81
+#: meerkat_frontend/templates/reports/report_sc.html:299
+msgid "Blankets available:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:82
+#: meerkat_frontend/templates/reports/report_sc.html:300
+msgid "Soap provided to caretaker:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:83
+#: meerkat_frontend/templates/reports/report_sc.html:301
+msgid "Mosquito nets provided to caretaker:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:84
+#: meerkat_frontend/templates/reports/report_sc.html:302
+msgid "Other equipment provided (jerry-can, blanket, etc.):"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:102
+msgid "Kitchen where milk preparation is separate from the general kitchen:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:103
+#: meerkat_frontend/templates/reports/report_sc.html:241
+msgid "Recreation area with toys"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_sc.html:104
-#: meerkat_frontend/templates/reports/report_sc.html:239
+msgid "Available source of clean drinking water?"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:113
+msgid "Nutrition Guidelines available and translated in local language:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:114
+msgid "Children are weighed correctly at each visit:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:115
+msgid "MUAC is measured correctly and recorded:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:116
+msgid "Height is measured according to protocol:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:117
+msgid "Z-score calculated correctly:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:118
+#: meerkat_frontend/templates/reports/report_sc.html:258
+msgid "Appetite test conducted for every child:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:119
+#: meerkat_frontend/templates/reports/report_sc.html:259
+msgid "Immunisation status checked:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:120
+#: meerkat_frontend/templates/reports/report_sc.html:260
+msgid "Medical check is conducted for all children:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:126
+#: meerkat_frontend/templates/reports/report_sc.html:266
 msgid "Community"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:107
+#: meerkat_frontend/templates/reports/report_sc.html:130
 msgid "Centres with a Community Health Worker (CHW)"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:108
+#: meerkat_frontend/templates/reports/report_sc.html:131
 msgid "Number of defaulters traced and readmitted through CHW:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:129
+#: meerkat_frontend/templates/reports/report_sc.html:132
+#: meerkat_frontend/templates/reports/report_sc.html:271
+msgid "Number of CHW trained in MUAC and referral criteria:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:133
+#: meerkat_frontend/templates/reports/report_sc.html:272
+msgid "IYCF promotion of sufficient standard:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:134
+#: meerkat_frontend/templates/reports/report_sc.html:273
+msgid "Beneficiary follow-up provided at the community level:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:155
 msgid "Map of Nutrition Cases by bed from surveyed facilties"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:194
+#: meerkat_frontend/templates/reports/report_sc.html:202
+msgid "Available programs:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:225
+msgid "Discharges:"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:237
 msgid "Patients in the SC at time of survey:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:195
+#: meerkat_frontend/templates/reports/report_sc.html:238
 msgid "Doctors working in the SC at time of survey:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:196
+#: meerkat_frontend/templates/reports/report_sc.html:239
 msgid "Nurses working in the SC at time of survey:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:197
+#: meerkat_frontend/templates/reports/report_sc.html:240
 msgid ""
 "Does the facility have a kitchen where milk preparation is separate from "
 "the general kitchen?"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:198
+#: meerkat_frontend/templates/reports/report_sc.html:242
 msgid "Is there an available source for clean drinking water?"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:220
+#: meerkat_frontend/templates/reports/report_sc.html:253
 msgid "Are Nutrition Guidelines available and translated in local language?"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:221
+#: meerkat_frontend/templates/reports/report_sc.html:254
 msgid "Are children are weighed correctly at each visit?"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:222
+#: meerkat_frontend/templates/reports/report_sc.html:255
 msgid "Is MUAC is measured correctly and recorded?"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:223
+#: meerkat_frontend/templates/reports/report_sc.html:256
 msgid "Is height is measured according to protocol?"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:224
+#: meerkat_frontend/templates/reports/report_sc.html:257
 msgid "Is Z-score calculated correctly ?"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:232
-msgid "Is F75 therapeutic milk available?"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_sc.html:233
-msgid "Is F100 therapeutic milk available?"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_sc.html:234
-msgid "Is ReSoMal available for rehydration?"
-msgstr ""
-
-#: meerkat_frontend/templates/reports/report_sc.html:242
+#: meerkat_frontend/templates/reports/report_sc.html:269
 msgid "Is there a Community Health Worker (CHW) supporting the nutrition centre?"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/report_sc.html:243
+#: meerkat_frontend/templates/reports/report_sc.html:270
 msgid ""
 "How many defaulters were traced and readmitted through the network of the"
 " CHW?"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:292
+msgid "Is F75 therapeutic milk available?"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:293
+msgid "Is F100 therapeutic milk available?"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:294
+msgid "Is ReSoMal available for rehydration?"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/report_sc.html:350
+msgid "Survyed Non SC Facilities"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_vaccination.html:3
@@ -3760,12 +3938,12 @@ msgstr ""
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_mad_plain.html:51
 #: meerkat_frontend/templates/reports/email/plain/email_cd_public_health_profile_plain.html:51
 #: meerkat_frontend/templates/reports/email/plain/email_cerf_plain.html:51
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:22
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:21
 #: meerkat_frontend/templates/reports/email/plain/email_epi_monitoring_plain.html:34
 #: meerkat_frontend/templates/reports/email/plain/email_malaria_plain.html:46
 #: meerkat_frontend/templates/reports/email/plain/email_ncd_report_plain.html:35
 #: meerkat_frontend/templates/reports/email/plain/email_pip_plain.html:39
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:21
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:19
 msgid "Project Overview"
 msgstr ""
 
@@ -3856,7 +4034,7 @@ msgid ""
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:91
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:4
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:3
 #, python-format
 msgid ""
 "The profile summarises information reported from %(centres)s Cholera "
@@ -3865,59 +4043,73 @@ msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:99
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:101
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:12
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:10
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:11
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:8
 #, python-format
 msgid "Beds available: %(beds)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:100
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:102
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:13
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:11
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:12
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:9
 #, python-format
 msgid "Facilities with sufficient bed capacity: %(bed_capacity)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:102
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:14
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:13
 msgid "Average case fatality rate (minimum - maximum):"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:103
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:15
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:14
 #, python-format
 msgid "Case Management protocol available: %(case_management)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:105
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:16
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:15
 #, python-format
 msgid "Training and Case Management taken place: %(training_case)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:107
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:17
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:16
 #, python-format
 msgid "Antibiotics Available: %(antibiotics)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:109
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:18
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:17
 #, python-format
 msgid "IPC protocols available: %(ipc)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:111
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:19
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:18
 #, python-format
 msgid "Hand soap available: %(hand_soap)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_ctc.html:113
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:20
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:19
 #, python-format
 msgid "Safe water storage: %(water)s"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/email/html/email_ctc.html:117
+#: meerkat_frontend/templates/reports/email/html/email_sc.html:121
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:26
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:24
+msgid "Best regards,"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/email/html/email_ctc.html:118
+#: meerkat_frontend/templates/reports/email/html/email_sc.html:122
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:29
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:27
+msgid "Remote Monitoring Co-ordinator"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_epi_monitoring.html:53
@@ -4157,7 +4349,7 @@ msgid ""
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:95
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:4
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:2
 #, python-format
 msgid ""
 "The profile summarises information reported from %(centres)s Nutrition "
@@ -4165,51 +4357,51 @@ msgid ""
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:104
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:12
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:10
 #, python-format
 msgid "New admissions: %(new_admissions)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:106
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:13
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:11
 #, python-format
 msgid "Cured: %(cured)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:108
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:14
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:12
 #, python-format
 msgid "Deaths: %(deaths)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:110
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:15
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:13
 #, python-format
 msgid "Defaulters: %(defaulters)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:112
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:16
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:14
 #, python-format
 msgid "Discharges: %(discharges)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:114
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:17
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:15
 #, python-format
 msgid "F75 therapeutic milk available: %(f75)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:116
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:18
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:16
 #, python-format
 msgid "F100 therapeutic milk available: %(f100)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_sc.html:118
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:19
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:17
 #, python-format
-msgid "ReSoMal therapeutic milk available: %(reSoMal)s"
+msgid "ReSoMal oral rehydration solution available: %(reSoMal)s"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/plain/email_afro_plain.html:1
@@ -4343,7 +4535,7 @@ msgid ""
 "%(end_date)s).\n"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:3
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:2
 #, python-format
 msgid ""
 "Dear Colleagues,\n"
@@ -4352,13 +4544,13 @@ msgid ""
 "Outcomes monitoring report from %(project_region)s."
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:8
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:6
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:7
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:4
 msgid "View the latest report here:"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:24
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:23
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:23
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:21
 #, python-format
 msgid ""
 "A program of public health surveillance is being implemented in "
@@ -4366,8 +4558,8 @@ msgid ""
 "project introduces case-based, integrated disease surveillance."
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:25
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:24
+#: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:24
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:22
 msgid ""
 "The clinician uses the system within the consultation, which introduces "
 "clinical-decision support, as well as best practice prescribing guidance "
@@ -4593,7 +4785,7 @@ msgstr ""
 msgid "%(percent_mh)s %% morbidity due to mental health conditions, including"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:4
+#: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:2
 #, python-format
 msgid ""
 "Dear Colleagues,\n"
@@ -4664,11 +4856,11 @@ msgid ""
 "verify your contact details."
 msgstr ""
 
-#: meerkat_frontend/views/reports.py:195 meerkat_frontend/views/reports.py:326
+#: meerkat_frontend/views/reports.py:199 meerkat_frontend/views/reports.py:330
 msgid "monthly_email_title"
 msgstr ""
 
-#: meerkat_frontend/views/reports.py:209 meerkat_frontend/views/reports.py:336
+#: meerkat_frontend/views/reports.py:213 meerkat_frontend/views/reports.py:340
 msgid "title"
 msgstr ""
 

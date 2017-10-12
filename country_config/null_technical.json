@@ -1,24 +1,24 @@
 {
-  "application":"technical",
+    "application": "technical",
 
-  "titles":{
-    "full":"Null Island <br> Public Health Surveillance",
-    "nav":"<b>Null Island </b> &middot; Public Health Surveillance",
-    "mob_nav":"Health Surveillance"
-  },
-  "api_key": "test-api",
-  "map":{
-    "center":{
-      "lng":"0",
-      "lat":"0"
+    "titles": {
+        "full": "Null Island <br> Public Health Surveillance",
+        "nav": "<b>Null Island </b> &middot; Public Health Surveillance",
+        "mob_nav": "Health Surveillance"
     },
-    "zoom":"9"
-  },
+    "api_key": "test-api",
+    "map": {
+        "center": {
+            "lng": "0",
+            "lat": "0"
+        },
+        "zoom": "9"
+    },
 
     "map_options": {
         "options": {
-            "cmd_1":"Cholera",
-            "cmd_27":"Mealses",
+            "cmd_1": "Cholera",
+            "cmd_27": "Mealses",
             "tot_1": "All cases"
         },
         "types": ["incidence_clinic", "incidence_district", "incidence_region", "cases_clinic", "cases_district", "cases_region"]
@@ -29,18 +29,18 @@
         "list":[
             {"name":"Number of female patients","call":{"flags":["n"], "variables":["gen_1"]}},
             {"name":"Number of male patients","call":{"flags":["n"], "variables":["gen_2"]}},
-            { "name":"Controlled visits for hypertension patients", "call":{"flags":["d","n","v","v","r"], "variables":["visit_lab_2","visit_lab_1","visit_ncd_2", "vis_5", "0"]} }
+            { "name":"% Male", "call":{"flags":["d","n","m"], "variables":["tot_1","gen_1", "100"]} }
          ]
     },
 
-    "completeness_denominator":{
+    "completeness_denominator": {
         "all": "7",
         "cd": "4",
         "ncd": "4",
         "mh": "4"
     },
 
-    "timeliness_denominator":{
+    "timeliness_denominator": {
         "all": "4",
         "cd": "4",
         "ncd": "4",
@@ -48,85 +48,170 @@
     },
 
     "weekend" : [5,6],
+    "tabs":[{
+            "name": "Overview",
+            "template": "overview.html"
+        },{
+            "name":"Analysis",
+            "template":"indicators.html"
+        },{
+            "name":"Demographics",
+            "template":"demographics.html"
+        },{
+            "name":"Demographics CD",
+            "template":"demographicsCD.html",
+            "access": "cd"
+        },{
+            "name":"Demographics NCD",
+            "template":"demographicsNCD.html",
+            "access": "ncd"
+        },{
+            "name":"Morbidity",
+            "template":"complaint.html"
+        },{
+            "name":"Communicable Diseases",
+            "template":"diseases.html",
+            "access":"cd"
+        },{
+            "name":"PIP",
+            "template":"pip.html"
+        },{
+            "name":"Non Communicable Diseases",
+            "template":"nc_diseases.html",
+            "access":"ncd"
+        },{
+            "name":"Alerts",
+            "template":"alerts.html"
+        },{
+            "name":"Health Services",
+            "template":"services.html"
+        },{
+            "name":"Completeness",
+            "template":"completeness.html"
+        },{
+            "name":"Timeliness",
+            "template":"timeliness.html"
+        },{
+            "name":"Map View",
+            "template":"map.html"
+        },{
+            "name":"Template",
+            "template":"template.html"
+        }],
 
-  "tabs":[{
-      "name": "Latest",
-      "template": "latest.html"
-  },{
-      "name":"Analysis",
-    "template":"indicators.html"
-  },{
-    "name":"Demographics",
-    "template":"demographics.html"
-  },{
-    "name": "Clinics",
-    "template": "clinics.html"
-  },{
-    "name": "PIP",
-    "template": "pip.html"
-  },{
-    "name":"Demographics CD",
-    "template":"demographicsCD.html",
-    "access": "cd"
-  },{
-    "name":"Demographics NCD",
-    "template":"demographicsNCD.html",
-    "access": "ncd"
-  },{
-    "name":"Presenting Complaint",
-    "template":"complaint.html"
-  },{
-    "name":"Mental Health",
-    "template":"mh_diseases.html",
-    "location_filter": "?case_type=mh"
-  },{
-    "name":"Communicable Diseases",
-    "template":"diseases.html",
-    "access":"cd"
-  },{
-    "name":"Non Communicable Diseases",
-    "template":"nc_diseases.html",
-    "access":"ncd"
-  },{
-    "name":"Alerts",
-    "template":"alerts.html"
-  },{
-    "name":"Health Services",
-    "template":"services.html"
-  },{
-    "name":"Completeness",
-    "template":"completeness.html"
-  },{
-    "name":"Timeliness",
-    "template":"timeliness.html"
-  },{
-    "name":"Map View",
-    "template":"map.html"
-  },{
-    "name":"Template",
-    "template":"template.html"
-  }],
-  "central_review": 0,
-  "flag":"null.svg",
+    "overview": [
+        {
+            "title": "Consultations and Cases",
+            "html_class": "col-md-6",
+            "parentId": "OvConsultationsAndCases",
+            "contents": [
+                {
+                    "api": "/aggregate_year/reg_1/<loc_id>",
+                    "label": "Consultations",
+                    "access": "cd",
+                    "prep_function": "prep_row"
+                },
+                {
+                    "api": "/aggregate_year/tot_1/<loc_id>",
+                    "label": "Cases",
+                    "access": "cd",
+                    "prep_function": "prep_row"
+                }
+            ]
+        },
+        {
+            "title": "Morbidity",
+            "html_class": "col-md-6",
+            "parentId": "OvMorbidity",
+            "contents": [
+                {
+                    "api": "/aggregate_category/cd_tab/<loc_id>",
+                    "label": "Top 3 most common causes of morbidity",
+                    "access": "cd",
+                    "prep_function": "prep_row_draw_top",
+                    "prep_details":{"ovPeriodType": "year"}
+                },
+                {
+                    "api": "/aggregate_category/ncd_tab/<loc_id>",
+                    "label": "Top 3 most common causes of morbidity  NCD",
+                    "access": "cd",
+                    "prep_function": "prep_row_draw_top",
+                    "prep_details":{"ovPeriodType": "year"}
+                },
+                {
+                    "api": "/alerts",
+                    "label": "Last 3 alerts",
+                    "access": "cd",
+                    "prep_function": "prep_row_draw_Last3"
+                }
+            ]
+        },
+        {
+            "title": "Mortality",
+            "html_class": "col-md-6",
+            "parentId": "OvMortality",
+            "contents": [
+                {
+                    "api": "/aggregate_category/cd_tab/<loc_id>",
+                    "label": "Top 3 most common causes of mortality",
+                    "access": "cd",
+                    "prep_function": "prep_row_draw_top",
+                    "prep_details":{"ovPeriodType": "year"}
+                },
+                {
+                    "api": "/aggregate_category/ncd_tab/<loc_id>",
+                    "label": "Top 3 most common causes of mortality NCD",
+                    "access": "cd",
+                    "prep_function": "prep_row_draw_top",
+                    "prep_details":{"ovPeriodType": "year"}
+                },
+                {
+                    "api": "/alerts",
+                    "label": "Last 3 Alerts",
+                    "access": "cd",
+                    "prep_function": "prep_row_draw_Last3"
+                }
+            ]
+        },
+        {
+            "title": "Indicators",
+            "html_class": "col-md-6",
+            "parentId": "OvIndicators",
+            "contents": [
+                {
+                    "api": "/indicators/n,d,m/gen_1,tot_1,100/<loc_id>",
+                    "label": "% Of patients are male",
+                    "access": "cd",
+                    "prep_function": "prep_row_indicator"
+                },
+                {
+                    "api": "/indicators/n,d,m/gen_2,tot_1,100/<loc_id>",
+                    "label": "% Of patients are female",
+                    "access": "cd",
+                    "prep_function": "prep_row_indicator"
+                }
+            ]
+        }
+    ],
+    "flag": "null.svg",
 
-  "footer":{
-    "logos":{
-		 "who":"transparent.png",
-		 "country_partner":"ni.png",
-		 "partners":[]
+    "footer": {
+        "logos": {
+            "who": "transparent.png",
+            "country_partner": "ni.png",
+            "partners": []
+        },
+
+        "partners": [
+            "The Ministry of Health, Null Island"
+        ],
+
+        "email": "nullisland@moh.int"
     },
 
+    "central_review": false,
 
-    "partners":[
-		  "The Ministry of Health, Null Island"
-    ],
-
-    "email":"nullisland@moh.int"
-  },
-
-  "central_review":false,
-
-  "glossary":{
-    "region":"kingdom"
-  }
+    "glossary": {
+        "region": "kingdom"
+    }
 }

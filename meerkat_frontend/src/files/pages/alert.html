@@ -212,7 +212,7 @@
                      }
 	     });
 	 }else{		 
-	     $.getJSON( api_root+"/variables/cd_tab", function( variables ){
+	     $.getJSON( api_root+"/variables/alert", function( variables ){
                  
 	         $("#patient_title").html(i18n.gettext('Patient ID:'));
                  $("#patient_age_title").html(i18n.gettext('Patient Age:'));
@@ -224,7 +224,7 @@
 		 parent = parent[parent.length-2];
 		 
 		 //Assemble the alert investigation checklist as a table.
-				                                         var stages = ["Referral", "Case Management", "Contact Tracing", "Laboratory Diagnosis" ];
+		 var stages = ["Referral", "Case Management", "Contact Tracing", "Laboratory Diagnosis" ];
 		 var stage_ids = ["ale_5", "ale_6", "ale_7", "ale_8"]
 		 var table = "<table>";
 	         
