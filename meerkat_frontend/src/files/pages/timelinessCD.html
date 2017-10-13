@@ -112,27 +112,22 @@
 
 drawChartOptionsButtons('box_2_heading', 'reDraw');
 
- function reDraw(){
-     timelinessPreparation(
-         currentLocation,
-         'reg_6',
-         config.timeliness_denominator.all,
-         'timeliness-graph',
-         'timeliness-table',
-         'all-clinics-table',
-         1,
-         "None",
-         config.weekend,
-         '#compare_button',
-         'reg_10',
-         52,
-         undefined,
-         undefined,
-         undefined,
-         $('.tabs .active a').attr('location_filter')
-     );
-
- }
+function reDraw(){
+    timelinessPreparation({
+        "locID": currentLocation,
+        "reg_id": "reg_6",
+        "denominator": config.timeliness_denominator.cd,
+        "graphID": "timeliness-graph",
+        "tableID": "timeliness-table",
+        "allclinisctableID": "all-clinics-table",
+        "start_week": 1,
+        "weekend": config.weekend,
+        "compare_locations": "#compare_button",
+        "non_reporting_variable": "reg_10",
+        "x_axis_max": 52,
+        "filter_string": $('.tabs .active a').attr('location_filter')
+    });
+}
 
  function toggleAllClinics(){
      $("#all_clinics_box .chartBox__heading").toggleClass("no-border");

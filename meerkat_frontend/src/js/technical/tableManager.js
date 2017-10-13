@@ -1151,7 +1151,7 @@ function drawPlagueTable(containerID, cases, variables) {
 
  */
 
-function drawMissingCompletenessTable(module_var, containerID, headerID, regionID, locations, exclude, completessData, filter_string) {
+function drawMissingCompletenessTable(module_var, containerID, headerID, regionID, locations, completessData, filter_string) {
     // console.log('We are in the region: ' + regionID);
     // console.log(locations[regionID]);
 
@@ -1166,9 +1166,8 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
     if (locations[regionID].level != "clinic") { //no information aboout reporting clinic
         url = api_root + "/non_reporting/" + module_var + "/" + regionID;
 
-        if (exclude) url += "/0/" + exclude;
+        if (filter_string) url += filter_string;
 
-		url +=  filter_string;
         $.getJSON(url, function(data) {
             for (var i = 0; i < data.clinics.length; i++) {
                 datum = {
