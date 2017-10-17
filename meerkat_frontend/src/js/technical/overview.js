@@ -3,6 +3,10 @@
 
 // This will be the main function for the over viewpage...
 function build_overview_page(locID) {
+    // Show a spinner to indicate that data is loading.
+    $('.spinner').show();
+
+
     //Read the Overview page structure ...
     var overview_list = config.overview;
 
@@ -33,7 +37,7 @@ function html_box_builder(overviewObj, locID) {
         //Build the content...
         window[value.prep_function](value, overviewObj.parentId, locID);
     });
-
+  $('.spinner').hide();
 }
 
 
@@ -192,8 +196,8 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
                 arrDate.push(value.date);
             });
 
-			
-			
+
+
             //Take the last 3 values so i need to reverse the array ..
             arrValue.reverse();
             arrDate.reverse();
@@ -238,8 +242,8 @@ function prep_row_indicator(contentsObj, parentId, locID) {
         //Add the table structure for the first time ...
         if (indicatorCounter === 0) {
             htmlContent = "<table id='table-sparkline' style='width:100%'><thead><tr><th>" + i18n.gettext("Indicator name") +
-                          "</th><th>" + i18n.gettext("Cumulative") + "</th><th>" + i18n.gettext("Indicator chart") +
-                          "</th></tr></thead>" + "<tbody id='tbody-sparkline' name=" + api_element_ind + ">" + "</tbody></table>";
+                "</th><th>" + i18n.gettext("Cumulative") + "</th><th>" + i18n.gettext("Indicator chart") +
+                "</th></tr></thead>" + "<tbody id='tbody-sparkline' name=" + api_element_ind + ">" + "</tbody></table>";
             indicatorCounter = 1;
             $("#" + parentId).append(htmlContent);
         }
@@ -524,16 +528,16 @@ function showIndicatorChart(chartInfo) {
                 },
                 labels: {
                     formatter: function() {
-                        return this.value ;// 1000;
+                        return this.value; // 1000;
                     }
                 }
             },
             tooltip: {
                 //split: true,
                 //valueSuffix: ' ',
-				formatter: function() {
-					return Math.round(this.y*10) / 10;
-				}
+                formatter: function() {
+                    return Math.round(this.y * 10) / 10;
+                }
             },
             plotOptions: {
                 area: {
