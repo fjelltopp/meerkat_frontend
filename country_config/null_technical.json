@@ -16,11 +16,11 @@
     },
 
     "map_options": {
-        "options": {
-            "cmd_1": "Cholera",
-            "cmd_27": "Mealses",
-            "tot_1": "All cases"
-        },
+        "options": [
+            {"id": "cmd_1", "name": "Cholera"},
+            {"id": "cmd_27","name":"Mealses"},
+            {"id": "tot_1","name": "All cases"}
+        ],
         "types": ["incidence_clinic", "incidence_district", "incidence_region", "cases_clinic", "cases_district", "cases_region"]
 
     },
@@ -52,10 +52,7 @@
     "tabs":[{
             "name": "Overview",
             "template": "overview.html"
-        },{
-            "name":"Analysis",
-            "template":"indicators.html"
-        },{
+    },{
             "name":"Demographics",
             "template":"demographics.html"
         },{
