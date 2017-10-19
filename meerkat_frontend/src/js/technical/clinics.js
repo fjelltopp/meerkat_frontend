@@ -112,10 +112,6 @@ function buildClinicsTable() {
         buildTableColumn(i + "F", "Week " + i + currentText + " (return) ", columnClass);
     }
 
-    //Now after adding the new and return columns i will add the Completeness column ...
-    // for (i = week - 2; i < currentWeek; i++) {
-    //     buildTableColumn(i + "C", "Week " + i + " (comp.) ", "");
-    // }
 
     //Build CD and NCD Values ..
     for (i = week - 2; i <= currentWeek; i++) {
@@ -199,20 +195,6 @@ function buildClinicsNCD(clinicName, weeks) {
     });
 }
 
-//This function will get the completness value and put it in the right position in the array ...
-// function buildClinicsCompleteness(clinicName, weeks) {
-//     var currentWeek = week;
-//     var counter = 2; // i need the last 3 values only which represent the last 3 weeks ...
-//     $.each(clinicDataArray, function(index, value) {
-//         if (value.clinicName.toString() === clinicName.toString()) {
-//             for (i = currentWeek - 2; i < currentWeek; i++) {
-//                 var itemName = i + "C";
-//                 value[itemName] = calculateCompleteness(weeks[weeks.length - counter]) + ' % ';
-//                 counter = counter - 1;
-//             }
-//         }
-//     });
-// }
 
 //This function will overwrite the clinic number with the name ...
 function getClinicsNames(data) {
