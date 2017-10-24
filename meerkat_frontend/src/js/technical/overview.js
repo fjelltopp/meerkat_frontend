@@ -3,10 +3,6 @@
 
 // This will be the main function for the over viewpage...
 function build_overview_page(locID) {
-    // Show a spinner to indicate that data is loading.
-    $('.spinner').show();
-
-
     //Read the Overview page structure ...
     var overview_list = config.overview;
 
@@ -37,7 +33,6 @@ function html_box_builder(overviewObj, locID) {
         //Build the content...
         window[value.prep_function](value, overviewObj.parentId, locID);
     });
-  $('.spinner').hide();
 }
 
 

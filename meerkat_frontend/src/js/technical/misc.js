@@ -1,3 +1,18 @@
+
+//This Code will handle the spinner all over the site ...
+$body = $("body");
+
+$(document).on({
+  ajaxStart: function() {
+    $body.addClass("loading");
+  },
+  ajaxStop: function() {
+    $body.removeClass("loading");
+  }
+});
+
+
+
 /**:get_epi_week()
 
     Returns the current epi week. This value was initially calulated client-side, but now simply
