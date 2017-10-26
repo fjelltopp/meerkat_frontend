@@ -4,10 +4,12 @@ $body = $("body");
 
 $(document).on({
   ajaxStart: function() {
-    $body.addClass("loading");
+    $body.css('overflow', 'hidden');
+    $('.spinnerModal').addClass("loading");
   },
   ajaxStop: function() {
-    $body.removeClass("loading");
+    $('.spinnerModal').removeClass("loading");
+    $body.css('overflow', 'scroll');
   }
 });
 
