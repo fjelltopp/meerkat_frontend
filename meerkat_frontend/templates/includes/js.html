@@ -29,6 +29,8 @@
 <script src="{{ url_for('static', filename='js/featherlight.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/js.cookie.js') }}"></script>
 <script src="{{ url_for('static', filename='js/leaflet.awesome-markers.js') }}"></script>
+<script src="{{ url_for('static', filename='js/throbber.js') }}"></script>
+
 
 <script>
   //Google analytics
@@ -62,7 +64,7 @@
                        nextLang.toUpperCase() + "</a>" );
   $(".lang-sel").attr( 'title', i18n.gettext("Choose a language") ); //Translatable tool tip.
   $(".lang-sel").toggleClass('hidden');
-  
+
   // Handle AJAX errors.
   $( document ).ajaxError(
     function(error_event, jqXHR, ajaxSettings, thrownError ) {

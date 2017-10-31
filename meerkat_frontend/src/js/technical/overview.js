@@ -34,7 +34,6 @@ function html_box_builder(overviewObj, locID) {
         //Build the content...
         window[value.prep_function](value, overviewObj.parentId, locID);
     });
-
 }
 
 
@@ -201,6 +200,9 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
                 return new Date(b.date) - new Date(a.date);
             });
 
+            //Take the last 3 values so i need to reverse the array ..
+            arrValue.reverse();
+            arrDate.reverse();
 
             //I need only 3 ...
             for (var i = 0; i <= 2; i++) {
@@ -538,16 +540,16 @@ function showIndicatorChart(chartInfo) {
                 },
                 labels: {
                     formatter: function() {
-                        return this.value ;// 1000;
+                        return this.value; // 1000;
                     }
                 }
             },
             tooltip: {
                 //split: true,
                 //valueSuffix: ' ',
-				formatter: function() {
-					return Math.round(this.y*10) / 10;
-				}
+                formatter: function() {
+                    return Math.round(this.y * 10) / 10;
+                }
             },
             plotOptions: {
                 area: {
