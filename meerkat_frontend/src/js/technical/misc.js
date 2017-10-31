@@ -1,10 +1,10 @@
 
-//This Code will handle the spinner all over the site ...
+//This Code will handle the spinner all over the site//
 $body = $("body");
 var throb;
 $(document).on({
   ajaxStart: function() {
-      // here i can control the spinner properties ...
+      // here i can control the spinner properties //
       $('#divSpinner').empty();
           throb = Throbber({
           color: 'black',
@@ -14,10 +14,10 @@ $(document).on({
           clockwise: true
       }).appendTo( document.getElementById( 'divSpinner' ) ).start();
 
-      //Stop the screen with white shade for the spinner..
+      //Stop the screen with white shade for the spinner //
       $body.css('overflow', 'hidden');
       $('.spinnerModal').addClass("loading");
-      //This line will center the spinner in the middle of the screen ...
+      //This line will center the spinner in the middle of the screen //
       $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
 
   },
