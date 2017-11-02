@@ -1,5 +1,5 @@
 {% extends 'reports/base.html' %}
-{% block title %}{{report.data.project_region|e}} &middot; Foreign Screening  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; Foreigner Screening  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-header">
@@ -10,7 +10,7 @@
 	>
 	</span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-	<span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Pandemic Influenza Preparedness (PIP) Profile
+	  <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> Foreigner Screening Report
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
@@ -22,13 +22,13 @@
   <div class="col-sm-12">
 	  <div class="chart-wrapper">
 		  <div class="chart-title">
-			  Foreign Screening Results
+			  Foreigner Screening Results
 		  </div>
 		  <div class="chart-stage">
 			  <table class="table table-striped">
 				  <thead>
 					  <tr>
-						  <th>District</th>
+						  <th>Directorate</th>
 						  <th>Pul. TB</th>
 						  <th>XDR</th>
 						  <th>HIV</th>
@@ -38,21 +38,21 @@
 				  </thead>
 				  {% for record in report.data.table1 %}
 				  <tr>
-					  <td>{{ record.name }}</td>
-					  <td>{{ record.tb_type_1|int }}</td>
-					  <td>{{ record.tb_type_4|int }}</td>
-					  <td>{{ record.tb_result_hiv|int }}</td>
-					  <td>{{ record.tb_result_hepb|int }}</td>
-					  <td>{{ record.total|int }}</td>
+					  <td class="key">{{ record.name }}</td>
+					  <td class="value">{{ record.tb_type_1|int }}</td>
+					  <td class="value">{{ record.tb_type_4|int }}</td>
+					  <td class="value">{{ record.tb_result_hiv|int }}</td>
+					  <td class="value">{{ record.tb_result_hepb|int }}</td>
+					  <td class="total">{{ record.total|int }}</td>
 				  </tr>
 				  {% endfor %}
 				  <tr>
 					  <td> Total </td>
-					  <td>{{ report.data.table1_totals.tb_type_1|int }}</td>
-					  <td>{{ report.data.table1_totals.tb_type_4|int }}</td>
-					  <td>{{ report.data.table1_totals.tb_result_hiv|int }}</td>
-					  <td>{{ report.data.table1_totals.tb_result_hepb|int }}</td>
-					  <td>{{ report.data.table1_totals.total_sum|int }}</td>
+					  <td class="total">{{ report.data.table1_totals.tb_type_1|int }}</td>
+					  <td class="total">{{ report.data.table1_totals.tb_type_4|int }}</td>
+					  <td class="total">{{ report.data.table1_totals.tb_result_hiv|int }}</td>
+					  <td class="total">{{ report.data.table1_totals.tb_result_hepb|int }}</td>
+					  <td class="total">{{ report.data.table1_totals.total_sum|int }}</td>
 				  </tr>
 			  </table>
 		  </div>
