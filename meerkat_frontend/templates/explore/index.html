@@ -139,6 +139,7 @@
 {% block pageJS %}
 
 <script type="text/javascript" >
+addThrobber();
 
 $('ul.navbar-nav .active').removeClass('active');
 $('.menu-explore').addClass('active');
@@ -301,25 +302,6 @@ function toggleSelected(element){
 }
 
 
-function showSpinners( show ){
-
-    if( typeof( show ) == "undefined" ) show = true;
-
-    if( show ){
-        $('#cross-wrapper').html(
-            "<img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>"
-        );
-
-        if(timelineDrawn){
-            $('#timeline-wrapper').html(
-                "<img class='spinner' src='{{url_for('static', filename='img/spinner.gif')}}' ></img>"
-            );
-        }
-    }else{
-        $('.spinner').hide();
-    }
-
-}
 indices = undefined;
  keep_checked = true;
 
@@ -332,7 +314,6 @@ function reDraw(){
     if (keep_checked){
         check_function = createKeepRemoved();
 	 	}
-    showSpinners();
 
     var crossOptions = {};
     var timelineOptions = {};

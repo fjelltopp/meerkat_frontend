@@ -1,36 +1,38 @@
+/** :addThrobber()
 
-/** This code shows a throbber whilst AJAX requests are still completing.
-    At the moment we require AJAX to complete syncronously - this is a limitation.
-    A single throbber obstructing the whole page is thrown up whilst any AJAX
-    request is completing.
+    This function shows a throbber whilst AJAX requests are still completing in
+    the page. At the moment we require AJAX to complete syncronously - this is
+    a limitation. A single throbber obstructing the whole page is thrown up
+    whilst any AJAX request is completing.
+
     TODO: It would be nice to only obstruct access evenetually to parts of the
     site dependant upon uncompleted AJAX requests. This should be built into a
     Javascript review.
 */
-$body = $("body");
-var throb;
-$(document).on({
-    ajaxStart: function() {
-        $('#divSpinner').empty();
-        throb = Throbber({
-            color: 'black',
-            padding: 30,
-            size: 80,
-            fade: 200,
-            clockwise: true
-        }).appendTo( document.getElementById( 'divSpinner' ) ).start();
-        $body.css('overflow', 'hidden');  // No scrolling.
-        $('.spinnerModal').addClass("loading");  // Disables the screen
-        $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
-    },
-    ajaxStop: function() {
-        throb.stop();
-        $('.spinnerModal').removeClass("loading");
-        $body.css('overflow', 'scroll');
-    }
-});
-
-
+function addThrobber(){
+    $body = $("body");
+    var throb;
+    $(document).on({
+        ajaxStart: function() {
+            $('#divSpinner').empty();
+            throb = Throbber({
+                color: 'black',
+                padding: 30,
+                size: 80,
+                fade: 200,
+                clockwise: true
+            }).appendTo( document.getElementById( 'divSpinner' ) ).start();
+            $body.css('overflow', 'hidden');  // No scrolling.
+            $('.spinnerModal').addClass("loading");  // Disables the screen
+            $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
+        },
+        ajaxStop: function() {
+            throb.stop();
+            $('.spinnerModal').removeClass("loading");
+            $body.css('overflow', 'scroll');
+        }
+    });
+}
 /**:get_epi_week()
 
     Returns the current epi week. This value was initially calulated client-side, but now simply

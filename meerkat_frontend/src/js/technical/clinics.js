@@ -4,9 +4,6 @@ function gatherClinicsData(locID) {
     $('#clinicsTable table').bootstrapTable('destroy');
     $('#clinicsTable table').remove();
 
-    // Show a spinner to indicate that data is loading.
-    $('.spinner').show();
-
     //Clear the arrays ...
     columnNameArray = [];
     clinicDataArray = [];
@@ -52,7 +49,6 @@ function gatherClinicsData(locID) {
                         getClinicsNames(dataLocation);
 
                         //Append the table and the columns ...
-                        $('.spinner').hide();
                         $('#clinicsTable').append('<table class="table"></table>');
                         $('#clinicsTable table').bootstrapTable({
                             columns: columnNameArray,
