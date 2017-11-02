@@ -480,3 +480,21 @@ footer{
         padding: 8px;
     }
 }
+
+//This Code will handle the spinner all over the site //
+.spinnerModal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba( 255, 255, 255, .8) ;
+}
+
+/* Anytime the body has the loading class, our
+ modal element will be visible */
+.spinnerModal.loading {
+	display: block;
+}
