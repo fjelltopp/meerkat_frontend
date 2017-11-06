@@ -1,31 +1,31 @@
 body.technical, body.messaging, body.download, body.explore, body.default{
-	padding: 50px 0px 0px;
-	color: $textGrey;
-	background: $lightGrey;
+    padding: 50px 0px 0px;
+    color: $textGrey;
+    background: $lightGrey;
 
-	.breaker{
-		height: 30px;
-	}
+    .breaker{
+        height: 30px;
+    }
 
-	.row{
-		margin-left: 0px;
-		margin-right: 0px;
-	}
+    .row{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
 
-	.table{
-		margin: 0 0 0px;
-		border-top: white 2px solid;
-	}
+    .table{
+        margin: 0 0 0px;
+        border-top: white 2px solid;
+    }
 
-	.map{
-		height: 800px;
-	}
-	.map-small{
-		height: 600px;
-	}
-	.map-very-small{
-		height: 450px;
-	}
+    .map{
+        height: 800px;
+    }
+    .map-small{
+        height: 600px;
+    }
+    .map-very-small{
+        height: 450px;
+    }
 }
 
 .modal-dialog{
@@ -36,104 +36,104 @@ body.technical, body.messaging, body.download, body.explore, body.default{
 
 .tabs{
 
-	list-style: none;
-	text-align: center;
-	width: 100%;
-	padding: 0px;
-	margin-bottom: none;
+    list-style: none;
+    text-align: center;
+    width: 100%;
+    padding: 0px;
+    margin-bottom: none;
     position: relative;
     z-index: 1001;
 
-	li {
+    li {
 
-		display: inline-block;
-		margin: 10px 10px;
-		background: $blue;
-		padding: 10px 20px;
-		border-radius: 5px;
+        display: inline-block;
+        margin: 10px 10px;
+        background: $blue;
+        padding: 10px 20px;
+        border-radius: 5px;
 
-		a{
-			color: #FFF;
-		}
-		a:hover,
-		a:focus,
-		a:active{
-			color: #FFF;
-			text-decoration: none;
-		}
-	}
+        a{
+            color: #FFF;
+        }
+        a:hover,
+        a:focus,
+        a:active{
+            color: #FFF;
+            text-decoration: none;
+        }
+    }
 
-	li.active{
-		background: $highlight;
-	}
+    li.active{
+        background: $highlight;
+    }
 }
 
 .tab-page{
-	min-height: 80vh;
-	position:relative;
+    min-height: 80vh;
+    position:relative;
 }
 
 .box{
-	background: #FFF;
-	border-radius: 5px;
-	border: solid 1px #E2E2E2;
-	padding: 10px;
-	overflow: hidden;
+    background: #FFF;
+    border-radius: 5px;
+    border: solid 1px #E2E2E2;
+    padding: 10px;
+    overflow: hidden;
 }
 
 .top-bar{
-	padding:5px;
+    padding:5px;
 }
 
 button.header,
 button.header:hover{
-	border: solid 1px #CCC;
-	text-align: left;
-	font-weight: bold;
-	color: $textGrey;
+    border: solid 1px #CCC;
+    text-align: left;
+    font-weight: bold;
+    color: $textGrey;
 }
 
 .info_map{
 
-	 padding: 6px 8px;
-	 font: 14px/16px Arial,Helvetica,sans-serif;
-	 background: rgba(255, 255, 255, 0.8) none repeat scroll 0% 0% !important;
-	 box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-	 border-radius: 5px;
+     padding: 6px 8px;
+     font: 14px/16px Arial,Helvetica,sans-serif;
+     background: rgba(255, 255, 255, 0.8) none repeat scroll 0% 0% !important;
+     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+     border-radius: 5px;
 
-	.circle {
-		border-radius: 50%;
-		width: 15px;
-		height: 15px;
-		margin-top: 1px;
-	}
+    .circle {
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        margin-top: 1px;
+    }
 
-	i {
-		width: 18px;
-		height: 18px;
-		float: left;
-		margin-right: 8px;
-		opacity: 1;
-		border-style: solid;
-	}
+    i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 1;
+        border-style: solid;
+    }
 
-	h4 {
-		margin: 0 0 5px;
-		color: #777;
-	}
+    h4 {
+        margin: 0 0 5px;
+        color: #777;
+    }
 }
 .location-box{
     margin-right: 10px;
-	display: inline-block;
-	float: left;
+    display: inline-block;
+    float: left;
 
-	div {
-		display: inline;
-	}
+    div {
+        display: inline;
+    }
 }
 
 .location-selector{
-	margin:5px;
+    margin:5px;
 
     .location-search{
         position: relative;
@@ -166,19 +166,19 @@ button.header:hover{
 
 
 .chartBox{
-	padding: 0px;
+    padding: 0px;
 }
 
 .chartBox__heading{
-	border-bottom: 1px solid #D7D7D7;
-	color: #666;
-	font-family: inherit;
-	font-weight: 500;
-	line-height: 1.1em;
-	font-size: 18px;
-	padding: 7px 10px 4px;
-	display: table;
-	width: 100%;
+    border-bottom: 1px solid #D7D7D7;
+    color: #666;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1em;
+    font-size: 18px;
+    padding: 7px 10px 4px;
+    display: table;
+    width: 100%;
 
     p{
         display:inline;
@@ -186,115 +186,115 @@ button.header:hover{
 }
 
 .chartBox__content{
-	display: block;
-	padding: 10px 10px;
+    display: block;
+    padding: 10px 10px;
     min-height: 260px
 }
 
 .chartBox__type-selector{
-	display: table-cell;
-	vertical-align: middle;
-	font-size: 14px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 14px;
 }
 
 .chart{
-	margin: 20px 0px;
+    margin: 20px 0px;
 }
 
 .diseaseInfo{
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .diseaseInfo__title{
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .table-percent{
-	font-size: 12px;
-	display: inline;
+    font-size: 12px;
+    display: inline;
 }
 
 .block{
-	display: block;
+    display: block;
 }
 
 .row .less-padding-col{
-	padding: 5px;
+    padding: 5px;
 }
 
 #epi-week-title{
-	text-align: center;
+    text-align: center;
 }
 
 @media screen and (max-width: 767px){
 
-	#epi-week-title{
-		margin-top: 10px;
-	}
+    #epi-week-title{
+        margin-top: 10px;
+    }
 }
 
 .tab-title{
-	display: inline-block;
-	font-size: 24px;
-	line-height: 42px;
-	padding: 0 15px;
+    display: inline-block;
+    font-size: 24px;
+    line-height: 42px;
+    padding: 0 15px;
 }
 
 td.fit{
-	width: 1%;
-	white-space: nowrap;
-	padding: 5px 20px 5px 10px;
+    width: 1%;
+    white-space: nowrap;
+    padding: 5px 20px 5px 10px;
 }
 
 tr.spaceUnder td,
 tr.spaceUnder td.fit,
 {
-	padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 #checklist{
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 #checklist table tr{
-	border-top: $lightGrey solid 1px;
-	border-bottom: $lightGrey solid 1px;
+    border-top: $lightGrey solid 1px;
+    border-bottom: $lightGrey solid 1px;
 }
 
 footer{
-	background: $darkGrey;
-	color: $lightGrey;
-	padding: 20px;
-	min-height: 10vh;
+    background: $darkGrey;
+    color: $lightGrey;
+    padding: 20px;
+    min-height: 10vh;
 }
 
 .footer__label{
-	text-align: left;
+    text-align: left;
 }
 
 .footer__title{
-	font-size: 16px;
+    font-size: 16px;
 }
 
 .footer__logos{
 
-	text-align: right;
+    text-align: right;
 
-	img{
-		max-height: 100px;
-		max-width: 100px;
-		margin-left: 20px;
-	}
+    img{
+        max-height: 100px;
+        max-width: 100px;
+        margin-left: 20px;
+    }
 
-	@media screen and (max-width: 767px){
+    @media screen and (max-width: 767px){
 
-		text-align: center;
+        text-align: center;
 
-		img{
-			display: inline-block;
-			margin: 0px 10px;
-		}
-	}
+        img{
+            display: inline-block;
+            margin: 0px 10px;
+        }
+    }
 }
 
 /* SIDE BAR FOR FILTERS */
@@ -307,7 +307,7 @@ footer{
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-	 position:relative;
+     position:relative;
 }
 
 #wrapper.toggled {
@@ -344,27 +344,27 @@ footer{
 }
 
 #wrapper {
-	padding-left: 250px;
+    padding-left: 250px;
 }
 
 #wrapper.toggled {
-	padding-left: 0;
+    padding-left: 0;
 }
 
 #sidebar-wrapper {
-	width: 250px;
+    width: 250px;
 }
 
 #wrapper.toggled #sidebar-wrapper {
-	width: 0;
+    width: 0;
 }
 
 #page-content-wrapper {
-	position: relative;
+    position: relative;
 }
 
 #wrapper.toggled #page-content-wrapper {
-	position: relative;
+    position: relative;
 }
 
 .table.table-no-bordered{
@@ -411,40 +411,40 @@ footer{
 
 
 .divTable {
-	display: table;
-	width: 100%;
+    display: table;
+    width: 100%;
 }
 
 .divTableRow {
-	display: table-row;
-	background-color: white;
+    display: table-row;
+    background-color: white;
 }
 
 .divTableHeading {
-	background-color: #EEE;
-	display: table-header-group;
+    background-color: #EEE;
+    display: table-header-group;
 }
 
 .divTableCell,
 .divTableHead {
-	display: table-cell;
-	padding: 3px 10px;
+    display: table-cell;
+    padding: 3px 10px;
 }
 
 .divTableHeading {
-	background-color: #EEE;
-	display: table-header-group;
-	font-weight: bold;
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
 }
 
 .divTableFoot {
-	background-color: #EEE;
-	display: table-footer-group;
-	font-weight: bold;
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
 }
 
 .divTableBody {
-	display: table-row-group;
+    display: table-row-group;
 }
 
 .overview{
@@ -485,18 +485,18 @@ footer{
 
 //This Code will handle the spinner all over the site //
 .spinnerModal {
-	display: none;
-	position: fixed;
-	z-index: 1000;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	background: rgba( 255, 255, 255, .8) ;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba( 255, 255, 255, .8) ;
 }
 
 /* Anytime the body has the loading class, our
  modal element will be visible */
 .spinnerModal.loading {
-	display: block;
+    display: block;
 }
