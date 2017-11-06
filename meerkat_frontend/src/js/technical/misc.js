@@ -1,9 +1,18 @@
+/** :stopThrobber()
+
+    Stop the throbber from appearing in the front end.
+*/
 function stopThrobber() {
     throb.stop();
     $('.spinnerModal').removeClass("loading");
     $("body").css('overflow', 'scroll');
 }
 
+
+/** :startThrobber()
+
+    Start the throbber appearing in the frontend.
+*/
 function startThrobber(){
     $('#divSpinner').empty();
     throb = Throbber({
@@ -26,9 +35,9 @@ function startThrobber(){
     a limitation. A single throbber obstructing the whole page is thrown up
     whilst any AJAX request is completing.
 
-    TODO: It would be nice to only obstruct access evenetually to parts of the
-    site dependant upon uncompleted AJAX requests. This should be built into a
-    Javascript review.
+    TODO: It would be nice to only obstruct access to parts of the site
+    dependant upon uncompleted AJAX requests i.e. use the power of AJAX
+    asyncrocity. This should be built into a Javascript review.
 */
 function addThrobber(){
     $(document).on({
