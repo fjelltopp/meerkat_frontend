@@ -10,7 +10,7 @@
         <li>
 	       <a href="#" id="{{tab.name|slugify}}"
               page="{{tab.template}}"
-              onclick="loadLocationTree({type:'tab', dataID:'{{tab.name|slugify}}', locID:window.history.state.locID, location_filter: '{{tab.get('location_filter', '')}}'}); return false;"
+              onclick="$.xhrPool.abortAll(); loadLocationTree({type:'tab', dataID:'{{tab.name|slugify}}', locID:window.history.state.locID, location_filter: '{{tab.get('location_filter', '')}}'}); return false;"
               location_filter='{{tab.get('location_filter', '')}}'>{{_(tab.name)}}</a>
         </li>
             {% endif %}
@@ -30,7 +30,6 @@
 
 <script type="text/javascript" >
     addThrobber();
-
     $('ul.navbar-nav .active').removeClass('active');
     $('.menu-epidemiology').addClass('active');
 
@@ -40,9 +39,6 @@
     var week = {{week.epi_week|safe}};
     var allowed_location = {{g.allowed_location|safe}}
 
-	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-	options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) //
-	});
 	loadLocationTree( {{page|safe}} );
 
         //Respond to the user pressing forward or back by loading the correct page content.

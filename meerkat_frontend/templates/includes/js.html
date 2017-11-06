@@ -65,6 +65,32 @@
   $(".lang-sel").attr( 'title', i18n.gettext("Choose a language") ); //Translatable tool tip.
   $(".lang-sel").toggleClass('hidden');
 
+  // The following code exists to keep a record of all our AJAX requests.
+  // It gives us a means to abort existing requests.
+
+  $.xhrPool = []; // array of uncompleted requests
+
+  $.xhrPool.abortAll = function() {
+      $(this).each(function(idx, jqXHR) {
+          jqXHR.abort();
+      });
+      $.xhrPool.length = 0
+  };
+
+  $.ajaxSetup({
+      // Before jQuery send the request we will push it to our array
+      beforeSend: function(jqXHR) {
+          $.xhrPool.push(jqXHR);
+      },
+      // When some of the requests completed it will splice from the array
+      complete: function(jqXHR) {
+          var index = $.xhrPool.indexOf(jqXHR);
+          if (index > -1) {
+              $.xhrPool.splice(index, 1);
+          }
+      }
+  });
+
   // Handle AJAX errors.
   $( document ).ajaxError(
     function(error_event, jqXHR, ajaxSettings, thrownError ) {

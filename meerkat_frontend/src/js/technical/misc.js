@@ -5,7 +5,6 @@ function stopThrobber() {
 }
 
 function startThrobber(){
-    $(document).scrollTop(0);
     $('#divSpinner').empty();
     throb = Throbber({
         color: 'black',
