@@ -9,10 +9,13 @@
   </title>
 
   <script type="text/javascript">
+    // Variable to store the throbber object.  Atm called in misc.js.
+    var throb;
+
     //Get the current language.
     language = "{{g.get('language')|safe}}";
-    //Configure the cookie consent box.
 
+    //Configure the cookie consent box.
     window.cookieconsent_options = {
       "message":"{{_('This website uses cookies to ensure you get the best experience.')}}",
       "dismiss":"{{_('I Understand')}}",
