@@ -1,3 +1,25 @@
+function stopThrobber() {
+    throb.stop();
+    $('.spinnerModal').removeClass("loading");
+    $("body").css('overflow', 'scroll');
+}
+
+function startThrobber(){
+    $(document).scrollTop(0);
+    $('#divSpinner').empty();
+    throb = Throbber({
+        color: 'black',
+        padding: 30,
+        size: 80,
+        fade: 200,
+        clockwise: true
+    }).appendTo( document.getElementById( 'divSpinner' ) ).start();
+    $("body").css('overflow', 'hidden');  // No scrolling.
+    $('.spinnerModal').addClass("loading");  // Disables the screen
+    $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
+}
+
+
 /** :addThrobber()
 
     This function shows a throbber whilst AJAX requests are still completing in
@@ -10,27 +32,9 @@
     Javascript review.
 */
 function addThrobber(){
-    $body = $("body");
-    var throb;
     $(document).on({
-        ajaxStart: function() {
-            $('#divSpinner').empty();
-            throb = Throbber({
-                color: 'black',
-                padding: 30,
-                size: 80,
-                fade: 200,
-                clockwise: true
-            }).appendTo( document.getElementById( 'divSpinner' ) ).start();
-            $body.css('overflow', 'hidden');  // No scrolling.
-            $('.spinnerModal').addClass("loading");  // Disables the screen
-            $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
-        },
-        ajaxStop: function() {
-            throb.stop();
-            $('.spinnerModal').removeClass("loading");
-            $body.css('overflow', 'scroll');
-        }
+        ajaxStart: function() {startThrobber();},
+        ajaxStop: function() {stopThrobber();}
     });
 }
 /**:get_epi_week()
