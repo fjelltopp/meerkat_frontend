@@ -341,10 +341,8 @@ $.getJSON( api_root+"/export/forms", function( data ){
 				url += $(this).val() + ",";
 			});
 
-			url += "&api_key=" + config.api_key;
-
-                       open_url = "wait?url=" + url
-                       window.open(open_url);
+           open_url = "wait?url=" + url
+           window.open(open_url);
 		}else{
 			event.preventDefault();
 		}

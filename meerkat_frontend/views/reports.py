@@ -743,7 +743,7 @@ def create_report(config, report=None,
             params = None
 
     app.logger.debug('Getting data')
-    data = c.api(api_request, api_key=True, params=params)
+    data = c.api(api_request, params=params)
     data["flag"] = config["FLAGG_ABR"]
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:

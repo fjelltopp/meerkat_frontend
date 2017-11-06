@@ -87,10 +87,6 @@ var extras = {{extras|tojson|safe}};
 var config = {};
 var api_root = "{{config['EXTERNAL_API_ROOT']}}";
 
-$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-	options.data = $.param($.extend(originalOptions.data, { api_key: "{{config['REPORTS_CONFIG']['api_key']}}" })) //
-});
-
 //Draw the content using the functions below.
 drawTable1();
  //Draw Malaria Map

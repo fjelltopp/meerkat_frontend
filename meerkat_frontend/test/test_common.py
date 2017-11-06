@@ -59,7 +59,6 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
         """ Test the api function in common.py"""
         mk.app.config["TESTING"] = False
         mk.app.config["INTERNAL_API_ROOT"] = "http://test/"
-        mk.app.config["TECHNICAL_CONFIG"]["api_key"] = "test-api"
         with mk.app.test_request_context("/"):
             data = {"value": 54}
             request_return = mock.MagicMock()
@@ -94,7 +93,6 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
     @mock.patch("meerkat_frontend.common.requests.request")
     def test_hermes(self, mock_requests):
         """ Test the Heremes function in common """
-        mk.app.config["HERMES_API_KEY"] = "hermes-key"
         mk.app.config["HERMES_ROOT"] = "http://test"
         header = {
             'content-type': 'application/json',

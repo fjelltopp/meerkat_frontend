@@ -6,7 +6,6 @@
         "nav": "<b>Null Island </b> &middot; Public Health Surveillance",
         "mob_nav": "Health Surveillance"
     },
-    "api_key": "test-api",
     "map": {
         "center": {
             "lng": "0",
