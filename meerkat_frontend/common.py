@@ -27,11 +27,13 @@ def api(url, params=None):
             return json.load(data_file)
     else:
         api_uri = add_domain(''.join([app.config['INTERNAL_API_ROOT'], url]))
+
         try:
-            r = requests.get(
-                api_uri,
-                params=params
-            )
+            headers = {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' + auth.get_token()
+            }
+            r = requests.get(api_uri, headers=headers, params=params)
             if r.status_code == 502:
                 abort(500, "Can not access the api at " + api_uri)
         except requests.exceptions.RequestException as e:
