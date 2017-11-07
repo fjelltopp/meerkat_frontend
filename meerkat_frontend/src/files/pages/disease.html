@@ -71,12 +71,12 @@
 		<div class="row" id="emtyData-whiteBox" style="display:none;">
 			<div class="col-xs-12 less-padding-col">
 				<div class="chartBox box">
-					<div class="chartBox__heading">
-						No data available
+					<div class="chartBox__heading" id="no-Data-title">
+
 					</div>
 					<div class="chartBox__content">
 						<div class="chart">
-							<p>There is no data available for this disease</p>
+							<p id="no-data-available"></p>
 						</div>
 					</div>
 				</div>
@@ -96,6 +96,8 @@
 	$("#box_heading").html(i18n.gettext('Information'));
 	$("#box_2_heading").html(i18n.gettext('Time of reports'));
 	$("#box_3_heading").html(i18n.gettext('Location of reports'));
+	$("#no-data-available").html(i18n.gettext('There is no data available for this disease'));
+  $("#no-Data-title").html(i18n.gettext('No data available'));
 
 	type_options = config.map_options.types
 
@@ -252,5 +254,5 @@
 		}
 	}
 
-	
+
 </script>

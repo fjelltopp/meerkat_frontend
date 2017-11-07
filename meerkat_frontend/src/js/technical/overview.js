@@ -200,10 +200,7 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
                 return new Date(b.date) - new Date(a.date);
             });
 
-            //Take the last 3 values so i need to reverse the array ..
-            arrValue.reverse();
-            arrDate.reverse();
-
+            
             //I need only 3 ...
             for (var i = 0; i <= 2; i++) {
                 arrFinal.push(arrAlerts[i].val);
