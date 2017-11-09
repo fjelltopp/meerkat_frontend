@@ -29,9 +29,9 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading" id="box_heading">
 					</div>
-					<div id="diseaseInfo" class="chartBox__content diseaseInfo">
+					<div id="diseaseInfo" class="chartBox__content diseaseInfo" style="min-height: 0px !important;">
 					</div>
-					<div id="disease-table" class="table">
+					<div id="disease-table" class="table" style="padding-top: 80px;">
 					</div>
 				</div>
 			</div>
@@ -184,16 +184,33 @@
 			name = i18n.gettext(data.name);
 			reDrawMap(locID);
 			drawDiseaseTable(varID, locID);
-			buildHTML(i18n.gettext('Classification'), i18n.gettext(data.classification_casedef), 'classification', 4);
-			buildHTML(i18n.gettext('Source'), i18n.gettext(data.source), 'source', 4);
-			buildHTML(i18n.gettext('Alerts'), i18n.gettext(data.alert_desc), 'diseaseAlerts', 4);
-			buildHTML(i18n.gettext('Case Definition'), i18n.gettext(data.case_def), 'caseDefinition');
-			buildHTML(i18n.gettext('Risk Factor(s)'), i18n.gettext(data.risk_factors), 'riskFactors');
-			buildHTML(i18n.gettext('Sign(s)/Symptom(s)'), i18n.gettext(data.symptoms), 'signsSymptoms');
-			buildHTML(i18n.gettext('Labs/Diagnostics'), i18n.gettext(data.labs_diagnostics), 'labsDiagnostics');
+			// buildHTML(i18n.gettext('Classification'), i18n.gettext(data.classification_casedef), 'classification', 4);
+			// buildHTML(i18n.gettext('Source'), i18n.gettext(data.source), 'source', 4);
+			// buildHTML(i18n.gettext('Alerts'), i18n.gettext(data.alert_desc), 'diseaseAlerts', 4);
+			// buildHTML(i18n.gettext('Case Definition'), i18n.gettext(data.case_def), 'caseDefinition');
+			// buildHTML(i18n.gettext('Risk Factor(s)'), i18n.gettext(data.risk_factors), 'riskFactors');
+			// buildHTML(i18n.gettext('Sign(s)/Symptom(s)'), i18n.gettext(data.symptoms), 'signsSymptoms');
+			// buildHTML(i18n.gettext('Labs/Diagnostics'), i18n.gettext(data.labs_diagnostics), 'labsDiagnostics');
+
+			buildHTML(i18n.gettext('Classification'), handleEmptyData(data.classification_casedef), 'classification', 4);
+			buildHTML(i18n.gettext('Source'), handleEmptyData(data.source), 'source', 4);
+			buildHTML(i18n.gettext('Alerts'), handleEmptyData(data.alert_desc), 'diseaseAlerts', 4);
+			buildHTML(i18n.gettext('Case Definition'), handleEmptyData(data.case_def), 'caseDefinition');
+			buildHTML(i18n.gettext('Risk Factor(s)'), handleEmptyData(data.risk_factors), 'riskFactors');
+			buildHTML(i18n.gettext('Sign(s)/Symptom(s)'), handleEmptyData(data.symptoms), 'signsSymptoms');
+			buildHTML(i18n.gettext('Labs/Diagnostics'), handleEmptyData(data.labs_diagnostics), 'labsDiagnostics');
+
 
 		});
 	}
+
+		function handleEmptyData(value){
+			if(value == '' || value == "" || value == undefined){
+					return "none";
+			}else {
+					return i18n.gettext(value);
+			}
+		}
 
 
 	function drawDiseaseTable(varID, locID) {
