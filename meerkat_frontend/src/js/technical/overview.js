@@ -18,20 +18,21 @@ function build_overview_page(locID) {
 
 function html_box_builder(overviewObj, locID) {
 
-    //Build the box header...
+    // Allow a different html base to be specified in configs.
+    // But default to a DIV table format.
+    var html_base = overviewObj.html_base || "<div class='divTable'><div id ='" + overviewObj.parentId + "'  class='divTableBody' ></div> </div>";
+
+    // Build the box and append it to the page
     var html_builder = "<div  class='col-xs-12 " + overviewObj.html_class + " less-padding-col'> <div class='chartBox box' >" +
         "<div class = 'chartBox__heading' > <p id = '#box_heading'>" + i18n.gettext(overviewObj.title) + "</p> </div>" +
-        "<div class = 'chartBox__content' > " +
-        "<div class='divTable'><div id ='" + overviewObj.parentId + "'  class='divTableBody' >";
-
-    //Build the box footer ...
-    html_builder = html_builder + "</div> </div> </div> </div> </div>";
-
-    // Append the firstbox in the Overview page...
+        "<div class = 'chartBox__content' > " + html_base +
+        " </div> </div> </div>";
     $('#divOverviewContent').append(html_builder);
 
+    // The clever bit! Populate the box with data.
+    // The config object should specify an api call and a JS function to draw the response.
+    // Here we call this "prep_function" and pass it the information it needs to draw data.
     $.each(overviewObj.contents, function(index, value) {
-        //Build the content...
         window[value.prep_function](value, overviewObj.parentId, locID);
     });
 }
@@ -200,10 +201,6 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
                 return new Date(b.date) - new Date(a.date);
             });
 
-            //Take the last 3 values so i need to reverse the array ..
-            arrValue.reverse();
-            arrDate.reverse();
-
             //I need only 3 ...
             for (var i = 0; i <= 2; i++) {
                 arrFinal.push(arrAlerts[i].val);
@@ -232,58 +229,30 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
     }
 }
 
-
-var indicatorCounter = 0;
-var indicatorTableArr = [];
-//Generate a GUID ...
-var api_element_ind = generateGUID();
-
+/* This function writes details about an indicator into a three columned table.
+   Details about the indicator should be specified in the contentsObj which is
+   taken from the overview config object found in <country>_technical.json
+   frontend config file.  This function helps build the overview page and is
+   called from the end of the html box_builder function.  */
 function prep_row_indicator(contentsObj, parentId, locID) {
     if (isUserAthorized(contentsObj.access) === true) {
-
-        var htmlContetn = "";
-        //Add the table structure for the first time ...
-        if (indicatorCounter === 0) {
-            htmlContent = "<table id='table-sparkline' style='width:100%'><thead><tr><th>" + i18n.gettext("Indicator name") +
-                "</th><th>" + i18n.gettext("Cumulative") + "</th><th>" + i18n.gettext("Indicator chart") +
-                "</th></tr></thead>" + "<tbody id='tbody-sparkline' name=" + api_element_ind + ">" + "</tbody></table>";
-            indicatorCounter = 1;
-            $("#" + parentId).append(htmlContent);
-        }
-
-
-        // Get the inner value for the boxes by calling the APIs ...
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         $.getJSON(api_root + apiUrl, function(data) {
-
-            var indicatorColumn = "";
-            var indicatorChartValues = [];
-
-
-            $.each(data.timeline, function(index, value) {
-                indicatorChartValues.push(value);
+            // Create an ordered list of values from JSON object timeline.
+            var timeline = Object.keys(data.timeline).sort().map(function(time){
+                return data.timeline[time];
             });
 
-
-            // draw the table rows abd check they are sorted like the values in the config object ...
-            for (var i = 0; i <= config.overview[3].contents.length - 1; i++) {
-                if (config.overview[3].contents[i].api == contentsObj.api) {
-
-                    indicatorTableArr[i] = '<tr style="cursor:pointer" onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" >' +
-                        "<th> " + contentsObj.label + "</th>" + "<td>" + data.current.toFixed(2) + "% (" + data.cummulative.toFixed(2) + "% year )" + "</td>" +
-                        "<td   data-sparkline = '" + indicatorChartValues.join(", ") + "'" +
-                        'onClick="showIndicatorChart(\'' + apiUrl.toString() + "~" + contentsObj.label + '\')" /> </tr>';
-                }
-            }
-
-            //Dont draw any rows unless the array is completed ...
-            if (indicatorTableArr.length == config.overview[3].contents.length) {
-                $.each(indicatorTableArr, function(index, val) {
-                    $("tbody[name='" + api_element_ind + "']").append(val);
-                    drawIndicatorChart();
-                });
-            }
-
+            // Draw the indicator data.
+            var html = '<tr style="cursor:pointer" onClick="showIndicatorChart(\'' +
+                apiUrl.toString() + "~" + contentsObj.label + '\')" >' +
+                "<th> " + contentsObj.label + "</th>" + "<td>" +
+                data.current.toFixed(2) + "% (" + data.cummulative.toFixed(2) +
+                "% year )" + "</td>" + "<td data-sparkline = '" +
+                timeline.join(", ") + "'" + 'onClick="showIndicatorChart(\'' +
+                apiUrl.toString() + "~" + contentsObj.label + '\')" /> </tr>';
+            $("#" + parentId).append(html);
+            drawIndicatorChart();
         });
     }
 }
@@ -492,11 +461,6 @@ function drawIndicatorChart() {
                 setTimeout(doChunk, 0);
                 break;
             }
-
-            // Print a feedback on the performance
-            // if (n === fullLen) {
-            //     $('#result').html('Generated ' + fullLen + ' sparklines in ' + (new Date() - start) + ' ms');
-            // }
         }
     }
 }
