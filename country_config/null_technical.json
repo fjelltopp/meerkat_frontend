@@ -175,7 +175,8 @@
         {
             "title": "Indicators",
             "html_class": "col-md-6",
-            "parentId": "OvIndicators",
+            "parentId": "tbody-sparkline",
+            "html_base": "<table id='table-sparkline' style='width:100%'><thead><tr><th>Indicator name</th><th>Cumulative</th><th>Indicator chart</th></tr></thead><tbody id='tbody-sparkline'></tbody></table>",
             "contents": [
                 {
                     "api": "/indicators/n,d,m/gen_1,tot_1,100/<loc_id>",
