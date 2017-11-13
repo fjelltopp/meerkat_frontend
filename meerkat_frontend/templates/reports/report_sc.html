@@ -3,7 +3,7 @@
 
 
 {% macro format_percent(input) %}
-  {{ input.Y }} ({{ (input.Y / input.N * 100 )|int}} %)
+  {{ input.Y }} ({{ (input.Y / input.N * 100 )|int if denom > 0 else "N/A"}} %)
 
 {%- endmacro %}
 
