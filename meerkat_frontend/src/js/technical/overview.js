@@ -248,8 +248,8 @@ function prep_row_indicator(contentsObj, parentId, locID) {
                 return data.timeline[time];
             });
             $("#" + unique_id + ' .value').append(
-                data.current.toFixed(2) + "% <br/> (" +
-                data.cummulative.toFixed(2) + "% year )"
+                data.current.toFixed(0) + "% <br/> (" +
+                data.cummulative.toFixed(0) + "% )"
             );
             $("#" + unique_id + ' .sparkline').attr(
                 'data-sparkline',
