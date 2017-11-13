@@ -3,27 +3,23 @@
 
 // This will be the main function for the over viewpage...
 function build_overview_page(locID) {
-    //Read the Overview page structure ...
+    // Get the overview page structure from the frontend configs "x_technical.json"
     var overview_list = config.overview;
-
+    // Remove pre-existing content and draw the new content.
+    $('#divOverviewContent .overview-box').remove();
     $.each(overview_list, function(index, value) {
         html_box_builder(value, locID);
     });
-
-    //Clear the counter for the indicator html..
-    indicatorCounter = 0;
-    indicatorTableArr = [];
 }
 
 
 function html_box_builder(overviewObj, locID) {
-
     // Allow a different html base to be specified in configs.
     // But default to a DIV table format.
     var html_base = overviewObj.html_base || "<div class='row' id ='" + overviewObj.parentId + "'></div>";
 
     // Build the box and append it to the page
-    var html_builder = "<div  class='col-xs-12 " + overviewObj.html_class + " less-padding-col'> <div class='chartBox box' >" +
+    var html_builder = "<div  class='col-xs-12 " + overviewObj.html_class + " less-padding-col overview-box'> <div class='chartBox box' >" +
         "<div class = 'chartBox__heading' > <p id = '#box_heading'>" + i18n.gettext(overviewObj.title) + "</p> </div>" +
         "<div class = 'chartBox__content' > " + html_base +
         " </div> </div> </div>";
