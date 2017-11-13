@@ -223,8 +223,10 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
 function prep_row_indicator(contentsObj, parentId, locID) {
 
     if (isUserAthorized(contentsObj.access) === true) {
+
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         var unique_id = generateGUID();
+        var prep_details = contentsObj.prep_details || {};
 
         // Draw where the indicator data should be.
         // Drawing before AJAX forces the indicator order to match the config.
@@ -234,7 +236,6 @@ function prep_row_indicator(contentsObj, parentId, locID) {
             "<td class='value'></td>" + "<td class='sparkline' " +
             "onClick=showIndicatorChart(\'" + apiUrl.toString() + "~" +
             contentsObj.label + '\')" /> </tr>';
-
         $("#" + parentId).append(html);
 
         // Get the indicator data and insert into the html.
@@ -243,10 +244,24 @@ function prep_row_indicator(contentsObj, parentId, locID) {
             var timeline = Object.keys(data.timeline).sort().map(function(time){
                 return data.timeline[time];
             });
-            $("#" + unique_id + ' .value').append(
-                data.current.toFixed(2) + "% <br/> (" +
-                data.cummulative.toFixed(2) + "% year )"
-            );
+            // The prep details object should include a param "value_type".
+            // This should determine if the indicator is a number of a percent.
+            var value_string = "";
+            switch(prep_details.value_type || 'percent'){
+                case 'number':
+                    value_string = data.current.toFixed(2) + " week<br/>" +
+                                   data.cummulative.toFixed(2) + " year";
+                    break;
+                case 'percent':
+                    value_string = data.current.toFixed(2) + " % week<br/>" +
+                                   data.cummulative.toFixed(2) + " % year";
+                    break;
+                default:
+                    value_string = data.current.toFixed(2) + " % week<br/>" +
+                                   data.cummulative.toFixed(2) + " % year";
+            }
+            // Draw the indicator content.
+            $("#" + unique_id + ' .value').append(value_string);
             $("#" + unique_id + ' .sparkline').attr(
                 'data-sparkline',
                 timeline.join(", ")
