@@ -18,11 +18,11 @@ function html_box_builder(overviewObj, locID) {
     // But default to a DIV table format.
     var html_base = overviewObj.html_base || "<div class='row' id ='" + overviewObj.parentId + "'></div>";
 
-	html_base = html_base.replace(/<th>([\s\S]*?)<\/th>/g, 
-								  function(match, label) {
-									  return "<th>" + i18n.gettext(label) +"</th>";
-								  });
-
+    html_base = html_base.replace(/<th>([\s\S]*?)<\/th>/g,
+                                  function(match, label) {
+								      return "<th>" + i18n.gettext(label) +"</th>";
+                                 });
+	
 	
     // Build the box and append it to the page
     var html_builder = "<div  class='col-xs-12 " + overviewObj.html_class + " less-padding-col overview-box'> <div class='chartBox box' >" +
