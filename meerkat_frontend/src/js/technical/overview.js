@@ -18,6 +18,12 @@ function html_box_builder(overviewObj, locID) {
     // But default to a DIV table format.
     var html_base = overviewObj.html_base || "<div class='row' id ='" + overviewObj.parentId + "'></div>";
 
+	html_base = html_base.replace(/<th>([\s\S]*?)<\/th>/g, 
+								  function(match, label) {
+									  return "<th>" + i18n.gettext(label) +"</th>";
+								  });
+
+	
     // Build the box and append it to the page
     var html_builder = "<div  class='col-xs-12 " + overviewObj.html_class + " less-padding-col overview-box'> <div class='chartBox box' >" +
         "<div class = 'chartBox__heading' > <p id = '#box_heading'>" + i18n.gettext(overviewObj.title) + "</p> </div>" +
@@ -223,18 +229,19 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
 function prep_row_indicator(contentsObj, parentId, locID) {
 
     if (isUserAthorized(contentsObj.access) === true) {
+
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         var unique_id = generateGUID();
+        var prep_details = contentsObj.prep_details || {};
 
         // Draw where the indicator data should be.
         // Drawing before AJAX forces the indicator order to match the config.
         var html = '<tr style="cursor:pointer" onClick="showIndicatorChart(\'' +
             apiUrl.toString() + "~" + contentsObj.label + '\')" id="' +
-            unique_id + '" >' + "<th> " + contentsObj.label + "</th>" +
+            unique_id + '" >' + "<th> " + i18n.gettext(contentsObj.label) + "</th>" +
             "<td class='value'></td>" + "<td class='sparkline' " +
             "onClick=showIndicatorChart(\'" + apiUrl.toString() + "~" +
             contentsObj.label + '\')" /> </tr>';
-
         $("#" + parentId).append(html);
 
         // Get the indicator data and insert into the html.
@@ -243,10 +250,24 @@ function prep_row_indicator(contentsObj, parentId, locID) {
             var timeline = Object.keys(data.timeline).sort().map(function(time){
                 return data.timeline[time];
             });
-            $("#" + unique_id + ' .value').append(
-                data.current.toFixed(0) + "% <br/> (" +
-                data.cummulative.toFixed(0) + "% )"
-            );
+            // The prep details object should include a param "value_type".
+            // This should determine if the indicator is a number of a percent.
+            var value_string = "";
+            switch(prep_details.value_type || 'percent'){
+                case 'number':
+                value_string = data.current.toFixed(0) + " " + i18n.gettext("week") + "<br/>" +
+                                   data.cummulative.toFixed(0) + " " + i18n.gettext("year");
+                    break;
+                case 'percent':
+                    value_string = data.current.toFixed(0) + " % " + i18n.gettext("week") + "<br/>" +
+                                   data.cummulative.toFixed(0) + " % "+ i18n.gettext("year");
+                    break;
+                default:
+                    value_string = data.current.toFixed(0) + " % " + i18n.gettext("week") + "<br/>" +
+                                   data.cummulative.toFixed(0) + " % "+ i18n.gettext("year");
+            }
+            // Draw the indicator content.
+            $("#" + unique_id + ' .value').append(value_string);
             $("#" + unique_id + ' .sparkline').attr(
                 'data-sparkline',
                 timeline.join(", ")
@@ -375,7 +396,7 @@ function drawIndicatorChart() {
                             x: point.plotX - w / 2,
                             y: point.plotY - h
                         };
-                    },
+                    }
                 },
                 plotOptions: {
                     series: {
@@ -465,7 +486,7 @@ function drawIndicatorChart() {
     }
 }
 
-//This Methos will take the needed inforemation to build the chart and view it in Model ...
+//This Method will take the needed inforemation to build the chart and view it in Model ...
 function showIndicatorChart(chartInfo) {
 
     chartInfo = chartInfo.split("~");
@@ -527,7 +548,7 @@ function showIndicatorChart(chartInfo) {
                 }
             },
             series: [{
-                name: chartInfo[1],
+                name: i18n.gettext(chartInfo[1]),
                 data: indicatorChartValues
             }]
         });
