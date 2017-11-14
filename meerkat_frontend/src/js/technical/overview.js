@@ -3,27 +3,29 @@
 
 // This will be the main function for the over viewpage...
 function build_overview_page(locID) {
-    //Read the Overview page structure ...
+    // Get the overview page structure from the frontend configs "x_technical.json"
     var overview_list = config.overview;
-
+    // Remove pre-existing content and draw the new content.
+    $('#divOverviewContent .overview-box').remove();
     $.each(overview_list, function(index, value) {
         html_box_builder(value, locID);
     });
-
-    //Clear the counter for the indicator html..
-    indicatorCounter = 0;
-    indicatorTableArr = [];
 }
 
 
 function html_box_builder(overviewObj, locID) {
-
     // Allow a different html base to be specified in configs.
     // But default to a DIV table format.
-    var html_base = overviewObj.html_base || "<div class='divTable'><div id ='" + overviewObj.parentId + "'  class='divTableBody' ></div> </div>";
+    var html_base = overviewObj.html_base || "<div class='row' id ='" + overviewObj.parentId + "'></div>";
 
+    html_base = html_base.replace(/<th>([\s\S]*?)<\/th>/g,
+                                  function(match, label) {
+								      return "<th>" + i18n.gettext(label) +"</th>";
+                                 });
+	
+	
     // Build the box and append it to the page
-    var html_builder = "<div  class='col-xs-12 " + overviewObj.html_class + " less-padding-col'> <div class='chartBox box' >" +
+    var html_builder = "<div  class='col-xs-12 " + overviewObj.html_class + " less-padding-col overview-box'> <div class='chartBox box' >" +
         "<div class = 'chartBox__heading' > <p id = '#box_heading'>" + i18n.gettext(overviewObj.title) + "</p> </div>" +
         "<div class = 'chartBox__content' > " + html_base +
         " </div> </div> </div>";
@@ -47,12 +49,12 @@ function prep_row(contentsObj, parentId, locID) {
         }
 
         //Generate a GUID ...
-        var api_element = generateGUID();
+        var elementID = generateGUID();
 
         //Append the results ...
-        var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell' style='font-weight: bold;'> " + i18n.gettext(contentsObj.label) + "</div>" +
-            "<div class='divTableCell " + api_element + "'> " + i18n.gettext("Loading") + "..</div>" +
+        var htmlRow = "<div class='row'>" +
+            "<div class='col-xs-8 row-label'> " + i18n.gettext(contentsObj.label) + "</div>" +
+            "<div class='col-xs-4 row-value " + elementID + "'> " + i18n.gettext("Loading") + "...</div>" +
             "</div>";
 
         $("#" + parentId).append(htmlRow);
@@ -61,9 +63,9 @@ function prep_row(contentsObj, parentId, locID) {
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         $.getJSON(api_root + apiUrl, function(data) {
             if (ovPeriodType == "weeks") {
-                $('#' + parentId + ' .' + api_element).html(if_exists(data[ovPeriodType], week));
+                $('#' + parentId + ' .' + elementID).html(if_exists(data[ovPeriodType], week));
             } else {
-                $('#' + parentId + ' .' + api_element).html(data[ovPeriodType]);
+                $('#' + parentId + ' .' + elementID).html(data[ovPeriodType]);
             }
 
         });
@@ -75,17 +77,13 @@ function prep_row(contentsObj, parentId, locID) {
 function prep_row_draw_top(contentsObj, parentId, locID) {
     if (isUserAthorized(contentsObj.access) === true) {
 
-        //Generate a GUID ...
-        var api_element = generateGUID();
+        // This GUID is used to identify the html DOM element after the API call
+        // We draw the element before starting AJAX, and insert the data afterwards.
+        var elementID = generateGUID();
 
-        //Append the results ...
-        var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell' style='font-weight: bold;'> " + i18n.gettext(contentsObj.label) + "</div>" +
-            "</div>" +
-            "<div class='divTableRow'>" +
-            "<div class = 'container' > <ul  id = '" + api_element + "' > </ul></div >" +
-            "</div>";
-
+        var htmlRow = "<div class='row'>" + "<div class='col-xs-12 row-label'> " +
+            i18n.gettext(contentsObj.label) + "</div></div>" +
+            "<div class='row'><div id = '" + elementID + "' > </div></div >";
 
         $("#" + parentId).append(htmlRow);
 
@@ -100,8 +98,6 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
             var arrIndex = [];
             var arrFinal = [];
             var arrFinalVal = [];
-
-
 
             //Save the Data into arrays so it will be easy to work with ...
             $.each(data, function(index, value) {
@@ -140,21 +136,16 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
                 $.each(arrFinal, function(index, value) {
 
                     if (detailData[value] !== undefined) {
-                        //  $('#' + api_element).append("<li>" + detailData[value].name  +"</li>");
-
-                        $('#' + api_element).append("<li>" + "<label style='width: 300px;font-weight: normal !important;'>" + i18n.gettext(detailData[value].name) + "</label>" +
-                            "<label style='font-weight: normal !important;' >" + arrFinalVal[count] + "  Cases </label>" + "</li>");
-
+                        $('#' + elementID).append(
+                            "<div><span class='col-xs-7 col-xs-offset-1'>" +
+                            i18n.gettext(detailData[value].name) +
+                            "</span><span class='col-xs-4'>" + arrFinalVal[count] +
+                            "  Cases </label>" + "</div>");
                         count = count + 1;
-
                     }
-
                 });
-
             });
-
         });
-
     }
 }
 
@@ -163,16 +154,14 @@ function prep_row_draw_top(contentsObj, parentId, locID) {
 function prep_row_draw_Last3(contentsObj, parentId, locID) {
     if (isUserAthorized(contentsObj.access) === true) {
 
-        //Generate a GUID ...
-        var api_element = generateGUID();
+        // This GUID is used to identify the html DOM element after the API call
+        // We draw the element before starting AJAX, and insert the data afterwards.
+        var elementID = generateGUID();
 
-        //Append the results ...
-        var htmlRow = "<div class='divTableRow'>" +
-            "<div class='divTableCell' style='font-weight: bold;'> " + i18n.gettext(contentsObj.label) + "</div>" +
+        var htmlRow = "<div class='row'>" +
+            "<div class='col-xs-12 row-label'> " + i18n.gettext(contentsObj.label) + "</div>" +
             "</div>" +
-            "<div class='divTableRow'>" +
-            "<div class = 'container' > <ul  id = '" + api_element + "' > </ul></div >" +
-            "</div>";
+            "<div class='row'><div id = '" + elementID + "' > </div></div >";
 
         $("#" + parentId).append(htmlRow);
 
@@ -211,12 +200,15 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
             $.each(arrFinal, function(index, value) {
                 var detailApiUrl = "/variable/" + value;
 
-
                 //Call Other API to get the details for each value in the arrFInal Array ...
                 $.getJSON(api_root + detailApiUrl, function(detailData) {
 
-                    $('#' + api_element).append("<li>" + "<label style='width: 300px;font-weight: normal !important;'>" + i18n.gettext(detailData.name) + "</label>" +
-                        "<label style='font-weight: normal !important;' >" + ovDateFormate(arrFinalDate[alertCounter]) + " </label>" + "</li>");
+                    $('#' + elementID).append(
+                        "<div><span class='col-xs-7 col-xs-offset-1'>" +
+                        i18n.gettext(detailData.name) +
+                        "</span><span class='col-xs-4'>" +
+                        ovDateFormate(arrFinalDate[alertCounter]) +
+                        "</label></div>");
 
                     alertCounter = alertCounter + 1;
 
@@ -235,25 +227,54 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
    frontend config file.  This function helps build the overview page and is
    called from the end of the html box_builder function.  */
 function prep_row_indicator(contentsObj, parentId, locID) {
+
     if (isUserAthorized(contentsObj.access) === true) {
+
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
+        var unique_id = generateGUID();
+        var prep_details = contentsObj.prep_details || {};
+
+        // Draw where the indicator data should be.
+        // Drawing before AJAX forces the indicator order to match the config.
+        var html = '<tr style="cursor:pointer" onClick="showIndicatorChart(\'' +
+            apiUrl.toString() + "~" + contentsObj.label + '\')" id="' +
+            unique_id + '" >' + "<th> " + i18n.gettext(contentsObj.label) + "</th>" +
+            "<td class='value'></td>" + "<td class='sparkline' " +
+            "onClick=showIndicatorChart(\'" + apiUrl.toString() + "~" +
+            contentsObj.label + '\')" /> </tr>';
+        $("#" + parentId).append(html);
+
+        // Get the indicator data and insert into the html.
         $.getJSON(api_root + apiUrl, function(data) {
             // Create an ordered list of values from JSON object timeline.
             var timeline = Object.keys(data.timeline).sort().map(function(time){
                 return data.timeline[time];
             });
-
-            // Draw the indicator data.
-            var html = '<tr style="cursor:pointer" onClick="showIndicatorChart(\'' +
-                apiUrl.toString() + "~" + contentsObj.label + '\')" >' +
-                "<th> " + contentsObj.label + "</th>" + "<td>" +
-                data.current.toFixed(2) + "% (" + data.cummulative.toFixed(2) +
-                "% year )" + "</td>" + "<td data-sparkline = '" +
-                timeline.join(", ") + "'" + 'onClick="showIndicatorChart(\'' +
-                apiUrl.toString() + "~" + contentsObj.label + '\')" /> </tr>';
-            $("#" + parentId).append(html);
+            // The prep details object should include a param "value_type".
+            // This should determine if the indicator is a number of a percent.
+            var value_string = "";
+            switch(prep_details.value_type || 'percent'){
+                case 'number':
+                value_string = data.current.toFixed(0) + " " + i18n.gettext("week") + "<br/>" +
+                                   data.cummulative.toFixed(0) + " " + i18n.gettext("year");
+                    break;
+                case 'percent':
+                    value_string = data.current.toFixed(0) + " % " + i18n.gettext("week") + "<br/>" +
+                                   data.cummulative.toFixed(0) + " % "+ i18n.gettext("year");
+                    break;
+                default:
+                    value_string = data.current.toFixed(0) + " % " + i18n.gettext("week") + "<br/>" +
+                                   data.cummulative.toFixed(0) + " % "+ i18n.gettext("year");
+            }
+            // Draw the indicator content.
+            $("#" + unique_id + ' .value').append(value_string);
+            $("#" + unique_id + ' .sparkline').attr(
+                'data-sparkline',
+                timeline.join(", ")
+            );
             drawIndicatorChart();
         });
+
     }
 }
 
@@ -375,7 +396,7 @@ function drawIndicatorChart() {
                             x: point.plotX - w / 2,
                             y: point.plotY - h
                         };
-                    },
+                    }
                 },
                 plotOptions: {
                     series: {
@@ -465,7 +486,7 @@ function drawIndicatorChart() {
     }
 }
 
-//This Methos will take the needed inforemation to build the chart and view it in Model ...
+//This Method will take the needed inforemation to build the chart and view it in Model ...
 function showIndicatorChart(chartInfo) {
 
     chartInfo = chartInfo.split("~");
@@ -527,7 +548,7 @@ function showIndicatorChart(chartInfo) {
                 }
             },
             series: [{
-                name: chartInfo[1],
+                name: i18n.gettext(chartInfo[1]),
                 data: indicatorChartValues
             }]
         });
