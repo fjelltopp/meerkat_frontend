@@ -32,7 +32,7 @@
     "leaflet.markercluster": "~1.0.3",
     "leaflet.awesome-markers": "^2.0.2",
     "mapbox.js": "~3.0.1",
-    "tableExport.jquery.plugin": "~1.5.0",
+    "tableExport.jquery.plugin": "~1.9.6",
     "raven-js": "~3.12.0",
     "bootstrap-datepicker": "~1.7.0",
     "throbber.js": "~0.0.2"
@@ -64,6 +64,7 @@
     }
   },
   "resolutions": {
-    "tableExport.jquery.plugin": "~1.6.8"
+    "tableExport.jquery.plugin": "~1.6.8",
+    "jspdf": "1.1.239 || 1.3.2"
   }
 }
