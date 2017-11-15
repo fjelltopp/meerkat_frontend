@@ -3,7 +3,7 @@
 
 
 {% macro format_percent(input) %}
-  {{ input.Y }} ({{ (input.Y / input.N * 100 )|int if denom > 0 else "N/A"}} %)
+  {{ input.Y }} ({{ (input.Y / input.N * 100 )|int if input.N > 0 else "N/A"}} %)
 
 {%- endmacro %}
 
@@ -27,7 +27,7 @@
 
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
     <span class="hidden-xs">{{_(report.data.project_region|e)}} &middot;</span>
-	{{ _('Nutrition Quality and Outcomes Monitoring') }}    <br /> 
+	{{ _('Nutrition Quality and Outcomes Monitoring') }}    <br />
 	<span class="report-week">Facility-based survey of nutrition stabilisation centres</span>
 	<span class="report-week"><br />
 
@@ -46,7 +46,7 @@
 				</table>
 			</div>
 		</div>
-		
+
      <div class="chart-wrapper caseload">
 	 <div class="chart-title clearfix">{{_('Caseload')}}</div>
          <div class="chart-explanation">All numbers recorded for the week preceding time of facility survey </div>
@@ -63,9 +63,9 @@
              <div class="chart-explanation">* Calculated as percentage of discharges</div>
 	 </div>
      </div>
-     
 
-   
+
+
      <div class="chart-wrapper laboratory">
          <div class="chart-title">{{_('Supplies')}}</div>
          <div class="chart-explanation">Availability at the time of facility survey</div>
@@ -121,7 +121,7 @@
              </table>
          </div>
      </div>
-     
+
      <div class="chart-wrapper infection-prevention">
          <div class="chart-title">{{_('Community')}}</div>
          <div class="chart-explanation">Availability at the time of facility survey</div>
@@ -147,7 +147,7 @@
       </div>
   </div>
 
-  
+
 </div> -->
 <div class="row">
 	<div class="col-sm-6">
@@ -243,12 +243,12 @@
               <tr> <td> {{_('Does the facility have a kitchen where milk preparation is separate from the general kitchen?')}}  </td> <td>{{ yesnodk[dat.get("sc_kitchen_value", "blank")]}} </td></tr>
               <tr> <td> {{_('Recreation area with toys')}}  </td> <td> {{ yesnodk[sc.latest_data.get("sc_toys_value", "blank")]}}</td></tr>
               <tr> <td> {{_('Is there an available source for clean drinking water?')}}  </td> <td>{{ yesnodk[dat.get("sc_water_value", "blank")]}} </td></tr>
-              
+
 	     </table>
 	 </div>
      </div>
-     
-   
+
+
      <div class="chart-wrapper case-management">
          <div class="chart-title">{{_('Case Management')}}</div>
          <div class="chart-stage">
@@ -393,15 +393,15 @@
      i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
 
      var dis_data = {{extras.dis_data|safe}};
-     
-     
+
+
      regional_map(
 	 {{report.data.nutrition_map|safe}},
 	 {{extras.map_centre}},
 	 dis_data,
 	 'nutrition-map'
      );
-     
+
      ctc_surveyed_clinics_map(
          {{report.data.surveyed_clinics_map.surveyed|safe}},
          {{report.data.surveyed_clinics_map.non_surveyed|safe}},
@@ -410,13 +410,13 @@
 		 undefined,
          "SC"
      );
-     
+
      {% for sc in report.clinic_data %}
      {% if sc.status == "Surveyed" %}
      ctc_point_map({{sc.gps|safe}}, "map-{{sc.name|slugify}}", {{extras.map_centre}})
- 	 
+
      {% endif %}
-     
+
      {% endfor %}
 
 
