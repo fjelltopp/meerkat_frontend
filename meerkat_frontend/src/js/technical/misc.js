@@ -570,13 +570,14 @@ function exportTableToCSV(tableID, filename, link) {
 function exportTableToXLS(tableID, filename) {
     //Get all the Percentage values that are inside the "table-percent" class ...
     var oldValueArray = [];
-    var chartPercentageList = document.getElementById(tableID).getElementsByClassName("table-percent");
+    var chartPercentageList = $('#'+tableID + ' .table-percent');
 
-    //Save the percentage values into array and remove it so we can generate Exele file without percentage ...
-    for (var i = 0; i <= chartPercentageList.length - 1; i++) {
-        oldValueArray.push(chartPercentageList[i].innerHTML);
-        chartPercentageList[i].innerHTML = "";
-    }
+    chartPercentageList.each(
+        function(index, element){
+            oldValueArray.push($(element).html());
+            $(element).html("");
+        }
+    );
 
     //Call the generate xls ...
     $('#' + tableID + ' table').tableExport({
@@ -585,9 +586,9 @@ function exportTableToXLS(tableID, filename) {
     });
 
     //Return the percentage values to the HTML design ...
-    for (var j = 0; j <= chartPercentageList.length - 1; j++) {
-        chartPercentageList[j].innerHTML = oldValueArray[j];
-    }
+    chartPercentageList.each(
+        function(index, element){$(element).html(oldValueArray[index]);}
+    );
 
     return false;
 }
