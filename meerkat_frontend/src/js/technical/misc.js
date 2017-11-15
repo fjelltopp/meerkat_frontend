@@ -587,7 +587,9 @@ function exportTableToXLS(tableID, filename) {
 
     //Return the percentage values to the HTML design ...
     chartPercentageList.each(
-        function(index, element){$(element).html(oldValueArray[index]);}
+        function(index, element){
+            $(element).html(oldValueArray[index]);
+        }
     );
 
     return false;

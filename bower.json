@@ -47,6 +47,9 @@
     "leaflet-omnivore": {
       "main": "leaflet-omnivore.js"
     },
+    "tableExport.jquery.plugin": {
+      "main": "tableExport.min.js"
+    },
     "mapbox.js": {
       "main": [
         "mapbox.css",
