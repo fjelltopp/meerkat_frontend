@@ -52,7 +52,7 @@ SHARED_CONFIG = {
         "email": "nullisland@moh.int"
     },
     "main_menu": [{
-        "text": "Dashboard",
+        "text": "Epidemiology",
         "url": "/technical/",
     }, {
         "text": "Reports",
@@ -61,7 +61,7 @@ SHARED_CONFIG = {
         "text": "Notifications",
         "url": "/messaging/",
     }, {
-        "text": "Explore",
+        "text": "Tables",
         "url": "/explore/",
     }, {
         "text": "Download",
