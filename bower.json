@@ -61,8 +61,8 @@
       "main": [
         "highcharts.js",
         "highcharts-more.js",
-        "/modules/treemap.js",
-        "/modules/broken-axis.js"
+        "modules/treemap.js",
+        "modules/broken-axis.js"
       ]
     }
   },
