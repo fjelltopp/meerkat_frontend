@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.1
+version: v1.8.0
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -30,3 +30,19 @@ patch:
         patched: '2017-10-24T09:41:08.552Z'
     - gulp-add-src > vinyl-fs > glob-stream > minimatch:
         patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-11-22T14:59:58.436Z'
+    - gulp-add-src > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-11-22T14:59:58.436Z'
+    - gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-11-22T14:59:58.436Z'
+    - gulp-add-src > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-11-22T14:59:58.436Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-11-22T14:59:58.436Z'
+    - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-11-22T14:59:58.436Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-11-22T14:59:58.436Z'
+    - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-11-22T14:59:58.436Z'
