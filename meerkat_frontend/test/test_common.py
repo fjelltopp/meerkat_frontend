@@ -59,7 +59,6 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
         """ Test the api function in common.py"""
         mk.app.config["TESTING"] = False
         mk.app.config["INTERNAL_API_ROOT"] = "http://test/"
-        mk.app.config["TECHNICAL_CONFIG"]["api_key"] = "test-api"
         with mk.app.test_request_context("/"):
             data = {"value": 54}
             request_return = mock.MagicMock()
@@ -68,8 +67,12 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             mock_requests.return_value = request_return
             ret = mk.common.api("key_indicators")
             self.assertTrue(mock_requests.called)
-            mock_requests.assert_called_with("http://test/key_indicators",
-                                             params=None)
+            mock_requests.assert_called_with(
+                "http://test/key_indicators",
+                headers={'Authorization': 'Bearer ',
+                         'content-type': 'application/json'},
+                params=None
+            )
             self.assertEqual(ret, data)
 
             mk.common.api(
@@ -79,6 +82,8 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             self.assertTrue(mock_requests.called)
             mock_requests.assert_called_with(
                 "http://test/variables/category/category2",
+                headers={'Authorization': 'Bearer ',
+                         'content-type': 'application/json'},
                 params={"test": "test2"}
             )
             # Check that abort(500) is called in a request error
@@ -94,7 +99,6 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
     @mock.patch("meerkat_frontend.common.requests.request")
     def test_hermes(self, mock_requests):
         """ Test the Heremes function in common """
-        mk.app.config["HERMES_API_KEY"] = "hermes-key"
         mk.app.config["HERMES_ROOT"] = "http://test"
         header = {
             'content-type': 'application/json',
@@ -154,6 +158,8 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             self.assertEqual(date, datetime(2015, 1, 8))
             mock_requests.assert_called_with(
                 "http://test/epi_week_start/2015/10",
+                headers={'Authorization': 'Bearer ',
+                         'content-type': 'application/json'},
                 params=None
             )
 
@@ -172,5 +178,7 @@ class MeerkatFrontendCommonTestCase(unittest.TestCase):
             self.assertEqual(epi_week, 10)
             mock_requests.assert_called_with(
                 "http://test/epi_week/{}".format(date.isoformat()),
+                headers={'Authorization': 'Bearer ',
+                         'content-type': 'application/json'},
                 params=None
             )

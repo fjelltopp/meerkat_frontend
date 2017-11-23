@@ -15,8 +15,6 @@ from .. import common as c
 messaging = Blueprint('messaging', __name__)
 
 
-# THE SUBSCRIBING PROCESS
-# Stage1: Fill out a subscription form.
 @messaging.route('/')
 @messaging.route('/loc_<int:locID>')
 @auth.authorise(*app.config['AUTH'].get('messaging', [['BROKEN'], ['']]))
@@ -38,8 +36,6 @@ def subscribe(locID=None):
                            week=c.api('/epi_week'))
 
 
-# Stage 2: Confirm subscription request and inform user of verification
-# process.
 @messaging.route('/subscribe/subscribed', methods=['POST'])
 @auth.authorise(*app.config['AUTH'].get('messaging', [['BROKEN'], ['']]))
 def subscribed():
@@ -115,7 +111,6 @@ def subscribed():
                            data=data)
 
 
-# Stage 3: Verify contact details.
 @messaging.route('/subscribe/verify/<string:subscriber_id>')
 def verify(subscriber_id):
     """
@@ -157,7 +152,6 @@ def verify(subscriber_id):
                                data=subscriber['Item'])
 
 
-# Stage 4: Confirm details have been verified.
 @messaging.route('/subscribe/verified/<string:subscriber_id>')
 def verified(subscriber_id):
     """
@@ -233,7 +227,6 @@ def verified(subscriber_id):
                            week=c.api('/epi_week'))
 
 
-# Choose, set and check SMS verification codes.
 @messaging.route('/subscribe/sms_code/<string:subscriber_id>',
                  methods=['get', 'post'])
 def sms_code(subscriber_id):
@@ -253,8 +246,7 @@ def sms_code(subscriber_id):
             creation by Meerkat Hermes.
     """
 
-    current_app.logger.warning("Method is: " + request.method)
-
+    # If a POST request is made we check the given verification code.
     if request.method == 'POST':
         if __check_code(subscriber_id, request.form['code']):
             libs.hermes('/verify/' + subscriber_id, 'GET')
@@ -270,22 +262,13 @@ def sms_code(subscriber_id):
                 "/messaging/subscribe/verify/" + subscriber_id,
                 code=302
             )
+
+    # If a GET request is made we send a new code.
     else:
         subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
         response = __set_code(subscriber_id, subscriber['Item']['sms'])
 
-        # Check that the new code was succesfully sent.
-        success = True
-        for r in response['messages']:
-            current_app.logger.warning(
-                "Status: " + str(r['status']) + "\nStatement: " +
-                str(not r['status'] == '0')
-            )
-            if not r['status'] == '0':
-                success = False
-                current_app.logger.warning("Success: " + str(success))
-
-        if success is True:
+        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
             flash(gettext('A new code has been sent to your phone.'))
             return redirect(
                 "/" + g.get("language") +
@@ -293,6 +276,9 @@ def sms_code(subscriber_id):
                 code=302
             )
         else:
+            current_app.logger.error(
+                "Request to send SMS failed. Response:\n{}".format(response)
+            )
             flash(
                 gettext('Error: Try again later, or contact administrator.'),
                 'error'
@@ -304,7 +290,6 @@ def sms_code(subscriber_id):
             )
 
 
-# Utility function to check a code
 def __check_code(subscriber_id, code):
     """
     Checks if the given code for the given subscriber ID is the correct SMS
@@ -320,12 +305,11 @@ def __check_code(subscriber_id, code):
 
     """
     response = libs.hermes('/verify', 'POST',
-                        {'subscriber_id': subscriber_id, 'code': code})
+                           {'subscriber_id': subscriber_id, 'code': code})
     current_app.logger.warning(str(response))
     return bool(response['matched'])
 
 
-# Utility function to set a new sms code.
 def __set_code(subscriber_id, sms):
     """
     Sets a new sms verification code for the given subscriber ID.
@@ -348,13 +332,9 @@ def __set_code(subscriber_id, sms):
         country=current_app.config['MESSAGING_CONFIG']['messages']['country'],
         code=code
     )
-    data = {
-        'sms': sms,
-        'message': message
-    }
-
+    data = {'sms': sms, 'message': message}
     response = libs.hermes('/verify', 'PUT',
-                        {'subscriber_id': subscriber_id, 'code': code})
+                           {'subscriber_id': subscriber_id, 'code': code})
     response = libs.hermes('/sms', 'PUT', data)
 
     return response

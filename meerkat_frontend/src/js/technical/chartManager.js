@@ -276,6 +276,15 @@ function drawTimeChart( varID, locID, containerID, alert_week, year){
 
 
   $.getJSON( url, function(data){
+  //ToDO:
+  if(data.year === 0){
+    $("#time-chart-whiteBox").css("display", "none");
+      whiteboxCounter = whiteboxCounter + 1;
+      if (whiteboxCounter == 3){
+        $('#emtyData-whiteBox').css("display", "block");
+      }
+    }
+
 	  drawTimeChartData(data, containerID, alert_week);
   });
 

@@ -6,7 +6,6 @@
         "nav": "<b>Null Island </b> &middot; Public Health Surveillance",
         "mob_nav": "Health Surveillance"
     },
-    "api_key": "test-api",
     "map": {
         "center": {
             "lng": "0",
@@ -16,11 +15,11 @@
     },
 
     "map_options": {
-        "options": {
-            "cmd_1": "Cholera",
-            "cmd_27": "Mealses",
-            "tot_1": "All cases"
-        },
+        "options": [
+            {"id": "cmd_1", "name": "Cholera"},
+            {"id": "cmd_27","name":"Mealses"},
+            {"id": "tot_1","name": "All cases"}
+        ],
         "types": ["incidence_clinic", "incidence_district", "incidence_region", "cases_clinic", "cases_district", "cases_region"]
 
     },
@@ -51,10 +50,7 @@
     "tabs":[{
             "name": "Overview",
             "template": "overview.html"
-        },{
-            "name":"Analysis",
-            "template":"indicators.html"
-        },{
+    },{
             "name":"Demographics",
             "template":"demographics.html"
         },{
@@ -176,7 +172,8 @@
         {
             "title": "Indicators",
             "html_class": "col-md-6",
-            "parentId": "OvIndicators",
+            "parentId": "tbody-sparkline",
+            "html_base": "<table id='table-sparkline' style='width:100%'><thead><tr><th>Indicator name</th><th>Cumulative</th><th>Indicator chart</th></tr></thead><tbody id='tbody-sparkline'></tbody></table>",
             "contents": [
                 {
                     "api": "/indicators/n,d,m/gen_1,tot_1,100/<loc_id>",

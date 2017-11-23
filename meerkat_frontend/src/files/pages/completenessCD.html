@@ -127,23 +127,21 @@ function drawCharts( locID ){
 }
 
  function reDraw(){
-	 completenessPreparation(
-         currentLocation,
-         'reg_10',
-         config.completeness_denominator.cd,
-         'completeness-graph',
-         'completeness-table',
-         'missing-completeness-table',
-         '#box_3_heading',
-         'all-clinics-table',
-         1,
-         "mental",
-         config.weekend,
-         '#compare_button',
-         52,
-         undefined,
-         $('.tabs .active a').attr('location_filter')
-     );
+	 completenessPreparation({
+         "locID": currentLocation,
+         "reg_id": "reg_10",
+         "denominator": config.completeness_denominator.cd,
+         "graphID": "completeness-graph",
+         "tableID": "completeness-table",
+         "nonreportingtableID": "missing-completeness-table",
+         "nonreportingTitle": "#box_3_heading",
+         "allclinicstableID": "all-clinics-table",
+         "start_week": 1,
+         "weekend": config.weekend,
+         "compare_locations": "#compare_button",
+         "x_axis_max": 52,
+         "filter_string": $('.tabs .active a').attr('location_filter')
+     });
 
  }
 

@@ -1,3 +1,50 @@
+/** :stopThrobber()
+
+    Stop the throbber from appearing in the front end.
+*/
+function stopThrobber() {
+    throb.stop();
+    $('.spinnerModal').removeClass("loading");
+    $("body").css('overflow', 'scroll');
+}
+
+
+/** :startThrobber()
+
+    Start the throbber appearing in the frontend.
+*/
+function startThrobber(){
+    $('#divSpinner').empty();
+    throb = Throbber({
+        color: 'black',
+        padding: 30,
+        size: 80,
+        fade: 200,
+        clockwise: true
+    }).appendTo( document.getElementById( 'divSpinner' ) ).start();
+    $("body").css('overflow', 'hidden');  // No scrolling.
+    $('.spinnerModal').addClass("loading");  // Disables the screen
+    $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
+}
+
+
+/** :addThrobber()
+
+    This function shows a throbber whilst AJAX requests are still completing in
+    the page. At the moment we require AJAX to complete syncronously - this is
+    a limitation. A single throbber obstructing the whole page is thrown up
+    whilst any AJAX request is completing.
+
+    TODO: It would be nice to only obstruct access to parts of the site
+    dependant upon uncompleted AJAX requests i.e. use the power of AJAX
+    asyncrocity. This should be built into a Javascript review.
+*/
+function addThrobber(){
+    $(document).on({
+        ajaxStart: function() {startThrobber();},
+        ajaxStop: function() {stopThrobber();}
+    });
+}
 /**:get_epi_week()
 
     Returns the current epi week. This value was initially calulated client-side, but now simply
@@ -523,13 +570,14 @@ function exportTableToCSV(tableID, filename, link) {
 function exportTableToXLS(tableID, filename) {
     //Get all the Percentage values that are inside the "table-percent" class ...
     var oldValueArray = [];
-    var chartPercentageList = document.getElementById(tableID).getElementsByClassName("table-percent");
+    var chartPercentageList = $('#'+tableID + ' .table-percent');
 
-    //Save the percentage values into array and remove it so we can generate Exele file without percentage ...
-    for (var i = 0; i <= chartPercentageList.length - 1; i++) {
-        oldValueArray.push(chartPercentageList[i].innerHTML);
-        chartPercentageList[i].innerHTML = "";
-    }
+    chartPercentageList.each(
+        function(index, element){
+            oldValueArray.push($(element).html());
+            $(element).html("");
+        }
+    );
 
     //Call the generate xls ...
     $('#' + tableID + ' table').tableExport({
@@ -538,9 +586,11 @@ function exportTableToXLS(tableID, filename) {
     });
 
     //Return the percentage values to the HTML design ...
-    for (var j = 0; j <= chartPercentageList.length - 1; j++) {
-        chartPercentageList[j].innerHTML = oldValueArray[j];
-    }
+    chartPercentageList.each(
+        function(index, element){
+            $(element).html(oldValueArray[index]);
+        }
+    );
 
     return false;
 }
@@ -641,6 +691,7 @@ function stripEmptyRecords(dataObject) {
    AJAX calls for tables and charts.
 
    Arguments:
+   Takes a JSON object with the following possible properties.
    :param string locID:
    The ID of the location for which completeness shall be calculated.
    :param string reg_id:
@@ -667,39 +718,43 @@ function stripEmptyRecords(dataObject) {
    Show lines to compare locations for completeness graph
    */
 
-function completenessPreparation( locID, reg_id, denominator, graphID, tableID, nonreportingtableID, nonreportingTitle, allclinisctableID, start_week, exclude, weekend, compare_locations, x_axis_max, matrixID, filter_string){
+   function completenessPreparation(opts){
 
+       var completenessLocations;
+       var completenessData;
+       var matrixCompletenessData;
+       if( opts.start_week === undefined) opts.start_week = 1;
+       if( opts.filter_string === undefined) opts.filter_string = '?';
 
+       var deferreds = [
+           $.getJSON(api_root + "/locations", function(data) {
+               completenessLocations = data;
+           })
+       ];
 
-    var completenessLocations;
-    var completenessData;
-    var matrixCompletenessData;
-    if( start_week === undefined) start_week = 1;
-    if( filter_string === undefined) filter_string = '?';
+       deferreds.push( $.getJSON(
+           api_root+"/completeness/" +opts.reg_id +"/" + opts.locID +
+           "/" + opts.denominator + "/" + opts.start_week + "/" +
+           opts.weekend + opts.filter_string,
+           function( data ){completenessData = data; }
+       ));
+       deferreds.push( $.getJSON(
+           api_root+"/completeness/" +opts.reg_id +"/" + opts.locID +
+           "/" + opts.denominator + "/" + opts.start_week + "/" +
+           opts.weekend + opts.filter_string + "&sublevel=district",
+           function( data ){matrixCompletenessData = data; }
+       ));
 
-    var deferreds = [
-        $.getJSON(api_root + "/locations", function(data) {
-            completenessLocations = data;
-        })
-    ];
-
-
-
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/"+ weekend + filter_string,
-                                   function( data ){completenessData = data; }));
-        deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + filter_string + "&sublevel=district",
-                                   function( data ){matrixCompletenessData = data; }));
-
-    $.when.apply( $, deferreds ).then(function() {
-        drawCompletenessGraph( graphID, locID, denominator, completenessLocations, completenessData, start_week, 0  , compare_locations, x_axis_max);
-        drawCompletenessTable( tableID, locID, completenessLocations, completenessData );
-        drawMissingCompletenessTable( reg_id, nonreportingtableID,nonreportingTitle, locID, completenessLocations, exclude, completenessData, filter_string); //this call makes one additional AJAX call
-        drawAllClinicsCompleteness( allclinisctableID, locID, completenessLocations, completenessData);
-        if(matrixID !== undefined){
-            drawCompletenessMatrix( matrixID, locID, denominator, completenessLocations, matrixCompletenessData, start_week, 0 );
-        }
-    } );
-}
+       $.when.apply( $, deferreds ).then(function() {
+           drawCompletenessGraph( opts.graphID, opts.locID, opts.denominator, completenessLocations, completenessData, opts.start_week, 0  , opts.compare_locations, opts.x_axis_max);
+           drawCompletenessTable( opts.tableID, opts.locID, completenessLocations, completenessData );
+           drawMissingCompletenessTable( opts.reg_id, opts.nonreportingtableID, opts.nonreportingTitle, opts.locID, completenessLocations, completenessData, opts.filter_string); //this call makes one additional AJAX call
+           drawAllClinicsCompleteness(  opts.allclinicstableID, opts.locID, completenessLocations, completenessData);
+           if(opts.matrixID !== undefined){
+               drawCompletenessMatrix( opts.matrixID, opts.locID, opts.denominator, completenessLocations, matrixCompletenessData, opts.start_week, 0 );
+           }
+       } );
+   }
 
 
 
@@ -733,36 +788,48 @@ function completenessPreparation( locID, reg_id, denominator, graphID, tableID, 
    Show lines to compare locations for completeness graph
    */
 
-function timelinessPreparation( locID, reg_id, denominator, graphID, tableID, allclinisctableID, start_week, exclude, weekend,compare_locations, non_reporting_variable, x_axis_max, matrixID, filter_string){
-    var timelinessLocations;
-    var timelinessData;
-    var matrixTimelinessData;
-    if (non_reporting_variable === undefined) non_reporting_variable= reg_id;
-    if( filter_string === undefined) filter_string = '?';
+   function timelinessPreparation(opts){
 
-    if (start_week === undefined) start_week = 1;
-    var deferreds = [
-        $.getJSON(api_root + "/locations", function(data) {
-            timelinessLocations = data;
-        })
-    ];
+       var timelinessLocations;
+       var timelinessData;
+       var matrixTimelinessData;
 
-    deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + "/" + non_reporting_variable + filter_string,
-                               function( data ){timelinessData = data; }));
-    deferreds.push( $.getJSON( api_root+"/completeness/" +reg_id +"/" + locID + "/" + denominator + "/" + start_week + "/" + weekend + filter_string + "&sublevel=district",
-                               function( data ){matrixTimelinessData = data; }));
+       if( opts.filter_string === undefined) opts.filter_string = '?';
+       if (opts.start_week === undefined) opts.start_week = 1;
+       if (opts.non_reporting_variable === undefined){
+           opts.non_reporting_variable= opts.reg_id;
+       }
+
+       var deferreds = [
+           $.getJSON(api_root + "/locations", function(data) {
+               timelinessLocations = data;
+           })
+       ];
+
+       deferreds.push( $.getJSON(
+           api_root+"/completeness/" +opts.reg_id +"/" + opts.locID + "/" +
+           opts.denominator + "/" + opts.start_week + "/" + opts.weekend +
+           "/" + opts.non_reporting_variable + opts.filter_string,
+           function( data ){timelinessData = data; }
+       ));
+       deferreds.push( $.getJSON(
+           api_root+"/completeness/" +opts.reg_id +"/" + opts.locID + "/" +
+           opts.denominator + "/" + opts.start_week + "/" + opts.weekend +
+           opts.filter_string + "&sublevel=district",
+           function( data ){matrixTimelinessData = data; }
+       ));
 
 
-    $.when.apply($, deferreds).then(function() {
-        drawCompletenessGraph( graphID, locID, denominator, timelinessLocations, timelinessData, start_week, 1, compare_locations,x_axis_max );
-        drawCompletenessTable( tableID, locID, timelinessLocations, timelinessData );
-        drawAllClinicsCompleteness( allclinisctableID, locID, timelinessLocations, timelinessData);
-        if(matrixID !== undefined){
-            drawCompletenessMatrix( matrixID, locID, denominator, timelinessLocations, matrixTimelinessData, start_week, 0 );
-        }
-    } );
+       $.when.apply($, deferreds).then(function() {
+           drawCompletenessGraph( opts.graphID, opts.locID, opts.denominator, timelinessLocations, timelinessData, opts.start_week, 1, opts.compare_locations,opts.x_axis_max );
+           drawCompletenessTable( opts.tableID, opts.locID, timelinessLocations, timelinessData );
+           drawAllClinicsCompleteness(  opts.allclinicstableID, opts.locID, timelinessLocations, timelinessData);
+           if(opts.matrixID !== undefined){
+               drawCompletenessMatrix( opts.matrixID, opts.locID, opts.denominator, timelinessLocations, matrixTimelinessData, opts.start_week, 0 );
+           }
+       } );
 
-}
+   }
 
 /**:prepareIndicators( details )
 
