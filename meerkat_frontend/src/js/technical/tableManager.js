@@ -659,6 +659,114 @@ function addPaginationListener(table) {
     });
 }
 
+/**:drawContactTracingTable(containerID, location_id)
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+ */
+function drawContactTracingTable(containerID, location_id) {
+    $.getJSON(api_root + "/locations", function(locations) {
+        columns = [{
+                field: "contact_id",
+                title: i18n.gettext('Contact ID'),
+                'searchable': true
+            },
+            {
+                field: "caid",
+                title: i18n.gettext('CA ID'),
+                'searchable': true
+            },
+            {
+                field: "region",
+                title: i18n.gettext('Region'),
+                'searchable': true
+            },
+            {
+                field: "clinic",
+                title: i18n.gettext('Centre'),
+                'searchable': true
+            },
+            {
+                field: "date",
+                title: i18n.gettext('Treatment Date')
+            },
+            {
+                field: "symptoms",
+                title: i18n.gettext('Symptoms'),
+                'searchable': true
+            },
+            {
+                field: "medication",
+                title: i18n.gettext('Medication')
+            },
+            {
+                field: "status",
+                    title: i18n.gettext('Status'),
+                    'searchable': true
+                }
+
+                ];
+                $.getJSON(api_root + "/variables/contact_med", function(med_var) {
+                    $.getJSON(api_root + "/records/con_all/" + location_id, function(case_dict) {
+                        $.getJSON(api_root + "/variables/contact_signs", function(symptoms_var) {
+                            $.getJSON(api_root + "/variables/contact_final_status", function(status_var) {
+                            var cases = case_dict.records;
+                            cases.sort(function(a, b) {
+                                return new Date(b.date).valueOf() - new Date(a.date).valueOf();
+                            });
+
+                            var data = [];
+                            for (var i in cases) {
+                                c = cases[i];
+                                var meds = "None";
+                                var final_status = "Active";
+                                var signs = "";
+                                if (c.categories.contact_med != undefined) {
+                                    meds = med_var[c.categories.contact_med].name;
+                                }
+                                if (c.categories.contact_final_status != undefined) {
+                                    final_status = status_var[c.categories.contact_final_status].name;
+                                }
+                                main_sympt_k = Object.keys(symptoms_var);
+                                var_s_k = Object.keys(c.variables);
+                                for (var main_sympt in main_sympt_k) {
+                                    for (var var_s in var_s_k) {
+                                        if (var_s_k[var_s] === main_sympt_k[main_sympt]) {
+                                            signs += symptoms_var[main_sympt_k[main_sympt]].name + ", ";
+                                        }
+                                    }
+                                }
+                                var datum = {
+                                    contact_id: c.uuid,
+                                    caid: c.variables.con_ca_id,
+                                    region: i18n.gettext(locations[c.region].name),
+                                    clinic: i18n.gettext(locations[c.clinic].name),
+                                    date: c.date.split("T")[0],
+                                    symptoms: signs,
+                                    medication: meds,
+                                    status: final_status
+                                };
+
+                                data.push(datum);
+                            }
+                            console.log(data);
+                            $('#' + containerID).html("<table> </table>");
+                            $('#' + containerID + ' table').bootstrapTable({
+                                columns: columns,
+                                data: data,
+                                search: true
+                                //					pagination: true,
+                                //					pageSize: 20
+                            });
+                        });
+                    });
+                });
+                });
+    });
+}
+
 /**:drawEbsTable(containerID, aggData, variables)
 
     ??
