@@ -1,0 +1,86 @@
+<div class="top-bar row">
+
+    <div class="location-box box">
+        <a href="#menu-toggle" id="menu-toggle">
+            <div class="location-box__label">
+                <div id="location_box">Location:</div>
+                <div id="location-title" class="location-title">Not Loaded</div>
+            </div>
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="glyphicon glyphicon-chevron-left hidden"></span>
+        </a>
+    </div>
+    <div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-6" id="title">
+    </div>
+    <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
+    </div>
+
+</div>
+
+<div class="demographics toggled" id="wrapper">
+
+    <div id="sidebar-wrapper">
+        <div id="location-selector" class="location-selector">
+        </div>
+    </div>
+
+    <div id="page-content-wrapper">
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="chartBox box">
+                    <div class="chartBox__heading">
+                        <p id="box_2_heading"></p>
+                        <div class="box__type-selector pull-right">
+                            <a href="" onclick="exportTableToXLS('contact-summary','contacts');return false;" class="csv">
+								Excel
+							</a>
+                        </div>
+                    </div>
+                    <div class="chartBox__content">
+                        <div id="contact-table" class="table">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        $(".location-box .glyphicon").toggleClass("hidden");
+
+        //Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+        var transitionEvent = whichTransitionEvent();
+        transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+            $(window).resize();
+        });
+    });
+
+    $("#location_box").html(i18n.gettext("Location:"));
+    $("#location_title").html(i18n.gettext("Not Loaded"));
+    $("#title").html(i18n.gettext('Contact Tracing'));
+    $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+    $("#location-selector").html(i18n.gettext('Locations not loaded'));
+    $("#box_heading").html(i18n.gettext('Summary'));
+    $("#box_2_heading").html(i18n.gettext('Contacts'));
+    $(".csv").each(function() {
+        $(this).html(i18n.gettext('Excel'));
+    });
+    $("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
+
+
+    //This function is called every time a new location is loaded.
+    //Any location-dependant content should be redrawn through this function.
+    function drawCharts(locID) {
+
+        //Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
+        drawContactTracingTable("contact-table", locID)
+
+    }
+</script>
