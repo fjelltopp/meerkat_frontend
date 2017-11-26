@@ -154,11 +154,6 @@ loadLocationTree({locID:{{loc}}});
      loadPage( event.state, false );
  };
 
-//Add the api key to any ajax requests.
-$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-    options.data = $.param($.extend(originalOptions.data, { api_key: config.api_key })) //
-});
-
 $( function(){
      moment().utc();
      //Add a listener to the location selector.

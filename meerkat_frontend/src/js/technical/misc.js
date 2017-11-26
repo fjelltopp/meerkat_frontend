@@ -1,3 +1,33 @@
+/** :stopThrobber()
+
+    Stop the throbber from appearing in the front end.
+*/
+function stopThrobber() {
+    throb.stop();
+    $('.spinnerModal').removeClass("loading");
+    $("body").css('overflow', 'scroll');
+}
+
+
+/** :startThrobber()
+
+    Start the throbber appearing in the frontend.
+*/
+function startThrobber(){
+    $('#divSpinner').empty();
+    throb = Throbber({
+        color: 'black',
+        padding: 30,
+        size: 80,
+        fade: 200,
+        clockwise: true
+    }).appendTo( document.getElementById( 'divSpinner' ) ).start();
+    $("body").css('overflow', 'hidden');  // No scrolling.
+    $('.spinnerModal').addClass("loading");  // Disables the screen
+    $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
+}
+
+
 /** :addThrobber()
 
     This function shows a throbber whilst AJAX requests are still completing in
@@ -5,32 +35,14 @@
     a limitation. A single throbber obstructing the whole page is thrown up
     whilst any AJAX request is completing.
 
-    TODO: It would be nice to only obstruct access evenetually to parts of the
-    site dependant upon uncompleted AJAX requests. This should be built into a
-    Javascript review.
+    TODO: It would be nice to only obstruct access to parts of the site
+    dependant upon uncompleted AJAX requests i.e. use the power of AJAX
+    asyncrocity. This should be built into a Javascript review.
 */
 function addThrobber(){
-    $body = $("body");
-    var throb;
     $(document).on({
-        ajaxStart: function() {
-            $('#divSpinner').empty();
-            throb = Throbber({
-                color: 'black',
-                padding: 30,
-                size: 80,
-                fade: 200,
-                clockwise: true
-            }).appendTo( document.getElementById( 'divSpinner' ) ).start();
-            $body.css('overflow', 'hidden');  // No scrolling.
-            $('.spinnerModal').addClass("loading");  // Disables the screen
-            $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
-        },
-        ajaxStop: function() {
-            throb.stop();
-            $('.spinnerModal').removeClass("loading");
-            $body.css('overflow', 'scroll');
-        }
+        ajaxStart: function() {startThrobber();},
+        ajaxStop: function() {stopThrobber();}
     });
 }
 /**:get_epi_week()
@@ -558,13 +570,14 @@ function exportTableToCSV(tableID, filename, link) {
 function exportTableToXLS(tableID, filename) {
     //Get all the Percentage values that are inside the "table-percent" class ...
     var oldValueArray = [];
-    var chartPercentageList = document.getElementById(tableID).getElementsByClassName("table-percent");
+    var chartPercentageList = $('#'+tableID + ' .table-percent');
 
-    //Save the percentage values into array and remove it so we can generate Exele file without percentage ...
-    for (var i = 0; i <= chartPercentageList.length - 1; i++) {
-        oldValueArray.push(chartPercentageList[i].innerHTML);
-        chartPercentageList[i].innerHTML = "";
-    }
+    chartPercentageList.each(
+        function(index, element){
+            oldValueArray.push($(element).html());
+            $(element).html("");
+        }
+    );
 
     //Call the generate xls ...
     $('#' + tableID + ' table').tableExport({
@@ -573,9 +586,11 @@ function exportTableToXLS(tableID, filename) {
     });
 
     //Return the percentage values to the HTML design ...
-    for (var j = 0; j <= chartPercentageList.length - 1; j++) {
-        chartPercentageList[j].innerHTML = oldValueArray[j];
-    }
+    chartPercentageList.each(
+        function(index, element){
+            $(element).html(oldValueArray[index]);
+        }
+    );
 
     return false;
 }

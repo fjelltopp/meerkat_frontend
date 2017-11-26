@@ -1,0 +1,83 @@
+{% extends 'reports/base.html' %}
+{% block title %}{{report.data.project_region|e}} &middot; Foreigner Screening  &middot; Week {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-header">
+    <h2>
+        <span
+            class="flag-icon flag-icon-{{report.flag}}"
+            style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+        >
+        </span>
+        <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
+        <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span> Foreigner Screening Report
+        <span class="report-week">
+            {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
+        </span>
+    </h2>
+
+</div>
+<div class="row">
+    <!-- Public Health Indicators -->
+    <div class="col-sm-12">
+        <div class="chart-wrapper">
+            <div class="chart-title">
+                Foreigner Screening Results
+            </div>
+            <div class="chart-stage">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Directorate</th>
+                            <th>Pul. TB</th>
+                            <th>XDR</th>
+                            <th>HIV</th>
+                            <th>Hep. B</th>
+                            <th class="total">Total</th>
+                        </tr>
+                    </thead>
+                    {% for record in report.data.table1 %}
+                    <tr>
+                        <td class="key">{{ record.name }}</td>
+                        <td class="value">{{ record.tb_type_1|int }}</td>
+                        <td class="value">{{ record.tb_type_4|int }}</td>
+                        <td class="value">{{ record.tb_result_hiv|int }}</td>
+                        <td class="value">{{ record.tb_result_hepb|int }}</td>
+                        <td class="total">{{ record.total|int }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td class="total"> Total </td>
+                        <td class="total">{{ report.data.table1_totals.tb_type_1|int }}</td>
+                        <td class="total">{{ report.data.table1_totals.tb_type_4|int }}</td>
+                        <td class="total">{{ report.data.table1_totals.tb_result_hiv|int }}</td>
+                        <td class="total">{{ report.data.table1_totals.tb_result_hepb|int }}</td>
+                        <td class="total">{{ report.data.table1_totals.total_sum|int }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="chart-wrapper">
+                <div class="chart-title">More Information</div>
+                <div class="chart-stage">
+                    <p>A program of public health surveillance is being implemented in {{ report.data.global_clinic_num }} outpatient clinics in {{ report.data.project_region|e }}, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of mental health, non-communicable disease and communicable disease.</p>
+                    <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="chart-wrapper">
+                <div class="chart-title">Contact Information</div>
+                <div class="chart-stage">
+                    <address>
+	                      {{address|safe}}
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock body %}
