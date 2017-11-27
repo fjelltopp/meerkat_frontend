@@ -12,6 +12,7 @@ function gatherTabletData(locID) {
 
     //API URLS to get Clinics Data ...
     buildTableStructure();
+    var locationAPI = "/locations";
     var week2 = parseInt(week) - 2;
     var week1 = parseInt(week) - 1;
 
@@ -83,28 +84,28 @@ function gatherTabletData(locID) {
                                                 $.each(data.clinicSubmissions, function(index, value) {
                                                     buildMonthData(value, 0, 'casesInMonthC');
                                                 });
-
-                                                //Append the table and the columns ...
-                                                $('#div_tabletCompletness').append('<table class="table table-hover table-condensed" id="tbleTabletSubmission"></table>');
-                                                $('#div_tabletCompletness table').bootstrapTable({
-                                                    columns: columnNameArray,
-                                                    data: tabletDataArray,
-                                                    pagination: true,
-                                                    pageSize: 10,
-                                                    search: true,
-                                                    classes: "table table-no-bordered table-hover"
+                                                $.getJSON(api_root + locationAPI, function(data) {
+                                                    $.each(data, function(index, value) {
+                                                        getClinicCaseAndType(value);
+                                                    });
+                                                    //Append the table and the columns ...
+                                                    $('#div_tabletCompletness').append('<table class="table table-hover table-condensed table-responsive" id="tbleTabletSubmission"></table>');
+                                                    $('#div_tabletCompletness table').bootstrapTable({
+                                                        columns: columnNameArray,
+                                                        data: tabletDataArray,
+                                                        pagination: true,
+                                                        pageSize: 10,
+                                                        search: true,
+                                                        classes: "table table-no-bordered table-hover"
+                                                    });
+                                                    addPaginationListener('#clinicsTable table');
+                                                    colorClinicsRow();
                                                 });
-                                                addPaginationListener('#clinicsTable table');
-                                                colorClinicsRow();
+
                                             });
                                         });
-
-
                                     });
                                 });
-
-
-
                             });
                         });
                     });
@@ -165,7 +166,7 @@ function fillTabletData(clinicObj) {
     var dataObject = {};
 
     //Add Clinic data
-    dataObject.DevicesIDs = "Clinic " + clinicObj.clinicId;
+    dataObject.DevicesIDs =  clinicObj.clinicId;
     dataObject.clinicType = " - ";
     dataObject.caseType = " - ";
 
@@ -263,6 +264,19 @@ function buildMonthData(clinicObj, minuMonth, colKey) {
     });
 }
 
+function getClinicCaseAndType(data) {
+    $.each(tabletDataArray, function(index, value) {
+        if (value.DevicesIDs ===  data.id) {
+            value.DevicesIDs = data.name;
+            value.clinicType = data.clinic_type;
+            var caseType = "";
+            $.each(data.case_type, function(ind, val) {
+                caseType = caseType + val + "-";
+            });
+            value.caseType = caseType.slice(0, -1);
+        }
+    });
+}
 
 
 function date_builder(minusNum, key, is_from) {
