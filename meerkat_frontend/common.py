@@ -43,7 +43,8 @@ def api(url, params=None):
         try:
             output = r.json()
         except Exception as e:
-            logging.error("Failed to convert API response to JSON.")
+            logging.error("Failed to convert API {} response {} "
+                          "to JSON: {}".format(url, r, r.text))
             logging.error(e)
             abort(500, "Failed to convert API response to JSON.")
         return output

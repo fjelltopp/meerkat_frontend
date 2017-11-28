@@ -14,26 +14,26 @@
     </div>
     <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
     </div>
-    
+
 </div>
 
 <div class="demographics toggled" id="wrapper">
-    
+
     <div id="sidebar-wrapper" >
 	<div id="location-selector" class="location-selector">
-            
+
 	</div>
     </div>
-    
+
     <div id="page-content-wrapper">
 	<div class="row">
 	    <div class="col-xs-12 less-padding-col">
 		<div class="chartBox box">
 		    <div class="chartBox__heading">
                         <p id="box_heading"></p>
-                        
+
 			<div class="box__type-selector pull-right">
-			    <a href="" onclick="exportTableToXLS('disease-table','mhds');return false;" class="csv">
+			    <a href="" onclick="exportTableToXLS('mh_disease-table','mhds');return false;" class="csv">
 			    </a>
 			</div>
 		    </div>
@@ -49,9 +49,9 @@
 		<div class="chartBox box">
 		    <div class="chartBox__heading">
                         <p id="box_heading_1"></p>
-                        
+
 			<div class="box__type-selector pull-right">
-			    <a href="" onclick="exportTableToXLS('disease-table','icd');return false;" class="csv">
+			    <a href="" onclick="exportTableToXLS('mh_disease-table-icd','icd');return false;" class="csv">
 			    </a>
 			</div>
 		    </div>
@@ -94,11 +94,11 @@ $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + ge
 
 /*//Every tab needs a draw charts function that is called when loading a new location.
 function drawCharts( locID ){
-     
+
      //Keep week abstracted out of the chart drawing process.
      //In case we want the use to eb able to select the weeks to view.
      var week = get_epi_week().toString();
-     
+
      categorySummation({ category: 'mhgap',
 	                 locID: locID,
 	                 week: week,
