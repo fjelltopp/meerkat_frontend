@@ -1,0 +1,32 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:minimatch:20160620':
+    - main-bower-files > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - main-bower-files > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp-add-src > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - imagemin-jpegoptim > jpegoptim-bin > bin-wrapper > download > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - main-bower-files > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - imagemin-jpegoptim > jpegoptim-bin > bin-wrapper > download > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp-add-src > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
