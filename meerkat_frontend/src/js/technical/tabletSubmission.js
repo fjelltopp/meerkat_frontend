@@ -114,6 +114,7 @@ function gatherTabletData(locID) {
     });
 }
 
+
 function buildTableStructure() {
     //Add the first columns
     buildTableColumn("DevicesIDs", "Devices IDs", "");
