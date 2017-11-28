@@ -6,11 +6,11 @@ function gatherTabletData(locID) {
     $('#div_tabletCompletness table').bootstrapTable('destroy');
     $('#div_tabletCompletness table').remove();
 
-    //Clear the arrays ...
+    //Clear the arrays
     columnNameArray = [];
     tabletDataArray = [];
 
-    //API URLS to get Clinics Data ...
+    //API URLS to get Data
     buildTableStructure();
     var locationAPI = "/locations";
     var week2 = parseInt(week) - 2;
@@ -35,7 +35,6 @@ function gatherTabletData(locID) {
 
 
 
-    //Call the first API that return the new visits ..
     //Start week tot data
     $.getJSON(api_root + week_tot_Api2, function(data) {
         $.each(data.clinicSubmissions, function(index, value) {
@@ -89,14 +88,14 @@ function gatherTabletData(locID) {
                                                         getClinicCaseAndType(value);
                                                     });
                                                     //Append the table and the columns ...
-                                                    $('#div_tabletCompletness').append('<table class="table table-hover table-condensed table-responsive" id="tbleTabletSubmission"></table>');
+                                                    $('#div_tabletCompletness').append('<table  id="tbleTabletSubmission"></table>');
                                                     $('#div_tabletCompletness table').bootstrapTable({
                                                         columns: columnNameArray,
                                                         data: tabletDataArray,
                                                         pagination: true,
                                                         pageSize: 10,
                                                         search: true,
-                                                        classes: "table table-no-bordered table-hover"
+                                                        classes: "table table-no-bordered table-hover table-responsive"
                                                     });
                                                     addPaginationListener('#clinicsTable table');
                                                     colorClinicsRow();
@@ -113,27 +112,21 @@ function gatherTabletData(locID) {
             });
         });
     });
-
-
-
 }
 
 function buildTableStructure() {
-    //Add the first Column ...
+    //Add the first columns
     buildTableColumn("DevicesIDs", "Devices IDs", "");
     buildTableColumn("clinicType", "clinic type", "");
     buildTableColumn("caseType", "case type", "");
 
-    //Get the current year with the last two year, 3 years total ......
-    var current_Year = (new Date()).getFullYear();
-
     for (i = week - 2; i <= week; i++) {
-        //Draw the clolumns depend on the week number ...
+        //Draw the clolumns depend on the week number
         buildTableColumn("casesInWeek" + i, "cases in Week " + i, "");
     }
 
     for (i = week - 2; i <= week; i++) {
-        //Draw the clolumns depend on the week number ...
+        //Draw the clolumns depend on the week number
         buildTableColumn("noOfRegistersInWeek" + i, "no. of registers in week " + i, "");
     }
 
@@ -141,13 +134,13 @@ function buildTableStructure() {
     buildTableColumn("casesInMonthL", "cases in month (before the current)", "");
 
     for (i = current_Year - 2; i <= current_Year; i++) {
-        //Draw the clolumns depend on the week number ...
+        //Draw the clolumns depend on the year number ...
         buildTableColumn("casesInYear" + i, "cases in year " + i, "");
     }
 }
 
 
-//This function is responsible for building the table header ...
+//This function is responsible for building the table header
 function buildTableColumn(columnId, columnName, columnClass) {
     columnNameArray.push({
         field: columnId,
@@ -166,17 +159,15 @@ function fillTabletData(clinicObj) {
     var dataObject = {};
 
     //Add Clinic data
-    dataObject.DevicesIDs =  clinicObj.clinicId;
+    dataObject.DevicesIDs = clinicObj.clinicId;
     dataObject.clinicType = " - ";
     dataObject.caseType = " - ";
 
     for (i = week - 2; i <= week; i++) {
-        //Draw the clolumns depend on the week number ...
         dataObject["casesInWeek" + i] = "-";
     }
 
     for (i = week - 2; i <= week; i++) {
-        //Draw the clolumns depend on the week number ...
         dataObject["noOfRegistersInWeek" + i] = "-";
     }
 
@@ -190,7 +181,7 @@ function fillTabletData(clinicObj) {
     tabletDataArray.push(dataObject);
 
 
-    //Add Devices data
+    //Add devices data
     $.each(clinicObj.deviceSubmissions, function(index, value) {
         dataObject = {};
         dataObject.DevicesIDs = "- DeviceId  " + value.deviceId;
@@ -198,17 +189,14 @@ function fillTabletData(clinicObj) {
         dataObject.caseType = " - ";
 
         for (i = week - 2; i <= week; i++) {
-            //Draw the clolumns depend on the week number ...
             if (i == week - 2) {
                 dataObject["casesInWeek" + i] = value.submissionsCount;
             } else {
                 dataObject["casesInWeek" + i] = "-";
             }
-
         }
 
         for (i = week - 2; i <= week; i++) {
-            //Draw the clolumns depend on the week number ...
             dataObject["noOfRegistersInWeek" + i] = "-";
         }
 
@@ -216,7 +204,6 @@ function fillTabletData(clinicObj) {
         dataObject.casesInMonthL = "-";
 
         for (i = current_Year - 2; i <= current_Year; i++) {
-            //Draw the clolumns depend on the week number ...
             dataObject["casesInYear" + i] = "-";
         }
         tabletDataArray.push(dataObject);
@@ -266,7 +253,7 @@ function buildMonthData(clinicObj, minuMonth, colKey) {
 
 function getClinicCaseAndType(data) {
     $.each(tabletDataArray, function(index, value) {
-        if (value.DevicesIDs ===  data.id) {
+        if (value.DevicesIDs === data.id) {
             value.DevicesIDs = data.name;
             value.clinicType = data.clinic_type;
             var caseType = "";
@@ -329,5 +316,4 @@ function colorClinicsRow() {
             $(this).closest('tr').addClass('active');
         }
     });
-
 }
