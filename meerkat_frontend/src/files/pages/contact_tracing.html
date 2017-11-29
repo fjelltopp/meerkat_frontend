@@ -29,9 +29,28 @@
             <div class="col-xs-12 less-padding-col">
                 <div class="chartBox box">
                     <div class="chartBox__heading">
+                        <p id="box_heading"></p>
+                        <div class="box__type-selector pull-right">
+                            <a href="" onclick="exportTableToXLS('contact-summary-table','contacts');return false;" class="csv">
+								Excel
+							</a>
+                        </div>
+                    </div>
+                    <div class="chartBox__content">
+                        <div id="contact-summary-table" class="table">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div id="page-content-wrapper">
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="chartBox box">
+                    <div class="chartBox__heading">
                         <p id="box_2_heading"></p>
                         <div class="box__type-selector pull-right">
-                            <a href="" onclick="exportTableToXLS('contact-summary','contacts');return false;" class="csv">
+                            <a href="" onclick="exportTableToXLS('contact-table','contacts');return false;" class="csv">
 								Excel
 							</a>
                         </div>
@@ -80,7 +99,8 @@
     function drawCharts(locID) {
 
         //Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
-        drawContactTracingTable("contact-table", locID)
+        drawContactTracingTable("contact-table", locID);
+        drawContactSummaryTable("contact-summary-table", locID);
 
     }
 </script>

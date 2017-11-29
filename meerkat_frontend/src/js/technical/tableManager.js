@@ -659,6 +659,75 @@ function addPaginationListener(table) {
     });
 }
 
+/**:drawContactSummaryTable(containerID, location_id)
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+ */
+function drawContactSummaryTable(containerID, location_id) {
+    console.log("Now, I'm here");
+    $.getJSON(api_root + "/locations", function(locations) {
+        $.getJSON(api_root + "/aggregate_category_sum/cv_visits_reason/" + location_id, function(con_reasons) {
+            $.getJSON(api_root + "/aggregate_category_sum/cv_visits/" + location_id, function(con_visits) {
+                $.getJSON(api_root + "/aggregate_category/key_indicators/" + location_id, function(totals) {
+                    $.getJSON(api_root + "/variables/cv_visits_reason", function(con_reasons_names) {
+
+                        var data = [];
+                        var nowWeek = get_epi_week();
+                        console.log("The data:");
+                        console.log(con_reasons);
+                        console.log(con_visits);
+                        console.log(totals);
+                        console.log(con_reasons_names);
+
+
+                        columns = [{
+                                field: "name",
+                                title: i18n.gettext('Indicator')
+                            },
+                            {
+                                field: "value",
+                                title: i18n.gettext('This year')
+                            }
+                        ];
+                        //total number of contacts
+                        //number of contacts this week
+                        data = [{
+                                name: "New contacts",
+                                value: totals.con_1.total
+                            },
+                            {
+                                name: "Visits",
+                                value: con_visits.cv_vis_yes.year
+                            },
+                            {
+                                name: "Missed visits",
+                                value: con_visits.cv_vis_no.year
+                            }
+                        ];
+                        var m_reasons = Object.keys(con_reasons_names);
+                        for ( var m in m_reasons ){
+                            var datum = {
+                                name: con_reasons_names[m_reasons[m]].name,
+                                value: con_reasons[m_reasons[m]].year
+                            };
+                            data.push(datum);
+                        }
+
+
+                        $('#' + containerID).html("<table> </table>");
+                        $('#' + containerID + ' table').bootstrapTable({
+                            columns: columns,
+                            data: data
+                        });
+                    });
+                });
+            });
+        });
+    });
+}
 /**:drawContactTracingTable(containerID, location_id)
 
     :param string containerID:
@@ -709,7 +778,7 @@ function drawContactTracingTable(containerID, location_id) {
 
                 ];
                 $.getJSON(api_root + "/variables/contact_med", function(med_var) {
-                    $.getJSON(api_root + "/records/con_all/" + location_id, function(case_dict) {
+                    $.getJSON(api_root + "/records/con_1/" + location_id, function(case_dict) {
                         $.getJSON(api_root + "/variables/contact_signs", function(symptoms_var) {
                             $.getJSON(api_root + "/variables/contact_final_status", function(status_var) {
                             var cases = case_dict.records;
@@ -751,7 +820,6 @@ function drawContactTracingTable(containerID, location_id) {
 
                                 data.push(datum);
                             }
-                            console.log(data);
                             $('#' + containerID).html("<table> </table>");
                             $('#' + containerID + ' table').bootstrapTable({
                                 columns: columns,
