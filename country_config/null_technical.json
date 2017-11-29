@@ -47,7 +47,6 @@
     },
 
     "weekend" : [5,6],
-
     "tabs":[{
             "name": "Overview",
             "template": "overview.html"
@@ -95,8 +94,6 @@
             "name":"Template",
             "template":"template.html"
         }],
-    "central_review": 0,
-    "flag":"null.svg",
 
     "overview": [
         {
@@ -193,9 +190,6 @@
             ]
         }
     ],
-
-
-    "central_review": 0,
     "flag": "null.svg",
 
     "footer": {
