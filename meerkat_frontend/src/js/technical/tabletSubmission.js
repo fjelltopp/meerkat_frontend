@@ -35,88 +35,95 @@ function gatherTabletData(locID) {
 
 
 
-    //Start week tot data
+    // The first call will generat the most of the table structure
     $.getJSON(api_root + week_tot_Api2, function(data) {
         $.each(data.clinicSubmissions, function(index, value) {
             fillTabletData(value);
         });
-        $.getJSON(api_root + week_tot_Api1, function(data) {
-            $.each(data.clinicSubmissions, function(index, value) {
-                buildWeekData(value, 1, 'casesInWeek');
-            });
+
+        //collect all the Json call inside array
+        var deferreds = [
+            $.getJSON(api_root + week_tot_Api1, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildWeekData(value, 1, 'casesInWeek');
+                });
+            }),
             $.getJSON(api_root + week_tot_Api, function(data) {
                 $.each(data.clinicSubmissions, function(index, value) {
                     buildWeekData(value, 0, 'casesInWeek');
                 });
-                //Start week reg data
-                $.getJSON(api_root + week_reg_Api2, function(data) {
-                    $.each(data.clinicSubmissions, function(index, value) {
-                        buildWeekData(value, 2, 'noOfRegistersInWeek');
-                    });
-
-                    $.getJSON(api_root + week_reg_Api1, function(data) {
-                        $.each(data.clinicSubmissions, function(index, value) {
-                            buildWeekData(value, 1, 'noOfRegistersInWeek');
-                        });
-                        $.getJSON(api_root + week_reg_Api, function(data) {
-                            $.each(data.clinicSubmissions, function(index, value) {
-                                buildWeekData(value, 0, 'noOfRegistersInWeek');
-                            });
-
-                            $.getJSON(api_root + year_Api_2, function(data) {
-                                $.each(data.clinicSubmissions, function(index, value) {
-                                    buildYearData(value, 2, 'casesInYear');
-                                });
-                                $.getJSON(api_root + year_Api_1, function(data) {
-                                    $.each(data.clinicSubmissions, function(index, value) {
-                                        buildYearData(value, 1, 'casesInYear');
-                                    });
-                                    $.getJSON(api_root + year_Api, function(data) {
-                                        $.each(data.clinicSubmissions, function(index, value) {
-                                            buildYearData(value, 0, 'casesInYear');
-                                        });
-                                        $.getJSON(api_root + month_Api1, function(data) {
-                                            $.each(data.clinicSubmissions, function(index, value) {
-                                                buildMonthData(value, 1, 'casesInMonthL');
-                                            });
-                                            $.getJSON(api_root + month_Api, function(data) {
-                                                $.each(data.clinicSubmissions, function(index, value) {
-                                                    buildMonthData(value, 0, 'casesInMonthC');
-                                                });
-                                                $.getJSON(api_root + locationAPI, function(data) {
-                                                    $.each(data, function(index, value) {
-                                                        getClinicCaseAndType(value);
-                                                    });
-                                                    //Append the table and the columns ...
-                                                    $('#div_tabletCompletness').append('<table  id="tbleTabletSubmission"></table>');
-                                                    $('#div_tabletCompletness table').bootstrapTable({
-                                                        columns: columnNameArray,
-                                                        data: tabletDataArray,
-                                                        pagination: true,
-                                                        pageSize: 10,
-                                                        search: true,
-                                                        classes: "table table-no-bordered table-hover table-responsive"
-                                                    });
-                                                    addPaginationListener('#clinicsTable table');
-                                                    colorClinicsRow();
-                                                });
-
-                                            });
-                                        });
-                                    });
-                                });
-                            });
-                        });
-                    });
+            }),
+            $.getJSON(api_root + week_reg_Api2, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildWeekData(value, 2, 'noOfRegistersInWeek');
                 });
+            }),
+            $.getJSON(api_root + week_reg_Api1, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildWeekData(value, 1, 'noOfRegistersInWeek');
+                });
+            }),
+            $.getJSON(api_root + week_reg_Api, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildWeekData(value, 0, 'noOfRegistersInWeek');
+                });
+            }),
+            $.getJSON(api_root + year_Api_2, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildYearData(value, 2, 'casesInYear');
+                });
+            }),
+            $.getJSON(api_root + year_Api_1, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildYearData(value, 1, 'casesInYear');
+                });
+            }),
+            $.getJSON(api_root + year_Api, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildYearData(value, 0, 'casesInYear');
+                });
+            }),
+            $.getJSON(api_root + month_Api1, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildMonthData(value, 1, 'casesInMonthL');
+                });
+            }),
+            $.getJSON(api_root + month_Api, function(data) {
+                $.each(data.clinicSubmissions, function(index, value) {
+                    buildMonthData(value, 0, 'casesInMonthC');
+                });
+            }),
+            $.getJSON(api_root + locationAPI, function(data) {
+                $.each(data, function(index, value) {
+                    getClinicCaseAndType(value);
+                });
+            })
+
+        ];
+
+        $.when.apply($, deferreds).then(function() {
+            //Append the table and the columns ...
+            $('#div_tabletCompletness').append('<table  id="tbleTabletSubmission"></table>');
+            $('#div_tabletCompletness table').bootstrapTable({
+                columns: columnNameArray,
+                data: tabletDataArray,
+                pagination: true,
+                pageSize: 10,
+                search: true,
+                classes: "table table-no-bordered table-hover table-responsive"
             });
+            addPaginationListener('#clinicsTable table');
         });
+
     });
+
 }
+
 
 
 function buildTableStructure() {
     //Add the first columns
+    buildTableColumn("ClinicName", "Clinic Name", "");
     buildTableColumn("DevicesIDs", "Devices IDs", "");
     buildTableColumn("clinicType", "clinic type", "");
     buildTableColumn("caseType", "case type", "");
@@ -157,37 +164,15 @@ function buildTableColumn(columnId, columnName, columnClass) {
 
 //Fill the table for the fisrt time and add defualt data
 function fillTabletData(clinicObj) {
-    var dataObject = {};
-
-    //Add Clinic data
-    dataObject.DevicesIDs = clinicObj.clinicId;
-    dataObject.clinicType = " - ";
-    dataObject.caseType = " - ";
-
-    for (i = week - 2; i <= week; i++) {
-        dataObject["casesInWeek" + i] = "-";
-    }
-
-    for (i = week - 2; i <= week; i++) {
-        dataObject["noOfRegistersInWeek" + i] = "-";
-    }
-
-    dataObject.casesInMonthC = "-";
-    dataObject.casesInMonthL = "-";
-
-    for (i = current_Year - 2; i <= current_Year; i++) {
-        //Draw the clolumns depend on the week number ...
-        dataObject["casesInYear" + i] = "-";
-    }
-    tabletDataArray.push(dataObject);
-
+    var clinicId = clinicObj.clinicId;
 
     //Add devices data
     $.each(clinicObj.deviceSubmissions, function(index, value) {
         dataObject = {};
-        dataObject.DevicesIDs = "- DeviceId  " + value.deviceId;
-        dataObject.clinicType = " - ";
-        dataObject.caseType = " - ";
+        dataObject.ClinicName = clinicId;
+        dataObject.DevicesIDs = "DeviceId " + value.deviceId;
+        dataObject.clinicType = "";
+        dataObject.caseType = "";
 
         for (i = week - 2; i <= week; i++) {
             if (i == week - 2) {
@@ -216,7 +201,7 @@ function buildWeekData(clinicObj, minuWeek, colKey) {
     var weekVal = week - minuWeek;
     $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
         $.each(tabletDataArray, function(index, value) {
-            if (value.DevicesIDs === "- DeviceId  " + deviceVal.deviceId) {
+            if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
                 var itemName = colKey + weekVal;
                 value[itemName] = deviceVal.submissionsCount;
             }
@@ -230,7 +215,7 @@ function buildYearData(clinicObj, minuYear, colKey) {
     var yearVal = current_Year - minuYear;
     $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
         $.each(tabletDataArray, function(index, value) {
-            if (value.DevicesIDs === "- DeviceId  " + deviceVal.deviceId) {
+            if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
                 var itemName = colKey + yearVal;
                 value[itemName] = deviceVal.submissionsCount;
             }
@@ -244,7 +229,7 @@ function buildMonthData(clinicObj, minuMonth, colKey) {
     var monthVal = (new Date()).getMonth() + 1 - minuMonth; // +1 because this method return index for month jan = 0 & dec =11
     $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
         $.each(tabletDataArray, function(index, value) {
-            if (value.DevicesIDs === "- DeviceId  " + deviceVal.deviceId) {
+            if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
                 var itemName = colKey;
                 value[itemName] = deviceVal.submissionsCount;
             }
@@ -254,8 +239,8 @@ function buildMonthData(clinicObj, minuMonth, colKey) {
 
 function getClinicCaseAndType(data) {
     $.each(tabletDataArray, function(index, value) {
-        if (value.DevicesIDs === data.id) {
-            value.DevicesIDs = data.name;
+        if (value.ClinicName === data.id) {
+            value.ClinicName = data.name;
             value.clinicType = data.clinic_type;
             var caseType = "";
             $.each(data.case_type, function(ind, val) {
@@ -305,16 +290,5 @@ function addPaginationListener(table) {
             console.log('click');
             $('.page-list .dropdown-menu').toggle();
         });
-    });
-}
-
-//Hack the design and make each clinic row with bg gray color
-function colorClinicsRow() {
-    //for each column
-    $('#tbleTabletSubmission > tbody  > tr > td').each(function() {
-        //search if the column val contains the clinic word
-        if ($(this)[0].textContent.toLowerCase().indexOf("clinic") >= 0) {
-            $(this).closest('tr').addClass('active');
-        }
     });
 }
