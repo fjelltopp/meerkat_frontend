@@ -9,97 +9,83 @@ function gatherTabletData(locID) {
     //Clear the arrays
     columnNameArray = [];
     tabletDataArray = [];
+    apiObjArray = [];
 
     //API URLS to get Data
     buildTableStructure();
     var locationAPI = "/locations";
     var week2 = parseInt(week) - 2;
     var week1 = parseInt(week) - 1;
+    var week_tot_Api2 = '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week2;
 
-    var main_week_tot = '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:';
-    var week_tot_Api2 = main_week_tot + week2;
-    var week_tot_Api1 = main_week_tot + week1;
-    var week_tot_Api = main_week_tot + week;
+    apiObjArray.push({
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week1,
+        "minusNum": "1",
+        "columnType": "casesInWeek"
+    }, {
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week,
+        "minusNum": "0",
+        "columnType": "casesInWeek"
+    }, {
+        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week2,
+        "minusNum": "2",
+        "columnType": "noOfRegistersInWeek"
+    }, {
+        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week1,
+        "minusNum": "1",
+        "columnType": "noOfRegistersInWeek"
+    }, {
+        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week,
+        "minusNum": "0",
+        "columnType": "noOfRegistersInWeek"
+    }, {
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(2, "year", true) + '&filter=date:le:' + date_builder(2, "year", false),
+        "minusNum": "2",
+        "columnType": "casesInYear"
+    }, {
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(2, "year", true) + '&filter=date:le:' + date_builder(1, "year", false),
+        "minusNum": "1",
+        "columnType": "casesInYear"
+    }, {
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(2, "year", true) + '&filter=date:le:' + date_builder(0, "year", false),
+        "minusNum": "0",
+        "columnType": "casesInYear"
+    }, {
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(1, "month", true) + '&filter=date:le:' + date_builder(1, "month", false),
+        "minusNum": "1",
+        "columnType": "casesInMonthL"
+    }, {
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(1, "month", true) + '&filter=date:le:' + date_builder(0, "month", false),
+        "minusNum": "0",
+        "columnType": "casesInMonthC"
+    });
 
-    var main_week_reg = '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:';
-    var week_reg_Api2 = main_week_reg + week2;
-    var week_reg_Api1 = main_week_reg + week1;
-    var week_reg_Api = main_week_reg + week;
 
-    var year_Api_2 = '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(2, "year", true) + '&filter=date:le:' + date_builder(2, "year", false);
-    var year_Api_1 = '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(1, "year", true) + '&filter=date:le:' + date_builder(1, "year", false);
-    var year_Api = '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(0, "year", true) + '&filter=date:le:' + date_builder(0, "year", false);
-
-    var month_Api1 = '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(1, "month", true) + '&filter=date:le:' + date_builder(1, "month", false);
-    var month_Api = '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(0, "month", true) + '&filter=date:le:' + date_builder(0, "month", false);
-
-
-
+    var deferreds = [];
     // The first call will generat the most of the table structure
     $.getJSON(api_root + week_tot_Api2, function(data) {
         $.each(data.clinicSubmissions, function(index, value) {
             fillTabletData(value);
         });
 
-        //collect all the Json call inside array
-        var deferreds = [
-            $.getJSON(api_root + week_tot_Api1, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildWeekData(value, 1, 'casesInWeek');
-                });
-            }),
-            $.getJSON(api_root + week_tot_Api, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildWeekData(value, 0, 'casesInWeek');
-                });
-            }),
-            $.getJSON(api_root + week_reg_Api2, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildWeekData(value, 2, 'noOfRegistersInWeek');
-                });
-            }),
-            $.getJSON(api_root + week_reg_Api1, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildWeekData(value, 1, 'noOfRegistersInWeek');
-                });
-            }),
-            $.getJSON(api_root + week_reg_Api, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildWeekData(value, 0, 'noOfRegistersInWeek');
-                });
-            }),
-            $.getJSON(api_root + year_Api_2, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildYearData(value, 2, 'casesInYear');
-                });
-            }),
-            $.getJSON(api_root + year_Api_1, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildYearData(value, 1, 'casesInYear');
-                });
-            }),
-            $.getJSON(api_root + year_Api, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildYearData(value, 0, 'casesInYear');
-                });
-            }),
-            $.getJSON(api_root + month_Api1, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildMonthData(value, 1, 'casesInMonthL');
-                });
-            }),
-            $.getJSON(api_root + month_Api, function(data) {
-                $.each(data.clinicSubmissions, function(index, value) {
-                    buildMonthData(value, 0, 'casesInMonthC');
-                });
-            }),
+        $.each(apiObjArray, function(index, value) {
+            deferreds.push(
+                $.getJSON(api_root + value.api, function(data) {
+                    $.each(data.clinicSubmissions, function(indexData, valueData) {
+                        fillAPIResultData(valueData, value.minusNum, value.columnType);
+                    });
+                })
+            );
+        });
+
+        deferreds.push(
             $.getJSON(api_root + locationAPI, function(data) {
                 $.each(data, function(index, value) {
                     getClinicCaseAndType(value);
                 });
             })
+        );
 
-        ];
 
         $.when.apply($, deferreds).then(function() {
             //Append the table and the columns ...
@@ -118,7 +104,6 @@ function gatherTabletData(locID) {
     });
 
 }
-
 
 
 function buildTableStructure() {
@@ -180,9 +165,6 @@ function fillTabletData(clinicObj) {
             } else {
                 dataObject["casesInWeek" + i] = "-";
             }
-        }
-
-        for (i = week - 2; i <= week; i++) {
             dataObject["noOfRegistersInWeek" + i] = "-";
         }
 
@@ -196,46 +178,47 @@ function fillTabletData(clinicObj) {
     });
 }
 
-//This method will handle all the data related to week columns "tot and reg"
-function buildWeekData(clinicObj, minuWeek, colKey) {
-    var weekVal = week - minuWeek;
-    $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
-        $.each(tabletDataArray, function(index, value) {
-            if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
-                var itemName = colKey + weekVal;
-                value[itemName] = deviceVal.submissionsCount;
-            }
+
+//this method will handle to fill the data from the apis into the table
+function fillAPIResultData(clinicObj, minusNum, colKey) {
+
+    //This section will handle all the data related to week columns "tot and reg"
+    if (colKey == "casesInWeek" || colKey == "noOfRegistersInWeek") {
+        var weekVal = week - minusNum;
+        $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
+            $.each(tabletDataArray, function(index, value) {
+                if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
+                    var itemName = colKey + weekVal;
+                    value[itemName] = deviceVal.submissionsCount;
+                }
+            });
         });
-    });
+    } else if (colKey == "casesInYear") {
+        //This section will handle all the data related to year columns
+        var yearVal = current_Year - minusNum;
+        $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
+            $.each(tabletDataArray, function(index, value) {
+                if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
+                    var itemName = colKey + yearVal;
+                    value[itemName] = deviceVal.submissionsCount;
+                }
+            });
+        });
+    } else if (colKey == "casesInMonthL" || colKey == "casesInMonthC") {
+        //This method will handle all the data related to month columns
+        var monthVal = (new Date()).getMonth() + 1 - minusNum; // +1 because this method return index for month jan = 0 & dec =11
+        $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
+            $.each(tabletDataArray, function(index, value) {
+                if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
+                    var itemName = colKey;
+                    value[itemName] = deviceVal.submissionsCount;
+                }
+            });
+        });
+    }
 }
 
 
-//This method will handle all the data related to year columns
-function buildYearData(clinicObj, minuYear, colKey) {
-    var yearVal = current_Year - minuYear;
-    $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
-        $.each(tabletDataArray, function(index, value) {
-            if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
-                var itemName = colKey + yearVal;
-                value[itemName] = deviceVal.submissionsCount;
-            }
-        });
-    });
-}
-
-
-//This method will handle all the data related to year columns
-function buildMonthData(clinicObj, minuMonth, colKey) {
-    var monthVal = (new Date()).getMonth() + 1 - minuMonth; // +1 because this method return index for month jan = 0 & dec =11
-    $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
-        $.each(tabletDataArray, function(index, value) {
-            if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
-                var itemName = colKey;
-                value[itemName] = deviceVal.submissionsCount;
-            }
-        });
-    });
-}
 
 function getClinicCaseAndType(data) {
     $.each(tabletDataArray, function(index, value) {
