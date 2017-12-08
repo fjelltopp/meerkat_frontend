@@ -15,21 +15,46 @@
     },
 
     "map_options": {
-        "options": [
-            {"id": "cmd_1", "name": "Cholera"},
-            {"id": "cmd_27","name":"Mealses"},
-            {"id": "tot_1","name": "All cases"}
+        "options": [{
+                "id": "cmd_1",
+                "name": "Cholera"
+            },
+            {
+                "id": "cmd_27",
+                "name": "Mealses"
+            },
+            {
+                "id": "tot_1",
+                "name": "All cases"
+            }
         ],
         "types": ["incidence_clinic", "incidence_district", "incidence_region", "cases_clinic", "cases_district", "cases_region"]
 
     },
 
-    "indicators":{
-        "list":[
-            {"name":"Number of female patients","call":{"flags":["n"], "variables":["gen_1"]}},
-            {"name":"Number of male patients","call":{"flags":["n"], "variables":["gen_2"]}},
-            { "name":"% Male", "call":{"flags":["d","n","m"], "variables":["tot_1","gen_1", "100"]} }
-         ]
+    "indicators": {
+        "list": [{
+                "name": "Number of female patients",
+                "call": {
+                    "flags": ["n"],
+                    "variables": ["gen_1"]
+                }
+            },
+            {
+                "name": "Number of male patients",
+                "call": {
+                    "flags": ["n"],
+                    "variables": ["gen_2"]
+                }
+            },
+            {
+                "name": "% Male",
+                "call": {
+                    "flags": ["d", "n", "m"],
+                    "variables": ["tot_1", "gen_1", "100"]
+                }
+            }
+        ]
     },
 
     "completeness_denominator": {
@@ -46,69 +71,66 @@
         "mh": "4"
     },
 
-    "weekend" : [5,6],
+    "weekend": [5, 6],
 
-    "tabs":[{
-            "name": "Overview",
-            "template": "overview.html"
-    },
-	{
-            "name": "Tablet Completeness",
-            "template": "tabletCompletness.html"
-    },{
-            "name":"Demographics",
-            "template":"demographics.html"
-        },{
-            "name":"Demographics CD",
-            "template":"demographicsCD.html",
-            "access": "cd"
-        },{
-            "name":"Demographics NCD",
-            "template":"demographicsNCD.html",
-            "access": "ncd"
-        },{
-            "name":"Morbidity",
-            "template":"complaint.html"
-        },{
-            "name":"Communicable Diseases",
-            "template":"diseases.html",
-            "access":"cd"
-        },{
-            "name":"PIP",
-            "template":"pip.html"
-        },{
-            "name":"Non Communicable Diseases",
-            "template":"nc_diseases.html",
-            "access":"ncd"
-        },{
-            "name":"Alerts",
-            "template":"alerts.html"
-        },{
-            "name":"Health Services",
-            "template":"services.html"
-        },{
-            "name":"Completeness",
-            "template":"completeness.html"
-        },{
-            "name":"Timeliness",
-            "template":"timeliness.html"
-        },{
-            "name":"Map View",
-            "template":"map.html"
-        },{
-            "name":"Template",
-            "template":"template.html"
-        }],
+    "tabs": [{
+        "name": "Overview",
+        "template": "overview.html"
+    }, {
+        "name": "Tablet Completeness",
+        "template": "tabletCompletness.html"
+    }, {
+        "name": "Demographics",
+        "template": "demographics.html"
+    }, {
+        "name": "Demographics CD",
+        "template": "demographicsCD.html",
+        "access": "cd"
+    }, {
+        "name": "Demographics NCD",
+        "template": "demographicsNCD.html",
+        "access": "ncd"
+    }, {
+        "name": "Morbidity",
+        "template": "complaint.html"
+    }, {
+        "name": "Communicable Diseases",
+        "template": "diseases.html",
+        "access": "cd"
+    }, {
+        "name": "PIP",
+        "template": "pip.html"
+    }, {
+        "name": "Non Communicable Diseases",
+        "template": "nc_diseases.html",
+        "access": "ncd"
+    }, {
+        "name": "Alerts",
+        "template": "alerts.html"
+    }, {
+        "name": "Health Services",
+        "template": "services.html"
+    }, {
+        "name": "Completeness",
+        "template": "completeness.html"
+    }, {
+        "name": "Timeliness",
+        "template": "timeliness.html"
+    }, {
+        "name": "Map View",
+        "template": "map.html"
+    }, {
+        "name": "Template",
+        "template": "template.html"
+    }],
     "central_review": 0,
-    "flag":"null.svg",
+    "flag": "null.svg",
 
-    "overview": [
-        {
+    "overview": [{
             "title": "Consultations and Cases",
             "html_class": "col-md-6",
             "parentId": "OvConsultationsAndCases",
-            "contents": [
-                {
+            "contents": [{
                     "api": "/aggregate_year/reg_1/<loc_id>",
                     "label": "Consultations",
                     "access": "cd",
@@ -126,20 +148,23 @@
             "title": "Morbidity",
             "html_class": "col-md-6",
             "parentId": "OvMorbidity",
-            "contents": [
-                {
+            "contents": [{
                     "api": "/aggregate_category/cd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity",
                     "access": "cd",
                     "prep_function": "prep_row_draw_top",
-                    "prep_details":{"ovPeriodType": "year"}
+                    "prep_details": {
+                        "ovPeriodType": "year"
+                    }
                 },
                 {
                     "api": "/aggregate_category/ncd_tab/<loc_id>",
                     "label": "Top 3 most common causes of morbidity  NCD",
                     "access": "cd",
                     "prep_function": "prep_row_draw_top",
-                    "prep_details":{"ovPeriodType": "year"}
+                    "prep_details": {
+                        "ovPeriodType": "year"
+                    }
                 },
                 {
                     "api": "/alerts",
@@ -153,20 +178,23 @@
             "title": "Mortality",
             "html_class": "col-md-6",
             "parentId": "OvMortality",
-            "contents": [
-                {
+            "contents": [{
                     "api": "/aggregate_category/cd_tab/<loc_id>",
                     "label": "Top 3 most common causes of mortality",
                     "access": "cd",
                     "prep_function": "prep_row_draw_top",
-                    "prep_details":{"ovPeriodType": "year"}
+                    "prep_details": {
+                        "ovPeriodType": "year"
+                    }
                 },
                 {
                     "api": "/aggregate_category/ncd_tab/<loc_id>",
                     "label": "Top 3 most common causes of mortality NCD",
                     "access": "cd",
                     "prep_function": "prep_row_draw_top",
-                    "prep_details":{"ovPeriodType": "year"}
+                    "prep_details": {
+                        "ovPeriodType": "year"
+                    }
                 },
                 {
                     "api": "/alerts",
@@ -181,8 +209,7 @@
             "html_class": "col-md-6",
             "parentId": "tbody-sparkline",
             "html_base": "<table id='table-sparkline' style='width:100%'><thead><tr><th>Indicator name</th><th>Cumulative</th><th>Indicator chart</th></tr></thead><tbody id='tbody-sparkline'></tbody></table>",
-            "contents": [
-                {
+            "contents": [{
                     "api": "/indicators/n,d,m/gen_1,tot_1,100/<loc_id>",
                     "label": "% Of patients are male",
                     "access": "cd",
