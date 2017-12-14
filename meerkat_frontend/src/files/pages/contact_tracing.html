@@ -32,8 +32,8 @@
                         <p id="box_heading"></p>
                         <div class="box__type-selector pull-right">
                             <a href="" onclick="exportTableToXLS('contact-summary-table','contacts');return false;" class="csv">
-								Excel
-							</a>
+                                Excel
+							              </a>
                         </div>
                     </div>
                     <div class="chartBox__content">
@@ -43,64 +43,63 @@
                 </div>
             </div>
         </div>
-    <div id="page-content-wrapper">
-        <div class="row">
-            <div class="col-xs-12 less-padding-col">
-                <div class="chartBox box">
-                    <div class="chartBox__heading">
-                        <p id="box_2_heading"></p>
-                        <div class="box__type-selector pull-right">
-                            <a href="" onclick="exportTableToXLS('contact-table','contacts');return false;" class="csv">
+        <div id="page-content-wrapper">
+            <div class="row">
+                <div class="col-xs-12 less-padding-col">
+                    <div class="chartBox box">
+                        <div class="chartBox__heading">
+                            <p id="box_2_heading"></p>
+                            <div class="box__type-selector pull-right">
+                                <a href="" onclick="exportTableToXLS('contact-table','contacts');return false;" class="csv">
 								Excel
-							</a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="chartBox__content">
-                        <div id="contact-table" class="table">
+                        <div class="chartBox__content">
+                            <div id="contact-table" class="table">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
-
     </div>
-</div>
-<div class="breaker"></div>
+    <div class="breaker"></div>
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            $(".location-box .glyphicon").toggleClass("hidden");
 
-<!-- Menu Toggle Script -->
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-        $(".location-box .glyphicon").toggleClass("hidden");
-
-        //Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
-        var transitionEvent = whichTransitionEvent();
-        transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
-            $(window).resize();
+            //Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+            var transitionEvent = whichTransitionEvent();
+            transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+                $(window).resize();
+            });
         });
-    });
 
-    $("#location_box").html(i18n.gettext("Location:"));
-    $("#location_title").html(i18n.gettext("Not Loaded"));
-    $("#title").html(i18n.gettext('Contact Tracing'));
-    $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
-    $("#location-selector").html(i18n.gettext('Locations not loaded'));
-    $("#box_heading").html(i18n.gettext('Summary'));
-    $("#box_2_heading").html(i18n.gettext('Contacts'));
-    $(".csv").each(function() {
-        $(this).html(i18n.gettext('Excel'));
-    });
-    $("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
+        $("#location_box").html(i18n.gettext("Location:"));
+        $("#location_title").html(i18n.gettext("Not Loaded"));
+        $("#title").html(i18n.gettext('Contact Tracing'));
+        $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+        $("#location-selector").html(i18n.gettext('Locations not loaded'));
+        $("#box_heading").html(i18n.gettext('Summary'));
+        $("#box_2_heading").html(i18n.gettext('Contacts'));
+        $(".csv").each(function() {
+            $(this).html(i18n.gettext('Excel'));
+        });
+        $("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
 
 
-    //This function is called every time a new location is loaded.
-    //Any location-dependant content should be redrawn through this function.
-    function drawCharts(locID) {
+        //This function is called every time a new location is loaded.
+        //Any location-dependant content should be redrawn through this function.
+        function drawCharts(locID) {
 
-        //Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
-        drawContactTracingTable("contact-table", locID);
-        drawContactSummaryTable("contact-summary-table", locID);
+            //Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
+            drawContactTracingTable("contact-table", locID);
+            drawContactSummaryTable("contact-summary-table", locID);
 
-    }
-</script>
+        }
+    </script>
