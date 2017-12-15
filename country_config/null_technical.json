@@ -126,6 +126,7 @@
     "central_review": 0,
     "flag": "null.svg",
 
+
     "overview": [{
             "title": "Consultations and Cases",
             "html_class": "col-md-6",
@@ -224,9 +225,6 @@
             ]
         }
     ],
-
-
-    "central_review": 0,
     "flag": "null.svg",
 
     "footer": {
