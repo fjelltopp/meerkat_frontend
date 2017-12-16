@@ -1,4 +1,4 @@
-var current_Year = (new Date()).getFullYear();
+var currentYear = (new Date()).getFullYear();
 
 function gatherTabletData(locID) {
 
@@ -16,26 +16,26 @@ function gatherTabletData(locID) {
     var locationAPI = "/locations";
     var week2 = parseInt(week) - 2;
     var week1 = parseInt(week) - 1;
-    var week_tot_Api2 = '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week2;
+    var week_tot_Api2 = '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + currentYear + '&filter=epi_week:eq:' + week2;
 
     apiObjArray.push({
-        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week1,
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + currentYear + '&filter=epi_week:eq:' + week1,
         "minusNum": "1",
         "columnType": "casesInWeek"
     }, {
-        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week,
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=epi_year:eq:' + currentYear + '&filter=epi_week:eq:' + week,
         "minusNum": "0",
         "columnType": "casesInWeek"
     }, {
-        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week2,
+        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + currentYear + '&filter=epi_week:eq:' + week2,
         "minusNum": "2",
         "columnType": "noOfRegistersInWeek"
     }, {
-        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week1,
+        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + currentYear + '&filter=epi_week:eq:' + week1,
         "minusNum": "1",
         "columnType": "noOfRegistersInWeek"
     }, {
-        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + current_Year + '&filter=epi_week:eq:' + week,
+        "api": '/devices/submissions/reg_1?location=' + locID + '&filter=epi_year:eq:' + currentYear + '&filter=epi_week:eq:' + week,
         "minusNum": "0",
         "columnType": "noOfRegistersInWeek"
     }, {
@@ -65,14 +65,14 @@ function gatherTabletData(locID) {
     // The first call will generat the most of the table structure
     $.getJSON(api_root + week_tot_Api2, function(data) {
         $.each(data.clinicSubmissions, function(index, value) {
-            fillTabletData(value);
+            initialFillTabletData(value);
         });
 
         $.each(apiObjArray, function(index, value) {
             deferreds.push(
                 $.getJSON(api_root + value.api, function(data) {
                     $.each(data.clinicSubmissions, function(indexData, valueData) {
-                        fillAPIResultData(valueData, value.minusNum, value.columnType);
+                        fillAPIResultDataIntoTable(valueData, value.minusNum, value.columnType);
                     });
                 })
             );
@@ -108,33 +108,32 @@ function gatherTabletData(locID) {
 
 function buildTableStructure() {
     //Add the first columns
-    buildTableColumn("ClinicName", "Clinic Name", "");
-    buildTableColumn("DevicesIDs", "Devices IDs", "");
-    buildTableColumn("clinicType", "clinic type", "");
-    buildTableColumn("caseType", "case type", "");
+    buildTableHeader("ClinicName", "Clinic Name", "");
+    buildTableHeader("DevicesIDs", "Devices IDs", "");
+    buildTableHeader("clinicType", "Clinic type", "");
+    buildTableHeader("caseType", "Case type", "");
 
     for (i = week - 2; i <= week; i++) {
         //Draw the clolumns depend on the week number
-        buildTableColumn("casesInWeek" + i, "cases in Week " + i, "");
+        buildTableHeader("casesInWeek" + i, "Cases in Week " + i, "");
     }
 
     for (i = week - 2; i <= week; i++) {
         //Draw the clolumns depend on the week number
-        buildTableColumn("noOfRegistersInWeek" + i, "no. of registers in week " + i, "");
+        buildTableHeader("noOfRegistersInWeek" + i, "Registers in week " + i, "");
     }
 
-    buildTableColumn("casesInMonthC", "cases in month (current)", "");
-    buildTableColumn("casesInMonthL", "cases in month (before the current)", "");
+    buildTableHeader("casesInMonthC", "Cases this month", "");
+    buildTableHeader("casesInMonthL", "Cases last month", "");
 
-    for (i = current_Year - 2; i <= current_Year; i++) {
+    for (i = currentYear - 2; i <= currentYear; i++) {
         //Draw the clolumns depend on the year number ...
-        buildTableColumn("casesInYear" + i, "cases in year " + i, "");
+        buildTableHeader("casesInYear" + i, "Cases in " + i, "");
     }
 }
 
 
-//This function is responsible for building the table header
-function buildTableColumn(columnId, columnName, columnClass) {
+function buildTableHeader(columnId, columnName, columnClass) {
     columnNameArray.push({
         field: columnId,
         title: i18n.gettext(columnName),
@@ -147,15 +146,14 @@ function buildTableColumn(columnId, columnName, columnClass) {
 }
 
 
-//Fill the table for the fisrt time and add defualt data
-function fillTabletData(clinicObj) {
+function initialFillTabletData(clinicObj) {
     var clinicId = clinicObj.clinicId;
 
     //Add devices data
     $.each(clinicObj.deviceSubmissions, function(index, value) {
         dataObject = {};
         dataObject.ClinicName = clinicId;
-        dataObject.DevicesIDs = "DeviceId " + value.deviceId;
+        dataObject.DevicesIDs = value.deviceId;
         dataObject.clinicType = "";
         dataObject.caseType = "";
 
@@ -171,7 +169,7 @@ function fillTabletData(clinicObj) {
         dataObject.casesInMonthC = "-";
         dataObject.casesInMonthL = "-";
 
-        for (i = current_Year - 2; i <= current_Year; i++) {
+        for (i = currentYear - 2; i <= currentYear; i++) {
             dataObject["casesInYear" + i] = "-";
         }
         tabletDataArray.push(dataObject);
@@ -179,37 +177,33 @@ function fillTabletData(clinicObj) {
 }
 
 
-//this method will handle to fill the data from the apis into the table
-function fillAPIResultData(clinicObj, minusNum, colKey) {
+function fillAPIResultDataIntoTable(clinicObj, minusNum, colKey) {
 
-    //This section will handle all the data related to week columns "tot and reg"
     if (colKey == "casesInWeek" || colKey == "noOfRegistersInWeek") {
         var weekVal = week - minusNum;
         $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
             $.each(tabletDataArray, function(index, value) {
-                if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
+                if (value.DevicesIDs === deviceVal.deviceId) {
                     var itemName = colKey + weekVal;
                     value[itemName] = deviceVal.submissionsCount;
                 }
             });
         });
     } else if (colKey == "casesInYear") {
-        //This section will handle all the data related to year columns
-        var yearVal = current_Year - minusNum;
+        var yearVal = currentYear - minusNum;
         $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
             $.each(tabletDataArray, function(index, value) {
-                if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
+                if (value.DevicesIDs === deviceVal.deviceId) {
                     var itemName = colKey + yearVal;
                     value[itemName] = deviceVal.submissionsCount;
                 }
             });
         });
     } else if (colKey == "casesInMonthL" || colKey == "casesInMonthC") {
-        //This method will handle all the data related to month columns
-        var monthVal = (new Date()).getMonth() + 1 - minusNum; // +1 because this method return index for month jan = 0 & dec =11
+        var monthVal = (new Date()).getMonth() + 1 - minusNum; // + 1 because index of Jan = 0
         $.each(clinicObj.deviceSubmissions, function(index, deviceVal) {
             $.each(tabletDataArray, function(index, value) {
-                if (value.DevicesIDs === "DeviceId " + deviceVal.deviceId) {
+                if (value.DevicesIDs === deviceVal.deviceId) {
                     var itemName = colKey;
                     value[itemName] = deviceVal.submissionsCount;
                 }
@@ -237,14 +231,14 @@ function getClinicCaseAndType(data) {
 
 function date_builder(minusNum, key, is_from) {
     if (key == "year") {
-        var year = current_Year - minusNum;
+        var year = currentYear - minusNum;
         if (is_from == true) {
             return (year + "-" + 01 + "-" + 01);
         } else {
             return (year + "-" + 12 + "-" + 30);
         }
     } else {
-        var _year = current_Year;
+        var _year = currentYear;
         var month = (new Date()).getMonth() - minusNum;
         if (month == 0) {
             month = 12;

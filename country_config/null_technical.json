@@ -78,7 +78,7 @@
         "template": "overview.html"
     }, {
         "name": "Tablet Completeness",
-        "template": "tabletCompletness.html"
+        "template": "tabletCompleteness.html"
     }, {
         "name": "Demographics",
         "template": "demographics.html"
