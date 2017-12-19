@@ -659,6 +659,196 @@ function addPaginationListener(table) {
     });
 }
 
+/**:drawContactSummaryTable(containerID, location_id)
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+ */
+function drawContactSummaryTable(containerID, location_id) {
+
+    var deferreds = [
+        $.getJSON(api_root + "/locations", function(data) {
+            locations = data;
+        }),
+        $.getJSON(api_root + "/aggregate_category_sum/cv_visits_reason/" + location_id, function(data) {
+            con_reasons = data;
+        }),
+        $.getJSON(api_root + "/aggregate_category_sum/cv_visits/" + location_id, function(data) {
+            con_visits = data;
+        }),
+        $.getJSON(api_root + "/aggregate_category/key_indicators/" + location_id, function(data) {
+            totals = data;
+        }),
+        $.getJSON(api_root + "/variables/cv_visits_reason", function(data) {
+            con_reasons_names = data;
+        })
+    ];
+
+    $.when.apply($, deferreds).then(function() {
+        var data = [];
+        var nowWeek = get_epi_week();
+
+        columns = [{
+                field: "name",
+                title: i18n.gettext('Indicator')
+            },
+            {
+                field: "value",
+                title: i18n.gettext('This year')
+            }
+        ];
+        //total number of contacts
+        //number of contacts this week
+        data = [{
+                name: "New contacts",
+                value: totals.con_1.total
+            },
+            {
+                name: "Visits",
+                value: con_visits.cv_vis_yes.year
+            },
+            {
+                name: "Missed visits",
+                value: con_visits.cv_vis_no.year
+            }
+        ];
+        var m_reasons = Object.keys(con_reasons_names);
+        for (var m in m_reasons) {
+            var datum = {
+                name: con_reasons_names[m_reasons[m]].name,
+                value: con_reasons[m_reasons[m]].year
+            };
+            data.push(datum);
+        }
+
+
+        $('#' + containerID).html("<table> </table>");
+        $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: data
+        });
+    });
+}/**:drawContactTracingTable(containerID, location_id)
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+ */
+function drawContactTracingTable(containerID, location_id) {
+
+    columns = [{
+            field: "contact_id",
+            title: i18n.gettext('Contact ID'),
+            'searchable': true
+        },
+        {
+            field: "caid",
+            title: i18n.gettext('CA ID'),
+            'searchable': true
+        },
+        {
+            field: "region",
+            title: i18n.gettext('Region'),
+            'searchable': true
+        },
+        {
+            field: "clinic",
+            title: i18n.gettext('Centre'),
+            'searchable': true
+        },
+        {
+            field: "date",
+            title: i18n.gettext('Treatment Date')
+        },
+        {
+            field: "symptoms",
+            title: i18n.gettext('Symptoms'),
+            'searchable': true
+        },
+        {
+            field: "medication",
+            title: i18n.gettext('Medication')
+        },
+        {
+            field: "status",
+            title: i18n.gettext('Status'),
+            'searchable': true
+        }
+
+    ];
+
+    var deferreds = [
+        $.getJSON(api_root + "/locations", function(data) {
+            locations = data;
+        }),
+        $.getJSON(api_root + "/variables/contact_med", function(data) {
+            med_var = data;
+        }),
+        $.getJSON(api_root + "/records/con_1/" + location_id, function(data) {
+            case_dict = data;
+        }),
+        $.getJSON(api_root + "/variables/contact_signs", function(data) {
+            symptoms_var = data;
+        }),
+        $.getJSON(api_root + "/variables/contact_final_status", function(data) {
+            status_var = data;
+        })
+    ];
+
+
+
+    $.when.apply($, deferreds).then(function() {
+        var cases = case_dict.records;
+        cases.sort(function(a, b) {
+            return new Date(b.date).valueOf() - new Date(a.date).valueOf();
+        });
+
+        var data = [];
+        for (var i in cases) {
+            c = cases[i];
+            var meds = "None";
+            var final_status = "Active";
+            var signs = "";
+            if (c.categories.contact_med != undefined) {
+                meds = med_var[c.categories.contact_med].name;
+            }
+            if (c.categories.contact_final_status != undefined) {
+                final_status = status_var[c.categories.contact_final_status].name;
+            }
+            main_sympt_k = Object.keys(symptoms_var);
+            var_s_k = Object.keys(c.variables);
+            for (var main_sympt in main_sympt_k) {
+                for (var var_s in var_s_k) {
+                    if (var_s_k[var_s] === main_sympt_k[main_sympt]) {
+                        signs += symptoms_var[main_sympt_k[main_sympt]].name + ", ";
+                    }
+                }
+            }
+            var datum = {
+                contact_id: c.uuid,
+                caid: c.variables.con_ca_id,
+                region: i18n.gettext(locations[c.region].name),
+                clinic: i18n.gettext(locations[c.clinic].name),
+                date: c.date.split("T")[0],
+                symptoms: signs,
+                medication: meds,
+                status: final_status
+            };
+
+            data.push(datum);
+        }
+        $('#' + containerID).html("<table> </table>");
+        $('#' + containerID + ' table').bootstrapTable({
+            columns: columns,
+            data: data,
+            search: true
+        });
+    });
+}
+
 /**:drawEbsTable(containerID, aggData, variables)
 
     ??
