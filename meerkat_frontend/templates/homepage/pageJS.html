@@ -84,7 +84,7 @@ var auth_root = "{{content.auth_root}}";
                         // 7 digit figures over flow the box, so shorthand big numbers.
                         if(parseFloat(indicator.value) > 999999){
                             var millions = indicator.value/1000000;
-                            millions = sigFigs(millions, 3);  // Round to 3 sf.
+                            millions = sigFigs(millions, 2);  // Round to 2 sf.
                             indicator.value = millions + "<span style='font-size:23px'> million</span>";
                         }
 
