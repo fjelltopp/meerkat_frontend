@@ -147,5 +147,10 @@
 {% endblock %}
 
 {% block pageJS %}
-	{% include 'homepage/pageJS.html' %}
+    <script type='text/javascript'>
+    	var api_root = "{{config['EXTERNAL_API_ROOT']}}";
+        var auth_root = "{{content.auth_root}}";
+        var content = {{content|tojson|safe}};
+        setup_homepage();
+    </script>
 {% endblock %}
