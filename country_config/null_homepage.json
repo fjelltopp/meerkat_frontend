@@ -24,21 +24,25 @@
     "email":"nullisland@moh.int"
   },
   "key_indicators": [{
-          "id": "#number_of_consultations",
+          "id": "number_of_consultations",
           "text": "consultations in total",
-          "value": "category['reg_2'].year"
+          "api": "/key_indicators",
+          "value": "reg_2.value"
       }, {
-          "id": "#number_of_cases",
+          "id": "number_of_cases",
           "text": "cases reported",
-          "value": "category['tot_1'].year"
+          "api": "/key_indicators",
+          "value": "tot_1.value"
       }, {
-          "id": "#number_of_alerts",
+          "id": "number_of_alerts",
           "text": "alerts generated",
-          "value": "alerts.num_alerts"
+          "api": "/num_alerts",
+          "value": "num_alerts"
       }, {
-          "id": "#number_of_facilities",
+          "id": "number_of_facilities",
           "text": "facilities",
-          "value": "clinics.total"
+          "api": "/num_clinics",
+          "value": "total"
   }],
   "sections":[
     {
