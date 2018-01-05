@@ -150,11 +150,12 @@ var d = new Date();
 $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
 function chooseStartDate(){
-    console.log("Changing start date");
     var startDate = $('#prepared-data-download').find(':selected').attr('startdate' );
-    if(!startDate) startDate =  d.getFullYear() + '-02-01T00:00:00.00';
-    console.log("Changing start date to: " + startDate);
-    console.log(new Date(startDate));
+    if(!startDate){
+        startDate = new Date()
+        startDate.setMonth(d.getMonth()-1);
+        startDate = startDate.toISOString();
+    }
     return new Date(startDate);
 }
 
