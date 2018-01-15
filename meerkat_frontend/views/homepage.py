@@ -8,6 +8,7 @@ from flask import request, make_response, redirect, flash, abort
 from flask.ext.babel import gettext
 from meerkat_frontend import app, auth
 from meerkat_frontend import common as c
+from meerkat_frontend.messages import messages
 from meerkat_libs import hermes
 import requests
 import logging
@@ -16,6 +17,15 @@ import datetime
 # Register the homepage blueprint.
 homepage = Blueprint('homepage', __name__, url_prefix='/<language>')
 homepage_route = app.config.get("HOMEPAGE_ROUTE", "")
+
+
+@homepage.before_request
+def before():
+    """
+    Run statements before the homepage requests are processed.
+    """
+    # Messages to be flashed to the user from the system admins
+    messages.flash()
 
 
 @homepage.route('/' + homepage_route)

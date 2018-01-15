@@ -4,7 +4,8 @@ meerkat_frontend.py
 This module runs as the Flask app from app.py and mounts component Flask apps
 for different services such as the API and Reports.
 """
-from .app import app, babel, sentry, auth
+from .app import app, babel, sentry
+from .authentication import auth
 from slugify import slugify
 from flask import render_template, request, Blueprint
 from flask import current_app, abort, flash, g, redirect
@@ -165,6 +166,7 @@ def error_test(error):
            error (int): The error code for the requested error.
     """
     abort(error)
+
 
 @app.errorhandler(400)
 @app.errorhandler(404)
