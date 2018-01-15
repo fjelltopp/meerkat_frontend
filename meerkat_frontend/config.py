@@ -13,7 +13,12 @@ class Config(object):
     LIVE_URL = os.environ.get("MEERKAT_LIVE_URL", "http://127.0.0.1/")
     INTERNAL_API_ROOT = os.environ.get("INTERNAL_API_ROOT", '')
     EXTERNAL_API_ROOT = '/api'
-
+    DYNAMODB_URL = os.environ.get(
+        'DYNAMODB_URL',
+        'https://dynamodb.eu-west-1.amazonaws.com'
+    )
+    FLASH_MESSAGES_TABLE = 'frontend_messages'
+    FLASH_RELOAD_INTERVAL = 36000  # In seconds, so every 10 minutes
     HERMES_ROOT = os.environ.get("HERMES_API_ROOT", "")
     HERMES_API_KEY = os.environ.get('HERMES_API_KEY', 'test-hermes')
     MAILING_KEY = os.environ.get('MAILING_KEY', 'test-mailing')
