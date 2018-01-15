@@ -61,14 +61,21 @@ class FlashMessages():
         dynamodb endpoint url specified in the config.
         """
         country = app.config["SHARED_CONFIG"]["auth_country"]
-        self.messages = FlashMessages.DB.query(
-            KeyConditions={
-                'country': {
-                    'AttributeValueList': [country],
-                    'ComparisonOperator': 'EQ'
+        try:
+            self.messages = FlashMessages.DB.query(
+                KeyConditions={
+                    'country': {
+                        'AttributeValueList': [country],
+                        'ComparisonOperator': 'EQ'
+                    }
                 }
-            }
-        ).get("Items", [])
+            ).get("Items", [])
+        except Exception:
+            app.logger.error(
+                'Failed to get flash messages.',
+                exc_info=True
+            )
+            self.messages = []
         self.last_update = datetime.now()
         app.logger.info("Updated " + repr(self))
 
