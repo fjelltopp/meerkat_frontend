@@ -97,7 +97,7 @@ form.subscribe{
 	}
 }
 
-ul.flashes{
+.homepage ul.flashes{
 
 	margin-top: 10px;
 	list-style:none;
@@ -109,6 +109,8 @@ ul.flashes{
 
 ul.flashes li{
 
+    margin-top: 10px;
+	list-style:none;
 	text-align: center;
 
 	.frame{

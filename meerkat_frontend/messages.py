@@ -38,13 +38,18 @@ class FlashMessages():
         ```
     """
 
-    DB = boto3.resource(
-        'dynamodb',
-        endpoint_url=app.config['DYNAMODB_URL'],
-        region_name='eu-west-1'
-    ).Table(app.config['FLASH_MESSAGES_TABLE'])
-
     def __init__(self):
+        try:
+            self.db = boto3.resource(
+                'dynamodb',
+                endpoint_url=app.config['DYNAMODB_URL'],
+                region_name='eu-west-1'
+            )
+        except Exception:
+            app.logger.error(
+                'Failed to connect to flash messages DB.',
+                exc_info=True
+            )
         self.get_messages()
 
     def __repr__(self):
@@ -60,9 +65,15 @@ class FlashMessages():
         There should be a table "frontend_messages" accessible from the
         dynamodb endpoint url specified in the config.
         """
+        # If can't connect to DB don't bother getting messages.
+        if not self.db:
+            self.messages = []
+            return
+        # Get messages from DB but don't kill system if can't find the messages
         country = app.config["SHARED_CONFIG"]["auth_country"]
         try:
-            self.messages = FlashMessages.DB.query(
+            table = self.db.Table(app.config['FLASH_MESSAGES_TABLE'])
+            self.messages = table.query(
                 KeyConditions={
                     'country': {
                         'AttributeValueList': [country],
@@ -76,6 +87,7 @@ class FlashMessages():
                 exc_info=True
             )
             self.messages = []
+        # We get messages based on a time interval, so record the current time.
         self.last_update = datetime.now()
         app.logger.info("Updated " + repr(self))
 
