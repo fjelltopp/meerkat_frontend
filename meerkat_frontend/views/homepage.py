@@ -19,17 +19,10 @@ homepage = Blueprint('homepage', __name__, url_prefix='/<language>')
 homepage_route = app.config.get("HOMEPAGE_ROUTE", "")
 
 
-@homepage.before_request
-def before():
-    """
-    Run statements before the homepage requests are processed.
-    """
-    # Messages to be flashed to the user from the system admins
-    messages.flash()
-
-
 @homepage.route('/' + homepage_route)
 def index():
+    # Messages to be flashed to the user from the system admins
+    messages.flash()
     return render_template(
         'homepage/index.html',
         content=g.config['HOMEPAGE_CONFIG'],
@@ -168,13 +161,3 @@ def report_fault():
              content=g.config['TECHNICAL_CONFIG'],
              url=url
         )
-
-
-@homepage.route('/cdchart')
-@auth.authorise(['central', 'cd', 'personal'], ['jordan'])
-def cdchart():
-    return render_template(
-        'cdcharts.html',
-        content=g.config['TECHNICAL_CONFIG'],
-        week=c.api('/epi_week'),
-    )
