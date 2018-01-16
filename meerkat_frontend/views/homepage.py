@@ -8,6 +8,7 @@ from flask import request, make_response, redirect, flash, abort
 from flask.ext.babel import gettext
 from meerkat_frontend import app, auth
 from meerkat_frontend import common as c
+from meerkat_frontend.messages import messages
 from meerkat_libs import hermes
 import requests
 import logging
@@ -20,6 +21,8 @@ homepage_route = app.config.get("HOMEPAGE_ROUTE", "")
 
 @homepage.route('/' + homepage_route)
 def index():
+    # Messages to be flashed to the user from the system admins
+    messages.flash()
     return render_template(
         'homepage/index.html',
         content=g.config['HOMEPAGE_CONFIG'],
@@ -158,13 +161,3 @@ def report_fault():
              content=g.config['TECHNICAL_CONFIG'],
              url=url
         )
-
-
-@homepage.route('/cdchart')
-@auth.authorise(['central', 'cd', 'personal'], ['jordan'])
-def cdchart():
-    return render_template(
-        'cdcharts.html',
-        content=g.config['TECHNICAL_CONFIG'],
-        week=c.api('/epi_week'),
-    )
