@@ -46,7 +46,7 @@ class FlashMessages():
                 region_name='eu-west-1'
             )
         except Exception:
-            app.logger.error(
+            app.logger.warning(
                 'Failed to connect to flash messages DB.',
                 exc_info=True
             )
@@ -82,7 +82,7 @@ class FlashMessages():
                 }
             ).get("Items", [])
         except Exception:
-            app.logger.error(
+            app.logger.warning(
                 'Failed to get flash messages.',
                 exc_info=True
             )
@@ -176,5 +176,6 @@ class FlashMessages():
         """Condition: Only publish on pages with URLs that match the regex."""
         return bool(re.compile(regex).match(request.path))
 
-# There is only really need for one instansiation of this object.
+
+# This design is based upon the "singleton" pattern - only one instansiation.
 messages = FlashMessages()
