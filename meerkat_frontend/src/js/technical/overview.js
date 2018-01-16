@@ -250,22 +250,33 @@ function prep_row_indicator(contentsObj, parentId, locID) {
 			var timeline = Object.keys(data.timeline).sort().map(function(time) {
 				return data.timeline[time];
 			});
+            // There are different ways of formatting the value string
+            var value_format = {
+                percent: function(){
+                    return "<b>" + data.current.toFixed(0) + "</b> % <span class='table-percent'>(" +
+                        i18n.gettext("7 days") + ")</span><br/><b>" + data.cummulative.toFixed(0) +
+                        " %</b> <span class='table-percent'>(" + i18n.gettext("12 months") + ")</span>";
+                },
+                percent_year: function(){
+                    return "<b>" + data.current.toFixed(0) + "</b> % <span class='table-percent'>" +
+                        i18n.gettext("week") + "</span><br/><b>" + data.cummulative.toFixed(0) +
+                        " %</b> <span class='table-percent'>" + i18n.gettext("year") + "</span>";
+                },
+                number: function(){
+                    return "<b>" + data.current.toFixed(0) + "</b> <span class='table-percent'>(" +
+                        i18n.gettext("7 days") + ")</span><br/><b>" + data.cummulative.toFixed(0) +
+                        " </b> <span class='table-percent'>(" + i18n.gettext("12 months") + ")</span>";
+                },
+                number_year: function(){
+                    return "<b>" + data.current.toFixed(0) + "</b> <span class='table-percent'>" +
+                        i18n.gettext("week") + "</span><br/><b>" + data.cummulative.toFixed(0) +
+                        " </b> <span class='table-percent'>" + i18n.gettext("year") + "</span>";
+                }
+            };
 			// The prep details object should include a param "value_type".
-			// This should determine if the indicator is a number of a percent.
-			var value_string = "";
-			switch (prep_details.value_type || 'percent') {
-				case 'number':
-					value_string = data.current.toFixed(0) + " " + i18n.gettext("week") + "<br/>" +
-						data.cummulative.toFixed(0) + " " + i18n.gettext("year");
-					break;
-				case 'percent':
-					value_string = data.current.toFixed(0) + " % " + i18n.gettext("week") + "<br/>" +
-						data.cummulative.toFixed(0) + " % " + i18n.gettext("year");
-					break;
-				default:
-					value_string = data.current.toFixed(0) + " % " + i18n.gettext("week") + "<br/>" +
-						data.cummulative.toFixed(0) + " % " + i18n.gettext("year");
-			}
+			// This determines how the value string is formatted.
+            var value_type = prep_details.value_type || "percent";
+			var value_string = value_format[value_type]();
 			// Draw the indicator content.
 			$("#" + unique_id + ' .value').append(value_string);
 			$("#" + unique_id + ' .sparkline').attr(
