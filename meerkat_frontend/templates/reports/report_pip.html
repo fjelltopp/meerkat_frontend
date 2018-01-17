@@ -4,13 +4,13 @@
 <!-- CONTENT -->
 <div class="page-header">
     <h2>
-	<span
-	    class="flag-icon flag-icon-{{report.flag}}"
-	    style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
-	>
-	</span>
+    <span
+        class="flag-icon flag-icon-{{report.flag}}"
+        style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+    >
+    </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-	<span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Pandemic Influenza Preparedness (PIP) Profile
+    <span class="hidden-xs">{{report.data.project_region|e}} &middot; </span>Pandemic Influenza Preparedness (PIP) Profile
     <span class="report-week">
         {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YYYY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YYYY') }}
     </span>
@@ -28,62 +28,62 @@
         <ul>
           <li>A total of <strong>{{ report.data.total_cases|commas }} </strong> enrolled patients.</li>
           <li><strong>{{ report.data.percent_cases_male|float|round(1) }}% male</strong> and <strong>{{ report.data.percent_cases_female|float|round(1) }}% female</strong> </li>
-	      <li><strong>{{ report.data.cases_chronic}} ({{ report.data.percent_cases_chronic|float|round(1)}}%) patients </strong>with chronic conditions.</strong></li>
+          <li><strong>{{ report.data.cases_chronic}} ({{ report.data.percent_cases_chronic|float|round(1)}}%) patients </strong>with chronic conditions.</strong></li>
           {% if report.data.total_cases %}
-	      <li><strong>{{ report.data.cases_pcr }} samples </strong> tested by PCR ({{ (report.data.cases_pcr / report.data.total_cases  * 100 )|round(1) }} %), <strong> {{ ( report.data.total_cases - report.data.cases_pcr)|commas}}</strong> ( {{ ( (report.data.total_cases - report.data.cases_pcr) / report.data.total_cases * 100)|round(1) }} %) in process.</li>
+          <li><strong>{{ report.data.cases_pcr }} samples </strong> tested by PCR ({{ (report.data.cases_pcr / report.data.total_cases  * 100 )|round(1) }} %), <strong> {{ ( report.data.total_cases - report.data.cases_pcr)|commas}}</strong> ( {{ ( (report.data.total_cases - report.data.cases_pcr) / report.data.total_cases * 100)|round(1) }} %) in process.</li>
           {% else %}
-          <li><strong>{{ report.data.cases_pcr }} samples </strong> tested by PCR, <strong> {{ ( report.data.total_cases - report.data.cases_pcr)|commas}}</strong> in process.</li>
+          <li><strong>0 samples </strong> tested by PCR, <strong> 0 </strong> in process.</li>
           {% endif %}
         </table>
 
 
         </ul>
         <p>Viral Aetiologies</p>
-	<ul>
-	{% for value in report.data.flu_type %}
-	    <li> <strong>  {{ value.quantity }} ({{ value.percent|float|round(1) }} %) </strong> cases of {{ value.title }} </li>
-	{% endfor %}
-	</ul>
+    <ul>
+    {% for value in report.data.flu_type %}
+        <li> <strong>  {{ value.quantity }} ({{ value.percent|float|round(1) }} %) </strong> cases of {{ value.title }} </li>
+    {% endfor %}
+    </ul>
       </div>
     </div>
   </div>
   <!-- Public Health Indicators -->
   <div class="col-sm-6">
-	  <div class="chart-wrapper">
-		  <div class="chart-title">
-			  Public Health Indicators
-		  </div>
-		  <div class="chart-stage">
-			  <table class="table table-striped">
-				  <thead>
-					  <tr>
-						  <th></th>
-						  <th></th>
-						  <th>%</th>
-						  <th>#</th>
-					  </tr>
-				  </thead>
-				  {% for indicator in report.data.pip_indicators %}
-				  <tr>
-					  <td>{{ loop.index }}</td>
-					  <td>{{ indicator.title|e }}</td>
-					  <td>{{ indicator.percent|float|round(1) }}%</td>
-					  <td>{{ indicator.quantity|commas }}</td>
-				  </tr>
-				  {% endfor %}
-			  </table>
-		  </div>
+      <div class="chart-wrapper">
+          <div class="chart-title">
+              Public Health Indicators
+          </div>
+          <div class="chart-stage">
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th></th>
+                          <th></th>
+                          <th>%</th>
+                          <th>#</th>
+                      </tr>
+                  </thead>
+                  {% for indicator in report.data.pip_indicators %}
+                  <tr>
+                      <td>{{ loop.index }}</td>
+                      <td>{{ indicator.title|e }}</td>
+                      <td>{{ indicator.percent|float|round(1) }}%</td>
+                      <td>{{ indicator.quantity|commas }}</td>
+                  </tr>
+                  {% endfor %}
+              </table>
+          </div>
       </div>
   </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-	<div class="chart-wrapper">
-	    <div class="chart-title">Epi Curve</div>
-	    <div class="chart-stage">
-		<div id="chart-epi"></div>
-	    </div>
-	</div>
+    <div class="chart-wrapper">
+        <div class="chart-title">Epi Curve</div>
+        <div class="chart-stage">
+        <div id="chart-epi"></div>
+        </div>
+    </div>
     </div>
 </div>
 
@@ -228,7 +228,7 @@
       <div class="chart-title">Contact Information</div>
       <div class="chart-stage">
         <address>
-	  {{address|safe}}
+      {{address|safe}}
         </address>
       </div>
     </div>
@@ -251,10 +251,10 @@ console.log( "{{ site.title }}" );
 // Demographics
 var demographicsAges = {
   categories: [{% for item in report.data.demographics %}"{{ item.age }}"{% if not loop.last %},{% endif %}{% endfor %}],
-	 series: [ {
-		 name: 'Male',
-		 data: [{% for item in report.data.demographics %}{{ item.male.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
-	 },{
+     series: [ {
+         name: 'Male',
+         data: [{% for item in report.data.demographics %}{{ item.male.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
+     },{
     name: 'Female',
     data: [{% for item in report.data.demographics %}{{ item.female.quantity }}{% if not loop.last %},{% endif %}{% endfor %}]
   }],
@@ -301,21 +301,21 @@ $(function() {
     pieChart(CommunicableDiseasesList)
   );
      var series = [
-	 {% for value in report.data.timeline.confirmed %}
-	 {
-	     title: "{{ value }}",
-	     values: {{ report.data.timeline.confirmed[value] }}
-	 },
-	 {% endfor %}
+     {% for value in report.data.timeline.confirmed %}
+     {
+         title: "{{ value }}",
+         values: {{ report.data.timeline.confirmed[value] }}
+     },
+     {% endfor %}
      ]
 
 
      $('#chart-epi').highcharts(
-	 PipBarChart(
-	     {{ report.data.timeline.weeks|safe }},
-	      {{ report.data.timeline.suspected }}, series ,
-	     { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
-	 ));
+     PipBarChart(
+         {{ report.data.timeline.weeks|safe }},
+          {{ report.data.timeline.suspected }}, series ,
+         { yAxis: { text: 'Cases' }, xAxis: {text: 'Epi Week'} }
+     ));
 
 });
 // Draw map
