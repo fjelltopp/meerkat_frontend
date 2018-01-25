@@ -11,34 +11,39 @@ function gatherClinicsData(locID) {
     //Clear the arrays ...
     columnNameArray = [];
     clinicDataArray = [];
-    ClinicColumnsConfig = [];
+    clinicColumnsConfig = [];
 
     var locationAPI = "/locations";
 
-    ClinicColumnsConfig.push({
-        "columnName": "column_New",
+    // this variable will contain the clinic columns details
+    clinicColumnsConfig.push({
+        "columnName": "new",
         "api": '/query_variable/vis_1/locations:clinic?only_loc=' + locID + '&use_ids=True',
-        "type": "N"
+        "type": "N",
+        "suffix": " (new)"
     }, {
-        "columnName": "column_Return",
+        "columnName": "return",
         "api": '/query_variable/vis_2/locations:clinic?only_loc=' + locID + '&use_ids=True',
-        "type": "F"
+        "type": "F",
+        "suffix": " (return)"
     }, {
-        "columnName": "column_Cd",
+        "columnName": "cd",
         "api": '/query_variable/reg_10/locations:clinic?only_loc=' + locID + '&use_ids=True',
-        "type": "CD"
+        "type": "CD",
+        "suffix": " (cd reg.)"
     }, {
-        "columnName": "column_Ncd",
+        "columnName": "ncd",
         "api": '/query_variable/reg_11/locations:clinic?only_loc=' + locID + '&use_ids=True',
-        "type": "NCD"
+        "type": "NCD",
+        "suffix": " (ncd reg.)"
     });
 
 
     buildClinicsTable();
 
     var deferreds = [];
-    $.each(ClinicColumnsConfig, function(index, value) {
-        if ($.inArray(value.columnName, config.clinicsTable) != -1) {
+    $.each(clinicColumnsConfig, function(index, value) {
+        if ($.inArray(value.columnName, config.clinicsTableColumns) != -1) {
 
             deferreds.push(
                 $.getJSON(api_root + value.api, function(data) {
@@ -84,39 +89,23 @@ function buildClinicsTable() {
 
     //Get the current week with the last two weeks, 3 weeks total
     var currentWeek = week;
-    for (i = week - 2; i <= currentWeek; i++) {
 
-        var columnClass = "";
-        var currentText = "";
-        if (i === week) {
-            columnClass = "total";
-        }
+    //build the clinic columns based on the clinicColumnsConfig
+    $.each(clinicColumnsConfig, function(index, value) {
+        for (i = week - 2; i <= currentWeek; i++) {
 
-        //Draw the clolumns depend on the week number
-        if ($.inArray("column_New", config.clinicsTable) != -1) {
-            buildTableColumn(i + "N", "Week " + i + currentText + " (new) ", columnClass);
-        }
-        if ($.inArray("column_Return", config.clinicsTable) != -1) {
-            buildTableColumn(i + "F", "Week " + i + currentText + " (return) ", columnClass);
-        }
+            var columnClass = "";
+            var currentText = "";
+            if (i === week) {
+                columnClass = "total";
+            }
 
-    }
-
-
-    //Build CD and NCD Values
-    for (i = week - 2; i <= currentWeek; i++) {
-        var colClass = "";
-        if (i === week) {
-            colClass = "total";
+            //Draw the clolumns depend on the week number
+            if ($.inArray(value.columnName, config.clinicsTableColumns) != -1) {
+                buildTableColumn(i + value.type, "Week " + i + currentText + value.suffix, columnClass);
+            }
         }
-        if ($.inArray("column_Cd", config.clinicsTable) != -1) {
-            buildTableColumn(i + "CD", "Week " + i + " (cd reg.) ", colClass);
-        }
-        if ($.inArray("column_Ncd", config.clinicsTable) != -1) {
-            buildTableColumn(i + "NCD", "Week " + i + " (ncd reg.) ", colClass);
-        }
-
-    }
+    });
 }
 
 //building table header

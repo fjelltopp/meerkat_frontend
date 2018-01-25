@@ -228,7 +228,7 @@
             ]
         }
     ],
-    "clinicsTable": ["column_New", "column_Return", "column_Cd", "column_Ncd"],
+    "clinicsTableColumns": ["new", "return", "cd", "ncd"],
     "flag": "null.svg",
 
     "footer": {
