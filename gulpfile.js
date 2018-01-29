@@ -50,6 +50,8 @@ gulp.task('jshint', function() {
 gulp.task('vendorJS', function() {
   return gulp.src( mainBowerFiles().concat([
     'node_modules/tree-model/dist/TreeModel-min.js',
+    'node_modules/mapbox-gl/dist/mapbox-gl.js',
+    'node_modules/mapbox-gl-leaflet/leaflet-mapbox-gl.js',
     'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
     'bower_components/jed/jed.js',
     'bower_components/highcharts/modules/treemap.js',
@@ -113,6 +115,7 @@ gulp.task('sass', ['mapbox-rename-css-to-scss'], function() {
 // Hacky hacky hack to get mapbox.css as scss for SASS to compile it...
 gulp.task('mapbox-rename-css-to-scss', function() {
   return gulp.src([
+      'node_modules/mapbox-gl/dist/mapbox-gl.css',
       'bower_components/mapbox.js/mapbox.uncompressed.css',
       'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
       'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
@@ -120,7 +123,8 @@ gulp.task('mapbox-rename-css-to-scss', function() {
       'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
       'bower_components/bootstrap-table/src/bootstrap-table.css',
       'bower_components/featherlight/src/featherlight.css',
-	  'bower_components/leaflet.awesome-markers/dist/leaflet.awesome-markers.css'
+	  'bower_components/leaflet.awesome-markers/dist/leaflet.awesome-markers.css',
+      'bower_components/leaflet/dist/leaflet.css'
     ])
     .pipe(rename(function(path) {
       path.extname = ".scss"

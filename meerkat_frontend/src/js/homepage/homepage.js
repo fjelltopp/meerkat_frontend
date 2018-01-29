@@ -146,8 +146,13 @@ function setup_homepage(){
     });
 
     //SHOW THE MAP ----------------------------------------------
-    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map('map', 'mrjb.143811c9', { zoomControl:false });
+    var map = L.map('map', {zoomControl:false, maxZoom:25});
+
+    var gl = new L.mapboxGL({
+        accessToken: mapboxAccessToken,
+        style: mapboxDefaultStyle
+    }).addTo(map);
+
     var viewingMap = false;
 
     function resetMapView (){
@@ -169,11 +174,10 @@ function setup_homepage(){
         $('.key .keyBody').text(i18n.gettext("Click here to explore"));
         //if( undefined != regionalLayer ) map.removeLayer(regionalLayer);
         viewingMap = false;
-
     }
 
     resetMapView(map);
-
+    $.extend(L.Icon.Default.prototype.options, {imagePath:"/static/img/"});
     var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
 
     $.getJSON( api_root + "/tot_map", function( reports ){
