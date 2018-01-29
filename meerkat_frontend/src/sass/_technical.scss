@@ -480,3 +480,14 @@ footer{
 .disease-table-box{
 	padding-top: 80px;
 }
+
+.latest #info-box{
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 400;
+    background: rgba(0, 144, 202, 0.8);
+    color: #fff;
+    padding: 15px;
+    border-radius: 4px;
+}
