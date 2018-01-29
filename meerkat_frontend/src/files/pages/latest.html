@@ -1,66 +1,83 @@
 <div class="top-bar row">
 
-	<div class="location-box box">
-		<a href="#menu-toggle" id="menu-toggle">
-		<div class="location-box__label">
-			<div id="location_box">Location:</div>
-			<div id="location-title" class="location-title">Not Loaded</div>
-		</div>
-		<span class="glyphicon glyphicon-chevron-right"></span>
-		<span class="glyphicon glyphicon-chevron-left hidden"></span>
-		</a>
-	</div>
-	<div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-6" id="title">
-	</div>
-	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
-	</div>
+    <div class="location-box box">
+        <a href="#menu-toggle" id="menu-toggle">
+        <div class="location-box__label">
+            <div id="location_box">Location:</div>
+            <div id="location-title" class="location-title">Not Loaded</div>
+        </div>
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="glyphicon glyphicon-chevron-left hidden"></span>
+        </a>
+    </div>
+
+    <div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-6" id="title">
+    </div>
+    <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
+    </div>
 
 </div>
 
-<div class="demographics toggled" id="wrapper">
+<div class="latest toggled" id="wrapper">
 
-	<div id="sidebar-wrapper" >
-		<div id="location-selector" class="location-selector">
-		</div>
-	</div>
+    <div id="sidebar-wrapper" >
+        <div id="location-selector" class="location-selector">
+        </div>
+    </div>
 
-	<div id="page-content-wrapper">
-		<div class="row">
-			<div class="col-xs-12 less-padding-col">
-				<div class="chartBox box">
-					<div class="chartBox__heading">
+    <div id="page-content-wrapper">
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="chartBox box">
+                    <div class="chartBox__heading">
                         <p id="box_heading"></p>
-						<div class="box__type-selector pull-right">
-							<a href="" onclick="exportTableToXLS('latest-table','latestSummary');return false;" class="csv">
-								Excel
-							</a>
-						</div>
-					</div>
-					<div class="chartBox__content">
-						<div id="latest-table" class="table">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                    </div>
+                    <div class="chartBox__content">
+                        <div id="latest-map" class="map">
+                        </div>
+                        <div id='info-box'>
+                            Click on a submission to see its details
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="chartBox box">
+                    <div class="chartBox__heading">
+                        <p id="box_heading"></p>
+                        <div class="box__type-selector pull-right">
+                            <a href="" onclick="exportTableToXLS('latest-table','latestSummary');return false;" class="csv">
+                                Excel
+                            </a>
+                        </div>
+                    </div>
+                    <div class="chartBox__content">
+                        <div id="latest-table" class="table">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </div>
 <div class="breaker"></div>
 
 <!-- Menu Toggle Script -->
 <script>
-  var timeout = setTimeout("location.reload(true);",10000);
-$("#menu-toggle").click(function(e) {
-	e.preventDefault();
-	$("#wrapper").toggleClass("toggled");
-	$(".location-box .glyphicon").toggleClass( "hidden" );
 
-	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
-	var transitionEvent = whichTransitionEvent();
-	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
-		$(window).resize();
-	});
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    $(".location-box .glyphicon").toggleClass( "hidden" );
+
+    //Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+    var transitionEvent = whichTransitionEvent();
+    transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+        $(window).resize();
+    });
  });
 
  $("#location_box").html(i18n.gettext("Location:"));
@@ -69,70 +86,141 @@ $("#menu-toggle").click(function(e) {
  $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('Latest Submissions'));
- $(".csv").each(function(){
-	 $(this).html(i18n.gettext('Excel'));
- });
+ $(".csv").each(function(){$(this).html(i18n.gettext('Excel'));});
  $("#epi-week-title").html( i18n.gettext("Week") + " " +get_epi_week() + " · " + get_date() );
 
+var repeater = null;
+var map = L.map('latest-map', {
+    scrollWheelZoom: false,
+    maxZoom:18,
+    center: config.map.center || [0, 0],
+    zoom: config.map.zoom || 8
+});
+var gl = new L.mapboxGL({
+    accessToken: mapboxAccessToken,
+    style: mapboxDefaultStyle
+}).addTo(map);
+var viewingMap = false;
 
 //This function is called every time a new location is loaded.
- //Any location-dependant content should be redrawn through this function.
-locID = 1;
 function drawCharts( locID ){
-
-	 //Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
-	 locID = locID
-	loadTable();
-
+    var locations = {};
+    var records = {}
+    var deferreds = [
+        $.getJSON( api_root + "/locations", function( data ){
+            locations = data;
+        }),
+        $.getJSON( api_root + "/latest/" + locID, function( data ){
+            records = data;
+        }),
+        $.getJSON( api_root + "/geo_shape/" + locID, function(data){
+            shape = data
+        })
+    ];
+    $.when.apply($, deferreds).then(function() {
+        jumpToLocation(shape.geometry);
+        loadTable(locID, locations, records);
+        updateMap(locID, locations, records);
+        window.clearInterval(repeater);
+        repeater = setInterval(function(){
+            updateTable(locID, locations, records);
+            updateMap(locID, locations, records);
+        }, 10000);
+    });
 }
 
-function loadTable(){
+function jumpToLocation(geometry){
+    if(geometry.type=="Point"){
+        map.flyTo(
+            new L.LatLng(geometry.coordinates[1], geometry.coordinates[0]),
+            18
+        );
+    }else{
+        geometry.coordinates.map(function reverse(item) {
+           return Array.isArray(item) && Array.isArray(item[0])
+                      ? item.map(reverse)
+                      : item.reverse();
+        });
+        map.flyToBounds(geometry.coordinates);
+    }
+}
 
+function updateTable(locID), locations, records){
+    var tableData = $('#latest-table table').bootstrapTable('getData');
+    console.log(tableData);
+    $('#latest-table table').bootstrapTable('insertRow', {"index":0, "row":{
+        "time": "blha",
+        "clinic": "hello",
+        "type": "case",
+        "uuid": "adfadfafsa"
+    }});
+}
 
-	 $.getJSON( api_root+"/locations", function( locations ){
-		 $.getJSON( api_root+"/latest/" + locID, function( records ){
-			 var columns = [
-				 {
-					 "field": "time",
-					 "title": "Time of Submission",
-					 "align": "center",
-					 "class": "header",
-					 width : "40%",
-				 },{
-					 "field": "clinic",
-					 "title": "Clinic",
-					 "align": "center",
-					 "class": "header",
-					 width : "15%",
-				 },{
-					 "field": "type",
-					 "title": "Type",
-					 "align": "center",
-					 "class": "header",
-				 }];
-			 var data = [];
-			 
-			 for( var i in records.records){
-				 record = records.records[i];
-				 var datum = {
-					 "time": record.submission_date.split("T"),
-					 "clinic": locations[record.clinic].name,
-					 "type": record.type_name
-				 }
-				 data.push(datum);
-			 }
+function updateMap(locID, locations, records){
+    var TIME_INTERVAL = 6*60*60;
+    var now = Date.now();
+    for( var i in records.records ){
+        var record = records.records[i];
+        record.age = (now - Date.parse(record.submission_date))/1000;
+        if(record.age < TIME_INTERVAL){
+            var marker = L.marker(record.geolocation[0].reverse());
+            marker.record = record;
+            marker.on('click', function(e){
+                var uuid = "uuid:6b08a3b9-25be-4f32-880c-526474482d52";
+                var query = "[data-uniqueid='" + uuid + "']";
+                $("#latest-table .selected").removeClass('selected');
+                $("[data-uniqueid='" + uuid + "']").addClass('selected');
+                $('html, body').animate({
+                    scrollTop: $("[data-uniqueid='" + uuid + "']").offset().top-100
+                }, 2000);
+            });
+            map.addLayer(marker);
+        }
+    }
+}
 
-			 $('#latest-table').html("<table> </table>");
-			 $('#latest-table table').bootstrapTable(
-				 {
-					 columns: columns,
-					 data: data,
-					 pagination: true,
-					 pageSize: 20
-				 });
-		 });
-	 });
-	 //setTimeout(loadTable(), 5000);
+function loadTable(locID, locations, records){
+
+    var columns = [
+        {
+            field: "time",
+            title: "Time of Submission",
+            align: "center",
+            class: "header",
+            width : "40%",
+        },{
+            field: "clinic",
+            title: "Clinic",
+            align: "center",
+            class: "header",
+            width : "15%",
+        },{
+            field: "type",
+            title: "Type",
+            align: "center",
+            class: "header",
+        }];
+     var data = [];
+
+     for( var i in records.records){
+         record = records.records[i];
+         var datum = {
+             "time": record.submission_date.split("T"),
+             "clinic": locations[record.clinic].name,
+             "type": record.type_name,
+             "uuid": record.uuid
+         }
+         data.push(datum);
+     }
+
+     $('#latest-table').html("<table> </table>");
+     $('#latest-table table').bootstrapTable({
+        columns: columns,
+        data: data,
+        pagination: true,
+        pageSize: 20,
+        uniqueId: 'uuid'
+     });
 }
 
 </script>
