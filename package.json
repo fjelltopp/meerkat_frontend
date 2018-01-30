@@ -8,7 +8,7 @@
     "deep-extend": "0.4.1",
     "del": "1.2.0",
     "duplexer2": "0.0.2",
-    "gulp": "3.9.1",
+    "gulp": "4.0.0",
     "gulp-add-src": "0.2.0",
     "gulp-concat": "2.6.0",
     "gulp-debug": "2.0.1",
@@ -36,10 +36,13 @@
     "run-sequence": "1.2.2",
     "tree-model": "1.0.4",
     "xtend": "4.0.0",
-    "yargs": "3.15.0"
+    "yargs": "3.15.0",
+    "snyk": "^1.69.5"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
@@ -51,5 +54,6 @@
     "karma-phantomjs-launcher": "1.0.0",
     "karma-spec-reporter": "0.0.22",
     "phantomjs-prebuilt": "2.1.14"
-  }
+  },
+  "snyk": true
 }
