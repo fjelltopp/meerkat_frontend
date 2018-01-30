@@ -33,6 +33,10 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+        // ShadyCSS dep of mapbox-gl requires new EMCAScript standards.
+        // These standards are unsupported by PhantomJS at the moment.
+        // This dependancy is not essential for testing so exclude.
+        'meerkat_frontend/static/js/scoping-shim.min.js'
     ],
 
 
