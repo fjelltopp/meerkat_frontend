@@ -40,9 +40,7 @@
     "yargs": "3.15.0"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run"
   },
   "author": "",
   "license": "ISC",
@@ -54,6 +52,5 @@
     "karma-phantomjs-launcher": "1.0.0",
     "karma-spec-reporter": "0.0.22",
     "phantomjs-prebuilt": "2.1.14"
-  },
-  "snyk": true
+  }
 }
