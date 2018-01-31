@@ -1,11 +1,10 @@
-map = null;
-// counter for three boxes to init with data
-var whiteboxCounter = whiteboxCounter || 0;
-/**:drawMap(varID, containerID, location)
+L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+var mapboxDefaultStyle = 'mapbox://styles/mrjb/cjcsvure60is12smw9r86ah4s';
+var whiteboxCounter = window.whiteboxCounter || 0;
 
+/** :drawMap(varID, containerID, location)
     Draws a map that visualises the number of reported cases for the given variable ID at
     each clinic. The numbers of cases at each clinic shown using a colour gradient.
-
     :param string varID:
         The ID of the variable to be mapped.
     :param string containerID:
@@ -42,14 +41,11 @@ function drawMap(varID, containerID, location, start_date, end_date, satellite) 
 function drawMapFromData(data, containerID, satellite) {
     // console.log( "DRAWING MAP" );
     // console.log( data );
-    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
-            ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
-            'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    map = L.map(containerID, {
         maxZoom: 18,
         scrollWheelZoom: false
     });
+    L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
 
     if (satellite !== undefined) {
         var sat_layer = L.mapbox.styleLayer('mapbox://styles/mrjb/ciymznczl00a12ro9cnd4v863');
@@ -204,16 +200,13 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
         }
 
         console.log(data);
-        L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-        map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
-                ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
-                'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        map = L.map(containerID, {
             maxZoom: 18,
             scrollWheelZoom: false,
             center: new L.LatLng(config.map.center.lat, config.map.center.lng),
             zoom: config.map.zoom
         });
+        L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
 
         //Red colours
         var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
@@ -325,7 +318,6 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 
 function drawIncidenceChoroplet(var_name, varID, containerID, level, monthly) {
 
-    console.log(monthly);
     var url = api_root + '/incidence_rate/' + varID + '/' + level + "/1000/1";
     if (monthly) url += "/1";
 
@@ -333,35 +325,28 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level, monthly) {
         $.getJSON(api_root + "/locations", function(locations) {
             $.getJSON(api_root + "/geo_shapes/" + level, function(geojson) {
                 geojson = geojson.features;
-                L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-                map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
-                        ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
-                        'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                map = L.map(containerID, 'mrjb.143811c9', {
                     maxZoom: 18,
                     scrollWheelZoom: false,
                     center: new L.LatLng(config.map.center.lat, config.map.center.lng),
                     zoom: config.map.zoom
                 });
+                L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
 
                 var loc_data = {};
                 for (var d in data) {
-                    console.log(d);
                     loc_data[locations[d].name] = data[d];
                 }
-                console.log(loc_data);
                 for (var key in geojson) {
                     var gj = geojson[key];
 
                     var name = gj.properties.Name;
                     if (name in loc_data) {
-                        console.log(name);
                         gj.properties.rate = loc_data[name];
                     } else {
                         gj.properties.rate = 0;
                     }
                 }
-
 
                 var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
 
@@ -506,30 +491,24 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
     $.getJSON(api_root + "/locations", function(locations) {
         $.getJSON(api_root + "/geo_shapes/" + level, function(geojson) {
             geojson = geojson.features;
-            L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-            map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
-                    ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
-                    'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            map = L.map(containerID, 'mrjb.143811c9', {
                 maxZoom: 18,
                 scrollWheelZoom: false,
                 center: new L.LatLng(centre_lat ? centre_lat : config.map.center.lat,
                     centre_lng ? centre_lng : config.map.center.lng),
                 zoom: zoom ? zoom : config.map.zoom
             });
+            L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
 
             var loc_data = {};
             for (var d in data) {
-                console.log(d);
                 loc_data[d] = data[d].total;
             }
-            console.log(loc_data);
             for (var key in geojson) {
                 var gj = geojson[key];
 
                 var name = gj.properties.Name;
                 if (name in loc_data) {
-                    console.log(name);
                     gj.properties.rate = loc_data[name];
                 } else {
                     gj.properties.rate = 0;
@@ -629,7 +608,6 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
             if (title === undefined) {
                 title = i18n.gettext('Number of cases of') + " " + i18n.gettext(var_name);
             }
-            console.log(title);
 
             info.update = function(props) {
                 this._div.innerHTML = '<h4>' + title + '</h4>' + (props ? '<b>' + props.Name + '</b><br /> ' + props.rate : i18n.gettext('Hover over a') + " " + i18n.gettext(level));

@@ -1,31 +1,32 @@
 <div class="top-bar row">
-	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
-	</div>
+    <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
+    </div>
 </div>
 
 <div class="map-view">
 
-	<div id="page-content-wrapper">
-		<div class="row"
-			<div class="col-xs-12 less-padding-col">
-				<div id="variable-selector" class="col-sm-offset-1 col-sm-11 no-padding-col"></div>
-				<div id="type-selector" class="col-sm-offset-1 col-sm-11 no-padding-col">
-				</div>
+    <div id="page-content-wrapper">
+        <div class="row"
+            <div class="col-xs-12 less-padding-col">
+                <div id="variable-selector" class="col-sm-offset-1 col-sm-11 no-padding-col"></div>
+                <div id="type-selector" class="col-sm-offset-1 col-sm-11 no-padding-col">
+                </div>
 
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 less-padding-col">
-				<div class="chartBox box">
-					<div class="chartBox__heading" id="box_heading">
-					</div>
-					<div id="total-map" class="chartBox__content map">
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="chartBox box">
+                    <div class="chartBox__heading" id="box_heading">
+                    </div>
+                    <div id='mapbox' class='chartBox__content'>
+                        <div id="total-map" class=" map">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="breaker"></div>
 <script>
@@ -36,19 +37,19 @@
  var html ="<p class='col-xs-4'>"+ i18n.gettext("Choose disease to map") + "</p><select class='report col-xs-4 no-padding-col' style='display:inline;'>";
  id_name = {};
  for( var key in options ){
-	 option = options[key];
-	 id_name[option.id] = option.name;
-	 if( !option.access || $.inArray(option.access, user.acc[config.country]) != -1){
-		 html += "<option value='" + option.id + "'>" +
-				 option.name + "</option>";
-	 }
+     option = options[key];
+     id_name[option.id] = option.name;
+     if( !option.access || $.inArray(option.access, user.acc[config.country]) != -1){
+         html += "<option value='" + option.id + "'>" +
+                 option.name + "</option>";
+     }
  }
 
  html += "</select>";
  $('#variable-selector').html(html);
 
  $('#variable-selector').change( function(){
-	 reDraw();
+     reDraw();
  });
 
  type_options = config.map_options.types
@@ -56,45 +57,41 @@
  option_captions = {
      "incidence_clinic": i18n.gettext("Incidence rate by clinic"),
      "incidence_district": i18n.gettext("Incidence rate by district"),
-	 "incidence_region": i18n.gettext("Incidence rate by region"),
+     "incidence_region": i18n.gettext("Incidence rate by region"),
      "cases_clinic": i18n.gettext("Cases by clinic"),
-	 "cases_region": i18n.gettext("Cases by region"),
-	 "cases_district": i18n.gettext("Cases by district")
+     "cases_region": i18n.gettext("Cases by region"),
+     "cases_district": i18n.gettext("Cases by district")
  }
  type_html ="<p class='col-xs-4'>" + i18n.gettext("Choose map type")+  "</p><select class='report col-xs-4 no-padding-col' style='display:inline;'>"
  for( var key in type_options ){
      type = type_options[key];
      type_html += "<option value='" + type + "'>" +
-	     option_captions[type] + "</option>";
+         option_captions[type] + "</option>";
  }
  type_html += "</select>"
  $('#type-selector').html(type_html);
 
  $('#type-selector').change( function(){
-	 reDraw();
+     reDraw();
  });
 
- console.log( config.map_options.monthly_incidence);
  function reDraw(){
-     if(map){
-         map.remove();
-	 }
-	 var variable = $('#variable-selector select').val();
-	 var map_type = $('#type-selector select').val();
-	 if( map_type == "incidence_clinic") {
-	     drawIncidenceMap( id_name[variable],  variable, "total-map" );
-	 }else if( map_type == "incidence_district") {
-	     drawIncidenceChoroplet(id_name[variable], variable, "total-map", "district",config.map_options.monthly_incidence);
-	 }else if( map_type == "incidence_region") {
-	     drawIncidenceChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.monthly_incidence);
-	 }else if(map_type == "cases_clinic"){
-		 drawMap(variable, "total-map", allowed_location)
-	 }else if( map_type == "cases_region") {
-	     drawCasesChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.region_geo);
-	 }
-	 else if( map_type == "cases_district") {
-	     drawCasesChoroplet(id_name[variable], variable, "total-map", "district", config.map_options.district_geo);
-	 }
+     $('#mapbox').html("<div id='total-map' class='map'></div>");
+     var variable = $('#variable-selector select').val();
+     var map_type = $('#type-selector select').val();
+     if( map_type == "incidence_clinic") {
+         drawIncidenceMap( id_name[variable],  variable, "total-map" );
+     }else if( map_type == "incidence_district") {
+         drawIncidenceChoroplet(id_name[variable], variable, "total-map", "district",config.map_options.monthly_incidence);
+     }else if( map_type == "incidence_region") {
+         drawIncidenceChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.monthly_incidence);
+     }else if(map_type == "cases_clinic"){
+         drawMap(variable, "total-map", allowed_location)
+     }else if( map_type == "cases_region") {
+         drawCasesChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.region_geo);
+     }else if( map_type == "cases_district") {
+         drawCasesChoroplet(id_name[variable], variable, "total-map", "district", config.map_options.district_geo);
+     }
  }
  reDraw();
 
