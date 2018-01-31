@@ -97,11 +97,9 @@
 {% include 'includes/js.html' %}
 {% block pageJS %}
 <script>
-    var map = L.map('map', {maxZoom: 18, scrollWheelZoom: false, zoomControl: false});
-    var gl = new L.mapboxGL({
-        accessToken: mapboxAccessToken,
-        style: 'mapbox://styles/mrjb/cjcsvure60is12smw9r86ah4s'
-    }).addTo(map);
+
+    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+    var map = L.mapbox.map('map', 'mrjb.143811c9', { zoomControl:false });
     var viewingMap = false;
     map.setView(
         [{{content.map.center.lat}}, {{content.map.center.lng}}],

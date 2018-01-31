@@ -19,10 +19,9 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading" id="box_heading">
 					</div>
-                    <div id='mapbox' class='chartBox__content'>
-    					<div id="total-map" class=" map">
-    					</div>
-                    </div>
+					<div id="total-map" class="chartBox__content map">
+
+					</div>
 				</div>
 			</div>
 		</div>
@@ -75,8 +74,11 @@
 	 reDraw();
  });
 
+ console.log( config.map_options.monthly_incidence);
  function reDraw(){
-     $('#mapbox').html("<div id='total-map' class='map'></div>");
+     if(map){
+         map.remove();
+	 }
 	 var variable = $('#variable-selector select').val();
 	 var map_type = $('#type-selector select').val();
 	 if( map_type == "incidence_clinic") {
@@ -89,7 +91,8 @@
 		 drawMap(variable, "total-map", allowed_location)
 	 }else if( map_type == "cases_region") {
 	     drawCasesChoroplet(id_name[variable], variable, "total-map", "region", config.map_options.region_geo);
-	 }else if( map_type == "cases_district") {
+	 }
+	 else if( map_type == "cases_district") {
 	     drawCasesChoroplet(id_name[variable], variable, "total-map", "district", config.map_options.district_geo);
 	 }
  }

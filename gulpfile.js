@@ -49,8 +49,6 @@ gulp.task('jshint', function() {
 gulp.task('vendorJS', function() {
     return gulp.src( mainBowerFiles().concat([
         'node_modules/tree-model/dist/TreeModel-min.js',
-        'node_modules/mapbox-gl/dist/mapbox-gl.js',
-        'node_modules/mapbox-gl-leaflet/leaflet-mapbox-gl.js',
         'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
         'bower_components/jed/jed.js',
         'bower_components/highcharts/modules/treemap.js',
@@ -79,16 +77,15 @@ gulp.task('js', gulp.parallel('vendorJS', gulp.series('jshint', 'appJS')));
 
 // Hacky hacky hack to get mapbox.css as scss for SASS to compile it...
 gulp.task('mapbox-rename-css-to-scss', function() {
-    return gulp.src([
-        'node_modules/mapbox-gl/dist/mapbox-gl.css',
-        'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
-        'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
-        'bower_components/intl-tel-input/build/css/intlTelInput.css',
-        'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
-        'bower_components/bootstrap-table/src/bootstrap-table.css',
-        'bower_components/featherlight/src/featherlight.css',
-        'bower_components/leaflet.awesome-markers/dist/leaflet.awesome-markers.css',
-        'bower_components/leaflet/dist/leaflet.css'
+  return gulp.src([
+      'bower_components/mapbox.js/mapbox.uncompressed.css',
+      'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
+      'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
+      'bower_components/intl-tel-input/build/css/intltelInput.css',
+      'bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
+      'bower_components/bootstrap-table/src/bootstrap-table.css',
+      'bower_components/featherlight/src/featherlight.css',
+	  'bower_components/leaflet.awesome-markers/dist/leaflet.awesome-markers.css'
     ])
     .pipe(rename(function(path) {
         path.extname = ".scss"

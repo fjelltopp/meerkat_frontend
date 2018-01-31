@@ -147,7 +147,6 @@ body.homepage{
 		margin-left: auto;
 		margin-right: auto;
 		position:relative;
-        z-index: 401;
 	}
 
 	.title-overlay{
@@ -160,9 +159,9 @@ body.homepage{
 		overflow: hidden;
 		text-align: center;
 		width: 490px;
+		z-index: 2;
 		background: #FFF;
 		border-radius: 20px 20px 0px 0px;
-        z-index:2;
 
 	 	h1{
 			position: static;
@@ -180,6 +179,7 @@ body.homepage{
 		position: absolute;
 		right: 20px;
 		bottom: 65px;
+		z-index: 3;
 		display: block;
 		float: initial;
 		text-align: center;
@@ -215,6 +215,7 @@ body.homepage{
 			right: 0px;
 			color: white;
 			padding: 10px;
+			z-index: 1;
 			text-align: right;
 			font-size: 1.3em;
 		}
@@ -662,7 +663,6 @@ a:hover{
         .row{
             margin: 0px;
         }
-        z-index:401;
     }
 }
 

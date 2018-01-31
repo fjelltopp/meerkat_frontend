@@ -1,5 +1,6 @@
-var mapboxAccessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-var mapboxDefaultStyle = 'mapbox://styles/mrjb/cjcsvure60is12smw9r86ah4s';
+/* This
+ */
+map = null;
 
 /**:drawMap(varID, containerID, location)
 
@@ -44,15 +45,19 @@ function drawMap(varID, containerID, location, start_date, end_date, satellite) 
 }
 
 function drawMapFromData(data, containerID, satellite) {
-    $("#"+containerID).replaceWith( "<div id='" + containerID + "' class='map'></div>");
-    var map = L.map(containerID, {maxZoom: 18, scrollWheelZoom: false});
-    var gl = new L.mapboxGL({
-        accessToken: mapboxAccessToken,
-        style: mapboxDefaultStyle
-    }).addTo(map);
+    // console.log( "DRAWING MAP" );
+    // console.log( data );
+    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+    map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
+            ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
+            'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        scrollWheelZoom: false
+    });
 
     if (satellite !== undefined) {
-        var sat_layer = L.mapboxGL.styleLayer('mapbox://styles/mrjb/ciymznczl00a12ro9cnd4v863');
+        var sat_layer = L.mapbox.styleLayer('mapbox://styles/mrjb/ciymznczl00a12ro9cnd4v863');
         map.addLayer(sat_layer);
         sat_toggle = false;
         $("#" + satellite).click(function() {
@@ -202,17 +207,18 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
                 $('#emtyData-whiteBox').css("display", "block");
             }
         }
-        $("#"+containerID).replaceWith( "<div id='" + containerID + "' class='map'></div>");
-        var map = L.map(containerID, {
+
+        console.log(data);
+        L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+        map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
+                ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
+                'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
             maxZoom: 18,
             scrollWheelZoom: false,
             center: new L.LatLng(config.map.center.lat, config.map.center.lng),
             zoom: config.map.zoom
         });
-        var gl = new L.mapboxGL({
-            accessToken: mapboxAccessToken,
-            style: mapboxDefaultStyle
-        }).addTo(map);
 
         //Red colours
         var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
@@ -332,17 +338,16 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level, monthly) {
         $.getJSON(api_root + "/locations", function(locations) {
             $.getJSON(api_root + "/geo_shapes/" + level, function(geojson) {
                 geojson = geojson.features;
-                $("#"+containerID).replaceWith( "<div id='" + containerID + "' class='map'></div>");
-                var map = L.map(containerID, {
+                L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+                map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
+                        ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
+                        'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
                     maxZoom: 18,
                     scrollWheelZoom: false,
                     center: new L.LatLng(config.map.center.lat, config.map.center.lng),
                     zoom: config.map.zoom
                 });
-                var gl = new L.mapboxGL({
-                    accessToken: mapboxAccessToken,
-                    style: mapboxDefaultStyle
-                }).addTo(map);
 
                 var loc_data = {};
                 for (var d in data) {
@@ -506,20 +511,17 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
     $.getJSON(api_root + "/locations", function(locations) {
         $.getJSON(api_root + "/geo_shapes/" + level, function(geojson) {
             geojson = geojson.features;
-            $("#"+containerID).replaceWith( "<div id='" + containerID + "' class='map'></div>");
-            var map = L.map(containerID, {
+            L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
+            map = L.mapbox.map(containerID, 'mrjb.143811c9', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>' +
+                    ' contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">' +
+                    'CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
                 maxZoom: 18,
                 scrollWheelZoom: false,
-                center: new L.LatLng(
-                    centre_lat ? centre_lat : config.map.center.lat,
-                    centre_lng ? centre_lng : config.map.center.lng
-                ),
+                center: new L.LatLng(centre_lat ? centre_lat : config.map.center.lat,
+                    centre_lng ? centre_lng : config.map.center.lng),
                 zoom: zoom ? zoom : config.map.zoom
             });
-            var gl = new L.mapboxGL({
-                accessToken: mapboxAccessToken,
-                style: mapboxDefaultStyle
-            }).addTo(map);
 
             var loc_data = {};
             for (var d in data) {
