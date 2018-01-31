@@ -1,7 +1,6 @@
-/* This
- */
 map = null;
-
+// counter for three boxes to init with data
+var whiteboxCounter = whiteboxCounter || 0;
 /**:drawMap(varID, containerID, location)
 
     Draws a map that visualises the number of reported cases for the given variable ID at
@@ -19,28 +18,24 @@ function drawMap(varID, containerID, location, start_date, end_date, satellite) 
     location = location || 1;
 
     url = api_root + '/map/' + varID + '/' + location;
-    if (end_date) url += '/' + end_date;
-    if (start_date) url += '/' + start_date;
-    console.log(url);
+    if (end_date) {
+        url += '/' + end_date;
+    }
+    if (start_date) {
+        url += '/' + start_date;
+    }
 
     $.getJSON(url, function(data) {
-
-        //Check if there is available data ...
-        var isEmpty = true;
-        for (var obj in data) {
-            isEmpty = false;
-        }
-        if (isEmpty) {
+        var isDataEmpty = !$.trim(data);
+        if (isDataEmpty) {
             $('#disease-map-whiteBox').css("display", "none");
-            whiteboxCounter = whiteboxCounter + 1;
-            if (whiteboxCounter == 3) {
+            whiteboxCounter += 1;
+            if (whiteboxCounter >= 3) {
                 $('#emtyData-whiteBox').css("display", "block");
             }
         } else {
             drawMapFromData(data, containerID, satellite);
         }
-
-
     });
 }
 
