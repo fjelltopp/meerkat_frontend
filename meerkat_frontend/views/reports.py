@@ -498,7 +498,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.command_executor._commands['executePhantomScript'] = ('POST', '/session/$sessionId/phantom/execute')
 
         driver.implicitly_wait(2)
-        driver.get(initial_url) # Get the api url
+        driver.get(initial_url)  # Get the api url
         domain = url.split("://")[-1].split("/")[0]
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
                       "value": auth.get_token(), 'path': '/','expires': None}
@@ -507,16 +507,13 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.add_cookie(cookie_sel)
         driver.get(url)
 
-        time.sleep(3)  # TODO: Something better here
-        # To make sure everything has rendered properly
-
+        # TODO: Something better here
+        # Wait to make sure everything has rendered properly
+        time.sleep(4)
 
         # Page format
-
         pageNumbering = "footer: {height: \"1cm\", contents: phantom.callback(function(pageNum, numPages) { if (pageNum == 1) { return \"\"; } return \" <div align='center'>\" + pageNum + \"</div>\";})}"
-
         pageFormat = "this.paperSize = {width: " + str(width) + " , height: "+str( height )+"  ,format: \"" + str( width ) + "px*" + str( height ) + "px\", orientation:\"" + str( orientation ) + "\", margin: "+str( margins ) + ", " + pageNumbering + "};"
-
         current_app.logger.info("Rendering URL")
         execute(pageFormat, [])
 

@@ -4,59 +4,50 @@ function draw_report_map(api_call, map_centre, containerID){
     });
 }
 
+function createMap(containerID, map_centre){
+    var map = L.map(containerID, {
+        zoomControl: false,
+        fullscreenControl: true,
+        scrollWheelZoom: false,
+        maxZoom: 25
+    });
+    L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
+    if( map_centre ) map.setView([map_centre[0], map_centre[1]], map_centre[2]);
+    return map;
+}
 
 function ctc_point_map(point, containerID, map_centre){
-	console.log(point, containerID, map_centre);
-	L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
-        'KQCTcMow5165oToazo4diQ';
-	map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-	      zoomControl: false,
-	      fullscreenControl: true,
-        scrollWheelZoom: false
-    }).setView([map_centre[0], map_centre[1]], map_centre[2]);
-	var ctcMarker = L.AwesomeMarkers.icon({
-		icon: 'plus',
-		markerColor: 'blue'
-	});
-	ctcMarker.options.shadowSize = [0, 0];
-	var m = L.marker( [ point[0], point[1]], {icon: ctcMarker} );
-	m.addTo(map);
-	return map;
+
+    containerID = containerID || 'map';
+    var map = createMap(containerID, map_centre);
+    var ctcMarker = L.AwesomeMarkers.icon({
+        icon: 'plus',
+        markerColor: 'blue'
+    });
+    ctcMarker.options.shadowSize = [0, 0];
+    var m = L.marker( [ point[0], point[1]], {icon: ctcMarker} );
+    m.addTo(map);
+    return map;
 }
 
 
 function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, containerID, map_centre, in_technical, label){
     // Build the basic map using mapbox.
-	if(label === undefined){
-
-		label = "CTC";
-	}
-	
-    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
-        'KQCTcMow5165oToazo4diQ';
-	var control = false;
-	if (in_technical !== undefined){
-		control = true;
-	}
-
-
-    map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-          zoomControl: control,
-          fullscreenControl: true,
-        scrollWheelZoom: control
-    }).setView([map_centre[0], map_centre[1]], map_centre[2]);
+    label = label || "CTC";
+    control = in_technical !== undefined ? true: false;
+    var map = createMap(containerID, map_centre);
 
     // Setup map options.
-	if(! control) {
-		map.dragging.disable();
-		map.on('fullscreenchange', function(){
-			if (map.isFullscreen()) {
-				map.dragging.enable();
-			} else {
-				map.dragging.disable();
-			}
-		});
-	}
+    if(! control) {
+        map.dragging.disable();
+        map.on('fullscreenchange', function(){
+            if (map.isFullscreen()) {
+                map.dragging.enable();
+            } else {
+                map.dragging.disable();
+            }
+        });
+    }
 
     // Add surveyed clinics to map
     for(var s_point in surveyed_points){
@@ -98,24 +89,13 @@ function ctc_surveyed_clinics_map(surveyed_points,non_surveyed_points, container
 
 function map_from_data( data, map_centre, containerID){
 
-    if( !containerID ) containerID = 'map';
-
-
-    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
-                           'KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-	      zoomControl: false,
-	      fullscreenControl: true, //  Display fullscreen toggle button
-        scrollWheelZoom: false
-    });
-
-    if( map_centre ) map.setView([map_centre[0], map_centre[1]], map_centre[2]);
+    containerID = containerID || 'map';
+    var map = createMap(containerID, map_centre);
     //  Disable map dragging on touch devices to ensure scrolling works
     map.dragging.disable();
     //  However, if we're fullscreen let's allow devices to drag
     map.on('fullscreenchange', function(){
         if (map.isFullscreen()) {
-            //  Let's enable dragging as we're fullscreen
             map.dragging.enable();
         } else {
             map.dragging.disable();
@@ -139,27 +119,9 @@ function map_from_data( data, map_centre, containerID){
 }
 
 function regional_map( data, map_centre, geojson, containerID, show_labels ){
-
-	if(show_labels === undefined){show_labels = true;}
-	
-    console.log( "Creating regional map.");
-    console.log( geojson );
-    // If no containerID is provided, assume containerID "map".
-    if( !containerID ) containerID = 'map';
-
-    // Build the basic map using mapbox.
-
-
-
-    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.' +
-			'KQCTcMow5165oToazo4diQ';
-
-    map = L.mapbox.map(containerID, 'mrjb.143811c9', {
-	      zoomControl: false,
-	      fullscreenControl: true,
-        scrollWheelZoom: false
-    }).setView([map_centre[0], map_centre[1]], map_centre[2]);
-
+    show_labels = show_labels === undefined ? true : show_labels;
+    containerID = containerID || 'map';
+    var map = createMap(containerID, map_centre);
     // Setup map options.
     map.dragging.disable();
     map.on('fullscreenchange', function(){
@@ -179,10 +141,7 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
         minimum = loc.value < minimum ? loc.value : minimum;
         maximum = loc.value > maximum ? loc.value : maximum;
     }
-    console.log( "MinMax" );
-    console.log( minimum );
-    console.log( maximum );
-	console.log(data);
+
     // Create a div to store the region/district label and the value.
     var info = L.control();
     info.onAdd = function (map) {
@@ -194,7 +153,7 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
         this._div.innerHTML = (
             props ? '<b>' + props.Name + '</b><br />Value: ' +
             parseFloat(data[props.Name].value).toFixed(2) :
-				i18n.gettext('Hover over an area')
+                i18n.gettext('Hover over an area')
         );
     };
     info.addTo(map);
@@ -219,12 +178,12 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
             // Looks odd if min is 0 opacity though.
             var opacity = (data[feature.properties.Name].value-minimum)/(maximum-minimum);
             opacity = 0.8*opacity + 0.2;
-			style_opacity = 1;
-			if(data[feature.properties.Name].value === 0){
-				opacity=0;
-				style_opacity = 0;
-			}
-			
+            style_opacity = 1;
+            if(data[feature.properties.Name].value === 0){
+                opacity=0;
+                style_opacity = 0;
+            }
+
             style.opacity = style_opacity;
             style.fillOpacity = opacity;
         }
@@ -256,7 +215,7 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
         }
     }
 
-	
+
     // Create the geojson layer.
     var regionalLayer  = L.geoJson(geojson, {
         style: style,
@@ -265,76 +224,73 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
 
     // Add the regions to the map.
     regionalLayer.addTo(map);
-	if(show_labels){
-		// Create the region labels. Locs contains data keys.
-		for( var x in locs ){
-			var location = data[locs[x]];
-			var value = location.value;
-			// Use technical/misc.js isInteger() because Number.isInteger()
-			// is incompatiable with docraptor.
-			if( !isInteger(value) && value !== undefined) value = value.toFixed(1);
-			var icon = L.divIcon({
-				className: 'area-label',
-				html: "<div class='outer'><div class='inner'>" + value +
-					"</div></div>"
-			});
-			// Only add the marker if both regional gemotry and api data exist.
-			if(location.centre && value !== 0) L.marker(location.centre, {icon: icon}).addTo(map);
+    if(show_labels){
+        // Create the region labels. Locs contains data keys.
+        for( var x in locs ){
+            var location = data[locs[x]];
+            var value = location.value;
+            // Use technical/misc.js isInteger() because Number.isInteger()
+            // is incompatiable with docraptor.
+            if( !isInteger(value) && value !== undefined) value = value.toFixed(1);
+            var icon = L.divIcon({
+                className: 'area-label',
+                html: "<div class='outer'><div class='inner'>" + value +
+                    "</div></div>"
+            });
+            // Only add the marker if both regional gemotry and api data exist.
+            if(location.centre && value !== 0) L.marker(location.centre, {icon: icon}).addTo(map);
 
 
-		}
-		var legend2 = L.control({position: 'bottomright'});
+        }
+        var legend2 = L.control({position: 'bottomright'});
 
-		legend2.onAdd = function (map) {
-			var div = L.DomUtil.create('div', 'info legend');
-			if( maximum === 0){
-				div.innerHTML +=i18n.gettext('No Cases');
-			}else{
-				div.innerHTML +=i18n.gettext('Areas without cases are not shown');
-			}
-			return div;
-		};
-		legend2.addTo(map);
-	}else{
-		var legend = L.control({position: 'bottomright'});
-		
-		legend.onAdd = function (map) {
-			
-			var div = L.DomUtil.create('div', 'info legend');
-			var grades = [];
-			var labels = [];
-			if(minimum == maximum){
-				grades = [maximum];
-				opacity = [0.2];
-			}else{
-				n = 6;
-				grades = [minimum];
-				opacity = [0.2];
-				step = (maximum + 1 - minimum ) / n;
-				for(var j=1;j<= n; j++){
-					grades.push(minimum + step * j);
-					opacity.push(0.8*j/n + 0.2);
-				}
-			}
-			// loop through our density intervals and generate a label with a colored square for each interval
-			if(grades.length == 1){
-				div.innerHTML +=
-					'No Cases';
-				
-			}else{
-				for (var i = 0; i < grades.length -1 ; i++) {
-					div.innerHTML +=
-						'<i style="background:#d9692a;opacity:'+opacity[i] + '"></i> ' +
-						parseFloat(grades[i]).toFixed(1) + '&ndash;' + parseFloat(grades[i + 1]).toFixed(1) + "<br />";
-				}
-			}
-			
-			return div;
-		};
+        legend2.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            if( maximum === 0){
+                div.innerHTML +=i18n.gettext('No Cases');
+            }else{
+                div.innerHTML +=i18n.gettext('Areas without cases are not shown');
+            }
+            return div;
+        };
+        legend2.addTo(map);
+    }else{
+        var legend = L.control({position: 'bottomright'});
 
-		legend.addTo(map);
+        legend.onAdd = function (map) {
 
+            var div = L.DomUtil.create('div', 'info legend');
+            var grades = [];
+            var labels = [];
+            if(minimum == maximum){
+                grades = [maximum];
+                opacity = [0.2];
+            }else{
+                n = 6;
+                grades = [minimum];
+                opacity = [0.2];
+                step = (maximum + 1 - minimum ) / n;
+                for(var j=1;j<= n; j++){
+                    grades.push(minimum + step * j);
+                    opacity.push(0.8*j/n + 0.2);
+                }
+            }
+            // loop through our density intervals and generate a label with a colored square for each interval
+            if(grades.length == 1){
+                div.innerHTML +=
+                    'No Cases';
 
+            }else{
+                for (var i = 0; i < grades.length -1 ; i++) {
+                    div.innerHTML +=
+                        '<i style="background:#d9692a;opacity:'+opacity[i] + '"></i> ' +
+                        parseFloat(grades[i]).toFixed(1) + '&ndash;' + parseFloat(grades[i + 1]).toFixed(1) + "<br />";
+                }
+            }
 
-	}
+            return div;
+        };
+
+        legend.addTo(map);
+    }
 }
