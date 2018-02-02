@@ -867,6 +867,64 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
     });
 }
 
+/**:prepareConsultationsInformation(details)
+
+   This function fills in data in the consultations tab.
+
+   Arguments:
+   Takes a JSON object with the following possible properties.
+   :param string locID:
+   The ID of the location for which completeness shall be calculated.
+   :param string graphID:
+   The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
+   :param string tableID:
+   The ID for the HTML element that will hold the main completeness table.  If empty, no table is drawn.
+   :param string cliniscTableID:
+   The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+*/
+function prepareConsultationsInformation(details){
+    // "locID": currentLocation,
+    // "graphID": "cons_graph",
+    // "tableID": "cons_table",
+    // "clinicsTableID": "cons_clinics_table",
+    // "prev_week": "prev_week",
+
+    var consultationsLocations;
+    var consultationsData;
+    var loc_levels ={"country" : "region",
+                      "region":"district",
+                      "district":"clinic",
+                      "clinic":"clinic"};
+
+    //We need information about the location before we run more api queries
+    $.getJSON(api_root + "/locations", function(data) {
+        consultationsLocations = data;
+        var loc_id = details.locID;
+        var loc_level = loc_levels[consultationsLocations[loc_id].level];
+
+        var deferreds = [];
+        deferreds.push( $.getJSON(
+            api_root+"/aggregate_year/reg_2/" + loc_id + "?level=" + loc_level,
+            function( data ){consultationsData = data; }
+        ));
+
+        $.when.apply($, deferreds).then(function() {
+            drawConsultationsTable(details.tableID,consultationsData,loc_id, loc_level, consultationsLocations, details.prev_week_no);
+            drawConsultationsGraph(details.graphID,consultationsData,loc_id, loc_level, consultationsLocations, details.prev_week_no);
+            drawConsultationsClinicsTable(details.clincsTableID,consultationsData,loc_id,loc_level, consultationsLocations, details.prev_week_no);
+        } );
+
+
+    });
+
+
+
+
+
+}
+
+
+
 /**:get_browser()
 
     Get's the browser name and version.  This code was lifted from the web.

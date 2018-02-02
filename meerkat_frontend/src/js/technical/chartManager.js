@@ -669,3 +669,109 @@ function drawIndicatorsGraph( containerID, locID, data ){
         }]
     });
 }
+
+function drawConsultationsGraph( containerID, data, loc_id, loc_level, locations, prev_week_no){
+
+    console.log("Data in for graph");
+    console.log(data);
+    //create a data series for each location
+    var dataPrepared = [];
+    var timeseries = [];
+    var consultationsData = data[loc_level];
+    var scoreKeys = Object.keys(consultationsData);
+    var index = 0;
+    var noWeeks = prev_week_no;
+
+    for (var i=0; i<scoreKeys.length;i++){
+        index = scoreKeys[i];
+        var dt = [];
+        var dtReady = [];
+        for (var j = 1; j <= noWeeks; j++){
+            dt = [j,Number(consultationsData[index].weeks[j])];
+            dtReady.push(dt);
+        }
+        var datum = {
+            name: locations[index].name,
+            data: dtReady,
+            color: 'lightgrey'
+        };
+
+        if(locations[index].id === loc_id){ //parent location
+            datum.color= '#0090CA';
+            datum.lineWidth='5';
+        }
+        timeseries.push(datum);
+    }
+
+    console.log(timeseries);
+
+    //hovering should give all the information about given clinick and sublocation
+    $('#' + containerID).highcharts({
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: ''
+        },
+        legend:{ enabled:false },
+        xAxis: {
+            title: {
+                text: i18n.gettext('Week')
+            },
+            labels: {
+                overflow: 'justify'
+            },
+            allowDecimals: false
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: i18n.gettext("Consulations")
+            },
+            labels: {
+                format: '{value}'
+            },
+            minorGridLineWidth: 0,
+            gridLineWidth: 0,
+            alternateGridColor: null
+        },
+        plotOptions: {
+            spline: {
+                lineWidth: 3,
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineWidth: 5
+                    }
+                },
+                marker: {
+                    enabled: false
+                },
+                pointStart:0,
+                events: {
+                    mouseOver: function () {
+                        if(this.chart.series[this.index].color === 'lightgrey'){
+                            this.chart.series[this.index].update({
+                                color: '#D9692A'
+                            });
+                        }
+                    },
+                    //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
+                    mouseOut: function () {
+                        if(this.chart.series[this.index].color === '#D9692A'){
+                            this.chart.series[this.index].update({
+                                color: "lightgrey"
+                            });
+                        }
+                    }
+                }
+            }
+        },
+        series: timeseries,
+        navigation: {
+            menuItemStyle: {
+                fontSize: '10px'
+            }
+        }
+    }); //highchart
+}

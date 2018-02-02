@@ -2059,3 +2059,117 @@ function drawClinicPrescriptionTable(containerID, locID) {
 
     });
 }
+
+
+
+function drawConsultationsTable(containerID,consultationsData,loc_id,loc_level, locations, prev_week_no){
+
+    var columns = [{
+        "field": "location",
+        "title": "Location",
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "34%"
+    },{
+        "field": "prev_week",
+        "title": "Previous week",
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "34%"
+    },{
+        "field": "total",
+        "title": "Year",
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "34%"
+    }];
+
+    console.log("consultationsData");
+    console.log(consultationsData);
+    console.log(loc_level);
+    console.log(consultationsData[loc_level]);
+    var sub_locations = Object.keys(consultationsData[ loc_level ]);
+    var dataPrepared = [];
+
+    var datum = {
+        "level": "main",
+        "location" : locations[loc_id].name,
+        "prev_week" : consultationsData.weeks[prev_week_no],
+        "total" : consultationsData.total,
+        "cellStyle" : createConsultationsCellTab()
+    };
+
+    dataPrepared.push(datum);
+
+    for (var sub_loc_index = 0; sub_loc_index < sub_locations.length; sub_loc_index++){
+        var sloc_id = sub_locations[sub_loc_index];
+
+        datum = {
+            "level" : "sub",
+            "location" : locations[sloc_id].name,
+            "prev_week" : consultationsData[loc_level][sloc_id].weeks[prev_week_no],
+            "total" : consultationsData[loc_level][sloc_id].total,
+            "cellStyle" : createConsultationsCellTab()
+        };
+
+        dataPrepared.push(datum);
+    }
+
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID).append('<table class="table"></table>');
+
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: dataPrepared,
+        classes: 'table-no-bordered table-hover'
+    });
+}
+
+
+function createConsultationsCellTab() {
+    function cc3(value, row, index) {
+        console.log("YES!");
+        if (row.level == 'main') {
+            return {
+                css: {
+                    "font-weight": "bold",
+                    "background-color": "rgba(0, 144, 202, 0.6)"
+                }
+            };
+        }else{
+            return {
+                css : {}
+            };
+        }
+    }
+
+    return cc3;
+}
+
+
+function drawConsultationsClinicsTable(containerID,consultationsData,loc_id, loc_level, locations, prev_week_no){
+    var columns = [{
+        "field": "location",
+        "title": "Clinic",
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "34%"
+    }];
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID).append('<table class="table"></table>');
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: {},
+        classes: 'table-no-bordered table-hover',
+        sortName: 'location',
+        sortOrder: 'desc'
+    });
+}
