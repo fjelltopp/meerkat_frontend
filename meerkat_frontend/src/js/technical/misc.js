@@ -881,16 +881,14 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
    The ID for the HTML element that will hold the main completeness table.  If empty, no table is drawn.
    :param string cliniscTableID:
    The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+   :param string prev_week_no:
+   Date will be printed from beginning of the year until the previous week.
 */
 function prepareConsultationsInformation(details){
-    // "locID": currentLocation,
-    // "graphID": "cons_graph",
-    // "tableID": "cons_table",
-    // "clinicsTableID": "cons_clinics_table",
-    // "prev_week": "prev_week",
 
     var consultationsLocations;
     var consultationsData;
+    var clinicsConsultationsData;
     var loc_levels ={"country" : "region",
                       "region":"district",
                       "district":"clinic",
@@ -907,11 +905,15 @@ function prepareConsultationsInformation(details){
             api_root+"/aggregate_year/reg_2/" + loc_id + "?level=" + loc_level,
             function( data ){consultationsData = data; }
         ));
+        deferreds.push( $.getJSON(
+            api_root+"/aggregate_year/reg_2/" + loc_id + "?level=clinic",
+            function( data ){clinicsConsultationsData = data; }
+        ));
 
         $.when.apply($, deferreds).then(function() {
             drawConsultationsTable(details.tableID,consultationsData,loc_id, loc_level, consultationsLocations, details.prev_week_no);
             drawConsultationsGraph(details.graphID,consultationsData,loc_id, loc_level, consultationsLocations, details.prev_week_no);
-            drawConsultationsClinicsTable(details.clincsTableID,consultationsData,loc_id,loc_level, consultationsLocations, details.prev_week_no);
+            drawConsultationsTable(details.clinicsTableID,clinicsConsultationsData,loc_id,"clinic", consultationsLocations, details.prev_week_no);
         } );
 
 

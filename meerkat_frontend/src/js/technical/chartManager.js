@@ -672,9 +672,6 @@ function drawIndicatorsGraph( containerID, locID, data ){
 
 function drawConsultationsGraph( containerID, data, loc_id, loc_level, locations, prev_week_no){
 
-    console.log("Data in for graph");
-    console.log(data);
-    //create a data series for each location
     var dataPrepared = [];
     var timeseries = [];
     var consultationsData = data[loc_level];
@@ -687,23 +684,22 @@ function drawConsultationsGraph( containerID, data, loc_id, loc_level, locations
         var dt = [];
         var dtReady = [];
         for (var j = 1; j <= noWeeks; j++){
-            dt = [j,Number(consultationsData[index].weeks[j])];
+            var val_j = consultationsData[index].weeks[j];
+            if(typeof(val_j) == 'undefined'){
+                dt = [j,0];
+            }else{
+                dt = [j,Number(consultationsData[index].weeks[j])];
+            }
             dtReady.push(dt);
         }
         var datum = {
             name: locations[index].name,
             data: dtReady,
-            color: 'lightgrey'
+            color: 'grey'
         };
 
-        if(locations[index].id === loc_id){ //parent location
-            datum.color= '#0090CA';
-            datum.lineWidth='5';
-        }
         timeseries.push(datum);
     }
-
-    console.log(timeseries);
 
     //hovering should give all the information about given clinick and sublocation
     $('#' + containerID).highcharts({

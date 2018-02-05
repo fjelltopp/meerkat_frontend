@@ -1681,6 +1681,23 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
 
 }
 
+function consultationsCellStyle() {
+    // Returns a function that colours in the cells according to their value
+    function cc3(value, row, index, columns) {
+        if (row.level == 'main') {
+            return {
+                    css: {
+                        "font-weight": "bold"
+                    }
+                };
+            }else{
+                return {css: {}
+                       };
+            }
+    }
+    return cc3;
+}
+
 function createCompletenessCellTab(parentLocationRowID) {
     // Returns a function that colours in the cells according to their value
     function cc2(value, row, index, columns) {
@@ -2064,55 +2081,67 @@ function drawClinicPrescriptionTable(containerID, locID) {
 
 function drawConsultationsTable(containerID,consultationsData,loc_id,loc_level, locations, prev_week_no){
 
+    var is_searchable = ( loc_level=="clinic" ) ? true : false;
+    var is_clinics = ( loc_level=="clinic" ) ? true : false;
+
     var columns = [{
         "field": "location",
         "title": "Location",
         "align": "center",
         "class": "header",
         sortable: true,
-        width: "34%"
+        searchable: is_searchable,
+        width: "34%",
+        cellStyle : consultationsCellStyle()
     },{
         "field": "prev_week",
-        "title": "Previous week",
+        "title": i18n.gettext("Week") + " " + Number(prev_week_no),
         "align": "center",
         "class": "header",
         sortable: true,
-        width: "34%"
+        width: "34%",
+        cellStyle : consultationsCellStyle()
     },{
         "field": "total",
         "title": "Year",
         "align": "center",
         "class": "header",
         sortable: true,
-        width: "34%"
+        width: "34%",
+        cellStyle : consultationsCellStyle()
     }];
 
-    console.log("consultationsData");
-    console.log(consultationsData);
-    console.log(loc_level);
-    console.log(consultationsData[loc_level]);
     var sub_locations = Object.keys(consultationsData[ loc_level ]);
     var dataPrepared = [];
 
-    var datum = {
-        "level": "main",
-        "location" : locations[loc_id].name,
-        "prev_week" : consultationsData.weeks[prev_week_no],
-        "total" : consultationsData.total,
-        "cellStyle" : createConsultationsCellTab()
-    };
+    var prev_week_val = consultationsData.weeks[prev_week_no];
+    var total_val = consultationsData.total;
+    if(!is_clinics){// Don't repeat main location data in clinics list
+        prev_week_val = (typeof(prev_week_val)=="undefined") ? 0 : prev_week_val;
+        total_val = (typeof(total_val)=="undefined") ? 0 : total_val;
 
-    dataPrepared.push(datum);
+        var datum = {
+            "level": "main",
+            "location" : locations[loc_id].name,
+            "prev_week" : prev_week_val,
+            "total" : total_val
+        };
 
+        dataPrepared.push(datum);
+    }
+    var sloc_id = -99;
     for (var sub_loc_index = 0; sub_loc_index < sub_locations.length; sub_loc_index++){
-        var sloc_id = sub_locations[sub_loc_index];
+        sloc_id = sub_locations[sub_loc_index];
+        prev_week_val = consultationsData[loc_level][sloc_id].weeks[prev_week_no];
+        total_val = consultationsData[loc_level][sloc_id].total;
+        prev_week_val = (typeof(prev_week_val)=="undefined") ? 0 : prev_week_val;
+        total_val = (typeof(total_val)=="undefined") ? 0 : total_val;
 
         datum = {
             "level" : "sub",
             "location" : locations[sloc_id].name,
-            "prev_week" : consultationsData[loc_level][sloc_id].weeks[prev_week_no],
-            "total" : consultationsData[loc_level][sloc_id].total,
-            "cellStyle" : createConsultationsCellTab()
+            "prev_week" : prev_week_val,
+            "total" : total_val
         };
 
         dataPrepared.push(datum);
@@ -2126,50 +2155,7 @@ function drawConsultationsTable(containerID,consultationsData,loc_id,loc_level, 
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
-        classes: 'table-no-bordered table-hover'
-    });
-}
-
-
-function createConsultationsCellTab() {
-    function cc3(value, row, index) {
-        console.log("YES!");
-        if (row.level == 'main') {
-            return {
-                css: {
-                    "font-weight": "bold",
-                    "background-color": "rgba(0, 144, 202, 0.6)"
-                }
-            };
-        }else{
-            return {
-                css : {}
-            };
-        }
-    }
-
-    return cc3;
-}
-
-
-function drawConsultationsClinicsTable(containerID,consultationsData,loc_id, loc_level, locations, prev_week_no){
-    var columns = [{
-        "field": "location",
-        "title": "Clinic",
-        "align": "center",
-        "class": "header",
-        sortable: true,
-        width: "34%"
-    }];
-
-    $('#' + containerID + ' table').bootstrapTable('destroy');
-    $('#' + containerID + ' table').remove();
-    $('#' + containerID).append('<table class="table"></table>');
-    var table = $('#' + containerID + ' table').bootstrapTable({
-        columns: columns,
-        data: {},
         classes: 'table-no-bordered table-hover',
-        sortName: 'location',
-        sortOrder: 'desc'
+        search: is_searchable
     });
 }

@@ -58,12 +58,12 @@
                     <div class="chartBox__heading pointer" onclick='toggleAllClinics();return false;'>
                         <p id="clinics_cons_box_heading" style="display: inline"> </p>
                         <div class="box__type-selector pull-right">
-                            <a href="" onclick="event.stopImmediatePropagation();$('#clinics_cons_table').tableExport({type:'xls', fileName: 'clinic_completeness'});return false;" class="csv">
+                            <a href="" onclick="event.stopImmediatePropagation();$('#clinics_cons_table table').tableExport({type:'xls', fileName: 'clinic_completeness'});return false;" class="csv">
                 </a>
                         </div>
                     </div>
                     <div class="chartBox__content" id="clinics_cons_content">
-                        <div id="clinic_cons_table" class="table">
+                        <div id="clinics_cons_table" class="table">
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                 "locID": currentLocation,
                 "graphID": "cons_graph",
                 "tableID": "cons_table",
-                "clinicsTableID": "cons_clinics_table",
+                "clinicsTableID": "clinics_cons_table",
                 "prev_week_no" : prev_week
             });
         }
