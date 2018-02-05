@@ -227,10 +227,10 @@
                 title = "ICD10 Sub-diseases";
                 draw_top_table(category_name, title);
             } else if (data.id.indexOf('cmd_other') > -1) {
-                category_name = "sub_category_" + data.id
+                category_name = "sub_category_" + data.id;
                 title = "Other diseases";
-                draw_top_table(category_name, title)
-            $("#diseaseInfo-whiteBox").css("display", "");
+                draw_top_table(category_name, title);
+                $("#diseaseInfo-whiteBox").css("display", "");
             }
         });
 
