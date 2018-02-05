@@ -34,36 +34,36 @@
                         </div>
                     </div>
                     <div class="chartBox__content">
-                        <div id="cons_table" table " class="table ">
+                        <div id="cons_table" table" class="table">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-8 less-padding-col ">
-                <div class="chartBox box ">
-                    <div class="chartBox__heading " id="cons_graph_box_heading ">
+            <div class="col-xs-12 col-md-8 less-padding-col">
+                <div class="chartBox box">
+                    <div class="chartBox__heading" id="cons_graph_box_heading">
                     </div>
-                    <div class="chartBox__content ">
-                        <div id="cons_graph " style="margin: 0 auto "></div>
+                    <div class="chartBox__content">
+                        <div id="cons_graph" style="margin: 0 auto"></div>
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="row ">
+        <div class="row">
 
 
-            <div class="col-xs-12 col-md-12 less-padding-col ">
-                <div class="chartBox box " id="clinics_cons_box ">
-                    <div class="chartBox__heading pointer " onclick='toggleAllClinics();return false;'>
-                        <p id="clinics_cons_box_heading " style="display: inline "> </p>
-                        <div class="box__type-selector pull-right ">
-                            <a href=" " onclick="event.stopImmediatePropagation();$( '#clinics_cons_table table').tableExport({type: 'xls', fileName: 'clinic_completeness'});return false; " class="csv ">
+            <div class="col-xs-12 col-md-12 less-padding-col">
+                <div class="chartBox box" id="clinics_cons_box">
+                    <div class="chartBox__heading pointer" onclick='toggleAllClinics();return false;'>
+                        <p id="clinics_cons_box_heading" style="display: inline"> </p>
+                        <div class="box__type-selector pull-right">
+                            <a href="" onclick="event.stopImmediatePropagation();$('#clinics_cons_table table').tableExport({type:'xls', fileName: 'clinic_completeness'});return false;" class="csv">
                 </a>
                         </div>
                     </div>
-                    <div class="chartBox__content " id="clinics_cons_content ">
-                        <div id="clinics_cons_table " class="table ">
+                    <div class="chartBox__content" id="clinics_cons_content">
+                        <div id="clinics_cons_table" class="table">
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
         </div>
     </div>
 
-    <div class="breaker "></div>
+    <div class="breaker"></div>
 
     <!-- Menu Toggle Script -->
     <script>
@@ -79,22 +79,22 @@
         // If epi_week - 1 evalutes to 0, replace with week 52.
         //TODO: 52-week year is hardcoded
         var prev_week = get_epi_week() - 1 || 52;
-        $("#location_box ").html(i18n.gettext("Location: "));
-        $("#location_title ").html(i18n.gettext("Not Loaded "));
-        $("#title ").html(i18n.gettext('Consultations'));
-        $("#epi-week-title ").html(i18n.gettext('Date not loaded.'));
-        $("#location-selector ").html(i18n.gettext('Locations not loaded'));
-        $("#cons_table_box_heading ").html(i18n.gettext('Consulations') + " ( " + i18n.gettext('Week') + ' ' + prev_week + ") ");
-        $("#cons_graph_box_heading ").html(i18n.gettext('Consulations by week'));
-        $("#clinics_cons_box_heading ").html(i18n.gettext('Consulatations by clinic') + " ( " + i18n.gettext('Week') + ' ' + prev_week + ") ");
-        $(".csv ").each(function() {
+        $("#location_box").html(i18n.gettext("Location:"));
+        $("#location_title").html(i18n.gettext("Not Loaded"));
+        $("#title").html(i18n.gettext('Consultations'));
+        $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+        $("#location-selector").html(i18n.gettext('Locations not loaded'));
+        $("#cons_table_box_heading").html(i18n.gettext('Consulations') + " (" + i18n.gettext('Week') + ' ' + prev_week + ")");
+        $("#cons_graph_box_heading").html(i18n.gettext('Consulations by week'));
+        $("#clinics_cons_box_heading").html(i18n.gettext('Consulatations by clinic') + " (" + i18n.gettext('Week') + ' ' + prev_week + ")");
+        $(".csv").each(function() {
             $(this).html(i18n.gettext('Excel'));
         });
 
-        $("#menu-toggle ").click(function(e) {
+        $("#menu-toggle").click(function(e) {
             e.preventDefault();
-            $("#wrapper ").toggleClass("toggled ");
-            $(".location-box .glyphicon ").toggleClass("hidden ");
+            $("#wrapper").toggleClass("toggled");
+            $(".location-box .glyphicon").toggleClass("hidden");
 
             var transitionEvent = whichTransitionEvent();
             transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
@@ -102,7 +102,7 @@
             });
         });
 
-        $("#epi-week-title ").html(i18n.gettext("Week ") + " " + get_epi_week() + " · " + get_date());
+        $("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
 
         //Every tab needs a draw charts function that is called when loading a new location.
         //It's also called upon the first load of the page.
@@ -113,21 +113,21 @@
 
         function reDraw() {
             prepareConsultationsInformation({
-                "locID ": currentLocation,
-                "graphID ": "cons_graph ",
-                "tableID ": "cons_table ",
-                "clinicsTableID ": "clinics_cons_table ",
-                "prev_week_no " : prev_week
+                "locID": currentLocation,
+                "graphID": "cons_graph",
+                "tableID": "cons_table",
+                "clinicsTableID": "clinics_cons_table",
+                "prev_week_no" : prev_week
             });
         }
 
         function toggleAllClinics() {
-            $("#clinic_cons_box_heading .chartBox__heading ").toggleClass("no-border ");
-            $("#clinics_cons_content ").slideToggle("slow ");
+            $("#clinic_cons_box_heading .chartBox__heading").toggleClass("no-border");
+            $("#clinics_cons_content").slideToggle("slow");
         }
 
         function toggleMatrix() {
-            $("#completeness-matrix-box .chartBox__heading ").toggleClass("no-border ");
-            $("#completeness-matrix-content ").slideToggle("slow ");
+            $("#completeness-matrix-box .chartBox__heading").toggleClass("no-border");
+            $("#completeness-matrix-content").slideToggle("slow");
         }
     </script>
