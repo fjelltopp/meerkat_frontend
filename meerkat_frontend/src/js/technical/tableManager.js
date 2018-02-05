@@ -1495,7 +1495,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             if (k >= start_week) {
                 columns.push({
                     "field": "week" + k,
-                    "title": "S" + k,
+                    "title": i18n.gettext("W") + k,
                     "align": "center",
                     "class": "value",
                     "cellStyle": createCompletenessMatrixCellTab()
@@ -1504,7 +1504,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         } else {
             columns.push({
                 "field": "week" + k,
-                "title": "S" + k,
+                "title": i18n.gettext("W") + k,
                 "align": "center",
                 "class": "value",
                 "cellStyle": createCompletenessMatrixCellTab()
