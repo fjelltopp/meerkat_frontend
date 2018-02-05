@@ -146,8 +146,8 @@ function setup_homepage(){
     });
 
     //SHOW THE MAP ----------------------------------------------
-    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map('map', 'mrjb.143811c9', { zoomControl:false });
+    var map = L.map('map',  { zoomControl:false });
+    L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
     var viewingMap = false;
 
     function resetMapView (){

@@ -48,32 +48,32 @@
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     <div class="breaker"> </div>
-	 <ul class='container flashes'>
-	 {% for category, message in messages %}
-	   <li>
-			<div class="frame {{category}}">
-				<span class="glyphicon glyphicon-alert" ></span>
-				<div class='text'>
-					{{ _(message) }}
-				</div>
-			</div>
-		</li>
-	 {% endfor %}
-	 </ul>
+     <ul class='container flashes'>
+     {% for category, message in messages %}
+       <li>
+            <div class="frame {{category}}">
+                <span class="glyphicon glyphicon-alert" ></span>
+                <div class='text'>
+                    {{ _(message) }}
+                </div>
+            </div>
+        </li>
+     {% endfor %}
+     </ul>
   {% else %}
     <div id="base-breaker" class="breaker"> </div>
   {% endif %}
 {% endwith %}
 
 <div class="row">
-	<div class="login-box-holder">
-		<div class="login box chartBox">
-			<div class="chartBox__heading">
-				{{ _('Login') }}
-			</div>
+    <div class="login-box-holder">
+        <div class="login box chartBox">
+            <div class="chartBox__heading">
+                {{ _('Login') }}
+            </div>
 
-			<div class="chartBox__content" >
-				<form id="login-form" class="login-form">
+            <div class="chartBox__content" >
+                <form id="login-form" class="login-form">
                     <div class="form-group"></div>
                     <div class="form-group">
                         <label>{{_('Username')}}</label>
@@ -84,10 +84,10 @@
                         <input type="password" class="text" name="password" />
                     </div>
                     <input type="submit" value="Login" class="submit pull-right" />
-				</form>
-			</div>
-		</div>
-	</div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 </div>
@@ -97,9 +97,8 @@
 {% include 'includes/js.html' %}
 {% block pageJS %}
 <script>
-
-    L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToazo4diQ';
-    var map = L.mapbox.map('map', 'mrjb.143811c9', { zoomControl:false });
+    var map = L.map('map', {maxZoom: 18, scrollWheelZoom: false, zoomControl: false});
+    L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
     var viewingMap = false;
     map.setView(
         [{{content.map.center.lat}}, {{content.map.center.lng}}],
@@ -117,24 +116,24 @@ $('input.submit').click( function(evt){
         'password': $('input[name=password]').val()
     }
 
-//Post json to server.
-        $.ajax({
-            url: "login_request",
-            type: 'post',
-            success: function (data) {
-                parent.location.replace( "{{redirect}}" );
-            },
-            error: function (data) {
-                if( data.responseJSON.hasOwnProperty( 'message' ) ){
-                    alert( data.responseJSON.message );
-                }else{
-                    alert( i18n.gettext("There has been a server error. " +
-                                        "Please contact administrator and try again later.") );
-                }
-            },
-            contentType: 'application/json;charset=UTF-8',
-            data: JSON.stringify(formArray, null, '\t')
-        });
+    //Post json to server.
+    $.ajax({
+        url: "login_request",
+        type: 'post',
+        success: function (data) {
+            parent.location.replace( "{{redirect}}" );
+        },
+        error: function (data) {
+            if( data.responseJSON.hasOwnProperty( 'message' ) ){
+                alert( data.responseJSON.message );
+            }else{
+                alert( i18n.gettext("There has been a server error. " +
+                                    "Please contact administrator and try again later.") );
+            }
+        },
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify(formArray, null, '\t')
+    });
 });
 </script>
 {% endblock %}
