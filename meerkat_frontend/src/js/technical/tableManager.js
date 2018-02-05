@@ -2091,11 +2091,12 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
 
     var prev_week_val = consultationsData.weeks[prev_week_no];
     var total_val = consultationsData.total;
+    var datum = {};
     if (!is_clinics) { // Don't repeat main location data in clinics list
         prev_week_val = (typeof(prev_week_val) == "undefined") ? 0 : prev_week_val;
         total_val = (typeof(total_val) == "undefined") ? 0 : total_val;
 
-        var datum = {
+        datum = {
             "level": "main",
             "location": locations[loc_id].name,
             "prev_week": prev_week_val,
