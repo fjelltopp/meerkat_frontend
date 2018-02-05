@@ -208,7 +208,7 @@
 
     function drawDiseaseTable(varID, locID) {
 
-        function draw_top_table(category_name, title) {
+        function drawDiseaseTableForCategory(category_name, title) {
             $.getJSON(api_root + "/aggregate_category/" + category_name + "/" + locID, function (subdiseases) {
                 $.getJSON(api_root + "/variables/" + category_name, function (variables) {
                     if (Object.keys(subdiseases).length > 0) {
@@ -225,11 +225,11 @@
             if (data.id.indexOf('icc_') > -1 || data.id.indexOf('icb_') > -1) {
                 category_name = data.name;
                 title = "ICD10 Sub-diseases";
-                draw_top_table(category_name, title);
-            } else if (data.id.indexOf('cmd_other') > -1) {
+                drawDiseaseTableForCategory(category_name, title);
+            } else {
                 category_name = "sub_category_" + data.id;
-                title = "Other diseases";
-                draw_top_table(category_name, title);
+                title = data.name;
+                drawDiseaseTableForCategory(category_name, title);
                 $("#diseaseInfo-whiteBox").css("display", "");
             }
         });
