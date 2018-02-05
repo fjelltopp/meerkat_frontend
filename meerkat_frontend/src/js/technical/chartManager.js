@@ -413,11 +413,6 @@ function drawTimeChartData(data, containerID, alert_week){
 
 function drawCompletenessGraph( containerID, regionID, denominator, locations, data, start_week, graphtypeID, compare_locations, x_axis_max){
 
-    console.log("Data in for graph");
-    console.log(data);
-    console.log("start_week");
-    console.log(start_week);
-
     var comparevalue = $(compare_locations).attr("value");
 
     var stringGraphType = 'data';
@@ -623,7 +618,6 @@ function drawIndicatorsGraph( containerID, locID, data ){
 
     var indKey = $('#choose-ind-id').attr("value");
     if(indKey===undefined){
-        console.log("Undefined id");
         indKey = 0;
     }
 

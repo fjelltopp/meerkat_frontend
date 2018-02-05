@@ -644,16 +644,13 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 
 // Hack to fix the pagination dropdown menu bug with bootstrap table.
 function addPaginationListener(table) {
-    console.log(table);
 
     $('.page-list button.dropdown-toggle').click(function() {
-        console.log('click');
         $('.page-list .dropdown-menu').toggle();
     });
 
     $(table).on('page-change.bs.table', function() {
         $('.page-list button.dropdown-toggle').click(function() {
-            console.log('click');
             $('.page-list .dropdown-menu').toggle();
         });
     });
@@ -920,7 +917,6 @@ function drawEbsTable(containerID, location_id) {
 
                 for (var i in cases) {
                     c = cases[i];
-                    console.log(c);
                     var datum = {
                         alert_id: '<a href="" onclick="loadAlert(\'' + c.variables.alert_id + '\'); return false;">' + c.variables.alert_id + '</a>',
                         region: i18n.gettext(locations[c.region].name),
@@ -1114,11 +1110,6 @@ function drawTbTable(containerID, location_id) {
  */
 
 function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
-
-    // console.log(locations);
-    // console.log(locations[regionID]);
-    // if (locations[regionID].level === "clinic")
-    //     return 0;//that should happen on data agregation level
 
     if (data.clinic_score === undefined) {
         return undefined;
@@ -1343,14 +1334,6 @@ function drawPlagueTable(containerID, cases, variables) {
  */
 
 function drawMissingCompletenessTable(module_var, containerID, headerID, regionID, locations, completessData, filter_string) {
-    // console.log('We are in the region: ' + regionID);
-    // console.log(locations[regionID]);
-
-    // console.log("Reading in data from API:");
-    // console.log(data);
-
-    // console.log("Score:");
-    // console.log(data.score);
     var dataPrepared = [];
     var columns = [];
     var datum = [];
@@ -1547,21 +1530,17 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         sortOrder: 'asc'
     });
 
-    // console.log(table[0]);
     var rowLength = table[0].rows.length;
     var count = 0;
     var row = table[0].rows[1].cells[0].innerHTML;
     var saveIndex = 0;
 
-    // console.log(rowLength, row);
 
     for (i = 1; i < rowLength; i++) {
         if (row === table[0].rows[i].cells[0].innerHTML) {
-            // console.log('yes, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             count++;
 
             if (i == rowLength - 1) {
-                // console.log('last entry, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
                 mergeRows('#' + containerID + ' table', saveIndex, count);
             }
 
@@ -1572,7 +1551,6 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             saveIndex = i - 1;
             count = 1;
 
-            // console.log('no, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             /*
              */
         }
@@ -1660,8 +1638,6 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
         width: "25%"
     }];
 
-    console.log("comp data");
-    console.log(dataPrepared);
     for (var k = 0; k < columns.length; k++) {
         columns[k].cellStyle = createCompletenessCellTab(parentLocation);
     }
@@ -1849,10 +1825,8 @@ function stripRows(data) {
     //For each row iterate through it's elements to seeif all are empty.
     for (var y = 0; y < data.length; y++) {
         var row = data[y];
-        //console.log("data[y =" + y + "] is " + data[y]);
         var empty = true;
         for (var x in row) {
-            //    console.log(row[x].split(' ')[0]);
             if (x != "main" && Number(row[x].split(' ')[0]) !== 0) empty = false;
         }
         if (empty) {
@@ -1982,7 +1956,6 @@ function createCompletenessMatrixCellTab() {
 }
 
 function mergeRows(contener, index, rowspan) {
-    // console.log('merging,', index + ',', rowspan);
     $(contener).bootstrapTable('mergeCells', {
         index: index,
         field: 'region',

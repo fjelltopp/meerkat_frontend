@@ -643,8 +643,6 @@ function stripEmptyRecords(dataObject) {
     var dataFields = Object.keys(dataObject);
     var stripped = [];
     var newData = {};
-    console.log("Stripping empty records.");
-    console.log(dataObject.year);
 
     //Find the indicies of records to be retained.
     //I.E. NOT THE ONES TO BE STRIPPED, but the ones AFTER stripping.
@@ -679,7 +677,6 @@ function stripEmptyRecords(dataObject) {
             }
         }
     }
-    console.log( newData);
     return newData;
 }
 
