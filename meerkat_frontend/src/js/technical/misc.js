@@ -13,7 +13,7 @@ function stopThrobber() {
 
     Start the throbber appearing in the frontend.
 */
-function startThrobber(){
+function startThrobber() {
     $('#divSpinner').empty();
     throb = Throbber({
         color: 'black',
@@ -21,10 +21,10 @@ function startThrobber(){
         size: 80,
         fade: 200,
         clockwise: true
-    }).appendTo( document.getElementById( 'divSpinner' ) ).start();
-    $("body").css('overflow', 'hidden');  // No scrolling.
-    $('.spinnerModal').addClass("loading");  // Disables the screen
-    $( "#divSpinner" ).find( 'canvas' ).css( "margin", "400px auto" );
+    }).appendTo(document.getElementById('divSpinner')).start();
+    $("body").css('overflow', 'hidden'); // No scrolling.
+    $('.spinnerModal').addClass("loading"); // Disables the screen
+    $("#divSpinner").find('canvas').css("margin", "400px auto");
 }
 
 
@@ -39,10 +39,14 @@ function startThrobber(){
     dependant upon uncompleted AJAX requests i.e. use the power of AJAX
     asyncrocity. This should be built into a Javascript review.
 */
-function addThrobber(){
+function addThrobber() {
     $(document).on({
-        ajaxStart: function() {startThrobber();},
-        ajaxStop: function() {stopThrobber();}
+        ajaxStart: function() {
+            startThrobber();
+        },
+        ajaxStop: function() {
+            stopThrobber();
+        }
     });
 }
 /**:get_epi_week()
@@ -368,10 +372,10 @@ function categorySummation(details) {
     //Optional filtering of the aggregation result by limiting to an additional category
     var limit_to_postfix = "";
 
-	var api_function = "aggregate_category";
-	if(details.overlappingCategory) {
-		api_function = "aggregate_category_sum";
-	}
+    var api_function = "aggregate_category";
+    if (details.overlappingCategory) {
+        api_function = "aggregate_category_sum";
+    }
 
     if (details.limit_to) {
         limit_to_postfix = "/" + details.limit_to;
@@ -462,10 +466,10 @@ function categorySummation(details) {
 
             var dataObject = makeDataObject(catData, variables, details.week, title, details.percent);
             if (details.strip) dataObject = stripEmptyRecords(dataObject);
-            if( details.barID ) drawBarChart( details.barID, dataObject, details.barChartOptions);
-            if( details.pieID ) drawPieCharts( details.pieID, dataObject, true );
-            if( details.tableID && !details.table_options ){
-                drawTable( details.tableID, dataObject, details.no_total, details.linkFunction );
+            if (details.barID) drawBarChart(details.barID, dataObject, details.barChartOptions);
+            if (details.pieID) drawPieCharts(details.pieID, dataObject, true);
+            if (details.tableID && !details.table_options) {
+                drawTable(details.tableID, dataObject, details.no_total, details.linkFunction);
             }
             if (details.tableID && details.table_options) {
                 drawImprovedTable(details.tableID,
@@ -475,8 +479,8 @@ function categorySummation(details) {
                     details.table_options);
             }
             // If a callback obejct is specified, execute it.
-            if(typeof(details.callback) == 'function') details.callback(dataObject);
-        }else {
+            if (typeof(details.callback) == 'function') details.callback(dataObject);
+        } else {
             //Failed
             console.error("Ajax request for the category aggregation and variable information failed.");
         }
@@ -570,10 +574,10 @@ function exportTableToCSV(tableID, filename, link) {
 function exportTableToXLS(tableID, filename) {
     //Get all the Percentage values that are inside the "table-percent" class ...
     var oldValueArray = [];
-    var chartPercentageList = $('#'+tableID + ' .table-percent');
+    var chartPercentageList = $('#' + tableID + ' .table-percent');
 
     chartPercentageList.each(
-        function(index, element){
+        function(index, element) {
             oldValueArray.push($(element).html());
             $(element).html("");
         }
@@ -587,7 +591,7 @@ function exportTableToXLS(tableID, filename) {
 
     //Return the percentage values to the HTML design ...
     chartPercentageList.each(
-        function(index, element){
+        function(index, element) {
             $(element).html(oldValueArray[index]);
         }
     );
@@ -715,43 +719,47 @@ function stripEmptyRecords(dataObject) {
    Show lines to compare locations for completeness graph
    */
 
-   function completenessPreparation(opts){
+function completenessPreparation(opts) {
 
-       var completenessLocations;
-       var completenessData;
-       var matrixCompletenessData;
-       if( opts.start_week === undefined) opts.start_week = 1;
-       if( opts.filter_string === undefined) opts.filter_string = '?';
+    var completenessLocations;
+    var completenessData;
+    var matrixCompletenessData;
+    if (opts.start_week === undefined) opts.start_week = 1;
+    if (opts.filter_string === undefined) opts.filter_string = '?';
 
-       var deferreds = [
-           $.getJSON(api_root + "/locations", function(data) {
-               completenessLocations = data;
-           })
-       ];
+    var deferreds = [
+        $.getJSON(api_root + "/locations", function(data) {
+            completenessLocations = data;
+        })
+    ];
 
-       deferreds.push( $.getJSON(
-           api_root+"/completeness/" +opts.reg_id +"/" + opts.locID +
-           "/" + opts.denominator + "/" + opts.start_week + "/" +
-           opts.weekend + opts.filter_string,
-           function( data ){completenessData = data; }
-       ));
-       deferreds.push( $.getJSON(
-           api_root+"/completeness/" +opts.reg_id +"/" + opts.locID +
-           "/" + opts.denominator + "/" + opts.start_week + "/" +
-           opts.weekend + opts.filter_string + "&sublevel=district",
-           function( data ){matrixCompletenessData = data; }
-       ));
+    deferreds.push($.getJSON(
+        api_root + "/completeness/" + opts.reg_id + "/" + opts.locID +
+        "/" + opts.denominator + "/" + opts.start_week + "/" +
+        opts.weekend + opts.filter_string,
+        function(data) {
+            completenessData = data;
+        }
+    ));
+    deferreds.push($.getJSON(
+        api_root + "/completeness/" + opts.reg_id + "/" + opts.locID +
+        "/" + opts.denominator + "/" + opts.start_week + "/" +
+        opts.weekend + opts.filter_string + "&sublevel=district",
+        function(data) {
+            matrixCompletenessData = data;
+        }
+    ));
 
-       $.when.apply( $, deferreds ).then(function() {
-           drawCompletenessGraph( opts.graphID, opts.locID, opts.denominator, completenessLocations, completenessData, opts.start_week, 0  , opts.compare_locations, opts.x_axis_max);
-           drawCompletenessTable( opts.tableID, opts.locID, completenessLocations, completenessData );
-           drawMissingCompletenessTable( opts.reg_id, opts.nonreportingtableID, opts.nonreportingTitle, opts.locID, completenessLocations, completenessData, opts.filter_string); //this call makes one additional AJAX call
-           drawAllClinicsCompleteness(  opts.allclinicstableID, opts.locID, completenessLocations, completenessData);
-           if(opts.matrixID !== undefined){
-               drawCompletenessMatrix( opts.matrixID, opts.locID, opts.denominator, completenessLocations, matrixCompletenessData, opts.start_week, 0 );
-           }
-       } );
-   }
+    $.when.apply($, deferreds).then(function() {
+        drawCompletenessGraph(opts.graphID, opts.locID, opts.denominator, completenessLocations, completenessData, opts.start_week, 0, opts.compare_locations, opts.x_axis_max);
+        drawCompletenessTable(opts.tableID, opts.locID, completenessLocations, completenessData);
+        drawMissingCompletenessTable(opts.reg_id, opts.nonreportingtableID, opts.nonreportingTitle, opts.locID, completenessLocations, completenessData, opts.filter_string); //this call makes one additional AJAX call
+        drawAllClinicsCompleteness(opts.allclinicstableID, opts.locID, completenessLocations, completenessData);
+        if (opts.matrixID !== undefined) {
+            drawCompletenessMatrix(opts.matrixID, opts.locID, opts.denominator, completenessLocations, matrixCompletenessData, opts.start_week, 0);
+        }
+    });
+}
 
 
 
@@ -785,48 +793,52 @@ function stripEmptyRecords(dataObject) {
    Show lines to compare locations for completeness graph
    */
 
-   function timelinessPreparation(opts){
+function timelinessPreparation(opts) {
 
-       var timelinessLocations;
-       var timelinessData;
-       var matrixTimelinessData;
+    var timelinessLocations;
+    var timelinessData;
+    var matrixTimelinessData;
 
-       if( opts.filter_string === undefined) opts.filter_string = '?';
-       if (opts.start_week === undefined) opts.start_week = 1;
-       if (opts.non_reporting_variable === undefined){
-           opts.non_reporting_variable= opts.reg_id;
-       }
+    if (opts.filter_string === undefined) opts.filter_string = '?';
+    if (opts.start_week === undefined) opts.start_week = 1;
+    if (opts.non_reporting_variable === undefined) {
+        opts.non_reporting_variable = opts.reg_id;
+    }
 
-       var deferreds = [
-           $.getJSON(api_root + "/locations", function(data) {
-               timelinessLocations = data;
-           })
-       ];
+    var deferreds = [
+        $.getJSON(api_root + "/locations", function(data) {
+            timelinessLocations = data;
+        })
+    ];
 
-       deferreds.push( $.getJSON(
-           api_root+"/completeness/" +opts.reg_id +"/" + opts.locID + "/" +
-           opts.denominator + "/" + opts.start_week + "/" + opts.weekend +
-           "/" + opts.non_reporting_variable + opts.filter_string,
-           function( data ){timelinessData = data; }
-       ));
-       deferreds.push( $.getJSON(
-           api_root+"/completeness/" +opts.reg_id +"/" + opts.locID + "/" +
-           opts.denominator + "/" + opts.start_week + "/" + opts.weekend +
-           opts.filter_string + "&sublevel=district",
-           function( data ){matrixTimelinessData = data; }
-       ));
+    deferreds.push($.getJSON(
+        api_root + "/completeness/" + opts.reg_id + "/" + opts.locID + "/" +
+        opts.denominator + "/" + opts.start_week + "/" + opts.weekend +
+        "/" + opts.non_reporting_variable + opts.filter_string,
+        function(data) {
+            timelinessData = data;
+        }
+    ));
+    deferreds.push($.getJSON(
+        api_root + "/completeness/" + opts.reg_id + "/" + opts.locID + "/" +
+        opts.denominator + "/" + opts.start_week + "/" + opts.weekend +
+        opts.filter_string + "&sublevel=district",
+        function(data) {
+            matrixTimelinessData = data;
+        }
+    ));
 
 
-       $.when.apply($, deferreds).then(function() {
-           drawCompletenessGraph( opts.graphID, opts.locID, opts.denominator, timelinessLocations, timelinessData, opts.start_week, 1, opts.compare_locations,opts.x_axis_max );
-           drawCompletenessTable( opts.tableID, opts.locID, timelinessLocations, timelinessData );
-           drawAllClinicsCompleteness(  opts.allclinicstableID, opts.locID, timelinessLocations, timelinessData);
-           if(opts.matrixID !== undefined){
-               drawCompletenessMatrix( opts.matrixID, opts.locID, opts.denominator, timelinessLocations, matrixTimelinessData, opts.start_week, 0 );
-           }
-       } );
+    $.when.apply($, deferreds).then(function() {
+        drawCompletenessGraph(opts.graphID, opts.locID, opts.denominator, timelinessLocations, timelinessData, opts.start_week, 1, opts.compare_locations, opts.x_axis_max);
+        drawCompletenessTable(opts.tableID, opts.locID, timelinessLocations, timelinessData);
+        drawAllClinicsCompleteness(opts.allclinicstableID, opts.locID, timelinessLocations, timelinessData);
+        if (opts.matrixID !== undefined) {
+            drawCompletenessMatrix(opts.matrixID, opts.locID, opts.denominator, timelinessLocations, matrixTimelinessData, opts.start_week, 0);
+        }
+    });
 
-   }
+}
 
 /**:prepareIndicators( details )
 
@@ -842,25 +854,26 @@ function stripEmptyRecords(dataObject) {
    :param string tableID:
    The ID for the HTML element that will hold the main timeliness table.  If empty, no table is drawn.
    */
-function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
+function prepareIndicators(indicatorsInfo, locID, graphID, tableID) {
     var indicatorsList = indicatorsInfo.list;
     var indicatorsData = [];
     var deferred = [];
 
-    deferred = indicatorsList.map(function(elem, i){
-        return $.getJSON( api_root+"/indicators/" + elem.call.flags + "/" +
-                          elem.call.variables +  "/" + locID, function( data ){
-            indicatorsData[i] = data;
-        });
+    deferred = indicatorsList.map(function(elem, i) {
+        return $.getJSON(api_root + "/indicators/" + elem.call.flags + "/" +
+            elem.call.variables + "/" + locID,
+            function(data) {
+                indicatorsData[i] = data;
+            });
     });
 
-    $.when.apply( $, deferred ).then(function() {
+    $.when.apply($, deferred).then(function() {
         //Update indicators name which is not passed to the API:
-        for(i=0;i<indicatorsList.length;i++){
+        for (i = 0; i < indicatorsList.length; i++) {
             indicatorsData[i].name = indicatorsList[i].name;
         }
-        drawIndicatorsGraph( graphID, locID, indicatorsData);
-        drawIndicatorsTable( tableID, locID, indicatorsData);
+        drawIndicatorsGraph(graphID, locID, indicatorsData);
+        drawIndicatorsTable(tableID, locID, indicatorsData);
     });
 }
 
@@ -881,15 +894,17 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID){
    :param string prev_week_no:
    Date will be printed from beginning of the year until the previous week.
 */
-function prepareConsultationsInformation(details){
+function prepareConsultationsInformation(details) {
 
     var consultationsLocations;
     var consultationsData;
     var clinicsConsultationsData;
-    var loc_levels ={"country" : "region",
-                      "region":"district",
-                      "district":"clinic",
-                      "clinic":"clinic"};
+    var loc_levels = {
+        "country": "region",
+        "region": "district",
+        "district": "clinic",
+        "clinic": "clinic"
+    };
 
     //We need information about the location before we run more api queries
     $.getJSON(api_root + "/locations", function(data) {
@@ -898,20 +913,24 @@ function prepareConsultationsInformation(details){
         var loc_level = loc_levels[consultationsLocations[loc_id].level];
 
         var deferreds = [];
-        deferreds.push( $.getJSON(
-            api_root+"/aggregate_year/reg_2/" + loc_id + "?level=" + loc_level,
-            function( data ){consultationsData = data; }
+        deferreds.push($.getJSON(
+            api_root + "/aggregate_year/reg_2/" + loc_id + "?level=" + loc_level,
+            function(data) {
+                consultationsData = data;
+            }
         ));
-        deferreds.push( $.getJSON(
-            api_root+"/aggregate_year/reg_2/" + loc_id + "?level=clinic",
-            function( data ){clinicsConsultationsData = data; }
+        deferreds.push($.getJSON(
+            api_root + "/aggregate_year/reg_2/" + loc_id + "?level=clinic",
+            function(data) {
+                clinicsConsultationsData = data;
+            }
         ));
 
         $.when.apply($, deferreds).then(function() {
-            drawConsultationsTable(details.tableID,consultationsData,loc_id, loc_level, consultationsLocations, details.prev_week_no);
-            drawConsultationsGraph(details.graphID,consultationsData,loc_id, loc_level, consultationsLocations, details.prev_week_no);
-            drawConsultationsTable(details.clinicsTableID,clinicsConsultationsData,loc_id,"clinic", consultationsLocations, details.prev_week_no);
-        } );
+            drawConsultationsTable(details.tableID, consultationsData, loc_id, loc_level, consultationsLocations, details.prev_week_no);
+            drawConsultationsGraph(details.graphID, consultationsData, loc_id, loc_level, consultationsLocations, details.prev_week_no);
+            drawConsultationsTable(details.clinicsTableID, clinicsConsultationsData, loc_id, "clinic", consultationsLocations, details.prev_week_no);
+        });
 
 
     });
@@ -952,6 +971,6 @@ function get_browser() {
 }
 
 function sigFigs(n, sig) {
-  var mult = Math.pow(10, sig - Math.floor(Math.log(n) / Math.LN10) - 1);
-  return Math.round(n * mult) / mult;
+    var mult = Math.pow(10, sig - Math.floor(Math.log(n) / Math.LN10) - 1);
+    return Math.round(n * mult) / mult;
 }

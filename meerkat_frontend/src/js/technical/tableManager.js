@@ -727,7 +727,8 @@ function drawContactSummaryTable(containerID, location_id) {
             data: data
         });
     });
-}/**:drawContactTracingTable(containerID, location_id)
+}
+/**:drawContactTracingTable(containerID, location_id)
 
     :param string containerID:
         The ID attribute of the html element to hold the table.
@@ -1662,14 +1663,15 @@ function consultationsCellStyle() {
     function cc3(value, row, index, columns) {
         if (row.level == 'main') {
             return {
-                    css: {
-                        "font-weight": "bold"
-                    }
-                };
-            }else{
-                return {css: {}
-                       };
-            }
+                css: {
+                    "font-weight": "bold"
+                }
+            };
+        } else {
+            return {
+                css: {}
+            };
+        }
     }
     return cc3;
 }
@@ -2052,10 +2054,10 @@ function drawClinicPrescriptionTable(containerID, locID) {
 
 
 
-function drawConsultationsTable(containerID,consultationsData,loc_id,loc_level, locations, prev_week_no){
+function drawConsultationsTable(containerID, consultationsData, loc_id, loc_level, locations, prev_week_no) {
 
-    var is_searchable = ( loc_level=="clinic" ) ? true : false;
-    var is_clinics = ( loc_level=="clinic" ) ? true : false;
+    var is_searchable = (loc_level == "clinic") ? true : false;
+    var is_clinics = (loc_level == "clinic") ? true : false;
 
     var columns = [{
         "field": "location",
@@ -2065,56 +2067,56 @@ function drawConsultationsTable(containerID,consultationsData,loc_id,loc_level, 
         sortable: true,
         searchable: is_searchable,
         width: "34%",
-        cellStyle : consultationsCellStyle()
-    },{
+        cellStyle: consultationsCellStyle()
+    }, {
         "field": "prev_week",
         "title": i18n.gettext("Week") + " " + Number(prev_week_no),
         "align": "center",
         "class": "header",
         sortable: true,
         width: "34%",
-        cellStyle : consultationsCellStyle()
-    },{
+        cellStyle: consultationsCellStyle()
+    }, {
         "field": "total",
         "title": "Year",
         "align": "center",
         "class": "header",
         sortable: true,
         width: "34%",
-        cellStyle : consultationsCellStyle()
+        cellStyle: consultationsCellStyle()
     }];
 
-    var sub_locations = Object.keys(consultationsData[ loc_level ]);
+    var sub_locations = Object.keys(consultationsData[loc_level]);
     var dataPrepared = [];
 
     var prev_week_val = consultationsData.weeks[prev_week_no];
     var total_val = consultationsData.total;
-    if(!is_clinics){// Don't repeat main location data in clinics list
-        prev_week_val = (typeof(prev_week_val)=="undefined") ? 0 : prev_week_val;
-        total_val = (typeof(total_val)=="undefined") ? 0 : total_val;
+    if (!is_clinics) { // Don't repeat main location data in clinics list
+        prev_week_val = (typeof(prev_week_val) == "undefined") ? 0 : prev_week_val;
+        total_val = (typeof(total_val) == "undefined") ? 0 : total_val;
 
         var datum = {
             "level": "main",
-            "location" : locations[loc_id].name,
-            "prev_week" : prev_week_val,
-            "total" : total_val
+            "location": locations[loc_id].name,
+            "prev_week": prev_week_val,
+            "total": total_val
         };
 
         dataPrepared.push(datum);
     }
     var sloc_id = -99;
-    for (var sub_loc_index = 0; sub_loc_index < sub_locations.length; sub_loc_index++){
+    for (var sub_loc_index = 0; sub_loc_index < sub_locations.length; sub_loc_index++) {
         sloc_id = sub_locations[sub_loc_index];
         prev_week_val = consultationsData[loc_level][sloc_id].weeks[prev_week_no];
         total_val = consultationsData[loc_level][sloc_id].total;
-        prev_week_val = (typeof(prev_week_val)=="undefined") ? 0 : prev_week_val;
-        total_val = (typeof(total_val)=="undefined") ? 0 : total_val;
+        prev_week_val = (typeof(prev_week_val) == "undefined") ? 0 : prev_week_val;
+        total_val = (typeof(total_val) == "undefined") ? 0 : total_val;
 
         datum = {
-            "level" : "sub",
-            "location" : locations[sloc_id].name,
-            "prev_week" : prev_week_val,
-            "total" : total_val
+            "level": "sub",
+            "location": locations[sloc_id].name,
+            "prev_week": prev_week_val,
+            "total": total_val
         };
 
         dataPrepared.push(datum);
