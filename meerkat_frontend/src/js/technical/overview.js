@@ -192,29 +192,37 @@ function prep_row_draw_Last3(contentsObj, parentId, locID) {
 
             //I need only 3 ...
             for (var i = 0; i <= 2; i++) {
-                arrFinal.push(arrAlerts[i].val);
-                arrFinalDate.push(arrAlerts[i].date);
+                if(arrAlerts[i]){
+                    arrFinal.push(arrAlerts[i].val);
+                    arrFinalDate.push(arrAlerts[i].date);
+                }
             }
 
             var alertCounter = 0;
-            $.each(arrFinal, function(index, value) {
-                var detailApiUrl = "/variable/" + value;
+            if(arrAlerts.length){
+                $.each(arrFinal, function(index, value) {
+                    var detailApiUrl = "/variable/" + value;
+                    //Call Other API to get the details for each value in the arrFInal Array ...
+                    $.getJSON(api_root + detailApiUrl, function(detailData) {
 
-                //Call Other API to get the details for each value in the arrFInal Array ...
-                $.getJSON(api_root + detailApiUrl, function(detailData) {
+                        $('#' + elementID).append(
+                            "<div><span class='col-xs-7 col-xs-offset-1'>" +
+                            i18n.gettext(detailData.name) +
+                            "</span><span class='col-xs-4'>" +
+                            ovDateFormate(arrFinalDate[alertCounter]) +
+                            "</label></div>");
 
-                    $('#' + elementID).append(
-                        "<div><span class='col-xs-7 col-xs-offset-1'>" +
-                        i18n.gettext(detailData.name) +
-                        "</span><span class='col-xs-4'>" +
-                        ovDateFormate(arrFinalDate[alertCounter]) +
-                        "</label></div>");
+                        alertCounter = alertCounter + 1;
 
-                    alertCounter = alertCounter + 1;
+                    });
 
                 });
-
-            });
+            }else{
+                $('#' + elementID).append(
+                    "<div><span class='col-xs-7 col-xs-offset-1'>" +
+                    i18n.gettext("No data") + "</span></div>"
+                );
+            }
 
         });
 
