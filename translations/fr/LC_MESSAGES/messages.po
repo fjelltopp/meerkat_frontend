@@ -743,7 +743,7 @@ msgstr ""
 #: meerkat_frontend/templates/reports/report_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_sc.html:2
 msgid "Week"
-msgstr ""
+msgstr "Semaine"
 
 #: meerkat_frontend/src/files/pages/clinics.html:52
 msgid "Clinics"
