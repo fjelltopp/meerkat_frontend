@@ -792,7 +792,7 @@ msgstr ""
 #: meerkat_frontend/src/files/pages/completenessNCD.html:100
 #: meerkat_frontend/src/files/pages/indicators.html:63
 msgid "Completeness by week"
-msgstr ""
+msgstr "Complétude hebdomadaire"
 
 #: meerkat_frontend/src/files/pages/completeness.html:118
 msgid "Completeness Matrix"
@@ -804,14 +804,14 @@ msgstr "Tableau des complétudes"
 #: meerkat_frontend/src/files/pages/completenessNCD.html:101
 #: meerkat_frontend/src/js/technical/tableManager.js:1371
 msgid "Reporting sites never reported"
-msgstr ""
+msgstr "Formations n'ayant jamais rapporté"
 
 #: meerkat_frontend/src/files/pages/completeness.html:120
 #: meerkat_frontend/src/files/pages/completenessCD.html:102
 #: meerkat_frontend/src/files/pages/completenessEBS.html:102
 #: meerkat_frontend/src/files/pages/completenessNCD.html:102
 msgid "Completeness by clinic"
-msgstr ""
+msgstr "Complétude par formation sanitaire"
 
 #: meerkat_frontend/src/files/pages/completenessEBS.html:96
 msgid "EBS Completeness"
@@ -1376,14 +1376,14 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/chartManager.js:85
 #: meerkat_frontend/src/js/technical/chartManager.js:225
 msgid "This Week"
-msgstr ""
+msgstr "Cette semaine"
 
 #: meerkat_frontend/src/js/technical/chartManager.js:92
 #: meerkat_frontend/src/js/technical/chartManager.js:233
 #: meerkat_frontend/src/js/technical/tableManager.js:36
 #: meerkat_frontend/src/js/technical/tableManager.js:186
 msgid "This Year"
-msgstr ""
+msgstr "Cette année"
 
 #: meerkat_frontend/src/js/technical/chartManager.js:372
 msgid "Epidemiological Week"
