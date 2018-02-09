@@ -2090,7 +2090,7 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
     var dataPrepared = [];
 
     var prev_week_val = consultationsData.weeks[prev_week_no];
-    var total_val = consultationsData.total;
+    var total_val = consultationsData.year;
     var datum = {};
     if (!is_clinics) { // Don't repeat main location data in clinics list
         prev_week_val = (typeof(prev_week_val) == "undefined") ? 0 : prev_week_val;
@@ -2109,7 +2109,7 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
     for (var sub_loc_index = 0; sub_loc_index < sub_locations.length; sub_loc_index++) {
         sloc_id = sub_locations[sub_loc_index];
         prev_week_val = consultationsData[loc_level][sloc_id].weeks[prev_week_no];
-        total_val = consultationsData[loc_level][sloc_id].total;
+        total_val = consultationsData[loc_level][sloc_id].year;
         prev_week_val = (typeof(prev_week_val) == "undefined") ? 0 : prev_week_val;
         total_val = (typeof(total_val) == "undefined") ? 0 : total_val;
 
