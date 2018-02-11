@@ -175,7 +175,13 @@ function whichTransitionEvent() {
     Sorts variable ids on the number
 **/
 function idSort(a, b) {
-    return parseInt(a.split("_")[1]) - parseInt(b.split("_")[1]);
+    var first = a.split("_")[1];
+    var second = b.split("_")[1];
+    if (parseInt(first) && parseInt(second)) {
+        return parseInt(first) - parseInt(second);
+    } else {
+        return first > second;
+    }
 }
 
 //Capitalises the first character of a string.
