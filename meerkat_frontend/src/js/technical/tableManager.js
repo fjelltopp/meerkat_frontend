@@ -1132,14 +1132,14 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
 
     var columns = [{
         "field": "location",
-        "title": "Clinic",
+        "title": i18n.gettext("Clinic"),
         "align": "center",
         "class": "header",
         sortable: true,
         width: "34%"
     }, {
         "field": "completeness",
-        "title": "This Week",
+        "title": i18n.gettext("This Week"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -1153,7 +1153,7 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
         width: "33%"
     }, {
         "field": "yearly",
-        "title": "This Year",
+        "title": i18n.gettext("This Year"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -1355,7 +1355,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
             $(headerID).html(i18n.gettext('Reporting sites never reported'));
             columns = [{
                 "field": "location",
-                "title": "Location",
+                "title": i18n.gettext("Location"),
                 "align": "center",
                 "class": "header",
                 sortable: true,
@@ -1604,14 +1604,14 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
 
     var columns = [{
         "field": "location",
-        "title": "Location",
+        "title": i18n.gettext("Location"),
         "align": "center",
         "class": "header",
         sortable: true,
         width: "50%"
     }, {
         "field": "completeness",
-        "title": "Week",
+        "title": i18n.gettext("Week"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -1625,7 +1625,7 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
         width: "25%"
     }, {
         "field": "yearly",
-        "title": "Year",
+        "title": i18n.gettext("Year"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -2048,7 +2048,7 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
 
     var columns = [{
         "field": "location",
-        "title": "Location",
+        "title": i18n.gettext("Location"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -2065,7 +2065,7 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
         cellStyle: consultationsCellStyle()
     }, {
         "field": "total",
-        "title": "Year",
+        "title": i18n.gettext("Year"),
         "align": "center",
         "class": "header",
         sortable: true,

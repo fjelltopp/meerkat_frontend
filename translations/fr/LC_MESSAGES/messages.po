@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-11 22:55+0000\n"
+"POT-Creation-Date: 2018-02-11 23:06+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -738,6 +738,7 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/tableManager.js:144
 #: meerkat_frontend/src/js/technical/tableManager.js:158
 #: meerkat_frontend/src/js/technical/tableManager.js:172
+#: meerkat_frontend/src/js/technical/tableManager.js:1614
 #: meerkat_frontend/src/js/technical/tableManager.js:2060
 #: meerkat_frontend/templates/reports/report_afro_bulletin.html:3
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
@@ -1402,6 +1403,7 @@ msgstr ""
 
 #: meerkat_frontend/src/js/technical/chartManager.js:95
 #: meerkat_frontend/src/js/technical/chartManager.js:252
+#: meerkat_frontend/src/js/technical/tableManager.js:1142
 msgid "This Week"
 msgstr "Cette semaine"
 
@@ -1409,6 +1411,7 @@ msgstr "Cette semaine"
 #: meerkat_frontend/src/js/technical/chartManager.js:264
 #: meerkat_frontend/src/js/technical/tableManager.js:36
 #: meerkat_frontend/src/js/technical/tableManager.js:186
+#: meerkat_frontend/src/js/technical/tableManager.js:1156
 msgid "This Year"
 msgstr "Cette année"
 
@@ -1634,6 +1637,7 @@ msgid "Region"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/tableManager.js:412
+#: meerkat_frontend/src/js/technical/tableManager.js:1135
 #: meerkat_frontend/src/js/technical/tableManager.js:1213
 #: meerkat_frontend/src/js/technical/tableManager.js:1992
 #: meerkat_frontend/templates/reports/report_ebs.html:7
@@ -1792,6 +1796,13 @@ msgstr ""
 msgid "Dead"
 msgstr ""
 
+#: meerkat_frontend/src/js/technical/tableManager.js:1358
+#: meerkat_frontend/src/js/technical/tableManager.js:1607
+#: meerkat_frontend/src/js/technical/tableManager.js:2051
+#: meerkat_frontend/templates/reports/index.html:13
+msgid "Location"
+msgstr ""
+
 #: meerkat_frontend/src/js/technical/tableManager.js:1385
 msgid "Dates not reported"
 msgstr ""
@@ -1800,6 +1811,11 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/tableManager.js:1507
 msgid "W"
 msgstr ""
+
+#: meerkat_frontend/src/js/technical/tableManager.js:1628
+#: meerkat_frontend/src/js/technical/tableManager.js:2068
+msgid "Year"
+msgstr "L'an"
 
 #: meerkat_frontend/src/js/technical/tableManager.js:1998
 msgid "Medicine"
@@ -2189,10 +2205,6 @@ msgstr ""
 msgid ""
 "This report is up to date as of %(generation_time)s on "
 "%(generation_date)s UTC."
-msgstr ""
-
-#: meerkat_frontend/templates/reports/index.html:13
-msgid "Location"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/index.html:21
