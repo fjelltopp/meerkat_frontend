@@ -644,16 +644,13 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
 
 // Hack to fix the pagination dropdown menu bug with bootstrap table.
 function addPaginationListener(table) {
-    console.log(table);
 
     $('.page-list button.dropdown-toggle').click(function() {
-        console.log('click');
         $('.page-list .dropdown-menu').toggle();
     });
 
     $(table).on('page-change.bs.table', function() {
         $('.page-list button.dropdown-toggle').click(function() {
-            console.log('click');
             $('.page-list .dropdown-menu').toggle();
         });
     });
@@ -730,7 +727,8 @@ function drawContactSummaryTable(containerID, location_id) {
             data: data
         });
     });
-}/**:drawContactTracingTable(containerID, location_id)
+}
+/**:drawContactTracingTable(containerID, location_id)
 
     :param string containerID:
         The ID attribute of the html element to hold the table.
@@ -920,7 +918,6 @@ function drawEbsTable(containerID, location_id) {
 
                 for (var i in cases) {
                     c = cases[i];
-                    console.log(c);
                     var datum = {
                         alert_id: '<a href="" onclick="loadAlert(\'' + c.variables.alert_id + '\'); return false;">' + c.variables.alert_id + '</a>',
                         region: i18n.gettext(locations[c.region].name),
@@ -1115,11 +1112,6 @@ function drawTbTable(containerID, location_id) {
 
 function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
 
-    // console.log(locations);
-    // console.log(locations[regionID]);
-    // if (locations[regionID].level === "clinic")
-    //     return 0;//that should happen on data agregation level
-
     if (data.clinic_score === undefined) {
         return undefined;
     }
@@ -1140,14 +1132,14 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
 
     var columns = [{
         "field": "location",
-        "title": "Clinic",
+        "title": i18n.gettext("Clinic"),
         "align": "center",
         "class": "header",
         sortable: true,
         width: "34%"
     }, {
         "field": "completeness",
-        "title": "This Week",
+        "title": i18n.gettext("This Week"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -1161,7 +1153,7 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
         width: "33%"
     }, {
         "field": "yearly",
-        "title": "This Year",
+        "title": i18n.gettext("This Year"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -1343,14 +1335,6 @@ function drawPlagueTable(containerID, cases, variables) {
  */
 
 function drawMissingCompletenessTable(module_var, containerID, headerID, regionID, locations, completessData, filter_string) {
-    // console.log('We are in the region: ' + regionID);
-    // console.log(locations[regionID]);
-
-    // console.log("Reading in data from API:");
-    // console.log(data);
-
-    // console.log("Score:");
-    // console.log(data.score);
     var dataPrepared = [];
     var columns = [];
     var datum = [];
@@ -1371,7 +1355,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
             $(headerID).html(i18n.gettext('Reporting sites never reported'));
             columns = [{
                 "field": "location",
-                "title": "Location",
+                "title": i18n.gettext("Location"),
                 "align": "center",
                 "class": "header",
                 sortable: true,
@@ -1547,21 +1531,17 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         sortOrder: 'asc'
     });
 
-    // console.log(table[0]);
     var rowLength = table[0].rows.length;
     var count = 0;
     var row = table[0].rows[1].cells[0].innerHTML;
     var saveIndex = 0;
 
-    // console.log(rowLength, row);
 
     for (i = 1; i < rowLength; i++) {
         if (row === table[0].rows[i].cells[0].innerHTML) {
-            // console.log('yes, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             count++;
 
             if (i == rowLength - 1) {
-                // console.log('last entry, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
                 mergeRows('#' + containerID + ' table', saveIndex, count);
             }
 
@@ -1572,7 +1552,6 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             saveIndex = i - 1;
             count = 1;
 
-            // console.log('no, ' + i + ', ' + saveIndex + ', ' + count + ', ' + table[0].rows[i].cells[0].innerHTML  + ', ' + row);
             /*
              */
         }
@@ -1625,14 +1604,14 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
 
     var columns = [{
         "field": "location",
-        "title": "Location",
+        "title": i18n.gettext("Location"),
         "align": "center",
         "class": "header",
         sortable: true,
         width: "50%"
     }, {
         "field": "completeness",
-        "title": "Week",
+        "title": i18n.gettext("Week"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -1646,7 +1625,7 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
         width: "25%"
     }, {
         "field": "yearly",
-        "title": "Year",
+        "title": i18n.gettext("Year"),
         "align": "center",
         "class": "header",
         sortable: true,
@@ -1660,8 +1639,6 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
         width: "25%"
     }];
 
-    console.log("comp data");
-    console.log(dataPrepared);
     for (var k = 0; k < columns.length; k++) {
         columns[k].cellStyle = createCompletenessCellTab(parentLocation);
     }
@@ -1679,6 +1656,24 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
     });
     return table;
 
+}
+
+function consultationsCellStyle() {
+    // Returns a function that colours in the cells according to their value
+    function cc3(value, row, index, columns) {
+        if (row.level == 'main') {
+            return {
+                css: {
+                    "font-weight": "bold"
+                }
+            };
+        } else {
+            return {
+                css: {}
+            };
+        }
+    }
+    return cc3;
 }
 
 function createCompletenessCellTab(parentLocationRowID) {
@@ -1832,10 +1827,8 @@ function stripRows(data) {
     //For each row iterate through it's elements to seeif all are empty.
     for (var y = 0; y < data.length; y++) {
         var row = data[y];
-        //console.log("data[y =" + y + "] is " + data[y]);
         var empty = true;
         for (var x in row) {
-            //    console.log(row[x].split(' ')[0]);
             if (x != "main" && Number(row[x].split(' ')[0]) !== 0) empty = false;
         }
         if (empty) {
@@ -1965,7 +1958,6 @@ function createCompletenessMatrixCellTab() {
 }
 
 function mergeRows(contener, index, rowspan) {
-    // console.log('merging,', index + ',', rowspan);
     $(contener).bootstrapTable('mergeCells', {
         index: index,
         field: 'region',
@@ -2044,5 +2036,89 @@ function drawClinicPrescriptionTable(containerID, locID) {
         addPaginationListener('#' + containerID + ' table');
         return table;
 
+    });
+}
+
+
+
+function drawConsultationsTable(containerID, consultationsData, loc_id, loc_level, locations, prev_week_no) {
+
+    var is_searchable = (loc_level == "clinic") ? true : false;
+    var is_clinics = (loc_level == "clinic") ? true : false;
+
+    var columns = [{
+        "field": "location",
+        "title": i18n.gettext("Location"),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        searchable: is_searchable,
+        width: "34%",
+        cellStyle: consultationsCellStyle()
+    }, {
+        "field": "prev_week",
+        "title": i18n.gettext("Week") + " " + Number(prev_week_no),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "34%",
+        cellStyle: consultationsCellStyle()
+    }, {
+        "field": "total",
+        "title": i18n.gettext("Year"),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "34%",
+        cellStyle: consultationsCellStyle()
+    }];
+
+    var sub_locations = Object.keys(consultationsData[loc_level]);
+    var dataPrepared = [];
+
+    var prev_week_val = consultationsData.weeks[prev_week_no];
+    var total_val = consultationsData.year;
+    var datum = {};
+    if (!is_clinics) { // Don't repeat main location data in clinics list
+        prev_week_val = (typeof(prev_week_val) == "undefined") ? 0 : prev_week_val;
+        total_val = (typeof(total_val) == "undefined") ? 0 : total_val;
+
+        datum = {
+            "level": "main",
+            "location": locations[loc_id].name,
+            "prev_week": prev_week_val,
+            "total": total_val
+        };
+
+        dataPrepared.push(datum);
+    }
+    var sloc_id = -99;
+    for (var sub_loc_index = 0; sub_loc_index < sub_locations.length; sub_loc_index++) {
+        sloc_id = sub_locations[sub_loc_index];
+        prev_week_val = consultationsData[loc_level][sloc_id].weeks[prev_week_no];
+        total_val = consultationsData[loc_level][sloc_id].year;
+        prev_week_val = (typeof(prev_week_val) == "undefined") ? 0 : prev_week_val;
+        total_val = (typeof(total_val) == "undefined") ? 0 : total_val;
+
+        datum = {
+            "level": "sub",
+            "location": locations[sloc_id].name,
+            "prev_week": prev_week_val,
+            "total": total_val
+        };
+
+        dataPrepared.push(datum);
+    }
+
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID).append('<table class="table"></table>');
+
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: dataPrepared,
+        classes: 'table-no-bordered table-hover',
+        search: is_searchable
     });
 }
