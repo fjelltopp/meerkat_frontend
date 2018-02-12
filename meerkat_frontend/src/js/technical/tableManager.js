@@ -1511,7 +1511,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             if (k >= start_week) {
                 columns.push({
                     "field": "week" + k,
-                    "title": "S" + k,
+                    "title": i18n.gettext("W") + k,
                     "align": "center",
                     "class": "value",
                     "cellStyle": createCompletenessMatrixCellTab()
@@ -1520,7 +1520,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         } else {
             columns.push({
                 "field": "week" + k,
-                "title": "S" + k,
+                "title": i18n.gettext("W") + k,
                 "align": "center",
                 "class": "value",
                 "cellStyle": createCompletenessMatrixCellTab()
@@ -2000,44 +2000,31 @@ function drawClinicPrescriptionTable(containerID, locID) {
             title: i18n.gettext('Clinic'),
             align: "center",
             class: "header",
-            sortable: true,
+            sortable: true
         }, {
             field: "medicine_name",
             title: i18n.gettext('Medicine'), // TODO: use glossary.
             align: "center",
             class: "header",
-            sortable: true,
+            sortable: true
         }, {
             field: "min_date",
             title: i18n.gettext('First Prescription'),
             align: "center",
             class: "header",
-            sortable: true,
+            sortable: true
         }, {
             field: "max_date",
             title: i18n.gettext('Latest Prescription'),
             align: "center",
             class: "header",
-            sortable: true,
+            sortable: true
         }, {
             field: "total_prescriptions",
             title: i18n.gettext('Total doses prescribed'),
             align: "center",
             class: "header",
-            sortable: true,
-        }, {
-            field: "str_stock",
-            title: i18n.gettext('Stock'),
-            align: "center",
-            class: "header",
-            sortable: true,
-            "sorter": function percs(a, b) {
-                a = ((a == '-') ? '-' : Number(a.split('%')[0]));
-                b = ((b == '-') ? '-' : Number(b.split('%')[0]));
-                if (a < b || b == '-') return 1;
-                if (a > b || a == '-') return -1;
-                return 0;
-            },
+            sortable: true
         }];
 
         // First destroy any pre-existing table.

@@ -208,22 +208,29 @@
 
     function drawDiseaseTable(varID, locID) {
 
+        function drawDiseaseTableForCategory(category_name, title) {
+            $.getJSON(api_root + "/aggregate_category/" + category_name + "/" + locID, function (subdiseases) {
+                $.getJSON(api_root + "/variables/" + category_name, function (variables) {
+                    if (Object.keys(subdiseases).length > 0) {
+                        var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), title);
+                        dataObject = stripEmptyRecords(dataObject);
+                        drawTable('disease-table', dataObject, true, 'loadDisease');
+                    }
+                });
+            });
+        }
+
         $.getJSON(api_root + '/variable/' + varID, function(data) {
             //If the variable being called is a ICD10 "Chapter" show a table of sub diseases.
             if (data.id.indexOf('icc_') > -1 || data.id.indexOf('icb_') > -1) {
-                $.getJSON(api_root + "/aggregate_category/" + data.name + "/" + locID, function(subdiseases) {
-                    $.getJSON(api_root + "/variables/" + data.name, function(variables) {
-                        console.log(Object.keys(subdiseases).length);
-
-                        var title = data.name.charAt(0).toUpperCase() + data.name.slice(1);
-                        if (Object.keys(subdiseases).length > 0) {
-                            var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), "ICD10 Sub-diseases");
-                            dataObject = stripEmptyRecords(dataObject);
-
-                            drawTable('disease-table', dataObject, true, 'loadDisease');
-                        }
-                    });
-                });
+                category_name = data.name;
+                title = "ICD10 Sub-diseases";
+                drawDiseaseTableForCategory(category_name, title);
+            } else {
+                category_name = "sub_category_" + data.id;
+                title = data.name;
+                drawDiseaseTableForCategory(category_name, title);
+                $("#diseaseInfo-whiteBox").css("display", "");
             }
         });
 
