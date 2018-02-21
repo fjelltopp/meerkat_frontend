@@ -326,8 +326,8 @@ function createTimeline(id, cat, options, title){
 			};
 			var total = 0;
 			for( var x in xKeys ){
-				datum["week_" + xKeys[x]] = queryData[yKeys[y]].weeks[xKeys[x]];
-				total += queryData[yKeys[y]].weeks[xKeys[x]];
+				  datum["week_" + xKeys[x]] = queryData[yKeys[y]].weeks[xKeys[x]];
+          total += queryData[yKeys[y]].weeks[xKeys[x]];
 			}
 			datum.total = total;
 			data.push( datum );		
@@ -340,9 +340,9 @@ function createTimeline(id, cat, options, title){
 		}
 		for( var k in xKeys.sort(function(a, b){return a-b;}) ){
 			var column ={
-				"field": "week_"+ xKeys[k],
-				"title": i18n.gettext("Week") +" " + xKeys[k],
-				"sortable": true
+          "field": "week_"+ xKeys[k],
+          "title": i18n.gettext("Week") +" " + (Number(xKeys[k]) % 52 || 52),
+          "sortable": true
 			};
 			if(colour){
 				column.cellStyle= createColourCell(maxMin);
