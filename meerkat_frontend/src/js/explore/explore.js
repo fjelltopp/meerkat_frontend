@@ -242,32 +242,37 @@ function timelineLink(id, name, axis){
     :param string cat:
         The given category ID.
     :param object options:
-        The options object detailing how the table should be put together. 
+        The options object detailing how the table should be put together.
         Can have the following properties:
-        
+
         * **start_date** (string) - The start date by which to filter data (in ISO format).
         * **end_date** (string) - The end date by which to filter data (in ISO format).
         * **location** (number) - The location ID by which to filter the data. 
         * **strip** (boolean) - Strip empty rows from the table.
         * **colour** (boolean) - Colour the cells with a shade of the highlight colour.
           according to the proportion of the range that the value represents.
+        * **location_case** (boolean) - category breakdown for a given location (as opposed to for a given variable from another category)
 */
 function createTimeline(id, cat, options, title){
-
-	console.log( "Drawing timeline" );
 
 	//These variable will hold all the JSON data from the api, when the AJAX requests are complete.
 	var queryData, category, variable;
 
-	//Assemble the main query url according to the given options.
-	var main_query_url = api_root + '/query_variable/' + id + '/' + cat;
-	if( options.start_date && options.end_date ){
-		main_query_url += '/' + options.start_date + '/' + options.end_date;
-	}
-	main_query_url += '?use_ids=1';
-	if( options.location ){
-		main_query_url += '&only_loc=' + options.location;
-	}
+    //Assemble the main query url according to the given options.
+    var main_query_url = api_root;
+    if(options.location_case){
+        main_query_url += "/query_variable/tot_1/" + cat;
+    }else{
+        main_query_url += '/query_variable/' + id + '/' + cat;
+    }
+
+    if( options.start_date && options.end_date ){
+        main_query_url += '/' + options.start_date + '/' + options.end_date;
+    }
+    main_query_url += '?use_ids=1';
+    if( options.location ){
+        main_query_url += '&only_loc=' + options.location;
+	  }
 
 	//Execute multiple json requests simultaneously.
 	var deferreds = [
@@ -281,6 +286,7 @@ function createTimeline(id, cat, options, title){
 			variable = data;
 		})
 	];
+
 
 	//Run the AJAX reuqests asynchronously and act when they have all completed.
 	$.when.apply( $, deferreds ).then(function() {
@@ -309,7 +315,7 @@ function createTimeline(id, cat, options, title){
             {
 				"field": "state",
 				"checkbox": true
-			},{				
+			},{
                 "field": "cases",
 				"title": title,
 				"align": "left",
@@ -330,7 +336,7 @@ function createTimeline(id, cat, options, title){
           total += queryData[yKeys[y]].weeks[xKeys[x]];
 			}
 			datum.total = total;
-			data.push( datum );		
+			data.push( datum );
 		}
 		// Sort out options
 		// Add remaining columns
@@ -363,7 +369,7 @@ function createTimeline(id, cat, options, title){
 		}
 		//Draw!
         var framework = "<div class='table-responsive' >" +
-                        "<table id='timeline-table'>" + 
+                        "<table id='timeline-table'>" +
                         "</table></div>";
         $("#timeline-wrapper").html( framework );
 		$("#timeline-table").bootstrapTable({
@@ -371,7 +377,7 @@ function createTimeline(id, cat, options, title){
 			data: data,
             clickToSelect: true
 		});
-	});	
+	});
 }
 
 function transpose( jsTable ){
