@@ -51,6 +51,7 @@
 <script>
 
 var currentLocation;
+var options = $('#tab-options').find('#diseases');
 
 $("#location_box").html(i18n.gettext("Location:"));
 $("#location_title").html(i18n.gettext("Not Loaded"));
@@ -167,7 +168,11 @@ function reDraw(){
       table_options: tableOptions,
       callback: function(data){
 
-          data.year = data.week;
+          var showYear = options.find('.option.barChartShowYear').text().toLowerCase() === 'true';
+          if (!showYear) {
+              // Hack to hide columns present in year which are absent in week
+              data.year = data.week;
+          }
           data = stripEmptyRecords(data);
 
           //Intelligently calculate the best parameters for the axis break
@@ -199,9 +204,12 @@ function reDraw(){
           }
 
           // Draw the CD Chart
+          var percent = options.find('.option.barChartPercent').text().toLowerCase() === 'true';
+          var title = percent ?
+              i18n.gettext('Percent %') : i18n.gettext('Number of cases');
           barChartOptions = {
-              percent: false,
-              year: false,
+              percent: percent,
+              year: showYear,
               chart:{
                   height: 500
               },
@@ -213,7 +221,7 @@ function reDraw(){
               yAxis: {
                   min: 0,
                   max: max,
-                  title: {text: i18n.gettext('Number of cases'), align: 'high'},
+                  title: {text: title, align: 'high'},
                   labels: {overflow: 'justify'},
                   breaks: breaks,
                   tickInterval: tick,
