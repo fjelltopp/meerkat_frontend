@@ -51,7 +51,8 @@
 <script>
 
 var currentLocation;
-var options = $('#tab-options').find('#diseases');
+var activeTabId = $('.tabs .active a').attr('id');
+var options = $('#tab-options').find('#' + activeTabId);
 
 $("#location_box").html(i18n.gettext("Location:"));
 $("#location_title").html(i18n.gettext("Not Loaded"));
@@ -155,14 +156,14 @@ function reDraw(){
           });
       }
   }
-
+  var additionalLimitVariables = options.find('.option.categorySumAdditionalLimVars').text();
   categorySummation({
       category: 'cd_tab',
       locID: currentLocation,
       week: week,
       tableID: 'disease-table',
       percent: true,
-	  limit_to: "tot_1",
+	  limit_to: "tot_1," + additionalLimitVariables,
       linkFunction: 'loadDisease',
       title: i18n.gettext(config.com_tab_title ? config.com_tab_title:'Communicable Diseases'),
       table_options: tableOptions,
