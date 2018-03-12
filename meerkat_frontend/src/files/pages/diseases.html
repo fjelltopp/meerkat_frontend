@@ -56,7 +56,20 @@ var options = $('#tab-options').find('#' + activeTabId);
 
 $("#location_box").html(i18n.gettext("Location:"));
 $("#location_title").html(i18n.gettext("Not Loaded"));
-$("#title").html(i18n.gettext(config.com_tab_title ? config.com_tab_title:'Communicable Diseases'));
+
+function getPageTitle() {
+    var title = '';
+    if (options.find('.option.title').text()) {
+        title = options.find('.option.title').text();
+    } else if (config.com_tab_title) {
+        title = config.com_tab_title;
+    } else {
+        title = 'Communicable Diseases';
+    }
+    return i18n.gettext(title);
+}
+
+$("#title").html(getPageTitle());
 $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
 $("#location-selector").html(i18n.gettext('Locations not loaded'));
 $(".csv").each(function(){
