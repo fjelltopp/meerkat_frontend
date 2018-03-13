@@ -386,9 +386,14 @@ function categorySummation(details) {
     if (details.limit_to) {
         limit_to_postfix = "/" + details.limit_to;
     }
+
+    var api_call_url = api_root + "/" + api_function + "/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix;
+    if (details.exclude_variables) {
+        api_call_url += '?excluded_variables=' + details.exclude_variables;
+    }
     //Assemble an array of AJAX calls
     var deferreds = [
-        $.getJSON(api_root + "/" + api_function + "/" + details.category + "/" + details.locID + "/" + currYear + limit_to_postfix, function(data) {
+        $.getJSON(api_call_url, function(data) {
             catData = data;
         }),
         $.getJSON(api_root + "/variables/" + details.category, function(data) {
