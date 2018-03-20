@@ -1,0 +1,20 @@
+{# This template reads additional tab options from country_technical.json
+   And adds them to the hidden div so they can be later accessed directly from
+   JS page manager. Each template has its own div named after the template file.
+   diseases.html >> <div id='diseases'>
+   e.g.
+
+    var options = $('#tab-options').find('#diseases');
+    var showYear = options.find('.option.barChartShowYear').text().toLowerCase() === 'true';
+#}
+<div class="hidden" id="tab-options">
+    {% for tab in content.tabs %}
+        {% if tab.options is defined %}
+            <div id="{{ tab.name|slugify }}">
+                {% for key, value in tab.options.items() %}
+                    <p class="option {{ key }}">{{ value }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
