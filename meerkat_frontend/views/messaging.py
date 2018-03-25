@@ -130,7 +130,7 @@ def verify(subscriber_id):
     # Get the subscriber
     subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
 
-    if subscriber['Item']['verified'] is True:
+    if subscriber['verified'] is True:
         flash(gettext('You have already verified your account.'))
         return redirect(
             "/" + g.get("language") +
@@ -138,8 +138,8 @@ def verify(subscriber_id):
             code=302
         )
 
-    elif 'sms' not in subscriber['Item']:
-        current_app.logger.warning(str(subscriber['Item']))
+    elif 'sms' not in subscriber:
+        current_app.logger.warning(str(subscriber))
         libs.hermes('/verify/' + subscriber_id, 'GET')
         return redirect(
             "/" + g.get("language") +
@@ -149,7 +149,7 @@ def verify(subscriber_id):
         return render_template('messaging/verify.html',
                                content=g.config['MESSAGING_CONFIG'],
                                week=c.api('/epi_week'),
-                               data=subscriber['Item'])
+                               data=subscriber)
 
 
 @messaging.route('/subscribe/verified/<string:subscriber_id>')
@@ -266,7 +266,7 @@ def sms_code(subscriber_id):
     # If a GET request is made we send a new code.
     else:
         subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
-        response = __set_code(subscriber_id, subscriber['Item']['sms'])
+        response = __set_code(subscriber_id, subscriber['sms'])
 
         if response['ResponseMetadata']['HTTPStatusCode'] == 200:
             flash(gettext('A new code has been sent to your phone.'))
