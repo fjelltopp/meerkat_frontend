@@ -266,18 +266,18 @@ def sms_code(subscriber_id):
     # If a GET request is made we send a new code.
     else:
         subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
-        response = __set_code(subscriber_id, subscriber['sms'])
 
-        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        try:
+            __set_code(subscriber_id, subscriber['sms'])
             flash(gettext('A new code has been sent to your phone.'))
             return redirect(
                 "/" + g.get("language") +
                 "/messaging/subscribe/verify/" + subscriber_id,
                 code=302
             )
-        else:
+        except Exception as e:
             current_app.logger.error(
-                "Request to send SMS failed. Response:\n{}".format(response)
+                "Request to send SMS failed. Response:\n{}".format(e)
             )
             flash(
                 gettext('Error: Try again later, or contact administrator.'),
