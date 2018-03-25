@@ -164,7 +164,7 @@ def verified(subscriber_id):
     """
 
     # Get the subscriber
-    subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')['Item']
+    subscriber = libs.hermes('/subscribe/' + subscriber_id, 'GET')
 
     # If the subscriber isn't verified redirect to the verify stage.
     if not subscriber['verified']:

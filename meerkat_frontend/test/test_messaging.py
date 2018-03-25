@@ -104,7 +104,7 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
 
         # Check for a redirect when verifying an already verified account
         mock_hermes.return_value = {
-            'Item':{'verified':True}
+            'verified': True
         }
         rv = self.app.get('/en/messaging/subscribe/verify/testid')
         self.assertIn(rv.status_code, [302])
@@ -113,7 +113,7 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         # Check for a redirect when verifying a no-sms account
         mock_hermes.reset()
         mock_hermes.return_value = {
-            'Item':{'verified': False}
+            'verified': False
         }
         rv = self.app.get('/en/messaging/subscribe/verify/testid')
         self.assertIn(rv.status_code, [302])
@@ -122,7 +122,7 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         # Check for the sms verification form when verifying an sms account
         mock_hermes.reset()
         mock_hermes.return_value = {
-            'Item':{'verified': False, 'sms':'+441234567890'}
+            'verified': False, 'sms': '+441234567890'
         }
         rv = self.app.get('/en/messaging/subscribe/verify/testid')
         self.assertIn(rv.status_code, [200])
@@ -136,16 +136,14 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         # Create the correct mocked responses.
         subscriber_id = 'TESTSUBCRIBERID'
         mock_hermes.return_value = {
-            'Item':{
-                'id': subscriber_id,
-                'first_name': 'Testy',
-                'last_name': 'McTestface',
-                'sms': '+441234567890',
-                'email': 'success@amazonses.simulator.com',
-                'country': 'Null Island',
-                'topics': ['null-public_health', 'null-1-allDis'],
-                'verified': True
-            }
+            'id': subscriber_id,
+            'first_name': 'Testy',
+            'last_name': 'McTestface',
+            'sms': '+441234567890',
+            'email': 'success@amazonses.simulator.com',
+            'country': 'Null Island',
+            'topics': ['null-public_health', 'null-1-allDis'],
+            'verified': True
         }
 
         # Check the page shows correctly
@@ -158,7 +156,7 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         self.assertTrue(mock_hermes.call_args_list[1][0][0:2] == ('/email', 'PUT'))
 
         # Check for a redirect if a user tries to access this page for an unverified account.
-        mock_hermes.return_value['Item']['verified'] = False
+        mock_hermes.return_value['verified'] = False
         rv = self.app.get('/en/messaging/subscribe/verified/' + subscriber_id)
         self.assertIn(rv.status_code, [302])
         self.assertEqual(urlparse(rv.location).path, '/en/messaging/subscribe/verify/' + subscriber_id)
@@ -171,16 +169,14 @@ class MeerkatFrontendMessagingTestCase(unittest.TestCase):
         # Create the correct mocked responses.
         subscriber_id = 'TESTSUBCRIBERID'
         subscribe_get_response = {
-            'Item': {
-                'id': subscriber_id,
-                'first_name': 'Testy',
-                'last_name': 'McTestface',
-                'sms': '+441234567890',
-                'email': 'success@amazonses.simulator.com',
-                'country': 'Null Island',
-                'topics': ['null-public_health', 'null-1-allDis'],
-                'verified': True
-            }
+            'id': subscriber_id,
+            'first_name': 'Testy',
+            'last_name': 'McTestface',
+            'sms': '+441234567890',
+            'email': 'success@amazonses.simulator.com',
+            'country': 'Null Island',
+            'topics': ['null-public_health', 'null-1-allDis'],
+            'verified': True
         }
         verify_get_response = {"message": "Subscriber verified"}
         verify_post_response_correct = {"matched": True}
