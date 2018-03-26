@@ -4,8 +4,6 @@
 {% if config.SENTRY_JS_DNS %}
   <script>Raven.config('{{config.SENTRY_JS_DNS}}').install();</script>
 {% endif %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 <script src="{{ url_for('static', filename='js/mapbox.uncompressed.js') }}"></script>
 <script src="{{ url_for('static', filename='js/Leaflet.fullscreen.js') }}"></script>
@@ -24,11 +22,12 @@
 <script src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-table-en-US.js') }}"></script>
-<script src="{{ url_for('static', filename='js/FileSaver.js') }}"></script>
 <script src="{{ url_for('static', filename='js/tableExport.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/featherlight.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/js.cookie.js') }}"></script>
 <script src="{{ url_for('static', filename='js/leaflet.awesome-markers.js') }}"></script>
+<script src="{{ url_for('static', filename='js/throbber.js') }}"></script>
+
 
 <script>
   //Google analytics
@@ -62,7 +61,33 @@
                        nextLang.toUpperCase() + "</a>" );
   $(".lang-sel").attr( 'title', i18n.gettext("Choose a language") ); //Translatable tool tip.
   $(".lang-sel").toggleClass('hidden');
-  
+
+  // The following code exists to keep a record of all our AJAX requests.
+  // It gives us a means to abort existing requests.
+
+  $.xhrPool = []; // array of uncompleted requests
+
+  $.xhrPool.abortAll = function() {
+      $(this).each(function(idx, jqXHR) {
+          jqXHR.abort();
+      });
+      $.xhrPool.length = 0
+  };
+
+  $.ajaxSetup({
+      // Before jQuery send the request we will push it to our array
+      beforeSend: function(jqXHR) {
+          $.xhrPool.push(jqXHR);
+      },
+      // When some of the requests completed it will splice from the array
+      complete: function(jqXHR) {
+          var index = $.xhrPool.indexOf(jqXHR);
+          if (index > -1) {
+              $.xhrPool.splice(index, 1);
+          }
+      }
+  });
+
   // Handle AJAX errors.
   $( document ).ajaxError(
     function(error_event, jqXHR, ajaxSettings, thrownError ) {

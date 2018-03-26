@@ -2,7 +2,7 @@
 {% block title %}{{report.data.project_region|e}} &middot; {{ _('Cholera Treatment Centre Report') }} &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
 
 {% macro format_percent(input) %}
-  {{ input.Y }} ({{ (input.Y / input.N * 100 )|int}} %)
+  {{ input.Y }} ({{ (input.Y / input.N * 100 )|int if input.N > 0 else "N/A"}} %)
 {%- endmacro %}
 
 {% set yesnodk = {"yes": "Yes", "no": "No", "dnk": "Don't Know", "blank": "Don't Know"} %}
@@ -48,7 +48,7 @@
 		    <tr> <td> {{_('Children under five treated:')}}  </td> <td>{{report.overview.get("cases_u5_total", 0)|int}} </td></tr>
                     <tr> <td> {{_('Deaths recorded:')}}  </td> <td> {{report.overview.get("deaths_total", 0)|int}}</td></tr>
                     <tr> <td> {{_('Average case fatality rate (minimum - maximum) :')}}  </td> <td> {{report.overview.cfr[0]|round(1)}} % ( {{ report.overview.cfr[1]|round(1) }}% - {{ report.overview.cfr[2]|round(1) }}% )</td></tr>
-                    <tr> <td> {{_('Register of patients maintained:')}}  </td> <td>{{format_percent(report.overview.ctc_case_management_register) }} </td></tr>                    
+                    <tr> <td> {{_('Register of patients maintained:')}}  </td> <td>{{format_percent(report.overview.ctc_case_management_register) }} </td></tr>
                     </table>
 	            </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="chart-wrapper infrastructure">
       <div class="chart-title">{{_('Infrastructure')}}</div>
        <div class="chart-explanation">Represent service availability for the week preceding time of facility survey</div>
-     
+
 	 <div class="chart-stage">
 	     <table class="table small">
                  <tr> <td> {{_('Facilities with sufficient bed capacity:')}}  </td> <td>{{ format_percent(report.overview.ctc_beds_sufficient) }}</td></tr>
@@ -75,7 +75,7 @@
                 <table class="table small">
 
                  <tr> <td> {{_('IEC materials on cholera prevention available:')}}  </td> <td>{{ format_percent(report.overview.ctc_case_management_iec) }} </td></tr>
-                 
+
                  <tr> <td> {{_('Case Management protocol available:')}}  </td> <td>{{ format_percent(report.overview.ctc_case_management_value) }} </td></tr>
                  <tr> <td> {{_('Training and Case Management taken place:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_training)}}</td></tr>
              </table>
@@ -84,7 +84,7 @@
 
 
 
-  
+
 
     </div>
     <div class="col-sm-6">
@@ -93,7 +93,7 @@
       <div class="chart-title">{{_('Supplies')}}</div>
       <div class="chart-explanation">Represent service availability for the week preceding time of facility survey </div>
       <div class="chart-stage">
-          <table class="table small">         
+          <table class="table small">
                  <tr> <td> {{_('Oral Rehydration Salts (ORS) available:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_ors)}} </td></tr>
                  <tr> <td> {{_('IV and Infusion Sets available:')}}  </td> <td> {{ format_percent(report.overview.ctc_case_management_iv)}} </td></tr>
                  <tr> <td> {{_('Antibiotics Available:')}}  </td> <td style="width:20%">  {{ format_percent(report.overview.ctc_case_management_abx)}} </td></tr>
@@ -167,6 +167,7 @@
 {% endblock body%}
 
 {% block second_body %}
+{% if report.clinic_data %}
 <div style='page-break-before:always'>
     <div class="row">
         <h1> Table of contents </h1>
@@ -195,7 +196,10 @@
                 <div class='facility-title-location'>
                 {{ ctc.district }} | {{ ctc.region }} <br />
                     {{_('Latitude: ')}} {{ctc.gps[0]}}, {{_('Longitude: ')}} {{ctc.gps[1]}} <br />
-                    {{_('Surveyed on') }} {{ctc.latest_date}}
+                    {{_('Surveyed on') }} {{ctc.latest_date}}<br />
+                    {% if ctc.open == "No" %}
+                    <b>{{_('Facility closed by ')}} {{ctc.closed_date}}</b>
+                    {% endif %}
                 </div>
             </div>
             <div class='right-part'>
@@ -223,14 +227,14 @@
 	 </div>
      </div>
 
-   
+
      <div class="chart-wrapper case-management">
          <div class="chart-title">{{_('Case Management')}}</div>
          <div class="chart-stage">
              <table class="table small">
                  <tr> <td> {{_('Register of patients maintained:')}}  </td> <td>{{ yesnodk[dat.get("ctc_case_management_register", "blank")] }} </td></tr>
                  <tr> <td> {{_('IEC materials on cholera prevention available:')}}  </td> <td>{{ yesnodk[dat.get("ctc_case_management_iec", "blank")] }} </td></tr>
-                 
+
                  <tr> <td> {{_('Case Management protocol available:')}}  </td> <td>{{ yesnodk[dat.get("ctc_case_management_value", "blank")]}} </td></tr>
                  <tr> <td> {{_('Training and Case Management taken place:')}}  </td> <td> {{ yesnodk[dat.get("ctc_case_management_training", "blank")]}}</td></tr>
              </table>
@@ -300,7 +304,7 @@
 	 </div>
      </div>
      {% if ctc.status == "Surveyed" %}
-     
+
     <div class="chart-wrapper facility-image"  {{"" if ctc.latest_data.ctc_facility_photo else 'style=height:30px' }}>
         <div class="chart-title clearfix">{{_('Facility Photo')}}</div>
         <div class="chart-stage" >
@@ -336,6 +340,7 @@
 
 </div>
 <div id="map" style="display: hidden;"></div>
+{% endif %}
 {% endblock second_body %}
 {% block extra_js %}
 <!-- JAVASCRIPT DATA FOR CHARTS -->

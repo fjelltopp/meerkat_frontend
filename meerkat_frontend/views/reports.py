@@ -498,7 +498,7 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.command_executor._commands['executePhantomScript'] = ('POST', '/session/$sessionId/phantom/execute')
 
         driver.implicitly_wait(2)
-        driver.get(initial_url) # Get the api url
+        driver.get(initial_url)  # Get the api url
         domain = url.split("://")[-1].split("/")[0]
         cookie_sel = {"domain": "." + domain, "name": "meerkat_jwt",
                       "value": auth.get_token(), 'path': '/','expires': None}
@@ -507,16 +507,13 @@ def pdf_report(report=None, location=None, end_date=None, start_date=None):
         driver.add_cookie(cookie_sel)
         driver.get(url)
 
-        time.sleep(3)  # TODO: Something better here
-        # To make sure everything has rendered properly
-
+        # TODO: Something better here
+        # Wait to make sure everything has rendered properly
+        time.sleep(4)
 
         # Page format
-
         pageNumbering = "footer: {height: \"1cm\", contents: phantom.callback(function(pageNum, numPages) { if (pageNum == 1) { return \"\"; } return \" <div align='center'>\" + pageNum + \"</div>\";})}"
-
         pageFormat = "this.paperSize = {width: " + str(width) + " , height: "+str( height )+"  ,format: \"" + str( width ) + "px*" + str( height ) + "px\", orientation:\"" + str( orientation ) + "\", margin: "+str( margins ) + ", " + pageNumbering + "};"
-
         current_app.logger.info("Rendering URL")
         execute(pageFormat, [])
 
@@ -644,30 +641,44 @@ def validate_report_arguments(config, report,
     return True
 
 
-def create_report(config, report=None, location=None, end_date=None, start_date=None):
-    """Dynamically creates report, that can then be served either in HTML or PDF format.
+def create_report(config, report=None,
+                  location=None, end_date=None, start_date=None):
+    """
+    Dynamically creates report, that can then be served either in HTML or
+    PDF format.
 
-       Args:
-           config (dict): The current app config object.
-           report (str): The report ID, from the REPORTS_LIST configuration file parameter.
-           location (int): The location ID for the location used to filter the report's data.
-           end_date (str): The end_data used to filter the report's data, in ISO format.
-           start_date (str): The start_date used to filter the report's data, in ISO format.
+    Args:
+        config (dict): The current app config object.
+        report (str): The report ID, from the REPORTS_LIST configuration
+            file parameter.
+        location (int): The location ID for the location used to filter the
+            report's data.
+        end_date (str): The end_data used to filter the report's data, in
+            ISO format.
+        start_date (str): The start_date used to filter the report's data,
+            in ISO format.
 
-       Returns:
-           dict: The report details
-           ::
-               {
-                   'template' (str): the template file specified in the REPORTS_LIST config property,
-                   'report' (dict): the data collected form the Meerkat API,
-                   'extras' (dict): any extra data calulated from API data needed to create the report,
-                   'address' (str): the contact address to be printed in the report
-               }
+    Returns:
+        dict: The report details
+            ::
+            {
+               'template' (str): the template file specified in the
+                    REPORTS_LIST config property,
+               'report' (dict): the data collected form the Meerkat API,
+               'extras' (dict): any extra data calulated from API data
+                    needed to create the report,
+               'address' (str): the contact address to be printed in the
+                    report
+            }
     """
 
     # try:
     report_list = current_app.config['REPORTS_CONFIG']['report_list']
     access = report_list[report].get('access', '')
+
+    # Default location
+    if not location:
+        location = current_app.config['REPORTS_CONFIG']['default_location']
 
     # Abort if the location is not allowed
     allowedLocations = report_list[report].get('locations', None)
@@ -682,9 +693,6 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             [access],
             [current_app.config['SHARED_CONFIG']['auth_country']]
         )
-
-    if not location:
-        location = current_app.config['REPORTS_CONFIG']['default_location']
 
     api_request = '/reports'
     api_request += '/' + report_list[report]['api_name']
@@ -732,7 +740,7 @@ def create_report(config, report=None, location=None, end_date=None, start_date=
             params = None
 
     app.logger.debug('Getting data')
-    data = c.api(api_request, api_key=True, params=params)
+    data = c.api(api_request, params=params)
     data["flag"] = config["FLAGG_ABR"]
 
     if report in ['public_health', 'cd_public_health', "ncd_public_health", "cerf"]:

@@ -5,8 +5,9 @@ python:
 
 env:
   - TRAVIS_NODE_VERSION="6.9.1"
-    MEERKAT_FRONTEND_SETTINGS="/home/travis/build/meerkat-code/meerkat_frontend/country_config/null_config.py"
-    MEERKAT_AUTH_SETTINGS="/home/travis/build/meerkat-code/meerkat_frontend/meerkat_libs/meerkat_libs/auth_client/sample_auth.cfg"
+    MEERKAT_FRONTEND_SETTINGS="${TRAVIS_BUILD_DIR}/country_config/null_config.py"
+    MEERKAT_AUTH_SETTINGS="${TRAVIS_BUILD_DIR}/meerkat_libs/meerkat_libs/auth_client/dev_auth_config.py"
+    HERMES_API_ROOT='http://testapiroot'
 
 install:
   - pip install .
@@ -14,13 +15,13 @@ install:
   - sudo apt-get install ghostscript
   # As per http://austinpray.com/ops/2015/09/20/change-travis-node-version.html
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
-  - npm install -g yarn gulp bower
+  - npm install -g yarn gulp-cli bower
   - yarn install
-  - git clone https://github.com/meerkat-code/meerkat_libs.git
+  - git clone --branch development --single-branch https://github.com/meerkat-code/meerkat_libs.git
   - pip install -r meerkat_libs/requirements.txt
 
 before_script:
-  - export PYTHONPATH=$HOME/build/meerkat-code/meerkat_frontend/meerkat_libs
+  - export PYTHONPATH=${TRAVIS_BUILD_DIR}/meerkat_libs
   - bower install
   - gulp
 

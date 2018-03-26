@@ -39,14 +39,6 @@
         "start_date":"2015-12-17T00:00:00.000Z",
         "period":"month",
         "access":"registered"
-    },{
-        "name":"Epi Monitoring Report",
-        "introduction":"Epi monitoring report.",
-        "url":"epi_monitoring",
-        "start_date":"2015-12-17T00:00:00.000Z",
-        "period":"week",
-        "access":"registered",
-        "locations":[1,2,3]
     }],
 
     "report_list": {
@@ -114,19 +106,6 @@
             "default_period": "month",
             "test_json_payload": "meerkat_frontend/apiData/report_testing/ncd_report.json",
             "access": "registered"
-        },
-        "epi_monitoring": {
-            "title": "Epidemiological Monitoring Report",
-            "template": "reports/report_epi_monitoring.html",
-            "template_email_html": "reports/email/html/email_epi_monitoring.html",
-            "template_email_plain": "reports/email/plain/email_epi_monitoring_plain.html",
-            "api_name": "epi_monitoring",
-            "email_from_name": "MOH Demo",
-            "email_from_address": "demo@emro.info",
-            "test_json_payload": "meerkat_frontend/apiData/report_testing/epi_monitoring.json",
-            "default_period": "week",
-            "access": "registered",
-            "locations":[1,2,3]
         },
         "vaccination": {
             "title": "Vaccination Report",

@@ -296,8 +296,6 @@ var gender = [{% for item in report.data.gender %}{name: "{{ _(item.title|e) }}"
 var nationality = [{% for item in report.data.nationality %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Status
 var patientStatus = [{% for item in report.data.patient_status %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
-// Non Communicable diseases
-var nonCommunicableDiseases = [{% for item in report.data.morbidity_non_communicable_icd %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Non-communicable diseases list
 var nonCommunicableDiseasesList = [{% for item in report.data.morbidity_non_communicable_ncd_tab %}{name: "{{ _(item.title|e) }}", y: {{ item.quantity }}}{% if not loop.last %},{% endif %}{% endfor %}];
 // Plots charts for report
@@ -323,9 +321,6 @@ $(function() {
   $('#chart-status').highcharts(
     pieChart(patientStatus)
   );
-  $('#chart-mor-non-communicable-disease').highcharts(
-    pieChart(nonCommunicableDiseases)
-  );
   $('#chart-mor-non-communicable-disease-list').highcharts(
     pieChart(nonCommunicableDiseasesList)
   );
@@ -344,7 +339,7 @@ regional_map(
     reg_data,
     'hypertension-map'
 );
- 
+
 // Draw map
 // map_from_data({{report.data.map|safe}})
 

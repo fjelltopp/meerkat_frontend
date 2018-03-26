@@ -1,55 +1,56 @@
 <div class="top-bar row">
+
 	<div class="location-box box">
 		<a href="#menu-toggle" id="menu-toggle">
 			<div class="location-box__label">
-				<div id="location_box"></div>
-				<div id="location-title" class="location-title"></div>
+				<div id="location_box">Location:</div>
+				<div id="location-title" class="location-title">Not Loaded</div>
 			</div>
 			<span class="glyphicon glyphicon-chevron-right"></span>
 			<span class="glyphicon glyphicon-chevron-left hidden"></span>
 		</a>
 	</div>
-	<div class="tab-title hidden-xs col-sm-5 col-md-5" id="title">
+	<div class="tab-title hidden-xs col-sm-5 col-md-6" id="title">
 	</div>
 	<div id="epi-week-title" class="col-xs-12 col-sm-4 col-md-3 pull-right box ">
 	</div>
+
 </div>
 
-<div class="overview demographics toggled" id="wrapper">
+<div class="demographics toggled" id="wrapper">
+
 	<div id="sidebar-wrapper">
 		<div id="location-selector" class="location-selector">
 		</div>
 	</div>
 
 	<div id="page-content-wrapper">
-		<div class="row" id="divOverviewContent">
-			<!-- The Created HTML from function will insert here... -->
+
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+						<p id="Tbtitle"></p>
+						<div class="box__type-selector pull-right">
+						</div>
+					</div>
+					<div class="chartBox__content">
+						<div id="div_tabletCompletness">
+							<!-- The Created HTML from function will insert here... -->
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+
 	</div>
 </div>
 <div class="breaker"></div>
 
-<div id="indicatorChartlightbox" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			</div>
-			<div class="modal-body">
-				<div id="Ov_Indicator_chart"></div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
 
 <script>
-
-	$("#title").html(i18n.gettext('Overview'));
-
+	$("#title").html(i18n.gettext('Tablet Completeness'));
+	$("#Tbtitle").html(i18n.gettext('Clinics visits'));
 
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
@@ -66,7 +67,11 @@
 
 	$("#epi-week-title").html(i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date());
 
-	//This Method will call the main function that will be responsible for building the Overview page ....
+	var columnNameArray = [];
+	var clinicDataArray = [];
+
+	//This Method will call the main function that will be responsible for building the  page
 	function drawCharts(locID) {
-		build_overview_page(locID);
+		gatherTabletData(locID);
 	}
+</script>

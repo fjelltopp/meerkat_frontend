@@ -239,6 +239,7 @@
     </div>
   </div>
   <!-- MORBIDITY NON-COMMUNICABLE DISEASE -->
+  {% if report.data.get(morbidity_non_communicable) %}
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">{{ _('Non-Communicable Disease') }}</div>
@@ -267,6 +268,8 @@
   </div>
 </div>
 <div class="row">
+{% endif %}
+{% if report.data.get(mental_health) %}
   <!-- MENTAL HEALTH CONDITIONS -->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">
@@ -294,6 +297,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
   <!-- IMCI CHILD HEALTH CONDITIONS-->
   <div class="col-xs-12 col-sm-6">
     <div class="chart-wrapper">

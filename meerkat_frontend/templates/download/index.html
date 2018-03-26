@@ -3,40 +3,40 @@
 {% block body %}
 <!-- CONTENT -->
 <div class="container page-content">
-	<div class="top-bar row">
-		<div class="tab-title less-padding-col">
-			{{_('Download Data') }}
-		</div>
-		<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
-			{{ _('Date not loaded.') }}
-		</div>
-	</div>
-	<div id="page-content-wrapper">
-	<div class="row">
-			<div class="col-xs-12 less-padding-col">
-				<div class="box chartBox visible-overflow">
-					<div class="chartBox__heading">
-						{{ _('Download Data Set') }}
-					</div>
-					<div class="chartBox__content" >
-					  <div class="intro">
-					      {{ _('Choose prepared data set to download for analysis:') }}
-							{# content.preparedIntro #}
-						</div>
+    <div class="top-bar row">
+        <div class="tab-title less-padding-col">
+            {{_('Download Data') }}
+        </div>
+        <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
+            {{ _('Date not loaded.') }}
+        </div>
+    </div>
+    <div id="page-content-wrapper">
+    <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="box chartBox visible-overflow">
+                    <div class="chartBox__heading">
+                        {{ _('Download Data Set') }}
+                    </div>
+                    <div class="chartBox__content" >
+                      <div class="intro">
+                          {{ _('Choose prepared data set to download for analysis:') }}
+                            {# content.preparedIntro #}
+                        </div>
                         <div class="row">
-    						<form id="prepared-data-download"
-    						      class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-6 col-md-3">
-    							<div class="row">
+                            <form id="prepared-data-download"
+                                  class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-6 col-md-3">
+                                <div class="row">
                                     <label>{{_('Data set:')}}</label>
-    								<select id="prepared-selector" class="prepared-data col-xs-12">
-    								{% for button in content.prepared %}
+                                    <select id="prepared-selector" class="prepared-data col-xs-12">
+                                    {% for button in content.prepared %}
                                         {% if (('access' in button) and button.access|in_array(g.payload.acc[content.auth_country]))
                                                 or ('access' not in button) %}
-    									<option value="{{loop.index0}}" startdate="{{button.get('defaultStartDdate', '')}}">{{_(button.title)}}</option>
+                                        <option value="{{loop.index0}}" startdate="{{button.get('defaultStartDdate', '')}}">{{_(button.title)}}</option>
                                         {% endif %}
-    								{% endfor %}
-    								</select>
-    							</div>
+                                    {% endfor %}
+                                    </select>
+                                </div>
                                 <div class="row">
                                 <label>{{_('Start date:')}}</label>
                                 <div class='input-group date'
@@ -59,79 +59,79 @@
                                     </span>
                                 </div>
                                 </div>
-    							<div class="row">
-    								<input type="button"
-    									     class="submit btn btn-default btn-lg"
-    									     value="{{ _('Download') }}">
-    							</div>
-    						</form>
+                                <div class="row">
+                                    <input type="button"
+                                             class="submit btn btn-default btn-lg"
+                                             value="{{ _('Download') }}">
+                                </div>
+                            </form>
                         </div>
-					</div>
-				</div>
-			</div>
-		</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="col-xs-12 less-padding-col">
-				<div class="chartBox box" id="raw_data_box">
-					<div class="chartBox__heading pointer no-border" onclick='toggleRawDownloader();return false;'>
-						{{ _('Download Raw Data') }}
-					</div>
-					<div class="chartBox__content" id="raw_download" >
-						<div class="intro">
-						  {#content.rawIntro #}
-						  {{ _('Choose raw data set to download for analysis:') }}
-						</div>
-						<div class="breaker"></div>
-						<div class="row">
-							<form id="raw-data-download"
-							      class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-8 col-md-6">
-								<div class="row">
-									<select class="col-sm-offset-3" id="form-selector"></select>
-								</div>
-								<div id="basic-selector" class="row box chartBox">
-									<div class="chartBox__heading">
-										{{ _('Data Fields') }}
-										<div class="pull-right">
-											<a href="#" onclick="selectAll('basic-fields'); return false;">
-												{{ _('All') }}
-											</a> /
-											<a href="#" onclick="selectNone('basic-fields'); return false;">
-												{{ _('None') }}
-											</a>
-										</div>
-									</div>
-									<div id="basic-fields" class="chartBox__content"></div>
-								</div>
-								<div class="row check">
-									<label><a id="show-fields" href="#">{{ _('View advanced fields') }}</a></label>
-								</div>
-								<div id="advanced-selector" style="display:none;" class="row box chartBox">
-									<div class="chartBox__heading">
-										{{ _('Advanced Fields') }}
-										<div class="pull-right">
-											<a href="#" onclick="selectAll('advanced-fields'); return false;">
-												{{ _('All') }}
-											</a> /
-											<a href="#" onclick="selectNone('advanced-fields'); return false;">
-												{{ _('None') }}
-											</a>
-										</div>
-									</div>
-									<div id="advanced-fields" class="chartBox__content"></div>
-								</div>
-								<div class="row">
-									<input type="submit"
-									       class="submit btn btn-default btn-lg col-sm-offset-3"
-									       value="Download">
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="chartBox box" id="raw_data_box">
+                    <div class="chartBox__heading pointer no-border" onclick='toggleRawDownloader();return false;'>
+                        {{ _('Download Raw Data') }}
+                    </div>
+                    <div class="chartBox__content" id="raw_download" >
+                        <div class="intro">
+                          {#content.rawIntro #}
+                          {{ _('Choose raw data set to download for analysis:') }}
+                        </div>
+                        <div class="breaker"></div>
+                        <div class="row">
+                            <form id="raw-data-download"
+                                  class="data-download col-sm-offset-1 col-md-offset-2 col-xs-12 col-sm-8 col-md-6">
+                                <div class="row">
+                                    <select class="col-sm-offset-3" id="form-selector"></select>
+                                </div>
+                                <div id="basic-selector" class="row box chartBox">
+                                    <div class="chartBox__heading">
+                                        {{ _('Data Fields') }}
+                                        <div class="pull-right">
+                                            <a href="#" onclick="selectAll('basic-fields'); return false;">
+                                                {{ _('All') }}
+                                            </a> /
+                                            <a href="#" onclick="selectNone('basic-fields'); return false;">
+                                                {{ _('None') }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div id="basic-fields" class="chartBox__content"></div>
+                                </div>
+                                <div class="row check">
+                                    <label><a id="show-fields" href="#">{{ _('View advanced fields') }}</a></label>
+                                </div>
+                                <div id="advanced-selector" style="display:none;" class="row box chartBox">
+                                    <div class="chartBox__heading">
+                                        {{ _('Advanced Fields') }}
+                                        <div class="pull-right">
+                                            <a href="#" onclick="selectAll('advanced-fields'); return false;">
+                                                {{ _('All') }}
+                                            </a> /
+                                            <a href="#" onclick="selectNone('advanced-fields'); return false;">
+                                                {{ _('None') }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div id="advanced-fields" class="chartBox__content"></div>
+                                </div>
+                                <div class="row">
+                                    <input type="submit"
+                                           class="submit btn btn-default btn-lg col-sm-offset-3"
+                                           value="Download">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock body %}
 
@@ -150,11 +150,12 @@ var d = new Date();
 $("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
 
 function chooseStartDate(){
-    console.log("Changing start date");
     var startDate = $('#prepared-data-download').find(':selected').attr('startdate' );
-    if(!startDate) startDate =  d.getFullYear() + '-02-01T00:00:00.00';
-    console.log("Changing start date to: " + startDate);
-    console.log(new Date(startDate));
+    if(!startDate){
+        startDate = new Date()
+        startDate.setMonth(d.getMonth()-1);
+        startDate = startDate.toISOString();
+    }
     return new Date(startDate);
 }
 
@@ -192,181 +193,179 @@ function toggleRawDownloader(){
 //Check that at least one checkbox is clicked
 function checkSelected( ) {
 
-	checked = $('input[name=attributes]:checked').length;
+    checked = $('input[name=attributes]:checked').length;
 
-	if(!checked) {
+    if(!checked) {
 
-		boxes = document.getElementsByName('attributes')
-		for( var i=0; i<boxes.length; i++ ){
-			boxes[i].setCustomValidity("{{ _('You must tick at least one checkbox.') }}");
-		}
+        boxes = document.getElementsByName('attributes')
+        for( var i=0; i<boxes.length; i++ ){
+            boxes[i].setCustomValidity("{{ _('You must tick at least one checkbox.') }}");
+        }
 
-		return false;
+        return false;
 
-	}else{
+    }else{
 
-		boxes = document.getElementsByName('attributes')
-		for( var i=0; i<boxes.length; i++ ){
-			boxes[i].setCustomValidity('');
-		}
+        boxes = document.getElementsByName('attributes')
+        for( var i=0; i<boxes.length; i++ ){
+            boxes[i].setCustomValidity('');
+        }
 
-		return true;
+        return true;
 
-	}
+    }
 }
 
 function selectAll( idTag ){
-	$('#' + idTag + ' input[name=attributes]').each(function(){
-		this.checked = true;
-	});
-	checkSelected( );
+    $('#' + idTag + ' input[name=attributes]').each(function(){
+        this.checked = true;
+    });
+    checkSelected( );
 }
 
 function selectNone( idTag ){
-	$('#' + idTag + ' input[name=attributes]').each(function(){
-		this.checked = false;
-	});
-	checkSelected( );
+    $('#' + idTag + ' input[name=attributes]').each(function(){
+        this.checked = false;
+    });
+    checkSelected( );
 }
 
 function selectDefault(){
 
-	//Load the default values.
-	var defaultAttributes = config.forms[ $('#form-selector').val() ].default;
+    //Load the default values.
+    var defaultAttributes = config.forms[ $('#form-selector').val() ].default;
 
-	//If no default values, the default to select all.
-	if( defaultAttributes.length == 0 ){
+    //If no default values, the default to select all.
+    if( defaultAttributes.length == 0 ){
 
-		selectAll();
+        selectAll();
 
-	//Else just select default fields.
-	}else{
+    //Else just select default fields.
+    }else{
 
-		//Uncheck everything
-		selectNone();
+        //Uncheck everything
+        selectNone();
 
-		//Finally set each default attribute checkbox to checked.
-		for( var k in defaultAttributes ){
-		  $("input[value='" + defaultAttributes[k] + "']" ).prop('checked', true);
-		}
-	}
-	checkSelected( );
+        //Finally set each default attribute checkbox to checked.
+        for( var k in defaultAttributes ){
+          $("input[value='" + defaultAttributes[k] + "']" ).prop('checked', true);
+        }
+    }
+    checkSelected( );
 }
 
 $.getJSON( api_root+"/export/forms", function( data ){
 
-	function drawAttributes(form){
+    function drawAttributes(form){
 
-		var basicFieldsHtml = "";
-		var advancedFieldsHtml = "";
+        var basicFieldsHtml = "";
+        var advancedFieldsHtml = "";
 
-	    var allFields = data[form]; //All api fields, from which we take intersect and difference.
+        var allFields = data[form]; //All api fields, from which we take intersect and difference.
         console.log(form)
         console.log(config.forms)
-		var basicFields = getIntersect(config.forms[form].default, allFields );
-		var advancedFields = getDifference( allFields, basicFields );
+        var basicFields = getIntersect(config.forms[form].default, allFields );
+        var advancedFields = getDifference( allFields, basicFields );
 
-		//If there are no basic fields provided, then show all fields as basic fields.
-		if( basicFields.length == 0 ){
-			basicFields = advancedFields;
-			advancedFields = [];
-			$('#show-fields').hide();
-			$('#advanced-selector').slideUp();
-		}else{
-			$('#show-fields').show();
-		}
+        //If there are no basic fields provided, then show all fields as basic fields.
+        if( basicFields.length == 0 ){
+            basicFields = advancedFields;
+            advancedFields = [];
+            $('#show-fields').hide();
+            $('#advanced-selector').slideUp();
+        }else{
+            $('#show-fields').show();
+        }
 
-		for( var j in basicFields ){
-			basicFieldsHtml += "<div class='check attribute col-xs-12 col-md-6' >"
-			basicFieldsHtml += "<input type='checkbox' name='attributes' ";
-			basicFieldsHtml += "onclick='checkSelected();' value='" + basicFields[j] + "' ";
-			basicFieldsHtml += "> <label>" + basicFields[j] + "</label></div>";
-		}
+        for( var j in basicFields ){
+            basicFieldsHtml += "<div class='check attribute col-xs-12 col-md-6' >"
+            basicFieldsHtml += "<input type='checkbox' name='attributes' ";
+            basicFieldsHtml += "onclick='checkSelected();' value='" + basicFields[j] + "' ";
+            basicFieldsHtml += "> <label>" + basicFields[j] + "</label></div>";
+        }
 
-		for( var k in advancedFields ){
-			advancedFieldsHtml += "<div class='check attribute col-xs-12 col-md-6' >"
-			advancedFieldsHtml += "<input type='checkbox' name='attributes' ";
-			advancedFieldsHtml += "onclick='checkSelected();' value='" + advancedFields[k] + "' ";
-			advancedFieldsHtml += "> <label>" + advancedFields[k] + "</label></div>";
-		}
+        for( var k in advancedFields ){
+            advancedFieldsHtml += "<div class='check attribute col-xs-12 col-md-6' >"
+            advancedFieldsHtml += "<input type='checkbox' name='attributes' ";
+            advancedFieldsHtml += "onclick='checkSelected();' value='" + advancedFields[k] + "' ";
+            advancedFieldsHtml += "> <label>" + advancedFields[k] + "</label></div>";
+        }
 
-		$('#basic-fields').html(basicFieldsHtml);
-		$('#advanced-fields').html(advancedFieldsHtml);
+        $('#basic-fields').html(basicFieldsHtml);
+        $('#advanced-fields').html(advancedFieldsHtml);
 
-		selectAll( 'basic-fields');
-	}
-
-
-	var configForms = Object.keys(config.forms);
-	var apiForms = Object.keys( data );
-	var formSelector = "";
-
-	for( var i in apiForms ){
-
-		formSelector += "<option value='" + apiForms[i] + "' ";
-		if( apiForms[i] == "case" ) formSelector += "selected='selected'"
-		formSelector += ">";
-
-		//If the form is recorded in the config file, use the given "display name".
-		if( configForms.indexOf( apiForms[i] ) != -1 ){
-			formSelector += i18n.gettext(config.forms[ apiForms[i] ].name);
-		}else{
-			formSelector += apiForms[i];
-		}
-
-		formSelector += "</option>"
-	}
-
-	$('#form-selector').html(formSelector);
-
-	drawAttributes( $('#form-selector').val() );
-
-	$('#show-fields').click( function(){
-		$('#advanced-selector').slideToggle();
-		drawAttributes( $('#form-selector').val() );
-	});
-
-	$('#form-selector').change( function(){
-		drawAttributes( $(this).val() );
-	});
+        selectAll( 'basic-fields');
+    }
 
 
+    var configForms = Object.keys(config.forms);
+    var apiForms = Object.keys( data );
+    var formSelector = "";
 
-	$('#raw-data-download').submit( function(event){
-		//Validate the form.
-		if( checkSelected() ){
-			//Assemble the appropriate API call.
-			var url = api_root + "/export/form/" + $('#form-selector').val() + "?fields=";
-			$('input[name=attributes]:checked').each(function(){
-				url += $(this).val() + ",";
-			});
+    for( var i in apiForms ){
 
-			url += "&api_key=" + config.api_key;
+        formSelector += "<option value='" + apiForms[i] + "' ";
+        if( apiForms[i] == "case" ) formSelector += "selected='selected'"
+        formSelector += ">";
 
-                       open_url = "wait?url=" + url
-                       window.open(open_url);
-		}else{
-			event.preventDefault();
-		}
-	});
+        //If the form is recorded in the config file, use the given "display name".
+        if( configForms.indexOf( apiForms[i] ) != -1 ){
+            formSelector += i18n.gettext(config.forms[ apiForms[i] ].name);
+        }else{
+            formSelector += apiForms[i];
+        }
 
-	$('#prepared-data-download .submit').click( function(event){
-		//Assemble the appropriate API call.
-	    var dataSet = config.prepared[$('#prepared-selector').val()];
-		console.log(dataSet);
+        formSelector += "</option>"
+    }
+
+    $('#form-selector').html(formSelector);
+
+    drawAttributes( $('#form-selector').val() );
+
+    $('#show-fields').click( function(){
+        $('#advanced-selector').slideToggle();
+        drawAttributes( $('#form-selector').val() );
+    });
+
+    $('#form-selector').change( function(){
+        drawAttributes( $(this).val() );
+    });
+
+
+
+    $('#raw-data-download').submit( function(event){
+        //Validate the form.
+        if( checkSelected() ){
+            //Assemble the appropriate API call.
+            var url = api_root + "/export/form/" + $('#form-selector').val() + "?fields=";
+            $('input[name=attributes]:checked').each(function(){
+                url += $(this).val() + ",";
+            });
+
+           open_url = "wait?url=" + url
+           window.open(open_url);
+        }else{
+            event.preventDefault();
+        }
+    });
+
+    $('#prepared-data-download .submit').click( function(event){
+        //Assemble the appropriate API call.
+        var dataSet = config.prepared[$('#prepared-selector').val()];
+        console.log(dataSet);
         for (key in dataSet.fields){
             dataSet.fields[key][1] = i18n.gettext(dataSet.fields[key][1]);
         }
-	    if( "name_category" in dataSet){
-   	        var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
-	    }else if("group_by" in dataSet){
+        if( "name_category" in dataSet){
+               var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields) + "&name_category=" + dataSet.name_category
+        }else if("group_by" in dataSet){
             var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.variables) + "%26group_by=" + JSON.stringify(dataSet.group_by);
             if ("location_conditions" in dataSet){
                 url += "%26location_conditions=" + JSON.stringify(dataSet.location_conditions);
             }
         }else{
-		    var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
-	    }
+            var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
+        }
 
         var startDate = $('#start-date').data("DateTimePicker")
                         .date().add( moment().utcOffset(), "minutes" )
@@ -375,9 +374,9 @@ $.getJSON( api_root+"/export/forms", function( data ){
                         .date().add( moment().utcOffset(), "minutes" )
                         .toISOString();
         url += '&start_date=' + startDate + '&end_date=' + endDate;
-	    open_url = "wait?url=" + url
-	    window.open(open_url);
-	});
+        open_url = "wait?url=" + url
+        window.open(open_url);
+    });
 
 });
 

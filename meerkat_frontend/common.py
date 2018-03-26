@@ -13,13 +13,11 @@ import json
 import os
 
 
-def api(url, api_key=False, params=None):
+def api(url, params=None):
     """
     Returns JSON data from API request.
     Args:
         url (str): The Meerkat API url from which data is requested
-        api_key (optional bool): Whethe or not we should include the api
-        key. Defaults to False.
     Returns:
         dict: A python dictionary formed from the API reponse json string.
     """
@@ -29,18 +27,13 @@ def api(url, api_key=False, params=None):
             return json.load(data_file)
     else:
         api_uri = add_domain(''.join([app.config['INTERNAL_API_ROOT'], url]))
+
         try:
-            if api_key:
-                r = requests.get(
-                    api_uri,
-                    headers={'authorization': 'Bearer ' + auth.get_token()},
-                    params=params
-                )
-            else:
-                r = requests.get(
-                    api_uri,
-                    params=params
-                )
+            headers = {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' + auth.get_token()
+            }
+            r = requests.get(api_uri, headers=headers, params=params)
             if r.status_code == 502:
                 abort(500, "Can not access the api at " + api_uri)
         except requests.exceptions.RequestException as e:
@@ -50,7 +43,8 @@ def api(url, api_key=False, params=None):
         try:
             output = r.json()
         except Exception as e:
-            logging.error("Failed to convert API response to JSON.")
+            logging.error("Failed to convert API {} response {} "
+                          "to JSON: {}".format(url, r, r.text))
             logging.error(e)
             abort(500, "Failed to convert API response to JSON.")
         return output

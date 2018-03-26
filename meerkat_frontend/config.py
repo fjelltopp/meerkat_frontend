@@ -13,7 +13,12 @@ class Config(object):
     LIVE_URL = os.environ.get("MEERKAT_LIVE_URL", "http://127.0.0.1/")
     INTERNAL_API_ROOT = os.environ.get("INTERNAL_API_ROOT", '')
     EXTERNAL_API_ROOT = '/api'
-
+    DYNAMODB_URL = os.environ.get(
+        'DYNAMODB_URL',
+        'https://dynamodb.eu-west-1.amazonaws.com'
+    )
+    FLASH_MESSAGES_TABLE = 'frontend_messages'
+    FLASH_RELOAD_INTERVAL = 36000  # In seconds, so every 10 minutes
     HERMES_ROOT = os.environ.get("HERMES_API_ROOT", "")
     HERMES_API_KEY = os.environ.get('HERMES_API_KEY', 'test-hermes')
     MAILING_KEY = os.environ.get('MAILING_KEY', 'test-mailing')
@@ -52,7 +57,11 @@ class Config(object):
     SUPPORTED_LANGAUGES_FLAGS = ["gb"]
 
     DROPBOX = {}
-
+    SEND_LOGG_EVENTS = os.getenv("SEND_LOGG_EVENTS", False)
+    LOGGING_URL = os.getenv("LOGGING_URL", None)
+    LOGGING_SOURCE = os.getenv("LOGGING_SOURCE", "dev")
+    LOGGING_SOURCE_TYPE = "frontend"
+    LOGGING_IMPLEMENTATION = os.getenv("LOGGING_IMPLEMENTATION", "demo")
     # Auth secret settings file from which to import required config.
     # File must define JWT_COOKIE_NAME, JWT_ALGORITHM and JWT_PUBLIC_KEY.
     filename = os.environ.get('MEERKAT_AUTH_SETTINGS')

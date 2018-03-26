@@ -1,0 +1,95 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:shelljs:20140723':
+    - jshint > shelljs:
+        reason: None given
+        expires: '2018-03-01T12:12:45.962Z'
+  'npm:static-eval:20171016':
+    - mapbox-gl > brfs > static-module > static-eval:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+  'npm:tunnel-agent:20170305':
+    - gulp-sass > node-sass > request > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - imagemin-optipng > optipng-bin > bin-build > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - gulp-imagemin > imagemin-optipng > optipng-bin > bin-build > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - imagemin-pngquant > pngquant-bin > bin-build > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - imagemin-jpegoptim > jpegoptim-bin > bin-build > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - gulp-imagemin > imagemin-gifsicle > gifsicle > bin-build > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - gulp-imagemin > imagemin-mozjpeg > mozjpeg > bin-build > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - imagemin-optipng > optipng-bin > bin-wrapper > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - gulp-imagemin > imagemin-optipng > optipng-bin > bin-wrapper > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - imagemin-pngquant > pngquant-bin > bin-wrapper > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - imagemin-jpegoptim > jpegoptim-bin > bin-wrapper > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - gulp-imagemin > imagemin-gifsicle > gifsicle > bin-wrapper > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+    - gulp-imagemin > imagemin-mozjpeg > mozjpeg > bin-wrapper > download > caw > tunnel-agent:
+        reason: None given
+        expires: '2018-03-01T12:12:45.963Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:minimatch:20160620':
+    - main-bower-files > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - main-bower-files > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp-add-src > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - imagemin-jpegoptim > jpegoptim-bin > bin-wrapper > download > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - main-bower-files > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - imagemin-jpegoptim > jpegoptim-bin > bin-wrapper > download > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp-add-src > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-10-24T09:41:08.552Z'
+    - gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2018-01-30T12:12:45.965Z'
+    - gulp-add-src > vinyl-fs > glob-stream > minimatch:
+        patched: '2018-01-30T12:12:45.965Z'
+    - gulp-add-src > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2018-01-30T12:12:45.965Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2018-01-30T12:12:45.965Z'
+    - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2018-01-30T12:12:45.965Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2018-01-30T12:12:45.965Z'
+    - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2018-01-30T12:12:45.965Z'
