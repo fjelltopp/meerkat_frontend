@@ -2122,3 +2122,140 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
         search: is_searchable
     });
 }
+
+/** drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations, prev_week_no)
+
+   Draws the consultations matrix, similar to completeness matrix showing the number of consultations registered in the area using daily register.
+
+   :param string containerID:
+   The ID attribute of the html element to hold the table.
+   :param Object locations:
+   List of all locations from API.
+   :param Object data:
+   Consulatations data from API.
+*/
+
+function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations, prev_week_no) {
+
+    var consultationsData = data[loc_level];
+    var scoreKeys = Object.keys(consultationsData);
+    var index = 0;
+
+    var table_data = [];
+    var table_datum = [];
+    for (var i = 0; i < scoreKeys.length; i++) {
+        index = scoreKeys[scoreKeys.length - i - 1];
+        whole_loc_timeline = consultationsData[index].weeks;
+        year_loc_val = consultationsData[index].year;
+        var loc_record = []; //whole data for location
+        var loc_entry = []; //entry for one week
+
+        for (var j = 1; j <= prev_week_no; j++) {
+                loc_entry = [j, Number(whole_loc_timeline[j]).toFixed(0)];
+                loc_record.push(loc_entry);
+        }
+
+        if (locations[index].id !== loc_id) { //Total
+            table_datum = {
+                "name": locations[index].name,
+                "region": locations[locations[index].parent_location].name,
+                "year": Number(year_loc_val).toFixed(0)
+            };
+        } else {
+            table_datum = {
+                "name": locations[index].name,
+                "region": "-Total-",
+                "year": Number(year_loc_val).toFixed(0)
+            };
+        }
+
+        //push every week separately now to the datum
+        for (var l = 1; l < loc_record.length + 1; l++) {
+            table_datum["week" + loc_record[l - 1][0]] = loc_record[l - 1][1];
+        }
+        table_data.push(table_datum);
+    }
+
+    var columns = [{
+        "field": "region",
+        "title": "Region",
+        "align": "center",
+        "class": "header"
+    }, {
+        "field": "name",
+        "title": "District",
+        "align": "center",
+        "class": "header"
+    }];
+
+    //Add column for every previous week:
+    for (var k = 1; k <= noWeeks; k++) {
+        if (start_week) {
+            if (k >= start_week) {
+                columns.push({
+                    "field": "week" + k,
+                    "title": i18n.gettext("W") + k,
+                    "align": "center",
+                    "class": "value"
+                });
+            }
+        } else {
+            columns.push({
+                "field": "week" + k,
+                "title": i18n.gettext("W") + k,
+                "align": "center",
+                "class": "value"
+            });
+        }
+    }
+    columns.push({
+        "field": "year",
+        "title": "Year",
+        "align": "center",
+        "class": "value"
+    });
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID).append('<table class="table"></table>');
+
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: table_data,
+        classes: 'table-responsive table-bordered ',
+        sortName: 'region',
+        sortOrder: 'asc'
+    });
+
+    var rowLength = table[0].rows.length;
+    var count = 0;
+    var row = table[0].rows[1].cells[0].innerHTML;
+    var saveIndex = 0;
+
+
+    for (i = 1; i < rowLength; i++) {
+        if (row === table[0].rows[i].cells[0].innerHTML) {
+            count++;
+
+            if (i == rowLength - 1) {
+                mergeRows('#' + containerID + ' table', saveIndex, count);
+            }
+
+        } else {
+            mergeRows('#' + containerID + ' table', saveIndex, count);
+
+            row = table[0].rows[i].cells[0].innerHTML;
+            saveIndex = i - 1;
+            count = 1;
+
+            /*
+             */
+        }
+    }
+
+
+
+
+    return table;
+
+}

@@ -51,6 +51,23 @@
 
         </div>
         <div class="row">
+            <div class="col-xs-12 col-md-12 less-padding-col">
+                <div class="chartBox box" id="consulatations-matrix-box">
+                    <div class="chartBox__heading pointer" onclick='toggleMatrix();return false;'>
+                        <p id="cons_matrix_box_heading" style="display: inline"> </p>
+                        <div class="box__type-selector pull-right">
+                            <a href="" onclick="event.stopImmediatePropagation();$('#cons_matrix').tableExport({type:'xls', fileName: 'cons_matrix'});return false;" class="csv">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="chartBox__content" id="cons_matrix_content">
+                        <div id="cons_matrix" class="table">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
 
 
             <div class="col-xs-12 col-md-12 less-padding-col">
@@ -86,6 +103,7 @@
         $("#location-selector").html(i18n.gettext('Locations not loaded'));
         $("#cons_table_box_heading").html(i18n.gettext('Consulations') + " (" + i18n.gettext('Week') + ' ' + prev_week + ")");
         $("#cons_graph_box_heading").html(i18n.gettext('Consulations by week'));
+        $("#cons_matrix_box_heading").html(i18n.gettext('Consulations matrix'));
         $("#clinics_cons_box_heading").html(i18n.gettext('Consulatations by clinic') + " (" + i18n.gettext('Week') + ' ' + prev_week + ")");
         $(".csv").each(function() {
             $(this).html(i18n.gettext('Excel'));
@@ -116,6 +134,7 @@
                 "locID": currentLocation,
                 "graphID": "cons_graph",
                 "tableID": "cons_table",
+                "matrixID": "cons_matrix",
                 "clinicsTableID": "clinics_cons_table",
                 "prev_week_no" : prev_week
             });
