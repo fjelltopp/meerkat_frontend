@@ -22,6 +22,7 @@ class Config(object):
     HERMES_ROOT = os.environ.get("HERMES_API_ROOT", "")
     HERMES_API_KEY = os.environ.get('HERMES_API_KEY', 'test-hermes')
     MAILING_KEY = os.environ.get('MAILING_KEY', 'test-mailing')
+    SUPPORT_EMAIL = os.environ.get('MEERKAT_SUPPORT_EMAIL', 'meerkatrequest@gmail.com')
 
     SENTRY_DNS = os.environ.get('SENTRY_DNS', '')
     if SENTRY_DNS:

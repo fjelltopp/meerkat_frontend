@@ -130,7 +130,7 @@ def report_fault():
         # TODO: Direct github issue creation if from a personal account.
         try:
             hermes('/email', 'PUT', data={
-                'email': 'meerkatrequest@gmail.com',
+                'email': current_app.config['SUPPORT_EMAIL'],
                 'subject': gettext('Fault Report') + ' | {} | {}'.format(
                     deployment,
                     data['url']
