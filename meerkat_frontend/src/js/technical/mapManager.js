@@ -41,6 +41,7 @@ function drawMap(varID, containerID, location, start_date, end_date, satellite) 
 function drawMapFromData(data, containerID, satellite) {
     // console.log( "DRAWING MAP" );
     // console.log( data );
+    clearOldMap();
     map = L.map(containerID, {
         maxZoom: 18,
         scrollWheelZoom: false
@@ -316,15 +317,25 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 }
 
 
+function clearOldMap() {
+    if (typeof map !== 'undefined') {
+        map.remove();
+        $('#mapbox').html("<div id='total-map' class='the-map'></div>");
+    }
+}
+
 function drawIncidenceChoroplet(var_name, varID, containerID, level, monthly) {
 
     var url = api_root + '/incidence_rate/' + varID + '/' + level + "/1000/1";
-    if (monthly) url += "/1";
+    if (monthly) {
+        url += "/1";
+    }
 
     $.getJSON(url, function(data) {
         $.getJSON(api_root + "/locations", function(locations) {
             $.getJSON(api_root + "/geo_shapes/" + level, function(geojson) {
                 geojson = geojson.features;
+                clearOldMap();
                 map = L.map(containerID, {
                     maxZoom: 18,
                     scrollWheelZoom: false,
@@ -491,6 +502,7 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
     $.getJSON(api_root + "/locations", function(locations) {
         $.getJSON(api_root + "/geo_shapes/" + level, function(geojson) {
             geojson = geojson.features;
+            clearOldMap();
             map = L.map(containerID, {
                 maxZoom: 18,
                 scrollWheelZoom: false,
