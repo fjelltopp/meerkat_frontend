@@ -2140,6 +2140,9 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
     var consultationsData = data[loc_level];
     var scoreKeys = Object.keys(consultationsData);
     var index = 0;
+    var noWeeks = scoreKeys.length; //==prev_week_no???
+    var current_val;
+    var current_region;
 
     var table_data = [];
     var table_datum = [];
@@ -2151,23 +2154,31 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
         var loc_entry = []; //entry for one week
 
         for (var j = 1; j <= prev_week_no; j++) {
-                loc_entry = [j, Number(whole_loc_timeline[j]).toFixed(0)];
-                loc_record.push(loc_entry);
+            current_val = Number(whole_loc_timeline[j]).toFixed(0);
+            if (isNaN(current_val)) {
+                current_val = "-";
+            }
+            loc_entry = [j, current_val];
+            loc_record.push(loc_entry);
         }
 
-        if (locations[index].id !== loc_id) { //Total
-            table_datum = {
-                "name": locations[index].name,
-                "region": locations[locations[index].parent_location].name,
-                "year": Number(year_loc_val).toFixed(0)
-            };
-        } else {
-            table_datum = {
-                "name": locations[index].name,
-                "region": "-Total-",
-                "year": Number(year_loc_val).toFixed(0)
-            };
+        current_val = Number(year_loc_val).toFixed(0);
+        if (isNaN(current_val)) {
+            current_val = "-";
         }
+
+
+        if (locations[index].id !== loc_id) { //Total
+            current_region = locations[locations[index].parent_location].name;
+        } else {
+            current_region = "-Total-";
+        }
+
+        table_datum = {
+            "name": locations[index].name,
+            "region": current_region,
+            "year": current_val
+        };
 
         //push every week separately now to the datum
         for (var l = 1; l < loc_record.length + 1; l++) {
@@ -2190,23 +2201,12 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
 
     //Add column for every previous week:
     for (var k = 1; k <= noWeeks; k++) {
-        if (start_week) {
-            if (k >= start_week) {
-                columns.push({
-                    "field": "week" + k,
-                    "title": i18n.gettext("W") + k,
-                    "align": "center",
-                    "class": "value"
-                });
-            }
-        } else {
-            columns.push({
-                "field": "week" + k,
-                "title": i18n.gettext("W") + k,
-                "align": "center",
-                "class": "value"
-            });
-        }
+        columns.push({
+            "field": "week" + k,
+            "title": i18n.gettext("W") + k,
+            "align": "center",
+            "class": "value"
+        });
     }
     columns.push({
         "field": "year",
