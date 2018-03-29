@@ -924,6 +924,7 @@ function prepareConsultationsInformation(details) {
         consultationsLocations = data;
         var loc_id = details.locID;
         var loc_level = loc_levels[consultationsLocations[loc_id].level];
+        var loc_level_for_matrix = loc_levels[loc_level];
 
         var deferreds = [];
         deferreds.push($.getJSON(
@@ -938,11 +939,19 @@ function prepareConsultationsInformation(details) {
                 clinicsConsultationsData = data;
             }
         ));
+        deferreds.push($.getJSON(
+            api_root + "/aggregate_year/reg_2/" + loc_id + "?level=" + loc_level_for_matrix,
+            function(data) {
+                matrixConsultationsData = data;
+            }
+        ));
 
         $.when.apply($, deferreds).then(function() {
             drawConsultationsTable(details.tableID, consultationsData, loc_id, loc_level, consultationsLocations, details.prev_week_no);
             drawConsultationsGraph(details.graphID, consultationsData, loc_id, loc_level, consultationsLocations, details.prev_week_no);
-            drawConsultationsMatrix(details.matrixID, consultationsData, loc_id, loc_level, consultationsLocations, details.prev_week_no);
+            if(loc_level_for_matrix != loc_level){//don't show on clinic level
+                drawConsultationsMatrix(details.matrixID, matrixConsultationsData, loc_id, loc_level_for_matrix, consultationsLocations, details.prev_week_no);
+            }
             drawConsultationsTable(details.clinicsTableID, clinicsConsultationsData, loc_id, "clinic", consultationsLocations, details.prev_week_no);
         });
 

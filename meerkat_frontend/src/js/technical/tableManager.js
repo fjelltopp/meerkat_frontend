@@ -2137,17 +2137,31 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
 
 function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations, prev_week_no) {
 
+    //This Matrix is not design to show on level lower than region
+    // if(( loc_level === "clinic" ) || ( loc_level === "district" )){
+    //     return -1;
+    // }
+
     var consultationsData = data[loc_level];
     var scoreKeys = Object.keys(consultationsData);
     var index = 0;
-    var noWeeks = scoreKeys.length; //==prev_week_no???
+    // var noWeeks = scoreKeys.length; //==prev_week_no???
+    var noWeeks = prev_week_no; //==prev_week_no???
     var current_val;
     var current_region;
 
+    //prepare column names:
+    var loc_headings = {
+        "district": {"region": i18n.gettext("Region"), "subregion": i18n.gettext("District")},
+        "clinic": {"region": i18n.gettext("District"), "subregion": i18n.gettext("Clinic")}
+    };
+        loc_heading = loc_headings[loc_level];
+
+
     var table_data = [];
     var table_datum = [];
-    for (var i = 0; i < scoreKeys.length; i++) {
-        index = scoreKeys[scoreKeys.length - i - 1];
+    for (var i = 0; i < noWeeks; i++) {
+        index = scoreKeys[noWeeks - i - 1];
         whole_loc_timeline = consultationsData[index].weeks;
         year_loc_val = consultationsData[index].year;
         var loc_record = []; //whole data for location
@@ -2189,12 +2203,12 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
 
     var columns = [{
         "field": "region",
-        "title": "Region",
+        "title": loc_heading.region,
         "align": "center",
         "class": "header"
     }, {
         "field": "name",
-        "title": "District",
+        "title": loc_heading.subregion,
         "align": "center",
         "class": "header"
     }];
@@ -2247,15 +2261,7 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
             row = table[0].rows[i].cells[0].innerHTML;
             saveIndex = i - 1;
             count = 1;
-
-            /*
-             */
         }
     }
-
-
-
-
     return table;
-
 }
