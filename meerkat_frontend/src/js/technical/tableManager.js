@@ -364,7 +364,7 @@ function drawAlertsTable(containerID, alerts, variables) {
             if (config.central_review) {
                 if ("ale_1" in alerts[a].variables) {
                     if ("ale_2" in alerts[a].variables) status = i18n.gettext("Ongoing");
-                    else if ("ale_3" in alerts[a].variables) status = i18n.gettext("Disregarded");
+                    else if (("ale_3" in alerts[a].variables) || ("ale_10" in alerts[a].variables)) status = i18n.gettext("Disregarded");
                     else status = i18n.gettext("Ongoing");
                 }
                 if ("cre_1" in alerts[a].variables) {
@@ -375,7 +375,7 @@ function drawAlertsTable(containerID, alerts, variables) {
             } else {
                 if ("ale_1" in alerts[a].variables) {
                     if ("ale_2" in alerts[a].variables) status = i18n.gettext("Confirmed");
-                    else if ("ale_3" in alerts[a].variables) status = i18n.gettext("Disregarded");
+                    else if (("ale_3" in alerts[a].variables) || ("ale_10" in alerts[a].variables)) status = i18n.gettext("Disregarded");
                     else status = i18n.gettext("Ongoing");
                 }
             }
