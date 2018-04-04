@@ -325,7 +325,7 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level, monthly) {
         $.getJSON(api_root + "/locations", function(locations) {
             $.getJSON(api_root + "/geo_shapes/" + level, function(geojson) {
                 geojson = geojson.features;
-                map = L.map(containerID, 'mrjb.143811c9', {
+                map = L.map(containerID, {
                     maxZoom: 18,
                     scrollWheelZoom: false,
                     center: new L.LatLng(config.map.center.lat, config.map.center.lng),
@@ -491,7 +491,7 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
     $.getJSON(api_root + "/locations", function(locations) {
         $.getJSON(api_root + "/geo_shapes/" + level, function(geojson) {
             geojson = geojson.features;
-            map = L.map(containerID, 'mrjb.143811c9', {
+            map = L.map(containerID, {
                 maxZoom: 18,
                 scrollWheelZoom: false,
                 center: new L.LatLng(centre_lat ? centre_lat : config.map.center.lat,
