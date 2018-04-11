@@ -2122,3 +2122,146 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
         search: is_searchable
     });
 }
+
+/** drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations, prev_week_no)
+
+   Draws the consultations matrix, similar to completeness matrix showing the number of consultations registered in the area using daily register.
+
+   :param string containerID:
+   The ID attribute of the html element to hold the table.
+   :param Object locations:
+   List of all locations from API.
+   :param Object data:
+   Consulatations data from API.
+*/
+
+function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations, prev_week_no) {
+
+    //This Matrix is not design to show on level lower than region
+    // if(( loc_level === "clinic" ) || ( loc_level === "district" )){
+    //     return -1;
+    // }
+
+    var consultationsData = data[loc_level];
+    var scoreKeys = Object.keys(consultationsData);
+    var index = 0;
+    // var noWeeks = scoreKeys.length; //==prev_week_no???
+    var noWeeks = prev_week_no; //==prev_week_no???
+    var current_val;
+    var current_region;
+
+    //prepare column names:
+    var loc_headings = {
+        "district": {"region": i18n.gettext("Region"), "subregion": i18n.gettext("District")},
+        "clinic": {"region": i18n.gettext("District"), "subregion": i18n.gettext("Clinic")}
+    };
+        loc_heading = loc_headings[loc_level];
+
+
+    var table_data = [];
+    var table_datum = [];
+    for (var i = 0; i < noWeeks; i++) {
+        index = scoreKeys[noWeeks - i - 1];
+        whole_loc_timeline = consultationsData[index].weeks;
+        year_loc_val = consultationsData[index].year;
+        var loc_record = []; //whole data for location
+        var loc_entry = []; //entry for one week
+
+        for (var j = 1; j <= prev_week_no; j++) {
+            current_val = Number(whole_loc_timeline[j]).toFixed(0);
+            if (isNaN(current_val)) {
+                current_val = "-";
+            }
+            loc_entry = [j, current_val];
+            loc_record.push(loc_entry);
+        }
+
+        current_val = Number(year_loc_val).toFixed(0);
+        if (isNaN(current_val)) {
+            current_val = "-";
+        }
+
+
+        if (locations[index].id !== loc_id) { //Total
+            current_region = locations[locations[index].parent_location].name;
+        } else {
+            current_region = "-Total-";
+        }
+
+        table_datum = {
+            "name": locations[index].name,
+            "region": current_region,
+            "year": current_val
+        };
+
+        //push every week separately now to the datum
+        for (var l = 1; l < loc_record.length + 1; l++) {
+            table_datum["week" + loc_record[l - 1][0]] = loc_record[l - 1][1];
+        }
+        table_data.push(table_datum);
+    }
+
+    var columns = [{
+        "field": "region",
+        "title": loc_heading.region,
+        "align": "center",
+        "class": "header"
+    }, {
+        "field": "name",
+        "title": loc_heading.subregion,
+        "align": "center",
+        "class": "header"
+    }];
+
+    //Add column for every previous week:
+    for (var k = 1; k <= noWeeks; k++) {
+        columns.push({
+            "field": "week" + k,
+            "title": i18n.gettext("W") + k,
+            "align": "center",
+            "class": "value"
+        });
+    }
+    columns.push({
+        "field": "year",
+        "title": "Year",
+        "align": "center",
+        "class": "value"
+    });
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID).append('<table class="table"></table>');
+
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: table_data,
+        classes: 'table-responsive table-bordered ',
+        sortName: 'region',
+        sortOrder: 'asc'
+    });
+
+    var rowLength = table[0].rows.length;
+    var count = 0;
+    var row = table[0].rows[1].cells[0].innerHTML;
+    var saveIndex = 0;
+
+
+    for (i = 1; i < rowLength; i++) {
+        if (row === table[0].rows[i].cells[0].innerHTML) {
+            count++;
+
+            if (i == rowLength - 1) {
+                mergeRows('#' + containerID + ' table', saveIndex, count);
+            }
+
+        } else {
+            mergeRows('#' + containerID + ' table', saveIndex, count);
+
+            row = table[0].rows[i].cells[0].innerHTML;
+            saveIndex = i - 1;
+            count = 1;
+        }
+    }
+    return table;
+}

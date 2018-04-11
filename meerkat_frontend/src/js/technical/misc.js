@@ -895,13 +895,15 @@ function prepareIndicators(indicatorsInfo, locID, graphID, tableID) {
    Arguments:
    Takes a JSON object with the following possible properties.
    :param string locID:
-   The ID of the location for which completeness shall be calculated.
+   The ID of the location for which consulatations shall be calculated.
    :param string graphID:
    The ID for the HTML element that will hold the line chart.  If empty, no chart is drawn.
    :param string tableID:
-   The ID for the HTML element that will hold the main completeness table.  If empty, no table is drawn.
+   The ID for the HTML element that will hold the main consultations table.  If empty, no table is drawn.
+   :param string matrixID:
+   The ID for the HTML element that will hold the consultations matrix. If empty matrix won't be drawn.
    :param string cliniscTableID:
-   The ID for the HTML element that will hold the table for all clnics completeness information.  If empty, this table isn't drawn.
+   The ID for the HTML element that will hold the table for all clinics consultations information.  If empty, this table isn't drawn.
    :param string prev_week_no:
    Date will be printed from beginning of the year until the previous week.
 */
@@ -922,6 +924,7 @@ function prepareConsultationsInformation(details) {
         consultationsLocations = data;
         var loc_id = details.locID;
         var loc_level = loc_levels[consultationsLocations[loc_id].level];
+        var loc_level_for_matrix = loc_levels[loc_level];
 
         var deferreds = [];
         deferreds.push($.getJSON(
@@ -936,10 +939,19 @@ function prepareConsultationsInformation(details) {
                 clinicsConsultationsData = data;
             }
         ));
+        deferreds.push($.getJSON(
+            api_root + "/aggregate_year/reg_2/" + loc_id + "?level=" + loc_level_for_matrix,
+            function(data) {
+                matrixConsultationsData = data;
+            }
+        ));
 
         $.when.apply($, deferreds).then(function() {
             drawConsultationsTable(details.tableID, consultationsData, loc_id, loc_level, consultationsLocations, details.prev_week_no);
             drawConsultationsGraph(details.graphID, consultationsData, loc_id, loc_level, consultationsLocations, details.prev_week_no);
+            if(loc_level_for_matrix != loc_level){//don't show on clinic level
+                drawConsultationsMatrix(details.matrixID, matrixConsultationsData, loc_id, loc_level_for_matrix, consultationsLocations, details.prev_week_no);
+            }
             drawConsultationsTable(details.clinicsTableID, clinicsConsultationsData, loc_id, "clinic", consultationsLocations, details.prev_week_no);
         });
 
