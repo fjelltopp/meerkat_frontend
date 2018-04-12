@@ -5429,4 +5429,3 @@ msgstr "titre_email_mensuel"
 #: meerkat_frontend/views/reports.py:213 meerkat_frontend/views/reports.py:340
 msgid "title"
 msgstr "titre"
-
