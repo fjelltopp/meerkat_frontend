@@ -5,34 +5,36 @@
 
   "rawIntro":"Use this form to download raw data for use in your own analysis. Select which form's data you would like to download, and optionally further select which attributes you would like to download. ",
 
-	"prepared":[{
-		"title":"Consultations",
-		"api":"/api/export/data_table/test/reg_1",
-		"access":"cd",
-		"variables":[
-			["reg_1","consultations"]
-		],
-		"group_by": [
-			["epi_year", "Year"],
-			["clinic:location", "Clinic"],
-			["epi_week", "Week"]
-		]
-		
-
-	},{
-      "title":"Communicable Diseases",
-      "api":"/api/export/category/demo_case/cd_tab/communicable_diseases",
-      "name_category": "individual_icd",
-      "access":"cd",
-      "fields":[
-          ["intro./visit","Visit Type"],
-          ["pt./visit_date$date","Visit Date"],
-          ["pt./visit_date$year","Year"],
-          ["pt./visit_date$month","Month"],
-          ["pt./visit_date$epi_week","Epi Week"],
-          ["region","Region"],
-          ["district","District"],
-          ["clinic","Clinic"],
+    "prepared":[
+        {
+	    "title":"Completeness",
+	    "api":"/api/export/week_level/test/clinic",
+	    "access":"cd",
+            "data_orientation": "wide",
+	    "variable":
+                ["completeness:/completeness/reg_1/1/4/<start_week>/5,6/reg_1/<end_date>", "Completeness"]
+	    
+        },  {
+	    "title":"Cases",
+	    "api":"/api/export/week_level/test/clinic",
+	    "access":"cd",
+            "data_orientation": "wide",
+	    "variable": ["tot_1", "tot_1", "Cases"]
+	    
+        },{
+            "title":"Communicable Diseases",
+        "api":"/api/export/category/demo_case/cd_tab/communicable_diseases",
+        "name_category": "individual_icd",
+        "access":"cd",
+        "fields":[
+            ["intro./visit","Visit Type"],
+            ["pt./visit_date$date","Visit Date"],
+            ["pt./visit_date$year","Year"],
+            ["pt./visit_date$month","Month"],
+            ["pt./visit_date$epi_week","Epi Week"],
+            ["region","Region"],
+            ["district","District"],
+            ["clinic","Clinic"],
           ["pt1./status","Status"],
           ["pt1./gender","Gender"],
           ["pt1./age","Age (Years)"],

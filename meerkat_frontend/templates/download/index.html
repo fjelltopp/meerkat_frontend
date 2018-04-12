@@ -363,6 +363,14 @@ $.getJSON( api_root+"/export/forms", function( data ){
             if ("location_conditions" in dataSet){
                 url += "%26location_conditions=" + JSON.stringify(dataSet.location_conditions);
             }
+            if ("data_orientation" in dataSet){
+                url += "%26data_orientation="+ dataSet.data_orientation;
+            }
+        }else if("variable" in dataSet){
+            var url = dataSet.api + "?variable=" + JSON.stringify(dataSet.variable)
+            if ("data_orientation" in dataSet){
+                url += "%26data_orientation="+ dataSet.data_orientation;
+            }
         }else{
             var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
         }
