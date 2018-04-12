@@ -843,7 +843,7 @@ msgstr "Tableau des consultations"
 
 #: meerkat_frontend/src/files/pages/consultations.html:107
 msgid "Consultations by clinic"
-msgstr "Complétude par formation sanitaire"
+msgstr "Nombre de consultations par formation sanitare"
 
 #: meerkat_frontend/src/files/pages/contact_tracing.html:85
 msgid "Contact Tracing"
@@ -5424,10 +5424,3 @@ msgstr "titre_email_mensuel"
 #: meerkat_frontend/views/reports.py:213 meerkat_frontend/views/reports.py:340
 msgid "title"
 msgstr "titre"
-
-#~ msgid "Consulations by week"
-#~ msgstr "Nombre de consultations par semaine"
-
-#~ msgid "Consulatations by clinic"
-#~ msgstr "Nombre de consultations par formation sanitare"
-
