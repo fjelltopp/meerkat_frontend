@@ -10,7 +10,7 @@
 	    "title":"Completeness",
 	    "api":"/api/export/week_level/test/clinic",
 	    "access":"cd",
-            "data_orientation": "wide",
+            "wide_data_format":1,
 	    "variable":
                 ["completeness:/completeness/reg_1/1/4/<start_week>/5,6/reg_1/<end_date>", "Completeness"]
 	    
@@ -18,7 +18,7 @@
 	    "title":"Cases",
 	    "api":"/api/export/week_level/test/clinic",
 	    "access":"cd",
-            "data_orientation": "wide",
+            "wide_data_format": 1,
 	    "variable": ["tot_1", "tot_1", "Cases"]
 	    
         },{
