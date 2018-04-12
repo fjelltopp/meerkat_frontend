@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-04-12 13:06+0000\n"
+"POT-Creation-Date: 2018-04-12 14:52+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -1832,7 +1832,7 @@ msgstr "S"
 #: meerkat_frontend/src/js/technical/tableManager.js:1628
 #: meerkat_frontend/src/js/technical/tableManager.js:2068
 msgid "Year"
-msgstr ""
+msgstr "Année"
 
 #: meerkat_frontend/src/js/technical/tableManager.js:1998
 msgid "Medicine"
