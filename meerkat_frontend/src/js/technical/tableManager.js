@@ -2160,10 +2160,13 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
 
     var table_data = [];
     var table_datum = [];
-    for (var i = 0; i < noWeeks; i++) {
-        index = scoreKeys[noWeeks - i - 1];
+    console.log(consultationsData);
+    console.log(scoreKeys);
+    for (var i = 0; i < scoreKeys.length; i++) {
+        index = scoreKeys[i];
         whole_loc_timeline = consultationsData[index].weeks;
         year_loc_val = consultationsData[index].year;
+        console.log(whole_loc_timeline);
         var loc_record = []; //whole data for location
         var loc_entry = []; //entry for one week
 
