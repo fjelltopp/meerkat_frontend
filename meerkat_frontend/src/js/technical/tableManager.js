@@ -334,8 +334,17 @@ function callTableOptionButton(element, redrawFunctionName) {
     :param object variables:
         An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
         Specifically used to print the variable name instead of ID.
+    :param object alerts_table_config
+        Set of settings to customise the table
  */
-function drawAlertsTable(containerID, alerts, variables) {
+function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
+
+    var district_column = false;
+    if(alerts_table_config === undefined ){
+        district_column = false; //default
+    }else{
+        district_column = alerts_table_config.district_column;
+    }
 
     $.getJSON(api_root + "/locations", function(locations) {
 
@@ -351,6 +360,7 @@ function drawAlertsTable(containerID, alerts, variables) {
             alerts[a].display_reason = i18n.gettext(variables[alerts[a].variables.alert_reason].name);
             alerts[a].display_type = capitalise(i18n.gettext(alerts[a].variables.alert_type));
             alerts[a].display_region = i18n.gettext(locations[alerts[a].region].name);
+            alerts[a].display_district = i18n.gettext(locations[alerts[a].district].name);
             if (alerts[a].clinic) {
                 alerts[a].display_clinic = locations[alerts[a].clinic].name || i18n.gettext(alerts[a].type_name);
             } else {
@@ -382,7 +392,7 @@ function drawAlertsTable(containerID, alerts, variables) {
             alerts[a].display_status = status;
         }
 
-        var columns = [{
+        var columns1 = [{
             field: "display_alert_id",
             title: i18n.gettext('Alert ID'),
             align: "center",
@@ -407,7 +417,19 @@ function drawAlertsTable(containerID, alerts, variables) {
             align: "center",
             class: "header",
             sortable: true,
-        }, {
+        }];
+
+        if(district_column){
+            columns1.push({
+                field: "display_district",
+                title: i18n.gettext('District'),
+                align: "center",
+                class: "header",
+                sortable: true,
+            });
+        }
+
+        var columns2 = [{
             field: "display_clinic",
             title: i18n.gettext('Clinic'),
             align: "center",
@@ -439,6 +461,7 @@ function drawAlertsTable(containerID, alerts, variables) {
             sortable: true
         }];
 
+        var columns = columns1.concat(columns2);
         // Some countries(Jordan) has a central review in addition to alert_investigation
         // If the alert has been investigated (and has a central review) we display that in the table
         if (!config.central_review) columns.splice(7, 1);

@@ -100,11 +100,11 @@ $("#menu-toggle").click(function(e) {
 function drawCharts( locID ){
 
 	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
-	loadAlertTables(undefined, locID);
+	loadAlertTables(undefined, locID, config.alerts.table_config);
 
 }
 
-function loadAlertTables( reason, locID ){
+function loadAlertTables( reason, locID, alerts_table_config ){
 
 	//locID (the id of the location) is an optional argument.
 	//If it isn't set, look at the current page state locID, if that isn't set, default to 1.
@@ -125,7 +125,7 @@ function loadAlertTables( reason, locID ){
 			url = api_root+"/aggregate_alerts/0/" + hard_date_limit + "?location="+locID
 		}
 		$.getJSON(url, function( aggData ){
-				drawAlertAggTable('alert-agg-table', aggData, variables);
+				drawAlertAggTable('alert-agg-table', aggData, variables );
 
 		});
 
@@ -147,7 +147,7 @@ function loadAlertTables( reason, locID ){
 			});
 			console.log( alerts );
 
-			drawAlertsTable( "alert-table", alerts, variables );
+			drawAlertsTable( "alert-table", alerts, variables, alerts_table_config );
 		});
 	});
 }
