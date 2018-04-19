@@ -1,3 +1,24 @@
+Highcharts.setOptions({
+    colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
+        "#CDEDF6", "#690500", "#77477B", "#40476D", "#042A2B"
+    ],
+    chart: {
+        backgroundColor: null,
+        style: {
+            fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    exporting: {
+        enabled: false
+    },
+    lang: {
+        numericSymbols: null //otherwise by default ['k', 'M', 'G', 'T', 'P', 'E']
+    }
+});
+
 /**:showChartType( type, containerID )
 
     Hides div elements inside the container that don't have a class with the given type.
@@ -600,25 +621,6 @@ function drawCompletenessGraph(containerID, regionID, denominator, locations, da
         }
     }); //highchart
 }
-
-Highcharts.setOptions({
-    colors: ["#0090CA", "#D9692A", "#89B6A5", "#e94f37", "#393e41", "#F1E8B8",
-        "#CDEDF6", "#690500", "#77477B", "#40476D", "#042A2B"
-    ],
-    chart: {
-        backgroundColor: null,
-        style: {
-            fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
-        }
-    },
-    credits: {
-        enabled: false
-    },
-    exporting: {
-        enabled: false
-    }
-
-});
 
 /**:drawChartOptionsButtons(tableID, redrawFunctionName)
 
