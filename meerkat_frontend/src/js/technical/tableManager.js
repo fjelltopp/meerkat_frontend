@@ -320,7 +320,7 @@ function callTableOptionButton(element, redrawFunctionName) {
 }
 
 
-/**:drawAlertsTable(containerID, alerts, variables)
+/**:drawAlertsTable(containerID, alerts, variables, alerts_table_config)
 
     Draws the table of alerts used on the Alerts tab. Lists each alert according to date
     and provides links to the individual Alert Investigation reports. Rather than loading JSON
@@ -339,12 +339,9 @@ function callTableOptionButton(element, redrawFunctionName) {
  */
 function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
 
-    var district_column = false;
-    if(alerts_table_config === undefined ){
-        district_column = false; //default
-    }else{
-        district_column = alerts_table_config.district_column;
-    }
+    alerts_table_config = alerts_table_config || {};
+    alerts_table_config.district_column = alerts_table_config.district_column || false;
+
 
     $.getJSON(api_root + "/locations", function(locations) {
 
@@ -392,7 +389,7 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
             alerts[a].display_status = status;
         }
 
-        var columns1 = [{
+        var columns = [{
             field: "display_alert_id",
             title: i18n.gettext('Alert ID'),
             align: "center",
@@ -417,19 +414,7 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
             align: "center",
             class: "header",
             sortable: true,
-        }];
-
-        if(district_column){
-            columns1.push({
-                field: "display_district",
-                title: i18n.gettext('District'),
-                align: "center",
-                class: "header",
-                sortable: true,
-            });
-        }
-
-        var columns2 = [{
+        }, {
             field: "display_clinic",
             title: i18n.gettext('Clinic'),
             align: "center",
@@ -461,7 +446,18 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
             sortable: true
         }];
 
-        var columns = columns1.concat(columns2);
+
+        if(alerts_table_config.district_column){
+            var dist_column = {
+                field: "display_district",
+                title: i18n.gettext('District'),
+                align: "center",
+                class: "header",
+                sortable: true,
+            };
+            columns.splice(4,0,dist_column);
+        }
+
         // Some countries(Jordan) has a central review in addition to alert_investigation
         // If the alert has been investigated (and has a central review) we display that in the table
         if (!config.central_review) columns.splice(7, 1);

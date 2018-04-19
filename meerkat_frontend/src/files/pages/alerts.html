@@ -100,14 +100,8 @@ $("#menu-toggle").click(function(e) {
 function drawCharts( locID ){
 
 	//Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
-  var alerts_config = Object();
-  if(config.alerts === undefined){
-    alerts_config.table_config = undefined;
-  }else{
-    alerts_config = config.alerts;
-  }
 
-	loadAlertTables(undefined, locID, alerts_config.table_config);
+	loadAlertTables(undefined, locID, config.alerts_table);
 
 }
 
