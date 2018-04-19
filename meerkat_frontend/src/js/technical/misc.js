@@ -737,7 +737,6 @@ function completenessPreparation(opts) {
     var matrixCompletenessData;
     if (opts.start_week === undefined) opts.start_week = 1;
     if (opts.filter_string === undefined) opts.filter_string = '?';
-
     var deferreds = [
         $.getJSON(api_root + "/locations", function(data) {
             completenessLocations = data;
@@ -832,8 +831,8 @@ function timelinessPreparation(opts) {
     ));
     deferreds.push($.getJSON(
         api_root + "/completeness/" + opts.reg_id + "/" + opts.locID + "/" +
-        opts.denominator + "/" + opts.start_week + "/" + opts.weekend +
-        opts.filter_string + "&sublevel=district",
+        opts.denominator + "/" + opts.start_week + "/" + opts.weekend + "/" +
+        opts.non_reporting_variable + opts.filter_string + "&sublevel=district",
         function(data) {
             matrixTimelinessData = data;
         }
