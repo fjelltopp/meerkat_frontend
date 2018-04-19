@@ -136,18 +136,19 @@
         left: 0px;
         position: absolute;
         width: 36px;
-        height: 41px;
         border-bottom: 1px solid #ddd;
     }
     th:nth-child(2), td:nth-child(2){
         background: #f9f9f9;
         left: 36px;
         position: absolute;
-        height: 41px;
         border-bottom: 1px solid #ddd;
+    }
+    tr:last-child td:first-child, tr:last-child td:nth-child(2){
     }
     th{
         top: 0px;
+        height:41px;
     }
 }
 
