@@ -393,7 +393,7 @@ function createTimeline(id, cat, options, title) {
             $("#timeline-table td:nth-child(2)").css('width', (1+titleWidth)+'px');
             $("#timeline-table").css('margin-left', (36+titleWidth)+'px');
         }
-        setWidth()
+        setWidth();
         $('#timeline-table').on('all.bs.table', setWidth);
 
 
