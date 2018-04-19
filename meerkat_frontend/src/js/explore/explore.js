@@ -385,9 +385,18 @@ function createTimeline(id, cat, options, title) {
             data: data,
             clickToSelect: true
         });
-        titleWidth = $("#timeline-table th:nth-child(2)").width();
-        $("#timeline-table td:nth-child(2)").css('width', (1+titleWidth)+'px');
-        $("#timeline-table").css('margin-left', (36+titleWidth)+'px');
+
+        // Set the width of 2nd column to content of header
+        //Needed because we freeze the column
+        function setWidth(){
+            titleWidth = $("#timeline-table th:nth-child(2)").width();
+            $("#timeline-table td:nth-child(2)").css('width', (1+titleWidth)+'px');
+            $("#timeline-table").css('margin-left', (36+titleWidth)+'px');
+        }
+        setWidth()
+        $('#timeline-table').on('all.bs.table', setWidth);
+
+
     });
 }
 
