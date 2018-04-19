@@ -252,9 +252,6 @@
     }
 
     function reDrawMap(locID) {
-        if (map) {
-            map.remove();
-        }
         var map_type = $('#type-selector select').val();
         if (map_type == "incidence_clinic") {
             drawIncidenceMap(name, disease, "disease-map");
