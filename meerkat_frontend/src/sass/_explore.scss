@@ -1,122 +1,121 @@
-
-
 .exploreChart{
-	
-	.row{
-		width: 100%;
-		display: flex;
-		margin-top: 5px;
-	}
 
-	.cornerBox{
-		width: 55px;
-		height: 45px;
-		margin-right: 5px;
-		text-align: center;
-		
-		span{
-			transform: rotate(-45deg);
-			margin-left: 5px;
-			margin-top: 3px;
-			font-size: 20px;
-			cursor: pointer;
-		}
+    .row{
+        width: 100%;
+        display: flex;
+        margin-top: 5px;
+    }
 
-	}
+    .cornerBox{
+        width: 55px;
+        height: 45px;
+        margin-right: 5px;
+        text-align: center;
 
-	.xaxis{
-		width: calc(100% - 45px);
-		height: 45px;
+        span{
+            transform: rotate(-45deg);
+            margin-left: 5px;
+            margin-top: 3px;
+            font-size: 20px;
+            cursor: pointer;
+        }
 
-		.axis-selector{
-			margin-left: 80px;
-			width: 300px;
-			float: left;
-		}
-	
-	}
+    }
 
-	.options{
-		float: right;
-		font-size: 20px;
-		margin-right: 10px;
+    .xaxis{
+        width: calc(100% - 45px);
+        height: 45px;
 
-		span{
-			cursor: pointer;
-			width: 40px;
-		}
-	}
+        .axis-selector{
+            margin-left: 80px;
+            width: 300px;
+            float: left;
+        }
 
-	.yaxis,
-	.xaxis,
-	.cornerBox,
-	.chartBox{
-		float: left;
-	}
-	
-	.yaxis{
- 		width: 55px;
-		margin-right: 5px;
-		position:relative;
-		text-align: center;
+    }
+
+    .options{
+        float: right;
+        font-size: 20px;
+        margin-right: 10px;
+
+        span{
+            cursor: pointer;
+            width: 40px;
+        }
+    }
+
+    .yaxis,
+    .xaxis,
+    .cornerBox,
+    .chartBox{
+        float: left;
+    }
+
+    .yaxis{
+         width: 55px;
+        margin-right: 5px;
+        position:relative;
+        text-align: center;
         min-height: 320px;
-	}	
+    }
 
-	.chartBox{
-		width: calc(100% - 60px);
-	}
+    .chartBox{
+        width: calc(100% - 60px);
+    }
 
     .chart-row{
         margin-top:5px;
     }
 
-	.yaxis .axis-selector{
+    .yaxis .axis-selector{
 
-		width: 300px;
-		position: absolute;
-		top: 150px;
-		left: -125px;
-		display: inline-block;
+        width: 300px;
+        position: absolute;
+        top: 150px;
+        left: -125px;
+        display: inline-block;
 
-		select{
-			-ms-transform: rotate(-90deg); /* IE 9 */
-			-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
-			transform: rotate(-90deg);
-		}
-	}
+        select{
+            -ms-transform: rotate(-90deg); /* IE 9 */
+            -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+            transform: rotate(-90deg);
+        }
+    }
 
-	.timeline-toolbar{
-		width: 100%;
-	}
+    .timeline-toolbar{
+        width: 100%;
+        margin-top: 30px;
+    }
 
-	.timeline{
-		width: 100%;
-	    padding: 0px;
-	}
+    .timeline{
+        width: 100%;
+        padding: 0px;
+    }
 
-	.table, th{
-		text-align: center;
-		margin: 0px;
-	}
+    .table, th{
+        text-align: center;
+        margin: 0px;
+    }
 
-	.table th,
-	.table .header{
-		background: #f9f9f9;
-		font-weight: bold;
-	}
+    .table th,
+    .table .header{
+        background: #f9f9f9;
+        font-weight: bold;
+    }
 
-	.table .header{
-		border-right: 1px solid #ddd;
-		text-align: left;
-	}
+    .table .header{
+        border-right: 1px solid #ddd;
+        text-align: left;
+    }
 }
 
 .explore .bootstrap-table .fixed-table-toolbar{
-		 	display: none;
-		 }
+             display: none;
+         }
 
 #cross-table, #timeline-table{
-	margin-top: -2px !important;
+    margin-top: -2px !important;
 }
 
 #cross-wrapper, #timeline-wrapper{
@@ -124,21 +123,40 @@
     text-align: center;
 
     .spinner{
-	    display: inline-block;
+        display: inline-block;
         margin-top: 49px;
         margin-bottom: 49px;
         height: 220px;
     }
+}
 
+#timeline-table{
+    th:first-child, td:first-child{
+        background: #f9f9f9;
+        left: 0px;
+        position: absolute;
+        width: 36px;
+        height: 41px;
+        border-bottom: 1px solid #ddd;
+    }
+    th:nth-child(2), td:nth-child(2){
+        background: #f9f9f9;
+        left: 36px;
+        position: absolute;
+        height: 41px;
+        border-bottom: 1px solid #ddd;
+    }
+    th{
+        top: 0px;
+    }
 }
 
 #timeline{
     display: none;
 }
 
-.explore .total-row, 
+.explore .total-row,
 .explore .total-col{
     background: #f9f9f9;
     border: 1px solid #ddd
 }
-
