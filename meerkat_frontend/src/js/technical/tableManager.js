@@ -320,7 +320,7 @@ function callTableOptionButton(element, redrawFunctionName) {
 }
 
 
-/**:drawAlertsTable(containerID, alerts, variables)
+/**:drawAlertsTable(containerID, alerts, variables, alerts_table_config)
 
     Draws the table of alerts used on the Alerts tab. Lists each alert according to date
     and provides links to the individual Alert Investigation reports. Rather than loading JSON
@@ -334,8 +334,14 @@ function callTableOptionButton(element, redrawFunctionName) {
     :param object variables:
         An object containing details for given variable IDs, as returned by Meerkat API `/variables`.
         Specifically used to print the variable name instead of ID.
+    :param object alerts_table_config
+        Set of settings to customise the table
  */
-function drawAlertsTable(containerID, alerts, variables) {
+function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
+
+    alerts_table_config = alerts_table_config || {};
+    alerts_table_config.district_column = alerts_table_config.district_column || false;
+
 
     $.getJSON(api_root + "/locations", function(locations) {
 
@@ -351,6 +357,7 @@ function drawAlertsTable(containerID, alerts, variables) {
             alerts[a].display_reason = i18n.gettext(variables[alerts[a].variables.alert_reason].name);
             alerts[a].display_type = capitalise(i18n.gettext(alerts[a].variables.alert_type));
             alerts[a].display_region = i18n.gettext(locations[alerts[a].region].name);
+            alerts[a].display_district = i18n.gettext(locations[alerts[a].district].name);
             if (alerts[a].clinic) {
                 alerts[a].display_clinic = locations[alerts[a].clinic].name || i18n.gettext(alerts[a].type_name);
             } else {
@@ -438,6 +445,18 @@ function drawAlertsTable(containerID, alerts, variables) {
             class: "header",
             sortable: true
         }];
+
+
+        if(alerts_table_config.district_column){
+            var dist_column = {
+                field: "display_district",
+                title: i18n.gettext('District'),
+                align: "center",
+                class: "header",
+                sortable: true,
+            };
+            columns.splice(4,0,dist_column);
+        }
 
         // Some countries(Jordan) has a central review in addition to alert_investigation
         // If the alert has been investigated (and has a central review) we display that in the table
@@ -2160,8 +2179,8 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
 
     var table_data = [];
     var table_datum = [];
-    for (var i = 0; i < noWeeks; i++) {
-        index = scoreKeys[noWeeks - i - 1];
+    for (var i = 0; i < scoreKeys.length; i++) {
+        index = scoreKeys[i];
         whole_loc_timeline = consultationsData[index].weeks;
         year_loc_val = consultationsData[index].year;
         var loc_record = []; //whole data for location

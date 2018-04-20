@@ -1,3 +1,6 @@
+docs/build/*
+
+
 *.py[cod]
 *.pdf_small
 *.pdf

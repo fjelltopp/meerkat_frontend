@@ -320,6 +320,8 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 function clearOldMap() {
     if (typeof map !== 'undefined') {
         map.remove();
+    }
+    if ($('#total-map').length === 0) {
         $('#mapbox').html("<div id='total-map' class='the-map'></div>");
     }
 }

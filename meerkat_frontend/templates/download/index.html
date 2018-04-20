@@ -363,6 +363,14 @@ $.getJSON( api_root+"/export/forms", function( data ){
             if ("location_conditions" in dataSet){
                 url += "%26location_conditions=" + JSON.stringify(dataSet.location_conditions);
             }
+            if ("wide_data_format" in dataSet){
+                url += "%26wide_data_format="+ dataSet.wide_data_format;
+            }
+        }else if("variable" in dataSet){
+            var url = dataSet.api + "?variable=" + JSON.stringify(dataSet.variable)
+            if ("wide_data_format" in dataSet){
+                url += "%26wide_data_format="+ dataSet.wide_data_format;
+            }
         }else{
             var url = dataSet.api + "?variables=" + JSON.stringify(dataSet.fields);
         }

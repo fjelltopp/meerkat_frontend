@@ -6,14 +6,14 @@
     :param string catx:
         The category to tabulated across the columns
     :param string caty:
-        The category to be tabulated down the rows. 
+        The category to be tabulated down the rows.
     :param object options:
-        The options object detailing how the table should be put together. 
+        The options object detailing how the table should be put together.
         Can have the following properties:
-        
+
         * **start_date** (string) - The start date by which to filter data (in ISO format).
         * **end_date** (string) - The end date by which to filter data (in ISO format).
-        * **location** (number) - The location ID by which to filter the data. 
+        * **location** (number) - The location ID by which to filter the data.
         * **strip** (boolean) - Strip empty rows from the table.
         * **colour** (boolean) - Colour the cells with a shade of the highlight colour.
           according to the proportion of the range that the value represents.
@@ -212,7 +212,7 @@ function createColourCell(maxMin) {
 
 function max_min(data) {
     // Returns max and min of all numbers in table
-    // Used to correctly colour the table. 
+    // Used to correctly colour the table.
     var list = [];
     for (var r = 1; r < data.length; r++) {
         var row = data[r];
@@ -238,8 +238,8 @@ function timelineLink(id, name, axis) {
 
 /**:createTimeline(id, cat, options)
 
-    Tabulates the number of cases satisfying the given variable in each week, against 
-    the number of cases satisfying each variable in the given category. 
+    Tabulates the number of cases satisfying the given variable in each week, against
+    the number of cases satisfying each variable in the given category.
 
     :param string id:
         The given variable ID.
@@ -251,7 +251,7 @@ function timelineLink(id, name, axis) {
 
         * **start_date** (string) - The start date by which to filter data (in ISO format).
         * **end_date** (string) - The end date by which to filter data (in ISO format).
-        * **location** (number) - The location ID by which to filter the data. 
+        * **location** (number) - The location ID by which to filter the data.
         * **strip** (boolean) - Strip empty rows from the table.
         * **colour** (boolean) - Colour the cells with a shade of the highlight colour.
           according to the proportion of the range that the value represents.
@@ -385,6 +385,18 @@ function createTimeline(id, cat, options, title) {
             data: data,
             clickToSelect: true
         });
+
+        // Set the width of 2nd column to content of header
+        //Needed because we freeze the column
+        function setWidth(){
+            titleWidth = $("#timeline-table th:nth-child(2)").width();
+            $("#timeline-table td:nth-child(2)").css('width', (1+titleWidth)+'px');
+            $("#timeline-table").css('margin-left', (36+titleWidth)+'px');
+        }
+        setWidth();
+        $('#timeline-table').on('all.bs.table', setWidth);
+
+
     });
 }
 
