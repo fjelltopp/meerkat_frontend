@@ -200,7 +200,7 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
             }
         }
 
-        console.log(data);
+        clearOldMap();
         map = L.map(containerID, {
             maxZoom: 18,
             scrollWheelZoom: false,
