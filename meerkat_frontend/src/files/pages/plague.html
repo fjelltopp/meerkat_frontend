@@ -110,11 +110,14 @@ function loadAlertTables( reason, locID ){
      }
 
 	$.getJSON( api_root+"/variables/cd_tab", function( variables ){
-		url = api_root+"/alerts?reason=cmd_7&location="+locID
-		$.getJSON( url, function( data ) {
-			
+	    url = api_root+"/alerts?reason=alert_cmd_7_0&location="+locID
+	    $.getJSON( url, function( data1 ) {
+		url = api_root+"/alerts?reason=alert_cmd_7_1&location="+locID
+		$.getJSON( url, function( data2 ) {
+		    url = api_root+"/alerts?reason=alert_cmd_7_2&location="+locID
+		    $.getJSON( url, function( data3 ) {
 			//Sort the alerts by date.
-			var alerts = data.alerts;
+			var alerts = data1.alerts.concat(data2.alerts, data3.alerts);
 			console.log(alerts);
 			alerts.sort( function(a, b){
 				return new Date(b.date).valueOf()-new Date(a.date).valueOf();
@@ -122,7 +125,9 @@ function loadAlertTables( reason, locID ){
 			console.log( alerts );
 
 			drawPlagueTable("plague-table", alerts, variables);
-		});
+		    });
+                });
+            });
 	});
 }
 
