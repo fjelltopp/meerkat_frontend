@@ -120,12 +120,9 @@ function loadAlertTables( reason, locID ){
 		        $.getJSON( url, function( data4 ) {
 			    //Sort the alerts by date.
 			     var alerts = data1.alerts.concat(data2.alerts, data3.alerts, data4.alerts);
-			    console.log(alerts);
 			    alerts.sort( function(a, b){
 				return new Date(b.date).valueOf()-new Date(a.date).valueOf();
 			    });
-			    console.log( alerts );
-                            
 			    drawPlagueTable("plague-table", alerts, variables);
 		        });
                     });
