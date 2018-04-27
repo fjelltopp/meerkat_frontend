@@ -1,0 +1,74 @@
+<div class="top-bar row">
+
+	<div class="location-box box">
+		<a href="#menu-toggle" id="menu-toggle">
+			<div class="location-box__label">
+				<div id="location_box"></div>
+				<div id="location-title" class="location-title"></div>
+			</div>
+			<span class="glyphicon glyphicon-chevron-right"></span>
+			<span class="glyphicon glyphicon-chevron-left hidden"></span>
+		</a>
+	</div>
+	<div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
+	</div>
+	<div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
+	</div>
+
+</div>
+<div class="toggled" id="wrapper">
+
+	<div id="sidebar-wrapper" >
+		<div id="location-selector" class="location-selector">
+		</div>
+	</div>
+
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading">
+                        <p id="box_heading"></p>
+					</div>
+					<div class="chartBox__content">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+
+// We need to be able to translate the contents of the html page.
+// Text is inserted here using the javascript translator.
+$("#location_box").html(i18n.gettext("Location:"));
+$("#location_title").html(i18n.gettext("Not Loaded"));
+$("#title").html(i18n.gettext('Malaria'));
+$("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+$("#location-selector").html(i18n.gettext('Locations not loaded'));
+$("#box_heading").html(i18n.gettext('Indicators'));
+$("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
+
+// This code expands and shrinks the locations selector.
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+	$(".location-box .glyphicon").toggleClass( "hidden" );
+	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+	var transitionEvent = whichTransitionEvent();
+	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+		$(window).resize();
+	});
+});
+
+//This function is called every time a new location is loaded.
+//Any location-dependant content should be redrawn through this function.
+function drawCharts( locID ){
+
+
+}
+
+</script>
