@@ -16,7 +16,7 @@
 	</div>
 
 </div>
-<div class="toggled" id="wrapper">
+<div class="malaria toggled" id="wrapper">
 
 	<div id="sidebar-wrapper" >
 		<div id="location-selector" class="location-selector">
@@ -30,7 +30,16 @@
 					<div class="chartBox__heading">
                         <p id="box_heading"></p>
 					</div>
-					<div class="chartBox__content">
+					<div class="chartBox__content row">
+                        <div class='col-xs-12 col-md-3'>
+                            <div class='indicator-selector'>
+                                <span class='glyphicon glyphicon-chevron-down' onclick="$('.indicator-selector .indicator').toggleClass('show');"></span>
+                            </div>
+                        </div>
+                        <div class='col-xs-12 col-md-9'>
+                            <div class='indicator-charts'>
+                            </div>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -50,13 +59,13 @@ $("#title").html(i18n.gettext('Malaria'));
 $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
 $("#location-selector").html(i18n.gettext('Locations not loaded'));
 $("#box_heading").html(i18n.gettext('Indicators'));
-$("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html(i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date());
 
 // This code expands and shrinks the locations selector.
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
-	$(".location-box .glyphicon").toggleClass( "hidden" );
+	$(".location-box .glyphicon").toggleClass("hidden");
 	//Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
 	var transitionEvent = whichTransitionEvent();
 	transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
@@ -64,11 +73,73 @@ $("#menu-toggle").click(function(e) {
 	});
 });
 
+var indicators =  [{
+        name: "Number of Cases",
+        id: "number-of-cases",
+        drawChart: function(id, locID){
+            function prep(data){
+                    var output = [];
+                    var keys = Object.keys(data.weeks);
+                    for(var k in keys) output.push([keys[k], data.weeks[k]]);
+                    return output;
+            }
+            var confirmed, unconfirmed = {};
+            var deferreds = [
+                $.getJSON(api_root+'/aggregte_year/cmd_17/'+locID, function(data){confirmed=prep(data);}),
+                $.getJSON(api_root+'/aggregate_year/cmd_29/'+locID, function(data){unconfirmed=prep(data);})
+            ];
+            $.when.apply($, deferreds).then(function(){
+                $('.indicator-charts').append("<div class='chart " + id + "' id='" + id + "'></div>");
+                Highcharts.chart(id, {
+                    chart: {type: 'spline'},
+                    title:{text: undefined},
+                    plotOptions: {spline: {marker: {enabled: false}}},
+                    xAxis: {title: {text:'Epi-week'}},
+                    yAxis: {title: {text:'Cases'}},
+                    series: [{
+                        name: 'Confirmed Cases',
+                        data: confirmed
+                    }, {
+                        name: 'Unconfirmed Cases',
+                        data: unconfirmed
+                    }]
+                });
+            });
+        }
+    },{
+        name: "Number of RDT",
+        id: "number-of-rdt",
+        drawChart: function(id, locID){$('.indicator-charts').append("<div class='chart hidden " + id + "'>Hello rdt</div>");}
+    },{
+        name: "Number of ACT",
+        id: "number-of-act",
+        drawChart: function(id, locID){$('.indicator-charts').append("<div class='chart hidden " + id + "'>Hello act</div>");}
+    }
+]
+
+function loadIndicator(id){
+    $('.indicator-selector .indicator').removeClass('selected show');
+    $('.indicator-selector .'+id).addClass('selected');
+    $('.indicator-charts .chart').addClass('hidden');
+    $('.indicator-charts .'+id).removeClass('hidden');
+}
+
+function mobileDropDown(){
+
+}
+
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.
-function drawCharts( locID ){
-
-
+function drawCharts(locID){
+    for(var i in indicators){
+        $('.indicator-selector').append(
+            "<div class='indicator "  + indicators[i].id +
+            "' onclick='loadIndicator(\"" + indicators[i].id + "\");'>" +
+            indicators[i].name + "</div>"
+        );
+        indicators[i].drawChart(indicators[i].id, locID);
+    }
+    loadIndicator(indicators[0].id);
 }
 
 </script>
