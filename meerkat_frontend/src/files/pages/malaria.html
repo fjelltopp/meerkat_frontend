@@ -73,19 +73,19 @@ $("#menu-toggle").click(function(e) {
 	});
 });
 
+function prep(data){
+        var output = [];
+        var keys = Object.keys(data.weeks);
+        for(var k in keys) output.push([keys[k], data.weeks[k]]);
+        return output;
+}
+
 var indicators =  [{
         name: "Number of Cases",
         id: "number-of-cases",
         drawChart: function(id, locID){
-            function prep(data){
-                    var output = [];
-                    var keys = Object.keys(data.weeks);
-                    for(var k in keys) output.push([keys[k], data.weeks[k]]);
-                    return output;
-            }
-            var confirmed, unconfirmed = {};
             var deferreds = [
-                $.getJSON(api_root+'/aggregte_year/cmd_17/'+locID, function(data){confirmed=prep(data);}),
+                $.getJSON(api_root+'/aggregate_year/cmd_17/'+locID, function(data){confirmed=prep(data);}),
                 $.getJSON(api_root+'/aggregate_year/cmd_29/'+locID, function(data){unconfirmed=prep(data);})
             ];
             $.when.apply($, deferreds).then(function(){
@@ -109,11 +109,43 @@ var indicators =  [{
     },{
         name: "Number of RDT",
         id: "number-of-rdt",
-        drawChart: function(id, locID){$('.indicator-charts').append("<div class='chart hidden " + id + "'>Hello rdt</div>");}
+        drawChart: function(id, locID){
+            var deferreds = [$.getJSON(api_root+'/aggregate_year/epi_2/'+locID, function(data){rdt=prep(data);})];
+            $.when.apply($, deferreds).then(function(){
+                $('.indicator-charts').append("<div class='chart hidden " + id + "' id='" + id + "'></div>");
+                Highcharts.chart(id, {
+                    chart: {type: 'spline'},
+                    title:{text: undefined},
+                    plotOptions: {spline: {marker: {enabled: false}}},
+                    xAxis: {title: {text:'Epi-week'}},
+                    yAxis: {title: {text:'Tests'}},
+                    series: [{
+                        name: 'RDT tests',
+                        data: rdt
+                    }]
+                });
+            });
+        }
     },{
         name: "Number of ACT",
         id: "number-of-act",
-        drawChart: function(id, locID){$('.indicator-charts').append("<div class='chart hidden " + id + "'>Hello act</div>");}
+        drawChart: function(id, locID){
+            var deferreds = [$.getJSON(api_root+'/aggregate_year/mls_48/'+locID, function(data){act=prep(data);})];
+            $.when.apply($, deferreds).then(function(){
+                $('.indicator-charts').append("<div class='chart hidden " + id + "' id='" + id + "'></div>");
+                Highcharts.chart(id, {
+                    chart: {type: 'spline'},
+                    title:{text: undefined},
+                    plotOptions: {spline: {marker: {enabled: false}}},
+                    xAxis: {title: {text:'Epi-week'}},
+                    yAxis: {title: {text:'Treatments'}},
+                    series: [{
+                        name: 'ACT Treatments',
+                        data: act
+                    }]
+                });
+            });
+        }
     }
 ]
 
