@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bower": "1.7.5",
-    "deep-extend": "0.4.1",
+    "deep-extend": "0.5.1",
     "del": "1.2.0",
     "duplexer2": "0.0.2",
     "gulp": "4.0.0",
