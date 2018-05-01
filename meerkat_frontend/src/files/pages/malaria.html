@@ -29,6 +29,12 @@
 				<div class="chartBox box">
 					<div class="chartBox__heading">
                         <p id="box_heading"></p>
+                        <div class="box__type-selector pull-right">
+                            <a href="" onclick="alert('charts');" id="malaria-charts">
+                            </a> /
+                            <a href="" onclick="alert('maps');" id="malaria-maps">
+                            </a>
+                        </div>
 					</div>
 					<div class="chartBox__content row">
                         <div class='col-xs-12 col-md-3'>
@@ -59,6 +65,8 @@ $("#title").html(i18n.gettext('Malaria'));
 $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
 $("#location-selector").html(i18n.gettext('Locations not loaded'));
 $("#box_heading").html(i18n.gettext('Indicators'));
+$('#malaria-maps').html(i18n.gettext('Maps'));
+$('#malaria-charts').html(i18n.gettext('Charts'));
 $("#epi-week-title").html(i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date());
 
 // This code expands and shrinks the locations selector.
