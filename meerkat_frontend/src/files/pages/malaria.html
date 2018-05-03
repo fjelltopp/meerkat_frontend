@@ -30,10 +30,10 @@
 					<div class="chartBox__heading">
                         <p id="box_heading"></p>
                         <div class="box__type-selector pull-right">
-                            <a href="" onclick="alert('charts');" id="malaria-charts">
-                            </a> /
-                            <a href="" onclick="alert('maps');" id="malaria-maps">
-                            </a>
+                            <button onclick="selectChartType('charts');" id="malaria-charts">
+                            </button> /
+                            <button onclick="selectChartType('maps');" id="malaria-maps">
+                            </button>
                         </div>
 					</div>
 					<div class="chartBox__content row">
@@ -44,6 +44,8 @@
                         </div>
                         <div class='col-xs-12 col-md-9'>
                             <div class='indicator-charts'>
+                            </div>
+                            <div class='indicator-maps'>
                             </div>
                         </div>
 					</div>
@@ -83,103 +85,157 @@ $("#menu-toggle").click(function(e) {
 
 function prep(data){
         var output = [];
-        var keys = Object.keys(data.weeks);
-        for(var k in keys) output.push([keys[k], data.weeks[k]]);
+        var keys = Object.keys(data.timeline);
+        for(var k in keys) output.push([new Date(keys[k]), data.timeline[keys[k]]]);
         return output;
 }
 
+function prep_map(data, locationInfo){
+    var dataLocations = Object.keys(data);
+    var output = {};
+    console.log(data);
+    for(var l in dataLocations){
+        var locationID = dataLocations[l];
+        if(parseInt(locationID)){
+            output[locationInfo[locationID].name]={'value': data[locationID].current};
+        }
+    }
+    console.log(output);
+    return output;
+}
+
 var indicators =  [{
-        name: "Number of Cases",
-        id: "number-of-cases",
-        drawChart: function(id, locID){
+        name: i18n.gettext("Number of Cases"),
+        id: "malaria-cases",
+        drawChart: function(id, locID, locationInfo, districtShapes){
             var deferreds = [
-                $.getJSON(api_root+'/aggregate_year/cmd_17/'+locID, function(data){confirmed=prep(data);}),
-                $.getJSON(api_root+'/aggregate_year/cmd_29/'+locID, function(data){unconfirmed=prep(data);})
+                $.getJSON(api_root+'/indicators/n/cmd_17/'+locID, function(data){confirmed=prep(data);}),
+                $.getJSON(api_root+'/indicators/n/cmd_29/'+locID, function(data){unconfirmed=prep(data);}),
+                $.getJSON(api_root+'/indicators/n/cmd_17/'+locID+'?group_by_level=district', function(data){confirmedMap=data;}),
             ];
             $.when.apply($, deferreds).then(function(){
-                $('.indicator-charts').append("<div class='chart " + id + "' id='" + id + "'></div>");
-                Highcharts.chart(id, {
+                $('.indicator-charts').append("<div class='chart " + id + "' id='" + id + "-chart'></div>");
+                Highcharts.chart(id+'-chart', {
                     chart: {type: 'spline'},
                     title:{text: undefined},
                     plotOptions: {spline: {marker: {enabled: false}}},
-                    xAxis: {title: {text:'Epi-week'}},
-                    yAxis: {title: {text:'Cases'}},
+                    xAxis: {title: {text: i18n.gettext('Week')}},
+                    yAxis: {title: {text: i18n.gettext('Cases')}},
                     series: [{
-                        name: 'Confirmed Cases',
+                        name: i18n.gettext('Confirmed Cases'),
                         data: confirmed
                     }, {
-                        name: 'Unconfirmed Cases',
+                        name: i18n.gettext('Unconfirmed Cases'),
                         data: unconfirmed
                     }]
                 });
+                $('.indicator-maps').append("<div class='map " + id + "' id='" + id + "-map'></div>");
+                var mappedData = prep_map(confirmedMap, locationInfo);
+                var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
+                regional_map(mappedData, mapCenter, districtShapes, id+'-map');
             });
         }
     },{
-        name: "Number of RDT",
-        id: "number-of-rdt",
-        drawChart: function(id, locID){
-            var deferreds = [$.getJSON(api_root+'/aggregate_year/epi_2/'+locID, function(data){rdt=prep(data);})];
+        name: i18n.gettext("% RDT for fever cases"),
+        id: "malaria-rdt",
+        drawChart: function(id, locID, locationInfo, districtShapes){
+            var deferreds = [
+                $.getJSON(api_root+'/indicators/n,d,m/mls_3,mls_2,100/'+locID, function(data){rdt=prep(data);}),
+                $.getJSON(api_root+'/indicators/n,d,m/mls_3,mls_2,100/'+locID+'?group_by_level=district', function(data){rdtMap=data;})
+            ];
             $.when.apply($, deferreds).then(function(){
-                $('.indicator-charts').append("<div class='chart hidden " + id + "' id='" + id + "'></div>");
-                Highcharts.chart(id, {
+                $('.indicator-charts').append("<div class='chart " + id + "' id='" + id + "-chart'></div>");
+                Highcharts.chart(id+'-chart', {
                     chart: {type: 'spline'},
                     title:{text: undefined},
                     plotOptions: {spline: {marker: {enabled: false}}},
-                    xAxis: {title: {text:'Epi-week'}},
-                    yAxis: {title: {text:'Tests'}},
+                    xAxis: {title: {text: i18n.gettext('Week')}},
+                    yAxis: {title: {text: i18n.gettext('% fever cases tested')}},
                     series: [{
-                        name: 'RDT tests',
+                        name: i18n.gettext('% RDT for fever cases'),
                         data: rdt
                     }]
                 });
+                $('.indicator-maps').append("<div class='map " + id + "' id='" + id + "-map'></div>");
+                //var mappedData = prep_map(rdtMap, locationInfo);
+                var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
+                regional_map({}, mapCenter, districtShapes, id+'-map');
             });
         }
     },{
-        name: "Number of ACT",
-        id: "number-of-act",
-        drawChart: function(id, locID){
-            var deferreds = [$.getJSON(api_root+'/aggregate_year/mls_48/'+locID, function(data){act=prep(data);})];
+        name: i18n.gettext("% ACT for malaria cases"),
+        id: "malaria-act",
+        drawChart: function(id, locID, locationInfo, districtShapes){
+            var deferreds = [
+                $.getJSON(api_root+'/indicators/n,d,m/mls_48,cmd_17,100/'+locID, function(data){act=prep(data);}),
+                $.getJSON(api_root+'/indicators/n,d,m/mls_48,cmd_17,100/'+locID+'?group_by_level=district', function(data){actMap=data;})
+            ];
             $.when.apply($, deferreds).then(function(){
-                $('.indicator-charts').append("<div class='chart hidden " + id + "' id='" + id + "'></div>");
-                Highcharts.chart(id, {
+                $('.indicator-charts').append("<div class='chart " + id + "' id='" + id + "-chart'></div>");
+                Highcharts.chart(id+'-chart', {
                     chart: {type: 'spline'},
                     title:{text: undefined},
                     plotOptions: {spline: {marker: {enabled: false}}},
-                    xAxis: {title: {text:'Epi-week'}},
-                    yAxis: {title: {text:'Treatments'}},
+                    xAxis: {title: {text: i18n.gettext('Week')}},
+                    yAxis: {title: {text: i18n.gettext('% Malaria cases treated')}},
                     series: [{
-                        name: 'ACT Treatments',
+                        name: i18n.gettext('% ACT Treatments for Malaria cases'),
                         data: act
                     }]
                 });
+                $('.indicator-maps').append("<div class='map " + id + "' id='" + id + "-map'></div>");
+                var mappedData = prep_map(actMap, locationInfo);
+                var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
+                regional_map(mappedData, mapCenter, districtShapes, id+'-map');
             });
         }
     }
 ]
 
-function loadIndicator(id){
-    $('.indicator-selector .indicator').removeClass('selected show');
+function selectIndicator(id){
+    $('.indicator-selector .indicator').removeClass('selected');
     $('.indicator-selector .'+id).addClass('selected');
-    $('.indicator-charts .chart').addClass('hidden');
-    $('.indicator-charts .'+id).removeClass('hidden');
+    $('.indicator-charts .chart').removeClass('selected show');
+    $('.indicator-charts .'+id).addClass('selected show');
+    $('.indicator-maps .map').removeClass('selected show');
+    $('.indicator-maps .'+id).addClass('selected show');
+    $(window).resize();
+
 }
 
-function mobileDropDown(){
-
+function selectChartType(type){
+    switch (type) {
+        case 'charts':
+            $('.indicator-charts').addClass('show');
+            $('.indicator-maps').removeClass('show');
+            break;
+        case 'maps':
+            $('.indicator-charts').removeClass('show');
+            $('.indicator-maps').addClass('show');
+            break;
+    }
+    $(window).resize();
 }
+selectChartType('charts');
 
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.
 function drawCharts(locID){
-    for(var i in indicators){
-        $('.indicator-selector').append(
-            "<div class='indicator "  + indicators[i].id +
-            "' onclick='loadIndicator(\"" + indicators[i].id + "\");'>" +
-            indicators[i].name + "</div>"
-        );
-        indicators[i].drawChart(indicators[i].id, locID);
-    }
-    loadIndicator(indicators[0].id);
+    var deferreds = [
+        $.getJSON(api_root+'/geo_shapes/district', function(data){districtShapes=data;}),
+        $.getJSON(api_root+'/locations', function(data){locationInfo=data;})
+    ];
+    $.when.apply($, deferreds).then(function(){
+        for(var i in indicators){
+            $('.indicator-selector').append(
+                "<div class='indicator "  + indicators[i].id +
+                "' onclick='selectIndicator(\"" + indicators[i].id + "\");'>" +
+                indicators[i].name + "</div>"
+            );
+            indicators[i].drawChart(indicators[i].id, locID, locationInfo, districtShapes);
+        }
+        selectIndicator(indicators[0].id);
+    });
 }
 
 </script>

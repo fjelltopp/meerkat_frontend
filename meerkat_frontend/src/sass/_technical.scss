@@ -482,6 +482,20 @@ footer{
 }
 
 .malaria{
+    .indicator-charts, .indicator-charts .chart,
+    .indicator-maps, .indicator-maps .map{
+        display: none;
+    }
+    .box__type-selector button{
+        background: white;
+        padding: 2px 5px;
+        border-radius: 3px;
+        color: $blue;
+        .selected{
+            color: white;
+            background: $blue;
+        }
+    }
     @media (min-width: 992px){
         .indicator-selector{
 
