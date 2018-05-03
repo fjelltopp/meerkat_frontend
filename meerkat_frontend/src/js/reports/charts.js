@@ -82,14 +82,51 @@ function sitesBarChartQuantity(categories, series, labels) {
     title: {
       text: null
     },
-    xAxis: {
-      categories: categories,
+      xAxis: {
+
+          categories: categories
     },
     yAxis: {
-      min: 0,
+        min: 0,
+        allowDecimals: false,
       title: {
-        text: labels.yAxis.text,
-        align: 'middle'
+          text: labels.yAxis.text,
+          align: 'middle'
+      }
+		
+     
+    },
+    series: series
+  };
+  return chart;
+}
+function StackedBarChart(categories, series, labels) {
+  var chart = {
+    chart: {
+      type: 'bar',
+      animation: false
+    },
+	  tooltip: {
+		  valueDecimals: 0,
+	  },
+    title: {
+      text: null
+    },
+      xAxis: {
+
+          categories: categories
+      },
+      plotOptions: {
+          series: {
+              stacking: 'normal'
+          }
+    },
+      yAxis: {
+        min: 0,
+        allowDecimals: false,
+      title: {
+          text: labels.yAxis.text,
+          align: 'middle'
       }
 		
      
@@ -289,9 +326,9 @@ function PlagueBarChart(categories, series, labels) {
           enabled: false
         }
       },
-		series: {
-			stacking: 'normal'
-		}
+	series: {
+	    stacking: 'normal'
+	}
     },
     xAxis: {
       categories: categories,
@@ -644,64 +681,110 @@ function measlesBarChart(categories, series, labels) {
     },
     series: series
   };
-  return chart;
+    return chart;
 }
+
+function malariaReportTimeline(weeks, series, labels) {
+  var chart = {
+      chart: {
+	  animation: false,
+          type: 'column'
+      },
+      title: {
+	  text: null
+      },
+      legend: {
+	  enabled: true,
+	  style: {
+	      fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+	  }
+      },
+      plotOptions: {
+          spline: {
+              marker: {
+        	  enabled: false
+              }
+          },
+          series: {
+              lineWidth: 5
+          }
+      },
+      xAxis: {
+	  categories: weeks,
+	  title: {
+	      text: labels.xAxis.text,
+	      align: 'middle'
+	  }
+      },
+      yAxis: [{
+	  title: {
+	      text: labels.yAxis.text,
+	      align: 'middle'
+	  },
+	  allowDecimals: false,
+	  min: 0
+      }],
+      series: series
+  };
+    return chart;
+}
+
 
 //Malaria bar chart for the afro bulletin.
 function malariaChart(weeks, series, labels) {
 
   var chart = {
-		chart: {
-			animation: false,
-      type: 'column'
-		},
-		title: {
-			text: null
-		},
-		legend: {
-			enabled: true,
-			style: {
-				fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
-			}
-		},
-		plotOptions: {
-			spline: {
-				marker: {
-					enabled: false
-				}
-			},
-			series: {
-
-				lineWidth: 5
+      chart: {
+	  animation: false,
+          type: 'column'
       },
-		},
-		xAxis: {
-			categories: weeks,
-			title: {
-				text: labels.xAxis.text,
-				align: 'middle'
-			}
-		},
-		yAxis: [{
-			title: {
-				text: labels.yAxis.text[0],
-				align: 'middle'
-			},
-			allowDecimals: false,
-			min: 0
-		},{
-			title: {
-				text: labels.yAxis.text[1],
-				align: 'middle'
-			},
-			allowDecimals: false,
-			min: 0,
-      max: 100,
-      opposite: true
-		}],
-		series: series
-	};
-	return chart;
+      title: {
+	  text: null
+      },
+      legend: {
+	  enabled: true,
+	  style: {
+	      fontFamily: 'Helvetica Neue", Helvetica, Arial, sans-serif'
+	  }
+      },
+      plotOptions: {
+	  spline: {
+	      marker: {
+		  enabled: false
+	      }
+	  },
+	  series: {
+              
+	      lineWidth: 5
+          },
+      },
+      xAxis: {
+	  categories: weeks,
+	  title: {
+	      text: labels.xAxis.text,
+	      align: 'middle'
+	  }
+      },
+      yAxis: [{
+	  title: {
+	      text: labels.yAxis.text[0],
+	      align: 'middle'
+	  },
+	  allowDecimals: false,
+	  min: 0
+      },{
+	  title: {
+	      text: labels.yAxis.text[1],
+	      align: 'middle'
+	  },
+	  allowDecimals: false,
+	  min: 0,
+          max: 100,
+          opposite: true
+      }],
+      series: series
+  };
+    return chart;
 }
 
 //Malaria bar chart for the afro bulletin.

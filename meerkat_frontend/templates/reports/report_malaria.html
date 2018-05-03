@@ -52,7 +52,25 @@
     </div>
   </div>
 </div>
-
+<div class="row">
+   <!-- REPORTING SITES -->
+    <div class="col-sm-6">
+        <div class="chart-wrapper">
+            <div class="chart-title">{{ _('Figure 2: Malaria Cases by area') }}</div>
+            <div class="chart-stage">
+                <div id="chart-sub-sites"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="chart-wrapper">
+            <div class="chart-title">{{ _('Figure 3: Malaria Cases by week') }}</div>
+            <div class="chart-stage">
+                <div id="chart-timeline"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
   <div class="col-sm-6">
     <div class="chart-wrapper">
@@ -179,6 +197,42 @@ function drawTable2(){
   html += "</tbody></table>";
 
   $('.table2-wrapper').html(html);
-}
+ }
+
+ // Reporting Sites
+ var reportingSites = {
+     categories: [{% for site in report.data.sub_sites %}"{{ site.name }}"{% if not loop.last %},{% endif %}{% endfor %}],
+     series: [{name: i18n.gettext('Imported'), data: [{% for site in report.data.sub_sites %}{{ site.imported }}{% if not loop.last %},{% endif %}{% endfor %}]},
+              {name: i18n.gettext('Indigenous'), data: [{% for site in report.data.sub_sites %}{{ site.indigenous }}{% if not loop.last %},{% endif %}{% endfor %}]},
+              {name: i18n.gettext('Uncertain'), data: [{% for site in report.data.sub_sites %}{{ site.uncertain }}{% if not loop.last %},{% endif %}{% endfor %}]},
+     ],
+     labels: { yAxis: { text: null } } };
+ $('#chart-sub-sites').highcharts(
+     StackedBarChart(
+         reportingSites.categories,
+         reportingSites.series,
+         reportingSites.labels
+     ));
+ 
+var malaria = {
+     categories: [{% for week in report.timeline.weeks %}"{{ week }}"{% if not loop.last %},{% endif %}{% endfor %}],
+     series: [
+         {name: i18n.gettext('Malaria Cases'),
+          data: [{% for cases in report.timeline.cases %}{{ cases }}{% if not loop.last %},{% endif %}{% endfor %}] }, 
+         { name: i18n.gettext('Threshold'),
+           data: [{% for threshold in report.timeline.thresholds %}{{ threshold }}{% if not loop.last %},{% endif %}{% endfor %}],
+              type: "spline" }
+  ],
+  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
+};
+
+$('#chart-timeline').highcharts(
+    malariaReportTimeline(
+      malaria.categories,
+      malaria.series,
+      malaria.labels
+    )
+);
+ 
 </script>
 {% endblock extra_js %}
