@@ -55,6 +55,37 @@
 	    </div>
 	</div>
     </div>
+    <div class="row">
+	<div class="col-xs-12 less-padding-col">
+	    <div class="chartBox box">
+		<div class="chartBox__heading">
+                    <p id="box_heading_2"></p>
+		</div>
+		<div class="chartBox__content row">
+                    <div class='col-xs-12 col-md-12'>
+                        <div id='stock-clinics-timeline' class="chart">
+                        </div>
+                    </div>
+		</div>
+	    </div>
+	</div>
+    </div>
+    <div class="row">
+	<div class="col-xs-12 less-padding-col">
+	    <div class="chartBox box">
+		<div class="chartBox__heading">
+                    <p id="box_heading_3"></p>
+		</div>
+		<div class="chartBox__content row">
+                    <div class='col-xs-12 col-md-12'>
+                        <div id='stock-map' class="map">
+                        </div>
+                    </div>
+		</div>
+	    </div>
+	</div>
+    </div>
+</div>
 </div>
 <div class="breaker"></div>
 
@@ -70,6 +101,8 @@ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
 $("#location-selector").html(i18n.gettext('Locations not loaded'));
 $("#box_heading").html(i18n.gettext('Malaria Stock for the last week from clinics'))
 $("#box_heading_1").html(i18n.gettext('Malaria Stock for the last week from districts'))
+$("#box_heading_2").html(i18n.gettext('Clinics with RDT Stock Level by week'))
+$("#box_heading_3").html(i18n.gettext('Map of latest RDT Stock Level'))
 $("#epi-week-title").html(i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date());
 
 // This code expands and shrinks the locations selector.
@@ -88,10 +121,35 @@ $("#menu-toggle").click(function(e) {
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.
 function drawCharts(locID){
-     nClinics = drawMalariaStockTable('stock-table', locID, "weekly_stock")
+     drawMalariaStockTable('stock-table', locID, "weekly_stock")
 
-     nDists = drawMalariaStockTable('stock-table-district', locID, "district_stock_1", 'dist_')
+     drawMalariaStockTable('stock-table-district', locID, "district_stock_1", 'dist_')
 
+     category = "malaria_rdt_stock_level";
+     varID = "weekly_stock"
+     $.getJSON(api_root + '/aggregate_latest_category/'+category +"/" + varID + '/' + locID,
+               function(data) {
+                   $.getJSON(api_root + '/variables/' + category, function(variables){
+                       drawStackedEpiCurveData('stock-clinics-timeline', data, variables,
+                       i18n.gettext("Number of Clinics"))
+                   });
+               });
+     varID = "weekly_stock"
+
+     colours = {
+         "malaria_rdt_stock_shortage": "red",
+         "malaria_rdt_stock_low": "orange",
+         "malaria_rdt_stock_normal": "blue",
+         "malaria_rdt_stock_overstock": "green"
+         }
+     $.getJSON(api_root + '/map_category/'+category,
+               function(data) {
+                   $.getJSON(api_root + '/variables/' + category, function(variables){
+                       drawMapFromCategoryData(data, 'stock-map', variables, colours
+                       )
+                   });
+               });
+             
          
 }
 

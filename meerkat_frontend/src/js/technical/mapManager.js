@@ -316,6 +316,77 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
     });
 }
 
+function drawMapFromCategoryData(data, containerID, variables, colours, satellite) {
+    // console.log( "DRAWING MAP" );
+    // console.log( data );
+    clearOldMap();
+    map = L.map(containerID, {
+        maxZoom: 18,
+        scrollWheelZoom: false
+    });
+    L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
+
+    if (satellite !== undefined) {
+        var sat_layer = L.mapbox.styleLayer('mapbox://styles/mrjb/ciymznczl00a12ro9cnd4v863');
+        map.addLayer(sat_layer);
+        sat_toggle = false;
+        $("#" + satellite).click(function() {
+            if (sat_toggle) {
+                map.addLayer(sat_layer);
+                sat_toggle = false;
+                $("#" + satellite).html(i18n.gettext("Map"));
+            } else {
+                map.removeLayer(sat_layer);
+                $("#" + satellite).html(i18n.gettext("Satellite"));
+                sat_toggle = true;
+            }
+        });
+    }
+    if (config.map_centre) {
+        map.setView(
+            [config.map_centre[0], config.map_centre[1]],
+            config.map_centre[2]
+        );
+    }
+    var markers = [];
+    for (var i in data) {
+        var colour = colours[data[i].value];
+        var marker = L.circleMarker(
+            L.latLng(data[i].geolocation[0], data[i].geolocation[1]), {
+                radius: 3,
+                fillColor: colour,
+                opacity: 1,
+                fillOpacity: 1,
+                color: colour
+            });
+
+        marker.bindPopup("<b>" + data[i].clinic + "</b><br/>" + i18n.gettext(variables[data[i].value].name));
+        marker.addTo(map);
+        markers[markers.length] = marker;
+    }
+    if (markers.length > 0) {
+        var group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds());
+    }
+
+    //Add the legend.
+    var legend = L.control({
+        position: 'bottomleft'
+    });
+    legend.onAdd = function(map) {
+
+        var div = L.DomUtil.create('div', 'info_map legend');
+
+        for (var i in colours) {
+                div.innerHTML += '<i class="circle" style="background:' + colours[i] +
+                ' !important; border-color:' + colours[i] + '"></i> '+ i18n.gettext(variables[i].name) +   '<br/>';
+        }
+
+        return div;
+    };
+
+    legend.addTo(map);
+}
 
 function clearOldMap() {
     if (typeof map !== 'undefined') {
