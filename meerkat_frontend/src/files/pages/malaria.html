@@ -30,9 +30,9 @@
 					<div class="chartBox__heading">
                         <p id="box_heading"></p>
                         <div class="box__type-selector pull-right">
-                            <button onclick="selectChartType('charts');" id="malaria-charts">
+                            <button onclick="selectChartType('charts');" id="malaria-charts" class='btn malaria-charts'>
                             </button> /
-                            <button onclick="selectChartType('maps');" id="malaria-maps">
+                            <button onclick="selectChartType('maps');" id="malaria-maps" class='btn malaria-maps'>
                             </button>
                         </div>
 					</div>
@@ -93,14 +93,12 @@ function prep(data){
 function prep_map(data, locationInfo){
     var dataLocations = Object.keys(data);
     var output = {};
-    console.log(data);
     for(var l in dataLocations){
         var locationID = dataLocations[l];
         if(parseInt(locationID)){
             output[locationInfo[locationID].name]={'value': data[locationID].current};
         }
     }
-    console.log(output);
     return output;
 }
 
@@ -114,7 +112,7 @@ var indicators =  [{
                 $.getJSON(api_root+'/indicators/n/cmd_17/'+locID+'?group_by_level=district', function(data){confirmedMap=data;}),
             ];
             $.when.apply($, deferreds).then(function(){
-                $('.indicator-charts').append("<div class='chart " + id + "' id='" + id + "-chart'></div>");
+                $('.indicator-charts').append("<div class='chart show " + id + "' id='" + id + "-chart'></div>");
                 Highcharts.chart(id+'-chart', {
                     chart: {type: 'spline'},
                     title:{text: undefined},
@@ -129,7 +127,7 @@ var indicators =  [{
                         data: unconfirmed
                     }]
                 });
-                $('.indicator-maps').append("<div class='map " + id + "' id='" + id + "-map'></div>");
+                $('.indicator-maps').append("<div class='map show " + id + "' id='" + id + "-map'></div>");
                 var mappedData = prep_map(confirmedMap, locationInfo);
                 var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
                 regional_map(mappedData, mapCenter, districtShapes, id+'-map');
@@ -199,6 +197,7 @@ function selectIndicator(id){
     $('.indicator-charts .'+id).addClass('selected show');
     $('.indicator-maps .map').removeClass('selected show');
     $('.indicator-maps .'+id).addClass('selected show');
+    $('.indicator-maps .'+id).trigger('resizeMap');
     $(window).resize();
 
 }
@@ -206,12 +205,17 @@ function selectIndicator(id){
 function selectChartType(type){
     switch (type) {
         case 'charts':
+            $('.box__type-selector .btn').removeClass('selected');
+            $('.box__type-selector .malaria-charts').addClass('selected');
             $('.indicator-charts').addClass('show');
             $('.indicator-maps').removeClass('show');
             break;
         case 'maps':
+            $('.box__type-selector .btn').removeClass('selected');
+            $('.box__type-selector .malaria-maps').addClass('selected');
             $('.indicator-charts').removeClass('show');
             $('.indicator-maps').addClass('show');
+            $('.indicator-maps').children().trigger('resizeMap');
             break;
     }
     $(window).resize();
@@ -234,6 +238,7 @@ function drawCharts(locID){
             );
             indicators[i].drawChart(indicators[i].id, locID, locationInfo, districtShapes);
         }
+        console.log('flag');
         selectIndicator(indicators[0].id);
     });
 }

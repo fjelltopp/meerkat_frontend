@@ -132,6 +132,11 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
         }
     });
 
+    // Triggering event 'resizeMap' on container, resizes map to fill container
+    $('#'+containerID).on('resizeMap', function(e){
+        map.invalidateSize();
+    });
+
     // Find the min and max in the data.
     var locs = Object.keys( data );
     var minimum = 999999;
@@ -293,4 +298,5 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
 
         legend.addTo(map);
     }
+
 }

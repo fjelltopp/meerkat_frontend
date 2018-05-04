@@ -486,14 +486,19 @@ footer{
     .indicator-maps, .indicator-maps .map{
         display: none;
     }
-    .box__type-selector button{
-        background: white;
-        padding: 2px 5px;
-        border-radius: 3px;
-        color: $blue;
-        .selected{
+    .box__type-selector{
+        .btn{
+            background: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: $blue;
+        }
+        .selected, .btn:active{
             color: white;
             background: $blue;
+        }
+        .btn:focus{
+            outline: none;
         }
     }
     @media (min-width: 992px){
