@@ -483,7 +483,8 @@ footer{
 
 .malaria{
     .indicator-charts, .indicator-charts .chart,
-    .indicator-maps, .indicator-maps .map{
+    .indicator-district-maps, .indicator-district-maps .map,
+    .indicator-region-maps, .indicator-region-maps .map{
         display: none;
     }
     .box__type-selector{
