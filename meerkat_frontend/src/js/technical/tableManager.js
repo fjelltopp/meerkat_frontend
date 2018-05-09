@@ -432,21 +432,25 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
             align: "center",
             class: "header",
             sortable: true
-        }, {
-            field: 'display_central_review',
-            title: i18n.gettext('Central Review'),
-            align: "center",
-            class: "header",
-            sortable: true,
-        }, {
-            field: 'display_status',
+        },{  field: 'display_status',
             title: i18n.gettext('Status'),
             align: "center",
             class: "header",
             sortable: true
         }];
 
+        if(config.central_review){
+            var central_review_column = {
+                field: 'display_central_review',
+                title: i18n.gettext('Central Review'),
+                align: "center",
+                class: "header",
+                sortable: true
+            };
+            columns.splice(7,0, central_review_column);
 
+        }
+        
         if(alerts_table_config.district_column){
             var dist_column = {
                 field: "display_district",
