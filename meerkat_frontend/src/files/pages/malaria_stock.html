@@ -142,7 +142,7 @@ function drawCharts(locID){
          "malaria_rdt_stock_normal": "blue",
          "malaria_rdt_stock_overstock": "green"
          }
-     $.getJSON(api_root + '/map_category/'+category,
+     $.getJSON(api_root + '/map_category/'+category + "/" + locID,
                function(data) {
                    $.getJSON(api_root + '/variables/' + category, function(variables){
                        drawMapFromCategoryData(data, 'stock-map', variables, colours
