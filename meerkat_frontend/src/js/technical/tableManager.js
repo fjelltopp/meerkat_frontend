@@ -464,7 +464,7 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
 
         // Some countries(Jordan) has a central review in addition to alert_investigation
         // If the alert has been investigated (and has a central review) we display that in the table
-        if (!config.central_review) columns.splice(7, 1);
+        // if (!config.central_review) columns.splice(7, 1);
 
         // First destroyany pre-existing table.
         $('#' + containerID + ' table').bootstrapTable('destroy');
