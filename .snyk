@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.10.2
+version: v1.12.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:shelljs:20140723':
@@ -94,8 +94,8 @@ patch:
     - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
         patched: '2018-01-30T12:12:45.965Z'
     - gulp-add-src > vinyl-fs > glob-stream > minimatch:
-        patched: '2018-04-20T06:12:55.084Z'
+        patched: '2018-05-04T14:48:52.390Z'
     - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > minimatch:
-        patched: '2018-04-20T06:12:55.084Z'
+        patched: '2018-05-04T14:48:52.390Z'
     - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
-        patched: '2018-04-20T06:12:55.084Z'
+        patched: '2018-05-04T14:48:52.390Z'

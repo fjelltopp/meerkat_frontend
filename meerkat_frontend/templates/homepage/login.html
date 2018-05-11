@@ -97,6 +97,7 @@
 {% include 'includes/js.html' %}
 {% block pageJS %}
 <script>
+window.onload(function(){
     var map = L.map('map', {maxZoom: 18, scrollWheelZoom: false, zoomControl: false});
     L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
     var viewingMap = false;
@@ -108,7 +109,7 @@
     map.touchZoom.disable();
     map.doubleClickZoom.disable();
     map.scrollWheelZoom.disable();
-
+});
 $('input.submit').click( function(evt){
     evt.preventDefault();
     var formArray = {
