@@ -51,12 +51,6 @@
                             </div>
                             <div class='indicator-region-maps'>
                             </div>
-                        </div>
-		    </div>
-                    <div class="chartBox__content row">
-                        <div class='col-xs-12 col-md-3'>
-                        </div>
-                        <div class='col-xs-12 col-md-9'>
                             <div class="chartBox__heading">
 				<p id="box_heading" style="display: inline"> </p>
 				<div class="box__type-selector pull-right">
@@ -67,6 +61,13 @@
                             <div id='data-table' class="data-table">
                             </div>
                         </div>
+
+                        </div>
+		    </div>
+                    <div class="chartBox__content row">
+                        <div class='col-xs-12 col-md-3'>
+                        </div>
+                        <div class='col-xs-12 col-md-9'>
                     </div>
 		</div>
 	    </div>
@@ -94,6 +95,8 @@ function drawCharts(locID){
             );
             var options = {
                 'id': indicators[i].id,
+                'title': indicators[i].title,
+                'code': indicators[i].code,
                 'locID': locID,
                 'locationData': locationData,
                 'districtShapes': districtShapes,
@@ -235,7 +238,7 @@ var indicators =  [{
                     "Unconfirmed Cases": unconfirmed
                 }, opts.id + "-table",);
                 $('.data-table .' + opts.id + ' .table').addClass('selected show');
-                
+                stopThrobber();
             });
         }
     },{
@@ -314,26 +317,65 @@ var indicators =  [{
 
             });
         }
-    },{
-        name: i18n.gettext("No of pregnant women who received IPT during first ANC visit"),
-        id: "malaria-ipt",
-        drawFigures: function(opts){
-            
+    }
+ ]
+ var simple_indicators = {
+     "ipt": ["No of pregnant women who received IPT during first ANC visit",
+             "mlp_1"],
+     "ipt_trim": ["No of pregnant women who received IPT during first ANC visit within 16 weeks",
+                  "mlp_2"],
+     "ipt1": ["No of pregnant women who received IPT 1",
+              "mlp_3"],
+     "ipt2": ["No of pregnant women who received IPT 2",
+              "mlp_4"],
+     "ipt3": ["No of pregnant women who received IPT 3",
+              "mlp_5"],
+     "children-llin-routine": [
+         "No of children under five who received a LLIN during routine distribution",
+         "mlp_6"],
+     "preg-llin-routine": [
+         "No of pregnant women who received a LLIN during routine distribution",
+         "mlp_7"],
+     "children-llin-other": [
+         "No of children under five who received a LLIN during another mode of distribution",
+         "mlp_8"
+     ],
+     "preg-llin-other": [
+         "No of pregnant women who received a LLIN during another mode of distribution",
+         "mlp_9"
+         ]
+ }
+
+ for(var indicator in simple_indicators){
+     title = simple_indicators[indicator][0]
+     code = simple_indicators[indicator][1]
+
+     indicators.push(
+         { 
+             name: i18n.gettext(title),
+             id: "malaria-" + indicator,
+             title: title,
+             code: code,
+             drawFigures: function(opts){
+                 url_week = api_root+'/indicators/n/' + opts.code +'/'+opts.locID + "?current_year=1";
+                 url_district_map = api_root+'/indicators/n/'+ opts.code +'/'+opts.locID+'?group_by_level=district&current_year=1'
+                 url_region_map = api_root+'/indicators/n/' + opts.code +'/'+opts.locID+'?group_by_level=region&current_year=1'
+                 
             var deferreds = [
-                $.getJSON(api_root+'/indicators/n/mlp_1/'+opts.locID + "?current_year=1", function(data){ipt=prep(data);}),
-                $.getJSON(api_root+'/indicators/n/mlp_1/'+opts.locID+'?group_by_level=district&current_year=1', function(data){iptDistrictMap=data;}),
-                $.getJSON(api_root+'/indicators/n/mlp_2/'+opts.locID+'?group_by_level=region&current_year=1', function(data){iptRegionMap=data;})
+                $.getJSON(url_week, function(data){ipt=prep(data);}),
+                $.getJSON(url_district_map, function(data){iptDistrictMap=data;}),
+                $.getJSON(url_region_map, function(data){iptRegionMap=data;})
             ];
             $.when.apply($, deferreds).then(function(){
                 $('.indicator-charts').append("<div class='chart " + opts.id + "' id='" + opts.id + "-chart'></div>");
                 Highcharts.chart(opts.id+'-chart', {
-                    chart: {type: 'spline'},
+                    chart: {type: 'column'},
                     title:{text: undefined},
                     plotOptions: {spline: {marker: {enabled: false}}},
                     xAxis: {title: {text: i18n.gettext('Week')}},
-                    yAxis: {title: {text: i18n.gettext('% Malaria cases treated')}},
+                    yAxis: {title: {text: i18n.gettext('Cases')}},
                     series: [{
-                        name: i18n.gettext('No of pregnant women who received IPT during first ANC visit'),
+                        name: i18n.gettext(opts.title),
                         data: ipt
                     }]
                 });
@@ -347,13 +389,14 @@ var indicators =  [{
                 regional_map(mappedData, mapCenter, opts.regionShapes, opts.id+'-region-map');
                 $('#data-table').append("<div class='table " + opts.id + "' id='" + opts.id + "-table'></div>");
                 createDataTable({
-                    'No of pregnant women who received IPT during first ANC visit': ipt
+                    [opts.title]: ipt
                 }, opts.id + "-table");
                 
             });
         }
-    }
-]
+    });
+ }
+        
 
  function selectIndicator(id){
      console.log(id);

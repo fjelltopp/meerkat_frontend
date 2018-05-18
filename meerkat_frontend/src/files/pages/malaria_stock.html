@@ -16,7 +16,7 @@
 	</div>
 
 </div>
-<div class="malaria toggled" id="wrapper">
+<div class="malaria-stock toggled" id="wrapper">
     
     <div id="sidebar-wrapper" >
 	<div id="location-selector" class="location-selector">
@@ -56,6 +56,10 @@
 	</div>
     </div>
     <div class="row">
+        <label id="select-label"></label>
+        <select id="chart-selector">
+        </select>
+
 	<div class="col-xs-12 less-padding-col">
 	    <div class="chartBox box">
 		<div class="chartBox__heading">
@@ -93,19 +97,34 @@
 <script>
 
 // We need to be able to translate the contents of the html page.
-// Text is inserted here using the javascript translator.
-$("#location_box").html(i18n.gettext("Location:"));
-$("#location_title").html(i18n.gettext("Not Loaded"));
-$("#title").html(i18n.gettext('Malaria'));
-$("#epi-week-title").html(i18n.gettext('Date not loaded.'));
-$("#location-selector").html(i18n.gettext('Locations not loaded'));
-$("#box_heading").html(i18n.gettext('Malaria Stock for the last week from clinics'))
-$("#box_heading_1").html(i18n.gettext('Malaria Stock for the last week from districts'))
-$("#box_heading_2").html(i18n.gettext('Clinics with RDT Stock Level by week'))
-$("#box_heading_3").html(i18n.gettext('Map of latest RDT Stock Level'))
+ // Text is inserted here using the javascript translator.
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#title").html(i18n.gettext('Malaria'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#location-selector").html(i18n.gettext('Locations not loaded'));
+ $("#box_heading").html(i18n.gettext('Malaria Stock for the last week from clinics'))
+     $("#box_heading_1").html(i18n.gettext('Malaria Stock for the last week from districts'))
+     $("#box_heading_2").html(i18n.gettext('Clinics with RDT Stock Level by week'))
+     $("#box_heading_3").html(i18n.gettext('Map of latest RDT Stock Level'))
+     $("#select-label").html(i18n.gettext('Select Stock: '))
 $("#epi-week-title").html(i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date());
 
-// This code expands and shrinks the locations selector.
+ // This code expands and shrinks the locations selector.
+
+ category_options = {
+     "RDT": "malaria_rdt",
+     "ACT Age < 1 Years": "malaria_act_age0"
+ }
+ select_html = ""
+ for(var category in category_options){
+     select_html += '<option value="'+category_options[category]+ '" >'+i18n.gettext(category)+ '</option>'
+ }
+
+ $("#chart-selector").html(select_html);
+ $("#chart-selector").change(draw_map_chart);
+     
+ 
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
 	$("#wrapper").toggleClass("toggled");
@@ -117,39 +136,43 @@ $("#menu-toggle").click(function(e) {
 	});
 });
 
+globalLocID = 1;
+function draw_map_chart(){
+     category = $("#chart-selector").val()
+     url_category = category + "_stock_level"
+     varID = "weekly_stock"
+     $.getJSON(api_root + '/aggregate_latest_category/'+url_category +"/" + varID + '/' + globalLocID,
+               function(data) {
+                   $.getJSON(api_root + '/variables/' + url_category, function(variables){
+                       drawStackedEpiCurveData('stock-clinics-timeline', data, variables,
+                                               i18n.gettext("Number of Clinics"))
+                   });
+               });
+     colours = {
+         [category + "_stock_shortage"]: "red",
+         [category + "_stock_low"]: "orange",
+         [category + "_stock_normal"]: "blue",
+         [category + "_stock_overstock"]: "green"
+     }
+     console.log(colours)
+     $.getJSON(api_root + '/map_category/'+url_category + "/" + globalLocID,
+            function(data) {
+                   $.getJSON(api_root + '/variables/' + url_category, function(variables){
+                       drawMapFromCategoryData(data, 'stock-map', variables, colours
+                           )
+                       });
+                   });
+ }
+ 
+     
 
 //This function is called every time a new location is loaded.
 //Any location-dependant content should be redrawn through this function.
 function drawCharts(locID){
      drawMalariaStockTable('stock-table', locID, "weekly_stock")
-
      drawMalariaStockTable('stock-table-district', locID, "district_stock_1", 'dist_')
-
-     category = "malaria_rdt_stock_level";
-     varID = "weekly_stock"
-     $.getJSON(api_root + '/aggregate_latest_category/'+category +"/" + varID + '/' + locID,
-               function(data) {
-                   $.getJSON(api_root + '/variables/' + category, function(variables){
-                       drawStackedEpiCurveData('stock-clinics-timeline', data, variables,
-                       i18n.gettext("Number of Clinics"))
-                   });
-               });
-     varID = "weekly_stock"
-
-     colours = {
-         "malaria_rdt_stock_shortage": "red",
-         "malaria_rdt_stock_low": "orange",
-         "malaria_rdt_stock_normal": "blue",
-         "malaria_rdt_stock_overstock": "green"
-         }
-     $.getJSON(api_root + '/map_category/'+category + "/" + locID,
-               function(data) {
-                   $.getJSON(api_root + '/variables/' + category, function(variables){
-                       drawMapFromCategoryData(data, 'stock-map', variables, colours
-                       )
-                   });
-               });
-             
+         globalLocID = locID;
+     draw_map_chart();
          
 }
 

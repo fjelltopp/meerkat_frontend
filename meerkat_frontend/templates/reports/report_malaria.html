@@ -218,10 +218,13 @@ var malaria = {
      categories: [{% for week in report.timeline.weeks %}"{{ week }}"{% if not loop.last %},{% endif %}{% endfor %}],
      series: [
          {name: i18n.gettext('Malaria Cases'),
-          data: [{% for cases in report.timeline.cases %}{{ cases }}{% if not loop.last %},{% endif %}{% endfor %}] }, 
+          data: [{% for cases in report.timeline.cases %}{{ cases }}{% if not loop.last %},{% endif %}{% endfor %}] }
+         {% if report.data.project_level == "clinic"  and data.timeline.thresholds %}
+         ,
          { name: i18n.gettext('Threshold'),
            data: [{% for threshold in report.timeline.thresholds %}{{ threshold }}{% if not loop.last %},{% endif %}{% endfor %}],
-              type: "spline" }
+           type: "spline" }
+         {% endif %}
   ],
   labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
 };
