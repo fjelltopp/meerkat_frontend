@@ -118,7 +118,7 @@ function map_from_data( data, map_centre, containerID){
     if( !map_centre ) map.fitBounds(markers.getBounds(), {padding: [30, 30]});
 }
 
-function regional_map( data, map_centre, geojson, containerID, show_labels ){
+function regional_map( data, map_centre, geojson, containerID, show_labels, extra_label ){
     show_labels = show_labels === undefined ? true : show_labels;
     containerID = containerID || 'map';
     var map = createMap(containerID, map_centre);
@@ -143,7 +143,7 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
     var maximum = 0;
     for( var l in locs ){
         var loc = data[locs[l]];
-        minimum = loc.value < minimum ? loc.value : minimum;
+        minimum = loc.value < minimum && loc.value !== 0 ? loc.value : minimum;
         maximum = loc.value > maximum ? loc.value : maximum;
     }
 
@@ -252,9 +252,12 @@ function regional_map( data, map_centre, geojson, containerID, show_labels ){
         legend2.onAdd = function (map) {
             var div = L.DomUtil.create('div', 'info legend');
             if( maximum === 0){
-                div.innerHTML +=i18n.gettext('No Cases');
+                div.innerHTML += i18n.gettext('No Cases');
             }else{
                 div.innerHTML +=i18n.gettext('Areas without cases are not shown');
+            }
+            if(extra_label){
+                div.innerHTML += extra_label;
             }
             return div;
         };
