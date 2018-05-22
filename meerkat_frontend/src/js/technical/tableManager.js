@@ -1072,11 +1072,11 @@ function drawMalariaStockTable(containerID, location_id, stock_variable, variabl
                     record = records[record_index].variables;
                     start += record[stock + "_start"];
                     used += record[stock + "_used"];
-                    adjustment += record[stock + "_lost"];
+                    adjustment += record[stock + "_adjust"];
                     received += record[stock + "_received"];
                     cmm += record[stock + "_cmm"];
                     end += record[stock + "_start"] + record[stock + "_received"] -
-                        record[stock + "_used"] +  record[stock + "_lost"];
+                        record[stock + "_used"] +  record[stock + "_adjust"];
                 }
                 data.push({
                     "stock": stock_name,

@@ -54,42 +54,46 @@
 		</div>
 	    </div>
 	</div>
-    </div>
-    <div class="row">
-        <label id="select-label"></label>
-        <select id="chart-selector">
-        </select>
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+	        <div class="chartBox box">
+	            <div class="chartBox__heading">
+                        <p id="box_heading_2"></p>
+	            </div>
+	            <div class="chartBox__content row">
+                        <div class="row">
+                            <div class=" col-xs-12 col-md-12">
+                                <h4 id="select-label" style="display:inline;"></h4>
+                                <select id="chart-selector">
+                                </select>
+                                <br />
+                                <br />
+                                
+                                
+                            </div>
+                        </div>
+                        <div class="chartBox__heading">
+                            <p id="box_heading_3"></p>
+	                </div>
 
-	<div class="col-xs-12 less-padding-col">
-	    <div class="chartBox box">
-		<div class="chartBox__heading">
-                    <p id="box_heading_2"></p>
-		</div>
-		<div class="chartBox__content row">
-                    <div class='col-xs-12 col-md-12'>
-                        <div id='stock-clinics-timeline' class="chart">
+                        <div class='col-xs-12 col-md-12'>
+                            <div id='stock-clinics-timeline' class="chart">
+                            </div>
                         </div>
-                    </div>
-		</div>
-	    </div>
-	</div>
-    </div>
-    <div class="row">
-	<div class="col-xs-12 less-padding-col">
-	    <div class="chartBox box">
-		<div class="chartBox__heading">
-                    <p id="box_heading_3"></p>
-		</div>
-		<div class="chartBox__content row">
-                    <div class='col-xs-12 col-md-12'>
-                        <div id='stock-map' class="map">
+	            </div>
+	    	    <div class="chartBox__heading">
+                        <p id="box_heading_4"></p>
+		    </div>
+		    <div class="chartBox__content row">
+                        <div class='col-xs-12 col-md-12'>
+                            <div id='stock-map' class="map">
+                            </div>
                         </div>
-                    </div>
-		</div>
+		    </div>
+	        </div>
 	    </div>
-	</div>
+        </div>
     </div>
-</div>
 </div>
 <div class="breaker"></div>
 
@@ -105,8 +109,9 @@
  $("#location-selector").html(i18n.gettext('Locations not loaded'));
  $("#box_heading").html(i18n.gettext('Malaria Stock for the last week from clinics'))
      $("#box_heading_1").html(i18n.gettext('Malaria Stock for the last week from districts'))
-     $("#box_heading_2").html(i18n.gettext('Clinics with RDT Stock Level by week'))
-     $("#box_heading_3").html(i18n.gettext('Map of latest RDT Stock Level'))
+     $("#box_heading_2").html(i18n.gettext('Stock level map and chart'))
+     $("#box_heading_3").html(i18n.gettext('Stock level by week'))
+     $("#box_heading_4").html(i18n.gettext('Map of latest Stock Level for each clinic'))
      $("#select-label").html(i18n.gettext('Select Stock: '))
 $("#epi-week-title").html(i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date());
 
@@ -114,7 +119,15 @@ $("#epi-week-title").html(i18n.gettext("Week")+" "+get_epi_week() + " · " + get
 
  category_options = {
      "RDT": "malaria_rdt",
-     "ACT Age < 1 Years": "malaria_act_age0"
+     "ACT Age < 1 Years": "malaria_act_age0",
+     "ACT Age 1-5 Years": "malaria_act_age1",
+     "ACT Age 6-13 Years": "malaria_act_age2",
+     "ACT Age > 14 Years": "malaria_act_age3",
+     "Artesunate Injections": "malaria_art_inj",
+     "Artesunate Suppository": "malaria_art_supp",
+     "Primaquine": "malaria_cp",
+     "Sulfadoxine": "malaria_sulfadoxine",
+     "MID": "malaria_mid",
  }
  select_html = ""
  for(var category in category_options){
