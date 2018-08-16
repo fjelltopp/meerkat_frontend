@@ -125,10 +125,7 @@ function drawMapFromData(data, containerID, satellite) {
     markers = [];
     //For each clinic, select the marker colour and add the marker to the map.
     for (i in data) {
-        console.log(i);
-        console.log(data[i]);
         var bin = Math.floor(data[i].value / binSize); //-1 because bins are inclusive of the upper-limit
-
 
         var colour = colours[bin];
 
@@ -142,7 +139,7 @@ function drawMapFromData(data, containerID, satellite) {
 
         marker.bindPopup("<b>" + data[i].clinic + "</b><br/>" + data[i].value + " " + i18n.gettext('cases'));
         marker.addTo(map);
-        markers[markers.length] = marker;
+        markers.push(marker);
     }
     if (markers.length > 0) {
         var group = new L.featureGroup(markers);
