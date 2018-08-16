@@ -38,7 +38,7 @@ function drawMap(varID, containerID, location, start_date, end_date, satellite) 
     });
 }
 
-function isEmpty(data) {
+function checkIfEmpty(data) {
     for (var obj in data) {
         return false;
     }
@@ -198,7 +198,7 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
     $.getJSON(url, function(data) {
 
 
-        var isEmpty = isEmpty(data);
+        var isEmpty = checkIfEmpty(data);
         if (isEmpty) {
             $('#disease-map-whiteBox').css("display", "none");
             whiteboxCounter = whiteboxCounter + 1;
