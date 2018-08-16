@@ -2,6 +2,12 @@ L.mapbox.accessToken = 'pk.eyJ1IjoibXJqYiIsImEiOiJqTXVObHJZIn0.KQCTcMow5165oToaz
 var mapboxDefaultStyle = 'mapbox://styles/mrjb/cjcsvure60is12smw9r86ah4s';
 var whiteboxCounter = window.whiteboxCounter || 0;
 
+//Red colours
+var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
+var colours4 = ['#fc9272', '#ef3b2c', '#a50f15', '#67000d'];
+var colours3 = ['#fc9272', '#ef3b2c', '#67000d'];
+var colours2 = ['#fc9272', '#a50f15'];
+
 /** :drawMap(varID, containerID, location)
     Draws a map that visualises the number of reported cases for the given variable ID at
     each clinic. The numbers of cases at each clinic shown using a colour gradient.
@@ -46,11 +52,6 @@ function checkIfEmpty(data) {
 }
 
 function getColours(maximum) {
-    //Red colours
-    var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
-    var colours4 = ['#fc9272', '#ef3b2c', '#a50f15', '#67000d'];
-    var colours3 = ['#fc9272', '#ef3b2c', '#67000d'];
-    var colours2 = ['#fc9272', '#a50f15'];
 
     var colours;
 
@@ -216,16 +217,6 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
         });
         L.mapbox.styleLayer(mapboxDefaultStyle).addTo(map);
 
-        //Red colours
-        var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
-        var colours4 = ['#fc9272', '#ef3b2c', '#a50f15', '#67000d'];
-        var colours3 = ['#fc9272', '#ef3b2c', '#67000d'];
-        var colours2 = ['#fc9272', '#a50f15'];
-
-        //Default to the 6 colour system.
-        //If fewer bins, due to smaller range, then change to fewer colours.
-
-
 
         //Find the clinic with the maximum variable value.
         var maximum = getMax(data, 'value');
@@ -340,8 +331,6 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level, monthly) {
                         gj.properties.rate = 0;
                     }
                 }
-
-                var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
 
                 var colours = colours6;
                 var number = colours.length;
@@ -502,8 +491,6 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
                 }
             }
 
-
-            var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
 
             //Default to the 6 colour system.
             //If fewer bins, due to smaller range, then change to fewer colours.
