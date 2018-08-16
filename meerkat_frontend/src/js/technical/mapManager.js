@@ -100,7 +100,7 @@ function drawMapFromData(data, containerID, satellite) {
         );
     }
 
-    var maximum = maxValue(data);
+    var maximum = getMax(data, 'value');
     var colours = getColours(maximum);
     var number = colours.length;
 
@@ -170,14 +170,16 @@ function getMarkerPopupText(dataEntry) {
     return "<b>" + dataEntry.clinic + "</b><br/>" + dataEntry.value + " " + i18n.gettext('cases');
 }
 
-function maxValue(aMap) {
+function getMax(aMap, byPropertyName) {
     var max = 0;
     var val = 0;
     for (var i in aMap) {
         if(aMap.hasOwnProperty(i)) {
-            val = aMap[i].value;
-        } else {
-            continue;
+            if (aMap[i].hasOwnProperty(byPropertyName)) {
+                val = aMap[i][byPropertyName];
+            } else {
+                val = aMap[i];
+            }
         }
         max = val > max ? val : max;
     }
@@ -226,7 +228,7 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 
 
         //Find the clinic with the maximum variable value.
-        var maximum = maxValue(data);
+        var maximum = getMax(data, 'value');
         var colours = getColours(maximum);
         var number = colours.length;
 
@@ -344,12 +346,7 @@ function drawIncidenceChoroplet(var_name, varID, containerID, level, monthly) {
                 var colours = colours6;
                 var number = colours.length;
                 //Find the clinic with the maximum variable value.
-                var maximum = 0;
-                for (var i in data) {
-                    if (data[i] > maximum) {
-                        maximum = data[i];
-                    }
-                }
+                var maximum = getMax(data);
 
                 //Populate limits[] with the upper-limit for each bin.
                 var binSize = (maximum * 1.05) / number; // +1 because the final bin limit > maximum
@@ -513,12 +510,7 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
             var colours = colours6;
             var number = colours.length;
             //Find the clinic with the maximum variable value.
-            var maximum = 0;
-            for (var i in data) {
-                if (data[i].total > maximum) {
-                    maximum = data[i].total;
-                }
-            }
+            var maximum = getMax(data, 'total');
 
             //Populate limits[] with the upper-limit for each bin.
             var binSize = (maximum + 1) / number; // +1 because the final bin limit > maximum
