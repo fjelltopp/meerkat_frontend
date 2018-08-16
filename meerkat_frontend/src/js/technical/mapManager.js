@@ -123,6 +123,7 @@ function drawMapFromData(data, containerID, satellite) {
     //    console.log(binSize);
     //    console.log(number);
     markers = [];
+
     //For each clinic, select the marker colour and add the marker to the map.
     for (i in data) {
         var bin = Math.floor(data[i].value / binSize); //-1 because bins are inclusive of the upper-limit
@@ -137,7 +138,7 @@ function drawMapFromData(data, containerID, satellite) {
             color: colour
         });
 
-        marker.bindPopup("<b>" + data[i].clinic + "</b><br/>" + data[i].value + " " + i18n.gettext('cases'));
+        marker.bindPopup(getMarkerPopupText(data[i]));
         marker.addTo(map);
         markers.push(marker);
     }
@@ -170,6 +171,10 @@ function drawMapFromData(data, containerID, satellite) {
     };
 
     legend.addTo(map);
+}
+
+function getMarkerPopupText(data_entry) {
+    return "<b>" + data_entry.clinic + "</b><br/>" + data_entry.value + " " + i18n.gettext('cases');
 }
 
 
