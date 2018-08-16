@@ -38,6 +38,13 @@ function drawMap(varID, containerID, location, start_date, end_date, satellite) 
     });
 }
 
+function isEmpty(data) {
+    for (var obj in data) {
+        return false;
+    }
+    return true;
+}
+
 function getColours(maximum) {
     //Red colours
     var colours6 = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
@@ -143,7 +150,7 @@ function drawMapFromData(data, containerID, satellite) {
 
         for (i = 1; i < limits.length; i++) {
 
-            if (binSize == 1) {
+            if (binSize === 1) {
                 div.innerHTML += '<i class="circle" style="background:' + colours[i - 1] +
                     ' !important; border-color:' + colours[i - 1] + '"></i> ' + limits[i] + '<br/>';
             } else {
@@ -181,8 +188,6 @@ function maxValue(aMap) {
 
 function drawIncidenceMap(name, varID, containerID, location, start_date, end_date) {
 
-    location = location || 1;
-
     url = api_root + '/incidence_map/' + varID;
     if (end_date) url += '/' + end_date;
     if (start_date) url += '/' + start_date;
@@ -191,14 +196,11 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
     $.getJSON(url, function(data) {
 
 
-        var isEmpty = true;
-        for (var obj in data) {
-            isEmpty = false;
-        }
+        var isEmpty = isEmpty(data);
         if (isEmpty) {
             $('#disease-map-whiteBox').css("display", "none");
             whiteboxCounter = whiteboxCounter + 1;
-            if (whiteboxCounter == 3) {
+            if (whiteboxCounter === 3) {
                 $('#emtyData-whiteBox').css("display", "block");
             }
         }
@@ -224,36 +226,9 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
 
 
         //Find the clinic with the maximum variable value.
-        var maximum = 0;
-        for (var i in data) {
-            if (data[i].value > maximum) {
-                maximum = data[i].value;
-            }
-        }
-        var colours = colours6;
-        number = 6;
-        if (maximum > 20) {
-
-            number = 6;
-            colours = colours6;
-
-        } else if (maximum > 10) {
-
-            number = 4;
-            colours = colours4;
-
-        } else if (maximum > 4) {
-
-            number = 3;
-            colours = colours3;
-
-        } else {
-
-            colours = colours2;
-            number = 2;
-        }
-
-
+        var maximum = maxValue(data);
+        var colours = getColours(maximum);
+        var number = colours.length;
 
 
         //Populate limits[] with the upper-limit for each bin.
@@ -267,7 +242,7 @@ function drawIncidenceMap(name, varID, containerID, location, start_date, end_da
         }
         markers = [];
         //For each clinic, select the marker colour and add the marker to the map.
-        for (i in data) {
+        for (var i in data) {
 
             var bin = Math.floor(data[i].value / binSize); //-1 because bins are inclusive of the upper-limit
 
@@ -536,7 +511,7 @@ function drawCasesChoropletFromData(data, var_name, containerID, level, centre_l
             //Default to the 6 colour system.
             //If fewer bins, due to smaller range, then change to fewer colours.
             var colours = colours6;
-            var number = 6;
+            var number = colours.length;
             //Find the clinic with the maximum variable value.
             var maximum = 0;
             for (var i in data) {
