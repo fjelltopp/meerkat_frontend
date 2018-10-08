@@ -98,6 +98,23 @@
 				  </div>
 			  </div>
 		  </div>
+			{% if 'payload' in g and 'admin' in g.payload.acc[content.auth_country] %}
+			<div class="row">
+			  <div class="col-xs-12 less-padding-col">
+				  <div class="box chartBox">
+					  <div class="chartBox__heading">
+						  {{ _('Administer Subscribers') }}
+					  </div>
+					  <div class="chartBox__content" >
+							<div class='table-toolbar'></div>
+								<div id='subscriber-table' class="subscriber-table">
+								<table></table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
     </div>
 	</div>
 </div>
@@ -168,52 +185,59 @@ telInput.blur(function() {
 
 telInput.on("keyup change", reset);
 
-//Draw the dynamic elements of the form.
-$.getJSON( api_root+"/variables/alert?include_group_b=1", function( variables ){
-	$.getJSON( api_root+"/locationtree", function( locations ){
 
-		//Draw the disease Selector
-		var disSel ="<div class='title  row'>{{_('Select which Alerts to receive:')}}</div>";
+function drawForm(subscriber){
 
-		disSel += "";
-		disSel += "<div class='row'>";
-		disSel += "<div class='col-xs-12 col-sm-6 check'>";
-		disSel += "<input id='all-diseases' type='checkbox' value='allDis' name='topics'";
-		disSel += "onclick='toggleAll(this); checkSelected(this);'>{{ _('All Alerts') }}</div> ";
-		var keys = Object.keys(variables);
+	//Draw the dynamic elements of the form.
+	$.getJSON( api_root+"/variables/alert?include_group_b=1", function( variables ){
+		$.getJSON( api_root+"/locationtree", function( locations ){
 
-		for( var i in keys ){
+			//Draw the disease Selector
+			var disSel ="<div class='title  row'>{{_('Select which Alerts to receive:')}}</div>";
+
+			disSel += "";
+			disSel += "<div class='row'>";
 			disSel += "<div class='col-xs-12 col-sm-6 check'>";
-			disSel += "<input type='checkbox' class='disease' name='topics'";
-         disSel += "onclick='checkSelected(this)' value='" + keys[i] + "'>";
-			disSel += i18n.gettext(variables[keys[i]].name) + "</div>";
-		}
-		disSel += "</div>";
-		$('#disease-select').html(disSel);
+			disSel += "<input id='all-diseases' type='checkbox' value='allDis' name='topics'";
+			disSel += "onclick='toggleAll(this); checkSelected(this);'>{{ _('All Alerts') }}</div> ";
+			var keys = Object.keys(variables);
 
-		//Draw the region selector
-      var regSel = "<select id='region-selector'><option value='1'"+
-		             "selected='selected'>";
-      regSel += "All Regions </option>"
-      for( var k in locations.nodes ){
-	  regSel += "<option name='regions' value='" +
-                    locations.nodes[k].id + "' >" + i18n.gettext(locations.nodes[k].text) + "</option>";
-      }
-      regSel += "</select>";
-		$('#region-select').html(regSel);
+			for( var i in keys ){
+				disSel += "<div class='col-xs-12 col-sm-6 check'>";
+				disSel += "<input type='checkbox' class='disease' name='topics'";
+	         disSel += "onclick='checkSelected(this)' value='" + keys[i] + "'>";
+				disSel += i18n.gettext(variables[keys[i]].name) + "</div>";
+			}
+			disSel += "</div>";
+			$('#disease-select').html(disSel);
 
-		//Draw the report selector
-		var repSel = "<div class='title'> {{_('Select which Reports to receive:')}} </div>";
-		for( var j in config.subscribe.reports ){
-			repSel += "<div class='col-xs-12 col-sm-8 col-sm-offset-4 check'>";
-			repSel += "<input type='checkbox' onclick='checkSelected(this);' class='reports'";
-			repSel += "name='topics' value='" + config.subscribe.reports[j].id + "'>";
-			repSel += i18n.gettext(config.subscribe.reports[j].name) + "</div>";
-		}
-		$('#report-select').html(repSel);
+			//Draw the region selector
+	      var regSel = "<select id='region-selector'><option value='1'"+
+			             "selected='selected'>";
+	      regSel += "All Regions </option>"
+	      for( var k in locations.nodes ){
+		  regSel += "<option name='regions' value='" +
+	                    locations.nodes[k].id + "' >" + i18n.gettext(locations.nodes[k].text) + "</option>";
+	      }
+	      regSel += "</select>";
+			$('#region-select').html(regSel);
 
+			//Draw the report selector
+			var repSel = "<div class='title'> {{_('Select which Reports to receive:')}} </div>";
+			for( var j in config.subscribe.reports ){
+				repSel += "<div class='col-xs-12 col-sm-8 col-sm-offset-4 check'>";
+				repSel += "<input type='checkbox' onclick='checkSelected(this);' class='reports'";
+				repSel += "name='topics' value='" + config.subscribe.reports[j].id + "'>";
+				repSel += i18n.gettext(config.subscribe.reports[j].name) + "</div>";
+			}
+			$('#report-select').html(repSel);
+
+		});
 	});
-});
+}
+
+drawForm();
+drawSubscriberTable();
 
 //Toggle all disease checkboxes when all diseases are selected.
 function toggleAll(source){
