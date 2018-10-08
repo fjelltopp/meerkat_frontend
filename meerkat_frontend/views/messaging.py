@@ -5,7 +5,7 @@ A Flask Blueprint module for Meerkat messaging services.
 """
 from flask.ext.babel import gettext
 from flask import Blueprint, render_template
-from flask import redirect, flash, request, current_app, g
+from flask import redirect, flash, request, current_app, g, jsonify
 import random
 from meerkat_frontend import app, auth
 import meerkat_libs as libs
@@ -15,12 +15,15 @@ from .. import common as c
 messaging = Blueprint('messaging', __name__)
 
 
+
+
+
 @messaging.route('/')
 @messaging.route('/loc_<int:locID>')
 @auth.authorise(*app.config['AUTH'].get('messaging', [['BROKEN'], ['']]))
 def subscribe(locID=None):
-
-    """Subscription Process Stage 1: Render the page with the subscription form.
+    """
+    Subscription Process Stage 1: Render the page with the subscription form.
 
        Args:
            locID (int): The location ID of a location to be automatically
@@ -42,8 +45,8 @@ def subscribed():
     """
     Subscription Process Stage 2: Confirms successful subscription request
     and informs the user of the verification process. This method assembles
-    the HTML form data into a strcture that Meerkat Hermes understands and then
-    uses the MeerkatHermes "subscribe" resource to create the subscriber. It
+    the HTML form data into a structure Meerkat Hermes understands and then
+    uses the Meerkat Hermes "subscribe" resource to create the subscriber. It
     further assembles the email and SMS verification messages and uses the
     Meerkat Hermes to send it out.
     """
@@ -288,6 +291,20 @@ def sms_code(subscriber_id):
                 "/messaging/subscribe/verify/" + subscriber_id,
                 code=302
             )
+
+
+@messaging.route('/get_subscribers')
+@auth.authorise(*app.config['AUTH'].get('admin', [['BROKEN'], ['']]))
+def get_subscribers():
+    """
+    Function that securely uses the server's access to hermes api to extract
+    subscriber data from hermes. If the request went straight from the browsers
+    console to hermes, we would have to give the user direct access to hermes.
+    This is not safe.
+    """
+    country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+    subscribers = libs.hermes('/subscribers/'+country, 'GET')
+    return jsonify({'rows': subscribers})
 
 
 def __check_code(subscriber_id, code):
