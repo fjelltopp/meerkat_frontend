@@ -76,19 +76,20 @@
 										  <input id="sms-number" class="col-xs-12 col-sm-8" value="" type="tel" name="sms" optional>
 									  </div>
 								  </div>
-								  <div class="row">
-									  <div class="col-xs-12 no-padding-col title" >
+									<div id="report-select" class="row"> </div>
+									<div class="row">
+										<div class="col-xs-12 no-padding-col title" >
 										 {{ _(' Select which location to receive Alerts from:') }}
-									  </div>
-									  <div class="col-xs-0 col-sm-4"></div>
-									  <a href="" class="col-xs-12 col-sm-8 no-padding-col menu-toggle location-name"></a>
-								  </div>
-                                  <div id="report-select" class="row"> </div>
+										</div>
+										<div class="col-xs-0 col-sm-4"></div>
+										<a href="" class="col-xs-12 col-sm-8 no-padding-col menu-toggle location-name"></a>
+									</div>
 							  </div>
 							  <input type="hidden" name="country" value="{{content.messages.country}}">
 							  <div class="right-part col-sm-12 col-md-6 more-padding-col">
                                   <div id="disease-select"> </div>
 								  <div class="centered row">
+										<input type="hidden" id="subscriberID" name="id" value="">
 									  <input class="submit btn btn-default btn-lg" type='submit' value="Subscribe" >
 								  </div>
 							  </div>
@@ -159,12 +160,12 @@ function drawCharts(locID, year, reports){
 
 //Configure the telephone input field.
 var telInput = $('#sms-number');
-var preferred = {{content.subscribe.pre_countries|safe}};
+var preferred_sms_countries = config.subscribe.pre_countries;
 
 telInput.intlTelInput({
-	initialCountry: preferred[0],
+	initialCountry: preferred_sms_countries[0],
 	utilsScript: "{{ url_for('static', filename='js/utils.js') }}",
-	preferredCountries: preferred,
+	preferredCountries: preferred_sms_countries,
 	formatAsYouType: true
 });
 
@@ -184,57 +185,6 @@ telInput.blur(function() {
 });
 
 telInput.on("keyup change", reset);
-
-
-function drawForm(subscriber){
-
-	//Draw the dynamic elements of the form.
-	$.getJSON( api_root+"/variables/alert?include_group_b=1", function( variables ){
-		$.getJSON( api_root+"/locationtree", function( locations ){
-
-			//Draw the disease Selector
-			var disSel ="<div class='title  row'>{{_('Select which Alerts to receive:')}}</div>";
-
-			disSel += "";
-			disSel += "<div class='row'>";
-			disSel += "<div class='col-xs-12 col-sm-6 check'>";
-			disSel += "<input id='all-diseases' type='checkbox' value='allDis' name='topics'";
-			disSel += "onclick='toggleAll(this); checkSelected(this);'>{{ _('All Alerts') }}</div> ";
-			var keys = Object.keys(variables);
-
-			for( var i in keys ){
-				disSel += "<div class='col-xs-12 col-sm-6 check'>";
-				disSel += "<input type='checkbox' class='disease' name='topics'";
-	         disSel += "onclick='checkSelected(this)' value='" + keys[i] + "'>";
-				disSel += i18n.gettext(variables[keys[i]].name) + "</div>";
-			}
-			disSel += "</div>";
-			$('#disease-select').html(disSel);
-
-			//Draw the region selector
-	      var regSel = "<select id='region-selector'><option value='1'"+
-			             "selected='selected'>";
-	      regSel += "All Regions </option>"
-	      for( var k in locations.nodes ){
-		  regSel += "<option name='regions' value='" +
-	                    locations.nodes[k].id + "' >" + i18n.gettext(locations.nodes[k].text) + "</option>";
-	      }
-	      regSel += "</select>";
-			$('#region-select').html(regSel);
-
-			//Draw the report selector
-			var repSel = "<div class='title'> {{_('Select which Reports to receive:')}} </div>";
-			for( var j in config.subscribe.reports ){
-				repSel += "<div class='col-xs-12 col-sm-8 col-sm-offset-4 check'>";
-				repSel += "<input type='checkbox' onclick='checkSelected(this);' class='reports'";
-				repSel += "name='topics' value='" + config.subscribe.reports[j].id + "'>";
-				repSel += i18n.gettext(config.subscribe.reports[j].name) + "</div>";
-			}
-			$('#report-select').html(repSel);
-
-		});
-	});
-}
 
 drawForm();
 drawSubscriberTable();
