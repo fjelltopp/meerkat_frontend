@@ -155,3 +155,14 @@ ul.flashes li{
 	}
 
 }
+
+.subscriber-table .table-custom-toolbar{
+    margin: 10px;
+    color: white;
+    .btn:hover, .btn:focus,{
+        color: white;
+    }
+		.btn, input{
+			height: 34px;
+		}
+}

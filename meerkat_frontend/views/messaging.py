@@ -70,11 +70,11 @@ def subscribed():
 
     verify_text = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
         'verify_text',
-        "Dear {first_name} {last_name} ,\n\n"
-        "Thank you for subscribing to receive public health "
-        "surveillance notifications from {country}.\n\nPlease "
-        "verify your contact details by copying and pasting the "
-        "following url into your address bar: {url}\n"
+        "Dear {first_name} {last_name} ,\n\n" +
+        "Your subscription to receive public health surveillance "
+        "notifications from {country} has been created/updated.\n\nPlease "
+        "verify your contact details by copying and pasting the following url "
+        "into your address bar: {url}\n"
     )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
@@ -85,10 +85,10 @@ def subscribed():
     verify_html = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
         'verify_html',
         "<p>Dear {first_name} {last_name},</p>"
-        "<p>Thank you for subscribing to receive public health surveillance "
-        "notifications from {country}.</p><p>Please verify your contact "
-        "details by <a href='{url}' target='_blank'>clicking here</a>."
-        "</p>"
+        "<p>Your subscription to receive public health surveillance "
+        "notifications from {country} has been created/updated.</p><p>"
+        "Please verify your contact details by <a href='{url}' "
+        "target='_blank'>clicking here</a>.</p>"
     )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
@@ -107,6 +107,20 @@ def subscribed():
     # Set and send sms verification code.
     if 'sms' in data:
         __set_code(subscribe_response['subscriber_id'], data['sms'])
+
+    # Delete the old account if it exists.  Inform the user of success.
+    if data.get('id', None):
+        response = libs.hermes('/subscribe/' + data['id'], 'DELETE')
+        if hasattr(response, 'status_code') and response.status_code != 200:
+            flash(gettext(
+                'Account update failed: invalid ID. '
+                'Creating new subscription instead.'
+            ))
+        else:
+            flash(
+                gettext('Subscription updated for ') + data['first_name'] +
+                " " + data['last_name'] + "."
+            )
 
     return render_template('messaging/subscribed.html',
                            content=g.config['MESSAGING_CONFIG'],
@@ -305,6 +319,30 @@ def get_subscribers():
     country = current_app.config['MESSAGING_CONFIG']['messages']['country']
     subscribers = libs.hermes('/subscribers/'+country, 'GET')
     return jsonify({'rows': subscribers})
+
+
+@messaging.route('/delete_subscribers', methods=['POST'])
+@auth.authorise(*app.config['AUTH'].get('admin', [['BROKEN'], ['']]))
+def delete_subscribers():
+    """
+    Delete the subscribers specified in the post arguments.
+    """
+    # Load the list of subscribers to be deleted.
+    subscribers = request.get_json()
+    current_app.logger.warning('Subscribers: ' + str(subscribers))
+
+    # Try to delete subscribers
+    message = ""
+    error = False
+    for subscriber_id in subscribers:
+        response = libs.hermes('/subscribe/' + subscriber_id, 'DELETE')
+        if hasattr(response, 'status_code') and response.status_code != 200:
+            error = True
+
+    if error:
+        return ("ERROR: There was an error deleting some users.\n" + message)
+    else:
+        return "Users successfully deleted."
 
 
 def __check_code(subscriber_id, code):
