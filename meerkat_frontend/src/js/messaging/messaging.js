@@ -151,11 +151,12 @@ function drawSubscriberTable(){
 
         //A function that prepares the data for displaying in the table.
         function prepData(res){
+            function getTopicString(topic){
+                return i18n.gettext(variables[topic].name) || topic;
+            }
             for(var s in res.rows){
                 var topics = getTopics(res.rows[s].topics).topics;
-                res.rows[s].topicStrings = topics.map(function(topic){
-                    return i18n.gettext(variables[topic].name) || topic;
-                }).join(', ');
+                res.rows[s].topicStrings = topics.map(getTopicString).join(', ');
             }
             return res.rows;
         }
