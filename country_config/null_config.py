@@ -11,7 +11,8 @@ AUTH = {
     "reports": [['registered'], ['demo']],
     "settings": [['personal'], ['demo']],
     "report_emails": [['emails'], ['demo']],
-    "fault-report": [['registered'], ['rms']]
+    "fault-report": [['registered'], ['demo']],
+    "admin": [['admin'], ['demo']],
 }
 
 
