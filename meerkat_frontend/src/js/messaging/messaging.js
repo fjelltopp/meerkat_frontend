@@ -152,7 +152,8 @@ function drawSubscriberTable(){
         //A function that prepares the data for displaying in the table.
         function prepData(res){
             function getTopicString(topic){
-                return i18n.gettext(variables[topic].name) || topic;
+                var topicObj = variables[topic] || {'name': topic};
+                return i18n.gettext(topicObj.name);
             }
             for(var s in res.rows){
                 var topics = getTopics(res.rows[s].topics).topics;

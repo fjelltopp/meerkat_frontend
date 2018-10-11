@@ -329,18 +329,15 @@ def delete_subscribers():
     """
     # Load the list of subscribers to be deleted.
     subscribers = request.get_json()
-    current_app.logger.warning('Subscribers: ' + str(subscribers))
 
-    # Try to delete subscribers
-    message = ""
+    # Try to delete each subscriber, flag up if there is an error
     error = False
     for subscriber_id in subscribers:
         response = libs.hermes('/subscribe/' + subscriber_id, 'DELETE')
-        if hasattr(response, 'status_code') and response.status_code != 200:
+        if response['status'] != 'successful':
             error = True
-
     if error:
-        return ("ERROR: There was an error deleting some users.\n" + message)
+        return "ERROR: There was an error deleting some users."
     else:
         return "Users successfully deleted."
 
