@@ -38,12 +38,20 @@
 		</div>
 
 	  <div id="page-content-wrapper">
-		  <div class="row">
+		  <div class="row" id='subscribe-box'>
 			  <div class="col-xs-12 less-padding-col">
 				  <div class="box chartBox">
 					  <div class="chartBox__heading">
 						  {{ _('Subscribe to Alerts and Reports') }}
+							{% if 'payload' in g and 'admin' in g.payload.acc[content.auth_country] %}
+							<div class="box__type-selector pull-right">
+								<a href='#' onclick="scrollToID('#hermes-admin', 750); return false;">
+									Admin
+								</a>
+							</div>
+							{% endif %}
 					  </div>
+
 					  <div class="chartBox__content" >
 						  <div class="intro">
 						  {{ _('Use the form below to subscribe to E-mail and SMS notifications for Alerts and Reports.') }}
@@ -87,20 +95,19 @@
 							  </div>
 							  <input type="hidden" name="country" value="{{content.messages.country}}">
 							  <div class="right-part col-sm-12 col-md-6 more-padding-col">
-                                  <div id="disease-select"> </div>
+                  <div id="disease-select"> </div>
 								  <div class="centered row">
 										<input type="hidden" id="subscriberID" name="id" value="">
-									  <input class="submit btn btn-default btn-lg" type='submit' value="Subscribe" >
+									  <input class="submit btn btn-default btn-lg" type='submit' value="{{_('Subscribe')}}" >
 								  </div>
 							  </div>
-
 						  </form>
 					  </div>
 				  </div>
 			  </div>
 		  </div>
 			{% if 'payload' in g and 'admin' in g.payload.acc[content.auth_country] %}
-			<div class="row">
+			<div class="row" id="hermes-admin">
 			  <div class="col-xs-12 less-padding-col">
 				  <div class="box chartBox">
 					  <div class="chartBox__heading">
@@ -189,13 +196,7 @@ telInput.on("keyup change", reset);
 drawForm();
 drawSubscriberTable();
 
-//Toggle all disease checkboxes when all diseases are selected.
-function toggleAll(source){
-	$('.disease').each( function(){
-		this.checked = source.checked;
-		this.disabled = source.checked ? true : false;
-	});
-}
+
 
 //FORM VALIDATION METHODS
 
