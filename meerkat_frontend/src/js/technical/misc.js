@@ -594,12 +594,14 @@ function exportTableToXLS(tableID, filename) {
         }
     );
 
-    //Call the generate xls ...
-    $('#' + tableID + ' table').tableExport({
-        type: 'xls',
-        fileName: filename
+  //Call the generate xls ...
+    table = $('#' + tableID + ' table');
+    table.bootstrapTable('togglePagination');
+    table.tableExport({
+      type: 'xls',
+      fileName: filename
     });
-
+    table.bootstrapTable('togglePagination');
     //Return the percentage values to the HTML design ...
     chartPercentageList.each(
         function(index, element) {
