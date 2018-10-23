@@ -99,3 +99,26 @@ patch:
         patched: '2018-05-04T14:48:52.390Z'
     - gulp-add-src > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
         patched: '2018-05-04T14:48:52.390Z'
+  'npm:tunnel-agent:20170305':
+    - gulp-imagemin > imagemin-mozjpeg > mozjpeg > bin-build > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - imagemin-pngquant > pngquant-bin > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - imagemin-jpegoptim > jpegoptim-bin > bin-build > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - imagemin-optipng > optipng-bin > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - imagemin-jpegoptim > jpegoptim-bin > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - imagemin-optipng > optipng-bin > bin-build > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - gulp-imagemin > imagemin-mozjpeg > mozjpeg > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - gulp-imagemin > imagemin-optipng > optipng-bin > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - gulp-imagemin > imagemin-gifsicle > gifsicle > bin-build > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - gulp-imagemin > imagemin-optipng > optipng-bin > bin-build > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
+    - gulp-imagemin > imagemin-gifsicle > gifsicle > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-10-23T08:16:00.609Z'
