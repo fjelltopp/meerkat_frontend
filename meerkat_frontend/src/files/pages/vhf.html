@@ -1,0 +1,127 @@
+<div class="top-bar row">
+
+  <div class="location-box box">
+    <a href="#menu-toggle" id="menu-toggle">
+      <div class="location-box__label">
+	<div id="location_box">Location:</div>
+	<div id="location-title" class="location-title">Not Loaded</div>
+      </div>
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="glyphicon glyphicon-chevron-left hidden"></span>
+    </a>
+  </div>
+  <div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-6" id="title">
+  </div>
+  <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
+  </div>
+</div>
+
+<div class="vhf toggled" id="wrapper">
+	<div id="sidebar-wrapper" >
+		<div id="location-selector" class="location-selector">
+		</div>
+	</div>
+
+	<div id="page-content-wrapper">
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading" >
+						<div id="box_heading" style="display: inline;">
+						</div>
+						<a href="#" onclick="return false;" id="sat-toggle" style="display: inline;hover { cursor: pointer; };" class="pull-right"></a>
+					</div>
+					<div id="vhf-map" class="chartBox__content map-small">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 less-padding-col">
+				<div class="chartBox box">
+					<div class="chartBox__heading" id="box_2_heading">
+						<div class="box__type-selector pull-right">
+							<a href="" onclick="exportTableToCSV('vhf-table','alerts.csv', this);" class="csv"> 
+								Excel 
+							</a> 
+						</div>
+					</div>
+					<div class="col-xs-12 chartBox__content">
+						<div id="vhf-table" class="table col-xs-12" >
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+ $("#menu-toggle").click(function(e) {
+   e.preventDefault();
+   $("#wrapper").toggleClass("toggled");
+   $(".location-box .glyphicon").toggleClass( "hidden" );
+
+   //Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+   var transitionEvent = whichTransitionEvent();
+   transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+     $(window).resize();
+   });
+ });
+
+ $("#location_box").html(i18n.gettext("Location:"));
+ $("#location_title").html(i18n.gettext("Not Loaded"));
+ $("#title").html(i18n.gettext('Heamorragic Fever'));
+ $("#sat-toggle").html(i18n.gettext('Map'));
+ $("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+ $("#location-selector").html(i18n.gettext('Locations not loaded'));
+ $("#box_heading").html(i18n.gettext('Map of cases of suspected Heamorragic Fever'));
+ $("#box_2_heading").html(i18n.gettext('Heamorragic Fever Cases'));
+ $(".csv").each(function(){
+   $(this).html(i18n.gettext('Excel'));
+ });
+ $("#epi-week-title").html( i18n.gettext("Week") + " " +get_epi_week() + " · " + get_date() );
+
+
+ //This function is called every time a new location is loaded.
+ //Any location-dependant content should be redrawn through this function.
+ function drawCharts( locID ){
+   
+   //Whenever a new location is loaded, go back to a complete alerts table (i.e. unfiltered)
+   loadAlertTables(undefined, locID); 
+   now = new Date();
+   drawMap("cmd_14", "vhf-map", locID, config.map_options.start_date, now.toISOString(), "sat-toggle")
+
+ }
+
+ function loadAlertTables( reason, locID ){
+   
+   //locID (the id of the location) is an optional argument.  
+   //If it isn't set, look at the current page state locID, if that isn't set, default to 1.
+   if( typeof locID == 'undefined' ){
+     if( history.state === null || typeof history.state.locID == 'undefined' ) locID = 1;
+     else locID = history.state.locID;
+   }
+
+   $.getJSON( api_root+"/variables/cd_tab", function( variables ){
+     url = api_root+"/alerts?reason=alert_cmd_14&location="+locID
+     url1 = api_root+"/alerts?reason=mort_alert_cmd_14&location="+locID
+     $.getJSON( url, function( data1 ) {
+       $.getJSON( url, function( data2 ) {
+	 
+	 //Sort the alerts by date.
+	 var alerts = data1.alerts.concat(data1.alerts, data2.alerts);
+	 alerts.sort( function(a, b){
+	   return new Date(b.date).valueOf()-new Date(a.date).valueOf();
+	 });
+	 drawVHFTable("vhf-table", alerts, variables);
+       });
+     });
+   });
+ }
+
+</script>
