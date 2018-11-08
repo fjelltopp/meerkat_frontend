@@ -2034,7 +2034,8 @@ function drawClinicPrescriptionTable(containerID, locID) {
             align: "center",
             class: "header",
             sortable: true
-        }, {
+        },
+         {
             field: "total_prescriptions",
             title: i18n.gettext('Total doses prescribed'),
             align: "center",
@@ -2042,6 +2043,16 @@ function drawClinicPrescriptionTable(containerID, locID) {
             sortable: true
         }];
 
+        if(config.show_remaining_stock){
+
+	  columns.push({
+            field: "str_stock",
+            title: i18n.gettext('Remaining Stock'),
+            align: "center",
+            class: "header",
+            sortable: true
+	  });
+	}
         // First destroy any pre-existing table.
         $('#' + containerID + ' table').bootstrapTable('destroy');
         $('#' + containerID + ' table').remove();
