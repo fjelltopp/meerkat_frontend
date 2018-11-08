@@ -1209,150 +1209,292 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
 
 
 function drawPlagueTable(containerID, cases, variables) {
-    $.getJSON(api_root + "/locations", function(locations) {
-        //Create the table headers, using the central review flag from the cofiguration file.
+  $.getJSON(api_root + "/locations", function(locations) {
+    //Create the table headers, using the central review flag from the cofiguration file.
 
-        var columns = [{
-                field: "alert_id",
-                title: i18n.gettext('Alert ID'),
-                'searchable': true,
-                width: "10%",
-                valign: "middle"
-            },
-            {
-                field: "region",
-                title: i18n.gettext('Region'),
-                width: "10%",
-                valign: "middle"
-            },
-            {
-                field: "district",
-                title: i18n.gettext('District'),
-                width: "10%",
-                valign: "middle"
-            },
-            {
-                field: "clinic",
-                title: i18n.gettext('Clinic'),
-                'searchable': true,
-                width: "10%",
-                valign: "middle"
-            },
-            {
-                field: "report_date",
-                title: i18n.gettext('Date <br /> Reported'),
-                width: "10%",
-                valign: "middle"
-            },
-            {
-                field: "investigation_date",
-                title: i18n.gettext('Date <br /> Investigated'),
-                valign: "middle"
-            },
-            {
-                field: "status",
-                title: i18n.gettext('Status'),
-                valign: "middle"
+    var columns = [{
+      field: "alert_id",
+      title: i18n.gettext('Alert ID'),
+      'searchable': true,
+      width: "10%",
+      valign: "middle"
+    },
+		   {
+                     field: "region",
+                     title: i18n.gettext('Region'),
+                     width: "10%",
+                     valign: "middle"
+		   },
+		   {
+                     field: "district",
+                     title: i18n.gettext('District'),
+                     width: "10%",
+                     valign: "middle"
+		   },
+		   {
+                     field: "clinic",
+                     title: i18n.gettext('Clinic'),
+                     'searchable': true,
+                     width: "10%",
+                     valign: "middle"
+		   },
+		   {
+                     field: "report_date",
+                     title: i18n.gettext('Date <br /> Reported'),
+                     width: "10%",
+                     valign: "middle"
+		   },
+		   {
+                     field: "investigation_date",
+                     title: i18n.gettext('Date <br /> Investigated'),
+                     valign: "middle"
+		   },
+		   {
+                     field: "status",
+                     title: i18n.gettext('Status'),
+                     valign: "middle"
 
-            },
-            {
-                field: "age",
-                title: i18n.gettext('Age'),
-                valign: "middle"
+		   },
+		   {
+                     field: "age",
+                     title: i18n.gettext('Age'),
+                     valign: "middle"
 
-            },
-            {
-                field: "gender",
-                title: i18n.gettext('Gender'),
-                valign: "middle"
-            },
-            {
-                field: "profession",
-                title: i18n.gettext('Profession'),
-                valign: "middle"
-            },
-            {
-                field: "status_2",
-                title: i18n.gettext('Status'),
-                valign: "middle"
+		   },
+		   {
+                     field: "gender",
+                     title: i18n.gettext('Gender'),
+                     valign: "middle"
+		   },
+		   {
+                     field: "profession",
+                     title: i18n.gettext('Profession'),
+                     valign: "middle"
+		   },
+		   {
+                     field: "status_2",
+                     title: i18n.gettext('Status'),
+                     valign: "middle"
 
-            }
-        ];
-        var data = [];
+		   }
+    ];
+    var data = [];
 
-        for (var i in cases) {
-            c = cases[i];
+    for (var i in cases) {
+      c = cases[i];
 
-            var datum = {
-                alert_id: c.variables.alert_id,
-                region: i18n.gettext(locations[c.region].name),
-                district: i18n.gettext(locations[c.district].name),
-                report_date: c.date.split("T")[0],
+      var datum = {
+        alert_id: c.variables.alert_id,
+        region: i18n.gettext(locations[c.region].name),
+        district: i18n.gettext(locations[c.district].name),
+        report_date: c.date.split("T")[0],
 
-                age: c.variables.agv_1
+        age: c.variables.agv_1
 
-            };
-            if ("ale_1" in c.variables) {
-                datum.investigation_date = c.variables.ale_1.split("T")[0];
-            }
-            if (c.clinic) {
-                datum.clinic = i18n.gettext(locations[c.clinic].name);
-            } else {
-                datum.clinic = i18n.gettext(c.type_name);
-            }
-            if (c.variables.pla_2) {
-                datum.profession = i18n.gettext(c.variables.pla_2);
-            } else {
-                datum.profession = "";
-            }
-            var gender = "";
+      };
+      if ("ale_1" in c.variables) {
+        datum.investigation_date = c.variables.ale_1.split("T")[0];
+      }
+      if (c.clinic) {
+        datum.clinic = i18n.gettext(locations[c.clinic].name);
+      } else {
+        datum.clinic = i18n.gettext(c.type_name);
+      }
+      if (c.variables.pla_2) {
+        datum.profession = i18n.gettext(c.variables.pla_2);
+      } else {
+        datum.profession = "";
+      }
+      var gender = "";
 
-            if ("gen_1" in c.variables) {
-                datum.gender = i18n.gettext("Female");
-            } else if ("gen_2" in c.variables) {
-                datum.gender = i18n.gettext("Male");
-            }
+      if ("gen_1" in c.variables) {
+        datum.gender = i18n.gettext("Female");
+      } else if ("gen_2" in c.variables) {
+        datum.gender = i18n.gettext("Male");
+      }
 
-            status = i18n.gettext("Pending");
-            if ("ale_2" in c.variables) {
-                status = i18n.gettext("Confirmed");
-            } else if ("ale_3" in c.variables) {
-                status = i18n.gettext("Disregarded");
-            } else if ("ale_1" in c.variables) {
-                status = i18n.gettext("Ongoing");
-            }
-            datum.status = status;
-            status_2 = i18n.gettext("Alive");
-            if ("pla_3" in c.variables) {
-                status_2 = i18n.gettext("Dead");
-            }
-            datum.status_2 = status_2;
-            data.push(datum);
-        }
-        $('#' + containerID).html("<table> </table>");
-        $('#' + containerID + ' table').bootstrapTable({
-            columns: columns,
-            width: "100%",
-            data: data,
-            align: "center",
-            classes: "table table-hover",
-            pagination: true,
-            pageSize: 50
-        });
-        addPaginationListener('#' + containerID + ' table');
+      status = i18n.gettext("Pending");
+      if ("ale_2" in c.variables) {
+        status = i18n.gettext("Confirmed");
+      } else if ("ale_3" in c.variables) {
+        status = i18n.gettext("Disregarded");
+      } else if ("ale_1" in c.variables) {
+        status = i18n.gettext("Ongoing");
+      }
+      datum.status = status;
+      status_2 = i18n.gettext("Alive");
+      if ("pla_3" in c.variables) {
+        status_2 = i18n.gettext("Dead");
+      }
+      datum.status_2 = status_2;
+      data.push(datum);
+    }
+    $('#' + containerID).html("<table> </table>");
+    $('#' + containerID + ' table').bootstrapTable({
+      columns: columns,
+      width: "100%",
+      data: data,
+      align: "center",
+      classes: "table table-hover",
+      pagination: true,
+      pageSize: 50
     });
+    addPaginationListener('#' + containerID + ' table');
+  });
+}
+
+function drawVHFTable(containerID, cases, variables) {
+  $.getJSON(api_root + "/locations", function(locations) {
+    //Create the table headers, using the central review flag from the cofiguration file.
+
+    var columns = [
+      {
+	field: "alert_id",
+	title: i18n.gettext('Alert ID'),
+	'searchable': true,
+	width: "10%",
+	valign: "middle"
+      },
+      {
+        field: "region",
+        title: i18n.gettext('Region'),
+        width: "10%",
+        valign: "middle"
+      },
+      {
+        field: "district",
+        title: i18n.gettext('District'),
+        width: "10%",
+        valign: "middle"
+      },
+      {
+        field: "clinic",
+        title: i18n.gettext('Clinic'),
+        'searchable': true,
+        width: "10%",
+        valign: "middle"
+      },
+      {
+        field: "report_date",
+        title: i18n.gettext('Date <br /> Reported'),
+        width: "10%",
+        valign: "middle"
+      },
+      {
+        field: "investigation_date",
+        title: i18n.gettext('Date <br /> Investigated'),
+        valign: "middle"
+      },
+      {
+        field: "status",
+        title: i18n.gettext('Status'),
+        valign: "middle"
+	
+      },{
+        field: "type",
+        title: i18n.gettext('Type'),
+        valign: "middle"
+	
+      },
+      
+      {
+        field: "age",
+        title: i18n.gettext('Age'),
+        valign: "middle"
+	
+      },
+      {
+        field: "gender",
+        title: i18n.gettext('Gender'),
+        valign: "middle"
+      },
+
+      {
+        field: "status_2",
+        title: i18n.gettext('Status'),
+        valign: "middle"
+	
+      }
+    ];
+    var data = [];
+
+    for (var i in cases) {
+      c = cases[i];
+
+      var datum = {
+        alert_id: c.variables.alert_id,
+        region: i18n.gettext(locations[c.region].name),
+        district: i18n.gettext(locations[c.district].name),
+        report_date: c.date.split("T")[0],
+
+        age: c.variables.agv_1
+
+      };
+      if ("ale_1" in c.variables) {
+        datum.investigation_date = c.variables.ale_1.split("T")[0];
+      }
+      if (c.clinic) {
+        datum.clinic = i18n.gettext(locations[c.clinic].name);
+      } else {
+        datum.clinic = i18n.gettext(c.type_name);
+      }
+   
+      var gender = "";
+
+      if ("gen_1" in c.variables) {
+        datum.gender = i18n.gettext("Female");
+      } else if ("gen_2" in c.variables) {
+        datum.gender = i18n.gettext("Male");
+      }
+
+      status = i18n.gettext("Pending");
+      if ("ale_2" in c.variables) {
+        status = i18n.gettext("Confirmed");
+      } else if ("ale_3" in c.variables) {
+        status = i18n.gettext("Disregarded");
+      } else if ("ale_1" in c.variables) {
+        status = i18n.gettext("Ongoing");
+      }
+      datum.status = status;
+      status_2 = i18n.gettext("Alive");
+      if ("dea_0" in c.variables) {
+        status_2 = i18n.gettext("Dead");
+      }
+
+      if ("alert_confirmed_ebola" in c.variables){
+	datum.type = i18n.gettext("Ebola");
+      } else if ("alert_confirmed_marburg" in c.variables){
+	datum.type = i18n.gettext("Marburg Virus");
+      }
+	
+	
+	datum.status_2 = status_2;
+      data.push(datum);
+    }
+    $('#' + containerID).html("<table> </table>");
+    $('#' + containerID + ' table').bootstrapTable({
+      columns: columns,
+      width: "100%",
+      data: data,
+      align: "center",
+      classes: "table table-hover",
+      pagination: true,
+      pageSize: 50
+    });
+    addPaginationListener('#' + containerID + ' table');
+  });
 }
 
 
 /**:drawMissingCompletenessTable( containerID, regionID)
- Displays list of clinics in given subregion which haven't reported in the last two weeks. If the specified region is a clinic, then dates when registers are not submitted are listed.
+   Displays list of clinics in given subregion which haven't reported in the last two weeks. If the specified region is a clinic, then dates when registers are not submitted are listed.
 
- :param string containerID:
- the id attribute of the html element to hold the table.
- :param int regionID:
-  Current region or clinic ID
-    :param Object locations:
-        List of all locations from API.
+   :param string containerID:
+   the id attribute of the html element to hold the table.
+   :param int regionID:
+   Current region or clinic ID
+   :param Object locations:
+   List of all locations from API.
 
 
  */
