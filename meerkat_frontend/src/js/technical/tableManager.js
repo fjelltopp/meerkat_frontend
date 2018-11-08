@@ -1119,18 +1119,18 @@ function drawTbTable(containerID, location_id) {
 
 /**:drawAllClincsCompleteness(containerID, regionID)
 
- Draws the completeness table, showing the percentage of daily registers submitted
- by clinics in each region over last period (2 weeks)
+   Draws the completeness table, showing the percentage of daily registers submitted
+   by clinics in each region over last period (2 weeks)
 
- :param string containerid:
- the id attribute of the html element to hold the table.
- :param int regionID:
- All clinics in this region (and its subregions) will be included in that table
- the id of the region from w.hich all clinics will
-    :param Object locations:
-        List of all locations from API.
-    :param Object data:
-        Completeness data from API.
+   :param string containerid:
+   the id attribute of the html element to hold the table.
+   :param int regionID:
+   All clinics in this region (and its subregions) will be included in that table
+   the id of the region from w.hich all clinics will
+   :param Object locations:
+   List of all locations from API.
+   :param Object data:
+   Completeness data from API.
  */
 
 function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
@@ -1212,71 +1212,72 @@ function drawPlagueTable(containerID, cases, variables) {
   $.getJSON(api_root + "/locations", function(locations) {
     //Create the table headers, using the central review flag from the cofiguration file.
 
-    var columns = [{
-      field: "alert_id",
-      title: i18n.gettext('Alert ID'),
-      'searchable': true,
-      width: "10%",
-      valign: "middle"
-    },
-		   {
-                     field: "region",
-                     title: i18n.gettext('Region'),
-                     width: "10%",
-                     valign: "middle"
-		   },
-		   {
-                     field: "district",
-                     title: i18n.gettext('District'),
-                     width: "10%",
-                     valign: "middle"
-		   },
-		   {
-                     field: "clinic",
-                     title: i18n.gettext('Clinic'),
-                     'searchable': true,
-                     width: "10%",
-                     valign: "middle"
-		   },
-		   {
-                     field: "report_date",
-                     title: i18n.gettext('Date <br /> Reported'),
-                     width: "10%",
-                     valign: "middle"
-		   },
-		   {
-                     field: "investigation_date",
-                     title: i18n.gettext('Date <br /> Investigated'),
-                     valign: "middle"
-		   },
-		   {
-                     field: "status",
-                     title: i18n.gettext('Status'),
-                     valign: "middle"
-
-		   },
-		   {
-                     field: "age",
-                     title: i18n.gettext('Age'),
-                     valign: "middle"
-
-		   },
-		   {
-                     field: "gender",
-                     title: i18n.gettext('Gender'),
-                     valign: "middle"
-		   },
-		   {
-                     field: "profession",
-                     title: i18n.gettext('Profession'),
-                     valign: "middle"
-		   },
-		   {
-                     field: "status_2",
-                     title: i18n.gettext('Status'),
-                     valign: "middle"
-
-		   }
+    var columns = [
+      {
+	field: "alert_id",
+	title: i18n.gettext('Alert ID'),
+	'searchable': true,
+	width: "10%",
+	valign: "middle"
+      },
+      {
+        field: "region",
+        title: i18n.gettext('Region'),
+        width: "10%",
+        valign: "middle"
+      },
+      {
+        field: "district",
+        title: i18n.gettext('District'),
+        width: "10%",
+        valign: "middle"
+      },
+      {
+        field: "clinic",
+        title: i18n.gettext('Clinic'),
+        'searchable': true,
+        width: "10%",
+        valign: "middle"
+      },
+      {
+        field: "report_date",
+        title: i18n.gettext('Date <br /> Reported'),
+        width: "10%",
+        valign: "middle"
+      },
+      {
+        field: "investigation_date",
+        title: i18n.gettext('Date <br /> Investigated'),
+        valign: "middle"
+      },
+      {
+        field: "status",
+        title: i18n.gettext('Status'),
+        valign: "middle"
+	
+      },
+      {
+        field: "age",
+        title: i18n.gettext('Age'),
+        valign: "middle"
+	
+      },
+      {
+        field: "gender",
+        title: i18n.gettext('Gender'),
+        valign: "middle"
+      },
+      {
+        field: "profession",
+        title: i18n.gettext('Profession'),
+        valign: "middle"
+      },
+      {
+        field: "status_2",
+        title: i18n.gettext('Status'),
+        valign: "middle"
+	
+      }
     ];
     var data = [];
 
@@ -1342,6 +1343,14 @@ function drawPlagueTable(containerID, cases, variables) {
     addPaginationListener('#' + containerID + ' table');
   });
 }
+
+
+
+/**:drawVHFTable(containerID, cases, variables)
+
+   Draws a table of cases of Viral Heamorragic Fever
+
+*/
 
 function drawVHFTable(containerID, cases, variables) {
   $.getJSON(api_root + "/locations", function(locations) {
