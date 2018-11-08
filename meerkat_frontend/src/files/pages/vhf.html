@@ -111,7 +111,7 @@
      url = api_root+"/alerts?reason=alert_cmd_14&location="+locID
      url1 = api_root+"/alerts?reason=mort_alert_cmd_14&location="+locID
      $.getJSON( url, function( data1 ) {
-       $.getJSON( url, function( data2 ) {
+       $.getJSON( url1, function( data2 ) {
 	 
 	 //Sort the alerts by date.
 	 var alerts = data1.alerts.concat(data1.alerts, data2.alerts);
