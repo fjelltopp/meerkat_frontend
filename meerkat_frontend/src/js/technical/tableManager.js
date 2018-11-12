@@ -1598,6 +1598,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     var stringGraphType = 'data';
     var multiplier = 100 / denominator;
     var noWeeks;
+    var weeks;
     if (graphtypeID === 0) {
         stringGraphType = 'Completeness';
     } else if (graphtypeID === 1) {
@@ -1618,58 +1619,57 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         var loc_entry = []; //entry for one week
         //dropping the current week (noWeeks) in the data since we can only estimate it's completeness
         noWeeks = whole_loc_timeline.weeks.length;
-        var weeks = lastWeeks(get_epi_week(), noWeeks + 1); //last completeness is from previous week
-        for (var j = 0; j < noWeeks; j++) {
-            if (start_week) {
-                if (weeks[noWeeks - j] >= start_week) {
-                    loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
-                    loc_record.push(loc_entry);
-                }
-            } else {
-                loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
-                loc_record.push(loc_entry);
-            }
-        }
-        if (locations[index].id !== regionID) { //Total
-            table_datum = {
-                "name": locations[index].name,
-                "region": locations[locations[index].parent_location].name,
-                "year": Number(year_loc_val).toFixed(0)
-            };
+        weeks = lastWeeks(get_epi_week(), noWeeks + 1); //last completeness is from previous week
+      for (var j = 0; j < noWeeks; j++) {
+        if (start_week) {
+          if (weeks[noWeeks - j] >= start_week) {
+            loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
+            loc_record.push(loc_entry);
+          }
         } else {
-            table_datum = {
-                "name": locations[index].name,
-                "region": "-Total-",
-                "year": Number(year_loc_val).toFixed(0)
-            };
+          loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
+          loc_record.push(loc_entry);
         }
+      }
+      if (locations[index].id !== regionID) { //Total
+        table_datum = {
+          "name": locations[index].name,
+          "region": locations[locations[index].parent_location].name,
+          "year": Number(year_loc_val).toFixed(0)
+        };
+      } else {
+        table_datum = {
+          "name": locations[index].name,
+          "region": "-Total-",
+          "year": Number(year_loc_val).toFixed(0)
+        };
+      }
 
-        //push every week separately now to the datum
-        for (var l = 1; l < loc_record.length + 1; l++) {
-            table_datum["week" + loc_record[l - 1][0]] = loc_record[l - 1][1];
-        }
-        table_data.push(table_datum);
+      //push every week separately now to the datum
+      for (var l = 1; l < loc_record.length + 1; l++) {
+        table_datum["week" + loc_record[l - 1][0]] = loc_record[l - 1][1];
+      }
+      table_data.push(table_datum);
     }
 
-    var columns = [{
-        "field": "region",
-        "title": "Region",
-        "align": "center",
-        "class": "header"
-    }, {
-        "field": "name",
-        "title": "District",
-        "align": "center",
-        "class": "header"
-    }];
-
-    //Add column for every previous week:
-    for (var k = 1; k <= noWeeks; k++) {
+  var columns = [{
+    "field": "region",
+    "title": "Region",
+    "align": "center",
+    "class": "header"
+  }, {
+    "field": "name",
+    "title": "District",
+    "align": "center",
+    "class": "header"
+  }];
+  //Add column for every previous week:
+  for (var k = 1; k < noWeeks; k++) {
         if (start_week) {
             if (k >= start_week) {
                 columns.push({
-                    "field": "week" + k,
-                    "title": i18n.gettext("W") + k,
+                    "field": "week" + weeks[noWeeks - k],
+                    "title": i18n.gettext("W") + weeks[noWeeks - k],
                     "align": "center",
                     "class": "value",
                     "cellStyle": createCompletenessMatrixCellTab()
@@ -1677,8 +1677,8 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             }
         } else {
             columns.push({
-                "field": "week" + k,
-                "title": i18n.gettext("W") + k,
+                "field": "week" + weeks[noWeeks - k],
+                "title": i18n.gettext("W") + weeks[noWeeks - k],
                 "align": "center",
                 "class": "value",
                 "cellStyle": createCompletenessMatrixCellTab()
