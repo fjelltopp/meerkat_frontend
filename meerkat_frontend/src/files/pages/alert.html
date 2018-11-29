@@ -44,6 +44,12 @@
 				<td align="right" class="fit" ><b id="clinic_title"></b></td>
 				<td><span id="clinic" class="alertInfo" ></span> </td>
 			    </tr>
+                            <tr>
+                            <td align="right" class="fit" >
+			      <b><span id="district_title"></span></b>
+				</td>
+				<td><span id="district" class="alertInfo" ></span> </td>
+                            </tr>
 			    <tr class="spaceUnder">
 				<td align="right" class="fit" >
 				    <b><span class="glossary capitalised" word="region" id="region_title"></span>:</b>
@@ -106,6 +112,7 @@
      $("#type").html(i18n.gettext('Type:'));
      $("#date_title").html(i18n.gettext('Date:'));
      $("#clinic_title").html(i18n.gettext('Clinic:'));
+     $("#district_title").html(i18n.gettext('District:'));
      $("#region_title").html(i18n.gettext('Region:'));
       $(".alertInfo").each(function(){
 	 $(this).html(i18n.gettext('No data loaded'));
@@ -122,10 +129,12 @@
 		 $('#date').html( alert.alert.date.split("T")[0] );
 		 year = alert.alert.date.split("-")[0]
 		 var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===alert.alert.clinic; });
-		 var parent = node.getPath();
-		 parent = parent[parent.length-2];
-		 $('#clinic').html( node.model.text );
-		 $('#region').html( parent.model.text );
+	         var path = node.getPath();
+                 district = path[path.length - 2];
+                 region = path[path.length - 3];
+       	         $('#clinic').html( node.model.text );
+                 $('#district').html( district.model.text );
+	         $('#region').html( region.model.text );
 		 $('#type_info').html(variables[alert.alert.categories.ebs_event_type].name);
 	         $("#patient_title").html(i18n.gettext('Cases:'));
 		 $("#patient_age_title").html(i18n.gettext('Hospitalised:'));
@@ -220,8 +229,10 @@
                  $("#investigation_title").html(i18n.gettext('Alert Investigation:'));
 		 //Load the location info for the given location ID from the location tree.
                  var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===alert.alert.clinic; });
-		 var parent = node.getPath();
-		 parent = parent[parent.length-2];
+		 var path = node.getPath();
+console.log(path);
+		 district = path[path.length - 2];
+                 region = path[path.length - 3];
 		 
 		 //Assemble the alert investigation checklist as a table.
 		 var stages = ["Referral", "Case Management", "Contact Tracing", "Laboratory Diagnosis" ];
@@ -249,8 +260,9 @@
 		 $('#reason').html( variables[alert.alert.variables.alert_reason].name );
 		 $('#date').html( alert.alert.date.split("T")[0] );
 		 year = alert.alert.date.split("-")[0]
-		 $('#clinic').html( node.model.text );
-		 $('#region').html( parent.model.text );
+	         $('#clinic').html( node.model.text );
+                 $('#district').html( district.model.text );
+		 $('#region').html( region.model.text );
 		 console.log(alert);
     	         if (alert.alert.variables.alert_type == "individual") {
 		     $('#type_info').html(i18n.gettext("Individual"));
