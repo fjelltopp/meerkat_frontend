@@ -72,7 +72,9 @@ def subscribed():
         'verify_text',
         "Dear {first_name} {last_name} ,\n\n" +
         "Your subscription to receive public health surveillance "
-        "notifications from {country} has been created/updated.\n\nPlease "
+        "notifications from {country} has been created or updated.  An "
+        "administrator of the system may have done this on your behalf. "
+        "\n\nIn order to receive future notifications, please "
         "verify your contact details by copying and pasting the following url "
         "into your address bar: {url}\n"
     )).format(
@@ -86,9 +88,11 @@ def subscribed():
         'verify_html',
         "<p>Dear {first_name} {last_name},</p>"
         "<p>Your subscription to receive public health surveillance "
-        "notifications from {country} has been created/updated.</p><p>"
-        "Please verify your contact details by <a href='{url}' "
-        "target='_blank'>clicking here</a>.</p>"
+        "notifications from {country} has been created or updated. "
+        "An administrator of the system may have done this on your "
+        "behalf.</p><p> To receive future notifications, please verify "
+        "your contact details by <a href='{url}' target='_blank'>"
+        "clicking here</a>.</p>"
     )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
@@ -377,9 +381,9 @@ def __set_code(subscriber_id, sms):
     """
     code = round(random.random()*9999)
     message = gettext(
-        'Your verification code for {country} public health'
-        'surveillance notifications is: {code}. Please follow instructions'
-        ' in the email to verify your contact details.'
+        'Your verification code for {country} public health '
+        'surveillance notifications is: {code}. For further information '
+        'please see your email.'
     ).format(
         country=current_app.config['MESSAGING_CONFIG']['messages']['country'],
         code=code
