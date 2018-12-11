@@ -995,7 +995,108 @@ function drawEbsTable(containerID, location_id) {
 
 
 }
+/**:drawMalariaStockTable(containerID, location_id)
 
+    ??
+
+    :param string containerID:
+        The ID attribute of the html element to hold the table.
+    :param number location_id:
+        The ID of the location by which to filer data.
+
+ */
+function drawMalariaStockTable(containerID, location_id, stock_variable, variable_prefix, n_records_id) {
+    var stocks = {
+        "malaria_rdt": i18n.gettext("RDT (Kit)"),
+        "malaria_act_age0": i18n.gettext("ACT 02-12 Months"),
+        "malaria_act_age1": i18n.gettext("ACT 1-5 Years"),
+        "malaria_act_age2": i18n.gettext("ACT 6-13 Years"),
+        "malaria_act_age3": i18n.gettext("ACT >14 Years"),
+        "malaria_art_inj": i18n.gettext("Artesunate injectable"),
+        "malaria_art_supp": i18n.gettext("Artesunate suppositories"),
+        "malaria_cp": i18n.gettext("Primaquine"),
+        "malaria_sulfadoxine": i18n.gettext("Sulfadoxine Pyriméthamine"),
+        "malaria_mid": i18n.gettext("MID de routine")
+    };
+
+    $.getJSON(api_root + "/locations", function(locations) {
+        
+        //Create the table headers, using the central review flag from the cofiguration file.
+        columns = [
+            {
+                field: "stock",
+                title: ""
+            },
+            {
+                field: "start_week",
+                title: i18n.gettext("Begining of the week")
+            },
+            {
+                field: "received",
+                title: i18n.gettext('Quantity Received'),
+                'searchable': true
+            },
+            {
+                field: "used",
+                title: i18n.gettext('Quantity Used')
+            },
+            {
+                field: "adjustment",
+                title: i18n.gettext('Adjustment')
+            },
+            {
+                field: "end_week",
+                title: i18n.gettext('End of the week')
+            },{
+                field: "cmm",
+                title: i18n.gettext('Average Monthly Consumption')
+            }
+        ];
+
+        $.getJSON(api_root + "/records/" + stock_variable +"/" + location_id + "?only_last_week=1&unique_clinic=last", function(case_dict) {
+            var records = case_dict.records;
+            var data = [];
+            for (var stock in stocks){
+                var stock_name = stocks[stock];
+                var start = 0;
+                var end = 0;
+                var used = 0;
+                var received = 0;
+                var adjustment = 0;
+                var cmm = 0;
+                if(variable_prefix){
+                    stock = variable_prefix + stock;
+                }
+                console.log(stock);
+                for (var record_index in records){
+                    record = records[record_index].variables;
+                    start += record[stock + "_start"];
+                    used += record[stock + "_used"];
+                    adjustment += record[stock + "_adjust"];
+                    received += record[stock + "_received"];
+                    cmm += record[stock + "_cmm"];
+                    end += record[stock + "_start"] + record[stock + "_received"] -
+                        record[stock + "_used"] +  record[stock + "_adjust"];
+                }
+                data.push({
+                    "stock": stock_name,
+                    "start_week": start,
+                    "end_week": end,
+                    "used": used,
+                    "adjustment": adjustment,
+                    "cmm": cmm,
+                    "received": received
+                });
+            }
+            $('#' + containerID).html("<table> </table>");
+            $('#' + containerID + ' table').bootstrapTable({
+                columns: columns,
+                data: data
+   
+            });
+        });
+    });
+}
 /**:drawTBTable(containerID, aggData, variables)
 
     ??

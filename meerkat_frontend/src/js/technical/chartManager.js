@@ -348,6 +348,69 @@ function drawTimeChart(varID, locID, containerID, alert_week, year) {
 
 }
 
+function drawStackedEpiCurveData(containerID, data, variables, label){
+    var series_keys = Object.keys(data);
+    console.log(data);
+    console.log(series_keys[0]);
+    var weeks = Object.keys(data[series_keys[0]].weeks);
+
+    var series = [];
+
+    for(var name_index in series_keys){
+        series_name = series_keys[name_index];
+        var week_data = [];
+        for(var week in data[series_name].weeks){
+            week_data.push(data[series_name].weeks[week]);
+        }
+        
+        current_series = {
+            name: variables[series_name].name,
+            data: week_data
+        };
+        series.push(current_series);
+    }
+
+    var chart = {
+        chart: {
+            type: 'column',
+            animation: false
+        },
+	tooltip: {
+	    valueDecimals: 0
+	},
+        title: {
+            text: null
+        },
+        xAxis: {
+            categories: weeks,
+               title: {
+                   text: i18n.gettext("Epidemilogical Weeks"),
+                   align: 'middle'
+            }
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        yAxis: {
+            min: 0,
+            allowDecimals: false,
+            title: {
+                text: label,
+                align: 'middle'
+            }
+	    
+            
+        },
+        series: series
+    };
+    $('#' + containerID).highcharts(chart);
+    $('#' + containerID + " text:contains('Highcharts.com')").remove();
+}
+
+
+
 /**:drawTimeCharts( varID, locID, containerID )
 
     Draws a timeline bar chart showing the number of cases in each epi week this current year.
