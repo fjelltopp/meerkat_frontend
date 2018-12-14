@@ -1,0 +1,440 @@
+<div class="top-bar row">
+    <div class="location-box box">
+        <a href="#menu-toggle" id="menu-toggle">
+            <div class="location-box__label">
+                <div id="location_box"></div>
+                <div id="location-title" class="location-title"></div>
+            </div>
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="glyphicon glyphicon-chevron-left hidden"></span>
+        </a>
+    </div>
+    <div class="less-padding-col tab-title hidden-xs col-sm-5 col-md-5" id="title">
+    </div>
+    <div id="epi-week-title" class="col-xs-12 col-sm-12 col-md-3 pull-right box ">
+    </div>
+</div>
+<div class="malaria toggled" id="wrapper">
+    <div id="sidebar-wrapper" >
+        <div id="location-selector" class="location-selector">
+        </div>
+    </div>
+    <div id="page-content-wrapper">
+        <div class="row">
+            <div class="col-xs-12 less-padding-col">
+                <div class="chartBox box">
+                    <div class="chartBox__heading">
+                        <p id="box_heading"></p>
+                        <div class="box__type-selector pull-right">
+                            <button onclick="selectChartType('charts');" id="malaria-charts" class='btn malaria-charts'>
+                            </button> /
+                            <button onclick="selectChartType('district-maps');" id="malaria-district-maps" class='btn malaria-district-maps'>
+                            </button> /
+                            <button onclick="selectChartType('region-maps');" id="malaria-region-maps" class='btn malaria-region-maps'>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chartBox__content row">
+                        <div class='col-xs-12 col-md-3'>
+                            <div class='indicator-selector'>
+                                <span class='glyphicon glyphicon-chevron-down' onclick="$('.indicator-selector .indicator').toggleClass('show');"></span>
+                            </div>
+                        </div>
+                        <div class='col-xs-12 col-md-9'>
+                            <div class='indicator-charts'>
+                            </div>
+                            <div class='indicator-district-maps'>
+                            </div>
+                            <div class='indicator-region-maps'>
+                            </div>
+                            <div class="chartBox__heading">
+                                <p id="box_heading" style="display: inline"> </p>
+                                <div class="box__type-selector pull-right">
+                                    <a href="" onclick="exportTableToXLS('data-table', 'data'); return false;" class="csv">
+                                    </a>
+                                </div>
+                            </div>
+                            <div id='data-table' class="data-table">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="breaker"></div>
+
+<!-- Menu Toggle Script -->
+<script>
+//This function is called every time a new location is loaded.
+//Any location-dependant content should be redrawn through this function.
+function drawCharts(locID){
+    var deferreds = [
+        $.getJSON(api_root+'/geo_shapes/district', function(data){window.districtShapes=data;}),
+        $.getJSON(api_root+'/geo_shapes/region', function(data){window.regionShapes=data;}),
+        $.getJSON(api_root+'/locations', function(data){window.locationData=data;})
+    ];
+    $.when.apply($, deferreds).then(function(){
+        window.locID = locID;
+        for(var i in indicators){
+            $('.indicator-selector').append(
+                "<div class='indicator "  + indicators[i].id +
+                "' onclick='loadIndicator(\"" + indicators[i].id + "\");'>" +
+                indicators[i].name + "</div>"
+            );
+        }
+        loadIndicator(indicators[0].id);
+    });
+}
+
+// We need to be able to translate the contents of the html page.
+// Text is inserted here using the javascript translator.
+$("#location_box").html(i18n.gettext("Location:"));
+$("#location_title").html(i18n.gettext("Not Loaded"));
+$("#title").html(i18n.gettext('Malaria'));
+$("#epi-week-title").html(i18n.gettext('Date not loaded.'));
+$("#location-selector").html(i18n.gettext('Locations not loaded'));
+$("#box_heading").html(i18n.gettext('Indicators'));
+$('#malaria-charts').html(i18n.gettext('Charts'));
+$('#malaria-district-maps').html(i18n.gettext('District Maps'));
+$('#malaria-region-maps').html(i18n.gettext('Region Maps'));
+$("#epi-week-title").html(i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date());
+
+ $(".csv").each(function(){
+     $(this).html(i18n.gettext('Excel'));
+ });
+
+// This code expands and shrinks the locations selector.
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    $(".location-box .glyphicon").toggleClass("hidden");
+    //Hack to resize highcharts upon side bar toggle. Call window resize() upon transition finish.
+    var transitionEvent = whichTransitionEvent();
+    transitionEvent && document.getElementById('sidebar-wrapper').addEventListener(transitionEvent, function() {
+        $(window).resize();
+    });
+});
+
+function prep(data){
+    var output = [];
+    var keys = Object.keys(data.timeline);
+    for(var k in keys) output.push([new Date(keys[k]), data.timeline[keys[k]]]);
+    return output;
+}
+
+function prep_map(data, locationData){
+    var dataLocations = Object.keys(data);
+    var output = {};
+    for(var l in dataLocations){
+        var locationID = dataLocations[l];
+        if(parseInt(locationID)){
+            output[locationData[locationID].name]={'value': data[locationID].current};
+        }
+    }
+    return output;
+ }
+
+ function createDataTable(data, containerID){
+     keys = Object.keys(data);
+     n_weeks = data[keys[0]].length;
+     var columns = [{
+         "field": "title",
+         "class": "header",
+         "sortable": false,
+         "title": i18n.gettext("Indicator")
+     }];
+     for (var i = 1; i <= n_weeks; i++){
+         columns.push({
+             "field": "week_" + i,
+             "class": "header",
+             "sortable": false,
+             "title": i18n.gettext("Week") + " " + i
+         });
+     }
+     tableData = []
+     for(key in data){
+         var dataRow = {title: i18n.gettext(key)};
+         for(var i=1; i <= n_weeks ; i++){
+             dataRow["week_" + i] = round(data[key][i - 1][1], 0);
+         }
+         tableData.push(dataRow)
+     }
+
+     $('#' + containerID + ' table').bootstrapTable('destroy');
+     $('#' + containerID + ' table').remove();
+     $('#' + containerID).append('<table class="table"></table>');
+     table = $('#' + containerID + ' table').bootstrapTable({
+         columns: columns,
+         data: tableData,
+         classes: 'table-no-bordered table-hover'
+     });
+ }
+
+var extra_label = "<br />Map shows latest week's data.";
+
+var indicators =  [{
+        name: i18n.gettext("Number of Cases"),
+        id: "malaria-cases",
+        drawFigures: function(opts){
+            var deferreds = [
+                $.getJSON(api_root+'/indicators/n/cmd_17/'+opts.locID + "?current_year=1", function(data){confirmed=prep(data);}),
+                $.getJSON(api_root+'/indicators/n/cmd_29/'+opts.locID + "?current_year=1", function(data){unconfirmed=prep(data);}),
+                $.getJSON(api_root+'/indicators/n/cmd_17/'+opts.locID+'?group_by_level=district&current_year=1', function(data){confirmedDistrictMap=data;}),
+                $.getJSON(api_root+'/indicators/n/cmd_17/'+opts.locID+'?group_by_level=region&current_year=1', function(data){confirmedRegionMap=data;})
+            ];
+            $.when.apply($, deferreds).then(function(){
+                $('.indicator-charts').append("<div class='chart show " + opts.id + "' id='" + opts.id + "-chart'></div>");
+                Highcharts.chart(opts.id+'-chart', {
+                    chart: {type: 'spline'},
+                    title:{text: undefined},
+                    plotOptions: {spline: {marker: {enabled: false}}},
+                    xAxis: {title: {text: i18n.gettext('Week')}},
+                    yAxis: {title: {text: i18n.gettext('Cases')}},
+                    series: [{
+                        name: i18n.gettext('Confirmed Cases'),
+                        data: confirmed
+                    }, {
+                        name: i18n.gettext('Unconfirmed Cases'),
+                        data: unconfirmed
+                    }]
+                });
+                $('.indicator-district-maps').append("<div class='mapbox map show " + opts.id + "' id='" + opts.id + "-district-map'></div>");
+                var mappedData = prep_map(confirmedDistrictMap, opts.locationData);
+                var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
+                regional_map(mappedData, mapCenter, opts.districtShapes, opts.id+'-district-map', true, extra_label);
+
+                $('.indicator-region-maps').append("<div class='mapbox map show " + opts.id + "' id='" + opts.id + "-region-map'></div>");
+                var mappedData = prep_map(confirmedRegionMap, opts.locationData);
+                var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
+                regional_map(mappedData, mapCenter, opts.regionShapes, opts.id+'-region-map', true, extra_label);
+                $('#data-table').append("<div class='table " + opts.id + " show' id='" + opts.id + "-table'></div>");
+                createDataTable({
+                    "Confirmed Cases": confirmed,
+                    "Unconfirmed Cases": unconfirmed
+                }, opts.id + "-table",);
+                $('.data-table .' + opts.id + ' .table').addClass('selected show');
+
+                selectIndicator(opts.id);
+            });
+        }
+    },{
+        name: i18n.gettext("% RDT for fever cases"),
+        id: "malaria-rdt",
+        drawFigures: function(opts){
+            var deferreds = [
+                $.getJSON(api_root+'/indicators/n,d,m/mls_3,mls_2,100/'+opts.locID+"?current_year=1", function(data){rdt=prep(data);}),
+                $.getJSON(api_root+'/indicators/n,d,m/mls_3,mls_2,100/'+opts.locID+'?group_by_level=district&current_year=1', function(data){rdtDistrictMap=data;}),
+                $.getJSON(api_root+'/indicators/n,d,m/mls_3,mls_2,100/'+opts.locID+'?group_by_level=region&current_year=1', function(data){rdtRegionMap=data;})
+            ];
+            $.when.apply($, deferreds).then(function(){
+                $('.indicator-charts').append("<div class='chart " + opts.id + "' id='" + opts.id + "-chart'></div>");
+                Highcharts.chart(opts.id+'-chart', {
+                    chart: {type: 'spline'},
+                    title:{text: undefined},
+                    plotOptions: {spline: {marker: {enabled: false}}},
+                    xAxis: {title: {text: i18n.gettext('Week')}},
+                    yAxis: {title: {text: i18n.gettext('% fever cases tested')}},
+                    series: [{
+                        name: i18n.gettext('% RDT for fever cases'),
+                        data: rdt
+                    }]
+                });
+                $('.indicator-district-maps').append("<div class='mapbox map " + opts.id + "' id='" + opts.id + "-district-map'></div>");
+                var mappedData = prep_map(rdtDistrictMap, opts.locationData);
+                var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
+                regional_map(mappedData, mapCenter, opts.districtShapes, opts.id+'-district-map', true, extra_label);
+
+                $('.indicator-region-maps').append("<div class='mapbox map " + opts.id + "' id='" + opts.id + "-region-map'></div>");
+                mappedData = prep_map(rdtRegionMap, opts.locationData);
+                regional_map(mappedData, mapCenter, opts.regionShapes, opts.id+'-region-map', true, extra_label);
+
+                $('#data-table').append("<div class='table " + opts.id + "' id='" + opts.id + "-table'></div>");
+                createDataTable({"% RDT for fever cases": rdt}, opts.id + "-table");
+
+                selectIndicator(opts.id);
+            });
+        }
+    },{
+        name: i18n.gettext("% ACT for malaria cases"),
+        id: "malaria-act",
+        drawFigures: function(opts){
+
+            var deferreds = [
+                $.getJSON(api_root+'/indicators/n,d,m/mls_48,cmd_17,100/'+opts.locID + "?current_year=1", function(data){act=prep(data);}),
+                $.getJSON(api_root+'/indicators/n,d,m/mls_48,cmd_17,100/'+opts.locID+'?group_by_level=district&current_year=1', function(data){actDistrictMap=data;}),
+                $.getJSON(api_root+'/indicators/n,d,m/mls_48,cmd_17,100/'+opts.locID+'?group_by_level=region&current_year=1', function(data){actRegionMap=data;})
+            ];
+            $.when.apply($, deferreds).then(function(){
+                $('.indicator-charts').append("<div class='chart " + opts.id + "' id='" + opts.id + "-chart'></div>");
+                Highcharts.chart(opts.id+'-chart', {
+                    chart: {type: 'spline'},
+                    title:{text: undefined},
+                    plotOptions: {spline: {marker: {enabled: false}}},
+                    xAxis: {title: {text: i18n.gettext('Week')}},
+                    yAxis: {title: {text: i18n.gettext('% Malaria cases treated')}},
+                    series: [{
+                        name: i18n.gettext('% ACT Treatments for Malaria cases'),
+                        data: act
+                    }]
+                });
+                $('.indicator-district-maps').append("<div class='mapbox map " + opts.id + "' id='" + opts.id + "-district-map'></div>");
+                var mappedData = prep_map(actDistrictMap, opts.locationData);
+                var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
+                regional_map(mappedData, mapCenter, opts.districtShapes, opts.id+'-district-map', true, extra_label);
+
+                $('.indicator-region-maps').append("<div class='mapbox map " + opts.id + "' id='" + opts.id + "-region-map'></div>");
+                mappedData = prep_map(actRegionMap, opts.locationData);
+                regional_map(mappedData, mapCenter, opts.regionShapes, opts.id+'-region-map', true, extra_label);
+                $('#data-table').append("<div class='table " + opts.id + "' id='" + opts.id + "-table'></div>");
+                createDataTable({'% ACT Treatments for Malaria cases': act}, opts.id + "-table");
+
+                selectIndicator(opts.id);
+            });
+        }
+    }
+];
+
+ var simple_indicators = {
+     "ipt": ["No of pregnant women who received IPT during first ANC visit",
+             "mlp_1"],
+     "ipt_trim": ["No of pregnant women who received IPT during first ANC visit within 16 weeks",
+                  "mlp_2"],
+     "ipt1": ["No of pregnant women who received IPT 1",
+              "mlp_3"],
+     "ipt2": ["No of pregnant women who received IPT 2",
+              "mlp_4"],
+     "ipt3": ["No of pregnant women who received IPT 3",
+              "mlp_5"],
+     "children-llin-routine": [
+         "No of children under five who received a LLIN during routine distribution",
+         "mlp_6"],
+     "preg-llin-routine": [
+         "No of pregnant women who received a LLIN during routine distribution",
+         "mlp_7"],
+     "children-llin-other": [
+         "No of children under five who received a LLIN during another mode of distribution",
+         "mlp_8"
+     ],
+     "preg-llin-other": [
+         "No of pregnant women who received a LLIN during another mode of distribution",
+         "mlp_9"
+         ]
+ }
+
+ for(var indicator in simple_indicators){
+     title = simple_indicators[indicator][0];
+     code = simple_indicators[indicator][1];
+     indicators.push({
+         name: i18n.gettext(title),
+         id: "malaria-" + indicator,
+         title: title,
+         code: code,
+         drawFigures: function(opts){
+             url_week = api_root+'/indicators/n/' + opts.code +'/'+opts.locID + "?current_year=1";
+             url_district_map = api_root+'/indicators/n/'+ opts.code +'/'+opts.locID+'?group_by_level=district&current_year=1'
+             url_region_map = api_root+'/indicators/n/' + opts.code +'/'+opts.locID+'?group_by_level=region&current_year=1'
+
+            var deferreds = [
+                $.getJSON(url_week, function(data){ipt=prep(data);}),
+                $.getJSON(url_district_map, function(data){iptDistrictMap=data;}),
+                $.getJSON(url_region_map, function(data){iptRegionMap=data;})
+            ];
+            $.when.apply($, deferreds).then(function(){
+                $('.indicator-charts').append("<div class='chart " + opts.id + "' id='" + opts.id + "-chart'></div>");
+                Highcharts.chart(opts.id+'-chart', {
+                    chart: {type: 'column'},
+                    title:{text: undefined},
+                    plotOptions: {spline: {marker: {enabled: false}}},
+                    xAxis: {title: {text: i18n.gettext('Week')}, tickInterval: 1},
+                    yAxis: {title: {text: i18n.gettext('Cases')}, minTickInterval: 1},
+                    series: [{
+                        name: i18n.gettext(opts.title),
+                        data: ipt
+                    }]
+                });
+                $('.indicator-district-maps').append("<div class='mapbox map " + opts.id + "' id='" + opts.id + "-district-map'></div>");
+                var mappedData = prep_map(iptDistrictMap, opts.locationData);
+                var mapCenter = [config.map.center.lat, config.map.center.lng, config.map.zoom];
+                regional_map(mappedData, mapCenter, opts.districtShapes, opts.id+'-district-map', true, extra_label);
+
+                $('.indicator-region-maps').append("<div class='mapbox map " + opts.id + "' id='" + opts.id + "-region-map'></div>");
+                mappedData = prep_map(iptRegionMap, opts.locationData);
+                regional_map(mappedData, mapCenter, opts.regionShapes, opts.id+'-region-map', true, extra_label);
+                $('#data-table').append("<div class='table " + opts.id + "' id='" + opts.id + "-table'></div>");
+                createDataTable({[opts.title]: ipt}, opts.id + "-table");
+
+                selectIndicator(opts.id);
+            });
+        }
+    });
+ }
+
+function loadIndicator(id){
+    if(!document.getElementById(id+"-chart")){
+        var indicator = indicators.filter(function(el){return el.id == id})[0];
+        var options = {
+            'id': indicator.id,
+            'title': indicator.title,
+            'code': indicator.code,
+            'locID': window.locID,
+            'locationData': window.locationData,
+            'districtShapes': window.districtShapes,
+            'regionShapes': window.regionShapes
+        };
+        indicator.drawFigures(options);
+    }else{
+        selectIndicator(id);
+    }
+}
+
+function selectIndicator(id){
+    $('.indicator-selector .indicator').removeClass('selected');
+    $('.indicator-selector .'+id).addClass('selected');
+    $('.indicator-charts .chart').removeClass('selected show');
+    $('.indicator-charts .'+id).addClass('selected show');
+    $('.data-table .table').removeClass('selected show');
+    $('.data-table .' + id).addClass('selected show');
+    $('.data-table .' + id + ' .table').addClass('selected show');
+    $('.indicator-district-maps .map').removeClass('selected show');
+    $('.indicator-district-maps .'+id).addClass('selected show');
+    $('.indicator-district-maps .'+id).trigger('resizeMap');
+    $('.indicator-region-maps .map').removeClass('selected show');
+    $('.indicator-region-maps .'+id).addClass('selected show');
+    $('.indicator-region-maps .'+id).trigger('resizeMap');
+    $(window).resize();
+}
+
+function selectChartType(type){
+
+    switch (type) {
+        case 'charts':
+            $('.box__type-selector .btn').removeClass('selected');
+            $('.box__type-selector .malaria-charts').addClass('selected');
+            $('.indicator-charts').addClass('show');
+            $('.indicator-district-maps').removeClass('show');
+            $('.indicator-region-maps').removeClass('show');
+            break;
+        case 'district-maps':
+            $('.box__type-selector .btn').removeClass('selected');
+            $('.box__type-selector .malaria-district-maps').addClass('selected');
+            $('.indicator-charts').removeClass('show');
+            $('.indicator-district-maps').addClass('show');
+            $('.indicator-region-maps').removeClass('show');
+            $('.indicator-district-maps').children().trigger('resizeMap');
+            break;
+        case 'region-maps':
+            $('.box__type-selector .btn').removeClass('selected');
+            $('.box__type-selector .malaria-region-maps').addClass('selected');
+            $('.indicator-charts').removeClass('show');
+            $('.indicator-district-maps').removeClass('show');
+            $('.indicator-region-maps').addClass('show');
+            $('.indicator-region-maps').children().trigger('resizeMap');
+            break;
+    }
+    $(window).resize();
+}
+selectChartType('charts');
+
+</script>
