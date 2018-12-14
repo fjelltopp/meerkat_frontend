@@ -91,8 +91,8 @@ function sitesBarChartQuantity(categories, series, labels) {
         text: labels.yAxis.text,
         align: 'middle'
       }
-		
-     
+
+
     },
     series: series
   };
@@ -119,8 +119,8 @@ function sitesBarChartIncidence(categories, series, labels) {
         text: labels.yAxis.text,
         align: 'middle'
       }
-		
-     
+
+
     },
     series: series
   };
@@ -201,7 +201,7 @@ function communicableDiseasesBarChart(categories, series, labels) {
           enabled: false
         }
       }
-	
+
     },
     xAxis: {
       categories: categories,
@@ -605,7 +605,7 @@ function completenessBarChart(categories, series, labels, type) {
   return chart;
 }
 
-//Measles bar chart for the afro bulletin.
+//Measles bar chart for the OMS bulletin.
 function measlesBarChart(categories, series, labels) {
   var chart = {
     chart: {
@@ -647,7 +647,7 @@ function measlesBarChart(categories, series, labels) {
   return chart;
 }
 
-//Malaria bar chart for the afro bulletin.
+//Malaria bar chart for the OMS bulletin.
 function malariaChart(weeks, series, labels) {
 
   var chart = {
@@ -704,7 +704,7 @@ function malariaChart(weeks, series, labels) {
 	return chart;
 }
 
-//Malaria bar chart for the afro bulletin.
+//Malaria bar chart for the OMS bulletin.
 function malnutritionChart(weeks, series, labels) {
 
   var chart = {
@@ -784,4 +784,3 @@ function malnutritionChart(weeks, series, labels) {
       });
     }
 );*/
-
