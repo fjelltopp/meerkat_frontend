@@ -1246,6 +1246,7 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
     for (var i = 0; i < scoreKeys.length; i++) {
         index = scoreKeys[i];
         var datum = {
+            "id": index,
             "location": locations[index].name,
             "completeness": Number(data.clinic_score[index]).toFixed(0) + "%",
             "yearly": Number(data.clinic_yearly_score[index]).toFixed(0) + "%"
@@ -1301,6 +1302,7 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        idField: "id",
         classes: 'table-no-bordered table-hover',
         sortName: 'completeness',
         sortOrder: 'desc'
@@ -1734,12 +1736,14 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
       }
       if (locations[index].id !== regionID) { //Total
         table_datum = {
+          "id": index,
           "name": locations[index].name,
           "region": locations[locations[index].parent_location].name,
           "year": Number(year_loc_val).toFixed(0)
         };
       } else {
         table_datum = {
+          "id": index,
           "name": locations[index].name,
           "region": "-Total-",
           "year": Number(year_loc_val).toFixed(0)
@@ -1801,6 +1805,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: table_data,
+        idField: "id",
         classes: 'table-responsive table-bordered ',
         sortName: 'region',
         sortOrder: 'asc'
