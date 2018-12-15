@@ -1714,7 +1714,8 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     //If a clinic started reporting mid-year there will be missing data for some weeks. Because of that we ought to assume that if data is incomplete, it is only relevant for most recent weeks.
     var table_data = [];
     var table_datum = [];
-    for (var i = 0; i < scoreKeys.length; i++) {
+    var noOfEntries = scoreKeys.length;
+    for (var i = 0; i < noOfEntries; i++) {
         index = scoreKeys[scoreKeys.length - i - 1];
         whole_loc_timeline = data.timeline[index];
         year_loc_val = data.yearly_score[index];
@@ -1744,7 +1745,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
       } else {
         table_datum = {
           "id": index,
-          "name": locations[index].name,
+            "name": Number(noOfEntries - 1),
           "region": "-Total-",
           "year": Number(year_loc_val).toFixed(0)
         };
