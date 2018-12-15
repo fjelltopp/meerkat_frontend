@@ -1696,7 +1696,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
    Completeness data from API.
 */
 
-function drawCompletenessMatrix(containerID, regionID, denominator, locations, data, start_week, graphtypeID) {
+function drawCompletenessMatrix(containerID, regionID, denominator, locations, data, dataCompTab, start_week, graphtypeID) {
 
     var stringGraphType = 'data';
     var multiplier = 100 / denominator;
@@ -1718,6 +1718,12 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     for (var i = 0; i < noOfEntries; i++) {
         index = scoreKeys[scoreKeys.length - i - 1];
         whole_loc_timeline = data.timeline[index];
+        if(locations[index].id !== regionID){
+            parent_loc_id = locations[index].parent_location;
+            year_reg_val = dataCompTab.yearly_score[parent_loc_id];
+        }else{
+            year_reg_val = data.yearly_score[index];
+        }
         year_loc_val = data.yearly_score[index];
         var loc_record = []; //whole data for location
         var loc_entry = []; //entry for one week
@@ -1740,14 +1746,16 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
           "id": index,
           "name": locations[index].name,
           "region": locations[locations[index].parent_location].name,
-          "year": Number(year_loc_val).toFixed(0)
+          "year": Number(year_loc_val).toFixed(0),
+          "year_reg": Number(year_reg_val).toFixed(0)
         };
       } else {
         table_datum = {
           "id": index,
-            "name": Number(noOfEntries - 1),
+          "name": Number(noOfEntries - 1),
           "region": "-Total-",
-          "year": Number(year_loc_val).toFixed(0)
+          "year": Number(year_loc_val).toFixed(0),
+          "year_reg": Number(year_reg_val).toFixed(0)
         };
       }
 
@@ -1794,6 +1802,14 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     columns.push({
         "field": "year",
         "title": "Year",
+        "align": "center",
+        "class": "value",
+        "cellStyle": createCompletenessMatrixCellTab()
+    });
+
+    columns.push({
+        "field": "year_reg",
+        "title": "Yearly Regional",
         "align": "center",
         "class": "value",
         "cellStyle": createCompletenessMatrixCellTab()
