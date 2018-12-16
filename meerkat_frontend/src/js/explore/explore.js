@@ -262,162 +262,162 @@ function createTimeline(id, cat, options, title) {
     //These variable will hold all the JSON data from the api, when the AJAX requests are complete.
     var queryData, category, variable, locations_list;
 
-$.getJSON(api_root + "/locations", function(data) {
+    $.getJSON(api_root + "/locations", function(data) {
         locations_list = data;
-    //Assemble the main query url according to the given options.
-    var main_query_url = api_root;
-    if (options.subloconly === true) {
-        if(locations_list[options.location].level==="country"){
-            cat = "locations:region";
-        }
-        if(locations_list[options.location].level==="region"){
-            cat = "locations:district";
-        }
-        if(locations_list[options.location].level==="district"){
-            cat = "locations:clinic";
-        }
-        if(locations_list[options.location].level==="clinic"){
-            cat = "locations:clinic";
-        }
-    }
-    if (options.location_case) {
-        main_query_url += "/query_variable/tot_1/" + cat;
-    } else {
-        main_query_url += '/query_variable/' + id + '/' + cat;
-    }
-
-    if (options.start_date && options.end_date) {
-        main_query_url += '/' + options.start_date + '/' + options.end_date;
-    }
-    main_query_url += '?use_ids=1';
-    if (options.location) {
-        main_query_url += '&only_loc=' + options.location;
-    }
-
-
-    //Execute multiple json requests simultaneously.
-    var deferreds = [
-        $.getJSON(main_query_url, function(data) {
-            queryData = data;
-        }),
-        $.getJSON(api_root + "/variables/" + cat, function(data) {
-            category = data;
-        }),
-        $.getJSON(api_root + "/variable/" + id, function(data) {
-            variable = data;
-        })
-    ];
-
-    //Run the AJAX reuqests asynchronously and act when they have all completed.
-    $.when.apply($, deferreds).then(function() {
-
-        var yKeys = Object.keys(queryData);
-        var xKeys = Object.keys(queryData[yKeys[0]].weeks);
-
-        var colour = false;
-        var strip = false;
-        if (options) {
-            if (options.strip) {
-                strip = true;
+        //Assemble the main query url according to the given options.
+        var main_query_url = api_root;
+        if (options.subloconly === true) {
+            if(locations_list[options.location].level==="country"){
+                cat = "locations:region";
             }
-            if (options.colour == "true") {
-
-                colour = true;
+            if(locations_list[options.location].level==="region"){
+                cat = "locations:district";
+            }
+            if(locations_list[options.location].level==="district"){
+                cat = "locations:clinic";
+            }
+            if(locations_list[options.location].level==="clinic"){
+                cat = "locations:clinic";
             }
         }
+        if (options.location_case) {
+            main_query_url += "/query_variable/tot_1/" + cat;
+        } else {
+            main_query_url += '/query_variable/' + id + '/' + cat;
+        }
 
-        if (title === undefined) {
-            if (options.location_case) {
-                title = i18n.gettext("#Cases from ") + locations_list[id].name;
-            } else {
-                if (variable.name !== undefined) {
-                    title = i18n.gettext("#Cases with ") + i18n.gettext(variable.name);
+        if (options.start_date && options.end_date) {
+            main_query_url += '/' + options.start_date + '/' + options.end_date;
+        }
+        main_query_url += '?use_ids=1';
+        if (options.location) {
+            main_query_url += '&only_loc=' + options.location;
+        }
+
+
+        //Execute multiple json requests simultaneously.
+        var deferreds = [
+            $.getJSON(main_query_url, function(data) {
+                queryData = data;
+            }),
+            $.getJSON(api_root + "/variables/" + cat, function(data) {
+                category = data;
+            }),
+            $.getJSON(api_root + "/variable/" + id, function(data) {
+                variable = data;
+            })
+        ];
+
+        //Run the AJAX reuqests asynchronously and act when they have all completed.
+        $.when.apply($, deferreds).then(function() {
+
+            var yKeys = Object.keys(queryData);
+            var xKeys = Object.keys(queryData[yKeys[0]].weeks);
+
+            var colour = false;
+            var strip = false;
+            if (options) {
+                if (options.strip) {
+                    strip = true;
+                }
+                if (options.colour == "true") {
+
+                    colour = true;
                 }
             }
-        }
-        var columns = [{
-            "field": "state",
-            "checkbox": true
-        }, {
-            "field": "cases",
-            "title": title,
-            "align": "left",
-            "class": "header"
-        }];
-        var data = [];
 
-        console.log(locations_list);
-        //For each key in the y category, form the row from x category data.
-        for (var y in yKeys.sort(idSort)) {
-            if (options.subloconly === true) {
-                //only show sublocation, or in case of a clinic this this clinic
-                if(locations_list[yKeys[y]].parent_location !== options.location && locations_list[yKeys[y]].id !== options.location){
-                    continue;
+            if (title === undefined) {
+                if (options.location_case) {
+                    title = i18n.gettext("#Cases from ") + locations_list[id].name;
+                } else {
+                    if (variable.name !== undefined) {
+                        title = i18n.gettext("#Cases with ") + i18n.gettext(variable.name);
+                    }
                 }
             }
-            var datum = {
-                "cases": i18n.gettext(category[yKeys[y]].name)
-            };
-            var total = 0;
-            for (var x in xKeys) {
-                datum["week_" + xKeys[x]] = queryData[yKeys[y]].weeks[xKeys[x]];
-                total += queryData[yKeys[y]].weeks[xKeys[x]];
+            var columns = [{
+                "field": "state",
+                "checkbox": true
+            }, {
+                "field": "cases",
+                "title": title,
+                "align": "left",
+                "class": "header"
+            }];
+            var data = [];
+
+            console.log(locations_list);
+            //For each key in the y category, form the row from x category data.
+            for (var y in yKeys.sort(idSort)) {
+                if (options.subloconly === true) {
+                    //only show sublocation, or in case of a clinic this this clinic
+                    if(locations_list[yKeys[y]].parent_location !== options.location && locations_list[yKeys[y]].id !== options.location){
+                        continue;
+                    }
+                }
+                var datum = {
+                    "cases": i18n.gettext(category[yKeys[y]].name)
+                };
+                var total = 0;
+                for (var x in xKeys) {
+                    datum["week_" + xKeys[x]] = queryData[yKeys[y]].weeks[xKeys[x]];
+                    total += queryData[yKeys[y]].weeks[xKeys[x]];
+                }
+                datum.total = total;
+                data.push(datum);
             }
-            datum.total = total;
-            data.push(datum);
-        }
-        // Sort out options
-        // Add remaining columns
-        var maxMin = [];
-        if (colour) {
-            maxMin = max_min(data);
-        }
-        for (var k in xKeys.sort(function(a, b) {
+            // Sort out options
+            // Add remaining columns
+            var maxMin = [];
+            if (colour) {
+                maxMin = max_min(data);
+            }
+            for (var k in xKeys.sort(function(a, b) {
                 return a - b;
             })) {
-            var column = {
-                "field": "week_" + xKeys[k],
-                "title": i18n.gettext("Week") + " " + (Number(xKeys[k]) % 52 || 52),
-                "sortable": true
-            };
-            if (colour) {
-                column.cellStyle = createColourCell(maxMin);
+                var column = {
+                    "field": "week_" + xKeys[k],
+                    "title": i18n.gettext("Week") + " " + (Number(xKeys[k]) % 52 || 52),
+                    "sortable": true
+                };
+                if (colour) {
+                    column.cellStyle = createColourCell(maxMin);
+                }
+                columns.push(column);
             }
-            columns.push(column);
-        }
-        columns.push({
-            "field": "total",
-            "title": i18n.gettext("Total"),
-            sortable: true
+            columns.push({
+                "field": "total",
+                "title": i18n.gettext("Total"),
+                sortable: true
+            });
+            if (strip) {
+                var r = stripData(columns, data, options.strip);
+                columns = r[0];
+                data = r[1];
+            }
+            //Draw!
+            var framework = "<div class='table-responsive' >" +
+                "<table id='timeline-table'>" +
+                "</table></div>";
+            $("#timeline-wrapper").html(framework);
+            $("#timeline-table").bootstrapTable({
+                columns: columns,
+                data: data,
+                clickToSelect: true
+            });
+
+            // Set the width of 2nd column to content of header
+            //Needed because we freeze the column
+            function setWidth(){
+                titleWidth = $("#timeline-table th:nth-child(2)").width();
+                $("#timeline-table td:nth-child(2)").css('width', (1+titleWidth)+'px');
+                $("#timeline-table").css('margin-left', (36+titleWidth)+'px');
+            }
+            setWidth();
+            $('#timeline-table').on('all.bs.table', setWidth);
+
+
         });
-        if (strip) {
-            var r = stripData(columns, data, options.strip);
-            columns = r[0];
-            data = r[1];
-        }
-        //Draw!
-        var framework = "<div class='table-responsive' >" +
-            "<table id='timeline-table'>" +
-            "</table></div>";
-        $("#timeline-wrapper").html(framework);
-        $("#timeline-table").bootstrapTable({
-            columns: columns,
-            data: data,
-            clickToSelect: true
-        });
-
-        // Set the width of 2nd column to content of header
-        //Needed because we freeze the column
-        function setWidth(){
-            titleWidth = $("#timeline-table th:nth-child(2)").width();
-            $("#timeline-table td:nth-child(2)").css('width', (1+titleWidth)+'px');
-            $("#timeline-table").css('margin-left', (36+titleWidth)+'px');
-        }
-        setWidth();
-        $('#timeline-table').on('all.bs.table', setWidth);
-
-
-    });
     });
 }
 
