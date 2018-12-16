@@ -262,8 +262,24 @@ function createTimeline(id, cat, options, title) {
     //These variable will hold all the JSON data from the api, when the AJAX requests are complete.
     var queryData, category, variable, locations_list;
 
+$.getJSON(api_root + "/locations", function(data) {
+        locations_list = data;
     //Assemble the main query url according to the given options.
     var main_query_url = api_root;
+    if (options.subloconly === true) {
+        if(locations_list[options.location].level==="country"){
+            cat = "locations:region";
+        }
+        if(locations_list[options.location].level==="region"){
+            cat = "locations:district";
+        }
+        if(locations_list[options.location].level==="district"){
+            cat = "locations:clinic";
+        }
+        if(locations_list[options.location].level==="clinic"){
+            cat = "locations:clinic";
+        }
+    }
     if (options.location_case) {
         main_query_url += "/query_variable/tot_1/" + cat;
     } else {
@@ -278,6 +294,7 @@ function createTimeline(id, cat, options, title) {
         main_query_url += '&only_loc=' + options.location;
     }
 
+
     //Execute multiple json requests simultaneously.
     var deferreds = [
         $.getJSON(main_query_url, function(data) {
@@ -288,9 +305,6 @@ function createTimeline(id, cat, options, title) {
         }),
         $.getJSON(api_root + "/variable/" + id, function(data) {
             variable = data;
-        }),
-        $.getJSON(api_root + "/locations", function(data) {
-            locations_list = data;
         })
     ];
 
@@ -332,9 +346,15 @@ function createTimeline(id, cat, options, title) {
         }];
         var data = [];
 
+        console.log(locations_list);
         //For each key in the y category, form the row from x category data.
         for (var y in yKeys.sort(idSort)) {
-
+            if (options.subloconly === true) {
+                //only show sublocation, or in case of a clinic this this clinic
+                if(locations_list[yKeys[y]].parent_location !== options.location && locations_list[yKeys[y]].id !== options.location){
+                    continue;
+                }
+            }
             var datum = {
                 "cases": i18n.gettext(category[yKeys[y]].name)
             };
@@ -397,6 +417,7 @@ function createTimeline(id, cat, options, title) {
         $('#timeline-table').on('all.bs.table', setWidth);
 
 
+    });
     });
 }
 

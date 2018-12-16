@@ -129,7 +129,7 @@ function reDraw(){
   var week = (get_epi_week()).toString();
 
 
-	 createTimeline("vac_ses", "locations:district", {"strip":true, "colour": "true", "location":currentLocation}, i18n.gettext("Vaccination Sessions"))
+	 createTimeline("vac_ses", "locations", {"strip":true, "colour": "true", "location":currentLocation, "subloconly":true}, i18n.gettext("Vaccination Sessions"))
      $.getJSON(api_root + "/aggregate_category_sum/vaccinated_0_11_mo_infants/" + currentLocation, function( data_u_12 ){
 	 $.getJSON(api_root + "/aggregate_category_sum/vaccinated_12_mo_infants/" + currentLocation,  function( data_12 ){
              $.getJSON(api_root + "/variables/vaccinated_12_mo_infants",  function( variables ){
