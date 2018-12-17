@@ -1,6 +1,6 @@
 {% extends 'reports/base.html' %}
 
-{% block title %}{{report.data.project_region|e}} &middot; {{ _('AFRO Epidemiological Bulletin') }}  &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('OMS Epidemiological Bulletin') }}  &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
 {% block body %}
 <!-- CONTENT -->
 <div class="page-content">
@@ -13,7 +13,7 @@
       >
     </span>
     <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
-    <span> {{ _('AFRO Epidemiological Bulletin') }} </span>
+    <span> {{ _('OMS Epidemiological Bulletin') }} </span>
     <span class="report-week">
         {{_(report.data.project_region|e)}} &middot; {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
     </span>

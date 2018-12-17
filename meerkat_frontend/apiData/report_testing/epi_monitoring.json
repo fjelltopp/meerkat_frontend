@@ -117,7 +117,7 @@
             "category": [
                 "cd_tab",
                 "Intestinal infectious diseases",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -147,7 +147,7 @@
             "category": [
                 "cd_tab",
                 "Viral infections of the central nervous system",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -177,7 +177,7 @@
             "category": [
                 "cd_tab",
                 "Viral infections of the central nervous system",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -265,7 +265,7 @@
             "category": [
                 "cd_tab",
                 "Viral infections characterized by skin and mucous membrane lesions",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -324,7 +324,7 @@
             "category": [
                 "cd_tab",
                 "Influenza and pneumonia",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -413,7 +413,7 @@
                 "cd_tab",
                 "Malnutrition",
                 "epi_monitoring",
-                "afro"
+                "oms"
             ],
             "classification": null,
             "classification_casedef": "Suspected",
@@ -442,7 +442,7 @@
             "category": [
                 "cd_tab",
                 "Malnutrition",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -472,7 +472,7 @@
             "category": [
                 "cd_tab",
                 "Acute upper respiratory infections",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -531,7 +531,7 @@
             "category": [
                 "cd_tab",
                 "Injury of unspecified body region",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -590,7 +590,7 @@
             "category": [
                 "cd_tab",
                 "Intestinal infectious diseases",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -678,7 +678,7 @@
             "category": [
                 "cd_tab",
                 "Certain zoonotic bacterial diseases",
-                "afro",
+                "oms",
                 "epi_monitoring"
             ],
             "classification": null,
@@ -765,7 +765,7 @@
             "case_def": "",
             "category": [
                 "tot_mortality",
-                "afro"
+                "oms"
             ],
             "classification": null,
             "classification_casedef": "",
