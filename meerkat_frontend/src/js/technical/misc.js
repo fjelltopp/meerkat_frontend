@@ -846,7 +846,7 @@ function timelinessPreparation(opts) {
         drawCompletenessTable(opts.tableID, opts.locID, timelinessLocations, timelinessData);
         drawAllClinicsCompleteness(opts.allclinicstableID, opts.locID, timelinessLocations, timelinessData);
         if (opts.matrixID !== undefined) {
-            drawCompletenessMatrix(opts.matrixID, opts.locID, opts.denominator, timelinessLocations, matrixTimelinessData, opts.start_week, 0);
+            drawCompletenessMatrix(opts.matrixID, opts.locID, opts.denominator, timelinessLocations, matrixTimelinessData, timelinessData, opts.start_week, 0);
         }
     });
 
