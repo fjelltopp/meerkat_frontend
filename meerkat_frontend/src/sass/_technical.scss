@@ -480,3 +480,93 @@ footer{
 .disease-table-box{
 	padding-top: 80px;
 }
+
+.malaria{
+    .indicator-charts, .indicator-charts .chart, .data-table .table,
+    .indicator-district-maps, .indicator-district-maps .map,
+    .indicator-region-maps, .indicator-region-maps .map{
+        display: none;
+    }
+    .box__type-selector{
+        .btn{
+            background: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: $blue;
+        }
+        .selected, .btn:active{
+            color: white;
+            background: $blue;
+        }
+        .btn:focus{
+            outline: none;
+        }
+    }
+    @media (min-width: 992px){
+        .indicator-selector{
+
+            border-right: solid 2px #ddd;
+            padding: 10px 0px 30px;
+
+            .glyphicon{
+                display:none;
+            }
+
+            .indicator{
+                line-height: 30px;
+                background: $lightGrey;
+                padding: 10px 20px;
+                border-radius: 5px 0px 0px 5px;
+                border: solid 1px #ddd;
+                border-right: none;
+                margin-bottom: 5px;
+                cursor: pointer;
+            }
+
+            .selected{
+                background: $highlight;
+                color: white;
+                border-color: $highlight;
+            }
+        }
+    }
+    @media (max-width: 991px){
+        .indicator-selector{
+            padding: 10px 0px 30px;
+            position: relative;
+
+            .glyphicon{
+                line-height: 30px;
+                color: $darkGrey;
+                position: absolute;
+                right: 0px;
+                top: 10px;
+                font-size: 20px;
+                padding: 10px 20px;
+                cursor: pointer;
+                background: #ddd;
+                border-radius: 0 5px 5px 0;
+                border: 1px solid #ddd;
+                border-left: none;
+            }
+
+            .indicator{
+                line-height: 30px;
+                background: $lightGrey;
+                padding: 10px 20px;
+                border-radius: 5px;
+                border: solid 1px #ddd;
+                margin-bottom: 5px;
+                display: none;
+                cursor: pointer;
+            }
+
+            .selected{
+                background: $highlight;
+                color: white;
+                border-color: $highlight;
+                display: block;
+            }
+        }
+    }
+}

@@ -133,6 +133,13 @@ gulp.task('copyFlags', function() {
     .pipe(vfs.dest('meerkat_frontend/static/img/flags'));
 });
 
+gulp.task('copyFavicon', function() {
+    return gulp.src([
+        'meerkat_frontend/src/favicon.ico'
+    ])
+    .pipe(vfs.dest('meerkat_frontend/static/'));
+});
+
 gulp.task('copyMapMarkers', function() {
 	return gulp.src([
         'bower_components/mapbox.js/images/**/*',
@@ -165,7 +172,11 @@ gulp.task('img-opt', function(){
 
 gulp.task(
     'img',
-    gulp.series(gulp.parallel('copyFlags', 'copyMapMarkers'), 'img-opt')
+    gulp.series(gulp.parallel(
+      'copyFlags',
+      'copyMapMarkers',
+      'copyFavicon'
+    ), 'img-opt')
 );
 
 //COPY OTHER FILES

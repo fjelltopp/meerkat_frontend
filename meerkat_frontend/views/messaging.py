@@ -5,7 +5,7 @@ A Flask Blueprint module for Meerkat messaging services.
 """
 from flask.ext.babel import gettext
 from flask import Blueprint, render_template
-from flask import redirect, flash, request, current_app, g
+from flask import redirect, flash, request, current_app, g, jsonify
 import random
 from meerkat_frontend import app, auth
 import meerkat_libs as libs
@@ -15,12 +15,15 @@ from .. import common as c
 messaging = Blueprint('messaging', __name__)
 
 
+
+
+
 @messaging.route('/')
 @messaging.route('/loc_<int:locID>')
 @auth.authorise(*app.config['AUTH'].get('messaging', [['BROKEN'], ['']]))
 def subscribe(locID=None):
-
-    """Subscription Process Stage 1: Render the page with the subscription form.
+    """
+    Subscription Process Stage 1: Render the page with the subscription form.
 
        Args:
            locID (int): The location ID of a location to be automatically
@@ -42,8 +45,8 @@ def subscribed():
     """
     Subscription Process Stage 2: Confirms successful subscription request
     and informs the user of the verification process. This method assembles
-    the HTML form data into a strcture that Meerkat Hermes understands and then
-    uses the MeerkatHermes "subscribe" resource to create the subscriber. It
+    the HTML form data into a structure Meerkat Hermes understands and then
+    uses the Meerkat Hermes "subscribe" resource to create the subscriber. It
     further assembles the email and SMS verification messages and uses the
     Meerkat Hermes to send it out.
     """
@@ -67,11 +70,13 @@ def subscribed():
 
     verify_text = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
         'verify_text',
-        "Dear {first_name} {last_name} ,\n\n"
-        "Thank you for subscribing to receive public health "
-        "surveillance notifications from {country}.\n\nPlease "
-        "verify your contact details by copying and pasting the "
-        "following url into your address bar: {url}\n"
+        "Dear {first_name} {last_name} ,\n\n" +
+        "Your subscription to receive public health surveillance "
+        "notifications from {country} has been created or updated.  An "
+        "administrator of the system may have done this on your behalf. "
+        "\n\nIn order to receive future notifications, please "
+        "verify your contact details by copying and pasting the following url "
+        "into your address bar: {url}\n"
     )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
@@ -82,10 +87,12 @@ def subscribed():
     verify_html = gettext(g.config['MESSAGING_CONFIG']['messages'].get(
         'verify_html',
         "<p>Dear {first_name} {last_name},</p>"
-        "<p>Thank you for subscribing to receive public health surveillance "
-        "notifications from {country}.</p><p>Please verify your contact "
-        "details by <a href='{url}' target='_blank'>clicking here</a>."
-        "</p>"
+        "<p>Your subscription to receive public health surveillance "
+        "notifications from {country} has been created or updated. "
+        "An administrator of the system may have done this on your "
+        "behalf.</p><p> To receive future notifications, please verify "
+        "your contact details by <a href='{url}' target='_blank'>"
+        "clicking here</a>.</p>"
     )).format(
         first_name=data["first_name"],
         last_name=data["last_name"],
@@ -104,6 +111,20 @@ def subscribed():
     # Set and send sms verification code.
     if 'sms' in data:
         __set_code(subscribe_response['subscriber_id'], data['sms'])
+
+    # Delete the old account if it exists.  Inform the user of success.
+    if data.get('id', None):
+        response = libs.hermes('/subscribe/' + data['id'], 'DELETE')
+        if hasattr(response, 'status_code') and response.status_code != 200:
+            flash(gettext(
+                'Account update failed: invalid ID. '
+                'Creating new subscription instead.'
+            ))
+        else:
+            flash(
+                gettext('Subscription updated for ') + data['first_name'] +
+                " " + data['last_name'] + "."
+            )
 
     return render_template('messaging/subscribed.html',
                            content=g.config['MESSAGING_CONFIG'],
@@ -290,6 +311,41 @@ def sms_code(subscriber_id):
             )
 
 
+@messaging.route('/get_subscribers')
+@auth.authorise(*app.config['AUTH'].get('admin', [['BROKEN'], ['']]))
+def get_subscribers():
+    """
+    Function that securely uses the server's access to hermes api to extract
+    subscriber data from hermes. If the request went straight from the browsers
+    console to hermes, we would have to give the user direct access to hermes.
+    This is not safe.
+    """
+    country = current_app.config['MESSAGING_CONFIG']['messages']['country']
+    subscribers = libs.hermes('/subscribers/'+country, 'GET')
+    return jsonify({'rows': subscribers})
+
+
+@messaging.route('/delete_subscribers', methods=['POST'])
+@auth.authorise(*app.config['AUTH'].get('admin', [['BROKEN'], ['']]))
+def delete_subscribers():
+    """
+    Delete the subscribers specified in the post arguments.
+    """
+    # Load the list of subscribers to be deleted.
+    subscribers = request.get_json()
+
+    # Try to delete each subscriber, flag up if there is an error
+    error = False
+    for subscriber_id in subscribers:
+        response = libs.hermes('/subscribe/' + subscriber_id, 'DELETE')
+        if response['status'] != 'successful':
+            error = True
+    if error:
+        return "ERROR: There was an error deleting some users."
+    else:
+        return "Users successfully deleted."
+
+
 def __check_code(subscriber_id, code):
     """
     Checks if the given code for the given subscriber ID is the correct SMS
@@ -325,9 +381,9 @@ def __set_code(subscriber_id, sms):
     """
     code = round(random.random()*9999)
     message = gettext(
-        'Your verification code for {country} public health'
-        'surveillance notifications is: {code}. Please follow instructions'
-        ' in the email to verify your contact details.'
+        'Your verification code for {country} public health '
+        'surveillance notifications is: {code}. For further information '
+        'please see your email.'
     ).format(
         country=current_app.config['MESSAGING_CONFIG']['messages']['country'],
         code=code

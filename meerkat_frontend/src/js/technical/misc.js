@@ -768,7 +768,7 @@ function completenessPreparation(opts) {
         drawMissingCompletenessTable(opts.reg_id, opts.nonreportingtableID, opts.nonreportingTitle, opts.locID, completenessLocations, completenessData, opts.filter_string); //this call makes one additional AJAX call
         drawAllClinicsCompleteness(opts.allclinicstableID, opts.locID, completenessLocations, completenessData);
         if (opts.matrixID !== undefined) {
-            drawCompletenessMatrix(opts.matrixID, opts.locID, opts.denominator, completenessLocations, matrixCompletenessData, opts.start_week, 0);
+            drawCompletenessMatrix(opts.matrixID, opts.locID, opts.denominator, completenessLocations, matrixCompletenessData, completenessData, opts.start_week, 0);
         }
     });
 }
@@ -846,7 +846,7 @@ function timelinessPreparation(opts) {
         drawCompletenessTable(opts.tableID, opts.locID, timelinessLocations, timelinessData);
         drawAllClinicsCompleteness(opts.allclinicstableID, opts.locID, timelinessLocations, timelinessData);
         if (opts.matrixID !== undefined) {
-            drawCompletenessMatrix(opts.matrixID, opts.locID, opts.denominator, timelinessLocations, matrixTimelinessData, opts.start_week, 0);
+            drawCompletenessMatrix(opts.matrixID, opts.locID, opts.denominator, timelinessLocations, matrixTimelinessData, timelinessData, opts.start_week, 0);
         }
     });
 
