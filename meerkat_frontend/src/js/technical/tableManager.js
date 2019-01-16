@@ -450,7 +450,7 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
             columns.splice(7,0, central_review_column);
 
         }
-        
+
         if(alerts_table_config.district_column){
             var dist_column = {
                 field: "display_district",
@@ -1020,7 +1020,7 @@ function drawMalariaStockTable(containerID, location_id, stock_variable, variabl
     };
 
     $.getJSON(api_root + "/locations", function(locations) {
-        
+
         //Create the table headers, using the central review flag from the cofiguration file.
         columns = [
             {
@@ -1092,7 +1092,7 @@ function drawMalariaStockTable(containerID, location_id, stock_variable, variabl
             $('#' + containerID + ' table').bootstrapTable({
                 columns: columns,
                 data: data
-   
+
             });
         });
     });
@@ -1357,13 +1357,13 @@ function drawPlagueTable(containerID, cases, variables) {
         field: "status",
         title: i18n.gettext('Status'),
         valign: "middle"
-	
+
       },
       {
         field: "age",
         title: i18n.gettext('Age'),
         valign: "middle"
-	
+
       },
       {
         field: "gender",
@@ -1379,7 +1379,7 @@ function drawPlagueTable(containerID, cases, variables) {
         field: "status_2",
         title: i18n.gettext('Status'),
         valign: "middle"
-	
+
       }
     ];
     var data = [];
@@ -1501,19 +1501,19 @@ function drawVHFTable(containerID, cases, variables) {
         field: "status",
         title: i18n.gettext('Status'),
         valign: "middle"
-	
+
       },{
         field: "type",
         title: i18n.gettext('Type'),
         valign: "middle"
-	
+
       },
-      
+
       {
         field: "age",
         title: i18n.gettext('Age'),
         valign: "middle"
-	
+
       },
       {
         field: "gender",
@@ -1525,7 +1525,7 @@ function drawVHFTable(containerID, cases, variables) {
         field: "status_2",
         title: i18n.gettext('Status'),
         valign: "middle"
-	
+
       }
     ];
     var data = [];
@@ -1550,7 +1550,7 @@ function drawVHFTable(containerID, cases, variables) {
       } else {
         datum.clinic = i18n.gettext(c.type_name);
       }
-   
+
       var gender = "";
 
       if ("gen_1" in c.variables) {
@@ -1578,8 +1578,8 @@ function drawVHFTable(containerID, cases, variables) {
       } else if ("alert_confirmed_marburg" in c.variables){
 	datum.type = i18n.gettext("Marburg Virus");
       }
-	
-	
+
+
 	datum.status_2 = status_2;
       data.push(datum);
     }
@@ -1778,12 +1778,12 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     "class": "header"
   }];
   //Add column for every previous week:
-  for (var k = 1; k < noWeeks; k++) {
+  for (var k = 1; k <= noWeeks; k++) {
         if (start_week) {
             if (k >= start_week) {
                 columns.push({
-                    "field": "week" + weeks[noWeeks - k],
-                    "title": i18n.gettext("W") + weeks[noWeeks - k],
+                    "field": "week" + weeks[noWeeks - (k+1)],
+                    "title": i18n.gettext("W") + weeks[noWeeks - (k+1)],
                     "align": "center",
                     "class": "value",
                     "cellStyle": createCompletenessMatrixCellTab()
@@ -1791,8 +1791,8 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             }
         } else {
             columns.push({
-                "field": "week" + weeks[noWeeks - k],
-                "title": i18n.gettext("W") + weeks[noWeeks - k],
+                "field": "week" + weeks[noWeeks - (k+1)],
+                "title": i18n.gettext("W") + weeks[noWeeks - (k+1)],
                 "align": "center",
                 "class": "value",
                 "cellStyle": createCompletenessMatrixCellTab()
