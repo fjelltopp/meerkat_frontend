@@ -32,13 +32,15 @@
     "main-bower-files": "2.12.0",
     "readable-stream": "2.0.2",
     "run-sequence": "1.2.2",
-    "snyk": "^1.104.2",
+    "snyk": "^1.123.0",
     "tree-model": "1.0.4",
     "xtend": "4.0.0",
     "yargs": "3.15.0"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
@@ -50,5 +52,6 @@
     "karma-phantomjs-launcher": "1.0.0",
     "karma-spec-reporter": "0.0.22",
     "phantomjs-prebuilt": "2.1.14"
-  }
+  },
+  "snyk": true
 }
