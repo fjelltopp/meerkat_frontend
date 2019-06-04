@@ -592,3 +592,26 @@ function ovReturnWeekNumber(date) {
     var currentDate = new Date(date);
     return currentDate.getWeek();
 }
+
+function prep_row_completeness(contentsObj, parentId, locID) {
+    if (isUserAthorized(contentsObj.access) === true) {
+
+        //Generate a GUID ...
+        var elementID = generateGUID();
+
+        //Append the results ...
+        var htmlRow = "<div class='row'>" +
+            "<div class='col-xs-8 row-label'> " + i18n.gettext(contentsObj.label) + "</div>" +
+            "<div class='col-xs-4 row-value " + elementID + "'> " + i18n.gettext("Loading") + "...</div>" +
+            "</div>";
+
+        $("#" + parentId).append(htmlRow);
+
+        // Get the inner value for the boxes by calling the APIs ...
+        var apiUrl = contentsObj.api.replace("<loc_id>", locID);
+        $.getJSON(api_root + apiUrl, function(data) {
+            $('#' + parentId + ' .' + elementID).html(Number(data.yearly_score[1]).toFixed(0) + "%");
+        });
+
+    }
+}
