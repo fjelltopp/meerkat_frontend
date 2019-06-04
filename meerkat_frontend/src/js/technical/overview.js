@@ -615,3 +615,38 @@ function prep_row_completeness(contentsObj, parentId, locID) {
 
     }
 }
+
+function prep_completeness(contentsObj, parentId, locID) {
+    if (isUserAthorized(contentsObj.access) === true) {
+
+        //Generate a GUID ...
+        var elementID = generateGUID();
+
+        //Append the results ...
+        var htmlRow = "<div class='row'>" +
+            "<div class='col-xs-12 row-value " + elementID + "'> " + i18n.gettext("Loading") + "...</div>";
+
+        $("#" + parentId).append(htmlRow);
+
+        var apiUrl_0 = contentsObj.apis[0].replace("<loc_id>", locID);
+        var apiUrl_1 = contentsObj.apis[1].replace("<loc_id>", locID);
+        var apiUrl_2 = contentsObj.apis[2].replace("<loc_id>", locID);
+
+        var deferreds = [
+            $.getJSON(api_root + apiUrl_0, function(data) {
+                completenessData = data;
+            }),
+            $.getJSON(api_root + apiUrl_1, function(data) {
+                timelinessData = data;
+            }),
+            $.getJSON(api_root + apiUrl_2, function(data) {
+                completenessLocations = data;
+            }),
+        ];
+
+        // Get the inner value for the boxes by calling the APIs ...
+        $.when.apply($, deferreds).then(function() {
+            drawCompletenessGraph(parentId + ' .' + elementID, locID, config.completeness_denominator.all, completenessLocations, completenessData, 1, 0, "false", 52);
+        });
+    }
+}
