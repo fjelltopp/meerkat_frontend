@@ -874,3 +874,129 @@ function drawConsultationsGraph(containerID, data, loc_id, loc_level, locations,
         }
     }); //highchart
 }
+
+
+
+function drawAlertsPieCharts(containerID, data, variables) {
+
+    //We want to work with a clone of the data, not the data itself.
+    data = $.extend(true, {}, data);
+
+    //Hack to get plot to size correctly when being drawn into a hidden object.
+    //If the object is hidden, set the plot width to the inner width of the parent.
+    //Otherwise, leave as undefined (as specified in the highcharts api).
+    var plotWidth;
+    if ($('#' + containerID).hasClass('hidden')) {
+        plotWidth = $('#' + containerID).parent().width();
+    }
+    var restructured = {};
+    var units = 'Number';
+    var tooltip = function() {
+        return this.point.name + ': ' + this.point.y;
+    };
+    //Restructure the data object for pie charts.
+    restructured = {
+        breakdown: [
+            {
+                name: "Confirmed",
+                y: 0
+            },{
+                name: "Pending",
+                y: 0
+            },{
+                name: "Disregarded",
+                y: 0
+            },{
+                name: "Ongoing",
+                y: 0
+            }
+        ],
+        total: []
+    };
+
+    var scoreKeys = Object.keys(data);
+    for (var i = 0; i < scoreKeys.length; i++) {
+        if (scoreKeys[i] == "total"){
+            continue;
+        }
+        var c = 0;
+        var p = 0;
+        var d = 0;
+        var o = 0;
+
+        if (data[scoreKeys[i]].Confirmed != undefined){
+            c = data[scoreKeys[i]].Confirmed;
+        }
+        if (data[scoreKeys[i]].Pending != undefined){
+            p = data[scoreKeys[i]].Pending;
+        }
+        if (data[scoreKeys[i]].Disregarded != undefined){
+            d = data[scoreKeys[i]].Disregarded;
+        }
+        if (data[scoreKeys[i]].Ongoing != undefined){
+            o = data[scoreKeys[i]].Ongoing;
+        }
+        restructured.total[i] = {
+            name: variables[scoreKeys[i]].name,
+            y: c + p + d +0
+        };
+        restructured.breakdown[0].y += c;
+        restructured.breakdown[1].y += p;
+        restructured.breakdown[2].y += d;
+        restructured.breakdown[3].y += o;
+    }
+
+    //Draw the graph.
+    $('#' + containerID).highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            width: plotWidth
+        },
+        title: '',
+        tooltip: {
+            formatter: tooltip
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: i18n.gettext('Diseases'),
+            center: ['20%', '50%'],
+            size: "70%",
+            colorByPoint: true,
+            showInLegend: true,
+            title: {
+                text: '<b>Diseases</b>',
+                verticalAlign: 'top',
+                y: -40
+            },
+            data: restructured.total
+        }, {
+            name: i18n.gettext('Investigation'),
+            center: ['80%', '50%'],
+            size: "70%",
+            colorByPoint: true,
+            showInLegend: false,
+            title: {
+                text: '<b>Investigation</b>',
+                verticalAlign: 'top',
+                y: -40
+            },
+            data: restructured.breakdown
+        }]
+    });
+
+    //Get rid of the highcharts.com logo.
+    $('#' + containerID + " text:contains('Highcharts.com')").remove();
+
+}
