@@ -651,7 +651,52 @@ function prep_completeness(contentsObj, parentId, locID) {
     }
 }
 
-function prep_table(contentsObj, parentId, locID) {
+function prep_disease_table(contentsObj, parentId, locID) {
+    if (isUserAthorized(contentsObj.access) === true) {
+
+        //Generate a GUID ...
+        var elementID_1 = generateGUID();
+        var elementID_2 = generateGUID();
+
+        //Append the results ...
+        var htmlRow = "<div class='row'>" +
+            "<div class='col-xs-12 row-value " + elementID_1 + "'> </div>" +
+            "<div class='col-xs-12 row-value " + elementID_2 + "'> </div>" +
+            "</div>";
+
+        $("#" + parentId).append(htmlRow);
+
+        var apiUrl_0 = contentsObj.apis[0].replace("<loc_id>", locID);
+        var apiUrl_1 = contentsObj.apis[1].replace("<loc_id>", locID);
+        var apiUrl_2 = contentsObj.apis[2].replace("<loc_id>", locID);
+        var apiUrl_3 = contentsObj.apis[3].replace("<loc_id>", locID);
+
+        var deferreds = [
+            $.getJSON(api_root + apiUrl_0, function(data) {
+                morbidity = data;
+            }),
+            $.getJSON(api_root + apiUrl_1, function(data) {
+                var_morbidity = data;
+            }),
+            $.getJSON(api_root + apiUrl_2, function(data) {
+                mortality = data;
+            }),
+            $.getJSON(api_root + apiUrl_3, function(data) {
+                var_mortality = data;
+            }),
+        ];
+
+        // Get the inner value for the boxes by calling the APIs ...
+        $.when.apply($, deferreds).then(function() {
+            drawDiseaseTable(parentId + ' .' + elementID_1, morbidity, mortality, var_morbidity, var_mortality, "true", ["cmd_10","cmd_9","cmd_15","cmd_26","cmd_8"]);
+            drawDiseaseTable(parentId + ' .' + elementID_2, morbidity, mortality, var_morbidity, var_mortality, "true");
+        });
+
+    }
+}
+
+
+function bake_pie(contentsObj, parentId, locID) {
     if (isUserAthorized(contentsObj.access) === true) {
 
         //Generate a GUID ...
@@ -680,27 +725,10 @@ function prep_table(contentsObj, parentId, locID) {
         $.when.apply($, deferreds).then(function() {
             if (Object.keys(subdiseases).length > 0) {
 
-                if(contentsObj.data_type=="normal"){
-                    var dataObject = makeDataObject(subdiseases, variables, get_epi_week(), i18n.gettext(contentsObj.label));
-                    dataObject = stripEmptyRecords(dataObject);
-                    console.log("data object");
-                    console.log(dataObject);
-                    if(contentsObj.view_type=="table"){
-                        drawTable(parentId + ' .' + elementID, dataObject, true, 'loadDisease');
-                    }else if(contentsObj.view_type=="pie"){
-                        drawPieCharts(parentId + ' .' + elementID, dataObject, true);
-                    }else{
-                        console.log("Unknown type of display passed to prep_table: " + contentsObj.view_type);
-                    }
-                }
-
-                if(contentsObj.data_type=="alerts"){
                     drawAlertsPieCharts(parentId + ' .' + elementID, subdiseases, variables);
 
-                }
             }
         });
 
     }
 }
-

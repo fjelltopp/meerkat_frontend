@@ -2573,3 +2573,103 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
     }
     return table;
 }
+
+function drawDiseaseTable(containerID, morbidity, mortality, var_morbidity, var_mortality, total, subset) {
+
+    var only_subset = false;
+    if (typeof subset !== 'undefined' && subset.length > 0) {
+        only_subset = true;
+    }
+
+    //name case, disease, total
+    var scoreKeys = Object.keys(morbidity);
+    var scoreKeysMort = Object.keys(mortality);
+    var dataPrepared = [];
+    var index = 0;
+    var mort = 0;
+    var morb = 0;
+    var name = '';
+    var morts = {};
+
+    //make an object name:total
+    for (var j = 0; j < scoreKeysMort.length; j++) {
+        index = scoreKeysMort[j];
+        morts[var_mortality[index].name] = mortality[index].year;
+    }
+    console.log("goW)");
+    for (var i = 0; i < scoreKeys.length; i++) {
+        index = scoreKeys[i];
+        if(only_subset){
+            console.log(index);
+            console.log(subset);
+            if(subset.indexOf(index)===-1){
+                console.log("jumopE");
+                continue;
+            }
+        }
+        name = var_morbidity[index].name;
+        morb = morbidity[index].year;
+        if (!(name in morts)){
+            morts[name] = 0;
+        }else{
+            mort = morts[name];
+        }
+        total = morb + mort;
+
+        var datum = {
+            "id": index,
+            "name": name,
+            "morbidity": Number(morb),
+            "mortality": Number(mort),
+            "total": Number(total),
+        };
+        dataPrepared.push(datum);
+    }
+
+    var columns = [{
+        "field": "name",
+        "title": i18n.gettext("Disease"),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "34%"
+    }, {
+        "field": "morbidity",
+        "title": i18n.gettext("Cases"),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "33%"
+    }, {
+        "field": "mortality",
+        "title": i18n.gettext("Deaths"),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "33%"
+    }];
+
+    if (total){
+        columns.push({
+            "field": "total",
+            "title": i18n.gettext("Total"),
+            "align": "center",
+            "class": "header",
+            sortable: true,
+            width: "33%"
+        });
+    }
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID).append('<table class="table"></table>');
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: dataPrepared,
+        idField: "id",
+        classes: 'table-no-bordered table-hover',
+        sortName: 'name',
+        sortOrder: 'desc'
+    });
+    return table;
+}
