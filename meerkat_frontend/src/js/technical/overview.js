@@ -646,7 +646,7 @@ function prep_completeness(contentsObj, parentId, locID) {
 
         // Get the inner value for the boxes by calling the APIs ...
         $.when.apply($, deferreds).then(function() {
-            drawCompletenessGraph(parentId + ' .' + elementID, locID, config.completeness_denominator.all, completenessLocations, completenessData, 1, 0, "false", 52);
+            drawCompletenessAndTimelinessGraph(parentId + ' .' + elementID, locID, config.completeness_denominator.all, completenessLocations, completenessData, timelinessData, 1, "false", 52);
         });
     }
 }
