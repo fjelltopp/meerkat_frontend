@@ -877,7 +877,7 @@ function drawConsultationsGraph(containerID, data, loc_id, loc_level, locations,
 
 
 
-function drawAlertsPieCharts(containerID, data, variables) {
+function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
 
     //We want to work with a clone of the data, not the data itself.
     data = $.extend(true, {}, data);
@@ -885,10 +885,7 @@ function drawAlertsPieCharts(containerID, data, variables) {
     //Hack to get plot to size correctly when being drawn into a hidden object.
     //If the object is hidden, set the plot width to the inner width of the parent.
     //Otherwise, leave as undefined (as specified in the highcharts api).
-    var plotWidth;
-    if ($('#' + containerID).hasClass('hidden')) {
-        plotWidth = $('#' + containerID).parent().width();
-    }
+    var plotWidth = $('#' + containerID_1).parent().width();
     var restructured = {};
     var units = 'Number';
     var tooltip = function() {
@@ -946,8 +943,8 @@ function drawAlertsPieCharts(containerID, data, variables) {
         restructured.breakdown[3].y += o;
     }
 
-    //Draw the graph.
-    $('#' + containerID).highcharts({
+    //Draw the graph One
+    $('#' + containerID_1).highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -955,7 +952,7 @@ function drawAlertsPieCharts(containerID, data, variables) {
             type: 'pie',
             width: plotWidth
         },
-        title: '',
+        title: i18n.gettext('Diseases'),
         tooltip: {
             formatter: tooltip
         },
@@ -971,33 +968,50 @@ function drawAlertsPieCharts(containerID, data, variables) {
         },
         series: [{
             name: i18n.gettext('Diseases'),
-            center: ['20%', '50%'],
-            size: "70%",
+            center: ['50%', '50%'],
+            size: "100%",
             colorByPoint: true,
             showInLegend: true,
-            title: {
-                text: '<b>Diseases</b>',
-                verticalAlign: 'top',
-                y: -40
-            },
             data: restructured.total
-        }, {
+        }]
+    });
+
+    //Draw the graph.
+    $('#' + containerID_2).highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            width: plotWidth
+        },
+        title: i18n.gettext('Investigation'),
+        tooltip: {
+            formatter: tooltip
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true
+                },
+                showInLegend: false
+            }
+        },
+        series: [{
             name: i18n.gettext('Investigation'),
-            center: ['80%', '50%'],
-            size: "70%",
+            center: ['50%', '50%'],
+            size: "50%",
             colorByPoint: true,
             showInLegend: true,
-            title: {
-                text: '<b>Investigation</b>',
-                verticalAlign: 'top',
-                y: -40
-            },
             data: restructured.breakdown
         }]
     });
 
     //Get rid of the highcharts.com logo.
-    $('#' + containerID + " text:contains('Highcharts.com')").remove();
+    $('#' + containerID_1 + " text:contains('Highcharts.com')").remove();
+    $('#' + containerID_2 + " text:contains('Highcharts.com')").remove();
 
 }
 

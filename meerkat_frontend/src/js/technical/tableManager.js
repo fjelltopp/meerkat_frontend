@@ -1067,7 +1067,6 @@ function drawMalariaStockTable(containerID, location_id, stock_variable, variabl
                 if(variable_prefix){
                     stock = variable_prefix + stock;
                 }
-                console.log(stock);
                 for (var record_index in records){
                     record = records[record_index].variables;
                     start += record[stock + "_start"];
@@ -2596,14 +2595,10 @@ function drawDiseaseTable(containerID, morbidity, mortality, var_morbidity, var_
         index = scoreKeysMort[j];
         morts[var_mortality[index].name] = mortality[index].year;
     }
-    console.log("goW)");
     for (var i = 0; i < scoreKeys.length; i++) {
         index = scoreKeys[i];
         if(only_subset){
-            console.log(index);
-            console.log(subset);
             if(subset.indexOf(index)===-1){
-                console.log("jumopE");
                 continue;
             }
         }

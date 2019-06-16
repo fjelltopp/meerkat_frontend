@@ -39,6 +39,44 @@ function html_box_builder(overviewObj, locID) {
     });
 }
 
+function prep_row_clinics(contentsObj, parentId, locID) {
+    if (isUserAthorized(contentsObj.access) === true) {
+
+        var ovPeriodType = "year";
+        if (contentsObj.prep_details !== undefined) {
+            ovPeriodType = contentsObj.prep_details.ovPeriodType;
+        }
+
+        //Generate a GUID ...
+        var elementID = generateGUID();
+
+        //Append the results ...
+        var htmlRow = "<div class='row'>" +
+            "<div class='col-xs-8 row-label'> " + i18n.gettext(contentsObj.label) + "</div>" +
+            "<div class='col-xs-4 row-value " + elementID + "'> " + i18n.gettext("Loading") + "...</div>" +
+            "</div>";
+
+        $("#" + parentId).append(htmlRow);
+
+        var apiUrl_0 = contentsObj.apis[0].replace("<loc_id>", locID);
+        var apiUrl_1 = contentsObj.apis[1].replace("<loc_id>", locID);
+
+        var deferreds = [
+            $.getJSON(api_root + apiUrl_0, function(data) {
+                total = data;
+            }),
+            $.getJSON(api_root + apiUrl_1, function(data) {
+                non_rep = data;
+            }),
+        ];
+
+        $.when.apply($, deferreds).then(function() {
+            reporting = total.total - non_rep.clinics.length;
+                $('#' + parentId + ' .' + elementID).html(reporting);
+        });
+
+    }
+}
 
 function prep_row(contentsObj, parentId, locID) {
     if (isUserAthorized(contentsObj.access) === true) {
@@ -700,14 +738,21 @@ function bake_pie(contentsObj, parentId, locID) {
     if (isUserAthorized(contentsObj.access) === true) {
 
         //Generate a GUID ...
-        var elementID = generateGUID();
+        var elementID_1 = generateGUID();
+        var elementID_2 = generateGUID();
 
         //Append the results ...
         var htmlRow = "<div class='row'>" +
-            "<div class='col-xs-12 row-value " + elementID + "'> " + i18n.gettext("Loading") + "...</div>" +
+            "<div class='col-xs-12 row-value " + elementID_1 + "'> " + i18n.gettext("Loading") + "...</div>" +
             "</div>";
 
         $("#" + parentId).append(htmlRow);
+
+        var htmlRow2 = "<div class='row'>" +
+            "<div class='col-xs-12 row-value " + elementID_2 + "'> " + i18n.gettext("Loading") + "...</div>" +
+            "</div>";
+
+        $("#" + parentId).append(htmlRow2);
 
         var apiUrl_0 = contentsObj.apis[0].replace("<loc_id>", locID);
         var apiUrl_1 = contentsObj.apis[1].replace("<loc_id>", locID);
@@ -725,7 +770,7 @@ function bake_pie(contentsObj, parentId, locID) {
         $.when.apply($, deferreds).then(function() {
             if (Object.keys(subdiseases).length > 0) {
 
-                    drawAlertsPieCharts(parentId + ' .' + elementID, subdiseases, variables);
+                drawAlertsPieCharts(parentId + ' .' + elementID_1,parentId + ' .' + elementID_2, subdiseases, variables);
 
             }
         });
