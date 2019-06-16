@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-06-16 12:52+0000\n"
+"POT-Creation-Date: 2019-06-16 13:30+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -766,7 +766,7 @@ msgstr "Excel"
 #: meerkat_frontend/src/js/explore/explore.js:380
 #: meerkat_frontend/src/js/technical/chartManager.js:610
 #: meerkat_frontend/src/js/technical/chartManager.js:818
-#: meerkat_frontend/src/js/technical/chartManager.js:1132
+#: meerkat_frontend/src/js/technical/chartManager.js:1137
 #: meerkat_frontend/src/js/technical/tableManager.js:34
 #: meerkat_frontend/src/js/technical/tableManager.js:35
 #: meerkat_frontend/src/js/technical/tableManager.js:144
@@ -1667,13 +1667,16 @@ msgstr "Écartée"
 msgid "Ongoing"
 msgstr "En cours"
 
-#: meerkat_frontend/src/js/technical/chartManager.js:955
-#: meerkat_frontend/src/js/technical/chartManager.js:970
+#: meerkat_frontend/src/js/technical/chartManager.js:958
+msgid "Total number of alerts:"
+msgstr "Nombre de signalements (alerte):"
+
+#: meerkat_frontend/src/js/technical/chartManager.js:975
 msgid "Diseases"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/chartManager.js:988
-#: meerkat_frontend/src/js/technical/chartManager.js:1004
+#: meerkat_frontend/src/js/technical/chartManager.js:993
+#: meerkat_frontend/src/js/technical/chartManager.js:1009
 msgid "Investigation"
 msgstr ""
 

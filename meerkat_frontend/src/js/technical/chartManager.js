@@ -943,6 +943,8 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
         restructured.breakdown[3].y += o;
     }
 
+    var totalAlerts = restructured.breakdown[0].y + restructured.breakdown[1].y + restructured.breakdown[2].y + restructured.breakdown[3].y;
+
     //Draw the graph One
     $('#' + containerID_1).highcharts({
         chart: {
@@ -952,7 +954,9 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
             type: 'pie',
             width: plotWidth
         },
-        title: i18n.gettext('Diseases'),
+        title: {
+            text: i18n.gettext('Total number of alerts:') + " " + Number(totalAlerts)
+        },
         tooltip: {
             formatter: tooltip
         },
@@ -961,7 +965,8 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
-                    enabled: false
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.y}'
                 },
                 showInLegend: true
             }
