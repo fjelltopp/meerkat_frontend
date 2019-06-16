@@ -698,7 +698,9 @@ function prep_disease_table(contentsObj, parentId, locID) {
 
         //Append the results ...
         var htmlRow = "<div class='row'>" +
+            "<div class='col-xs-12 chartBox__heading'> " + i18n.gettext("Diseases controlled by elimination or eradication programs") + "</div>" +
             "<div class='col-xs-12 row-value " + elementID_1 + "'> </div>" +
+            "<div class='col-xs-12 chartBox__heading'> " + i18n.gettext("Diseases with epidemic potential and importance") + "</div>" +
             "<div class='col-xs-12 row-value " + elementID_2 + "'> </div>" +
             "</div>";
 

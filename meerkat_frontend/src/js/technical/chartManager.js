@@ -895,16 +895,16 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
     restructured = {
         breakdown: [
             {
-                name: "Confirmed",
+                name: i18n.gettext("Confirmed"),
                 y: 0
             },{
-                name: "Pending",
+                name: i18n.gettext("Pending"),
                 y: 0
             },{
-                name: "Disregarded",
+                name: i18n.gettext("Disregarded"),
                 y: 0
             },{
-                name: "Ongoing",
+                name: i18n.gettext("Ongoing"),
                 y: 0
             }
         ],
@@ -934,7 +934,7 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
             o = data[scoreKeys[i]].Ongoing;
         }
         restructured.total[i] = {
-            name: variables[scoreKeys[i]].name,
+            name: i18n.gettext(variables[scoreKeys[i]].name),
             y: c + p + d +0
         };
         restructured.breakdown[0].y += c;
@@ -994,7 +994,8 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
-                    enabled: true
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
                 },
                 showInLegend: false
             }
@@ -1004,7 +1005,7 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
             center: ['50%', '50%'],
             size: "50%",
             colorByPoint: true,
-            showInLegend: true,
+            showInLegend: false,
             data: restructured.breakdown
         }]
     });

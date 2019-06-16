@@ -2613,7 +2613,7 @@ function drawDiseaseTable(containerID, morbidity, mortality, var_morbidity, var_
 
         var datum = {
             "id": index,
-            "name": name,
+            "name": i18n.gettext(name),
             "morbidity": Number(morb),
             "mortality": Number(mort),
             "total": Number(total),
