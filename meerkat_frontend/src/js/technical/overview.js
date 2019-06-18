@@ -71,8 +71,12 @@ function prep_row_clinics(contentsObj, parentId, locID) {
         ];
 
         $.when.apply($, deferreds).then(function() {
-            reporting = total.total - non_rep.clinics.length;
+            if((total.total === undefined) || (non_rep.clinics === undefined)){
+                $('#' + parentId + ' .' + elementID).html(0);
+            } else {
+                reporting = total.total - non_rep.clinics.length;
                 $('#' + parentId + ' .' + elementID).html(reporting);
+            }
         });
 
     }
@@ -648,7 +652,11 @@ function prep_row_completeness(contentsObj, parentId, locID) {
         // Get the inner value for the boxes by calling the APIs ...
         var apiUrl = contentsObj.api.replace("<loc_id>", locID);
         $.getJSON(api_root + apiUrl, function(data) {
-            $('#' + parentId + ' .' + elementID).html(Number(data.yearly_score[1]).toFixed(0) + "%");
+            if (data.yearly_score === undefined || data.yearly_score[locID] === undefined){
+                $('#' + parentId + ' .' + elementID).html("-");
+            }else{
+                $('#' + parentId + ' .' + elementID).html(Number(data.yearly_score[locID]).toFixed(0) + "%");
+            }
         });
 
     }

@@ -1029,7 +1029,7 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
 
     //create a data series for each location
     var timeseries = [];
-    if (dataCompleteness.timeline === undefined) {
+    if (( dataCompleteness.timeline === undefined ) || ( dataCompleteness.timeline === {} )) {
 
         $('#' + containerID).html("<h3> No " + stringGraphType + " data week for last week </h3>");
         return undefined;
@@ -1044,6 +1044,12 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
     var weeks = 0;
 
     var scoreKeys = Object.keys(dataCompleteness.timeline);
+
+    if(scoreKeys.length === 0){
+        $('#' + containerID).html(i18n.gettext("No data loaded"));
+        return undefined;
+    }
+
     var index = 0;
     for (i = 0; i < scoreKeys.length; i++) {
         index = scoreKeys[scoreKeys.length - i - 1];
