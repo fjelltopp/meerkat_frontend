@@ -134,7 +134,7 @@ function loadLocationContent(locID){
 		html += "<button type='button' class='btn header'>" + i18n.gettext('Parent Locations') + ":</button>";
 		for( var i=0; i<nodePath.length-1; i++ ){
 			html += "<button type='button' class='btn btn-default btn-block' onclick='loadLocation(" +
-				nodePath[i].model.id + ");'>" + nodePath[i].model.text + "</button>";
+				nodePath[i].model.id + ");'>" + i18n.gettext(nodePath[i].model.text) + "</button>";
 		}
 		html += "</div>";
 	}
@@ -160,8 +160,8 @@ function loadLocationContent(locID){
 	}
 
 	//Draw the location selector and update the location title.
-	$(".location-selector").html( html );
-	$(".location-title").text( node.model.text );
+	$(".location-selector").html(html);
+	$(".location-title").text(i18n.gettext(node.model.text));
 
 	//Update any country specific phrasing in the page.
 	glossary();
@@ -247,7 +247,7 @@ function searchLocations(input) {
     html += "<button type='button' class='btn header'>" + i18n.gettext('Matching Locations') + ":</button>";
     for( var i=0; i<nodes.length; i++ ){
         html += "<button type='button' class='btn btn-default btn-block' onclick='loadLocation(" +
-            nodes[i].model.id + ");'>" + nodes[i].model.text + "</button>";
+            nodes[i].model.id + ");'>" + i18n.gettext(nodes[i].model.text) + "</button>";
     }
 
     // If no matches, say so
