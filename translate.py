@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 
 Helper file to manage translations for the Meerkat project

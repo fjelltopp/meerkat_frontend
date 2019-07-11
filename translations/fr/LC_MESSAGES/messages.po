@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-06-16 13:30+0000\n"
+"POT-Creation-Date: 2019-07-11 11:35+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -361,6 +361,7 @@ msgstr "Région :"
 #: meerkat_frontend/src/files/pages/alert.html:118
 #: meerkat_frontend/src/files/pages/ctc.html:155
 #: meerkat_frontend/src/files/pages/sc.html:175
+#: meerkat_frontend/src/js/technical/chartManager.js:1049
 msgid "No data loaded"
 msgstr "Aucune donnée chargée"
 
@@ -766,7 +767,7 @@ msgstr "Excel"
 #: meerkat_frontend/src/js/explore/explore.js:380
 #: meerkat_frontend/src/js/technical/chartManager.js:610
 #: meerkat_frontend/src/js/technical/chartManager.js:818
-#: meerkat_frontend/src/js/technical/chartManager.js:1137
+#: meerkat_frontend/src/js/technical/chartManager.js:1143
 #: meerkat_frontend/src/js/technical/tableManager.js:34
 #: meerkat_frontend/src/js/technical/tableManager.js:35
 #: meerkat_frontend/src/js/technical/tableManager.js:144
@@ -1740,103 +1741,103 @@ msgid "Number of cases of"
 msgstr "Nombre de cas de"
 
 #: meerkat_frontend/src/js/technical/misc.js:78
-#: meerkat_frontend/src/js/technical/overview.js:364
+#: meerkat_frontend/src/js/technical/overview.js:368
 msgid "January"
 msgstr "janvier"
 
 #: meerkat_frontend/src/js/technical/misc.js:78
-#: meerkat_frontend/src/js/technical/overview.js:364
+#: meerkat_frontend/src/js/technical/overview.js:368
 msgid "February"
 msgstr "février"
 
 #: meerkat_frontend/src/js/technical/misc.js:79
-#: meerkat_frontend/src/js/technical/overview.js:365
+#: meerkat_frontend/src/js/technical/overview.js:369
 msgid "March"
 msgstr "mars"
 
 #: meerkat_frontend/src/js/technical/misc.js:79
-#: meerkat_frontend/src/js/technical/overview.js:365
+#: meerkat_frontend/src/js/technical/overview.js:369
 msgid "April"
 msgstr "avril"
 
 #: meerkat_frontend/src/js/technical/misc.js:80
-#: meerkat_frontend/src/js/technical/overview.js:366
+#: meerkat_frontend/src/js/technical/overview.js:370
 msgid "May"
 msgstr "mai"
 
 #: meerkat_frontend/src/js/technical/misc.js:80
-#: meerkat_frontend/src/js/technical/overview.js:366
+#: meerkat_frontend/src/js/technical/overview.js:370
 msgid "June"
 msgstr "juin"
 
 #: meerkat_frontend/src/js/technical/misc.js:81
-#: meerkat_frontend/src/js/technical/overview.js:367
+#: meerkat_frontend/src/js/technical/overview.js:371
 msgid "July"
 msgstr "juillet"
 
 #: meerkat_frontend/src/js/technical/misc.js:81
-#: meerkat_frontend/src/js/technical/overview.js:367
+#: meerkat_frontend/src/js/technical/overview.js:371
 msgid "August"
 msgstr "août"
 
 #: meerkat_frontend/src/js/technical/misc.js:82
-#: meerkat_frontend/src/js/technical/overview.js:368
+#: meerkat_frontend/src/js/technical/overview.js:372
 msgid "September"
 msgstr "septembre"
 
 #: meerkat_frontend/src/js/technical/misc.js:82
-#: meerkat_frontend/src/js/technical/overview.js:368
+#: meerkat_frontend/src/js/technical/overview.js:372
 msgid "October"
 msgstr "octobre"
 
 #: meerkat_frontend/src/js/technical/misc.js:83
-#: meerkat_frontend/src/js/technical/overview.js:369
+#: meerkat_frontend/src/js/technical/overview.js:373
 msgid "November"
 msgstr "novembre"
 
 #: meerkat_frontend/src/js/technical/misc.js:83
-#: meerkat_frontend/src/js/technical/overview.js:369
+#: meerkat_frontend/src/js/technical/overview.js:373
 msgid "December"
 msgstr "décembre"
 
 #: meerkat_frontend/src/js/technical/overview.js:56
-#: meerkat_frontend/src/js/technical/overview.js:95
-#: meerkat_frontend/src/js/technical/overview.js:643
-#: meerkat_frontend/src/js/technical/overview.js:665
-#: meerkat_frontend/src/js/technical/overview.js:748
-#: meerkat_frontend/src/js/technical/overview.js:754
+#: meerkat_frontend/src/js/technical/overview.js:99
+#: meerkat_frontend/src/js/technical/overview.js:647
+#: meerkat_frontend/src/js/technical/overview.js:673
+#: meerkat_frontend/src/js/technical/overview.js:756
+#: meerkat_frontend/src/js/technical/overview.js:762
 msgid "Loading"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/overview.js:261
+#: meerkat_frontend/src/js/technical/overview.js:265
 msgid "No data"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/overview.js:303
-#: meerkat_frontend/src/js/technical/overview.js:313
+#: meerkat_frontend/src/js/technical/overview.js:307
+#: meerkat_frontend/src/js/technical/overview.js:317
 msgid "7 days"
-msgstr ""
-
-#: meerkat_frontend/src/js/technical/overview.js:304
-#: meerkat_frontend/src/js/technical/overview.js:314
-msgid "12 months"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/overview.js:308
 #: meerkat_frontend/src/js/technical/overview.js:318
+msgid "12 months"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/overview.js:312
+#: meerkat_frontend/src/js/technical/overview.js:322
 msgid "week"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/overview.js:309
-#: meerkat_frontend/src/js/technical/overview.js:319
+#: meerkat_frontend/src/js/technical/overview.js:313
+#: meerkat_frontend/src/js/technical/overview.js:323
 msgid "year"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/overview.js:701
+#: meerkat_frontend/src/js/technical/overview.js:709
 msgid "Diseases controlled by elimination or eradication programs"
 msgstr "Maladies objets de programme d'elimination ou éradication"
 
-#: meerkat_frontend/src/js/technical/overview.js:703
+#: meerkat_frontend/src/js/technical/overview.js:711
 msgid "Diseases with epidemic potential and importance"
 msgstr "Maladies à potentiel épidémique et d'importance épidémique"
 
