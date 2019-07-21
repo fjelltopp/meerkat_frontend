@@ -49,6 +49,7 @@ gulp.task('jshint', function() {
 gulp.task('vendorJS', function() {
     return gulp.src( mainBowerFiles().concat([
         'node_modules/tree-model/dist/TreeModel-min.js',
+        'bower_components/bootstrap-table/src/locale/bootstrap-table-fr-FR.js',
         'bower_components/bootstrap-table/src/locale/bootstrap-table-en-US.js',
         'bower_components/jed/jed.js',
         'bower_components/highcharts/modules/treemap.js',
