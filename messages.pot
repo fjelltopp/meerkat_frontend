@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-21 12:51+0000\n"
+"POT-Creation-Date: 2019-07-21 21:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3283,10 +3283,9 @@ msgstr ""
 msgid "Map of Events"
 msgstr ""
 
-#: meerkat_frontend/templates/reports/email/html/email_epi_monitoring.html:16
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:15
-msgid "DVSSE Epidemiological Monitoring Report"
+msgid "DSEGUSP Epidemiological Monitoring Report"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:27
@@ -4615,6 +4614,10 @@ msgstr ""
 #: meerkat_frontend/templates/reports/email/plain/email_ctc_plain.html:29
 #: meerkat_frontend/templates/reports/email/plain/email_sc_plain.html:27
 msgid "Remote Monitoring Co-ordinator"
+msgstr ""
+
+#: meerkat_frontend/templates/reports/email/html/email_epi_monitoring.html:16
+msgid "DVSSE Epidemiological Monitoring Report"
 msgstr ""
 
 #: meerkat_frontend/templates/reports/email/html/email_epi_monitoring.html:53

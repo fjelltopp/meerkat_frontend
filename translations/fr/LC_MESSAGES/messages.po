@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-21 12:51+0000\n"
+"POT-Creation-Date: 2019-07-21 21:09+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -3370,11 +3370,10 @@ msgstr "Data"
 msgid "Map of Events"
 msgstr "Carte des évènements"
 
-#: meerkat_frontend/templates/reports/email/html/email_epi_monitoring.html:16
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:3
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:15
-msgid "DVSSE Epidemiological Monitoring Report"
-msgstr "Rapport de Surveillance Epidémiologique de la DVSSE"
+msgid "DSEGUSP Epidemiological Monitoring Report"
+msgstr ""
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:27
 msgid "Table 1: Summary of Deaths"
@@ -4821,6 +4820,10 @@ msgstr ""
 msgid "Remote Monitoring Co-ordinator"
 msgstr ""
 
+#: meerkat_frontend/templates/reports/email/html/email_epi_monitoring.html:16
+msgid "DVSSE Epidemiological Monitoring Report"
+msgstr "Rapport de Surveillance Epidémiologique de la DVSSE"
+
 #: meerkat_frontend/templates/reports/email/html/email_epi_monitoring.html:53
 #, python-format
 msgid ""
@@ -5731,13 +5734,4 @@ msgstr "titre_email_mensuel"
 #: meerkat_frontend/views/reports.py:213 meerkat_frontend/views/reports.py:340
 msgid "title"
 msgstr "titre"
-
-#~ msgid "\tPregnant women"
-#~ msgstr "\tFemmes enceintes"
-
-#~ msgid "AFRO Epidemiological Bulletin"
-#~ msgstr "Bulletin Epidémiologique d’AFRO"
-
-#~ msgid "  Pregnant women"
-#~ msgstr ""
 
