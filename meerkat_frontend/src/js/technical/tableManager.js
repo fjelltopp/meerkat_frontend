@@ -1767,12 +1767,12 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
 
   var columns = [{
     "field": "region",
-    "title": "Region",
+    "title": i18n.gettext("Region"),
     "align": "center",
     "class": "header"
   }, {
     "field": "name",
-    "title": "District",
+    "title": i18n.gettext("District"),
     "align": "center",
     "class": "header"
   }];
@@ -1800,7 +1800,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     }
     columns.push({
         "field": "year",
-        "title": "Year",
+        "title": i18n.gettext("Year"),
         "align": "center",
         "class": "value",
         "cellStyle": createCompletenessMatrixCellTab()
@@ -1808,7 +1808,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
 
     columns.push({
         "field": "year_reg",
-        "title": "Yearly Regional",
+        "title": i18n.gettext("Yearly Regional"),
         "align": "center",
         "class": "value",
         "cellStyle": createCompletenessMatrixCellTab()
@@ -1885,13 +1885,12 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
 
     for (var i = 0; i < scoreKeys.length; i++) {
         index = scoreKeys[i];
-        var loc;
         // loc = "<a href='' onclick='loadLocationContent(" + index +
         //     ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
-        loc = locations[index].name;
+        var loc_name = i18n.gettext(locations[index].name);
         var datum = {
             "id": index,
-            "location": loc,
+            "location": loc_name,
             "completeness": Number(data.score[index]).toFixed(0) + "%",
             "yearly": Number(data.yearly_score[index]).toFixed(0) + "%"
         };
