@@ -64,6 +64,21 @@ function get_epi_week() {
     return week;
 }
 
+/**:get_locale()
+
+ Returns the currently selected locale as "language-LANGUAGE".
+ E.g. if current language is `en` returned value is `en-EN`.
+
+ :returns:
+ (number) The current locale.
+
+ */
+function get_locale() {
+    var language = i18n.options.locale_data.messages[""].lang;
+    return language + '-' + language.toUpperCase();
+}
+
+
 /**:get_date()
 
     Get the current date in text format.

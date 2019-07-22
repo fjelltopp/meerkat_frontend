@@ -90,7 +90,7 @@ function drawForm(subscriber){
  * It does this using bootstrap-table, a third party dependancy, collecting data
  * from the /subscribers/get_subscribers resource.
 */
-function drawSubscriberTable(locale){
+function drawSubscriberTable(){
     $.getJSON(api_root+"/variables/alert?include_group_b=1", function(variables){
         //Define the table structure
         var columns = [{
@@ -168,7 +168,7 @@ function drawSubscriberTable(locale){
             pagination: true,
             pageSize: 20,
             search: true,
-            locale: locale,
+            locale: get_locale(),
             url: tmp,
             responseHandler: prepData,
             showRefresh: true
