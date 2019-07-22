@@ -164,7 +164,7 @@ $( function(){
     });
 
     //Load the date/week
-    $("#epi-week-title").html( "Week " + get_epi_week() + " · " + get_date() );
+    $("#epi-week-title").html( i18n.gettext("Week") + " " + get_epi_week() + " · " + get_date() );
 
     //Draw axis category selectors.
     var axisSelector = "<select>"
