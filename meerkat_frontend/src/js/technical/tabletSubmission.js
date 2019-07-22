@@ -93,6 +93,7 @@ function gatherTabletData(locID) {
             $('#div_tabletCompletness table').bootstrapTable({
                 columns: columnNameArray,
                 data: tabletDataArray,
+                locale: get_locale(),
                 pagination: true,
                 pageSize: 10,
                 search: true,

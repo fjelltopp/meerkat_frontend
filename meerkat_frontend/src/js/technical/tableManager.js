@@ -265,6 +265,7 @@ function drawImprovedTable(containerID, data, no_total, linkFunction, tableOptio
     table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         classes: 'table-no-bordered table-hover'
     });
     return table;
@@ -473,6 +474,7 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
         table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: alerts,
+            locale: get_locale(),
             search: true,
             classes: 'table table-no-bordered table-hover',
             pagination: true,
@@ -654,6 +656,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
             $('#' + containerID + ' table').bootstrapTable({
                 columns: pipColumnNameArray,
                 data: pipDataArray,
+                locale: get_locale(),
                 pagination: true,
                 pageSize: 10,
                 search: true,
@@ -747,7 +750,8 @@ function drawContactSummaryTable(containerID, location_id) {
         $('#' + containerID).html("<table> </table>");
         $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
-            data: data
+            data: data,
+            locale: get_locale()
         });
     });
 }
@@ -865,6 +869,7 @@ function drawContactTracingTable(containerID, location_id) {
         $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: data,
+            locale: get_locale(),
             search: true
         });
     });
@@ -983,9 +988,8 @@ function drawEbsTable(containerID, location_id) {
                 $('#' + containerID + ' table').bootstrapTable({
                     columns: columns,
                     data: data,
+                    locale: get_locale(),
                     search: true
-                    //					pagination: true,
-                    //					pageSize: 20
                 });
             });
         });
@@ -1090,7 +1094,8 @@ function drawMalariaStockTable(containerID, location_id, stock_variable, variabl
             $('#' + containerID).html("<table> </table>");
             $('#' + containerID + ' table').bootstrapTable({
                 columns: columns,
-                data: data
+                data: data,
+                locale: get_locale()
 
             });
         });
@@ -1206,9 +1211,8 @@ function drawTbTable(containerID, location_id) {
             $('#' + containerID + ' table').bootstrapTable({
                 columns: columns,
                 data: data,
+                locale: get_locale(),
                 search: true
-                //					pagination: true,
-                //					pageSize: 20
             });
         });
     });
@@ -1301,6 +1305,7 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         idField: "id",
         classes: 'table-no-bordered table-hover',
         sortName: 'completeness',
@@ -1437,6 +1442,7 @@ function drawPlagueTable(containerID, cases, variables) {
       columns: columns,
       width: "100%",
       data: data,
+      locale: get_locale(),
       align: "center",
       classes: "table table-hover",
       pagination: true,
@@ -1587,6 +1593,7 @@ function drawVHFTable(containerID, cases, variables) {
       columns: columns,
       width: "100%",
       data: data,
+      locale: get_locale(),
       align: "center",
       classes: "table table-hover",
       pagination: true,
@@ -1643,6 +1650,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
             var table = $('#' + containerID + ' table').bootstrapTable({
                 columns: columns,
                 data: dataPrepared,
+                locale: get_locale(),
                 classes: 'table-no-bordered table-hover'
             });
             return table;
@@ -1672,6 +1680,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
         var table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: dataPrepared,
+            locale: get_locale(),
             classes: 'table-no-bordered table-hover'
         });
         return table;
@@ -1821,6 +1830,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: table_data,
+        locale: get_locale(),
         idField: "id",
         classes: 'table-responsive table-bordered ',
         sortName: 'region',
@@ -1944,6 +1954,7 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         idField: "id",
         classes: 'table-no-bordered table-hover',
         sortName: 'completeness',
@@ -2210,6 +2221,7 @@ function drawIndicatorsTable(containerID, locID, data) {
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         classes: 'table-no-bordered table-hover'
     });
     return table;
@@ -2332,6 +2344,7 @@ function drawClinicPrescriptionTable(containerID, locID) {
         var table = $('#' + containerID + " table").bootstrapTable({
             columns: columns,
             data: data.medicine_table,
+            locale: get_locale(),
             search: true,
             classes: 'table table-no-bordered table-hover',
             pagination: true,
@@ -2424,6 +2437,7 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         classes: 'table-no-bordered table-hover',
         search: is_searchable
     });
@@ -2542,6 +2556,7 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: table_data,
+        locale: get_locale(),
         classes: 'table-responsive table-bordered ',
         sortName: 'region',
         sortOrder: 'asc'
@@ -2660,6 +2675,7 @@ function drawDiseaseTable(containerID, morbidity, mortality, var_morbidity, var_
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         idField: "id",
         classes: 'table-no-bordered table-hover',
         sortName: 'name',

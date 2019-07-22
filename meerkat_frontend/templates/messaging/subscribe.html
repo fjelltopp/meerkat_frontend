@@ -115,7 +115,7 @@
 					  </div>
 					  <div class="chartBox__content" >
 							<div class='table-toolbar'></div>
-								<div id='subscriber-table' class="subscriber-table" data-locale="{{ g.get('language') + "-" + g.get('language').upper() }}">
+								<div id='subscriber-table' class="subscriber-table">
 								<table></table>
 							</div>
 						</div>
@@ -194,7 +194,7 @@ telInput.blur(function() {
 telInput.on("keyup change", reset);
 
 drawForm();
-drawSubscriberTable(locale='{{ g.get('language') + "-" + g.get('language').upper() }}');
+drawSubscriberTable();
 
 
 
