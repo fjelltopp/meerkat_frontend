@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-08-07 14:51+0000\n"
+"POT-Creation-Date: 2019-08-28 18:37+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -765,6 +765,7 @@ msgstr "Excel"
 #: meerkat_frontend/src/files/pages/vaccination.html:114
 #: meerkat_frontend/src/files/pages/vhf.html:87
 #: meerkat_frontend/src/js/explore/explore.js:380
+#: meerkat_frontend/src/js/technical/chartManager.js:279
 #: meerkat_frontend/src/js/technical/chartManager.js:610
 #: meerkat_frontend/src/js/technical/chartManager.js:818
 #: meerkat_frontend/src/js/technical/chartManager.js:1143
@@ -1618,6 +1619,17 @@ msgstr "Cette semaine"
 msgid "This Year"
 msgstr "Cette année"
 
+#: meerkat_frontend/src/js/technical/chartManager.js:197
+msgid "Number"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/chartManager.js:291
+#: meerkat_frontend/src/js/technical/tableManager.js:1812
+#: meerkat_frontend/src/js/technical/tableManager.js:1933
+#: meerkat_frontend/src/js/technical/tableManager.js:2387
+msgid "Year"
+msgstr "Année"
+
 #: meerkat_frontend/src/js/technical/chartManager.js:387
 msgid "Epidemilogical Weeks"
 msgstr "Semaines épidémiologiques"
@@ -2138,12 +2150,6 @@ msgstr "Dates non déclarées"
 #: meerkat_frontend/src/js/technical/tableManager.js:2540
 msgid "W"
 msgstr "S"
-
-#: meerkat_frontend/src/js/technical/tableManager.js:1812
-#: meerkat_frontend/src/js/technical/tableManager.js:1933
-#: meerkat_frontend/src/js/technical/tableManager.js:2387
-msgid "Year"
-msgstr "Année"
 
 #: meerkat_frontend/src/js/technical/tableManager.js:1820
 msgid "Yearly Regional"

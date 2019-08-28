@@ -194,7 +194,7 @@ function drawPieCharts(containerID, data, percent) {
         plotWidth = $('#' + containerID).parent().width();
     }
     var restructured = {};
-    var units = 'Number';
+    var units = i18n.gettext('Number');
     var tooltip = function() {
         return this.series.name + ': ' + this.point.y;
     };
@@ -276,7 +276,7 @@ function drawPieCharts(containerID, data, percent) {
             colorByPoint: true,
             showInLegend: true,
             title: {
-                text: '<b>Week</b>',
+                text: '<b>' + i18n.gettext('Week')+ '</b>',
                 verticalAlign: 'top',
                 y: -40
             },
@@ -288,7 +288,7 @@ function drawPieCharts(containerID, data, percent) {
             colorByPoint: true,
             showInLegend: false,
             title: {
-                text: '<b>Year</b>',
+                text: '<b>' + i18n.gettext('Year')+ '</b>',
                 verticalAlign: 'top',
                 y: -40
             },
