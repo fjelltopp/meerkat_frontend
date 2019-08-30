@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-08-28 18:37+0000\n"
+"POT-Creation-Date: 2019-08-30 10:34+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -3427,7 +3427,7 @@ msgstr "Suspicion de cas d’arboviroses"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:176
 msgid "Meningitis"
-msgstr "Suspicion de cas de méningite"
+msgstr "Méningite"
 
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:178
 msgid "RDT positive"
