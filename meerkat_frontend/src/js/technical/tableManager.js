@@ -1705,7 +1705,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
 */
 
 function drawCompletenessMatrix(containerID, regionID, denominator, locations, data, dataCompTab, start_week, graphtypeID) {
-
+    start_week = start_week || 1;
     var stringGraphType = 'data';
     var multiplier = 100 / denominator;
     var noWeeks;
@@ -1739,15 +1739,10 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         noWeeks = whole_loc_timeline.weeks.length;
         weeks = lastWeeks(get_epi_week(), noWeeks + 1); //last completeness is from previous week
       for (var j = 0; j < noWeeks; j++) {
-        if (start_week) {
           if (weeks[noWeeks - j] >= start_week) {
             loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
             loc_record.push(loc_entry);
           }
-        } else {
-          loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
-          loc_record.push(loc_entry);
-        }
       }
       if (locations[index].id !== regionID) { //Total
         table_datum = {
@@ -1786,27 +1781,15 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     "class": "header"
   }];
   //Add column for every previous week:
-  for (var k = 1; k <= noWeeks; k++) {
-        if (start_week) {
-            if (k >= start_week) {
-                columns.push({
-                    "field": "week" + weeks[noWeeks - (k+1)],
-                    "title": i18n.gettext("W") + weeks[noWeeks - (k+1)],
-                    "align": "center",
-                    "class": "value",
-                    "cellStyle": createCompletenessMatrixCellTab()
-                });
-            }
-        } else {
-            columns.push({
-                "field": "week" + weeks[noWeeks - (k+1)],
-                "title": i18n.gettext("W") + weeks[noWeeks - (k+1)],
-                "align": "center",
-                "class": "value",
-                "cellStyle": createCompletenessMatrixCellTab()
-            });
-        }
-    }
+  for (var k = noWeeks; k >= start_week; k--) {
+    columns.push({
+      "field": "week" + weeks[k],
+      "title": i18n.gettext("W") + weeks[k],
+      "align": "center",
+      "class": "value",
+      "cellStyle": createCompletenessMatrixCellTab()
+    });
+  }
     columns.push({
         "field": "year",
         "title": i18n.gettext("Year"),
@@ -1823,11 +1806,15 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         "cellStyle": createCompletenessMatrixCellTab()
     });
 
-    $('#' + containerID + ' table').bootstrapTable('destroy');
-    $('#' + containerID + ' table').remove();
-    $('#' + containerID).append('<table class="table"></table>');
+    var tableContainer = $('#' + containerID);
+    var tableEl;
+    tableEl = tableContainer.find('table');
+    tableEl.bootstrapTable('destroy');
+    tableEl.remove();
+    tableContainer.append('<table class="table"></table>');
+    tableEl = tableContainer.find('table');
 
-    var table = $('#' + containerID + ' table').bootstrapTable({
+    var table = tableEl.bootstrapTable({
         columns: columns,
         data: table_data,
         locale: get_locale(),
@@ -1847,7 +1834,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         if (row === table[0].rows[i].cells[0].innerHTML) {
             count++;
 
-            if (i == rowLength - 1) {
+            if (i === rowLength - 1) {
                 mergeRows('#' + containerID + ' table', saveIndex, count);
             }
 
@@ -1857,9 +1844,6 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             row = table[0].rows[i].cells[0].innerHTML;
             saveIndex = i - 1;
             count = 1;
-
-            /*
-             */
         }
     }
 
