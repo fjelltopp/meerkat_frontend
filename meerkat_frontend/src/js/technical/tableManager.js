@@ -1705,7 +1705,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
 */
 
 function drawCompletenessMatrix(containerID, regionID, denominator, locations, data, dataCompTab, start_week, graphtypeID) {
-
+    start_week = start_week || 1;
     var stringGraphType = 'data';
     var multiplier = 100 / denominator;
     var noWeeks;
