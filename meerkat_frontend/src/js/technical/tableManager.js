@@ -1790,8 +1790,8 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         if (start_week) {
             if (k >= start_week) {
                 columns.push({
-                    "field": "week" + weeks[noWeeks - (k+1)],
-                    "title": i18n.gettext("W") + weeks[noWeeks - (k+1)],
+                    "field": "week" + weeks[noWeeks - k + 1],
+                    "title": i18n.gettext("W") + weeks[noWeeks - k + 1],
                     "align": "center",
                     "class": "value",
                     "cellStyle": createCompletenessMatrixCellTab()
@@ -1799,8 +1799,8 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             }
         } else {
             columns.push({
-                "field": "week" + weeks[noWeeks - (k+1)],
-                "title": i18n.gettext("W") + weeks[noWeeks - (k+1)],
+                "field": "week" + weeks[noWeeks - k + 1],
+                "title": i18n.gettext("W") + weeks[noWeeks - k + 1],
                 "align": "center",
                 "class": "value",
                 "cellStyle": createCompletenessMatrixCellTab()
