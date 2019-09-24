@@ -1806,11 +1806,15 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         "cellStyle": createCompletenessMatrixCellTab()
     });
 
-    $('#' + containerID + ' table').bootstrapTable('destroy');
-    $('#' + containerID + ' table').remove();
-    $('#' + containerID).append('<table class="table"></table>');
+    var tableContainer = $('#' + containerID);
+    var tableEl;
+    tableEl = tableContainer.find('table');
+    tableEl.bootstrapTable('destroy');
+    tableEl.remove();
+    tableContainer.append('<table class="table"></table>');
+    tableEl = tableContainer.find('table');
 
-    var table = $('#' + containerID + ' table').bootstrapTable({
+    var table = tableEl.bootstrapTable({
         columns: columns,
         data: table_data,
         locale: get_locale(),
@@ -1830,7 +1834,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         if (row === table[0].rows[i].cells[0].innerHTML) {
             count++;
 
-            if (i == rowLength - 1) {
+            if (i === rowLength - 1) {
                 mergeRows('#' + containerID + ' table', saveIndex, count);
             }
 
