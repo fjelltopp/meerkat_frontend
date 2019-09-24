@@ -1786,27 +1786,15 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     "class": "header"
   }];
   //Add column for every previous week:
-  for (var k = 1; k <= noWeeks; k++) {
-        if (start_week) {
-            if (k >= start_week) {
-                columns.push({
-                    "field": "week" + weeks[noWeeks - k + 1],
-                    "title": i18n.gettext("W") + weeks[noWeeks - k + 1],
-                    "align": "center",
-                    "class": "value",
-                    "cellStyle": createCompletenessMatrixCellTab()
-                });
-            }
-        } else {
-            columns.push({
-                "field": "week" + weeks[noWeeks - k + 1],
-                "title": i18n.gettext("W") + weeks[noWeeks - k + 1],
-                "align": "center",
-                "class": "value",
-                "cellStyle": createCompletenessMatrixCellTab()
-            });
-        }
-    }
+  for (var k = noWeeks; k <= start_week; k--) {
+    columns.push({
+      "field": "week" + weeks[k],
+      "title": i18n.gettext("W") + weeks[k],
+      "align": "center",
+      "class": "value",
+      "cellStyle": createCompletenessMatrixCellTab()
+    });
+  }
     columns.push({
         "field": "year",
         "title": i18n.gettext("Year"),
