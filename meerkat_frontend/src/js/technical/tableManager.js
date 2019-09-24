@@ -1781,7 +1781,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
     "class": "header"
   }];
   //Add column for every previous week:
-  for (var k = noWeeks; k <= start_week; k--) {
+  for (var k = noWeeks; k >= start_week; k--) {
     columns.push({
       "field": "week" + weeks[k],
       "title": i18n.gettext("W") + weeks[k],
