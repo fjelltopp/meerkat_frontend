@@ -1739,15 +1739,10 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         noWeeks = whole_loc_timeline.weeks.length;
         weeks = lastWeeks(get_epi_week(), noWeeks + 1); //last completeness is from previous week
       for (var j = 0; j < noWeeks; j++) {
-        if (start_week) {
           if (weeks[noWeeks - j] >= start_week) {
             loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
             loc_record.push(loc_entry);
           }
-        } else {
-          loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
-          loc_record.push(loc_entry);
-        }
       }
       if (locations[index].id !== regionID) { //Total
         table_datum = {
@@ -1845,9 +1840,6 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             row = table[0].rows[i].cells[0].innerHTML;
             saveIndex = i - 1;
             count = 1;
-
-            /*
-             */
         }
     }
 
