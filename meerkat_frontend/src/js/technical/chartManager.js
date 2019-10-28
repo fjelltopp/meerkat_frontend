@@ -1078,7 +1078,7 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
         var datumCompleteness = {
             name: i18n.gettext(locations[index].name) + " (" + i18n.gettext("Completeness") + ")",
             data: dtReady,
-            color: '#BBC4DD',
+            color: '#BBC4DD'
         };
 
         if (locations[index].id === regionID) { //parent location
@@ -1117,7 +1117,7 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
         var datumTimeliness = {
             name: i18n.gettext(locations[index].name) + " (" + i18n.gettext("Timeliness") + ")",
             data: dtReady,
-            color: 'lightgrey',
+            color: 'lightgrey'
         };
 
         if (locations[index].id === regionID) { //parent location
@@ -1226,13 +1226,13 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
             menuItemStyle: {
                 fontSize: '10px'
             }
-            }
-      },
+       }
+},
             //Static textbox, a legend
             function(chart) {
                 labelText = i18n.gettext("Completeness") +':<span style="color: #0090CA; font-weight: bold"> ' + i18n.gettext("blue") + '</span><br/>' + i18n.gettext("Timeliness") +':<span style="color: #B22222; font-weight: bold"> ' + i18n.gettext("red") + '</span>';
 
-                chart.renderer.text(labelText, chart.chartWidth - 200, 45)
+                chart.renderer.text(labelText, chart.chartWidth - 200, 45) //chartWidth is only acquired when page loads for the first time, so sadly, this code is fixed for when resizing.
                     .attr({
                         zIndex: 5
                     }).add();
@@ -1246,4 +1246,4 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
                     })
                     .add();
             }); //highchart
-            }
+}
