@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-09-23 16:28+0000\n"
+"POT-Creation-Date: 2019-10-28 12:25+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -30,7 +30,7 @@ msgstr "reg"
 #: meerkat_frontend/src/js/technical/tableManager.js:77
 #: meerkat_frontend/src/js/technical/tableManager.js:253
 #: meerkat_frontend/src/js/technical/tableManager.js:510
-#: meerkat_frontend/src/js/technical/tableManager.js:2664
+#: meerkat_frontend/src/js/technical/tableManager.js:2648
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:120
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:144
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:146
@@ -153,6 +153,8 @@ msgstr "Alertes investiguées"
 #: meerkat_frontend/src/files/pages/completenessEBS.html:99
 #: meerkat_frontend/src/files/pages/completenessNCD.html:96
 #: meerkat_frontend/src/files/pages/completenessNCD.html:99
+#: meerkat_frontend/src/js/technical/chartManager.js:1079
+#: meerkat_frontend/src/js/technical/chartManager.js:1233
 msgid "Completeness"
 msgstr "Complétude"
 
@@ -162,6 +164,8 @@ msgstr "Complétude"
 #: meerkat_frontend/src/files/pages/timelinessCD.html:85
 #: meerkat_frontend/src/files/pages/timelinessEBS.html:85
 #: meerkat_frontend/src/files/pages/timelinessNCD.html:86
+#: meerkat_frontend/src/js/technical/chartManager.js:1118
+#: meerkat_frontend/src/js/technical/chartManager.js:1233
 msgid "Timeliness"
 msgstr "Promptitude"
 
@@ -774,8 +778,8 @@ msgstr "Excel"
 #: meerkat_frontend/src/js/technical/tableManager.js:144
 #: meerkat_frontend/src/js/technical/tableManager.js:158
 #: meerkat_frontend/src/js/technical/tableManager.js:172
-#: meerkat_frontend/src/js/technical/tableManager.js:1919
-#: meerkat_frontend/src/js/technical/tableManager.js:2379
+#: meerkat_frontend/src/js/technical/tableManager.js:1903
+#: meerkat_frontend/src/js/technical/tableManager.js:2363
 #: meerkat_frontend/templates/messaging/subscribe.html:148
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
@@ -1139,7 +1143,7 @@ msgstr ""
 
 #: meerkat_frontend/src/files/pages/malaria.html:194
 #: meerkat_frontend/src/files/pages/malaria.html:351
-#: meerkat_frontend/src/js/technical/tableManager.js:2647
+#: meerkat_frontend/src/js/technical/tableManager.js:2631
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:285
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_som.html:291
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:246
@@ -1624,9 +1628,9 @@ msgid "Number"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/chartManager.js:291
-#: meerkat_frontend/src/js/technical/tableManager.js:1812
-#: meerkat_frontend/src/js/technical/tableManager.js:1933
-#: meerkat_frontend/src/js/technical/tableManager.js:2387
+#: meerkat_frontend/src/js/technical/tableManager.js:1795
+#: meerkat_frontend/src/js/technical/tableManager.js:1917
+#: meerkat_frontend/src/js/technical/tableManager.js:2371
 msgid "Year"
 msgstr "Année"
 
@@ -1693,6 +1697,14 @@ msgstr ""
 #: meerkat_frontend/src/js/technical/chartManager.js:993
 #: meerkat_frontend/src/js/technical/chartManager.js:1009
 msgid "Investigation"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/chartManager.js:1233
+msgid "blue"
+msgstr ""
+
+#: meerkat_frontend/src/js/technical/chartManager.js:1233
+msgid "red"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/locationManager.js:129
@@ -1892,8 +1904,8 @@ msgstr "Type"
 #: meerkat_frontend/src/js/technical/tableManager.js:779
 #: meerkat_frontend/src/js/technical/tableManager.js:1332
 #: meerkat_frontend/src/js/technical/tableManager.js:1477
-#: meerkat_frontend/src/js/technical/tableManager.js:1779
-#: meerkat_frontend/src/js/technical/tableManager.js:2475
+#: meerkat_frontend/src/js/technical/tableManager.js:1774
+#: meerkat_frontend/src/js/technical/tableManager.js:2459
 msgid "Region"
 msgstr "Région"
 
@@ -1901,8 +1913,8 @@ msgstr "Région"
 #: meerkat_frontend/src/js/technical/tableManager.js:1263
 #: meerkat_frontend/src/js/technical/tableManager.js:1344
 #: meerkat_frontend/src/js/technical/tableManager.js:1489
-#: meerkat_frontend/src/js/technical/tableManager.js:2299
-#: meerkat_frontend/src/js/technical/tableManager.js:2476
+#: meerkat_frontend/src/js/technical/tableManager.js:2283
+#: meerkat_frontend/src/js/technical/tableManager.js:2460
 #: meerkat_frontend/templates/reports/report_ebs.html:7
 msgid "Clinic"
 msgstr "Formation sanitaire"
@@ -1923,9 +1935,9 @@ msgstr "Revue centrale"
 #: meerkat_frontend/src/js/technical/tableManager.js:458
 #: meerkat_frontend/src/js/technical/tableManager.js:1338
 #: meerkat_frontend/src/js/technical/tableManager.js:1483
-#: meerkat_frontend/src/js/technical/tableManager.js:1784
-#: meerkat_frontend/src/js/technical/tableManager.js:2475
-#: meerkat_frontend/src/js/technical/tableManager.js:2476
+#: meerkat_frontend/src/js/technical/tableManager.js:1779
+#: meerkat_frontend/src/js/technical/tableManager.js:2459
+#: meerkat_frontend/src/js/technical/tableManager.js:2460
 #: meerkat_frontend/templates/reports/report_oms_bulletin.html:548
 msgid "District"
 msgstr "District"
@@ -2135,8 +2147,8 @@ msgid "Marburg Virus"
 msgstr ""
 
 #: meerkat_frontend/src/js/technical/tableManager.js:1641
-#: meerkat_frontend/src/js/technical/tableManager.js:1912
-#: meerkat_frontend/src/js/technical/tableManager.js:2370
+#: meerkat_frontend/src/js/technical/tableManager.js:1896
+#: meerkat_frontend/src/js/technical/tableManager.js:2354
 #: meerkat_frontend/templates/reports/index.html:13
 msgid "Location"
 msgstr "Emplacement"
@@ -2145,43 +2157,42 @@ msgstr "Emplacement"
 msgid "Dates not reported"
 msgstr "Dates non déclarées"
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1794
-#: meerkat_frontend/src/js/technical/tableManager.js:1803
-#: meerkat_frontend/src/js/technical/tableManager.js:2540
+#: meerkat_frontend/src/js/technical/tableManager.js:1787
+#: meerkat_frontend/src/js/technical/tableManager.js:2524
 msgid "W"
 msgstr "S"
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1820
+#: meerkat_frontend/src/js/technical/tableManager.js:1803
 msgid "Yearly Regional"
 msgstr "Annuel Régional"
 
-#: meerkat_frontend/src/js/technical/tableManager.js:2305
+#: meerkat_frontend/src/js/technical/tableManager.js:2289
 msgid "Medicine"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:2311
+#: meerkat_frontend/src/js/technical/tableManager.js:2295
 msgid "First Prescription"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:2317
+#: meerkat_frontend/src/js/technical/tableManager.js:2301
 msgid "Latest Prescription"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:2324
+#: meerkat_frontend/src/js/technical/tableManager.js:2308
 msgid "Total doses prescribed"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:2334
+#: meerkat_frontend/src/js/technical/tableManager.js:2318
 msgid "Remaining Stock"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:2640
+#: meerkat_frontend/src/js/technical/tableManager.js:2624
 #: meerkat_frontend/templates/reports/report_oms_bulletin.html:383
 #: meerkat_frontend/templates/reports/report_oms_bulletin.html:459
 msgid "Disease"
 msgstr "Maladie"
 
-#: meerkat_frontend/src/js/technical/tableManager.js:2654
+#: meerkat_frontend/src/js/technical/tableManager.js:2638
 #: meerkat_frontend/templates/reports/report_epi_monitoring.html:246
 msgid "Deaths"
 msgstr "Nombre de décès"
