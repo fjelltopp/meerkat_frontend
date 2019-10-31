@@ -1701,7 +1701,7 @@ msgstr ""
 
 #: meerkat_frontend/src/js/technical/chartManager.js:1233
 msgid "blue"
-msgstr "bleue"
+msgstr "bleu"
 
 #: meerkat_frontend/src/js/technical/chartManager.js:1233
 msgid "red"
