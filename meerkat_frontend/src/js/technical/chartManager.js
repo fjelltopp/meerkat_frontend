@@ -1076,9 +1076,9 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
             }
         }
         var datumCompleteness = {
-            name: locations[index].name + " (completeness)",
+            name: i18n.gettext(locations[index].name) + " (" + i18n.gettext("Completeness") + ")",
             data: dtReady,
-            color: 'lightgrey'
+            color: '#BBC4DD'
         };
 
         if (locations[index].id === regionID) { //parent location
@@ -1115,7 +1115,7 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
             }
         }
         var datumTimeliness = {
-            name: locations[index].name + " (timeliness)",
+            name: i18n.gettext(locations[index].name) + " (" + i18n.gettext("Timeliness") + ")",
             data: dtReady,
             color: 'lightgrey'
         };
@@ -1193,8 +1193,15 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
                 events: {
                     mouseOver: function() {
                         if (this.chart.series[this.index].color === 'lightgrey') {
+                            console.log('!');
                             this.chart.series[this.index].update({
                                 color: '#D9692A'
+                            });
+                        }
+                        if (this.chart.series[this.index].color === '#BBC4DD') {
+                            console.log('?');
+                            this.chart.series[this.index].update({
+                                color: '#3366FF'
                             });
                         }
                     },
@@ -1203,6 +1210,11 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
                         if (this.chart.series[this.index].color === '#D9692A') {
                             this.chart.series[this.index].update({
                                 color: "lightgrey"
+                            });
+                        }
+                        if (this.chart.series[this.index].color === '#3366FF') {
+                            this.chart.series[this.index].update({
+                                color: "#BBC4DD"
                             });
                         }
                     }
@@ -1214,7 +1226,24 @@ function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, 
             menuItemStyle: {
                 fontSize: '10px'
             }
-        }
-    }); //highchart
-}
+       }
+},
+            //Static textbox, a legend
+            function(chart) {
+                labelText = i18n.gettext("Completeness") +':<span style="color: #0090CA; font-weight: bold"> ' + i18n.gettext("blue") + '</span><br/>' + i18n.gettext("Timeliness") +':<span style="color: #B22222; font-weight: bold"> ' + i18n.gettext("red") + '</span>';
 
+                chart.renderer.text(labelText, chart.chartWidth - 200, 45) //chartWidth is only acquired when page loads for the first time, so sadly, this code is fixed for when resizing.
+                    .attr({
+                        zIndex: 5
+                    }).add();
+
+                chart.renderer.rect(chart.chartWidth - 210, 28, 150, 40, 1)
+                    .attr({
+                        'stroke-width': 1,
+                        stroke: 'black',
+                        fill: 'white',
+                        zIndex: 4
+                    })
+                    .add();
+            }); //highchart
+}
