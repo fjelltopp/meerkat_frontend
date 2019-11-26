@@ -51,7 +51,7 @@
                             </div>
 						</div>
                         <div class='breaker'></div>
-                        <p class='col-sm-offset-1'> <b>Current Status:</b> <span id="status"> </span></p>
+                        <p class='col-sm-offset-1'> <b> {{ _('Current Status') }} :</b> <span id="status"> </span></p>
                     </div>
         		</div>
             </div>
@@ -74,14 +74,14 @@ var progressChecker = '';
 var uuid = '';
 
 // Add the date details.
-$("#epi-week-title").html( i18n.gettext("Week")+" "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( "{{ _("Week") }}" +" "+get_epi_week() + " · " + get_date() );
 
 // Firstly, get the info about which data download the user wants. Then start checking its progress.
 $.getJSON(url, function( data ){
     // Get the data download uuid.
     uuid = data;
     // Update the status message.
-    $("#status").html(i18n.gettext("Preparation of data set has started. Please note that this can take some time."));
+    $("#status").html("{{ _("Preparation of data set has started. Please note that this can take some time.") }}");
     // Start making regular checks on the download progress.
     progressChecker = setInterval(function() {
         check_status();
@@ -100,11 +100,11 @@ function check_status(){
                     $('#download-xls-button').attr('href', api_root + "/export/getxls/" + uuid);
                     $('#download-button').show();
                     $('.download-progress').fadeOut('slow');
-                    $("#heading").html(i18n.gettext("Data set was sucesfully generated."));
-                    $("#status").html("Finished");
+                    $("#heading").html("{{ _("Data set was sucesfully generated.") }}");
+                    $("#status").html("{{ _("Finished") }}");
                 }else{
-                    $("#heading").html(i18n.gettext("Data set generation was unsuccessful."));
-                    $("#status").html("Finished");
+                    $("#heading").html("{{ _("Data set generation was unsuccessful.") }}");
+                    $("#status").html("{{ _("Finished") }}");
                 }
                 clearInterval(progressChecker)
             }else{
@@ -112,7 +112,7 @@ function check_status(){
                 $('.progress-bar').css('width', progress+'%')
                     .attr('aria-valuenow', progress);
                 $(".progress-text").text(progress + " %");
-                $("#status").html(i18n.gettext("Dataset is still being prepared, please wait."))
+                $("#status").html("{{ _("Dataset is still being prepared, please wait.") }}")
             }
         }
     });

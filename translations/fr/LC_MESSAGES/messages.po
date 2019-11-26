@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-10-31 10:40+0000\n"
+"POT-Creation-Date: 2019-11-05 17:48+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -780,6 +780,7 @@ msgstr "Excel"
 #: meerkat_frontend/src/js/technical/tableManager.js:172
 #: meerkat_frontend/src/js/technical/tableManager.js:1903
 #: meerkat_frontend/src/js/technical/tableManager.js:2363
+#: meerkat_frontend/templates/download/wait.html:77
 #: meerkat_frontend/templates/messaging/subscribe.html:148
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile.html:2
 #: meerkat_frontend/templates/reports/report_cd_public_health_profile_mad.html:2
@@ -2298,6 +2299,33 @@ msgstr "Télécharger ici"
 #: meerkat_frontend/templates/download/wait.html:43
 msgid "CSV"
 msgstr "CSV"
+
+#: meerkat_frontend/templates/download/wait.html:54
+msgid "Current Status"
+msgstr "Statut actuel"
+
+#: meerkat_frontend/templates/download/wait.html:84
+msgid ""
+"Preparation of data set has started. Please note that this can take some "
+"time."
+msgstr "La préparation de la base de données vient de commencer. Veuillez noter que cela peut prendre plusieurs minutes."
+
+#: meerkat_frontend/templates/download/wait.html:103
+msgid "Data set was sucesfully generated."
+msgstr "La base de données a été générée avec succès."
+
+#: meerkat_frontend/templates/download/wait.html:104
+#: meerkat_frontend/templates/download/wait.html:107
+msgid "Finished"
+msgstr "Fini"
+
+#: meerkat_frontend/templates/download/wait.html:106
+msgid "Data set generation was unsuccessful."
+msgstr "Échec de la génération de base de données."
+
+#: meerkat_frontend/templates/download/wait.html:115
+msgid "Dataset is still being prepared, please wait."
+msgstr "Base de données en cours de préparation. Merci de patienter."
 
 #: meerkat_frontend/templates/explore/index.html:20
 msgid "Explore Data"
