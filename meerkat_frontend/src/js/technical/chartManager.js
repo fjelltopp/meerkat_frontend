@@ -1110,7 +1110,7 @@ function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominato
     },
     xAxis:{
         title: {
-            text: i18n.gettext('Week')
+            text: i18n.gettext('Location')
         },
         labels: {
             overflow: 'justify'
