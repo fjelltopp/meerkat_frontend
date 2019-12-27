@@ -691,9 +691,15 @@ function prep_completeness(contentsObj, parentId, locID) {
         ];
 
         // Get the inner value for the boxes by calling the APIs ...
+        if (contentsObj.graph_type === "bar"){
+            $.when.apply($, deferreds).then(function() {
+                drawCompletenessAndTimelinessBarChart(parentId + ' .' + elementID, locID, config.completeness_denominator.all, completenessLocations, completenessData, timelinessData, 1, "false", 52);
+            });
+        } else {
         $.when.apply($, deferreds).then(function() {
             drawCompletenessAndTimelinessGraph(parentId + ' .' + elementID, locID, config.completeness_denominator.all, completenessLocations, completenessData, timelinessData, 1, "false", 52);
         });
+            }
     }
 }
 
