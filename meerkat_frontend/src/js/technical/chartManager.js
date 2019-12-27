@@ -1126,13 +1126,12 @@ function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominato
                 color: '#666666'
             }
         },
-//        title: {
-//            text: i18n.gettext('Annual/Weekly Completeness and timeliness'),
-//
-//            style: {
-//                color: '#666666'
-//            }
-//        },
+        title: {
+            text: null,
+            style: {
+                color: '#666666'
+            }
+        },
         max: 100,
         min: 0,
         minorGridLineWidth: 0,
@@ -1154,12 +1153,12 @@ function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominato
     }, { // Secondary yAxis
         min: 0,
         max: 100,
-        //title: {
-        //text: i18n.gettext('Last week\'s Completeness and Timeliness'),
-        //    style: {
-        //        color: '#666666'
-        //    }
-        //},
+        title: {
+            text: null,
+            style: {
+                color: '#666666'
+            }
+        },
         labels: {
             format: '{value} %',
             style: {
