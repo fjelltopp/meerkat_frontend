@@ -1023,8 +1023,6 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
 
 function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominator, locations, dataCompleteness, dataTimeliness, start_week, compare_locations, x_axis_max) {
 
-    console.log("BAR CHART");
-
     var comparevalue = $(compare_locations).attr("value");
 
     var stringGraphType = 'Completeness and Timeliness';
@@ -1075,7 +1073,7 @@ function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominato
     //create a list of series
     list_of_series =  [
         {
-            name: 'Completeness',
+            name: i18n.gettext('Completeness'),
             type: 'column',
             yAxis: 1,
             data: last_week_comp,
@@ -1083,7 +1081,7 @@ function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominato
                 valueSuffix: ' %'
             }
         },{
-            name: 'Timeliness',
+            name: i18n.gettext('Timeliness'),
             type: 'column',
             yAxis: 1,
             data: last_week_time,
@@ -1091,11 +1089,21 @@ function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominato
                 valueSuffix: ' %'
             }
         },{
-            name: 'Yearly Completeness',
+            name: i18n.gettext('Yearly completeness'),
             type: 'spline',
             data: yearly_comp,
             tooltip: {
                 valueSuffix: ' %'
+            },
+            marker: {
+                enabled: true,
+                radius: 4
+            },
+            lineWidth: 0,
+            states: {
+                hover: {
+                    lineWidthPlus: 0
+                }
             }
         }
     ];
