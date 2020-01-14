@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-11-05 17:48+0000\n"
+"POT-Creation-Date: 2020-01-13 18:28+0000\n"
 "PO-Revision-Date: 2017-05-29 16:08+0100\n"
 "Last-Translator: \n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr "reg"
 
 #: meerkat_frontend/reports.py:654
 #: meerkat_frontend/src/files/pages/vaccination.html:139
-#: meerkat_frontend/src/files/pages/vaccination.html:168
+#: meerkat_frontend/src/files/pages/vaccination.html:167
 #: meerkat_frontend/src/js/explore/explore.js:152
 #: meerkat_frontend/src/js/explore/explore.js:390
 #: meerkat_frontend/src/js/technical/tableManager.js:77
@@ -153,8 +153,9 @@ msgstr "Alertes investiguées"
 #: meerkat_frontend/src/files/pages/completenessEBS.html:99
 #: meerkat_frontend/src/files/pages/completenessNCD.html:96
 #: meerkat_frontend/src/files/pages/completenessNCD.html:99
-#: meerkat_frontend/src/js/technical/chartManager.js:1079
-#: meerkat_frontend/src/js/technical/chartManager.js:1233
+#: meerkat_frontend/src/js/technical/chartManager.js:1076
+#: meerkat_frontend/src/js/technical/chartManager.js:1248
+#: meerkat_frontend/src/js/technical/chartManager.js:1402
 msgid "Completeness"
 msgstr "Complétude"
 
@@ -164,8 +165,9 @@ msgstr "Complétude"
 #: meerkat_frontend/src/files/pages/timelinessCD.html:85
 #: meerkat_frontend/src/files/pages/timelinessEBS.html:85
 #: meerkat_frontend/src/files/pages/timelinessNCD.html:86
-#: meerkat_frontend/src/js/technical/chartManager.js:1118
-#: meerkat_frontend/src/js/technical/chartManager.js:1233
+#: meerkat_frontend/src/js/technical/chartManager.js:1084
+#: meerkat_frontend/src/js/technical/chartManager.js:1287
+#: meerkat_frontend/src/js/technical/chartManager.js:1402
 msgid "Timeliness"
 msgstr "Promptitude"
 
@@ -365,7 +367,7 @@ msgstr "Région :"
 #: meerkat_frontend/src/files/pages/alert.html:118
 #: meerkat_frontend/src/files/pages/ctc.html:155
 #: meerkat_frontend/src/files/pages/sc.html:175
-#: meerkat_frontend/src/js/technical/chartManager.js:1049
+#: meerkat_frontend/src/js/technical/chartManager.js:1218
 msgid "No data loaded"
 msgstr "Aucune donnée chargée"
 
@@ -772,7 +774,7 @@ msgstr "Excel"
 #: meerkat_frontend/src/js/technical/chartManager.js:279
 #: meerkat_frontend/src/js/technical/chartManager.js:610
 #: meerkat_frontend/src/js/technical/chartManager.js:818
-#: meerkat_frontend/src/js/technical/chartManager.js:1143
+#: meerkat_frontend/src/js/technical/chartManager.js:1312
 #: meerkat_frontend/src/js/technical/tableManager.js:34
 #: meerkat_frontend/src/js/technical/tableManager.js:35
 #: meerkat_frontend/src/js/technical/tableManager.js:144
@@ -1411,7 +1413,7 @@ msgid "Vaccination Sessions"
 msgstr ""
 
 #: meerkat_frontend/src/files/pages/vaccination.html:138
-#: meerkat_frontend/src/files/pages/vaccination.html:167
+#: meerkat_frontend/src/files/pages/vaccination.html:166
 #: meerkat_frontend/templates/reports/report_vaccination.html:47
 #: meerkat_frontend/templates/reports/report_vaccination.html:72
 #: meerkat_frontend/templates/reports/report_vaccination.html:98
@@ -1428,12 +1430,12 @@ msgstr "0-11 mois"
 msgid ">12 months"
 msgstr ">12 mois"
 
-#: meerkat_frontend/src/files/pages/vaccination.html:167
+#: meerkat_frontend/src/files/pages/vaccination.html:166
 #: meerkat_frontend/templates/reports/report_vaccination.html:73
 msgid "Pregnant women"
 msgstr "Femmes enceintes"
 
-#: meerkat_frontend/src/files/pages/vaccination.html:168
+#: meerkat_frontend/src/files/pages/vaccination.html:167
 #: meerkat_frontend/templates/reports/report_vaccination.html:74
 msgid "Women of reproductive age"
 msgstr "Femmes en âge de procréer"
@@ -1700,11 +1702,23 @@ msgstr ""
 msgid "Investigation"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/chartManager.js:1233
+#: meerkat_frontend/src/js/technical/chartManager.js:1092
+msgid "Yearly completeness"
+msgstr "Complétude annuelle"
+
+#: meerkat_frontend/src/js/technical/chartManager.js:1116
+#: meerkat_frontend/src/js/technical/tableManager.js:1641
+#: meerkat_frontend/src/js/technical/tableManager.js:1896
+#: meerkat_frontend/src/js/technical/tableManager.js:2354
+#: meerkat_frontend/templates/reports/index.html:13
+msgid "Location"
+msgstr "Emplacement"
+
+#: meerkat_frontend/src/js/technical/chartManager.js:1402
 msgid "blue"
 msgstr "bleu"
 
-#: meerkat_frontend/src/js/technical/chartManager.js:1233
+#: meerkat_frontend/src/js/technical/chartManager.js:1402
 msgid "red"
 msgstr "rouge"
 
@@ -1831,8 +1845,8 @@ msgstr "décembre"
 #: meerkat_frontend/src/js/technical/overview.js:99
 #: meerkat_frontend/src/js/technical/overview.js:647
 #: meerkat_frontend/src/js/technical/overview.js:673
-#: meerkat_frontend/src/js/technical/overview.js:756
 #: meerkat_frontend/src/js/technical/overview.js:762
+#: meerkat_frontend/src/js/technical/overview.js:768
 msgid "Loading"
 msgstr ""
 
@@ -1860,11 +1874,11 @@ msgstr ""
 msgid "year"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/overview.js:709
+#: meerkat_frontend/src/js/technical/overview.js:715
 msgid "Diseases controlled by elimination or eradication programs"
 msgstr "Maladies objets de programme d'elimination ou éradication"
 
-#: meerkat_frontend/src/js/technical/overview.js:711
+#: meerkat_frontend/src/js/technical/overview.js:717
 msgid "Diseases with epidemic potential and importance"
 msgstr "Maladies à potentiel épidémique et d'importance épidémique"
 
@@ -2147,13 +2161,6 @@ msgstr ""
 msgid "Marburg Virus"
 msgstr ""
 
-#: meerkat_frontend/src/js/technical/tableManager.js:1641
-#: meerkat_frontend/src/js/technical/tableManager.js:1896
-#: meerkat_frontend/src/js/technical/tableManager.js:2354
-#: meerkat_frontend/templates/reports/index.html:13
-msgid "Location"
-msgstr "Emplacement"
-
 #: meerkat_frontend/src/js/technical/tableManager.js:1669
 msgid "Dates not reported"
 msgstr "Dates non déclarées"
@@ -2308,7 +2315,9 @@ msgstr "Statut actuel"
 msgid ""
 "Preparation of data set has started. Please note that this can take some "
 "time."
-msgstr "La préparation de la base de données vient de commencer. Veuillez noter que cela peut prendre plusieurs minutes."
+msgstr ""
+"La préparation de la base de données vient de commencer. Veuillez noter "
+"que cela peut prendre plusieurs minutes."
 
 #: meerkat_frontend/templates/download/wait.html:103
 msgid "Data set was sucesfully generated."

@@ -1021,6 +1021,180 @@ function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
 
 }
 
+function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominator, locations, dataCompleteness, dataTimeliness, start_week, compare_locations, x_axis_max) {
+
+    var comparevalue = $(compare_locations).attr("value");
+
+    var stringGraphType = 'Completeness and Timeliness';
+    var multiplier = 100 / denominator;
+
+    //create a data series for each location
+    var timeseries = [];
+    if (( dataCompleteness.timeline === undefined ) || ( dataCompleteness.timeline === {} )) {
+        $('#' + containerID).html("<h3> No " + stringGraphType + " data week for last week </h3>");
+        return undefined;
+    }
+
+    //variables in JS don't have a well defined scope.
+    var dt = [];
+    var dtReady = [];
+    var noWeeks = 0;
+    var i = 0;
+    var j = 0;
+    var weeks = 0;
+
+    var scoreCompKeys = Object.keys(dataCompleteness.timeline);
+    var scoreTimeKeys = Object.keys(dataTimeliness.timeline);
+    var yearlyKeys = Object.keys(dataCompleteness.yearly_score);
+
+    //Create a list of sublocation
+    list_of_sublocation_names = [];
+    for (i = 0; i < yearlyKeys.length; i++) {
+        index = yearlyKeys[i];
+        list_of_sublocation_names.push(i18n.gettext(locations[index].name));
+    }
+
+
+    yearly_comp=[];
+    for (i = 0; i < yearlyKeys.length; i++) {
+        yearly_comp.push(dataCompleteness.yearly_score[yearlyKeys[i]]);
+    }
+
+    last_week_comp=[];
+    for (i = 0; i < yearlyKeys.length; i++) {
+        last_week_comp.push(dataCompleteness.score[yearlyKeys[i]]);
+    }
+
+    last_week_time=[];
+    for (i = 0; i < yearlyKeys.length; i++) {
+        last_week_time.push(dataTimeliness.score[yearlyKeys[i]]);
+    }
+
+    //create a list of series
+    list_of_series =  [
+        {
+            name: i18n.gettext('Completeness'),
+            type: 'column',
+            yAxis: 1,
+            data: last_week_comp,
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        },{
+            name: i18n.gettext('Timeliness'),
+            type: 'column',
+            yAxis: 1,
+            data: last_week_time,
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        },{
+            name: i18n.gettext('Yearly completeness'),
+            type: 'spline',
+            data: yearly_comp,
+            tooltip: {
+                valueSuffix: ' %'
+            },
+            marker: {
+                enabled: true,
+                radius: 4
+            },
+            lineWidth: 0,
+            states: {
+                hover: {
+                    lineWidthPlus: 0
+                }
+            }
+        }
+    ];
+
+
+    $('#' + containerID).highcharts({
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: ''
+    },
+    xAxis:{
+        title: {
+            text: i18n.gettext('Location')
+        },
+        labels: {
+            overflow: 'justify'
+        },
+        categories: list_of_sublocation_names,
+        crosshair: true
+    },
+    yAxis:
+    [{ // Primary yAxis
+        labels: {
+            format: '{value} %',
+            style: {
+                color: '#666666'
+            }
+        },
+        title: {
+            text: null,
+            style: {
+                color: '#666666'
+            }
+        },
+        max: 100,
+        min: 0,
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        alternateGridColor: null,
+        plotBands: [{ //RED
+            from: 0,
+            to: 50,
+            color: 'rgba(255, 0, 0, 0.5)'
+        }, { //YELLOW
+            from: 50,
+            to: 80,
+            color: 'rgba(255, 255, 0, 0.5)'
+        }, { // GREEN
+            from: 80,
+            to: 105,
+            color: 'rgba(0, 128, 0,0.5)'
+        }]
+    }, { // Secondary yAxis
+        min: 0,
+        max: 100,
+        title: {
+            text: null,
+            style: {
+                color: '#666666'
+            }
+        },
+        labels: {
+            format: '{value} %',
+            style: {
+                color: '#666666'
+            }
+        },
+        opposite: true
+     }
+    ],
+    tooltip: {
+        shared: true,
+        valueDecimals: 1
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        //x: 0,
+        verticalAlign: 'top',
+        //y: 0,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+    },
+    series: list_of_series
+    });
+}
+
 function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, locations, dataCompleteness, dataTimeliness, start_week, compare_locations, x_axis_max) {
     var comparevalue = $(compare_locations).attr("value");
 
