@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "bower": "1.7.5",
+    "bower": "1.8.8",
     "deep-extend": "0.5.1",
     "del": "1.2.0",
     "duplexer2": "0.0.2",
