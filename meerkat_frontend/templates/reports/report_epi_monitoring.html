@@ -183,7 +183,7 @@ function drawTable21(){
     ["{{ _('Acute Jaundice Syndrome') }}", "cmd_16"],
     ["{{ _('Animal Bite') }}", "cmd_27"],
     ["{{ _('Rabies') }}", "cmd_11"]
-  ]
+  ];
 
   $('.table21-wrapper').html( drawFromStruct(struct) );
 }
@@ -197,7 +197,7 @@ function drawTable22(){
     ["{{ _('Suspected measles') }}", "cmd_15"],
     ["{{ _('Leprosy') }}", "cmd_8"],
     ["{{ _('Lymphatic filariasis') }}", "cmd_26"],
-  ]
+  ];
 
   $('.table22-wrapper').html( drawFromStruct(struct) );
 }
@@ -271,28 +271,38 @@ function drawFromStruct( struct ){
     //If the "highlight" option is sepcified in the third array element.
     }else if( struct[i][2] == "lowlight" ){
 
-      var deaths = content.deaths[struct[i][1]];
-      var cases = content.epi_monitoring[struct[i][1]];
+      var deaths = 0;
+      if (struct[i][1] in content.deaths) {
+          deaths = content.deaths[struct[i][1]]}
+      var cases = 0;
+      if (struct[i][1] in content.epi_monitoring) {
+          cases = content.epi_monitoring[struct[i][1]]}
+      else {cases = deaths}
       var total = deaths + cases;
 
       html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
-        "<td class='lowlight' >" + format(cases - deaths) + "</td>" +
+        "<td class='lowlight' >" + format(cases) + "</td>" +
         "<td class='lowlight' >" + format(deaths) + "</td>" +
-        "<td class='total lowlight border-left'>" + format(cases) + "</td></tr>"
+        "<td class='total lowlight border-left'>" + format(total) + "</td></tr>"
 
     //Otherwise, just draw a standard table row using the first two elements of the array.
     //For extra customisation allow DOMClasses to be specified in the fourth array element.
     }else{
 
-      var deaths = content.deaths[struct[i][1]];
-      var cases = content.epi_monitoring[struct[i][1]];
+      var deaths = 0;
+      if (struct[i][1] in content.deaths) {
+          deaths = content.deaths[struct[i][1]]}
+      var cases = 0;
+      if (struct[i][1] in content.epi_monitoring) {
+          cases = content.epi_monitoring[struct[i][1]]}
+      else {cases = deaths}
       var total = deaths + cases;
       var domClass = struct[i][3];
 
       html += "<tr><td class='total key " + domClass + "'>" + i18n.gettext(struct[i][0]) + "</td>" +
-        "<td class='" + domClass + "'>" + format(cases - deaths) + "</td>" +
+        "<td class='" + domClass + "'>" + format(cases) + "</td>" +
         "<td class='" + domClass + "'>" + format(deaths) + "</td>" +
-        "<td class='total " + domClass + "'>" + format(cases) + "</td></tr>"
+        "<td class='total " + domClass + "'>" + format(total) + "</td></tr>"
     }
   }
 
