@@ -281,9 +281,9 @@ function drawFromStruct( struct ){
       var total = deaths + cases;
 
       html += "<tr><td class='lowlight total right-align border-right'>" + i18n.gettext(struct[i][0]) + "</td>" +
-        "<td class='lowlight' >" + format(cases) + "</td>" +
+        "<td class='lowlight' >" + format(cases - deaths) + "</td>" +
         "<td class='lowlight' >" + format(deaths) + "</td>" +
-        "<td class='total lowlight border-left'>" + format(total) + "</td></tr>"
+        "<td class='total lowlight border-left'>" + format(cases) + "</td></tr>"
 
     //Otherwise, just draw a standard table row using the first two elements of the array.
     //For extra customisation allow DOMClasses to be specified in the fourth array element.
@@ -300,9 +300,9 @@ function drawFromStruct( struct ){
       var domClass = struct[i][3];
 
       html += "<tr><td class='total key " + domClass + "'>" + i18n.gettext(struct[i][0]) + "</td>" +
-        "<td class='" + domClass + "'>" + format(cases) + "</td>" +
+        "<td class='" + domClass + "'>" + format(cases - deaths) + "</td>" +
         "<td class='" + domClass + "'>" + format(deaths) + "</td>" +
-        "<td class='total " + domClass + "'>" + format(total) + "</td></tr>"
+        "<td class='total " + domClass + "'>" + format(cases) + "</td></tr>"
     }
   }
 
