@@ -155,7 +155,10 @@ function drawTable1(){
   html += "<tr><td class='border-right key'>{{ _('Number of maternal deaths') }}</td>";
 
   mat_keys = Object.keys(content.mat_mortality);
-  for( var i=1; i<mat_keys.length; i++ ){
+  for( var i=1; i<5; i++ ){
+      html += "<td></td>";
+  }
+  for( var i=5; i<mat_keys.length; i++ ){
     datum = content.mat_mortality[ mat_keys[i] ];
     html += "<td>" + datum + "</td>";
   }
