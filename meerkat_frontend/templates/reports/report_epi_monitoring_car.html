@@ -155,7 +155,10 @@ function drawTable1(){
   html += "<tr><td class='border-right key'>{{ _('Number of maternal deaths') }}</td>";
 
   mat_keys = Object.keys(content.mat_mortality);
-  for( var i=1; i<mat_keys.length; i++ ){
+  for( var i=1; i<5; i++ ){
+      html += "<td></td>";
+  }
+  for( var i=5; i<mat_keys.length; i++ ){
     datum = content.mat_mortality[ mat_keys[i] ];
     html += "<td>" + datum + "</td>";
   }
@@ -171,6 +174,8 @@ function drawTable21(){
 
   var struct = [
     ["{{ _('Dysentery and bloody diarrhoea') }}", "cmd_4"],
+      ["{{ _('Cholera') }}", "cmd_2"],
+      ["{{ _('Haemorragic fever / Ebola') }}", "cmd_14"],
     ["{{ _('Influenza-like illness') }}", "cmd_18"],
     ["{{ _('Arboviruses') }}", "cmd_13"],
     ["{{ _('Meningitis') }}", "cmd_12"],
@@ -203,6 +208,11 @@ function drawTable23(){
     ["{{ _('Fever Cases (T > 37.5 &#176;C)') }}", "reg_4", "no_deaths"],
     ["{{ _('Malaria confirmed by rapid test or slide') }}", "epi_1"],
     ["{{ _('Acute Respiratory Tract Infection') }}", "cmd_25"],
+      ["{{ _('Typhoid Fever') }}", "cmd_3"],
+      ["{{ _('Whooping cough') }}", "cmd_5"],
+      ["{{ _('Diphteria') }}", "cmd_7"],
+      ["{{ _('Malaria') }}", "cmd_17"],
+      ["{{ _('Adverse events following immunization (AEFI)') }}", "cmd_19"],
     ["{{ _('Acute watery diarrhoea') }}", "cmd_1", "", "border-top"],
     ["{{ _('Acute watery diarrhoea among those over five years of age') }}", "epi_7", "lowlight"],
     ["{{ _('Sexually Transmitted Diseases other than HIV') }}", "cmd_20", "", "border-top"],
