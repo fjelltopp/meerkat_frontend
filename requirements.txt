@@ -22,3 +22,4 @@ sphinxcontrib-httpdomain==1.7.0
 sphinxcontrib-napoleon==0.7
 sphinx-argparse==0.2.5
 sphinxcontrib-autojs==0.1.dev20110917
+uWSGI==2.0.19.1
