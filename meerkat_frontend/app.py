@@ -5,9 +5,9 @@ Sets up the Root Flask app for the Meerkat Frontend, so it can be imported
 at the begining of files, without complicated import chains.
 """
 from flask import Flask
-from flask.ext.babel import Babel
+from flask_babel import Babel
 from raven.contrib.flask import Sentry
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 import jinja2
 import os
 import json

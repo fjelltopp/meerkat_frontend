@@ -5,7 +5,7 @@ A Flask Blueprint module for reports.
 """
 from flask import Blueprint, render_template, abort, g
 from flask import url_for, current_app, Response, request
-from flask.ext.babel import format_datetime, gettext
+from flask_babel import gettext
 from datetime import datetime, date, timedelta
 from meerkat_frontend import app
 from meerkat_frontend import auth

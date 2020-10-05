@@ -3,7 +3,7 @@ messaging.py
 
 A Flask Blueprint module for Meerkat messaging services.
 """
-from flask.ext.babel import gettext
+from flask_babel import gettext
 from flask import Blueprint, render_template
 from flask import redirect, flash, request, current_app, g, jsonify
 import random

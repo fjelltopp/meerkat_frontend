@@ -41,7 +41,6 @@ function html_box_builder(overviewObj, locID) {
 
 function prep_row_clinics(contentsObj, parentId, locID) {
     if (isUserAthorized(contentsObj.access) === true) {
-
         var ovPeriodType = "year";
         if (contentsObj.prep_details !== undefined) {
             ovPeriodType = contentsObj.prep_details.ovPeriodType;
