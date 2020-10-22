@@ -53,6 +53,7 @@ function gatherClinicsData(locID) {
                         $('#clinicsTable table').bootstrapTable({
                             columns: columnNameArray,
                             data: clinicDataArray,
+                            locale: get_locale(),
                             pagination: true,
                             pageSize: 10,
                             search: true,

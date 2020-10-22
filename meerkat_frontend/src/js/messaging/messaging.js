@@ -161,7 +161,6 @@ function drawSubscriberTable(){
             }
             return res.rows;
         }
-
         //Create the bootstrap table.
         table = $('#subscriber-table table').bootstrapTable({
             columns: columns,
@@ -169,6 +168,7 @@ function drawSubscriberTable(){
             pagination: true,
             pageSize: 20,
             search: true,
+            locale: get_locale(),
             url: tmp,
             responseHandler: prepData,
             showRefresh: true

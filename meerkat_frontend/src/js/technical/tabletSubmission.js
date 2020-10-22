@@ -39,23 +39,23 @@ function gatherTabletData(locID) {
         "minusNum": "0",
         "columnType": "noOfRegistersInWeek"
     }, {
-        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(2, "year", true) + '&filter=date:le:' + date_builder(2, "year", false),
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + shiftYearBack(2, 'first') + '&filter=date:le:' + shiftYearBack(2, 'last'),
         "minusNum": "2",
         "columnType": "casesInYear"
     }, {
-        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(2, "year", true) + '&filter=date:le:' + date_builder(1, "year", false),
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + shiftYearBack(2, 'first') + '&filter=date:le:' + shiftYearBack(1, 'last'),
         "minusNum": "1",
         "columnType": "casesInYear"
     }, {
-        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(2, "year", true) + '&filter=date:le:' + date_builder(0, "year", false),
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + shiftYearBack(2, 'first') + '&filter=date:le:' + shiftYearBack(0, 'last'),
         "minusNum": "0",
         "columnType": "casesInYear"
     }, {
-        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(1, "month", true) + '&filter=date:le:' + date_builder(1, "month", false),
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + shiftMonthBack(1, 'first') + '&filter=date:le:' + shiftMonthBack(1, 'last'),
         "minusNum": "1",
         "columnType": "casesInMonthL"
     }, {
-        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + date_builder(1, "month", true) + '&filter=date:le:' + date_builder(0, "month", false),
+        "api": '/devices/submissions/tot_1?location=' + locID + '&filter=date:ge:' + shiftMonthBack(1, 'first') + '&filter=date:le:' + shiftMonthBack(0, 'last'),
         "minusNum": "0",
         "columnType": "casesInMonthC"
     });
@@ -93,6 +93,7 @@ function gatherTabletData(locID) {
             $('#div_tabletCompletness table').bootstrapTable({
                 columns: columnNameArray,
                 data: tabletDataArray,
+                locale: get_locale(),
                 pagination: true,
                 pageSize: 10,
                 search: true,
@@ -229,27 +230,49 @@ function getClinicCaseAndType(data) {
 }
 
 
-function date_builder(minusNum, key, is_from) {
-    if (key == "year") {
-        var year = currentYear - minusNum;
-        if (is_from == true) {
-            return (year + "-" + 01 + "-" + 01);
-        } else {
-            return (year + "-" + 12 + "-" + 30);
-        }
-    } else {
-        var _year = currentYear;
-        var month = (new Date()).getMonth() - minusNum;
-        if (month == 0) {
-            month = 12;
-            _year = _year - 1;
-        }
-        if (is_from == true) {
-            return (_year + "-" + month + "-" + 01);
-        } else {
-            return (_year + "-" + month + "-" + 30);
-        }
+function shiftYearBack(delta, setDayOfMonth) {
+    var today = new Date();
+    var currentYear = today.getFullYear();
+    var currentMonth = today.getMonth();
+    var currentDay = today.getDate();
+    var shiftedDate;
+    if (setDayOfMonth === 'first') {
+        shiftedDate = new Date(currentYear - delta, currentMonth, 1);
     }
+    else if (setDayOfMonth === 'last'){
+        shiftedDate = new Date(currentYear - delta, currentMonth + 1, 0);
+    }
+    else {
+        shiftedDate = new Date(currentYear - delta, currentMonth, currentDay);
+    }
+    return dateToString(shiftedDate);
+}
+
+
+function shiftMonthBack(delta, setDayOfMonth) {
+    var today = new Date();
+    var currentYear = today.getFullYear();
+    var currentMonth = today.getMonth();
+    var currentDay = today.getDate();
+    var shiftedDate;
+    if (setDayOfMonth === 'first') {
+        shiftedDate = new Date(currentYear, currentMonth - delta, 1);
+    }
+    else if (setDayOfMonth === 'last') {
+        shiftedDate = new Date(currentYear, currentMonth - delta + 1, 0);
+    }
+    else {
+        shiftedDate = new Date(currentYear, currentMonth - delta, currentDay);
+    }
+    return dateToString(shiftedDate);
+}
+
+
+function dateToString(date) {
+    year = date.getFullYear();
+    month = date.getMonth() + 1;
+    day = date.getDate();
+    return year + '-' + month + '-' + day;
 }
 
 

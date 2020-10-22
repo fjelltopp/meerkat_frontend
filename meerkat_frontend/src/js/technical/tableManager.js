@@ -265,6 +265,7 @@ function drawImprovedTable(containerID, data, no_total, linkFunction, tableOptio
     table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         classes: 'table-no-bordered table-hover'
     });
     return table;
@@ -450,7 +451,7 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
             columns.splice(7,0, central_review_column);
 
         }
-        
+
         if(alerts_table_config.district_column){
             var dist_column = {
                 field: "display_district",
@@ -473,6 +474,7 @@ function drawAlertsTable(containerID, alerts, variables, alerts_table_config) {
         table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: alerts,
+            locale: get_locale(),
             search: true,
             classes: 'table table-no-bordered table-hover',
             pagination: true,
@@ -654,6 +656,7 @@ function drawPipTable(containerID, location_id, variable_id, link_def_id_labs, l
             $('#' + containerID + ' table').bootstrapTable({
                 columns: pipColumnNameArray,
                 data: pipDataArray,
+                locale: get_locale(),
                 pagination: true,
                 pageSize: 10,
                 search: true,
@@ -747,7 +750,8 @@ function drawContactSummaryTable(containerID, location_id) {
         $('#' + containerID).html("<table> </table>");
         $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
-            data: data
+            data: data,
+            locale: get_locale()
         });
     });
 }
@@ -865,6 +869,7 @@ function drawContactTracingTable(containerID, location_id) {
         $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: data,
+            locale: get_locale(),
             search: true
         });
     });
@@ -983,9 +988,8 @@ function drawEbsTable(containerID, location_id) {
                 $('#' + containerID + ' table').bootstrapTable({
                     columns: columns,
                     data: data,
+                    locale: get_locale(),
                     search: true
-                    //					pagination: true,
-                    //					pageSize: 20
                 });
             });
         });
@@ -1020,7 +1024,7 @@ function drawMalariaStockTable(containerID, location_id, stock_variable, variabl
     };
 
     $.getJSON(api_root + "/locations", function(locations) {
-        
+
         //Create the table headers, using the central review flag from the cofiguration file.
         columns = [
             {
@@ -1067,7 +1071,6 @@ function drawMalariaStockTable(containerID, location_id, stock_variable, variabl
                 if(variable_prefix){
                     stock = variable_prefix + stock;
                 }
-                console.log(stock);
                 for (var record_index in records){
                     record = records[record_index].variables;
                     start += record[stock + "_start"];
@@ -1091,8 +1094,9 @@ function drawMalariaStockTable(containerID, location_id, stock_variable, variabl
             $('#' + containerID).html("<table> </table>");
             $('#' + containerID + ' table').bootstrapTable({
                 columns: columns,
-                data: data
-   
+                data: data,
+                locale: get_locale()
+
             });
         });
     });
@@ -1207,9 +1211,8 @@ function drawTbTable(containerID, location_id) {
             $('#' + containerID + ' table').bootstrapTable({
                 columns: columns,
                 data: data,
+                locale: get_locale(),
                 search: true
-                //					pagination: true,
-                //					pageSize: 20
             });
         });
     });
@@ -1302,6 +1305,7 @@ function drawAllClinicsCompleteness(containerID, regionID, locations, data) {
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         idField: "id",
         classes: 'table-no-bordered table-hover',
         sortName: 'completeness',
@@ -1357,13 +1361,13 @@ function drawPlagueTable(containerID, cases, variables) {
         field: "status",
         title: i18n.gettext('Status'),
         valign: "middle"
-	
+
       },
       {
         field: "age",
         title: i18n.gettext('Age'),
         valign: "middle"
-	
+
       },
       {
         field: "gender",
@@ -1379,7 +1383,7 @@ function drawPlagueTable(containerID, cases, variables) {
         field: "status_2",
         title: i18n.gettext('Status'),
         valign: "middle"
-	
+
       }
     ];
     var data = [];
@@ -1438,6 +1442,7 @@ function drawPlagueTable(containerID, cases, variables) {
       columns: columns,
       width: "100%",
       data: data,
+      locale: get_locale(),
       align: "center",
       classes: "table table-hover",
       pagination: true,
@@ -1501,19 +1506,19 @@ function drawVHFTable(containerID, cases, variables) {
         field: "status",
         title: i18n.gettext('Status'),
         valign: "middle"
-	
+
       },{
         field: "type",
         title: i18n.gettext('Type'),
         valign: "middle"
-	
+
       },
-      
+
       {
         field: "age",
         title: i18n.gettext('Age'),
         valign: "middle"
-	
+
       },
       {
         field: "gender",
@@ -1525,7 +1530,7 @@ function drawVHFTable(containerID, cases, variables) {
         field: "status_2",
         title: i18n.gettext('Status'),
         valign: "middle"
-	
+
       }
     ];
     var data = [];
@@ -1550,7 +1555,7 @@ function drawVHFTable(containerID, cases, variables) {
       } else {
         datum.clinic = i18n.gettext(c.type_name);
       }
-   
+
       var gender = "";
 
       if ("gen_1" in c.variables) {
@@ -1578,8 +1583,8 @@ function drawVHFTable(containerID, cases, variables) {
       } else if ("alert_confirmed_marburg" in c.variables){
 	datum.type = i18n.gettext("Marburg Virus");
       }
-	
-	
+
+
 	datum.status_2 = status_2;
       data.push(datum);
     }
@@ -1588,6 +1593,7 @@ function drawVHFTable(containerID, cases, variables) {
       columns: columns,
       width: "100%",
       data: data,
+      locale: get_locale(),
       align: "center",
       classes: "table table-hover",
       pagination: true,
@@ -1644,6 +1650,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
             var table = $('#' + containerID + ' table').bootstrapTable({
                 columns: columns,
                 data: dataPrepared,
+                locale: get_locale(),
                 classes: 'table-no-bordered table-hover'
             });
             return table;
@@ -1673,6 +1680,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
         var table = $('#' + containerID + ' table').bootstrapTable({
             columns: columns,
             data: dataPrepared,
+            locale: get_locale(),
             classes: 'table-no-bordered table-hover'
         });
         return table;
@@ -1697,7 +1705,7 @@ function drawMissingCompletenessTable(module_var, containerID, headerID, regionI
 */
 
 function drawCompletenessMatrix(containerID, regionID, denominator, locations, data, dataCompTab, start_week, graphtypeID) {
-
+    start_week = start_week || 1;
     var stringGraphType = 'data';
     var multiplier = 100 / denominator;
     var noWeeks;
@@ -1731,15 +1739,10 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         noWeeks = whole_loc_timeline.weeks.length;
         weeks = lastWeeks(get_epi_week(), noWeeks + 1); //last completeness is from previous week
       for (var j = 0; j < noWeeks; j++) {
-        if (start_week) {
           if (weeks[noWeeks - j] >= start_week) {
             loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
             loc_record.push(loc_entry);
           }
-        } else {
-          loc_entry = [weeks[noWeeks - j], Number(Number(multiplier * (whole_loc_timeline.values[j])).toFixed(0))];
-          loc_record.push(loc_entry);
-        }
       }
       if (locations[index].id !== regionID) { //Total
         table_datum = {
@@ -1768,40 +1771,28 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
 
   var columns = [{
     "field": "region",
-    "title": "Region",
+    "title": i18n.gettext("Region"),
     "align": "center",
     "class": "header"
   }, {
     "field": "name",
-    "title": "District",
+    "title": i18n.gettext("District"),
     "align": "center",
     "class": "header"
   }];
   //Add column for every previous week:
-  for (var k = 1; k < noWeeks; k++) {
-        if (start_week) {
-            if (k >= start_week) {
-                columns.push({
-                    "field": "week" + weeks[noWeeks - k],
-                    "title": i18n.gettext("W") + weeks[noWeeks - k],
-                    "align": "center",
-                    "class": "value",
-                    "cellStyle": createCompletenessMatrixCellTab()
-                });
-            }
-        } else {
-            columns.push({
-                "field": "week" + weeks[noWeeks - k],
-                "title": i18n.gettext("W") + weeks[noWeeks - k],
-                "align": "center",
-                "class": "value",
-                "cellStyle": createCompletenessMatrixCellTab()
-            });
-        }
-    }
+  for (var k = noWeeks; k >= start_week; k--) {
+    columns.push({
+      "field": "week" + weeks[k],
+      "title": i18n.gettext("W") + weeks[k],
+      "align": "center",
+      "class": "value",
+      "cellStyle": createCompletenessMatrixCellTab()
+    });
+  }
     columns.push({
         "field": "year",
-        "title": "Year",
+        "title": i18n.gettext("Year"),
         "align": "center",
         "class": "value",
         "cellStyle": createCompletenessMatrixCellTab()
@@ -1809,19 +1800,24 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
 
     columns.push({
         "field": "year_reg",
-        "title": "Yearly Regional",
+        "title": i18n.gettext("Yearly Regional"),
         "align": "center",
         "class": "value",
         "cellStyle": createCompletenessMatrixCellTab()
     });
 
-    $('#' + containerID + ' table').bootstrapTable('destroy');
-    $('#' + containerID + ' table').remove();
-    $('#' + containerID).append('<table class="table"></table>');
+    var tableContainer = $('#' + containerID);
+    var tableEl;
+    tableEl = tableContainer.find('table');
+    tableEl.bootstrapTable('destroy');
+    tableEl.remove();
+    tableContainer.append('<table class="table"></table>');
+    tableEl = tableContainer.find('table');
 
-    var table = $('#' + containerID + ' table').bootstrapTable({
+    var table = tableEl.bootstrapTable({
         columns: columns,
         data: table_data,
+        locale: get_locale(),
         idField: "id",
         classes: 'table-responsive table-bordered ',
         sortName: 'region',
@@ -1838,7 +1834,7 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
         if (row === table[0].rows[i].cells[0].innerHTML) {
             count++;
 
-            if (i == rowLength - 1) {
+            if (i === rowLength - 1) {
                 mergeRows('#' + containerID + ' table', saveIndex, count);
             }
 
@@ -1848,9 +1844,6 @@ function drawCompletenessMatrix(containerID, regionID, denominator, locations, d
             row = table[0].rows[i].cells[0].innerHTML;
             saveIndex = i - 1;
             count = 1;
-
-            /*
-             */
         }
     }
 
@@ -1886,13 +1879,12 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
 
     for (var i = 0; i < scoreKeys.length; i++) {
         index = scoreKeys[i];
-        var loc;
         // loc = "<a href='' onclick='loadLocationContent(" + index +
         //     ");return false;' >" + i18n.gettext(locations[index].name)+"</a>";
-        loc = locations[index].name;
+        var loc_name = i18n.gettext(locations[index].name);
         var datum = {
             "id": index,
-            "location": loc,
+            "location": loc_name,
             "completeness": Number(data.score[index]).toFixed(0) + "%",
             "yearly": Number(data.yearly_score[index]).toFixed(0) + "%"
         };
@@ -1946,6 +1938,7 @@ function drawCompletenessTable(containerID, regionID, locations, data) {
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         idField: "id",
         classes: 'table-no-bordered table-hover',
         sortName: 'completeness',
@@ -2212,6 +2205,7 @@ function drawIndicatorsTable(containerID, locID, data) {
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         classes: 'table-no-bordered table-hover'
     });
     return table;
@@ -2334,6 +2328,7 @@ function drawClinicPrescriptionTable(containerID, locID) {
         var table = $('#' + containerID + " table").bootstrapTable({
             columns: columns,
             data: data.medicine_table,
+            locale: get_locale(),
             search: true,
             classes: 'table table-no-bordered table-hover',
             pagination: true,
@@ -2426,6 +2421,7 @@ function drawConsultationsTable(containerID, consultationsData, loc_id, loc_leve
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: dataPrepared,
+        locale: get_locale(),
         classes: 'table-no-bordered table-hover',
         search: is_searchable
     });
@@ -2544,6 +2540,7 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
     var table = $('#' + containerID + ' table').bootstrapTable({
         columns: columns,
         data: table_data,
+        locale: get_locale(),
         classes: 'table-responsive table-bordered ',
         sortName: 'region',
         sortOrder: 'asc'
@@ -2571,5 +2568,102 @@ function drawConsultationsMatrix(containerID, data, loc_id, loc_level, locations
             count = 1;
         }
     }
+    return table;
+}
+
+function drawDiseaseTable(containerID, morbidity, mortality, var_morbidity, var_mortality, total, subset) {
+
+    var only_subset = false;
+    if (typeof subset !== 'undefined' && subset.length > 0) {
+        only_subset = true;
+    }
+
+    //name case, disease, total
+    var scoreKeys = Object.keys(morbidity);
+    var scoreKeysMort = Object.keys(mortality);
+    var dataPrepared = [];
+    var index = 0;
+    var mort = 0;
+    var morb = 0;
+    var name = '';
+    var morts = {};
+
+    //make an object name:total
+    for (var j = 0; j < scoreKeysMort.length; j++) {
+        index = scoreKeysMort[j];
+        morts[var_mortality[index].name] = mortality[index].year;
+    }
+    for (var i = 0; i < scoreKeys.length; i++) {
+        index = scoreKeys[i];
+        if(only_subset){
+            if(subset.indexOf(index)===-1){
+                continue;
+            }
+        }
+        name = var_morbidity[index].name;
+        morb = morbidity[index].year;
+        if (!(name in morts)){
+            morts[name] = 0;
+        }else{
+            mort = morts[name];
+        }
+        total = morb + mort;
+
+        var datum = {
+            "id": index,
+            "name": i18n.gettext(name),
+            "morbidity": Number(morb),
+            "mortality": Number(mort),
+            "total": Number(total),
+        };
+        dataPrepared.push(datum);
+    }
+
+    var columns = [{
+        "field": "name",
+        "title": i18n.gettext("Disease"),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "34%"
+    }, {
+        "field": "morbidity",
+        "title": i18n.gettext("Cases"),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "33%"
+    }, {
+        "field": "mortality",
+        "title": i18n.gettext("Deaths"),
+        "align": "center",
+        "class": "header",
+        sortable: true,
+        width: "33%"
+    }];
+
+    if (total){
+        columns.push({
+            "field": "total",
+            "title": i18n.gettext("Total"),
+            "align": "center",
+            "class": "header",
+            sortable: true,
+            width: "33%"
+        });
+    }
+
+    $('#' + containerID + ' table').bootstrapTable('destroy');
+    $('#' + containerID + ' table').remove();
+    $('#' + containerID).append('<table class="table"></table>');
+    var table = $('#' + containerID + ' table').bootstrapTable({
+        columns: columns,
+        data: dataPrepared,
+        locale: get_locale(),
+        idField: "id",
+        classes: 'table-no-bordered table-hover',
+        sortName: 'name',
+        sortOrder: 'desc'
+    });
     return table;
 }

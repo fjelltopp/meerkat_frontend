@@ -4,7 +4,7 @@ python:
   - '3.5'
 
 env:
-  - TRAVIS_NODE_VERSION="6.9.1"
+  - TRAVIS_NODE_VERSION="10.15.3"
     MEERKAT_FRONTEND_SETTINGS="${TRAVIS_BUILD_DIR}/country_config/null_config.py"
     MEERKAT_AUTH_SETTINGS="${TRAVIS_BUILD_DIR}/meerkat_libs/meerkat_libs/auth_client/dev_auth_config.py"
     HERMES_API_ROOT='http://testapiroot'

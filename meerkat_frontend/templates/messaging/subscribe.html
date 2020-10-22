@@ -145,7 +145,7 @@ $(".menu-toggle").click(function(e) {
 	$(".location-box .glyphicon").toggleClass( "hidden" );
 });
 loadLocationTree({ locID:{{loc}} });
-$("#epi-week-title").html( "Week "+get_epi_week() + " · " + get_date() );
+$("#epi-week-title").html( "{{ _('Week') }}"+ " " + get_epi_week() + " · " + get_date() );
 
 //This method updates aspects of the page based upon the users input.
 //All three arguments can be left undefined if necessary - all reports will update with current locID and year.
@@ -161,7 +161,7 @@ function drawCharts(locID, year, reports){
 	//Load the location data from the locations tree.
 	var node = locations.first( {strategy: 'breadth'}, function(x){ return x.model.id===locID; });
 
-	$('.location-name').html( node.model.text );
+	$('.location-name').html( i18n.gettext(node.model.text) );
 
 }
 

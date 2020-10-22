@@ -1,0 +1,601 @@
+{% extends 'reports/base.html' %}
+
+{% block title %}{{report.data.project_region|e}} &middot; {{ _('OMS Epidemiological Bulletin') }}  &middot; {{ _('Week') }} {{ report.data.epi_week_num }}{% endblock title %}
+{% block body %}
+<!-- CONTENT -->
+<div class="page-content">
+<div class="page-header">
+
+  <h2>
+    <span
+      class="flag-icon flag-icon-{{report.flag}}"
+      style="background-image: url(/static/img/flags/4x3/{{report.flag}}.svg) !important;"
+      >
+    </span>
+    <img class="moh-title-logo" src="/static/img/{{content['footer']['logos']['country_partner']}}">
+    <span> {{ _('OMS Epidemiological Bulletin') }} </span>
+    <span class="report-week">
+        {{_(report.data.project_region|e)}} &middot; {{ report.data.start_date|datetime_from_json|datetime('dd MMMM YY') }} - {{ report.data.end_date|datetime_from_json|datetime('dd MMMM YY') }}
+    </span>
+  </h2>
+</div>
+<div class="row">
+  <!-- KEY FINDINGS -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Weekly Highlights') }}</div>
+      <div class="chart-stage"><ul>
+        {% if report.data.weekly_highlights.get('comp_week', False) %}
+        <li>
+          {{ _('Completeness of daily reporting was %(comp_week)s%% across %(clinic_num)s health facilities in Week %(epi_week_num)s, compared to %(comp_year)s%% cumulatively this year.', comp_week=report.data.weekly_highlights.comp_week|round(1), clinic_num=report.data.weekly_highlights.clinic_num, epi_week_num=report.data.epi_week_num, comp_year=report.data.weekly_highlights.comp_year|round(1)) }}
+        </li>
+        {% endif %}
+        <li>
+          {{ _('%(dea_0)s reported deaths in total.', dea_0=report.data.weekly_highlights.dea_0|int|commas ) }}
+          {% if report.data.weekly_highlights.mortality %}
+
+            {% for mort in report.data.weekly_highlights.mortality %}
+              {% if loop.first and loop.last %}
+                 {{_('Leading cause of mortality is') }} "{{_(mort.name)}}".
+              {% elif loop.first %}
+                {{_('Leading causes of mortality include:')}} "{{_(mort.name)}}",
+              {% elif not loop.first and not loop.last %}
+                "{{_(mort.name)}}",
+              {% elif loop.last %}
+                {{_('and')}} "{{_(mort.name)}}".
+
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </li>
+        <li>
+          {{ _('%(cmd_21)s maternal deaths were reported (%(cmd_21_ale_1)s investigated) and %(cmd_22)s neonatal deaths (%(cmd_22_ale_1)s investigated).', cmd_21=report.data.weekly_highlights.cmd_21|int|commas, cmd_21_ale_1=report.data.weekly_highlights.cmd_21_ale_1|int|commas, cmd_22=report.data.weekly_highlights.cmd_22|int|commas, cmd_22_ale_1=report.data.weekly_highlights.cmd_22_ale_1|int|commas) }}
+        </li>
+        <li>
+          {{ _('A total of %(mls_2)s fever cases were reported, %(mls_3)s (%(mls_3_perc_mls_2)s%%) tested and %(cmd_17)s (%(cmd_17_perc_mls_2)s%%) positive with %(mls_12)s cases of simple malaria and %(mls_24)s cases of severe malaria. %(mls_48)s (%(mls_48_perc_mls_12_or_mls_24)s%%) malaria cases were treated with ACT. A total of %(mls_36)s malaria deaths were reported.', mls_2=report.data.weekly_highlights.mls_2|int|commas, mls_3=report.data.weekly_highlights.mls_3|int|commas, mls_3_perc_mls_2=report.data.weekly_highlights.mls_3_perc_mls_2|round(1), cmd_17=report.data.weekly_highlights.cmd_17|int|commas, cmd_17_perc_mls_2=report.data.weekly_highlights.cmd_17_perc_mls_2|round(1), mls_12=report.data.weekly_highlights.mls_12|int|commas, mls_24=report.data.weekly_highlights.mls_24|int|commas, mls_48=report.data.weekly_highlights.mls_48|int|commas, mls_48_perc_mls_12_or_mls_24=report.data.weekly_highlights.mls_48_perc_mls_12_or_mls_24|round(1), mls_36=report.data.weekly_highlights.mls_36|int|commas) }}
+        </li>
+        <li>
+          {{ _('%(cmd_15)s suspected measles cases were alerted, of which %(cmd_15_ale_1)s (%(cmd_15_ale_1_perc_cmd_15)s%%) were investigated and %(cmd_15_ale_2)s (%(cmd_15_ale_2_perc_cmd_15)s%%) have been confirmed. %(cmd_15_age_1)s (%(cmd_15_age_1_perc_cmd_15)s%%) were reported among children under five years of age.',
+cmd_15=report.data.weekly_highlights.cmd_15|int|commas,
+cmd_15_ale_1=report.data.weekly_highlights.cmd_15_ale_1|int|commas, cmd_15_ale_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_ale_1_perc_cmd_15|round(1),
+cmd_15_ale_2=report.data.weekly_highlights.cmd_15_ale_2|int|commas,
+cmd_15_ale_2_perc_cmd_15=report.data.weekly_highlights.cmd_15_ale_2_perc_cmd_15|round(1),
+cmd_15_age_1=report.data.weekly_highlights.cmd_15_age_1|int|commas,
+cmd_15_age_1_perc_cmd_15=report.data.weekly_highlights.cmd_15_age_1_perc_cmd_15|round(1)) }}
+        </li>
+        <li>
+          {{ _('%(cmd_10)s cases of acute flaccid paralysis were reported, with %(cmd_10_ale_1)s (%(cmd_10_ale_1_perc_cmd_10)s%%) cases investigated.', cmd_10=report.data.weekly_highlights.cmd_10|int|commas, cmd_21_ale_2=report.data.weekly_highlights.cmd_10_ale_1|int|commas, cmd_10_ale_1=report.data.weekly_highlights.cmd_10_ale_1|int|commas, cmd_10_ale_1_perc_cmd_10=report.data.weekly_highlights.cmd_10_ale_1_perc_cmd_10|int|commas) }}
+        </li>
+        <li>
+          {{ _('%(cmd_24)s cases of severe and %(cmd_23)s cases of moderate malnutrition were reported during the week', cmd_24=report.data.weekly_highlights.cmd_24|int|commas, cmd_23=report.data.weekly_highlights.cmd_23|int|commas)}}
+          {% if report.data.weekly_highlights.malnutrition %}
+            {{_(', with most cases reported from')}}
+            {% for reg in report.data.weekly_highlights.malnutrition %}
+              {% if loop.first and loop.last  %}
+                "{{reg.region}}"
+              {% elif not loop.last %}
+                "{{reg.region}}",
+              {% else %}
+               {{_(' and ')}} "{{reg.region}}" {{_('regions.')}}
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            .
+          {% endif %}
+        </li>
+        <li>
+          {{ _('%(cmd_1)s cases of acute diarrhoea were reported, with %(cmd_4)s confirmed cases of dysentery (bloody diarrhoea) and %(cmd_2)s confirmed cases of acute watery diarrhoea (cholera). ', cmd_1=report.data.weekly_highlights.cmd_1|int|commas, cmd_2=report.data.weekly_highlights.cmd_2|int|commas, cmd_4=report.data.weekly_highlights.cmd_4|int|commas) }}
+        </li>
+        <li>
+          {{ _('%(cmd_25)s cases of acute respiratory tract infection (ARTI) were reported, with %(cmd_18)s (%(cmd_18_perc_cmd_25)s%%) cases of influenza-like illness (ILI).', cmd_25=report.data.weekly_highlights.cmd_25|int|commas, cmd_18_perc_cmd_25=report.data.weekly_highlights.cmd_18_perc_cmd_25|int|commas, cmd_18=report.data.weekly_highlights.cmd_18|int|commas) }}
+        </li>
+        <li>
+            {{ _('%(cmd_27)s cases of animal bite were reported, with %(cmd_11_ale_2)s confirmed cases of rabies.', cmd_27=report.data.weekly_highlights.cmd_27|int|commas, cmd_11_ale_2=report.data.weekly_highlights.cmd_11_ale_2|int|commas) }}
+        </li>
+        <li>
+          {{ _('%(cmd_7)s cases of plague were reported, with %(cmd_7_ale_1)s (%(cmd_7_ale_1_perc_cmd_7)s%%) cases investigated and %(cmd_7_ale_2)s (%(cmd_7_ale_2_perc_cmd_7)s%%) confirmed.', cmd_7=report.data.weekly_highlights.cmd_7|int|commas, cmd_7_ale_1=report.data.weekly_highlights.cmd_7_ale_1|int|commas, cmd_7_ale_1_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_1_perc_cmd_7|int|commas, cmd_7_ale_2=report.data.weekly_highlights.cmd_7_ale_2|int|commas, cmd_7_ale_2_perc_cmd_7=report.data.weekly_highlights.cmd_7_ale_2_perc_cmd_7|int|commas) }}
+        </li>
+      </ul></div>
+    </div>
+  </div>
+  <!-- COMPLETENESS CHART -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 1. District completeness of reporting for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+        <div id="district-completeness-column"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- MORTALITY MAP -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title clearfix"><div class='figure-title-left'> {{ _('Figure 2.') }}</div> <div class='figure-title-right'>{{_('Cumulative Reported Maternal Deaths by district<br /> Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div></div>
+      <div class="chart-stage map-padding">
+        <div id="maternal-deaths-map" class="mapbox"></div>
+      </div>
+    </div>
+  </div>
+  <!-- MALARIA MAP -->
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title clearfix"><div class='figure-title-left'> {{ _('Figure 3.') }}</div> <div class='figure-title-right'>{{_('Incidence of Confirmed Malaria Cases (per 100,000 population)<br /> Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div></div>
+      <div class="chart-stage map-padding">
+        <div id="malaria-map" class="mapbox"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- MALARIA CHART -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 4. Number of Confirmed Malaria Cases by type, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+        <div id="malaria-chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- MEASLES CHART -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 5. Trend of Suspected Measles Cases Reported, by age group, from Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+        <div id="measles-age"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- MALNUTRITION CHART -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Figure 6. Trend of Reported Severe Malnutrition Cases in Under Fives, Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+        <div id="malnutrition-chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- PRIORITY DISEASES TABLE -->
+    <div class="col-sm-12">
+        <div style="page-break-after: always"></div>
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 1: Reported Priority Diseases, Conditions and Events by District, Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+          <div id="table_priority_diseases_id" class="table reports-table"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- PRIORITY DISEASES SUMMARY -->
+    <div class="col-sm-12">
+    <div style="page-break-after: always"></div>
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 2: Summary of Priority Diseases, Conditions and Events for Weeks 1 - %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+          <div id="table_priority_diseases_cumulative_id" class="table reports-table small"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- TIMELINESS TABLE -->
+  <div class="col-sm-12">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Table 3: Timeliness and Completeness of reporting for Week %(epi_week_num)s', epi_week_num=report.data.epi_week_num) }}</div>
+      <div class="chart-stage">
+          <div id="table_completeness_id" class="table"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('More Information') }}</div>
+      <div class="chart-stage">
+                    {{ _('<p>A program of public health surveillance is being implemented in %(clinic_num)s outpatient clinics in %(project_region)s, in partnership with WHO and Ministry of Health. The project introduces case-based, integrated disease surveillance of priority diseases, conditions and events.</p>
+          <p>The clinician uses the system within the consultation, which introduces clinical-decision support as well as best practice prescribing guidance and real-time reporting of information. Information is made available within one hour via an online framework with automated generation of SMS and email alerts and support for mapping and reporting.</p>', clinic_num=report.data.global_clinic_num, project_region=_(report.data.project_region|e)) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="chart-wrapper">
+      <div class="chart-title">{{ _('Contact Information') }}</div>
+      <div class="chart-stage">
+        <address>
+	  {{address|safe}}
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock body %}
+
+
+{% block extra_js %}
+
+<script>
+//Store the report content from the server.
+var content = {{report|tojson|safe}};
+  console.log({{report.data.table_priority_diseases_cumulative|tojson|safe}});
+var api_root = '{{config["EXTERNAL_API_ROOT"]}}';
+//Load a new translator in this template so that the source of translations can be loaded for pdfs.
+i18n = get_translator("/static/translations/"+language+"/LC_MESSAGES/messages.json");
+
+// Reporting Sites
+var completenessSites = {
+  categories: [{% for site in report.data.figure_completeness %}"{{ site.district|safe }}"{% if not loop.last %},{% endif %}{% endfor %}],
+  series: [{
+    name: i18n.gettext('Percentage Completeness'),
+    data: [{% for site in report.data.figure_completeness %}{{ site.value }}{% if not loop.last %},{% endif %}{% endfor %}]
+  }],
+  labels: { yAxis: { text: null } }
+};
+
+$('#district-completeness-column').highcharts(
+    completenessBarChart(
+      completenessSites.categories,
+      completenessSites.series,
+      completenessSites.labels,
+      'column'
+    )
+);
+
+// Measles
+var measles_data = [{% for week, value in report.data.figure_measles.measles_over_5yo.weeks.items() %}{"week":"{{ week|safe }}", "over": {{ value|safe }}, "under": {{report.data.figure_measles.measles_under_5yo.weeks[week]}}} {% if not loop.last %},{% endif %}{% endfor %}];
+
+measles_data.sort(function(a,b){
+  return a.week - b.week;
+});
+
+var measles = {
+  categories: measles_data.map( function(a){ return a.week}),
+  series: [
+    { name: i18n.gettext('Under 5 yrs'), data: measles_data.map( function(a){ return a.under}) },
+    { name: i18n.gettext('Over 5 yrs'), data: measles_data.map( function(a){ return a.over}) }
+  ],
+  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
+};
+
+$('#measles-age').highcharts(
+    measlesBarChart(
+      measles.categories,
+      measles.series,
+      measles.labels
+    )
+);
+
+//Malaria Chart
+var malaria_data = [{% for week, value in report.data.figure_malaria.positivity.items() %}{"week":"{{ week|safe }}", "positivity": {{ value|safe }}, "simple": {{report.data.figure_malaria.simple_malaria.get(week, '0' )}}, "severe": {{report.data.figure_malaria.severe_malaria.get(week, '0' )}}} {% if not loop.last %},{% endif %}{% endfor %}];
+
+malaria_data.sort(function(a,b){
+  return a.week - b.week;
+});
+
+var malaria = {
+  categories: malaria_data.map( function(a){ return a.week}),
+  series: [
+    { name: i18n.gettext('Simple'), data: malaria_data.map( function(a){ return a.simple || 0 }) },
+    { name: i18n.gettext('Severe'), data: malaria_data.map( function(a){ return a.severe || 0})},
+    { name: i18n.gettext('Positivity'), yAxis: 1, data: malaria_data.map( function(a){ return a.positivity}), type:'spline'  }
+  ],
+  labels: { yAxis: { text: [i18n.gettext("# Cases"), "% " + i18n.gettext("Positivity")] }, xAxis: { text: i18n.gettext("Epi Week") } }
+};
+
+$('#malaria-chart').highcharts(
+    malariaChart(
+      malaria.categories,
+      malaria.series,
+      malaria.labels
+    )
+);
+
+//Malnutrition chart
+var malnutrition_data = [{% for week, value in report.data.figure_malnutrition.malnutrition.weeks.items() %}{"week":"{{ week|safe }}", "value": {{ value|safe }}} {% if not loop.last %},{% endif %}{% endfor %}];
+
+malnutrition_data.sort(function(a,b){
+  return a.week - b.week;
+});
+
+var malnutrition = {
+  categories: malnutrition_data.map( function(a){ return a.week}),
+  series: [
+    { name: i18n.gettext('Cases'), data: malnutrition_data.map( function(a){ return a.value || 0 }) },
+  ],
+  labels: { yAxis: { text: i18n.gettext("# Cases") }, xAxis: { text: i18n.gettext("Epi Week") } }
+};
+
+$('#malnutrition-chart').highcharts(
+    malnutritionChart(
+      malnutrition.categories,
+      malnutrition.series,
+      malnutrition.labels
+    )
+);
+// Load the regional geojson data from the report dump.
+// Has to be in report dump because of CORS and Docraptor.
+var dis_data = {{extras.dis_data|safe}};
+var reg_data = {{extras.reg_data|safe}};
+
+// Draw the regional maps.
+regional_map(
+    {{report.data.figure_mat_deaths_map|safe}},
+    {{extras.map_centre}},
+    dis_data,
+     'maternal-deaths-map'
+);
+
+regional_map(
+    {{report.data.figure_malaria_map|safe}},
+    {{extras.map_centre}},
+    reg_data,
+    'malaria-map'
+);
+
+ // Table PRIORITY DISEASES
+ var table_priority_diseases_data = content.data['table_priority_diseases'];
+
+ var loc_list = [
+     "Alaotra Mangoro",
+     "Analamanga",
+     "Analanjirofo",
+     "Androy",
+     "Anosy",
+     "Atsimo Andrefana",
+     "Atsimo Atsinanana",
+     "Ihorombe",
+     "Boeny",
+     "Bongolava",
+     "Menabe",
+     "Sava",
+     "Vatovavy Fitovinany"
+ ];
+
+ var table_priority_diseases_keys = Object.keys(table_priority_diseases_data);
+ var table_priority_diseases_data_prepared = [];
+ var index = 0;
+ for (var i=0; i<table_priority_diseases_keys.length;i++){
+     index = table_priority_diseases_keys[i];
+     var datum = {
+         "disease":i18n.gettext( table_priority_diseases_data[index].name),
+         "mortality": format(table_priority_diseases_data[index].mortality),
+         "cfr": (isNaN(table_priority_diseases_data[index].cfr) ? table_priority_diseases_data[index].cfr:Number(table_priority_diseases_data[index].cfr).toFixed(1) + "%")
+     };
+     for (var loc_ind = 0; loc_ind < loc_list.length; loc_ind++){
+         datum[loc_ind] = format(table_priority_diseases_data[index][loc_list[loc_ind]]);
+     }
+     table_priority_diseases_data_prepared.push(datum);
+ }
+
+
+ var table_priority_diseases_setup = [
+     {
+         "field": "disease",
+         "title": "{{_('Disease')}}",
+         "align": "center",
+         "class": "header total border-right",
+         sortable: true,
+     }];
+ for (var loc_ind2 = 0; loc_ind2 < loc_list.length; loc_ind2++){
+     table_priority_diseases_setup.push(
+         {
+             "field": loc_ind2,
+             "title": loc_list[loc_ind2],
+             "align": "center",
+             "class": "header",
+             sortable: true
+         });
+ }
+ table_priority_diseases_setup.push(
+     {
+         "field": "mortality",
+         "title": "{{_('Total deaths')}}",
+         "align": "center",
+         "class": "header total border-left",
+         sortable: true,
+     });
+ table_priority_diseases_setup.push({
+     "field": "cfr",
+     "title": "{{_('Total CFR (%%)')}}",
+     "align": "center",
+     "class": "header total border-left",
+     sortable: true,
+     "sorter": function percs(a,b){a = Number(a.split('%')[0]);
+         b = Number(b.split('%')[0]);
+         if(a < b) return 1; if (a>b) return -1; return 0;},
+ });
+
+               $('#table_priority_diseases_id').append('<table class="table"></table>');
+               $('#table_priority_diseases_id table').bootstrapTable({
+                   columns: table_priority_diseases_setup,
+                   data: table_priority_diseases_data_prepared,
+                   classes: 'table-no-bordered table-hover reports-table table-condensed small',
+                   sortName: 'disease',
+                   sortOrder: 'desc'
+               });
+
+               // Table priority disease CUMULATIVE
+ /* var table_priority_diseases_cumulative_data = {{report.data['table_timeliness_completeness']|tojson|safe}};*/
+ var table_priority_diseases_cumulative_data = content.data['table_priority_diseases_cumulative'];
+  console.log(content.data['table_priority_diseases_cumulative']);
+ var epi_week_num_int = content.data['epi_week_num'];
+ var table_priority_diseases_cumulative_keys = Object.keys(table_priority_diseases_cumulative_data);
+ var table_priority_diseases_cumulative_data_prepared = [];
+ var index = 0;
+
+ for (var i=0; i<table_priority_diseases_cumulative_keys.length;i++){
+     index = table_priority_diseases_cumulative_keys[i];
+	 name = i18n.gettext(table_priority_diseases_cumulative_data[index].name)
+	 if( name == "Episode d’Intoxication par consommation d’animaux marins (ICAM)"){
+		 name = "ICAM"
+
+	}
+     var datum = {
+         "disease": name,
+         "cases": format(table_priority_diseases_cumulative_data[index].cases),
+         "mortality": format(table_priority_diseases_cumulative_data[index].mortality),
+         "cfr": (isNaN(table_priority_diseases_cumulative_data[index].cfr) ? table_priority_diseases_cumulative_data[index].cfr:Number(table_priority_diseases_cumulative_data[index].cfr).toFixed(1) + "%"),
+         "cases_cumulative": format(table_priority_diseases_cumulative_data[index].cases_cumulative),
+         "mortality_cumulative": format(table_priority_diseases_cumulative_data[index].mortality_cumulative),
+         "cfr_cumulative":  (isNaN(table_priority_diseases_cumulative_data[index].cfr_cumulative) ? table_priority_diseases_cumulative_data[index].cfr_cumulative:Number(table_priority_diseases_cumulative_data[index].cfr_cumulative).toFixed(1) + "%")
+     };
+     table_priority_diseases_cumulative_data_prepared.push(datum);
+ }
+
+
+ var table_priority_diseases_cumulative_setup = {
+     columns : [
+         {
+             "field": "disease",
+             "title": "{{_('Disease')}}",
+             "align": "center",
+             "class": "header total border-right",
+             sortable: true,
+             width : "15%"
+         },{
+             "field": "cases",
+             "title": "{{_('Reported in Week')}} " + epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "14%"
+         },{
+             "field": "mortality",
+             "title": "{{_('Deaths in Week')}} " + epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "14%"
+         },{
+             "field": "cfr",
+             "title": "{{_('CFR (%%) in Week')}} " + epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]);
+                 b = Number(b.split('%')[0]);
+                 if(a < b) return 1; if (a>b) return -1; return 0;},
+             width : "14%"
+         },{
+             "field": "cases_cumulative",
+             "title": "{{_('Reported in weeks')}} 1-"+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "14%"
+         },{
+             "field": "mortality_cumulative",
+             "title": "{{_('Deaths in weeks')}} 1-"+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "14%"
+         },{
+             "field": "cfr_cumulative",
+             "title": "{{_('CFR (%%) in weeks')}} 1-"+epi_week_num_int.toString(),
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]);
+                 b = Number(b.split('%')[0]);
+                 if(a < b) return 1; if (a>b) return -1; return 0;},
+             width : "14%"
+         }]
+ };
+
+    $('#table_priority_diseases_cumulative_id').append('<table class="table"></table>');
+     $('#table_priority_diseases_cumulative_id table').bootstrapTable({
+                       columns: table_priority_diseases_cumulative_setup.columns,
+     data: table_priority_diseases_cumulative_data_prepared,
+     classes: 'table-no-bordered table-hover reports-table table-condensed small',
+     sortName: 'disease',
+     sortOrder: 'desc'
+ });
+
+ // Table Completeness
+ /* var table_completeness_data = {{report.data['table_timeliness_completeness']|tojson|safe}};*/
+ var table_completeness_data = content.data['table_timeliness_completeness'];
+ var table_completeness_keys = Object.keys(table_completeness_data);
+ var table_completeness_data_prepared = [];
+ var index = 0;
+ for (var i=0; i<table_completeness_keys.length;i++){
+     index = table_completeness_keys[i];
+     var datum = {
+         "location": table_completeness_data[index].name,
+         "clinics": table_completeness_data[index].clinics,
+         "clinics_reported": table_completeness_data[index].clinics_reported,
+         "completeness": Number(table_completeness_data[index].completeness).toFixed(0) + "%",
+         "timeliness": Number(table_completeness_data[index].timeliness).toFixed(0) + "%"
+     };
+     table_completeness_data_prepared.push(datum);
+ }
+
+
+ //Columns: District	No. of Health facilities	No. of health facilities that reported	Completeness (%)	Timeliness (%)
+ var table_completeness_setup = {
+     columns : [
+         {
+             "field": "location",
+             "title": "{{_('District')}}",
+             "align": "center",
+             "class": "header total border-right",
+             sortable: true,
+             width : "20%"
+         },{
+             "field": "clinics",
+             "title": "{{_('No. of Health facilities')}}",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "20%"
+         },{
+             "field": "clinics_reported",
+             "title": "{{_('No. of Health facilities that reported')}}",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             width : "20%"
+         },{
+             "field": "completeness",
+             "title": "{{_('Completeness (%%)')}}",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]);
+                 b = Number(b.split('%')[0]);
+                 if(a < b) return 1; if (a>b) return -1; return 0;},
+             width : "20%"
+         },{
+             "field": "timeliness",
+             "title": "{{_('Timeliness (%%)')}}",
+             "align": "center",
+             "class": "header",
+             sortable: true,
+             "sorter": function percs(a,b){a = Number(a.split('%')[0]);
+                 b = Number(b.split('%')[0]);
+                 if(a < b) return 1; if (a>b) return -1; return 0;},
+             width : "20%"
+         }]
+ };
+
+    $('#table_completeness_id').append('<table class="table"></table>');
+     $('#table_completeness_id table').bootstrapTable({
+                       columns: table_completeness_setup.columns,
+     data: table_completeness_data_prepared,
+     classes: 'table-no-bordered table-hover reports-table table-condensed small',
+     sortName: 'completeness',
+     sortOrder: 'desc'
+ });
+
+
+</script>
+{% endblock extra_js %}

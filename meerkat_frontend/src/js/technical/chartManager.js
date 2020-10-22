@@ -194,7 +194,7 @@ function drawPieCharts(containerID, data, percent) {
         plotWidth = $('#' + containerID).parent().width();
     }
     var restructured = {};
-    var units = 'Number';
+    var units = i18n.gettext('Number');
     var tooltip = function() {
         return this.series.name + ': ' + this.point.y;
     };
@@ -276,7 +276,7 @@ function drawPieCharts(containerID, data, percent) {
             colorByPoint: true,
             showInLegend: true,
             title: {
-                text: '<b>Week</b>',
+                text: '<b>' + i18n.gettext('Week')+ '</b>',
                 verticalAlign: 'top',
                 y: -40
             },
@@ -288,7 +288,7 @@ function drawPieCharts(containerID, data, percent) {
             colorByPoint: true,
             showInLegend: false,
             title: {
-                text: '<b>Year</b>',
+                text: '<b>' + i18n.gettext('Year')+ '</b>',
                 verticalAlign: 'top',
                 y: -40
             },
@@ -873,4 +873,551 @@ function drawConsultationsGraph(containerID, data, loc_id, loc_level, locations,
             }
         }
     }); //highchart
+}
+
+
+
+function drawAlertsPieCharts(containerID_1,containerID_2, data, variables) {
+
+    //We want to work with a clone of the data, not the data itself.
+    data = $.extend(true, {}, data);
+
+    //Hack to get plot to size correctly when being drawn into a hidden object.
+    //If the object is hidden, set the plot width to the inner width of the parent.
+    //Otherwise, leave as undefined (as specified in the highcharts api).
+    var plotWidth = $('#' + containerID_1).parent().width();
+    var restructured = {};
+    var units = 'Number';
+    var tooltip = function() {
+        return this.point.name + ': ' + this.point.y;
+    };
+    //Restructure the data object for pie charts.
+    restructured = {
+        breakdown: [
+            {
+                name: i18n.gettext("Confirmed"),
+                y: 0
+            },{
+                name: i18n.gettext("Pending"),
+                y: 0
+            },{
+                name: i18n.gettext("Disregarded"),
+                y: 0
+            },{
+                name: i18n.gettext("Ongoing"),
+                y: 0
+            }
+        ],
+        total: []
+    };
+
+    var scoreKeys = Object.keys(data);
+    for (var i = 0; i < scoreKeys.length; i++) {
+        if (scoreKeys[i] == "total"){
+            continue;
+        }
+        var c = 0;
+        var p = 0;
+        var d = 0;
+        var o = 0;
+
+        if (data[scoreKeys[i]].Confirmed != undefined){
+            c = data[scoreKeys[i]].Confirmed;
+        }
+        if (data[scoreKeys[i]].Pending != undefined){
+            p = data[scoreKeys[i]].Pending;
+        }
+        if (data[scoreKeys[i]].Disregarded != undefined){
+            d = data[scoreKeys[i]].Disregarded;
+        }
+        if (data[scoreKeys[i]].Ongoing != undefined){
+            o = data[scoreKeys[i]].Ongoing;
+        }
+        restructured.total[i] = {
+            name: i18n.gettext(variables[scoreKeys[i]].name),
+            y: c + p + d +0
+        };
+        restructured.breakdown[0].y += c;
+        restructured.breakdown[1].y += p;
+        restructured.breakdown[2].y += d;
+        restructured.breakdown[3].y += o;
+    }
+
+    var totalAlerts = restructured.breakdown[0].y + restructured.breakdown[1].y + restructured.breakdown[2].y + restructured.breakdown[3].y;
+
+    //Draw the graph One
+    $('#' + containerID_1).highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            width: plotWidth
+        },
+        title: {
+            text: i18n.gettext('Total number of alerts:') + " " + Number(totalAlerts)
+        },
+        tooltip: {
+            formatter: tooltip
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.y}'
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: i18n.gettext('Diseases'),
+            center: ['50%', '50%'],
+            size: "100%",
+            colorByPoint: true,
+            showInLegend: true,
+            data: restructured.total
+        }]
+    });
+
+    //Draw the graph.
+    $('#' + containerID_2).highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            width: plotWidth
+        },
+        title: i18n.gettext('Investigation'),
+        tooltip: {
+            formatter: tooltip
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                },
+                showInLegend: false
+            }
+        },
+        series: [{
+            name: i18n.gettext('Investigation'),
+            center: ['50%', '50%'],
+            size: "50%",
+            colorByPoint: true,
+            showInLegend: false,
+            data: restructured.breakdown
+        }]
+    });
+
+    //Get rid of the highcharts.com logo.
+    $('#' + containerID_1 + " text:contains('Highcharts.com')").remove();
+    $('#' + containerID_2 + " text:contains('Highcharts.com')").remove();
+
+}
+
+function drawCompletenessAndTimelinessBarChart(containerID, regionID, denominator, locations, dataCompleteness, dataTimeliness, start_week, compare_locations, x_axis_max) {
+
+    var comparevalue = $(compare_locations).attr("value");
+
+    var stringGraphType = 'Completeness and Timeliness';
+    var multiplier = 100 / denominator;
+
+    //create a data series for each location
+    var timeseries = [];
+    if (( dataCompleteness.timeline === undefined ) || ( dataCompleteness.timeline === {} )) {
+        $('#' + containerID).html("<h3> No " + stringGraphType + " data week for last week </h3>");
+        return undefined;
+    }
+
+    //variables in JS don't have a well defined scope.
+    var dt = [];
+    var dtReady = [];
+    var noWeeks = 0;
+    var i = 0;
+    var j = 0;
+    var weeks = 0;
+
+    var scoreCompKeys = Object.keys(dataCompleteness.timeline);
+    var scoreTimeKeys = Object.keys(dataTimeliness.timeline);
+    var yearlyKeys = Object.keys(dataCompleteness.yearly_score);
+
+    //Create a list of sublocation
+    list_of_sublocation_names = [];
+    for (i = 0; i < yearlyKeys.length; i++) {
+        index = yearlyKeys[i];
+        list_of_sublocation_names.push(i18n.gettext(locations[index].name));
+    }
+
+
+    yearly_comp=[];
+    for (i = 0; i < yearlyKeys.length; i++) {
+        yearly_comp.push(dataCompleteness.yearly_score[yearlyKeys[i]]);
+    }
+
+    last_week_comp=[];
+    for (i = 0; i < yearlyKeys.length; i++) {
+        last_week_comp.push(dataCompleteness.score[yearlyKeys[i]]);
+    }
+
+    last_week_time=[];
+    for (i = 0; i < yearlyKeys.length; i++) {
+        last_week_time.push(dataTimeliness.score[yearlyKeys[i]]);
+    }
+
+    //create a list of series
+    list_of_series =  [
+        {
+            name: i18n.gettext('Completeness'),
+            type: 'column',
+            yAxis: 1,
+            data: last_week_comp,
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        },{
+            name: i18n.gettext('Timeliness'),
+            type: 'column',
+            yAxis: 1,
+            data: last_week_time,
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        },{
+            name: i18n.gettext('Yearly completeness'),
+            type: 'spline',
+            data: yearly_comp,
+            tooltip: {
+                valueSuffix: ' %'
+            },
+            marker: {
+                enabled: true,
+                radius: 4
+            },
+            lineWidth: 0,
+            states: {
+                hover: {
+                    lineWidthPlus: 0
+                }
+            }
+        }
+    ];
+
+
+    $('#' + containerID).highcharts({
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: ''
+    },
+    xAxis:{
+        title: {
+            text: i18n.gettext('Location')
+        },
+        labels: {
+            overflow: 'justify'
+        },
+        categories: list_of_sublocation_names,
+        crosshair: true
+    },
+    yAxis:
+    [{ // Primary yAxis
+        labels: {
+            format: '{value} %',
+            style: {
+                color: '#666666'
+            }
+        },
+        title: {
+            text: null,
+            style: {
+                color: '#666666'
+            }
+        },
+        max: 100,
+        min: 0,
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        alternateGridColor: null,
+        plotBands: [{ //RED
+            from: 0,
+            to: 50,
+            color: 'rgba(255, 0, 0, 0.5)'
+        }, { //YELLOW
+            from: 50,
+            to: 80,
+            color: 'rgba(255, 255, 0, 0.5)'
+        }, { // GREEN
+            from: 80,
+            to: 105,
+            color: 'rgba(0, 128, 0,0.5)'
+        }]
+    }, { // Secondary yAxis
+        min: 0,
+        max: 100,
+        title: {
+            text: null,
+            style: {
+                color: '#666666'
+            }
+        },
+        labels: {
+            format: '{value} %',
+            style: {
+                color: '#666666'
+            }
+        },
+        opposite: true
+     }
+    ],
+    tooltip: {
+        shared: true,
+        valueDecimals: 1
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        //x: 0,
+        verticalAlign: 'top',
+        //y: 0,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+    },
+    series: list_of_series
+    });
+}
+
+function drawCompletenessAndTimelinessGraph(containerID, regionID, denominator, locations, dataCompleteness, dataTimeliness, start_week, compare_locations, x_axis_max) {
+    var comparevalue = $(compare_locations).attr("value");
+
+    var stringGraphType = 'Completeness and Timeliness';
+    var multiplier = 100 / denominator;
+
+    //create a data series for each location
+    var timeseries = [];
+    if (( dataCompleteness.timeline === undefined ) || ( dataCompleteness.timeline === {} )) {
+
+        $('#' + containerID).html("<h3> No " + stringGraphType + " data week for last week </h3>");
+        return undefined;
+    }
+
+    //variables in JS don't have a well defined scope.
+    var dt = [];
+    var dtReady = [];
+    var noWeeks = 0;
+    var i = 0;
+    var j = 0;
+    var weeks = 0;
+
+    var scoreKeys = Object.keys(dataCompleteness.timeline);
+
+    if(scoreKeys.length === 0){
+        $('#' + containerID).html(i18n.gettext("No data loaded"));
+        return undefined;
+    }
+
+    var index = 0;
+    for (i = 0; i < scoreKeys.length; i++) {
+        index = scoreKeys[scoreKeys.length - i - 1];
+        tl = dataCompleteness.timeline[index];
+        if ((locations[index].id != regionID) && (comparevalue === "false")) {
+            continue;
+        }
+        dt = [];
+        dtReady = [];
+        noWeeks = tl.weeks.length;
+        //Using week numbers instead of dates in tl.weeks
+        weeks = lastWeeks(get_epi_week(), noWeeks + 1); //last completeness is from previous week
+
+        //dropping the current week (noWeeks) in the dataCompleteness.since we can only estimate it's completeness
+        for (j = 0; j < noWeeks; j++) {
+            if (start_week) {
+                if (weeks[noWeeks - j] >= start_week) {
+                    dt = [weeks[noWeeks - j], Number(Number(multiplier * (tl.values[j])).toFixed(0))];
+                    dtReady.push(dt);
+                }
+            } else {
+                dt = [weeks[noWeeks - j], Number(Number(multiplier * (tl.values[j])).toFixed(0))];
+                dtReady.push(dt);
+            }
+        }
+        var datumCompleteness = {
+            name: i18n.gettext(locations[index].name) + " (" + i18n.gettext("Completeness") + ")",
+            data: dtReady,
+            color: '#BBC4DD'
+        };
+
+        if (locations[index].id === regionID) { //parent location
+            datumCompleteness.color = '#0090CA';
+            datumCompleteness.lineWidth = '5';
+        }
+        timeseries.push(datumCompleteness);
+    }
+
+    scoreKeys = Object.keys(dataTimeliness.timeline);
+    index = 0;
+    for (i = 0; i < scoreKeys.length; i++) {
+        index = scoreKeys[scoreKeys.length - i - 1];
+        tl = dataTimeliness.timeline[index];
+        if ((locations[index].id != regionID) && (comparevalue === "false")) {
+            continue;
+        }
+        dt = [];
+        dtReady = [];
+        noWeeks = tl.weeks.length;
+        //Using week numbers instead of dates in tl.weeks
+        weeks = lastWeeks(get_epi_week(), noWeeks + 1); //last completeness is from previous week
+
+        //dropping the current week (noWeeks) in the data since we can only estimate it's completeness
+        for (j = 0; j < noWeeks; j++) {
+            if (start_week) {
+                if (weeks[noWeeks - j] >= start_week) {
+                    dt = [weeks[noWeeks - j], Number(Number(multiplier * (tl.values[j])).toFixed(0))];
+                    dtReady.push(dt);
+                }
+            } else {
+                dt = [weeks[noWeeks - j], Number(Number(multiplier * (tl.values[j])).toFixed(0))];
+                dtReady.push(dt);
+            }
+        }
+        var datumTimeliness = {
+            name: i18n.gettext(locations[index].name) + " (" + i18n.gettext("Timeliness") + ")",
+            data: dtReady,
+            color: 'lightgrey'
+        };
+
+        if (locations[index].id === regionID) { //parent location
+            datumTimeliness.color = '#B22222';
+            datumTimeliness.lineWidth = '5';
+        }
+        timeseries.push(datumTimeliness);
+    }
+
+    //hovering should give all the information about given clinick and sublocation
+    $('#' + containerID).highcharts({
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: ''
+        },
+        legend: {
+            enabled: false
+        },
+        xAxis: {
+            title: {
+                text: i18n.gettext('Week')
+            },
+            labels: {
+                overflow: 'justify'
+            },
+            allowDecimals: false,
+            max: x_axis_max
+        },
+        yAxis: {
+            max: 100,
+            min: 0,
+            title: {
+                text: i18n.gettext(stringGraphType)
+            },
+            labels: {
+                format: '{value}%'
+            },
+            minorGridLineWidth: 0,
+            gridLineWidth: 0,
+            alternateGridColor: null,
+            plotBands: [{ //RED
+                from: 0,
+                to: 50,
+                color: 'rgba(255, 0, 0, 0.5)'
+            }, { //YELLOW
+                from: 50,
+                to: 80,
+                color: 'rgba(255, 255, 0, 0.5)'
+            }, { // GREEN
+                from: 80,
+                to: 105,
+                color: 'rgba(0, 128, 0,0.5)'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        plotOptions: {
+            spline: {
+                lineWidth: 3,
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineWidth: 5
+                    }
+                },
+                marker: {
+                    enabled: false
+                },
+                pointStart: 0,
+                events: {
+                    mouseOver: function() {
+                        if (this.chart.series[this.index].color === 'lightgrey') {
+                            console.log('!');
+                            this.chart.series[this.index].update({
+                                color: '#D9692A'
+                            });
+                        }
+                        if (this.chart.series[this.index].color === '#BBC4DD') {
+                            console.log('?');
+                            this.chart.series[this.index].update({
+                                color: '#3366FF'
+                            });
+                        }
+                    },
+                    //http://forum.highcharts.com/highcharts-usage/how-do-i-change-line-colour-when-hovering-t35536/
+                    mouseOut: function() {
+                        if (this.chart.series[this.index].color === '#D9692A') {
+                            this.chart.series[this.index].update({
+                                color: "lightgrey"
+                            });
+                        }
+                        if (this.chart.series[this.index].color === '#3366FF') {
+                            this.chart.series[this.index].update({
+                                color: "#BBC4DD"
+                            });
+                        }
+                    }
+                }
+            }
+        },
+        series: timeseries,
+        navigation: {
+            menuItemStyle: {
+                fontSize: '10px'
+            }
+       }
+},
+            //Static textbox, a legend
+            function(chart) {
+                labelText = i18n.gettext("Completeness") +':<span style="color: #0090CA; font-weight: bold"> ' + i18n.gettext("blue") + '</span><br/>' + i18n.gettext("Timeliness") +':<span style="color: #B22222; font-weight: bold"> ' + i18n.gettext("red") + '</span>';
+
+                chart.renderer.text(labelText, chart.chartWidth - 200, 45) //chartWidth is only acquired when page loads for the first time, so sadly, this code is fixed for when resizing.
+                    .attr({
+                        zIndex: 5
+                    }).add();
+
+                chart.renderer.rect(chart.chartWidth - 210, 28, 150, 40, 1)
+                    .attr({
+                        'stroke-width': 1,
+                        stroke: 'black',
+                        fill: 'white',
+                        zIndex: 4
+                    })
+                    .add();
+            }); //highchart
 }

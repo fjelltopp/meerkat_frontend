@@ -41,7 +41,7 @@
      id_name[option.id] = option.name;
      if( !option.access || $.inArray(option.access, user.acc[config.country]) != -1){
          html += "<option value='" + option.id + "'>" +
-                 option.name + "</option>";
+                 i18n.gettext(option.name) + "</option>";
      }
  }
 

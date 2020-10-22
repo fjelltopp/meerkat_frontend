@@ -5,7 +5,7 @@ A Flask Blueprint module for the homepage.
 """
 from flask import Blueprint, render_template, current_app, g
 from flask import request, make_response, redirect, flash, abort
-from flask.ext.babel import gettext
+from flask_babel import gettext
 from meerkat_frontend import app, auth
 from meerkat_frontend import common as c
 from meerkat_frontend.messages import messages
